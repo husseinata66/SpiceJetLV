@@ -5,7 +5,7 @@
 - **Category:** Defect candidate (Data display / Time-zone handling)
 - **Severity (proposed):** High. Passengers and agents read the wrong departure time; the shift depends on who is looking
 - **Status:** Pending Review (Stage 2, run-007)
-- **Module / screen:** Booking Mid Office → Booking details (Itinerary), Admin. Portal Itinerary to be checked
+- **Module / screen:** Booking details (Itinerary) on **Admin and Portal**. Portal confirmed 2026-09-27: AGN9780 Portal shows SV-382 at 08:10 (API 06:10)
 - **Found by:** run-007 Stage 2, comparing Sabre `getBooking` → core service → Admin API → screen (2026-09-26)
 
 ## Observed
@@ -24,7 +24,7 @@ The Itinerary API stores the **airport-local** time as an epoch labelled **UTC**
 ## Steps to reproduce
 
 1. Log in to Admin `http://192.168.1.60` on a PC whose time zone is **not UTC** (e.g. Africa/Cairo).
-2. Go to `/booking/search-booking`, choose the **Flight** tab, enter Booking Reference **`NDCEG-BR-F260926PwYMR2`**, click **Search**, and open the order `BRN265NDCORD2609169C3COS`.
+2. Go to `/booking/search-booking`, choose the **Flight** tab, enter Booking Reference **`NDCEG-BR-F260926PwYMR2`**, click **Search**, and open the order `BRN265NDCORD2609269C3COS`.
 3. In **Journey Details**, read **Departure Date-Time**. It shows **01-12-2026 13:45:00**.
 4. Compare with the source of truth:
    - Sabre `getBooking` for PNR **OOTKQP**: SV-300 departs **11:45**.
@@ -52,6 +52,7 @@ The Itinerary shows local time + the viewer's UTC offset (+2 h here). The Re-sho
 
 ## Evidence
 
+- `discovery/evidence/p2-itinerary.png`, `p2-portal-flow.json`: Portal Itinerary 08:10 vs API 06:10 (2026-09-27)
 - `discovery/evidence/tz-itinerary-api.json`: Itinerary API responses plus on-screen times, 2026-09-26 20:21 UTC.
 - `discovery/evidence/tz-itinerary-agency.png`, `tz-itinerary-branch2.png`
 - `discovery/evidence/sabre-getBooking-RGGMXP.json`, `sabre-getBooking-OOTKQP.json`
