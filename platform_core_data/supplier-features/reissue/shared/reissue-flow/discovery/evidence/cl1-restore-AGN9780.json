@@ -1,0 +1,22 @@
+{
+  "before": {
+    "api": true,
+    "creds": [],
+    "appr": 1,
+    "status": 1
+  },
+  "w": [
+    "PUT /odeysysadmin/Admin2/agency/10961"
+  ],
+  "after": {
+    "api": true,
+    "creds": [
+      315
+    ],
+    "appr": 1,
+    "status": 1
+  },
+  "pcc": {
+    "Sabre": "Sabre Staging"
+  }
+}

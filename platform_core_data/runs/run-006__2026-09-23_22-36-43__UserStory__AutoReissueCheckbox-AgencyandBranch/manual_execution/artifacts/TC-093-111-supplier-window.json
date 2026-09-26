@@ -1,0 +1,89 @@
+{
+  "deactivatedAt": "2026-09-25T15:52:02.214Z",
+  "agencyBefore": {
+    "st": {
+      "api": true,
+      "creds": [
+        313
+      ],
+      "appr": 1,
+      "status": 1
+    },
+    "ticked": true,
+    "picker": "NDCSabre staging",
+    "pickerOptions": [
+      "Sabre Staging",
+      "NDCSabre staging"
+    ],
+    "pcc": {
+      "Sabre": "Sabre Staging",
+      "NDCsbr": "NDCSabre staging"
+    }
+  },
+  "agencyDuring": {
+    "st": {
+      "api": true,
+      "creds": [
+        313
+      ],
+      "appr": 1,
+      "status": 1
+    },
+    "ticked": true,
+    "picker": "NDCSabre staging",
+    "pickerOptions": [
+      "Sabre Staging",
+      "NDCSabre staging"
+    ],
+    "pcc": {
+      "Sabre": "Sabre Staging",
+      "NDCsbr": "NDCSabre staging"
+    }
+  },
+  "branchBefore": {
+    "st": {
+      "api": true,
+      "creds": [
+        313
+      ],
+      "appr": 1,
+      "pa": [
+        "Sabre:315",
+        "NDCsbr:313"
+      ]
+    },
+    "ticked": true,
+    "picker": "NDCSabre staging",
+    "pickerOptions": [
+      "Sabre Staging",
+      "NDCSabre staging"
+    ],
+    "pcc": {
+      "Sabre": "Sabre Staging",
+      "NDCsbr": "NDCSabre staging"
+    }
+  },
+  "branchDuring": {
+    "st": {
+      "api": true,
+      "creds": [
+        313
+      ],
+      "appr": 1,
+      "pa": [
+        "Sabre:315",
+        "NDCsbr:313"
+      ]
+    },
+    "ticked": true,
+    "picker": "NDCSabre staging",
+    "pickerOptions": [
+      "Sabre Staging",
+      "NDCSabre staging"
+    ],
+    "pcc": {
+      "Sabre": "Sabre Staging",
+      "NDCsbr": "NDCSabre staging"
+    }
+  }
+}

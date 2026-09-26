@@ -1,0 +1,56 @@
+{
+  "slug": "reissue-flow",
+  "name": "Reissue Flow",
+  "description": null,
+  "sourceUserStory": "Reissue - Auto Reissue flow from Itinerary",
+  "acceptanceCriteriaRef": null,
+  "status": "Active",
+  "createdAt": "2026-09-23T19:34:29.079Z",
+  "updatedAt": "2026-09-26T16:13:46.584Z",
+  "supersededBy": null,
+  "stages": {
+    "context": {
+      "status": "Approved",
+      "artifactPath": "platform_core_data/supplier-features/reissue/shared/reissue-flow/context/ProjectContext.md",
+      "lastRun": null,
+      "lastUpdated": "2026-09-26T16:13:46.584Z",
+      "revisionCount": 4,
+      "targetRefAtWrite": null
+    },
+    "discovery": {
+      "status": "Not Started",
+      "artifactPath": null,
+      "lastRun": null,
+      "lastUpdated": null,
+      "revisionCount": 0,
+      "targetRefAtWrite": null
+    },
+    "test_design": {
+      "status": "Not Started",
+      "artifactPath": null,
+      "lastRun": null,
+      "lastUpdated": null,
+      "revisionCount": 0,
+      "targetRefAtWrite": null
+    },
+    "automation": {
+      "status": "Not Started",
+      "artifactPath": null,
+      "lastRun": null,
+      "lastUpdated": null,
+      "revisionCount": 0,
+      "targetRefAtWrite": null
+    },
+    "healing": {
+      "status": "Not Started",
+      "artifactPath": null,
+      "lastRun": null,
+      "lastUpdated": null,
+      "revisionCount": 0,
+      "targetRefAtWrite": null
+    }
+  },
+  "approvedAt": "2026-09-23T19:34:41.641Z",
+  "approvedBy": "Mohamed Soliman",
+  "module": "reissue"
+}

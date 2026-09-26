@@ -1,0 +1,31 @@
+{
+  "at": "2026-09-26T12:30:51.096Z",
+  "credential": "NDCSabre staging NDCsbr Active",
+  "BRN265": {
+    "state": {
+      "api": true,
+      "creds": [],
+      "appr": 1,
+      "pa": [
+        "Sabre:297",
+        "NDCsbr:313"
+      ]
+    },
+    "pcc": {
+      "Sabre": "SabreLive",
+      "NDCsbr": "NDCSabre staging"
+    }
+  },
+  "AGN9780": {
+    "state": {
+      "api": true,
+      "creds": [],
+      "appr": 1,
+      "status": 1
+    },
+    "pcc": {
+      "Sabre": "SabreLive",
+      "NDCsbr": "NDCSabre staging"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "filled": {
+    "branch": "NDC2_Mohamed Soliman (BRN265)",
+    "state": "Asyut",
+    "city": "Asyut",
+    "contractStart": "25/09/2026",
+    "contractEnd": "25/09/2027",
+    "invoice": "BiWeekly",
+    "pcc": {
+      "Sabre": "Sabre Staging",
+      "NDCsbr": "NDCSabre  taging"
+    },
+    "autoReissue": false
+  },
+  "requests": [
+    "POST /odeysysadmin/Admin2/agency/"
+  ],
+  "response": null
+}

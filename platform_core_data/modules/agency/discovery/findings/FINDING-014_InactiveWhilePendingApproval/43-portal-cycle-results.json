@@ -1,0 +1,69 @@
+{
+  "0-AGN9780-OFF-start": {
+    "portal": {
+      "url": "http://192.168.1.60:9500/myBooking/booking-details/AGN9780NDCNDCORD260924GKP8CP",
+      "canAutoReissue": false,
+      "canManualReissue": false,
+      "bookingStatus": 2,
+      "locked": 0,
+      "reissueButton": false,
+      "manualButton": false,
+      "buttons": [
+        "WELCOME Mohamed Soliman",
+        "Time Limit"
+      ],
+      "nonGetRequests": []
+    }
+  },
+  "1-AGN9780-ON": {
+    "admin": {
+      "formChecked": true,
+      "api": true,
+      "creds": "[{\"credentialId\":277}]",
+      "approvalStatus": 1,
+      "requests": [
+        "PUT /odeysysadmin/Admin2/agency/10961"
+      ]
+    },
+    "portal": {
+      "url": "http://192.168.1.60:9500/myBooking/booking-details/AGN9780NDCNDCORD260924GKP8CP",
+      "canAutoReissue": true,
+      "canManualReissue": false,
+      "bookingStatus": 2,
+      "locked": 0,
+      "reissueButton": true,
+      "manualButton": false,
+      "buttons": [
+        "WELCOME Mohamed Soliman",
+        "Time Limit",
+        "Reissue"
+      ],
+      "nonGetRequests": []
+    }
+  },
+  "2-AGN9780-OFF": {
+    "admin": {
+      "formChecked": false,
+      "api": false,
+      "creds": "[{\"credentialId\":277}]",
+      "approvalStatus": 1,
+      "requests": [
+        "PUT /odeysysadmin/Admin2/agency/10961"
+      ]
+    },
+    "portal": {
+      "url": "http://192.168.1.60:9500/myBooking/booking-details/AGN9780NDCNDCORD260924GKP8CP",
+      "canAutoReissue": false,
+      "canManualReissue": false,
+      "bookingStatus": 2,
+      "locked": 0,
+      "reissueButton": false,
+      "manualButton": false,
+      "buttons": [
+        "WELCOME Mohamed Soliman",
+        "Time Limit"
+      ],
+      "nonGetRequests": []
+    }
+  }
+}

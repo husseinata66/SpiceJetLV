@@ -3,13 +3,59 @@
 | Field | Value |
 |---|---|
 | Module | `branch` |
-| Produced by run | `run-002__2026-08-03_10-26-17__UserStory__US-8605CreateBranch` (TC-BR-001…039) · `run-003__2026-08-04_11-24-38__UserStory__US-8599-SearchActions_US-8606-UpdateBranch` (TC-BR-040…081) |
-| Revision | 3 (in place — run-003 extended the suite from Create-only to Create + Search & Actions + Update, adding TC-BR-040…081. The 39 existing cases are unchanged.) |
+| Produced by run | `run-002__2026-08-03_10-26-17__UserStory__US-8605CreateBranch` (TC-BR-001…039) · `run-003__2026-08-04_11-24-38__UserStory__US-8599-SearchActions_US-8606-UpdateBranch` (TC-BR-040…081) · `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` (TC-BR-083 … 111) |
+| Revision | 4 (run-006 adds TC-BR-083 … 111; see §0.2) · 3 (in place — run-003 extended the suite from Create-only to Create + Search & Actions + Update, adding TC-BR-040…081. The 39 existing cases are unchanged.) |
 | Run Scope Type / Run Type | User Story / User Story |
 | Project Context | `modules/branch/context/ProjectContext.md` |
-| Total Test Cases | 82 |
-| Generated | 2026-08-03 (TC-BR-001…039) · 2026-08-04 (TC-BR-040…081) |
-| Status | **Approved** — 2026-08-04, ahmed.ayman@tildetech.ae. TC-BR-040…081 approved for execution; TC-BR-001…039 retain their 2026-08-03 review decisions (31 Approved, 8 Rejected). |
+| Total Test Cases | 112 |
+| Generated | 2026-08-03 (TC-BR-001…039) · 2026-08-04 (TC-BR-040…081) · 2026-09-24 (TC-BR-083 … 108) · 2026-09-25 (TC-BR-109 … 111) |
+| Status | **Approved** — Mohamed Soliman, Stage 3 Human Review gate, 2026-09-25: TC-BR-083 … 111 approved (29); TC-BR-112 approved 2026-09-25. Earlier cases keep their decisions. Previously **Approved** — 2026-08-04, ahmed.ayman@tildetech.ae. TC-BR-040…081 approved for execution; TC-BR-001…039 retain their 2026-08-03 review decisions (31 Approved, 8 Rejected). |
+
+## 0.2 What Revision 4 changed (run-006 — Auto Reissue)
+
+Revision 4 **adds** 29 cases, TC-BR-083 … TC-BR-111, for the *Auto Reissue checkbox — Branch & Agency* story.
+**No earlier case was changed**, and each keeps its recorded Review and Automation decision.
+
+- The new cases are designed against branch ProjectContext Revision 9 (Approved 2026-09-24) **plus the
+  Stage 2 additions `PO-21` … `PO-26`** and the run-006 Discovery — **both approved by Mohamed Soliman on 2026-09-24**, after this revision was drafted.
+- **This revision was drafted before Stage 2 was approved, at the user's instruction** (2026-09-24: *"i will
+  approve at the end this time so i can know what you get from the testcase design"*). Every new case was
+  `Review: Pending` until the user approved all 29 on 2026-09-25. If the Stage 2 review changes a decision, the affected cases are rewritten before approval.
+- **Added 2026-09-25 at the user's request:** TC-BR-109 (a Branch can have a supplier its Agency doesn't, `PO-27`), 110 (inactive credential) and 111 (inactive supplier, exploratory).
+- Pipeline branch chosen by the user: **Manual (4M)**. `Automation` stays `Pending` on every new case.
+- API cases (spec `S-2` … `S-8`) are run in Postman from the app's own captured save request (§0.3).
+
+## 0.3 Fixtures for run-006 (Auto Reissue)
+
+**Environment:** Admin `http://192.168.1.60` · Portal `http://192.168.1.60:9500` (shared staging). Logins are
+kept only in the git-ignored `credentials.json` and never written into a case.
+
+**The run uses records the user designated, not records it created** (`AUTH-*-DedicatedTestData` in
+`run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` `metadata/SafetyAuthorizations.json`). **Default records, not a limit** (user, 2026-09-24): use AGN9780 and BRN265 by default. A **new** Agency or Branch may be created when a case needs one, **after asking the user each time**. Nothing else may be changed.
+
+| Fixture | Definition | Restore to after each case |
+|---|---|---|
+| AGN9780 | Agency "NDC2_Mohamed Soliman", id 10961, under BRN265 | Auto Reissue **off**, Approved |
+| BRN265 | Branch "NDC2_Mohamed Soliman", id 10950 | Auto Reissue **on**, **NDCSabre staging** (313), Approved |
+| `NDCEG-BR-F260924EAzzYT` | Booking made by the user under AGN9780 (order `AGN9780NDCNDCORD260924GKP8CP`), Sabre, credential Sabre Staging (315), Status Booked | Unchanged — read only |
+| `NDCEG-BR-F260916ENYOeQ` | Booking made by the user under BRN265 itself (order `BRN265NDCORD2609169XJ1LC`), Sabre, credential 315, Status Booked | Unchanged — read only |
+| `{ONBEHALF_REF}` = `NDCEG-BR-F2609242aZ6EJ` | Supplied by the user 2026-09-25: **Booked from Admin on behalf of an Agency**. Before TC-AGENCY-083, read the itinerary's agency and confirm it is AGN9780 | Unchanged — read only |
+| `{NOTBOOKED_REF}` = `NDCEG-BR-F251014N1oohh` | Supplied by the user 2026-09-25: an **Agency** booking **On Hold**. Used by TC-AGENCY-084 (Admin) and TC-AGENCY-094 (Portal) | Unchanged — read only |
+| `NDCEG-BR-F251103CdegUo` | Supplied by the user 2026-09-25: a **Branch** booking **On Hold**. Used by TC-BR-112 | Unchanged — read only |
+| `{CRED}` = **NDCSabre staging** (id 313) · `{SUP}` = **NDCsbr** | Chosen by the user 2026-09-25 for TC-AGENCY-092/093 and TC-BR-110/111. Grant `AUTH-MASTER-SUPPLIER-UPDATE-Shared` (status only; restore to Active). **313 is also BRN265's restore credential**, so restore it before any BRN265 booking check. TC-AGENCY-092 needs 313 chosen in AGN9780's NDCsbr PCC tab first; record AGN9780's Product Access before changing it, and restore it after | Active |
+| New Agencies (TC-AGENCY-087, 088) | **The user agreed on 2026-09-25** to create them under BRN265 (`AUTH-AGENCY-CREATE-SelfCreated`). Record each new code right after approval | Stay on STG (can't be deleted) |
+| `{AGENCY_SAVE_REQUEST}` | The app's own save request for AGN9780, captured once: open Chrome DevTools (F12) → **Network**, make a valid save on AGN9780 (e.g. TC-AGENCY-063), right-click `PUT /odeysysadmin/Admin2/agency/10961` → **Copy → Copy as cURL (bash)**, then Postman → **Import → Raw text** | — |
+| `{BRANCH_SAVE_REQUEST}` | The same for BRN265: `PUT /odeysysadmin/Master2/Branch/10950`, captured on a valid Send For Approval (e.g. TC-BR-089) | — |
+| GET (read-back) | `GET /odeysysadmin/Admin2/agency/10961` and `GET /odeysysadmin/Master2/Branch/BRN265/details`, with the same headers as the captured request. Read `autoReissueEnabled` and `reissueCredentials` | — |
+
+**The captured request carries your login token.** Don't save it in a shared Postman workspace. If a
+request returns 401, capture it again.
+
+**Rules for every case:**
+- Never click **Reissue**, **Release PNR** or **Void / Cancel**, on Admin or the Portal.
+- Admin booking checks need the booking lock (Created By card). The Portal needs no lock (`PO-25`).
+- BRN265 and AGN9780 were also changed by hand during Discovery. **Read the Auto Reissue value just
+  before each booking check**, in the same session.
 
 ## Case Index
 
@@ -40,7 +86,7 @@
 | TC-BR-023 | Credit Limit rejects a value exceeding 15 characters | Atomic | P1 | Atomic, Negative-BoundaryValues, Regression | Approved | Rejected |
 | TC-BR-024 | Reaching Percentage rejects a value greater than 100% | Atomic | P2 | Atomic, Negative-BoundaryValues | Approved | Approved |
 | TC-BR-025 | Reaching Percentage accepts a value with up to 3 decimal places | Atomic | P3 | Atomic, Positive, Boundary | Approved | Approved |
-| TC-BR-026 | Warning Prompt (Days) rejects a value exceeding 11 digits | Atomic | P1 | Atomic, Negative-BoundaryValues, Regression | Approved | **Rejected — removed from automation scope 2026-08-10** |
+| TC-BR-026 | Warning Prompt (Days) rejects a value exceeding 11 digits | Atomic | P1 | Atomic, Negative-BoundaryValues, Regression, Blocked-NeedsClarification | Approved | Blocked — Needs Clarification (was Approved; suspended 2026-08-10, not rejected on merit) |
 | TC-BR-027 | Warning Prompt (Days) rejects a value greater than Credit Terms (Days) | Atomic | P2 | Atomic, Negative-InvalidInputs | Approved | Rejected |
 | TC-BR-028 | Select at least one Payment Option | Atomic | P3 | Atomic, Positive | Approved | Approved |
 | TC-BR-029 | Product Access grid displays the required columns | Atomic | P2 | Atomic, Positive | Approved | Rejected |
@@ -91,16 +137,46 @@
 | TC-BR-074 | Warning Prompt must not exceed Credit Terms on Update | Atomic | P2 | Atomic, Negative-InvalidInputs, SelfCreatedRecord | Approved | Rejected |
 | TC-BR-075 | Reaching Percentage rejects a value above 100 on Update | Atomic | P2 | Atomic, Negative-BoundaryValues, SelfCreatedRecord | Approved | Rejected |
 | TC-BR-076 | Change Threshold lists child agencies before confirming | Scenario | P2 | Scenario, Positive, SelfCreatedRecord, AssumptionBased | Approved | Rejected |
-| TC-BR-077 | Stored Branch Email Password is not recoverable from the Update form | Atomic | P1 | Atomic, Security, Regression | Approved | Rejected |
+| TC-BR-077 | Stored Branch Email Password is not recoverable from the Update form | Atomic | P1 | Atomic, Security, Regression, Blocked-NeedsClarification | Approved | Rejected — and now also `Blocked — Needs Clarification` (was Rejected on scope grounds alone) |
 | TC-BR-078 | Exploratory — is Active/Inactive status discoverable from the grid? | Atomic | P2 | Atomic, Exploratory | Approved | Rejected |
 | TC-BR-079 | Exploratory — does the City filter accept and apply multiple cities? | Atomic | P3 | Atomic, Exploratory | Approved | Rejected |
 | TC-BR-080 | Admin-role operator sees the same grid columns and row actions | Atomic | P3 | Atomic, Permissions, NotCovered-SingleAccountRun | Approved | Rejected |
 | TC-BR-081 | Repeated failed login attempts lock the account | Atomic | P3 | Atomic, Security, Deferred-RequiresDedicatedEnvironment | Approved | Rejected |
 | TC-BR-082 | Credit Terms (Days) rejects a value exceeding 7 digits | Atomic | P2 | Atomic, Negative-BoundaryValues | Approved | Rejected |
+| TC-BR-083 | Auto Reissue is unchecked by default on Add Branch | Atomic | P2 | Atomic, Positive | Approved | Pending |
+| TC-BR-084 | Picker is empty on a new Branch with no supplier | Atomic | P3 | Atomic, Negative-EmptyValues | Approved | Pending |
+| TC-BR-085 | An LCC credential is not offered for Auto Reissue | Atomic | P2 | Atomic, Negative, Business-Rule | Approved | Pending |
+| TC-BR-086 | A Galileo PCC credential is offered for Auto Reissue | Atomic | P2 | Atomic, Positive, Business-Rule | Approved | Pending |
+| TC-BR-087 | An Amadeus PCC credential is not offered for Auto Reissue | Atomic | P2 | Atomic, Negative, Business-Rule | Approved | Pending |
+| TC-BR-088 | A TravelportNdc PCC credential is offered for Auto Reissue | Atomic | P3 | Atomic, Positive, Assumption-based | Approved | Pending |
+| TC-BR-089 | Turn Auto Reissue on for a Branch and save | Scenario | P1 | Scenario, Positive, Smoke | Approved | Pending |
+| TC-BR-090 | Branch Auto Reissue change waits for approval | Scenario | P2 | Scenario, Regression | Approved | Pending |
+| TC-BR-091 | Turning Branch Auto Reissue off keeps the saved credentials | Scenario | P1 | Scenario, Positive, Regression | Approved | Pending |
+| TC-BR-092 | Branch Auto Reissue on with no credential shows "Required" | Atomic | P1 | Atomic, Negative-EmptyValues | Approved | Pending |
+| TC-BR-093 | Branch update without a remark is refused | Atomic | P3 | Atomic, Negative-EmptyValues, Assumption-based | Approved | Pending |
+| TC-BR-094 | Branch API rejects Auto Reissue on with an empty credential list | Atomic | P2 | Atomic, Negative-EmptyValues | Approved | Pending |
+| TC-BR-095 | Branch API keeps saved credentials when sent off with others | Atomic | P2 | Atomic, Positive | Approved | Pending |
+| TC-BR-096 | Branch API rejects a credential without an ID | Atomic | P2 | Atomic, Negative-InvalidInputs | Approved | Pending |
+| TC-BR-097 | Branch API rejects an unknown credential ID | Atomic | P2 | Atomic, Negative-InvalidInputs | Approved | Pending |
+| TC-BR-098 | Branch API rejects duplicate credential IDs | Atomic | P2 | Atomic, Negative-InvalidInputs | Approved | Pending |
+| TC-BR-099 | Branch API rejects a credential not assigned to the Branch | Atomic | P1 | Atomic, Negative-InvalidInputs, Permissions | Approved | Pending |
+| TC-BR-100 | Branch Auto Reissue does not change its Agencies' checkbox | Atomic | P1 | Atomic, Integration | Approved | Pending |
+| TC-BR-101 | Admin shows Reissue for a Branch booking when Branch Auto Reissue is on | Atomic | P1 | Atomic, Positive, Smoke | Approved | Pending |
+| TC-BR-102 | Admin hides Reissue for a Branch booking when Branch Auto Reissue is off | Atomic | P1 | Atomic, Negative, Smoke | Approved | Pending |
+| TC-BR-103 | Reissue shows on a Branch booking whose credential is not selected | Atomic | P3 | Atomic, Business-Rule | Approved | Pending |
+| TC-BR-104 | Agency Auto Reissue off does not hide Reissue on a Branch booking | Atomic | P2 | Atomic, Integration | Approved | Pending |
+| TC-BR-105 | Reading the Branch drops a credential that became invalid | Atomic | P3 | Atomic, Assumption-based | Approved | Pending |
+| TC-BR-106 | Updating a Branch without touching Auto Reissue still works | Atomic | P2 | Atomic, Regression, Smoke | Approved | Pending |
+| TC-BR-107 | Create a Branch with Auto Reissue on | Scenario | P3 | Scenario, Positive | Approved | Pending |
+| TC-BR-108 | Agency Portal does not list its Branch's own bookings | Atomic | P3 | Atomic, Permissions, Assumption-based | Approved | Pending |
+| TC-BR-109 | A Branch can have a supplier its Agency doesn't have | Atomic | P2 | Atomic, Integration | Approved | Pending |
+| TC-BR-110 | An inactive credential leaves the Branch's Auto Reissue picker | Scenario | P1 | Scenario, Negative, Integration | Approved | Pending |
+| TC-BR-111 | What the Branch's Auto Reissue picker shows when the supplier is made inactive | Scenario | P2 | Scenario, Exploratory, Integration | Approved | Pending |
+| TC-BR-112 | Admin hides Reissue for a Branch booking on hold | Atomic | P2 | Atomic, Negative | Approved | Pending |
 
-**Tier breakdown:** 72 Atomic · 10 Scenario
+**Tier breakdown:** 96 Atomic · 16 Scenario
 
-**Lifecycle breakdown:** Review — 0 Pending · 73 Approved · 8 Rejected · Automation — 0 Pending · 32 Approved · 49 Rejected
+**Lifecycle breakdown:** Review — 0 Pending · 104 Approved · 8 Rejected · Automation — 30 Pending · 31 Approved · 49 Rejected
 
 ## Test Cases
 
@@ -2496,3 +2572,777 @@
 **Review:** Approved
 
 **Automation:** Rejected
+
+### TC-BR-083 — Auto Reissue is unchecked by default on Add Branch
+
+**Objective:** Verify that a new Branch form shows the Auto Reissue checkbox unchecked.
+
+**Preconditions:** Logged in to Admin (`http://192.168.1.60`). Nothing is saved by this case.
+
+**Steps:**
+
+1. Open **Admin → Branch**.
+2. Click **Add**.
+3. Find **Auto Reissue** beside Import PNR.
+4. Leave the page without saving.
+
+**Expected Result:** **Auto Reissue** is shown and unchecked. **Auto Reissue Credentials** is not shown.
+
+**Priority:** P2
+
+**Tags:** Atomic, Positive
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-084 — Picker is empty on a new Branch with no supplier
+
+**Objective:** Verify that the Auto Reissue picker offers nothing when the Branch has no supplier.
+
+**Preconditions:** On the Add Branch form, no supplier ticked. Nothing is saved.
+
+**Steps:**
+
+1. Tick **Auto Reissue**.
+2. Open **Auto Reissue Credentials**.
+3. Leave the page without saving.
+
+**Expected Result:** The picker shows "No results found".
+
+**Priority:** P3
+
+**Tags:** Atomic, Negative-EmptyValues
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-085 — An LCC credential is not offered for Auto Reissue
+
+**Objective:** Verify that an LCC supplier's credential never appears in the Auto Reissue picker.
+
+**Preconditions:** On the Add Branch form. Nothing is saved.
+
+**Test Data:** LCC supplier: `AirArabiaEgypt`, with its credential chosen in its Product Access row
+
+**Steps:**
+
+1. In Product Access, tick **AirArabiaEgypt** and choose its credential.
+2. Tick **Auto Reissue**.
+3. Open **Auto Reissue Credentials**.
+4. Leave the page without saving.
+
+**Expected Result:** The AirArabiaEgypt credential is not offered.
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative, Business-Rule
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-086 — A Galileo PCC credential is offered for Auto Reissue
+
+**Objective:** Verify that a credential chosen in a supported GDS supplier's PCC tab appears in the picker.
+
+**Preconditions:** On the Add Branch form. Nothing is saved.
+
+**Test Data:** GDS supplier: `Galileo`, PCC tab credential `GalileoLive`
+
+**Steps:**
+
+1. In Product Access, tick **Galileo**.
+2. In the **Galileo** tab under Airline Supplier credential (PCC), select **GalileoLive**.
+3. Tick **Auto Reissue**.
+4. Open **Auto Reissue Credentials**.
+5. Leave the page without saving.
+
+**Expected Result:** **GalileoLive** is offered.
+
+**Priority:** P2
+
+**Tags:** Atomic, Positive, Business-Rule
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-087 — An Amadeus PCC credential is not offered for Auto Reissue
+
+**Objective:** Verify that an Amadeus credential never appears in the Auto Reissue picker.
+
+**Preconditions:** On the Add Branch form. Nothing is saved.
+
+**Test Data:** GDS supplier: `Amadeus`, PCC tab credential `Amadeus Live`
+
+**Steps:**
+
+1. In Product Access, tick **Amadeus**.
+2. In the **Amadeus** tab, select **Amadeus Live**.
+3. Tick **Auto Reissue**.
+4. Open **Auto Reissue Credentials**.
+5. Leave the page without saving.
+
+**Expected Result:** **Amadeus Live** is not offered.
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative, Business-Rule
+
+**Notes:** Amadeus is a GDS but not on the hard-coded reissue list (`PO-21`). This is spec `S-9` on the screen.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-088 — A TravelportNdc PCC credential is offered for Auto Reissue
+
+**Objective:** Verify that a TravelportNdc credential appears in the Auto Reissue picker.
+
+**Preconditions:** On the Add Branch form. A TravelportNdc supplier with at least one credential exists. Nothing is saved.
+
+**Steps:**
+
+1. In Product Access, tick **TravelportNdc**.
+2. In its PCC tab, select one credential.
+3. Tick **Auto Reissue**.
+4. Open **Auto Reissue Credentials**.
+5. Leave the page without saving.
+
+**Expected Result:** The TravelportNdc credential is offered.
+
+**Priority:** P3
+
+**Tags:** Atomic, Positive, Assumption-based
+
+**Notes:** Not seen in Discovery. If no TravelportNdc supplier exists on `.60`, record **Blocked**.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-089 — Turn Auto Reissue on for a Branch and save
+
+**Objective:** Verify that Branch Auto Reissue and one credential are saved and shown again when the Branch is reopened.
+
+**Preconditions:** BRN265 is Approved with Auto Reissue off.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Branch | BRN265 |
+| Auto Reissue Credentials | `NDCSabre staging` |
+
+**Steps:**
+
+1. Open **Admin → Branch**, edit BRN265.
+2. Tick **Auto Reissue**.
+3. In **Auto Reissue Credentials**, select **NDCSabre staging**.
+4. Enter a remark.
+5. Click **Send For Approval**.
+6. Approve BRN265 from the Branch grid, entering a remark.
+7. Reopen BRN265.
+
+**Expected Result:** **Auto Reissue** is ticked and **NDCSabre staging** is shown in **Auto Reissue Credentials**.
+
+**Priority:** P1
+
+**Tags:** Scenario, Positive, Smoke
+
+**Notes:** Leaves BRN265 on with NDCSabre staging, which is its restore state.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-090 — Branch Auto Reissue change waits for approval
+
+**Objective:** Verify that a Branch Auto Reissue change sent for approval takes effect only after it is approved.
+
+**Preconditions:** BRN265 is Approved with Auto Reissue on.
+
+**Steps:**
+
+1. Edit BRN265.
+2. Untick **Auto Reissue**.
+3. Enter a remark and click **Send For Approval**.
+4. Read BRN265's row in the Branch grid.
+5. Approve the row, entering a remark.
+6. Reopen BRN265.
+
+**Expected Result:** After step 4, the row shows **Pending for approval**. After step 5, it shows **Approved**. After step 6, Auto Reissue is unticked.
+
+**Priority:** P2
+
+**Tags:** Scenario, Regression
+
+**Notes:** Restore afterwards with TC-BR-089.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-091 — Turning Branch Auto Reissue off keeps the saved credentials
+
+**Objective:** Verify that a Branch's saved credentials return when Auto Reissue is turned on again.
+
+**Preconditions:** BRN265 is Approved with Auto Reissue off, after having had **NDCSabre staging** saved (e.g. after TC-BR-090).
+
+**Steps:**
+
+1. Edit BRN265.
+2. Tick **Auto Reissue**.
+3. Read **Auto Reissue Credentials**.
+4. Leave the page without saving.
+
+**Expected Result:** The picker already shows **NDCSabre staging**.
+
+**Priority:** P1
+
+**Tags:** Scenario, Positive, Regression
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-092 — Branch Auto Reissue on with no credential shows "Required"
+
+**Objective:** Verify that the Branch form will not save Auto Reissue on without a credential.
+
+**Preconditions:** BRN265 is Approved.
+
+**Steps:**
+
+1. Edit BRN265.
+2. Tick **Auto Reissue** if unticked.
+3. Clear **Auto Reissue Credentials**.
+4. Enter a remark.
+5. Click **Send For Approval**.
+
+**Expected Result:** "Required" appears under **Auto Reissue Credentials**. BRN265 is not saved.
+
+**Priority:** P1
+
+**Tags:** Atomic, Negative-EmptyValues
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-093 — Branch update without a remark is refused
+
+**Objective:** Verify that a Branch Auto Reissue change cannot be sent without a remark.
+
+**Preconditions:** BRN265 is Approved.
+
+**Steps:**
+
+1. Edit BRN265.
+2. Toggle **Auto Reissue**.
+3. Leave the remark empty.
+4. Click **Send For Approval**.
+
+**Expected Result:** The form shows a message that the remark is required, and BRN265 is not saved.
+
+**Priority:** P3
+
+**Tags:** Atomic, Negative-EmptyValues, Assumption-based
+
+**Notes:** Discovery always entered a remark, so this was never tried (A-BR-R6-1). If the save goes through, restore BRN265 with TC-BR-089 and report the result.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-094 — Branch API rejects Auto Reissue on with an empty credential list
+
+**Objective:** Verify that the Branch API rejects Auto Reissue on with no credentials.
+
+**Preconditions:** The `{BRANCH_SAVE_REQUEST}` fixture is loaded in Postman (§0.3). BRN265 is Approved.
+
+**Test Data:** `autoReissueEnabled`: `true` · `reissueCredentials`: `[]`
+
+**Steps:**
+
+1. In `{BRANCH_SAVE_REQUEST}`, set `autoReissueEnabled` and `reissueCredentials` to the Test Data values. Leave every other field, including the remark, as captured.
+2. Send the request.
+3. Search BRN265 in Admin → Branch and read its row.
+
+**Expected Result:** The response is **400** with message "Select at least one eligible credential". BRN265 is unchanged.
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative-EmptyValues
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-095 — Branch API keeps saved credentials when sent off with others
+
+**Objective:** Verify that credentials sent with Branch Auto Reissue off are replaced by the saved valid selection.
+
+**Preconditions:** The `{BRANCH_SAVE_REQUEST}` fixture is loaded in Postman (§0.3). BRN265 is Approved, Auto Reissue off, with saved credential `[313]`.
+
+**Test Data:** `autoReissueEnabled`: `false` · `reissueCredentials`: `[{"credentialId": 315}]`
+
+**Steps:**
+
+1. In `{BRANCH_SAVE_REQUEST}`, set the two fields to the Test Data values.
+2. Send the request.
+3. Approve BRN265 from the Branch grid, entering a remark.
+4. Read BRN265 with the GET in §0.3.
+
+**Expected Result:** The request succeeds. The GET returns `autoReissueEnabled: false` and `reissueCredentials` `[313]`, not 315.
+
+**Priority:** P2
+
+**Tags:** Atomic, Positive
+
+**Notes:** A real save: BRN265 is pending until step 3. Restore afterwards with TC-BR-089.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-096 — Branch API rejects a credential without an ID
+
+**Objective:** Verify that the Branch API rejects a reissue credential that has no ID.
+
+**Preconditions:** The `{BRANCH_SAVE_REQUEST}` fixture is loaded in Postman (§0.3). BRN265 is Approved.
+
+**Test Data:** `autoReissueEnabled`: `true` · `reissueCredentials`: `[{}]`
+
+**Steps:**
+
+1. In `{BRANCH_SAVE_REQUEST}`, set `autoReissueEnabled` and `reissueCredentials` to the Test Data values. Leave every other field, including the remark, as captured.
+2. Send the request.
+3. Search BRN265 in Admin → Branch and read its row.
+
+**Expected Result:** The response is **400** with message "Every auto-reissue credential must have an ID". BRN265 is unchanged.
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative-InvalidInputs
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-097 — Branch API rejects an unknown credential ID
+
+**Objective:** Verify that the Branch API rejects a credential ID that does not exist.
+
+**Preconditions:** The `{BRANCH_SAVE_REQUEST}` fixture is loaded in Postman (§0.3). BRN265 is Approved.
+
+**Test Data:** `autoReissueEnabled`: `true` · `reissueCredentials`: `[{"credentialId": 999999}]`
+
+**Steps:**
+
+1. In `{BRANCH_SAVE_REQUEST}`, set `autoReissueEnabled` and `reissueCredentials` to the Test Data values. Leave every other field, including the remark, as captured.
+2. Send the request.
+3. Search BRN265 in Admin → Branch and read its row.
+
+**Expected Result:** The response is **400** with message "Every auto-reissue credential must exist and be active". BRN265 is unchanged.
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative-InvalidInputs
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-098 — Branch API rejects duplicate credential IDs
+
+**Objective:** Verify that the Branch API rejects the same credential sent twice.
+
+**Preconditions:** The `{BRANCH_SAVE_REQUEST}` fixture is loaded in Postman (§0.3). BRN265 is Approved.
+
+**Test Data:** `autoReissueEnabled`: `true` · `reissueCredentials`: `[{"credentialId": 313}, {"credentialId": 313}]`
+
+**Steps:**
+
+1. In `{BRANCH_SAVE_REQUEST}`, set `autoReissueEnabled` and `reissueCredentials` to the Test Data values. Leave every other field, including the remark, as captured.
+2. Send the request.
+3. Search BRN265 in Admin → Branch and read its row.
+
+**Expected Result:** The response is **400** with message "Auto-reissue credentials must not contain duplicates". BRN265 is unchanged.
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative-InvalidInputs
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-099 — Branch API rejects a credential not assigned to the Branch
+
+**Objective:** Verify that a Branch cannot be given a reissue credential it is not assigned.
+
+**Preconditions:** The `{BRANCH_SAVE_REQUEST}` fixture is loaded in Postman (§0.3). BRN265 is Approved.
+
+**Test Data:** `autoReissueEnabled`: `true` · `reissueCredentials`: `[{"credentialId": 287}]` (a supported Galileo credential not in BRN265's Product Access — check first)
+
+**Steps:**
+
+1. In `{BRANCH_SAVE_REQUEST}`, set `autoReissueEnabled` and `reissueCredentials` to the Test Data values. Leave every other field, including the remark, as captured.
+2. Send the request.
+3. Search BRN265 in Admin → Branch and read its row.
+
+**Expected Result:** The response is **400** with message "Each auto-reissue credential must be mapped to this organization". BRN265 is unchanged.
+
+**Priority:** P1
+
+**Tags:** Atomic, Negative-InvalidInputs, Permissions
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-100 — Branch Auto Reissue does not change its Agencies' checkbox
+
+**Objective:** Verify that turning Branch Auto Reissue on leaves the Auto Reissue value of its Agencies unchanged.
+
+**Preconditions:** BRN265 has Auto Reissue off. AGN9780 has Auto Reissue off. Both Approved.
+
+**Steps:**
+
+1. Turn BRN265 Auto Reissue on and approve it (as in TC-BR-089).
+2. Open AGN9780 in Admin → Agency.
+3. Read **Auto Reissue**.
+
+**Expected Result:** AGN9780's **Auto Reissue** is still unticked.
+
+**Priority:** P1
+
+**Tags:** Atomic, Integration
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-101 — Admin shows Reissue for a Branch booking when Branch Auto Reissue is on
+
+**Objective:** Verify that the Admin Itinerary shows Reissue on a Branch-owned booking when the Branch has Auto Reissue on.
+
+**Preconditions:** BRN265 has Auto Reissue on (Approved). Booking `NDCEG-BR-F260916ENYOeQ` (owned by BRN265, Booked) is not locked by another user.
+
+**Steps:**
+
+1. Open **Booking-Mid Office → Search Booking** (`/booking/search-booking`).
+2. Click the **Flight** tab.
+3. Enter Booking Reference `NDCEG-BR-F260916ENYOeQ` and click **Search**.
+4. Open the booking from the result row.
+5. Click the lock icon on the **Created By** card.
+6. Click **View Passenger Details**.
+
+**Expected Result:** The **Reissue** button is shown.
+
+**Priority:** P1
+
+**Tags:** Atomic, Positive, Smoke
+
+**Notes:** Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-102 — Admin hides Reissue for a Branch booking when Branch Auto Reissue is off
+
+**Objective:** Verify that the Admin Itinerary hides Reissue on a Branch-owned booking when the Branch has Auto Reissue off.
+
+**Preconditions:** BRN265 has Auto Reissue off (Approved). Booking `NDCEG-BR-F260916ENYOeQ` is not locked by another user.
+
+**Steps:**
+
+1. Open **Booking-Mid Office → Search Booking** (`/booking/search-booking`).
+2. Click the **Flight** tab.
+3. Enter Booking Reference `NDCEG-BR-F260916ENYOeQ` and click **Search**.
+4. Open the booking from the result row.
+5. Click the lock icon on the **Created By** card.
+6. Click **View Passenger Details**.
+
+**Expected Result:** The **Reissue** button is not shown. **Manual Reissue** is still shown.
+
+**Priority:** P1
+
+**Tags:** Atomic, Negative, Smoke
+
+**Notes:** Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`). Read BRN265's flag just before this check: it was changed by hand during Discovery.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-103 — Reissue shows on a Branch booking whose credential is not selected
+
+**Objective:** Verify that the Branch booking's Reissue button depends on the checkbox, not on the selected credentials.
+
+**Preconditions:** BRN265 has Auto Reissue on with only **NDCSabre staging** (313) selected. Booking `NDCEG-BR-F260916ENYOeQ` is on **Sabre Staging** (315).
+
+**Steps:**
+
+1. Open **Booking-Mid Office → Search Booking** (`/booking/search-booking`).
+2. Click the **Flight** tab.
+3. Enter Booking Reference `NDCEG-BR-F260916ENYOeQ` and click **Search**.
+4. Open the booking from the result row.
+5. Click the lock icon on the **Created By** card.
+6. Click **View Passenger Details**.
+
+**Expected Result:** The **Reissue** button is shown.
+
+**Priority:** P3
+
+**Tags:** Atomic, Business-Rule
+
+**Notes:** Intended (`PO-22`). The credential is checked only when Reissue is clicked, in the `reissue-flow` scope. Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-104 — Agency Auto Reissue off does not hide Reissue on a Branch booking
+
+**Objective:** Verify that an Agency's Auto Reissue value does not affect a booking owned by its Branch.
+
+**Preconditions:** BRN265 has Auto Reissue on. AGN9780 has Auto Reissue off. Both Approved.
+
+**Steps:**
+
+1. Open **Booking-Mid Office → Search Booking** (`/booking/search-booking`).
+2. Click the **Flight** tab.
+3. Enter Booking Reference `NDCEG-BR-F260916ENYOeQ` and click **Search**.
+4. Open the booking from the result row.
+5. Click the lock icon on the **Created By** card.
+6. Click **View Passenger Details**.
+
+**Expected Result:** The **Reissue** button is shown.
+
+**Priority:** P2
+
+**Tags:** Atomic, Integration
+
+**Notes:** Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-105 — Reading the Branch drops a credential that became invalid
+
+**Objective:** Verify that a saved Branch credential that became invalid is removed on read, while Auto Reissue stays on.
+
+**Preconditions:** BRN265 has Auto Reissue on and a saved credential that has since become inactive, unassigned or unsupported.
+
+**Steps:**
+
+1. Reopen BRN265.
+2. Read **Auto Reissue** and **Auto Reissue Credentials**.
+
+**Expected Result:** The invalid credential is no longer listed. **Auto Reissue** stays ticked.
+
+**Priority:** P3
+
+**Tags:** Atomic, Assumption-based
+
+**Notes:** **Needs a supplier or credential change this run is not granted (RISK-BR-11).** **TC-BR-110 sets up this state** (with the user's go-ahead). Otherwise record **Blocked**.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-106 — Updating a Branch without touching Auto Reissue still works
+
+**Objective:** Verify that an ordinary Branch update still saves and leaves Auto Reissue unchanged.
+
+**Preconditions:** BRN265 is Approved. Its Auto Reissue value and credentials are recorded.
+
+**Steps:**
+
+1. Edit BRN265.
+2. Change only the remark text.
+3. Click **Send For Approval**.
+4. Approve BRN265 from the grid, entering a remark.
+5. Reopen BRN265.
+
+**Expected Result:** The update is saved and approved. **Auto Reissue** and **Auto Reissue Credentials** are the same as recorded.
+
+**Priority:** P2
+
+**Tags:** Atomic, Regression, Smoke
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-107 — Create a Branch with Auto Reissue on
+
+**Objective:** Verify that a new Branch can be created with Auto Reissue on and a credential.
+
+**Preconditions:** **The user has been asked and agrees to create a new Branch** (allowed after asking — user, 2026-09-24). The Branch's other mandatory fields and one supported GDS supplier are ready.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Branch name | `RUN006_AR_Branch` |
+| Supplier | Galileo, PCC tab `GalileoLive` |
+
+**Steps:**
+
+1. Open **Admin → Branch → Add**.
+2. Fill the mandatory fields with Test Data.
+3. Tick **Auto Reissue** and select **GalileoLive**.
+4. Click **Send For Approval**.
+5. Approve the new Branch from the grid, entering a remark.
+6. Reopen the new Branch.
+
+**Expected Result:** The new Branch shows **Auto Reissue** ticked with **GalileoLive**.
+
+**Priority:** P3
+
+**Tags:** Scenario, Positive
+
+**Notes:** **Creates a lasting record on STG.** Ask the user before running it. Without their agreement, record **Blocked — awaiting user agreement**.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-108 — Agency Portal does not list its Branch's own bookings
+
+**Objective:** Verify that an Agency's Portal login cannot see a booking owned by its parent Branch.
+
+**Preconditions:** The AGN9780 Portal login is available. Booking `NDCEG-BR-F260916ENYOeQ` is owned by BRN265.
+
+**Steps:**
+
+1. Log in to the Portal (`http://192.168.1.60:9500`) with agency code `AGN9780`.
+2. Open **My Booking** and click **Search**.
+3. Look for `NDCEG-BR-F260916ENYOeQ` in the results.
+
+**Expected Result:** `NDCEG-BR-F260916ENYOeQ` is not listed.
+
+**Priority:** P3
+
+**Tags:** Atomic, Permissions, Assumption-based
+
+**Notes:** The user's statement (`PO-26`), not yet observed.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-109 — A Branch can have a supplier its Agency doesn't have
+
+**Objective:** Verify that a Branch can keep a supplier that is not assigned to its Agency.
+
+**Preconditions:** BRN265 has at least one supplier (e.g. NDCsbr) that is **not** ticked in AGN9780's Product Access. Nothing is saved by this case.
+
+**Steps:**
+
+1. Open BRN265 for edit and record its suppliers.
+2. Leave BRN265 without saving.
+3. Open AGN9780 for edit and read **Product Access Details**.
+4. Leave AGN9780 without saving.
+
+**Expected Result:** BRN265 lists the supplier. AGN9780 lists it as **not assigned**. Both records stay Approved.
+
+**Priority:** P2
+
+**Tags:** Atomic, Integration
+
+**Notes:** Branch and Agency each have their own CRUD (`PO-27`). The other direction is TC-AGENCY-091.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-110 — An inactive credential leaves the Branch's Auto Reissue picker
+
+**Objective:** Verify that a reissue credential made inactive is dropped from the Branch's saved selection and picker, while Auto Reissue stays on.
+
+**Preconditions:** A supported GDS credential `{CRED}` that no other organisation uses, chosen in BRN265's PCC tab. BRN265 has Auto Reissue on with `{CRED}` selected, Approved.
+
+**Steps:**
+
+1. Open **Master → Supplier → Supplier Credentials** and search `{CRED}`.
+2. Edit `{CRED}`, set its status to **Inactive**, and save.
+3. Open BRN265 for edit (Admin → Branch).
+4. Read **Auto Reissue** and **Auto Reissue Credentials**.
+5. Open **Auto Reissue Credentials** and read the options.
+6. Leave the form without saving.
+7. Set `{CRED}` back to **Active** and save.
+
+**Expected Result:** After step 4, `{CRED}` is no longer in the saved selection, and **Auto Reissue** is still ticked. After step 5, `{CRED}` is not offered.
+
+**Priority:** P1
+
+**Tags:** Scenario, Negative, Integration
+
+**Notes:** Ask the user before running this case. It changes **shared master data** (Master → Supplier) on staging, which affects every organisation that uses it. Use only a supplier/credential that no other organisation uses, record the grant in the run's `SafetyAuthorizations.json` first, and **set it back to Active at the end**. Spec §4. Can share `{CRED}` and the same inactive window with TC-AGENCY-092. Afterwards restore BRN265 to NDCSabre staging (313).
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-111 — What the Branch's Auto Reissue picker shows when the supplier is made inactive
+
+**Objective:** Find out what happens to the Branch's Auto Reissue selection and picker when the credential's supplier is made inactive.
+
+**Preconditions:** As TC-BR-110, using a GDS supplier `{SUP}` that no other organisation uses. BRN265 has Auto Reissue on with a `{SUP}` credential selected, Approved.
+
+**Steps:**
+
+1. Open **Master → Supplier → Supplier** and search `{SUP}`.
+2. Edit `{SUP}`, set its status to **Inactive**, and save.
+3. Open BRN265 for edit.
+4. Read **Auto Reissue**, **Auto Reissue Credentials** and **Product Access Details**.
+5. Open **Auto Reissue Credentials** and read the options.
+6. Leave the form without saving.
+7. Set `{SUP}` back to **Active** and save.
+
+**Expected Result:** The tester records what is shown in steps 4–5, and the reviewer confirms whether it is intended. Spec §4 suggests the credential is dropped and not offered, with Auto Reissue still ticked.
+
+**Priority:** P2
+
+**Tags:** Scenario, Exploratory, Integration
+
+**Notes:** Ask the user before running this case. It changes **shared master data** (Master → Supplier) on staging, which affects every organisation that uses it. Use only a supplier/credential that no other organisation uses, record the grant in the run's `SafetyAuthorizations.json` first, and **set it back to Active at the end**. Exploratory: the specification covers an inactive credential, not an inactive supplier.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-BR-112 — Admin hides Reissue for a Branch booking on hold
+
+**Objective:** Verify that the Admin Itinerary does not show Reissue for a Branch booking whose status is On Hold.
+
+**Preconditions:** BRN265 has Auto Reissue on (Approved). Booking `NDCEG-BR-F251103CdegUo` (BRN265, On Hold) is not locked by another user.
+
+**Steps:**
+
+1. Open **Booking-Mid Office → Search Booking** (`/booking/search-booking`).
+2. Click the **Flight** tab.
+3. Enter Booking Reference `NDCEG-BR-F251103CdegUo` and click **Search**.
+4. Open the booking from the result row.
+5. Click the lock icon on the **Created By** card.
+6. Click **View Passenger Details**.
+
+**Expected Result:** The **Reissue** button is not shown.
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative
+
+**Notes:** Added 2026-09-25 with the booking the user supplied. Only Status **Booked** shows Reissue (spec §5, `PO-24`). Never click **Reissue**, **Release PNR** or **Void / Cancel**.
+
+**Review:** Approved
+
+**Automation:** Pending

@@ -1,0 +1,95 @@
+{
+  "idx": 0,
+  "k": "branch",
+  "itin": {
+    "bookingStatus": 2,
+    "supplierName": "Sabre",
+    "ticketPccId": 315,
+    "locked": 1,
+    "holder": "Mohamed Soliman",
+    "actions": {
+      "showViewTicket": true,
+      "canManualReissue": true,
+      "canAutoReissue": true,
+      "showSyncPnr": true,
+      "showPayAndBook": false,
+      "showModifiedTicket": false,
+      "showCancelBtn": true,
+      "showCancelHoldBtn": false,
+      "showRefundBtn": true,
+      "canReleaseLock": true
+    },
+    "agencyId": "null",
+    "branchId": "BRN265"
+  },
+  "rows": [
+    "Mr Amr emad Lead Passenger Adult 1989-12-30 Egypt 0654859778107 BOOKED",
+    "Mr ayman khaled Adult 2000-01-01 Egypt 0654859778108 BOOKED",
+    "Mr eissa khaled Child 2015-05-08 Egypt 0654859778109 BOOKED",
+    "Mr fawzy ahmed Child 2015-06-30 Egypt — BOOKED",
+    "Mr ahmed eissa Infant 2026-02-28 Egypt 0654859778111 BOOKED",
+    "Mr waleed khaled Infant 2026-09-04 Egypt 0654859778112 BOOKED"
+  ],
+  "noSel": {
+    "net": [],
+    "toasts": [],
+    "dialog": null,
+    "body": [
+      {
+        "offerReissuable": false,
+        "reason": "the airline will not reissue this ticket"
+      }
+    ]
+  },
+  "rowsDisabled": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ],
+  "elig": {
+    "offerReissuable": false,
+    "reason": "the airline will not reissue this ticket"
+  },
+  "eligText": null,
+  "toasts": [],
+  "error": "no Continue button; toasts []",
+  "release": {
+    "bookingStatus": 2,
+    "supplierName": "Sabre",
+    "ticketPccId": 315,
+    "locked": 0,
+    "holder": "",
+    "actions": {
+      "showViewTicket": true,
+      "canManualReissue": true,
+      "canAutoReissue": true,
+      "showSyncPnr": true,
+      "showPayAndBook": false,
+      "showModifiedTicket": false,
+      "showCancelBtn": true,
+      "showCancelHoldBtn": false,
+      "showRefundBtn": true,
+      "canReleaseLock": false
+    },
+    "agencyId": "null",
+    "branchId": "BRN265"
+  },
+  "writes": [
+    {
+      "at": "2026-09-26T15:17:36.819Z",
+      "m": "PATCH",
+      "u": "/odeysysadmin/v2/bookingDetails2/lockUnLock",
+      "body": "{\"bookingRefId\":null,\"orderId\":\"BRN265NDCORD2609169XJ1LC\"}"
+    },
+    {
+      "at": "2026-09-26T15:19:39.275Z",
+      "m": "PATCH",
+      "u": "/odeysysadmin/v2/bookingDetails2/lockUnLock",
+      "body": "{\"bookingRefId\":null,\"orderId\":\"BRN265NDCORD2609169XJ1LC\"}"
+    }
+  ],
+  "blocked": []
+}

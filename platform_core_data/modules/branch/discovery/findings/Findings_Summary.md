@@ -3,9 +3,9 @@
 | Field | Value |
 |---|---|
 | Module | `branch` |
-| Runs contributing | `run-002__2026-08-03…US-8605CreateBranch` (FINDING-001…011) · `run-003__2026-08-04…US-8599-SearchActions_US-8606-UpdateBranch` (FINDING-012…015, plus occurrence-2 appends) |
-| Total Findings | 16 |
-| Last updated | 2026-08-10 |
+| Runs contributing | `run-002__2026-08-03…US-8605CreateBranch` (FINDING-001…011) · `run-003__2026-08-04…US-8599-SearchActions_US-8606-UpdateBranch` (FINDING-012…015, plus occurrence-2 appends) · `run-006__2026-09-23…AutoReissueCheckbox-AgencyandBranch` (FINDING-017) |
+| Total Findings | 17 |
+| Last updated | 2026-09-24 |
 | Open security concerns | **None.** FINDING-013 was the module's only one; dispositioned 2026-08-10 as intended business behaviour (module owner), with the accepted risk recorded in that Finding rather than dropped. |
 
 > **Durable, edited in place.** This index spans every run that has explored this module. run-003 appended four new Findings and recorded a second occurrence against five existing ones rather than re-raising them (§5.9).
@@ -30,16 +30,17 @@
 | **FINDING-014** | **Records are filterable by Active/Inactive status, but that status is never displayed in the grid** | **Requirement Gap** | **N/A** | **96%** | **Needs Human Review** | 1 | branch | `Both` returns 616 mixed records with no column distinguishing Active from Inactive. Bears on RISK-BR-8. |
 | FINDING-015 | City search filter is a multi-select, where the AC specifies a dropdown | Observation | N/A | Withdrawn | **Rejected — Not Reproducible** | 1 | branch | **Wrong.** Module owner 2026-08-10: it **is** a dropdown. No drift; TC-BR-079's premise is gone. |
 | FINDING-016 | Credit Terms (Days) 7-digit cap makes Warning Prompt's documented 11-digit cap unreachable | Requirement Gap | N/A | 100% | **Rejected — Dropped** | 1 | branch | Contradiction is real and **unresolved**, but dropped by instruction and kept out of automation. "Dropped" ≠ "fixed". |
+| FINDING-017 | The Reissue button shows even when the booking's credential isn't among the selected Auto Reissue Credentials | Observation | N/A | 95% | **Rejected — Confirmed Intended Behaviour** (`PO-22`, 2026-09-24) | **2** | branch | run-006. The Branch-owned booking on credential 315 showed Reissue while BRN265's selection was [313]. The button follows the checkbox only; the selection is enforced when Reissue is clicked (`reissue-flow`). Second occurrence on AGN9780 (Portal). |
 
 ## Breakdown
 
-**By Severity:** 0 Critical · **0 High** · **0 Medium** · **0 Low** · 16 N/A
+**By Severity:** 0 Critical · **0 High** · **0 Medium** · **0 Low** · 17 N/A
 
-**By Category:** **0 Bug** · 8 Requirement Gap · 6 Observation · 0 Security Concern · 2 Observation (pre-existing)
+**By Category:** **0 Bug** · 8 Requirement Gap · 7 Observation · 0 Security Concern · 2 Observation (pre-existing)
 
-**By Status:** **0 Confirmed** · **0 Needs Human Review** · **16 Rejected**
+**By Status:** **0 Confirmed** · **0 Needs Human Review** · **17 Rejected**
 
-**By Module:** 16 branch
+**By Module:** 17 branch
 
 > **Module-owner disposition sweep, 2026-08-10 — every open Finding in this module is now closed.** Nine were dispositioned in one session (FINDING-002, 003, 004, 011, 012, 013, 014, 015, 016). **No confirmed application defect remains open for `branch`.** That is a genuine outcome, not a cleanup: read the per-Finding Human Review Updates before treating it as a clean bill of health, because the closures fall into three very different classes.
 >
@@ -55,6 +56,8 @@
 
 **Note (2026-08-04, run-003):** Four new Findings were added (FINDING-012…015) and five existing ones gained a second occurrence. The occurrence appends are the substantive answer to `ProjectContext.md` **RISK-BR-5** — whether the module owner's Create-screen dispositions extend to the Update screen. For PAN Number, Department and Payment-Gateway-on-Credit-Card they **do**, on direct evidence. For Import PNR the comparison **does not transfer**, because Update shows a saved record's stored value rather than a form default; that is recorded as not-comparable rather than forced into an answer. **Two Findings now sit at `Needs Human Review`** — the module's first open dispositions since run-002 closed.
 
+**Note (2026-09-24, run-006):** one Finding added (FINDING-017), which the user closed during the stage as intended (`PO-22`). The Amadeus picker exclusion was investigated as a candidate and closed as intended (`PO-21`, hard-coded supplier list) before it was published. It is recorded below.
+
 ## Candidates investigated and NOT published as Findings
 
 Recorded here because a rejected candidate is a result, not an absence of one.
@@ -64,6 +67,8 @@ Recorded here because a rejected candidate is a result, not an absence of one.
 | Update Branch form appears not to pre-fill State, City, Name, Post Office Box, Credit Limit or Email Password | **Rejected — false read** | A fixed-delay sample caught the page mid-render. Polling across two fresh navigations and a hard reload showed **10/10 fields populated within 500ms** and stable. Would have been published as a high-severity defect had it been taken from the first symptom. See `DiscoverySnapshot_UpdateBranch.md` §4. |
 | Search form appears to be missing the Country, State, City and Status filters | **Rejected — false read** | A native-element scan (`input`/`select`) under-reported PrimeNG widgets. A widget-aware probe found all six specified controls present and behaving correctly. See `DiscoverySnapshot_SearchBranch.md` §3. |
 | Browser navigation to the login page timed out repeatedly | **Rejected — not an application condition** | Raw HTTP probes returned `200` in ~50–850ms across five consecutive attempts. The environment was healthy; the timeout was local tooling. No Finding raised against the application. |
+| run-006: Amadeus Live (278) excluded from the Auto Reissue picker although Amadeus is a GDS | **Closed — intended** | The user: support needs a GDS **and** the hard-coded list NDCsbr, Sabre, TravelportNdc, Galileo. Amadeus isn't on it (`PO-21`). This is spec `S-9` working in the UI |
+| run-006: the first Branch OFF check showed `canAutoReissue true` | **Rejected — confound** | BRN265 had been switched back on by hand in another session. Repeated in one session with the flag read right before; the result followed the flag (FINDING-017 investigation notes) |
 
 ## Evidence Packages
 
@@ -85,3 +90,4 @@ Recorded here because a rejected candidate is a result, not an absence of one.
 | **FINDING-014** | `findings/FINDING-014_ActiveInactiveStatusNotDisplayed/` — `failure.png` | 1 |
 | **FINDING-015** | `findings/FINDING-015_CityFilterIsMultiSelect/` — `failure.png`, `after.png` | 1 |
 | **FINDING-016** | `findings/FINDING-016_CreditTermsCapConflictsWithWarningPromptSpec/` — no evidence files; a documentation comparison, not an observed behaviour | 1 |
+| FINDING-017 | `findings/FINDING-017_ReissueCredentialSelectionDoesNotGateButton/` — `33-branchbooking-cycle-ON.png`, `33-branchbooking-cycle-OFF.png`, `33-branchbooking-cycle-results.json`, `45-itinerary-credential-fields.txt`, `05-BRN265-baseline-before-changes.json`, `43-portal-cycle-results.json` | 2 |

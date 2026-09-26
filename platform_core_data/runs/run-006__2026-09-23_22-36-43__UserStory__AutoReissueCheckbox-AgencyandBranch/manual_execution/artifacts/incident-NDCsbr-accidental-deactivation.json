@@ -1,0 +1,23 @@
+{
+  "deactivatedAt": "2026-09-25T15:30:04Z (probe click on Deactivate, no confirmation dialog)",
+  "observedInactiveAt": "2026-09-25T15:31:25Z",
+  "reactivatedAt": "2026-09-25T15:33:02.593Z",
+  "after": {
+    "id": 157,
+    "name": "NDCsbr",
+    "type": 1,
+    "status": 1,
+    "approvalStatus": 1,
+    "managerName": "test",
+    "supplierPCC": [
+      {
+        "id": 313,
+        "name": "NDCSabre staging"
+      }
+    ],
+    "locked": false
+  },
+  "requests": [
+    "PATCH /odeysysadmin/Master2/Supplier/updateStatus/157"
+  ]
+}

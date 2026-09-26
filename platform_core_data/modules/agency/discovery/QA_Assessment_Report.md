@@ -1,6 +1,224 @@
 # QA Assessment Report — `agency`
 
-# Revision 3 — run-004, 2026-08-18 (current)
+# Revision 4 — run-006, 2026-09-24 (current)
+
+| Field | Value |
+|---|---|
+| Module | `agency` |
+| Produced by run | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Revision | 4 |
+| Project Context validated against | `modules/agency/context/ProjectContext.md` — revision **5**, **Approved** 2026-09-24 (Mohamed Soliman). **It was then edited during this stage:** `PO-21` … `PO-26` and the run-006 target environment (`.60`). Those edits were **Approved 2026-09-24 by Mohamed Soliman** at the Stage 2 review |
+| Discovery Mode(s) used | Browser automation: **Browser Driver, headed** (Admin, `http://192.168.1.60`) and **Playwright direct login, headed** (Portal, `http://192.168.1.60:9500`). Human Observation (the user's statements). Documentation (the specification PDF) |
+| Generated | 2026-09-24 |
+| Status | **Approved** — Mohamed Soliman, Stage 2 Human Review gate, 2026-09-24 |
+| Relationship to run-004 / run-001 | Independent. This run covers a different story (Auto Reissue). Revisions 3 and 2 below are unchanged |
+
+## Headline
+
+**The Auto Reissue checkbox does what the specification says, on Admin and on the Portal. No defect was found.**
+
+1. **The Itinerary's `Reissue` button follows the checkbox of the organization the booking belongs to.** For AGN9780's own booking it followed AGN9780's checkbox: on, off, and on/off again on the Portal. For the Branch's own booking it followed BRN265's (see the `branch` report). A Branch that was on didn't make an Agency that was off show the button.
+2. **All four save-rule errors the API returns are the specification's exact text.** `S-4`, `S-5`, `S-6` and `S-8` returned 400 each time, and nothing was saved. `S-7` holds: turning Auto Reissue off keeps the saved credentials, and turning it back on brings them back.
+3. **Five things that looked like gaps were confirmed as intended by the user during this stage** (`PO-22` … `PO-25`). They are recorded as Findings so Stage 3 designs to them: FINDING-013 … 016, plus FINDING-017 in `branch`.
+4. **The last open question is answered:** the Portal shows `Reissue` with no lock, while Admin needs one. **Intended** (user, 2026-09-24; FINDING-016).
+5. **Two process points need your decision at this review.** First, the Project Context was edited after its approval (`PO-21` … `PO-26`, the `.60` environment). Second, this run changed **your designated records AGN9780 and BRN265**, not records it created. `PO-19` still says "self-created only", although the safety grants record the change (`GAP-AG-R6-01`, `-03`).
+
+**Live state when Discovery ended:** AGN9780 Auto Reissue **off**, Approved, with `reissueCredentials [277]` still stored in the background (S-7). BRN265 **on**, `[313]`, Approved. The platform made no booking, and never clicked Reissue, Release PNR or Void/Cancel.
+
+## 1. Scope
+
+**Run Scope Type:** User Story. **Run Type:** User Story (`user_story_run`). **Story:** *Auto Reissue checkbox — Branch & Agency CRUD* (`knowledge_base/requirements/user_stories/Auto_Reissue_Checkbox_Branch_Agency.md`), with the technical specification `…/specifications/Auto_Reissue_Checkbox_Documentation.md`. This module covers the **Agency** half. The **Branch** half is written separately in `modules/branch/discovery/` (one output per module).
+
+Validated against agency ProjectContext Revision 5 (Approved), §1.3 `PO-15` … `PO-26`, §2 (the Revision 5 rows), §5 and §6 (`ASM-003`, `ASM-019` … `ASM-022`, `RSK-011` … `RSK-014`). Per the User Story strategy (§16), exploration was limited to the Auto Reissue control, its credential picker, its save and approve path, and its effect on the Itinerary. **US-4222's field matrix was not re-explored.**
+
+**Test records:** Agency **AGN9780** "NDC2_Mohamed Soliman" (id 10961, under BRN265), designated by the user as dedicated test data. Bookings: **`NDCEG-BR-F260924EAzzYT`** (made by the user under AGN9780, Sabre) and **`NDCEG-BR-F260916ENYOeQ`** (made by the user under BRN265).
+
+## 2. Objectives
+
+From ProjectContext §8.5 *Outstanding work* and the §2 Revision 5 rows:
+
+1. Observe the Auto Reissue checkbox and credential picker on Create and Update Agency: labels, default, when the picker appears, what it lists, and the UI message for each rejection (ASM-019).
+2. Capture the real save, read and approve endpoints and body from the app's own traffic (ASM-020).
+3. List which credentials have `autoReissueAllowed`, read-only (RSK-012).
+4. Save → approve → read back, on and off, including `S-7`.
+5. Check the specification's save rules `S-2` … `S-8` (`PO-17`).
+6. Check the Admin Itinerary `Reissue` button against the Agency's checkbox (spec §5, ASM-022, RSK-011).
+7. **Added by the user during the stage:** the same check on the Portal (`PO-25`).
+
+## 3. Evidence Sources
+
+| Discovery Mode | In-Scope Areas Covered | Why This Mode |
+|---|---|---|
+| Browser automation — **Browser Driver**, headed | Admin: Add/Edit Agency, the Agency grid and approve, Search Booking, the booking Itinerary, reading the supplier credentials list | The default mode for authenticated Admin flows. It logs in from the git-ignored `credentials.json`, so no password appears in a command or artifact. **Headed at the user's request** (`browser.headless` defaults to headless) |
+| Browser automation — **Playwright direct login**, headed | Portal login, `/myBooking`, and the Portal booking details | The Browser Driver profile holds the Admin login only. The Portal login form (agency code, email, password) was filled from `credentials.json` key `PORTAL_60`. It's the same mode with a different launcher, and the evidence category is unchanged |
+| Human Observation | `PO-21` (supplier list), `PO-22` (the refusal after Reissue is clicked), `PO-23`, `PO-24`, `PO-26` (visibility and on-behalf rule) | The user's statements during the stage. **Not observed** where marked so (§7) |
+| Documentation | The specification PDF (save rules, read-time clean-up, §5 conditions) | The source that `S-n` expectations are compared against |
+
+**API rules (`S-4` … `S-8`)** were exercised by changing the app's **own** save request body in flight (`page.route`) on AGN9780 only. They are still Browser automation, not a separate API mode.
+
+## 4. Modules Explored
+
+| Module | Route(s) | Purpose | Discovery Mode |
+|---|---|---|---|
+| `agency` | `/admin/agency/add` (unsaved), `/admin/agency/edit/10961`, `/admin/agency` (grid search, status Both) | Auto Reissue control, credential picker, save and approve | Browser Driver |
+| `agency` → Itinerary (the checkbox's effect) | `/booking/search-booking` → Flight → `/booking/booking-details/AGN9780NDCNDCORD260924GKP8CP` | `Reissue` button and `actionsDetails.canAutoReissue` | Browser Driver |
+| `agency` → Portal (the checkbox's effect) | `:9500/auth/login` → `/myBooking` → Order Id → `/myBooking/booking-details/AGN9780NDCNDCORD260924GKP8CP` | Portal `Reissue` button | Playwright direct |
+| `master-supplier` (read only, boundary) | `/master/supplier/supplier-credentials`, `…/edit/277` | Where `autoReissueAllowed` is visible | Browser Driver |
+
+**Endpoints seen in the app's traffic (ASM-020):** `PUT /odeysysadmin/Admin2/agency/{id}` (save, 204) · `PATCH /odeysysadmin/Admin2/agency/approveOrReject` `{code, remarks, approvalStatus}` (200) · `GET /odeysysadmin/Admin2/agency/{id}` · `POST /odeysysadmin/Admin2/agency/search` · `GET /odeysysadmin/v2/bookingDetails2/itinerary/{orderId}` · `GET /odeysysadmin/Master2/supplierCredential/searchSupplierCredential`.
+
+**Shared UI components:** the PrimeNG multi-select (the *Auto Reissue Credentials* picker, and each GDS supplier's PCC tab), the maker-checker Remarks dialog, and the Itinerary's passenger panel with its action buttons.
+
+## 5. Observed Behaviour
+
+| Module | Workflow / Rule | What Was Observed | Evidence Category | Finding ID(s) |
+|---|---|---|---|---|
+| agency | Checkbox presence and default | **"Auto Reissue"** checkbox under *Agency Features*, on Add and Edit Agency, **unchecked** by default. Ticking it shows **"Auto Reissue Credentials"**, a multi-select, with no server call (`01`, `02`) | Direct Observation | — |
+| agency | Picker contents | Lists the credentials chosen in the PCC tabs of the Agency's assigned GDS suppliers. AGN9780 offered "Sabre Staging" (315) and "NDCSabre staging" (313) on 2026-09-23. After the user's manual changes, it offered only "GalileoLive" (277) on 2026-09-24 13:11 (`07`, `38`) | Direct Observation | — |
+| agency | Save → approve → read back (on) | `PUT …/agency/10961` 204 with `autoReissueEnabled true`, `reissueCredentials [315]`. Inactive + Pending until approved (Remarks required), then Active + Approved. GET returned `true`, `[{credentialId:315}]`, and the form showed it ticked (`08`–`14`) | Direct Observation / System Response | FINDING-014 |
+| agency | Off keeps credentials (S-7) | Unticking hides the picker, and the UI sends `reissueCredentials []`. After approval, GET returned `autoReissueEnabled false` **with `[315]` still stored** (`24`, `25`) | System Response | — |
+| agency | Edit-form Approve | One `PUT`, with no Inactive state, `approvalStatus 1` straight away (13:11:56, 13:13:13) | System Response | FINDING-014 |
+| agency | S-2 (UI) | On + empty picker → **"Required"**, no request sent (`34-rule-S-2`) | Direct Observation | FINDING-013 |
+| agency | S-4 / S-5 / S-6 / S-8 (API) | 400 with *"Every auto-reissue credential must have an ID"*, *"…must exist and be active"* (unknown id 999999), *"…must not contain duplicates"*, *"Each auto-reissue credential must be mapped to this organization"* (277, not mapped at that time). Nothing saved. S-5's message was briefly shown on screen (`34-*`, `35`) | System Response | — |
+| agency | Supplier support flag | 10 credentials read (first page only): `autoReissueAllowed` true for Galileo (277, 287, 289). False for Amadeus 278, AirArabia 280, AirArabiaEgypt 281, ShuraTech 282, FlyEgypt 284, FlyDubai 288, TravelFusion 291. The credential edit screen has no field for it (`36`, `37`) | System Response | — |
+| agency | Admin Itinerary, AGN9780 **on** | Booking `…EAzzYT`: Status Booked (`bookingStatus 2`), `canAutoReissue true`. With the lock held, the panel shows Void / Cancel · Manual Reissue · **Reissue** · Sync PNR · Release PNR (`20`–`23`) | Direct Observation / System Response | FINDING-015 |
+| agency | Admin Itinerary, AGN9780 **off** (BRN265 on) | `canAutoReissue false`, **Reissue hidden**. Manual Reissue and the other actions stay (`26`) | Direct Observation / System Response | — |
+| agency | Portal OFF → ON → OFF | `canAutoReissue` false → **true** → false. Reissue hidden → **shown** → hidden. `lockedStatus 0` throughout. No Manual Reissue (`canManualReissue false`). No non-GET request from the Portal (`41`, `42`, `43`) | Direct Observation / System Response | FINDING-016 |
+| agency | Status labels | The bar reads "Ticketed Document", while Status and passengers read Booked, in both Admin and the Portal | Direct Observation | FINDING-015 |
+| agency | Save body | The update `PUT` carries the record's stored `remarks` value ("Approved", the last approval remark) when no new remark is typed (`44`, 21:40:15) | System Response | — |
+
+Evidence file numbers refer to `runs/run-006…/discovery/evidence/`.
+
+## 6. Confirmed Behaviour
+
+| Requirement (Project Context §) | Confirmed Behaviour | Evidence Category | Finding ID(s) |
+|---|---|---|---|
+| §2 *Auto Reissue checkbox on Create/Update Agency, default unchecked*; `PO-15` | Present on both forms, labelled "Auto Reissue", unchecked by default, toggles on and off | Direct Observation | — |
+| §2 *Saved value is retrieved when edited*; spec §4 | The form and the GET both return the saved flag and credentials | Direct Observation / System Response | — |
+| §2 *Reissue-credential selection (UI)*; `PO-21` | The picker lists only eligible credentials of assigned, supported GDS suppliers | Direct Observation | — |
+| §2 *Backend save rules* (S-4, S-5 unknown id, S-6); spec §3 | 400 with the exact messages, nothing saved | System Response | — |
+| §2 bounded by Branch; spec `S-8`; `PO-16` | A credential not mapped to the Agency is refused with the S-8 message | System Response | — |
+| §2 *Off keeps saved credentials*; spec `S-7` | Credentials kept while off, and pre-filled when turned back on | System Response | — |
+| §2 *Agency and Branch independent*; `PO-16` | BRN265 on while AGN9780 off → AGN9780's booking hides Reissue | Direct Observation | — |
+| §2 *Admin Itinerary Reissue visibility*; spec §5 | Booked + Agency on + Sabre → shown. Agency off → hidden | Direct Observation / System Response | — |
+| `PO-25` (Portal Impact) | Portal button follows the Agency's checkbox | Direct Observation | FINDING-016 (no Portal lock: intended) |
+| §2 *Maker–checker on the new field*; XC-01, XC-04 | Send For Approval → Pending → Approve → takes effect | Direct Observation | FINDING-014 |
+| `PO-23` | S-2 shows "Required" on screen | Direct Observation | FINDING-013 |
+| `PO-24` | The eligibility status is Booked, not the bar label | Direct Observation | FINDING-015 |
+
+## 7. Assumptions
+
+| ID | Assumption | Why Inferred (not observed) | Evidence Category |
+|---|---|---|---|
+| A-AG-R6-1 | A booking that Admin or a Branch makes **on behalf of** an Agency follows the **Agency's** checkbox (`PO-26`) | The user's statement. No on-behalf booking existed to observe | Human Observation |
+| A-AG-R6-2 | An Agency's Portal login cannot see its parent Branch's bookings (`PO-26`) | The user's statement. Not tried on screen | Human Observation |
+| A-AG-R6-3 | The selected credentials are enforced when Reissue is clicked, with *"No credential for this booking is assigned to your organisation"* (`PO-22`) | The user's statement. Reissue was never clicked (out of scope, and forbidden this run) | Human Observation |
+| A-AG-R6-4 | The picker's filter is the hard-coded supplier list (NDCsbr, Sabre, TravelportNdc, Galileo), shown as `autoReissueAllowed` (`PO-21`) | The user's statement. Consistent with Sabre, Galileo and NDCsbr listed and Amadeus and the LCC excluded. **TravelportNdc wasn't seen** | Human Observation (partly corroborated by Direct Observation) |
+
+## 8. Open Questions
+
+| ID | Open Question | Rect | Why the Answer Matters | What Would Resolve It | Original | Annotated | Project Context Ref |
+|---|---|---|---|---|---|---|---|
+| OQ-AG-R6-1 | **Closed 2026-09-24: intended** ("there is no need of lock on the portal"). Was: is it intended that the Portal shows `Reissue` on an unlocked booking, with no lock control? | `Q1a Reissue shown, booking not locked`, `Q1b no lock control on Created By` | Sets the precondition for every Portal Reissue case, and decides whether FINDING-016 becomes a Bug | Product-owner answer | `findings/FINDING-016_PortalReissueShownWithoutLock/42-portal-1-AGN9780-ON-itinerary.png` | `…/42-portal-1-AGN9780-ON-itinerary.annotated.png` | `PO-25`; `Reissue_Flow_From_Itinerary.md` CL-3 |
+| OQ-AG-R6-2 | **RSK-013 — still unresolved.** Does `canAutoReissue` read the approved value or the pending one? | — | A case checked between Send For Approval and Approve could pass or fail for the wrong reason | One Stage 3 case: check the booking while the change is pending | — | — | RSK-013 |
+| OQ-AG-R6-3 | **RSK-012 — partly unresolved.** No credential that is **inactive**, or has become unmapped or unsupported **after being selected**, exists on `.60`. So `S-5` (inactive variant) and spec §4 read-time clean-up can't be reached without changing supplier data | — | Two specification rules would have no test | A supplier or credential in that state (not granted), or a decision to defer | — | — | RSK-012; §3 |
+| OQ-AG-R6-4 | **ASM-021 — unresolved but consistent.** Are "mapped to this Agency" (S-8) and "on its parent Branch" (`PO-16`) the same set? Everything seen fits, but no case where the two could differ was found | — | Decides whether the "bounded by Branch" case needs its own test | A credential on the Branch but unselected on the Agency's Product Access, tried against S-8 | — | — | ASM-021 |
+| OQ-AG-R6-5 | Only **page 1 of 10** of the supplier credentials list was read (the paginator didn't advance). Other unsupported or inactive credentials may exist | — | Could provide the missing `S-5`/`S-9` data without changing anything | A read-only API call with a larger page size | — | — | RSK-012 |
+
+## 9. Discovered Risks
+
+| ID | Risk | Business Risk | Technical Risk | Finding ID(s) |
+|---|---|---|---|---|
+| R-AG-R6-1 | **Concurrent manual changes on the same account.** BRN265 and AGN9780 were changed by hand in another session during the run (the Sabre supplier added, the flag flipped, the picker's options changed) | Results can be credited to the wrong change | One Branch OFF check was inconclusive and was repeated. Every later check read the flag right before the button check | FINDING-017 |
+| R-AG-R6-2 | **Stored credentials persist while off** (S-7). AGN9780 now stores `[277]` while off | A later "turn on" case starts with a pre-filled picker, not an empty one | Test setup must read the state first, not assume it | — |
+| R-AG-R6-3 | **Admin action buttons depend on the lock, which is shared** | A case can fail because someone else holds the lock | The Admin lock holder changed between "odeysysadmin" and "Mohamed Soliman" during the run | FINDING-016 |
+
+## 10. Coverage
+
+| Area / Module | Coverage Status | Discovery Mode | Notes |
+|---|---|---|---|
+| Checkbox on Create/Update | Covered | Browser Driver | Create observed unsaved only |
+| Saved value retrieved | Covered | Browser Driver | |
+| Credential picker (UI) | Covered | Browser Driver | TravelportNdc not seen |
+| Bounded by parent Branch | Partial | Browser Driver | S-8 seen. ASM-021 open |
+| Backend rules S-3 … S-6 | Partial | Browser Driver (in-flight body edit) | S-4, S-5 (unknown id), S-6 seen. **S-3 not run.** S-5 inactive not reachable |
+| S-7 | Covered | Browser Driver | |
+| Read-time clean-up (spec §4) | Blocked | — | Needs a supplier change (RSK-012) |
+| Independence from Branch | Covered | Browser Driver | |
+| Admin Itinerary button | Covered | Browser Driver | |
+| Admin can view/manage | Covered | Browser Driver | |
+| Regression smoke | Skipped | — | Left to Stage 3 (RSK-014) |
+| Maker–checker | Covered | Browser Driver | |
+| Portal Itinerary button (`PO-25`) | Covered | Playwright direct | |
+
+**Roll-up:** 9 Covered · 2 Partial · 1 Blocked · 0 Unreachable (1 Skipped). **11/13 areas visited = 85%.**
+
+## 11. Gaps
+
+| ID | Gap Type | Description | Project Context Ref | Finding ID(s) |
+|---|---|---|---|---|
+| GAP-AG-R6-01 | Extends | `PO-19` and §5 say run-006 changes **only records it created**. After the user's instruction, the run instead changed the user's **designated** records AGN9780 and BRN265. That change is recorded as `…-DedicatedTestData` grants in `metadata/SafetyAuthorizations.json`, but not in the Project Context | `PO-19`; §4; §5 | — |
+| GAP-AG-R6-02 | Contradicts (resolved) | `PO-20` "Admin only" / §3 "Portal impact deferred" is superseded by `PO-25` | `PO-20`; §3; `PO-25` | FINDING-016 |
+| GAP-AG-R6-03 | Extends | `PO-21` … `PO-26` and the `.60` target were written into the **approved** Project Context during Stage 2 (Stage 2 normally doesn't write there, per explorer-skill §26). They need your approval | §1.3; header | — |
+| GAP-AG-R6-04 | Absent (answered) | The Portal lock rule wasn't defined. The user answered: no lock on the Portal. Recorded in `PO-25` | `PO-25` | FINDING-016 |
+| GAP-AG-R6-05 | Contradicts | §5 (row *Shared staging*), §7 (target-environment row) and §8.3/§8.5 (*"Verify `odeysysadmin` can log in on `http://192.168.1.70`"*) still name `.70`. The run used `.60`, and the Admin login was verified there on 2026-09-23 21:22 | §5; §7; §8.3; §8.5 | — |
+| GAP-AG-R6-06 | Extends | `S-2` has two messages, one per layer | spec `S-2`; `PO-23` | FINDING-013 |
+| GAP-AG-R6-07 | Contradicts (run record) | `metadata/SafetyAuthorizations.json` records the `…-DedicatedTestData` grants as approved at **2026-09-24T09:30Z** (BRN265) and **09:45Z** (AGN9780). The user gave them in the conversation at **2026-09-23 21:34Z** and 21:37Z, and the first AGN9780 change was at 21:38Z. The recorded times are later than the actions they authorize | run-006 `SafetyAuthorizations.json` | — |
+
+## 12. Recommendations
+
+| ID | Recommendation | Rationale | Finding ID(s) |
+|---|---|---|---|
+| REC-AG-R6-1 | At this review, approve or amend `PO-21` … `PO-26`. Add the designated test records (AGN9780, BRN265) to `PO-19` and §5, and change the remaining `.70` references to `.60` for run-006 | Closes GAP-AG-R6-01, -03, -05 through Stage 1 rather than by this stage | — |
+| REC-AG-R6-2 | Portal Reissue cases have no lock step. Admin cases keep it | Answered 2026-09-24 | FINDING-016 |
+| REC-AG-R6-3 | In Stage 3, read the flag in the same session right before each button check | The concurrent-change risk seen this run | FINDING-017 |
+| REC-AG-R6-5 | Correct the `approvedAt` values of the DedicatedTestData grants to when they were actually given (GAP-AG-R6-07), through `authorizations.js` | The safety record must not show an approval after the change it covers | — |
+| REC-AG-R6-4 | Use the edit form's **Approve** for set-up. Keep one explicit Send For Approval case | Avoids the Inactive window | FINDING-014 |
+
+**Regression Test Candidates:** the Itinerary button following the Agency's checkbox (Admin and Portal, on/off); `S-7` persistence; the `S-4`/`S-5`/`S-6`/`S-8` messages; the picker excluding LCC and Amadeus credentials; independence from the Branch.
+
+## 13. Inputs for Test Design
+
+**Findings by ID:**
+
+| Finding ID | Category | Status | Severity | Module |
+|---|---|---|---|---|
+| FINDING-013 | Requirement Gap | Rejected — Confirmed Intended (`PO-23`) | N/A | agency |
+| FINDING-014 | Observation | Rejected — Confirmed Intended (`PO-24`) | N/A | agency |
+| FINDING-015 | Observation | Rejected — Confirmed Intended (`PO-24`) | N/A | agency |
+| FINDING-016 | Observation | Rejected — Confirmed Intended (user, 2026-09-24) | N/A | agency |
+| FINDING-017 *(in `branch`)* | Observation | Rejected — Confirmed Intended (`PO-22`) | N/A | branch (second occurrence on AGN9780) |
+
+**Assumption disposition:**
+
+| Assumption ID | Disposition | Basis |
+|---|---|---|
+| ASM-003 (refined) | Confirmed (consistent) | Every credential the Agency picker offered was also on BRN265 when checked. S-8 refused 277 while it wasn't mapped |
+| ASM-019 | Confirmed | Picker observed (multi-select, shown only when ticked). UI messages: S-2 "Required", S-5 briefly on screen |
+| ASM-020 | Confirmed | Endpoints in §4 |
+| ASM-021 | Unresolved | OQ-AG-R6-4 |
+| ASM-022 | Confirmed (refined) | Booked status, not the bar label (`PO-24`) |
+| RSK-011 | Resolved | The user supplied both bookings |
+| RSK-012 | Partly unresolved | OQ-AG-R6-3, OQ-AG-R6-5. S-9 seen in the UI (Amadeus excluded) |
+| RSK-013 | Unresolved | OQ-AG-R6-2 |
+| RSK-014 | Carried to Stage 3 | Not a Discovery item |
+
+**Requirement Gaps needing a coverage decision:**
+
+| Gap ID | Requirement | Decision Needed From Test Design |
+|---|---|---|
+| TD-AG-R6-1 | `S-3` (off + credentials on update) | Design as an API case on AGN9780 |
+| TD-AG-R6-2 | `S-5` inactive variant, spec §4 clean-up | Defer, or design with a precondition that the environment lacks |
+| TD-AG-R6-3 | TravelportNdc in the picker | Design (needs a Travelport credential on a test org) |
+| TD-AG-R6-4 | On-behalf booking follows the Agency (`PO-26`) | Design; needs a user-made on-behalf booking |
+| TD-AG-R6-5 | `S-2` API message | Design an API case |
+| TD-AG-R6-6 | Pipeline branch (4M / 4A) | Human decision at the Stage 3 gate (`PO-20`) |
+
+**Handoff confirmation:** every input test-design-skill §4 needs is present: this report (13 sections), Timeline, Coverage Summary, Findings Summary, one evidence package per Finding, each with an Expected Behavior citing a Project Context section, and three snapshots (`AgencyUpdateForm_AutoReissue_run-006.md`, `BookingItinerary_Admin_run-006.md`, `BookingItinerary_Portal_run-006.md`). **One condition:** Stage 3 should start only after the §11 context items are approved, because several expected results cite `PO-21` … `PO-26`.
+
+---
+
+# Revision 3 — run-004, 2026-08-18 (retained in full, unchanged)
 
 | Field | Value |
 |---|---|

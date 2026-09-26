@@ -1,0 +1,32 @@
+{
+  "request": {
+    "autoReissueEnabled": false,
+    "reissueCredentials": [
+      {
+        "credentialId": 277
+      }
+    ]
+  },
+  "response": {
+    "status": 204,
+    "body": ""
+  },
+  "agencyBefore": {
+    "st": 200,
+    "api": false,
+    "creds": [
+      315
+    ],
+    "appr": 1,
+    "status": 1
+  },
+  "agencyAfter": {
+    "st": 200,
+    "api": false,
+    "creds": [
+      315
+    ],
+    "appr": 1,
+    "status": 1
+  }
+}

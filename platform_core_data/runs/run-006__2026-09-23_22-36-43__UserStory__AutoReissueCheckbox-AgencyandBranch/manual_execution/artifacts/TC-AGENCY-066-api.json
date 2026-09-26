@@ -1,0 +1,28 @@
+{
+  "request": {
+    "autoReissueEnabled": true,
+    "reissueCredentials": []
+  },
+  "response": {
+    "status": 400,
+    "body": "{\"code\":400,\"message\":\"Select at least one eligible credential\",\"requestId\":\"2a2cd4db-c65f-4e42-8b10-d3df07bc0815\"}"
+  },
+  "agencyBefore": {
+    "st": 200,
+    "api": false,
+    "creds": [
+      315
+    ],
+    "appr": 1,
+    "status": 1
+  },
+  "agencyAfter": {
+    "st": 200,
+    "api": false,
+    "creds": [
+      315
+    ],
+    "appr": 1,
+    "status": 1
+  }
+}

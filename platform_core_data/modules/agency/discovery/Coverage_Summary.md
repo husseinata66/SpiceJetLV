@@ -1,6 +1,72 @@
 # Coverage Summary — `agency`
 
-## run-004 — 2026-08-18 (current)
+## run-006 — 2026-09-24 (current)
+
+| Field | Value |
+|---|---|
+| Module | `agency` |
+| Produced by run | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Revision | 3 |
+| In-scope surface (from Project Context) | The 12 Revision 5 rows of ProjectContext §2 (Auto Reissue), plus the Portal row that `PO-25` added = **13 areas** |
+| Generated | 2026-09-24 |
+
+### Coverage percentage
+
+**85%** — basis: 11/13 declared areas visited (9 Covered + 2 Partial). Blocked: 1. Skipped: 1. This is a count, not a judgment about depth.
+
+### Visited screens
+
+| Screen / URL | Module | Discovery Mode | Snapshot Artifact |
+|---|---|---|---|
+| Add Agency `/admin/agency/add` (never saved) | agency | Browser Driver, headed | `discovery/AgencyUpdateForm_AutoReissue_run-006.md` (the create state is recorded there) |
+| Edit Agency `/admin/agency/edit/10961` (AGN9780) | agency | Browser Driver, headed | `discovery/AgencyUpdateForm_AutoReissue_run-006.md` |
+| Agency grid `/admin/agency` (status Both) + approve dialog | agency | Browser Driver, headed | waypoint; evidence `11`, `12`, `13` |
+| Search Booking `/booking/search-booking` → Flight | agency (the checkbox's effect) | Browser Driver, headed | waypoint; evidence `17` |
+| Admin booking details `/booking/booking-details/AGN9780NDCNDCORD260924GKP8CP` | agency (the checkbox's effect) | Browser Driver, headed | `discovery/BookingItinerary_Admin_run-006.md` |
+| Portal `/myBooking` → `/myBooking/booking-details/AGN9780NDCNDCORD260924GKP8CP` | agency (the checkbox's effect) | Playwright direct, headed | `discovery/BookingItinerary_Portal_run-006.md` |
+| Supplier credentials `/master/supplier/supplier-credentials` (+ edit 277), read only | master-supplier (boundary) | Browser Driver, headed | waypoint; evidence `36`, `37` |
+
+### Visited components
+
+| Component | Where Exercised | Discovery Mode |
+|---|---|---|
+| Auto Reissue checkbox + *Auto Reissue Credentials* multi-select | Add/Edit Agency | Browser Driver |
+| GDS PCC-tab multi-select (*Airline Supplier credential (PCC)*) | Edit Agency (Sabre tab) | Browser Driver |
+| Maker-checker Remarks dialog | Agency grid approve | Browser Driver |
+| Itinerary passenger panel + action buttons; Created By lock | Admin and Portal booking details | Browser Driver / Playwright direct |
+
+### Skipped areas
+
+| Area | Module | Why Skipped | Discovery Mode Available |
+|---|---|---|---|
+| Regression smoke (Create/Update unaffected) | agency | A Stage 3 test, not a Discovery question (RSK-014) | Browser Driver |
+| `S-3` (off + credentials on update) | agency | Not run before the write-up. It's a success case that would take AGN9780 through another cycle | Browser Driver (in-flight body) |
+
+### Blocked areas
+
+| Area | Module | What Blocked It | Recovery Attempted (§21) | Discovery Mode |
+|---|---|---|---|---|
+| Read-time clean-up (spec §4) and `S-5` inactive variant | agency | Needs a credential that is inactive, or became invalid after selection. None was found on page 1 of the credentials list, and changing supplier data isn't granted (RSK-012) | Read the credential list read-only (page 1). The paginator didn't advance | Browser Driver |
+
+### Unreachable areas
+
+None.
+
+### Roll-up
+
+| Status | Count |
+|---|---|
+| Visited Screens | 7 |
+| Visited Components | 4 |
+| Skipped | 2 (1 area + `S-3` within a Partial area) |
+| Blocked | 1 |
+| Unreachable | 0 |
+
+**By Discovery Mode:** Browser Driver: 6 screens · Playwright direct (Portal): 1 screen · Human Observation: `PO-21` … `PO-26` statements.
+
+---
+
+## run-004 — 2026-08-18 (retained, unchanged)
 
 | Field | Value |
 |---|---|

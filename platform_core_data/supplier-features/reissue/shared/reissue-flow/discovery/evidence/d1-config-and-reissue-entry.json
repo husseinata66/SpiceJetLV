@@ -1,0 +1,225 @@
+{
+  "config": {
+    "BRN265": {
+      "autoReissueEnabled": true,
+      "reissueCredentials": [
+        {
+          "credentialId": 315
+        }
+      ],
+      "productAccess": [
+        {
+          "name": "Sabre",
+          "creds": [
+            "315:Sabre Staging"
+          ]
+        }
+      ],
+      "approval": 1
+    },
+    "AGN9780": {
+      "autoReissueEnabled": true,
+      "reissueCredentials": [
+        {
+          "credentialId": 315
+        }
+      ],
+      "approvalStatus": 1,
+      "status": 1,
+      "productAccessKeys": [
+        "reissueCredentials",
+        "productIds",
+        "suppliers",
+        "blueScreenCredentials"
+      ]
+    },
+    "AGN9780raw": {
+      "autoReissueEnabled": true,
+      "reissueCredentials": [
+        {
+          "credentialId": 315
+        }
+      ],
+      "productIds": [
+        1
+      ],
+      "suppliers": [
+        {
+          "supplierId": 131,
+          "supplierName": "Sabre",
+          "supplierType": "GDS",
+          "description": "tt",
+          "supplierStatus": 1,
+          "credentialIds": [
+            315
+          ],
+          "credentialList": [
+            {
+              "credentialId": 315,
+              "credentialName": "Sabre Staging",
+              "credentialStatus": 1,
+              "credentialType": "S",
+              "managerName": "nagy",
+              "description": "tt",
+              "availableInBranch": false,
+              "autoReissueAllowed": true
+            }
+          ],
+          "availableInBranch": false,
+          "checked": true
+        }
+      ],
+      "blueScreenCredentials": []
+    }
+  },
+  "agency": {
+    "before": {
+      "bookingStatus": 2,
+      "supplierName": "Sabre",
+      "ticketPccId": 315,
+      "locked": 1,
+      "holder": "Mohamed Soliman",
+      "actions": {
+        "showViewTicket": true,
+        "canManualReissue": true,
+        "canAutoReissue": true,
+        "showSyncPnr": true,
+        "showPayAndBook": false,
+        "showModifiedTicket": false,
+        "showCancelBtn": true,
+        "showCancelHoldBtn": false,
+        "showRefundBtn": true,
+        "canReleaseLock": true
+      },
+      "agencyId": "AGN9780",
+      "branchId": "BRN265"
+    },
+    "buttons": [
+      "Welcome Mohamed Soliman",
+      "MS",
+      "Time Limit",
+      "History",
+      "Void / Cancel",
+      "Manual Reissue",
+      "Reissue",
+      "Sync PNR",
+      "Release PNR"
+    ],
+    "afterClickUrl": "http://192.168.1.60/booking/booking-details/AGN9780NDCNDCORD260924GKP8CP",
+    "afterClickNet": [
+      {
+        "m": "GET",
+        "u": "/odeysysadmin/v2/reissue/NDCEG-BR-F260924EAzzYT/eligibility",
+        "status": 200,
+        "req": "",
+        "body": {
+          "offerReissuable": true,
+          "tripType": 1,
+          "journeysDetails": {
+            "allJourneysRequired": true,
+            "journeys": [
+              {
+                "sequence": 1,
+                "origin": "CAI",
+                "destination": "JED",
+                "cabinClass": 1,
+                "date": "01-12-2026"
+              }
+            ]
+          },
+          "passengersDetails": {
+            "allPassengersRequired": true,
+            "passengers": [
+              {
+                "sequence": 1,
+                "fullName": "abdelrahman ragb",
+                "type": 0,
+                "reissuable": true,
+                "ticketNumber": "0654859778719"
+              },
+              {
+                "sequence": 2,
+                "fullName": "abdallah ragb",
+                "type": 1,
+                "reissuable": true,
+                "ticketNumber": "0654859778720"
+              },
+              {
+                "sequence": 3,
+                "fullName": "sara ahmed",
+                "type": 2,
+                "reissuable": true,
+                "ticketNumber": "0654859778721",
+                "assignedTo": 1
+              }
+            ]
+          },
+          "metadata": "eyJhbGciOiJIUzUxMiJ9.eyJrZXkiOiJkYXRhIiwiZGF0YSI6eyJyZWlzc3VlU2VhcmNoIjp0cnVlLCJib29raW5nUmVmIjoiTkRDRUctQlItRjI2MDkyNEVBenpZVCIsImFsbEpvdXJuZXlzUmVxdWlyZWQiOnRydWUsImFsbFBhc3NlbmdlcnNSZXF1aXJlZCI6dHJ1ZSwicmVzcG9uc2VJZCI6ImVOcnRsVTF2NGpBUWh2LUx6eEdLN1lRazNGcFVzZDN1THVuSG9kdUt3elF4YkxiRXJoeW5KVUw4OTlwQjNhSVNJeU11clpZTEVoT2VlVE5qUDJLSmhNeVpQTV9SQUYyTlJqOXZVLVRwVWpFck9NeFRLUEtUVXRSY29jRVNQY084Wm1pQXd6Q0tlb0h2b2F5V2t2R3NHWXBjMTlIWktFV3JkX2hHS1AwQmk2MEdNZTVqVl80VUtyYlZJQXB3di1kYkd5aVFNNmFHaFdwTTdTNjQwQk5WYkZZeXJuN1Y1UU9URlJyYzQ0bUhlUHZ0bktjZ3pXLUpod28tQmE2RzZ6enNvYi1pbHB3MTc0V3BrT1Y0bWtKanV0MDBUeVoyQ05VZkhhR0s3SkVwMDN1SmxJUm5OamU5Yzdab3dmWFRkYjVtX0g0WXhHRVNSWEdFRXcxektObEpWWW1zQUZVSTNoNEgxdlVuZlFMdElqYkh4OVR2eGRieERXTFd0a0VFUG81MkxLd05nY1VHUURHbU95SVVMRTRsZzhkY3ZQQjIzdXp0c1g1bDJMNHd2alY4NWYyRGJ5OE9nWDkwd3ZZOWJiQ19yN3BaNnBSOC1hMlRKbkhzUW5fdkh0cDNpajY3dEx5NEUwdzdZZXlVZkIwY2tEeE91dUNRT0cwNzZtS2QwREhwdmw5MmRtTG9EeXFUWFNvVDM2SXlzYWpjTnllOWw4b2tpWThxSDFVLXFueTR5blNueXRpaU1yV29UR2dRN3ZtdmpNbGVKdU9FZmhhVDNXN0hJU2JfbHk1LUlaMG1xMWN1QU5Dcy5kRVE1OXprVTJuQzk5ZGp5ZDBxdkMxVk5pdVFqOFVJaXd6T2o3OFZoUmZZIn0sIm5vbmNlIjoiZjFlNTA2MDQtYjcyYy00NDFkLWJlMTAtYjI5ODJkMzQ5MDIyIiwic3ViIjoiUmVpc3N1ZVNlYXJjaENvbnRleHQiLCJpYXQiOjE3OTA0MzQ1MjN9.XjblA-WLQvttI2knLMqVGhqoQDfRE1ULkO9aBq9PZLoSRBdaUpMMb6f66QC-H8JwVtCwyFP7za-ANkOGRoRMZw"
+        }
+      }
+    ],
+    "afterClickText": "Welcome\nMohamed Soliman\nMS\nDashboard\nAdmin\nMaster\nRule Engine\nSettings\nUser Management\nBooking-Mid Office\nProfile\nReports\nPNR Query\nTransfer PNR\nImport PNR\nImport Booked PNR\nORDER NUMBER\nAGN9780NDCNDCORD260924GKP8CP\nPASSCODE\n6047\nPASSENGER\nAbdelrahman Ragb\nTime Limit\nHistory\nNDCEG-BR-F260924EAzzYT\nItinerary Details\nCosting & Payment\nDocuments & Notes\nTicketed Document\nBOOKING STATUS:\nTicketed Document\nMohamed Soliman\nBooking Information\nOrder Ref\nAGN9780NDCNDCORD260924GKP8CP\nTrip Type\nOne Way\nStatus\nBooked\nAirline PNR\nDCSV\nGDS PNR\nRGGMXP\nBooking Type\nOnline\nReference Details\nBooking Ref\nNDCEG-BR-F260924EAzzYT\nBooking Date\n24-09-2026 11:10\nTotal Passenger(s)\n3\nSector\nCAI - JED\nSupplier Payment method\nCash\n Journey Details\n1 Journey\nCAI\nJED\nJourney 1\nSector\nCAI To JED\nTravel Date\n01-12-2026\nBooking Class\nV\nCabin\nEconomy\nCheck-in\nNumber 1 Piece Allowed.\nFlight Detail\nCAI - JED ( SV - 382 )\nDeparture Date-Time\n01-12-2026 08:10:00\nArrival Date-Time\n01-12-2026 11:20:00\nDuration\n2h 10m\nDeparture Terminal\n2\nArrival Terminal\n1\nView Passenger Details | Void/Cancel\n Title Name Passenger Type DOB Nationality Ticket Number Booking Status\n Mr \nabdelrahman ragb\nLead Passenger\n Adult 1997-02-28 Egypt 0654859778719 BOOKED\n Mr \nabdallah ragb\n Child 2015-02-28 Egypt 0654859778720 BOOKED\n Ms \nsara ahmed\n Infant 2025-09-30 Egypt 0654859778721 BOOKED\nVoid / Cancel\nManual Reissue\nReissue\nSync PNR\nRelease PNR\nMohamed Soliman\nCreated By: NDC2_Mohamed Soliman\nDate: 24-09-2026\nBooking Overview\nClient\nClient Name: abdelrahman ragb\nCustomer Type : Retail\nCustomer Profile Id : 1570557\nNationality : Egypt\nMobile : 1147647823\nEmail : mohamed.soliman@tildetech.ae\nIdentity No : e125848779\nIdentity Type : Passport\nPassenger\n3 Passenger\n3 Booked Seats\nCAI - JED\nCosting\nTotal Sales Amount:\n15,577.40 EGP\nTotal Net Amount:\n15,577.40 EGP\nTotal Booking Amount:\n15,578.00 EGP\nPayment\n Settled\nMethod: Wallet\nCopyright © Wonder Travel 2026. All Rights Reserved. RC1\nSelect journeys and passengers\nChoose what you want to change\nSelect the affected journeys and passengers to continue.\nJourneys\nAll required\nAll journeys are included by the airline and cannot be changed.\n1- CAI JED\n01-12-2026\nPassengers\nAll required\nAll passengers are included by the airline and cannot be changed.\n1- abdelrahman ragb\nADULT · Ticket 0654859778719\n2- abdallah ragb\nCHILD · Ticket 0654859778720\n3- sara ahmed · assigned to: abdelrahman ragb\nINFANT · Ticket 0654859778721\nCancel\nContinue to reissue",
+    "afterClickButtons": [
+      "Welcome Mohamed Soliman",
+      "MS",
+      "Time Limit",
+      "History",
+      "Void / Cancel",
+      "Manual Reissue",
+      "Reissue",
+      "Sync PNR",
+      "Release PNR",
+      "Cancel",
+      "Continue to reissue"
+    ],
+    "toasts": [],
+    "after": {
+      "bookingStatus": 2,
+      "supplierName": "Sabre",
+      "ticketPccId": 315,
+      "locked": 0,
+      "holder": "",
+      "actions": {
+        "showViewTicket": true,
+        "canManualReissue": true,
+        "canAutoReissue": true,
+        "showSyncPnr": true,
+        "showPayAndBook": false,
+        "showModifiedTicket": false,
+        "showCancelBtn": true,
+        "showCancelHoldBtn": false,
+        "showRefundBtn": true,
+        "canReleaseLock": false
+      },
+      "agencyId": "AGN9780",
+      "branchId": "BRN265"
+    }
+  },
+  "writes": [
+    {
+      "at": "2026-09-26T14:54:24.584Z",
+      "m": "POST",
+      "u": "/odeysysadmin/Master2/state/search?status=1",
+      "body": "{\"status\":1,\"countryId\":67}"
+    },
+    {
+      "at": "2026-09-26T14:54:37.898Z",
+      "m": "POST",
+      "u": "/odeysysadmin/Master2/state/search?status=1",
+      "body": "{\"status\":1,\"countryId\":67}"
+    },
+    {
+      "at": "2026-09-26T14:54:56.341Z",
+      "m": "PATCH",
+      "u": "/odeysysadmin/v2/bookingDetails2/lockUnLock",
+      "body": "{\"bookingRefId\":null,\"orderId\":\"AGN9780NDCNDCORD260924GKP8CP\"}"
+    },
+    {
+      "at": "2026-09-26T14:55:42.714Z",
+      "m": "PATCH",
+      "u": "/odeysysadmin/v2/bookingDetails2/lockUnLock",
+      "body": "{\"bookingRefId\":null,\"orderId\":\"AGN9780NDCNDCORD260924GKP8CP\"}"
+    }
+  ],
+  "blocked": []
+}

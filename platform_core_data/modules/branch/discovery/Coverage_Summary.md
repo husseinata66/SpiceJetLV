@@ -140,3 +140,65 @@ The Playwright MCP server was deliberately **not** used, despite Search Branch a
 | **RISK-BR-8** — Status vs Approval Status | **Resolved structurally.** The grid exposes **one** column (`Approval Status`); the Active/Inactive axis is filterable but never displayed (FINDING-014). What "approving updates its status accordingly" means for the Active/Inactive axis therefore cannot be evidenced from this UI — a question for Product, now backed by evidence. |
 | **RISK-BR-9** — is pagination testable without seeding? | **Resolved: YES, comfortably.** 616 records across 62 pages at the default size of 10. **No seeding required** — the cost concern raised at Stage 1 is closed. |
 | Environment reachability (open since 2026-07-29) | **Resolved — CONFIRMED reachable.** Login succeeded; 5/5 raw HTTP probes returned 200 in 50–850ms. |
+
+---
+
+# Coverage Summary — run-006 (Auto Reissue checkbox — Branch half)
+
+| Field | Value |
+|---|---|
+| Module | `branch` |
+| Produced by run | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Revision | 1 (this run's section; the run-002 and run-003 sections above are unchanged) |
+| In-scope surface (from Project Context) | The 8 *REV 9* rows of ProjectContext §2, plus the §3 row *Admin Itinerary for Branch-created bookings*, which was conditional on Stage 2 finding such bookings (it did) = **9 areas** |
+| Generated | 2026-09-24 |
+
+## 1. Coverage Percentage
+
+**78%** — basis: 7/9 areas visited (6 Covered + 1 Partial). Skipped: 2.
+
+## 2. Visited Screens
+
+| Screen / URL | Module | Discovery Mode | Snapshot Artifact |
+|---|---|---|---|
+| Add Branch `/admin/branch/add` (never saved) | branch | Browser Driver, headed | `discovery/DiscoverySnapshot_BranchAutoReissue_run-006.md` |
+| Edit Branch (BRN265) + Remarks | branch | Browser Driver, headed | `discovery/DiscoverySnapshot_BranchAutoReissue_run-006.md` |
+| Branch grid + approve | branch | Browser Driver, headed | waypoint |
+| Admin booking details for order `BRN265NDCORD2609169XJ1LC` | branch (the checkbox's effect) | Browser Driver, headed | `agency/discovery/BookingItinerary_Admin_run-006.md` (the same screen; the Branch-owned state is recorded there) |
+
+## 3. Visited Components
+
+| Component | Where Exercised | Discovery Mode |
+|---|---|---|
+| Auto Reissue checkbox + *Auto Reissue Credentials* multi-select | Add/Edit Branch | Browser Driver |
+| GDS PCC-tab multi-select (Galileo, Amadeus) and an LCC Product Access row (AirArabiaEgypt) | Add Branch (unsaved) | Browser Driver |
+| Remarks + maker-checker approve | Edit Branch, grid | Browser Driver |
+
+## 4. Skipped Areas
+
+| Area | Module | Why Skipped | Discovery Mode Available |
+|---|---|---|---|
+| Backend rules `S-3` … `S-6` against `/Master2/Branch` | branch | Probed against the Agency API only in this run | Browser Driver (in-flight body) |
+| Regression smoke | branch | A Stage 3 test (RISK-BR-12) | Browser Driver |
+
+## 5. Blocked Areas
+
+| Area | Module | What Blocked It | Recovery Attempted (§21) | Discovery Mode |
+|---|---|---|---|---|
+| Read-time clean-up (part of the S-7 row) | branch | Needs a credential that became invalid after selection. Supplier changes aren't granted (RISK-BR-11) | Read-only credential list (see agency) | Browser Driver |
+
+## 6. Unreachable Areas
+
+None.
+
+## 7. Roll-Up
+
+| Status | Count |
+|---|---|
+| Visited Screens | 4 |
+| Visited Components | 3 |
+| Skipped | 2 |
+| Blocked | 1 (inside a Partial row) |
+| Unreachable | 0 |
+
+**By Discovery Mode:** Browser Driver: 4 screens · Human Observation: `PO-21`, `PO-22`, `PO-26`.

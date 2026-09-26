@@ -1,6 +1,45 @@
 # Findings Summary — `agency`
 
-## run-004 — 2026-08-18 (current)
+## run-006 — 2026-09-24 (current)
+
+| Field | Value |
+|---|---|
+| Run Folder | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Findings raised by this run | 4 (FINDING-013 … FINDING-016). A fifth, FINDING-017, is filed in `branch` and has a second occurrence on AGN9780 |
+| Earlier Findings re-checked | None. This run covers a different story (Auto Reissue). FINDING-001 … 012 are unchanged |
+| Discovery Mode | Browser automation: **Browser Driver**, headed (Admin) · **Playwright direct login**, headed (Portal) |
+| Generated | 2026-09-24 |
+
+### Index — run-006
+
+| ID | Title | Category | Severity | Confidence | Status | Occurrences | Module | Description (one line) |
+|---|---|---|---|---|---|---|---|---|
+| FINDING-013 | With Auto Reissue on and no credential, the screen shows "Required", not the specification's message | Requirement Gap | N/A | 97% | **Rejected — Confirmed Intended** (`PO-23`) | 1 | `agency` | The UI blocks the save with "Required". *"Select at least one eligible credential"* is the API's message. |
+| FINDING-014 | An Agency is Inactive while its Auto Reissue change waits for approval | Observation | N/A | 96% | **Rejected — Confirmed Intended** (`PO-24`) | 3 | `agency` | Send For Approval → Inactive + Pending until approved. The edit form's Approve avoids it. |
+| FINDING-015 | Top bar says "Ticketed Document" while the booking Status says "Booked" | Observation | N/A | 95% | **Rejected — Confirmed Intended** (`PO-24`) | 2 | `agency` | The eligibility condition is Status Booked, not the bar label. Same in Admin and the Portal. |
+| FINDING-016 | On the Portal, the Reissue button shows without a lock | Observation | N/A | 90% | **Rejected — Confirmed Intended** (user, 2026-09-24) | 1 | `agency` | **No lock is needed on the Portal (intended).** Portal `lockedStatus 0`, with no lock control, still shows Reissue. In Admin it was seen only with the lock held. Annotated Q1a/Q1b. |
+
+### Breakdown — run-006
+
+**By Severity:** 0 Critical · 0 High · 0 Medium · 0 Low · 4 N/A
+**By Category:** 1 Requirement Gap · 3 Observation · 0 Bug
+**By Status:** 0 Confirmed · 0 Needs Human Review · 0 Duplicate · 4 Rejected (confirmed intended)
+**By Module:** `agency` 4
+
+### Evidence Packages — run-006
+
+| Finding ID | Evidence Package | Evidence Files |
+|---|---|---|
+| FINDING-013 | `findings/FINDING-013_S2UiRequiredVsApiMessage/` | 2 |
+| FINDING-014 | `findings/FINDING-014_InactiveWhilePendingApproval/` | 5 |
+| FINDING-015 | `findings/FINDING-015_TicketedDocumentLabelVsBookedStatus/` | 3 |
+| FINDING-016 | `findings/FINDING-016_PortalReissueShownWithoutLock/` (with the annotated copy) | 6 |
+
+**Candidates closed before publishing:** Amadeus excluded from the picker (intended, `PO-21`), and the first Branch OFF check (a concurrent manual change; see the `branch` Findings Summary).
+
+---
+
+## run-004 — 2026-08-18 (retained, unchanged)
 
 | Field | Value |
 |---|---|

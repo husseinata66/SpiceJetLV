@@ -1,0 +1,42 @@
+{
+  "OFF": {
+    "before": {
+      "form": false,
+      "api": false,
+      "creds": "[{\"credentialId\":313}]",
+      "appr": 1
+    },
+    "booking": {
+      "canAutoReissue": false,
+      "reissueButton": false,
+      "manual": true,
+      "locked": 1
+    },
+    "after": {
+      "form": false,
+      "api": false,
+      "creds": "[{\"credentialId\":313}]",
+      "appr": 1
+    }
+  },
+  "ON": {
+    "before": {
+      "form": true,
+      "api": true,
+      "creds": "[{\"credentialId\":313}]",
+      "appr": 1
+    },
+    "booking": {
+      "canAutoReissue": true,
+      "reissueButton": true,
+      "manual": true,
+      "locked": 1
+    },
+    "after": {
+      "form": true,
+      "api": true,
+      "creds": "[{\"credentialId\":313}]",
+      "appr": 1
+    }
+  }
+}

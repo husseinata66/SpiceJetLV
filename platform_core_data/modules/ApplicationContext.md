@@ -4,8 +4,9 @@
 |---|---|
 | Scope | **The whole application**, as the relationships *between* modules. Not a summary of them |
 | Created | 2026-08-18, by operator directive during run-004 |
-| Revision | 2 |
-| Status | **`Draft` — refreshed for `run-005__2026-09-01_11-41-40__UserStory__ImportBookedPNR-NewLayerContract`** |
+| Revision | 4 |
+| Status | **`Pending Review`** — run-006 Stage 4M appended §3.1 (2026-09-25). Not final until a human approves it |
+| What the run-006 refresh changed | **Header only.** §1's module map is unchanged: `agency` and `branch` stay Active with the same stages on disk, and run-006 proposes no module. §2 is unchanged: run-006's Agency↔Branch Auto Reissue relationship (checkbox independent, reissue credentials bounded by the Branch — `agency` `PO-16`) is **asserted at intake, not yet proven**, so it is not promoted into the graph. It is recorded in both modules' §3.1 until a run observes it. §6 is unchanged, by reference |
 | Lifecycle | Refreshed to `Draft` by **Stage 1** at run start · appended to by any stage that **proves** a cross-module fact · presented for approval by the branch's **terminal stage** (`6A` Reporting, or `4M` Manual Execution) · **final only once a human approves it** — see `module_architecture.md` §6.7.1 |
 | Modules approved so far | `branch` (Active) · `agency` (Active) · `import-booked-pnr` (Active, with Feature `new-layer-contract`) — 16 more `Proposed` |
 | Target Environment | `http://192.168.1.70` (Admin, STG) · `http://192.168.1.92:9500` (NDC Portal — no credentials configured) |
@@ -134,6 +135,20 @@ artifacts. **Full text lives in the index; this table is the map of which module
 and therefore never re-derived per module: `XC-01`–`XC-07` the maker–checker workflow ·
 `XC-08`–`XC-16` search, filter, paginate, export · `XC-17`–`XC-23` the literal validation-message
 vocabulary (`Required`, `Please enter a valid email`, and the rest).
+
+### 3.1 Proven by run-006 (2026-09-25, Stage 4M) — pending approval
+
+Facts observed live on `http://192.168.1.60`, each with its evidence in `runs/run-006…/manual_execution/`. No new rule ID is minted here; `knowledge/INDEX.md` is unchanged until approval.
+
+| Fact | Binds | Evidence |
+|---|---|---|
+| **A supplier added to a Branch is added to its existing Agencies automatically** — ticked, with the Branch's PCC credential — with no edit on the Agency. Strengthens `BR-006` from "may be inherited" to "is propagated" | branch · agency | `artifacts/setup-BRN265-after-NDCsbr.json`, TC-BR-109 correction note (15:10–15:11 UTC) |
+| **The Agency's Auto Reissue picker offers only the Agency's own PCC credentials** (a subset of its Branch's); the Branch may hold more (`PO-27`) | branch · agency | TC-AGENCY-074, TC-AGENCY-091, TC-BR-109 |
+| **Auto Reissue flags are independent per organisation, and the Itinerary `Reissue` button follows the organisation that owns the booking** — Agency, Branch and on-behalf (Agency) bookings, on Admin and the Portal | branch · agency · booking (Itinerary) · portal | TC-AGENCY-076 … 083, TC-BR-100 … 104 |
+| **An inactive Supplier does not remove its credential from Auto Reissue selections** — the credential stays saved and offered on Branch and Agency (decision pending) | master-supplier · branch · agency | TC-AGENCY-093, TC-BR-111 |
+| **Supplier "Deactivate" acts on one click with no confirmation**, for every organisation using the supplier | master-supplier · all orgs | `artifacts/incident-NDCsbr-accidental-deactivation.json` |
+
+**Diff since the last approved revision (3):** the header status and this §3.1. §1, §2, §4–§10 are unchanged.
 
 ---
 

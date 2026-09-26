@@ -1,0 +1,75 @@
+{
+  "ph": "swap313",
+  "at": "2026-09-26T18:46:27.269Z",
+  "before": {
+    "BRN265": {
+      "api": true,
+      "creds": [
+        277,
+        287,
+        289,
+        315,
+        345,
+        589
+      ],
+      "appr": 1,
+      "pa": [
+        "Sabre:315",
+        "Galileo:277+287+289+345+589"
+      ]
+    },
+    "BRN265pcc": {
+      "Sabre": "Sabre Staging",
+      "Galileo": "All (5 selected)"
+    }
+  },
+  "picker": {
+    "offered": [
+      "Sabre Staging",
+      "NDCSabre staging"
+    ],
+    "now": "NDCSabre staging"
+  },
+  "save": {
+    "ok": true,
+    "w": [
+      "PUT /odeysysadmin/Master2/Branch/10950",
+      "PATCH /odeysysadmin/Master2/Branch/approveOrReject"
+    ],
+    "pending": "BRN265 NDC2_Mohamed Soliman Egypt Cairo Pending for approval ",
+    "approved": "BRN265 NDC2_Mohamed Soliman Egypt Cairo Approved "
+  },
+  "after": {
+    "BRN265": {
+      "api": true,
+      "creds": [
+        313
+      ],
+      "appr": 1,
+      "pa": [
+        "Sabre:315",
+        "NDCsbr:313"
+      ]
+    },
+    "BRN265pcc": {
+      "Sabre": "Sabre Staging",
+      "NDCsbr": "NDCSabre staging"
+    },
+    "AGN9780": {
+      "api": true,
+      "creds": [],
+      "appr": 1,
+      "status": 1
+    },
+    "AGN9780pcc": {
+      "Sabre": "Sabre Staging",
+      "NDCsbr": "NDCSabre staging"
+    },
+    "AGN9780galileo": null,
+    "AGN9780ndcsbr": true
+  },
+  "writes": [
+    "PUT /odeysysadmin/Master2/Branch/10950",
+    "PATCH /odeysysadmin/Master2/Branch/approveOrReject"
+  ]
+}

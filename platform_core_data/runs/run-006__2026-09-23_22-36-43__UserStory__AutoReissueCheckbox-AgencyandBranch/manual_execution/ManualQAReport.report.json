@@ -1,0 +1,966 @@
+{
+  "title": "Manual QA Report — run-006 Auto Reissue",
+  "documentTitle": "run-006 Manual QA",
+  "statusPill": "PENDING REVIEW",
+  "statusPillTone": "warning",
+  "statuses": [
+    {
+      "key": "Passed",
+      "label": "Passed",
+      "tone": "pass"
+    },
+    {
+      "key": "Failed",
+      "label": "Failed",
+      "tone": "fail"
+    },
+    {
+      "key": "Blocked",
+      "label": "Blocked",
+      "tone": "blocked"
+    },
+    {
+      "key": "Skipped",
+      "label": "Skipped",
+      "tone": "warning"
+    },
+    {
+      "key": "Not Executed",
+      "label": "Not Executed",
+      "tone": "neutral"
+    },
+    {
+      "key": "Inconclusive",
+      "label": "Inconclusive",
+      "tone": "accent"
+    },
+    {
+      "key": "Excluded",
+      "label": "Excluded",
+      "tone": "neutral"
+    }
+  ],
+  "meta": {
+    "fields": [
+      [
+        {
+          "label": "Run",
+          "value": "run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+          "mono": true
+        },
+        {
+          "label": "Scope",
+          "value": "User Story — Auto Reissue (agency + branch)"
+        }
+      ],
+      [
+        {
+          "label": "Environment",
+          "value": "http://192.168.1.60 (Admin) · :9500 (Portal)",
+          "mono": true
+        },
+        {
+          "label": "Browser",
+          "value": "Headed"
+        }
+      ]
+    ]
+  },
+  "summary": {
+    "title": "1. Executive Summary",
+    "total": 64,
+    "totalLabel": "Run scope (all Review = Approved)",
+    "donut": {
+      "focus": "Passed",
+      "label": "pass rate (executable scope)"
+    }
+  },
+  "testCases": {
+    "title": "Test case results",
+    "categories": [
+      {
+        "key": "agency",
+        "name": "Agency",
+        "open": true,
+        "cases": [
+          {
+            "id": "TC-AGENCY-061",
+            "title": "Auto Reissue is unchecked by default on Add Agency",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Auto Reissue present, checked=false; Auto Reissue Credentials visible=false"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-061-add-agency-default.png"
+          },
+          {
+            "id": "TC-AGENCY-062",
+            "title": "Ticking Auto Reissue shows the credentials picker",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "picker visible after tick=true, after untick=false"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-062-ticked.png; manual_execution/artifacts/TC-AGENCY-062-unticked.png"
+          },
+          {
+            "id": "TC-AGENCY-063",
+            "title": "Turn Auto Reissue on for an Agency and save",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "selected \"Sabre Staging\"; requests [\"PUT /odeysysadmin/Admin2/agency/10961\"]; reopened: ticked=true, api=true, creds=[315], picker shows \"Sabre Staging\", approvalStatus=1"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-063-before-reopen.png; manual_execution/artifacts/TC-AGENCY-063-reopened.png"
+          },
+          {
+            "id": "TC-AGENCY-064",
+            "title": "Auto Reissue change waits for approval after Send For Approval",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "after Send For Approval: grid \"AGN9780 NDC2_Mohamed Soliman Egypt Badr Inactive Pending for approval NDC2_Mohamed Soliman \" (status 0, approvalStatus 0); after approve: \"AGN9780 NDC2_Mohamed Soliman Egypt Badr Active Approved NDC2_Mohamed Soliman \" (status 1, approvalStatus 1); reopened {\"api\":true,\"creds\":[315],\"appr\":1,\"status\":1}; requests [\"PUT /odeysysadmin/Admin2/agency/10961\"]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-064-grid-pending.png; manual_execution/artifacts/TC-AGENCY-064-grid-approved.png; manual_execution/artifacts/TC-AGENCY-064-reopened.png"
+          },
+          {
+            "id": "TC-AGENCY-065",
+            "title": "Auto Reissue on with no credential shows \"Required\"",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "picker cleared; \"Required\" shown near picker=true; save requests=[]; AGN9780 before {\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1} after {\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1}"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-065-required.png"
+          },
+          {
+            "id": "TC-AGENCY-066",
+            "title": "API rejects Auto Reissue on with an empty credential list",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "PUT → 400 \"Select at least one eligible credential\" (expected 400 \"Select at least one eligible credential\"); AGN9780 unchanged=true ({\"st\":200,\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1})"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-066-api.json"
+          },
+          {
+            "id": "TC-AGENCY-067",
+            "title": "API keeps the saved credentials when Auto Reissue is sent off with others",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "PUT off + [277] → 204; after: api=false, stored creds=[315] (saved before: [315]), approvalStatus=1"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-067-api.json"
+          },
+          {
+            "id": "TC-AGENCY-068",
+            "title": "API rejects a credential without an ID",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "PUT → 400 \"Every auto-reissue credential must have an ID\" (expected 400 \"Every auto-reissue credential must have an ID\"); AGN9780 unchanged=true ({\"st\":200,\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1})"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-068-api.json"
+          },
+          {
+            "id": "TC-AGENCY-069",
+            "title": "API rejects an unknown credential ID",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "PUT → 400 \"Every auto-reissue credential must exist and be active\" (expected 400 \"Every auto-reissue credential must exist and be active\"); AGN9780 unchanged=true ({\"st\":200,\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1})"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-069-api.json"
+          },
+          {
+            "id": "TC-AGENCY-070",
+            "title": "API rejects an inactive credential",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "PUT on + [313 inactive] → 400 \"Every auto-reissue credential must exist and be active\"; AGN9780 before {\"api\":true,\"creds\":[]} after {\"api\":true,\"creds\":[]}"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-070-api.json"
+          },
+          {
+            "id": "TC-AGENCY-071",
+            "title": "API rejects duplicate credential IDs",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "PUT → 400 \"Auto-reissue credentials must not contain duplicates\" (expected 400 \"Auto-reissue credentials must not contain duplicates\"); AGN9780 unchanged=true ({\"st\":200,\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1})"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-071-api.json"
+          },
+          {
+            "id": "TC-AGENCY-072",
+            "title": "API rejects a credential not assigned to the Agency",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "PUT → 400 \"Each auto-reissue credential must be mapped to this organization\" (expected 400 \"Each auto-reissue credential must be mapped to this organization\"); AGN9780 unchanged=true ({\"st\":200,\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1})"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-072-api.json"
+          },
+          {
+            "id": "TC-AGENCY-073",
+            "title": "Turning Auto Reissue off keeps the saved credentials",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "before: creds [315]; after off: ticked=false, api=false, stored creds=[315]; re-tick picker shows \"Sabre Staging\" (expected \"Sabre Staging\"); left without saving; requests [\"PUT /odeysysadmin/Admin2/agency/10961\"]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-073-reopened-off.png; manual_execution/artifacts/TC-AGENCY-073-retick-prefill.png"
+          },
+          {
+            "id": "TC-AGENCY-074",
+            "title": "Agency picker offers only credentials the Agency itself holds",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Agency PCC credentials [\"Sabre Staging\"]; Branch PCC credentials [\"Sabre Staging\",\"NDCSabre staging\"]; {BRANCH_ONLY} = [\"NDCSabre staging\"]; Agency picker offers [\"Sabre Staging\"] (left without saving)"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-074-agency-picker.png"
+          },
+          {
+            "id": "TC-AGENCY-075",
+            "title": "Reading the Agency drops a credential that became invalid",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "re-read AGN9780: saved {\"api\":true,\"creds\":[],\"appr\":1,\"status\":1}; ticked=true; picker \"Select\""
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-075-agency-reread.png"
+          },
+          {
+            "id": "TC-AGENCY-076",
+            "title": "Admin shows Reissue for an Agency booking when Auto Reissue is on",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Reissue shown=true (expected true); canAutoReissue=true; bookingStatus=2; buttons=[\"Time Limit\",\"History\",\"Void / Cancel\",\"Manual Reissue\",\"Reissue\",\"Sync PNR\",\"Release PNR\"]; lock released=true"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-076-booking-panel.png"
+          },
+          {
+            "id": "TC-AGENCY-077",
+            "title": "Admin hides Reissue for an Agency booking when Auto Reissue is off",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Reissue shown=false (expected false); buttons=[\"Time Limit\",\"History\",\"Void / Cancel\",\"Manual Reissue\",\"Sync PNR\",\"Release PNR\"]; canAutoReissue=false; bookingStatus=2; Manual Reissue shown=true; lock released=true"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-077-booking-panel.png"
+          },
+          {
+            "id": "TC-AGENCY-078",
+            "title": "Branch Auto Reissue on does not enable an Agency booking",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Reissue shown=false (expected false); buttons=[\"Time Limit\",\"History\",\"Void / Cancel\",\"Manual Reissue\",\"Sync PNR\",\"Release PNR\"]; canAutoReissue=false; bookingStatus=2;  lock released=true"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-078-booking-panel.png"
+          },
+          {
+            "id": "TC-AGENCY-079",
+            "title": "Portal shows Reissue when the Agency has Auto Reissue on",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Reissue shown=true; canAutoReissue=true; buttons=[\"WELCOME Mohamed Soliman\",\"Time Limit\",\"Reissue\"]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-079-portal-on.png"
+          },
+          {
+            "id": "TC-AGENCY-080",
+            "title": "Portal hides Reissue when the Agency has Auto Reissue off",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "AGN9780 off; Portal booking found=true; Reissue shown=false; canAutoReissue=false; buttons=[\"WELCOME Mohamed Soliman\",\"Time Limit\"]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-080-portal-off.png"
+          },
+          {
+            "id": "TC-AGENCY-081",
+            "title": "Portal shows Reissue without a lock and offers no Manual Reissue",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Reissue=true; Manual Reissue=false; lockedStatus=0; lock-like controls on page=6"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-079-portal-on.png"
+          },
+          {
+            "id": "TC-AGENCY-082",
+            "title": "Reissue shows even if the booking's credential is not selected",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "AGN9780 on with selection [313] only; booking credential 315 (Sabre Staging); Reissue shown=true; canAutoReissue=true; lock released=true"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-082-booking-panel.png"
+          },
+          {
+            "id": "TC-AGENCY-083",
+            "title": "A booking made on behalf of the Agency follows the Agency's checkbox",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Reissue shown=false (expected false); buttons=[\"Time Limit\",\"History\",\"Void / Cancel\",\"Manual Reissue\",\"Sync PNR\",\"Release PNR\"]; canAutoReissue=false; bookingStatus=2; booking agencyId=AGN9780 (must be AGN9780); lock released=true"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-083-booking-panel.png"
+          },
+          {
+            "id": "TC-AGENCY-084",
+            "title": "A booking not in Booked status does not show Reissue",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Reissue shown=false (expected false); canAutoReissue=false; bookingStatus=3; buttons=[\"Time Limit\",\"History\",\"Sync PNR\",\"Confirm To Pay\",\"Release PNR\"]; lock released=true"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-084-booking-panel.png"
+          },
+          {
+            "id": "TC-AGENCY-085",
+            "title": "Which value the Itinerary uses while an Auto Reissue change is pending",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "while AGN9780 change was pending (grid status 0, approvalStatus 0): Reissue shown=true, canAutoReissue=true — i.e. the Itinerary follows the PENDING (new) value. Reviewer to confirm whether intended. Lock released=true. Afterwards approved and restored off: {\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1}"
+              },
+              {
+                "label": "Note",
+                "value": "Exploratory — reviewer decision needed"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-085-booking-while-pending.png"
+          },
+          {
+            "id": "TC-AGENCY-086",
+            "title": "Updating an Agency without touching Auto Reissue still works",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "before {\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1}; requests [\"PUT /odeysysadmin/Admin2/agency/10961\"]; after {\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1}"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-086-reopened.png"
+          },
+          {
+            "id": "TC-AGENCY-087",
+            "title": "Create an Agency with Auto Reissue on",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "created \"RUN006_AR_Agency\" code AGN10029 (id 11448) under BRN265; grid after approve: status 1, approvalStatus 1; reopened Auto Reissue ticked=true, picker \"Sabre Staging\", API autoReissueEnabled=true, reissueCredentials=[{\"credentialId\":315}]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-087-grid-pending.png; manual_execution/artifacts/TC-AGENCY-087-grid-approved.png; manual_execution/artifacts/TC-AGENCY-087-reopened.png"
+          },
+          {
+            "id": "TC-AGENCY-088",
+            "title": "Create an Agency with Auto Reissue off",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "created \"RUN006_AR_Off_Agency\" code AGN10028 (id 11447) under BRN265; grid after approve: status 1, approvalStatus 1; reopened Auto Reissue ticked=false, picker \"null\", API autoReissueEnabled=false, reissueCredentials=[]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-088-grid-pending.png; manual_execution/artifacts/TC-AGENCY-088-grid-approved.png; manual_execution/artifacts/TC-AGENCY-088-reopened.png"
+          },
+          {
+            "id": "TC-AGENCY-089",
+            "title": "Edit an Agency with Auto Reissue off",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "requests [\"PUT /odeysysadmin/Admin2/agency/10961\"]; \"Required\" messages visible after save=0; reopened api=false, appr=1"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-089-reopened.png"
+          },
+          {
+            "id": "TC-AGENCY-090",
+            "title": "Edit an Agency with Auto Reissue on",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "before creds [315]; requests [\"PUT /odeysysadmin/Admin2/agency/10961\"]; after: ticked=true, creds=[315], picker \"Sabre Staging\""
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-090-reopened.png"
+          },
+          {
+            "id": "TC-AGENCY-091",
+            "title": "An Agency can only have suppliers its Branch has",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "BRN265 suppliers [\"Sabre\"]; AGN9780 Product Access lists [{\"ticked\":true,\"supplier\":\"Sabre\"}]; listed but not on BRN265: []"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-091-agency-product-access.png"
+          },
+          {
+            "id": "TC-AGENCY-092",
+            "title": "An inactive credential leaves the Agency's Auto Reissue picker",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Credential 313 made Inactive (odeysysadmin). AGN9780: saved selection cleaned to [] and Auto Reissue stayed ticked; the picker still offers \"NDCSabre staging\" and the NDCsbr PCC tab still shows it, while BRN265 hides both. Seen 4/4 (2026-09-25 17:37, 17:41, 17:42; 2026-09-26 11:55 with the user watching). The user confirmed it on their own screen and that selecting it is refused with \"Every auto-reissue credential must exist and be active\". **Passed per the user's decision (2026-09-26): offering it is intended, the API check is enough.** The case's Expected Result (\"not offered\") is stricter than this decision — flagged to Stage 3."
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-092-agency-credential-inactive.png; manual_execution/artifacts/TC-AGENCY-092-confirm-1.png; manual_execution/artifacts/TC-AGENCY-092-confirm-2.png; manual_execution/artifacts/TC-AGENCY-092-confirmation.json; manual_execution/artifacts/credential-313-window.json; manual_execution/artifacts/joint-agency-picker-open.png; manual_execution/artifacts/joint-branch-picker.png; manual_execution/artifacts/TC-AGENCY-092-joint-rerun.json; manual_execution/artifacts/TC-AGENCY-092-joint-after-reactivation.json"
+          },
+          {
+            "id": "TC-AGENCY-093",
+            "title": "What the Agency's Auto Reissue picker shows when the supplier is made inactive",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "NDCsbr inactive: AGN9780 saved {\"api\":true,\"creds\":[313],\"appr\":1,\"status\":1} (before {\"api\":true,\"creds\":[313],\"appr\":1,\"status\":1}); Auto Reissue ticked=true; picker shows \"NDCSabre staging\", offers [\"Sabre Staging\",\"NDCSabre staging\"] (before [\"Sabre Staging\",\"NDCSabre staging\"]); PCC tabs {\"Sabre\":\"Sabre Staging\",\"NDCsbr\":\"NDCSabre staging\"}. Reviewer to confirm whether intended."
+              },
+              {
+                "label": "Note",
+                "value": "Exploratory — reviewer decision needed"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-093-agency-while-supplier-inactive.png; manual_execution/artifacts/TC-093-111-supplier-window.json"
+          },
+          {
+            "id": "TC-AGENCY-094",
+            "title": "Portal hides Reissue for an Agency booking on hold",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "AGN9780 on; Portal booking-date range 2025-10-01–2026-03-31 (the Portal allows six months at most); bookingStatus=3; Reissue shown=false; canAutoReissue=false; buttons=[\"WELCOME Mohamed Soliman\",\"Time Limit\"]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-AGENCY-094-portal-onhold.png"
+          }
+        ]
+      },
+      {
+        "key": "branch",
+        "name": "Branch",
+        "open": true,
+        "cases": [
+          {
+            "id": "TC-BR-083",
+            "title": "Auto Reissue is unchecked by default on Add Branch",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "checked=false; picker visible=false"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-083-add-branch-default.png"
+          },
+          {
+            "id": "TC-BR-084",
+            "title": "Picker is empty on a new Branch with no supplier",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "options=[] empty-message=[\"No results found\"]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-084-no-supplier-picker.png"
+          },
+          {
+            "id": "TC-BR-085",
+            "title": "An LCC credential is not offered for Auto Reissue",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "LCC AirArabiaEgypt credential chosen \"AirArabiaEgypt\"; picker options=[]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-085-lcc-not-offered.png"
+          },
+          {
+            "id": "TC-BR-086",
+            "title": "A Galileo PCC credential is offered for Auto Reissue",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "GalileoLive chosen in tab=true (tab options [\"GalileoLive\",\"Galileo Live UAE\",\"Live EGY PCC\",\"KSA Galileoo\",\"HH\"]); picker options=[\"GalileoLive\"]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-086-galileo-offered.png"
+          },
+          {
+            "id": "TC-BR-087",
+            "title": "An Amadeus PCC credential is not offered for Auto Reissue",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Amadeus Live chosen in tab=true (tab options [\"Amadeus Live\",\"Amadeus UAE\",\"Amadeus KSA\"]); picker options=[\"GalileoLive\"]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-087-amadeus-not-offered.png"
+          },
+          {
+            "id": "TC-BR-088",
+            "title": "A TravelportNdc PCC credential is offered for Auto Reissue",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "supplier \"TravelportNdc\", tab options [\"TravelPortProd\",\"Travelport NDC EGY\"], chose \"TravelPortProd\"; picker options=[\"GalileoLive\",\"TravelPortProd\"]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-088-travelport.png"
+          },
+          {
+            "id": "TC-BR-089",
+            "title": "Turn Auto Reissue on for a Branch and save",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "picker offered [\"Sabre Staging\",\"NDCSabre staging\"], set to \"NDCSabre staging\"; save {\"ok\":true,\"pending\":\"BRN265 NDC2_Mohamed Soliman Egypt Cairo Pending for approval \",\"approved\":\"BRN265 NDC2_Mohamed Soliman Egypt Cairo Approved \"}; reopened {\"api\":true,\"creds\":[313],\"appr\":1,\"pa\":[\"Sabre:315\",\"NDCsbr:313\"]}, picker \"NDCSabre staging\""
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-089-reopened.png"
+          },
+          {
+            "id": "TC-BR-090",
+            "title": "Branch Auto Reissue change waits for approval",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "after Send For Approval grid \"BRN265 NDC2_Mohamed Soliman Egypt Cairo Pending for approval \"; after approve \"BRN265 NDC2_Mohamed Soliman Egypt Cairo Approved \"; reopened {\"api\":false,\"creds\":[315],\"appr\":1,\"pa\":[\"Sabre:315\",\"NDCsbr:313\"]}; requests [\"PUT /odeysysadmin/Master2/Branch/10950\",\"PATCH /odeysysadmin/Master2/Branch/approveOrReject\"]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-090-grid-pending.png; manual_execution/artifacts/TC-BR-090-grid-approved.png; manual_execution/artifacts/TC-BR-090-reopened.png"
+          },
+          {
+            "id": "TC-BR-091",
+            "title": "Turning Branch Auto Reissue off keeps the saved credentials",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "BRN265 off with stored [313]; re-tick picker shows \"NDCSabre staging\"; left without saving"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-091-retick-prefill.png"
+          },
+          {
+            "id": "TC-BR-092",
+            "title": "Branch Auto Reissue on with no credential shows \"Required\"",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "\"Required\" near picker=true; requests []; BRN265 unchanged=true"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-092-required.png"
+          },
+          {
+            "id": "TC-BR-093",
+            "title": "Branch update without a remark is refused",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "remark empty; message near Remarks [\"Required\"]; requests []; BRN265 unchanged=true"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-093-no-remark.png"
+          },
+          {
+            "id": "TC-BR-094",
+            "title": "Branch API rejects Auto Reissue on with an empty credential list",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "PUT → 400 \"Select at least one eligible credential\" (expected 400 \"Select at least one eligible credential\"); BRN265 unchanged=true {\"api\":true,\"creds\":[313],\"appr\":1}"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-094-api.json"
+          },
+          {
+            "id": "TC-BR-095",
+            "title": "Branch API keeps saved credentials when sent off with others",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "before {\"api\":false,\"creds\":[313],\"appr\":1}; PUT off + [315] → 204; after PUT {\"api\":false,\"creds\":[313],\"appr\":0}; grid approve BRN265 NDC2_Mohamed Soliman Egypt Cairo Approved ; after {\"api\":false,\"creds\":[313],\"appr\":1}"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-095-api.json"
+          },
+          {
+            "id": "TC-BR-096",
+            "title": "Branch API rejects a credential without an ID",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "PUT → 400 \"Every auto-reissue credential must have an ID\" (expected 400 \"Every auto-reissue credential must have an ID\"); BRN265 unchanged=true {\"api\":true,\"creds\":[313],\"appr\":1}"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-096-api.json"
+          },
+          {
+            "id": "TC-BR-097",
+            "title": "Branch API rejects an unknown credential ID",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "PUT → 400 \"Every auto-reissue credential must exist and be active\" (expected 400 \"Every auto-reissue credential must exist and be active\"); BRN265 unchanged=true {\"api\":true,\"creds\":[313],\"appr\":1}"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-097-api.json"
+          },
+          {
+            "id": "TC-BR-098",
+            "title": "Branch API rejects duplicate credential IDs",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "PUT → 400 \"Auto-reissue credentials must not contain duplicates\" (expected 400 \"Auto-reissue credentials must not contain duplicates\"); BRN265 unchanged=true {\"api\":true,\"creds\":[313],\"appr\":1}"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-098-api.json"
+          },
+          {
+            "id": "TC-BR-099",
+            "title": "Branch API rejects a credential not assigned to the Branch",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "PUT → 400 \"Each auto-reissue credential must be mapped to this organization\" (expected 400 \"Each auto-reissue credential must be mapped to this organization\"); BRN265 unchanged=true {\"api\":true,\"creds\":[313],\"appr\":1}"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-099-api.json"
+          },
+          {
+            "id": "TC-BR-100",
+            "title": "Branch Auto Reissue does not change its Agencies' checkbox",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "AGN9780 before {\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1}; BRN265 after turning on {\"api\":true,\"creds\":[313],\"appr\":1,\"pa\":[\"Sabre:315\",\"NDCsbr:313\"]}; AGN9780 after {\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1} (form ticked=false)"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-100-agency-after-branch-on.png"
+          },
+          {
+            "id": "TC-BR-101",
+            "title": "Admin shows Reissue for a Branch booking when Branch Auto Reissue is on",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Reissue shown=true (expected true); buttons=[\"Time Limit\",\"History\",\"Void / Cancel\",\"Manual Reissue\",\"Reissue\",\"Sync PNR\",\"Release PNR\"]; canAutoReissue=true; bookingStatus=2;  lock released=true"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-101-booking-panel.png"
+          },
+          {
+            "id": "TC-BR-102",
+            "title": "Admin hides Reissue for a Branch booking when Branch Auto Reissue is off",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "BRN265 {\"api\":false,\"creds\":[315],\"appr\":1,\"pa\":[\"Sabre:315\",\"NDCsbr:313\"]}; AGN9780 {\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1}; Reissue shown=false (expected false); Manual Reissue=true; canAutoReissue=false; lock released=true"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-102-booking-panel.png"
+          },
+          {
+            "id": "TC-BR-103",
+            "title": "Reissue shows on a Branch booking whose credential is not selected",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "BRN265 {\"api\":true,\"creds\":[313],\"appr\":1,\"pa\":[\"Sabre:315\",\"NDCsbr:313\"]}; AGN9780 {\"api\":false,\"creds\":[315],\"appr\":1,\"status\":1}; Reissue shown=true (expected true); Manual Reissue=true; canAutoReissue=true; lock released=true"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-103-booking-panel.png"
+          },
+          {
+            "id": "TC-BR-104",
+            "title": "Agency Auto Reissue off does not hide Reissue on a Branch booking",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Reissue shown=true (expected true); buttons=[\"Time Limit\",\"History\",\"Void / Cancel\",\"Manual Reissue\",\"Reissue\",\"Sync PNR\",\"Release PNR\"]; canAutoReissue=true; bookingStatus=2;  lock released=true"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-104-booking-panel.png"
+          },
+          {
+            "id": "TC-BR-105",
+            "title": "Reading the Branch drops a credential that became invalid",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "re-read BRN265: saved {\"api\":true,\"creds\":[],\"appr\":1,\"pa\":[\"Sabre:315\"]}; ticked=true; picker \"Select\""
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-105-branch-reread.png"
+          },
+          {
+            "id": "TC-BR-106",
+            "title": "Updating a Branch without touching Auto Reissue still works",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "before {\"api\":false,\"creds\":[313],\"appr\":1,\"pa\":[\"Sabre:315\",\"NDCsbr:313\"]}; save {\"ok\":true,\"pending\":\"BRN265 NDC2_Mohamed Soliman Egypt Cairo Pending for approval \",\"approved\":\"BRN265 NDC2_Mohamed Soliman Egypt Cairo Approved \"}; after {\"api\":false,\"creds\":[313],\"appr\":1,\"pa\":[\"Sabre:315\",\"NDCsbr:313\"]}"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-106-reopened.png"
+          },
+          {
+            "id": "TC-BR-107",
+            "title": "Create a Branch with Auto Reissue on",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "created \"RUN006_AR_Branch\" BRN502; grid \"BRN502 RUN006_AR_Branch Egypt Asyut Pending for approval \" → after approve \"BRN502 RUN006_AR_Branch Egypt Asyut Approved \"; reopened Auto Reissue ticked=true, picker \"GalileoLive\", API autoReissueEnabled=true, reissueCredentials=[{\"credentialId\":277}]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-107-grid-pending.png; manual_execution/artifacts/TC-BR-107-grid-approved.png; manual_execution/artifacts/TC-BR-107-reopened.png"
+          },
+          {
+            "id": "TC-BR-108",
+            "title": "Agency Portal does not list its Branch's own bookings",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Portal My Booking (default search) lists 2 rows; Branch booking NDCEG-BR-F260916ENYOeQ listed=false"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-108-portal-mybooking.png"
+          },
+          {
+            "id": "TC-BR-109",
+            "title": "A Branch can have a supplier its Agency doesn't have",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "BRN265 PCC suppliers {\"Sabre\":\"Sabre Staging\",\"NDCsbr\":\"NDCSabre staging\"} (approval 1); AGN9780 PCC {\"Sabre\":\"Sabre Staging\"}, NDCsbr row ticked on AGN9780=false (approval 1); Branch-only suppliers [\"NDCsbr\"]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-109-branch-suppliers.png; manual_execution/artifacts/TC-BR-109-agency-product-access.png"
+          },
+          {
+            "id": "TC-BR-110",
+            "title": "An inactive credential leaves the Branch's Auto Reissue picker",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "credential 313 Inactive; BRN265 saved {\"api\":true,\"creds\":[],\"appr\":1,\"pa\":[\"Sabre:315\"]}; ticked=true; picker \"Select\", offers [\"Sabre Staging\"]"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-110-branch-credential-inactive.png"
+          },
+          {
+            "id": "TC-BR-111",
+            "title": "What the Branch's Auto Reissue picker shows when the supplier is made inactive",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "NDCsbr inactive: BRN265 saved {\"api\":true,\"creds\":[313],\"appr\":1,\"pa\":[\"Sabre:315\",\"NDCsbr:313\"]} (before {\"api\":true,\"creds\":[313],\"appr\":1,\"pa\":[\"Sabre:315\",\"NDCsbr:313\"]}); Auto Reissue ticked=true; picker shows \"NDCSabre staging\", offers [\"Sabre Staging\",\"NDCSabre staging\"] (before [\"Sabre Staging\",\"NDCSabre staging\"]); PCC tabs {\"Sabre\":\"Sabre Staging\",\"NDCsbr\":\"NDCSabre staging\"}. Reviewer to confirm whether intended."
+              },
+              {
+                "label": "Note",
+                "value": "Exploratory — reviewer decision needed"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-111-branch-while-supplier-inactive.png; manual_execution/artifacts/TC-093-111-supplier-window.json"
+          },
+          {
+            "id": "TC-BR-112",
+            "title": "Admin hides Reissue for a Branch booking on hold",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Observed",
+                "value": "Reissue shown=false (expected false); buttons=[\"Time Limit\",\"History\",\"Sync PNR\",\"Confirm To Pay\",\"Release PNR\"]; canAutoReissue=false; bookingStatus=3;  lock released=true"
+              }
+            ],
+            "evidence": "manual_execution/artifacts/TC-BR-112-booking-panel.png"
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "type": "findings",
+      "title": "Defect register",
+      "emptyText": "No defect. TC-AGENCY-092 (Agency picker offers an inactive credential) is intended per the user, 2026-09-26.",
+      "items": []
+    },
+    {
+      "type": "findings",
+      "title": "Items for decision",
+      "emptyText": "None",
+      "items": [
+        {
+          "kind": "Exploratory — decision needed",
+          "tone": "warning",
+          "body": "The Itinerary follows a pending (unapproved) Auto Reissue change.",
+          "refs": "(TC-AGENCY-085)"
+        },
+        {
+          "kind": "Exploratory — decision needed",
+          "tone": "warning",
+          "body": "An inactive supplier's credential stays saved and selectable.",
+          "refs": "(TC-AGENCY-093, TC-BR-111)"
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Known limitations",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "Credential status needs a higher-permission account — The Mohamed Soliman account sees only Edit on credentials (no Deactivate, no Save). At the user's direction, account odeysysadmin made credential 313 Inactive (2026-09-25 17:37–17:39 and 17:41–17:42 UTC; 2026-09-26 11:54–12:30 UTC for the joint re-run of TC-AGENCY-092, with the user watching) and reactivated it; every check was done with the usual account. First recorded Blocked, then re-run",
+            "Saved credentials are not restored when a credential is reactivated — Read-time clean-up removed 313 from both saved lists; after reactivation the lists stayed empty (Auto Reissue on with no credential) until restored by hand",
+            "Accidental 3-minute deactivation of supplier NDCsbr — At 15:30:04 UTC a probe click on \"Deactivate\" (no confirmation dialog) set NDCsbr Inactive; restored Active at 15:33:00. Within the user's status grant; recorded in artifacts/incident-NDCsbr-accidental-deactivation.json",
+            "Records changed by hand during the run — BRN265/AGN9780 suppliers and selections had changed since 24 Sep; NDCsbr/313 was re-added with the user's approval (15:10) and the preconditions set up before the re-runs",
+            "Script defects corrected before reporting — Each was first auto-recorded Failed by a script misreading; both corrections are documented on the case (Results §3.1)",
+            "Portal search limits — Portal booking search defaults to one month and allows six months at most; the range was set through the calendar",
+            "Environment outage — http://192.168.1.60 stopped responding ~14:45–14:56 UTC; execution paused and resumed; no case affected",
+            "Not captured — Console logs and video were not collected; screenshots and request/response records were"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Recommendations",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "REC-1: Decide whether the Itinerary should follow a pending (unapproved) Auto Reissue change — Observed: while AGN9780's change was Pending for approval, Reissue already showed (canAutoReissue true). This may bypass maker–checker",
+            "REC-2: Decide whether an inactive supplier's credential should stay selectable/saved for Auto Reissue — Observed: with NDCsbr inactive, 313 stayed saved and offered on both records",
+            "REC-3: Stage 3: update TC-AGENCY-092's Expected Result to the user's decision (the Agency picker may offer an inactive credential; the save is refused), and record it as a Project Context decision — User decision 2026-09-26: intended, the API check is enough. The approved case still expects \"not offered\"",
+            "REC-5: Decide whether reactivating a credential should restore it to the selections that clean-up removed — Today they stay empty; spec §4 is silent on reactivation",
+            "REC-4: Ask for a confirmation dialog on supplier \"Deactivate\" — One click deactivates a shared supplier for every organisation (seen during this run)"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "cleanup",
+      "title": "Records created / changed",
+      "heading": "Permanent records created by this run:",
+      "items": [
+        {
+          "label": "Agency",
+          "ref": "AGN10028",
+          "body": "RUN006_AR_Off_Agency (Auto Reissue off)"
+        },
+        {
+          "label": "Agency",
+          "ref": "AGN10029",
+          "body": "RUN006_AR_Agency (Auto Reissue on, Sabre Staging)"
+        },
+        {
+          "label": "Branch",
+          "ref": "BRN502",
+          "body": "RUN006_AR_Branch (Auto Reissue on, GalileoLive)"
+        },
+        {
+          "label": "Restored",
+          "ref": "AGN9780 / BRN265",
+          "body": "AGN9780 off [315] Sabre only; BRN265 on [315] Sabre only; NDCsbr and credential 313 Active; no locks held"
+        }
+      ]
+    }
+  ]
+}

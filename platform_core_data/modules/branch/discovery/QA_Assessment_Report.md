@@ -339,3 +339,156 @@ Validated against a clearly documented requirement and found to **match**:
 2. **The Update screen must be gated on a readiness signal, never a fixed delay.** A fixed-delay read produced a false "form is empty" result twice in this run. Poll for a known field to become non-empty. This is the single most important execution note this run produces.
 
 **Pagination is free.** 616 live records across 62 pages — pagination cases need no seeded data, and the Stage 1 cost concern (RISK-BR-9) is closed.
+
+---
+
+# QA Assessment Report — run-006 (Auto Reissue checkbox — Branch half)
+
+| Field | Value |
+|---|---|
+| Module | `branch` |
+| Produced by run | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Revision | 3 (this section added in place; the run-002 and run-003 sections above are unchanged) |
+| Project Context validated against | `modules/branch/context/ProjectContext.md` — revision **9**, **Approved** 2026-09-24 (Mohamed Soliman). **It was then edited during this stage:** `PO-21` … `PO-26` and the `.60` target. Those edits were **Approved 2026-09-24 by Mohamed Soliman** at the Stage 2 review |
+| Discovery Mode(s) used | Browser automation — **Browser Driver, headed**, Admin `http://192.168.1.60`. Human Observation (the user's statements) |
+| Generated | 2026-09-24 |
+| Status | **Approved** — Mohamed Soliman, Stage 2 Human Review gate, 2026-09-24 |
+
+## Headline
+
+**The Branch's Auto Reissue checkbox works as specified, and the Branch can own a booking itself.** A Branch-owned booking's `Reissue` button followed **BRN265's** checkbox, off then on, in one session with the flag read right before each check. So `ASM-BR-6` ("bookings are created by an Agency, not a Branch") is **refuted**. The Branch-created Itinerary case that §3 excluded "unless Stage 2 shows Branch-level booking exists" is now reachable (`GAP-BR-R6-02`). One Finding (FINDING-017) was confirmed as intended by the user (`PO-22`). The Agency half, including the Portal, is in `modules/agency/discovery/QA_Assessment_Report.md` Revision 4.
+
+## 1. Scope
+
+**Run Scope Type:** User Story · **Run Type:** User Story (`user_story_run`) · **Source:** `knowledge_base/requirements/user_stories/Auto_Reissue_Checkbox_Branch_Agency.md` plus the specification `…/specifications/Auto_Reissue_Checkbox_Documentation.md`. Validated against branch ProjectContext Revision 9: §1.2 `PO-15` … `PO-26`, the §2 *REV 9* rows, §3, and §6 `ASM-BR-4` … `ASM-BR-6`, `RISK-BR-10` … `RISK-BR-12`. The US 8605/8606/8599 surfaces were **not** re-explored (User Story strategy, §16).
+
+**Test records:** Branch **BRN265** "NDC2_Mohamed Soliman" (id 10950), designated by the user (*"you can use BRN265 all over the steps"*). No Branch was created, and `AUTH-BRANCH-CREATE-SelfCreated` was revoked. Booking **`NDCEG-BR-F260916ENYOeQ`** (order `BRN265NDCORD2609169XJ1LC`) was made by the user under BRN265.
+
+## 2. Objectives
+
+From §8.1: observe the checkbox and picker on Create and Update Branch (ASM-BR-4); capture the save, details and approve endpoints, including Remarks (ASM-BR-5, RISK-BR-10); list credentials with `autoReissueAllowed`, read-only (RISK-BR-11); establish whether a Branch-level booking exists (ASM-BR-6, **never by booking**). Added during the stage: check a Branch-owned booking's Itinerary against BRN265's checkbox, and check the picker's source rule (`PO-21`).
+
+## 3. Evidence Sources
+
+| Discovery Mode | In-Scope Areas Covered | Why This Mode |
+|---|---|---|
+| Browser automation — **Browser Driver**, headed | Add Branch (unsaved), Edit BRN265, the Branch grid and approve, `GET /Master2/Branch/BRN265/details`, Search Booking and the Itinerary | The default mode for Admin. Headed at the user's request |
+| Human Observation | `PO-21` (GDS and hard-coded list), `PO-22`, `PO-26` | The user's statements during the stage |
+
+## 4. Modules Explored
+
+| Module | Route(s) | Purpose | Discovery Mode |
+|---|---|---|---|
+| `branch` | `/admin/branch/add` (never saved), `/admin/branch/edit/…` (BRN265), `/admin/branch` grid | Checkbox, picker, GDS PCC tabs, save, Remarks, approve | Browser Driver |
+| `branch` → Itinerary (the checkbox's effect) | `/booking/search-booking` → Flight → booking details for `BRN265NDCORD2609169XJ1LC` | `Reissue` and `canAutoReissue` for a Branch-owned booking | Browser Driver |
+
+**Endpoints seen in the app's traffic (ASM-BR-5):** `PUT /odeysysadmin/Master2/Branch/10950` (204; body carries `autoReissueEnabled`, `reissueCredentials`, and the Remarks) · `PATCH /odeysysadmin/Master2/Branch/approveOrReject` `{remarks, approvalStatus, code}` (200) · `GET /odeysysadmin/Master2/Branch/BRN265/details`. The top-level keys include `productAccessDetails`, `autoReissueEnabled` and `reissueCredentials`, and each credential carries `autoReissueAllowed`.
+
+**Shared UI components:** the same as `agency`: the *Auto Reissue Credentials* multi-select, and each GDS supplier's PCC-tab multi-select under *Airline Supplier credential (PCC)*.
+
+## 5. Observed Behaviour
+
+| Module | Workflow / Rule | What Was Observed | Evidence Category | Finding ID(s) |
+|---|---|---|---|---|
+| branch | Checkbox presence and default | **"Auto Reissue"** beside Import PNR on Add Branch, **unchecked**. Ticking it shows *Auto Reissue Credentials*, with no server call. With no supplier ticked, the picker reads "No results found" (`01-branch-add-form`, `02-…`, `03-…`) | Direct Observation | — |
+| branch | Picker source (`PO-21`), unsaved Add Branch | LCC **AirArabiaEgypt**, credential chosen in its row → picker **empty**. **Galileo** tab → "GalileoLive" → picker **["GalileoLive"]**. **Amadeus** tab → "Amadeus Live" → picker **empty**. The PCC-tab control is a multi-select (`39-*`, `40`) | Direct Observation | — |
+| branch | BRN265 stored state | Auto Reissue **on**, `reissueCredentials [313]` ("NDCSabre staging", NDCsbr, `autoReissueAllowed true`) at the baseline (`05`). During the run the user added supplier **Sabre** (315 checked, 297 unchecked) by hand (confirmed 10:24) | System Response | — |
+| branch | Save → approve (off) | `PUT …/Branch/10950` 204 with `autoReissueEnabled false`, `reissueCredentials []`. Grid "Pending for approval", then approve (Remarks), then "Approved". Details GET: `false`, **`[313]` kept** (S-7) | System Response | (agency FINDING-014 for the pending state) |
+| branch | Save → approve (on, S-7 pre-fill) | Re-ticking pre-filled the picker with "NDCSabre staging" (10:27:51). `PUT` 204 with `[313]`, then approved. GET `true`, `[313]` | System Response | — |
+| branch | Branch-owned booking exists | `NDCEG-BR-F260916ENYOeQ`: `agentOrder.branchId BRN265`, `agencyId null`, Sabre, `ticketPccId 315`, Status Booked (`45`) | System Response | — |
+| branch | Itinerary vs BRN265 (one session) | 10:27:29 flag false → 10:27:37 `canAutoReissue false`, **no Reissue**. 10:28:24 flag true → 10:28:30 `canAutoReissue true`, **Reissue shown**. Manual Reissue shown both times. Lock held (`33-*`) | Direct Observation / System Response | FINDING-017 |
+| branch | Credential selection and the button | The booking is on 315, which isn't in BRN265's selection `[313]`, and it still showed Reissue while on | Direct Observation | FINDING-017 |
+| branch | First OFF check (10:24–10:25) | `canAutoReissue true` while BRN265 was believed to be off. **Discarded:** BRN265 had been switched back on by hand in another session. Repeated in one session (above) | System Response | FINDING-017 (investigation notes) |
+
+## 6. Confirmed Behaviour
+
+| Requirement (Project Context §) | Confirmed Behaviour | Evidence Category | Finding ID(s) |
+|---|---|---|---|
+| §2 REV 9 *checkbox on Create/Update Branch, default unchecked*; `PO-15` | Present, unchecked, toggles on Create (unsaved) and on Update (BRN265) | Direct Observation | — |
+| §2 REV 9 *saved value retrieved on edit and GET* | The form and the details GET both match the save | System Response | — |
+| §2 REV 9 *credential selection (UI)*; ASM-BR-4; `PO-21` | Candidates are the Branch's assigned GDS credentials on the supported list. LCC and Amadeus are excluded | Direct Observation | — |
+| §2 REV 9 *off keeps saved credentials* (S-7) | `[313]` kept while off, and pre-filled when turned back on | System Response | — |
+| §2 REV 9 *independence from Agencies*; `PO-16` | BRN265 on while AGN9780 off, and each org's booking followed its own flag | Direct Observation | — |
+| §2 REV 9 *maker–checker with Remarks* | Remarks → Send For Approval → Pending → approve → Approved | Direct Observation | — |
+| spec §5 (organization that owns the booking); `PO-26` | The Branch-owned booking follows BRN265's checkbox | Direct Observation / System Response | FINDING-017 |
+
+## 7. Assumptions
+
+| ID | Assumption | Why Inferred (not observed) | Evidence Category |
+|---|---|---|---|
+| A-BR-R6-1 | Remarks are **mandatory** on a Branch update (RISK-BR-10) | Remarks were typed on every save. Saving **without** them wasn't tried | Assumption |
+| A-BR-R6-2 | A Branch sees its Agencies' bookings and can book on their behalf, and such bookings follow the Agency (`PO-26`) | The user's statement. Not observed | Human Observation |
+| A-BR-R6-3 | TravelportNdc credentials appear in the picker like Galileo (`PO-21`) | No Travelport credential was tried | Human Observation |
+
+## 8. Open Questions
+
+| ID | Open Question | Rect | Why the Answer Matters | What Would Resolve It | Original | Annotated | Project Context Ref |
+|---|---|---|---|---|---|---|---|
+| OQ-BR-R6-1 | **RISK-BR-11 — partly unresolved.** No inactive credential, and none that became invalid after being selected, exists on `.60`. So `S-5` (inactive) and read-time clean-up can't be reached on BRN265 without changing supplier data | — | Two specification rules would have no Branch test | A decision to defer, or a granted supplier change | — | — | RISK-BR-11 |
+| OQ-BR-R6-2 | `S-3` … `S-6` were **not** sent against the **Branch** API (they were sent against the Agency API only) | — | The Branch save is a different endpoint (`/Master2/Branch`) | Stage 3 API cases on BRN265 | — | — | §2 REV 9 *backend rules* |
+
+## 9. Discovered Risks
+
+| ID | Risk | Business Risk | Technical Risk | Finding ID(s) |
+|---|---|---|---|---|
+| R-BR-R6-1 | BRN265 was changed by hand during the run (the Sabre supplier, the flag) | Results can be credited to the wrong change | Every check must read the state in the same session | FINDING-017 |
+| R-BR-R6-2 | BRN265 is the user's real Branch, not a disposable record | A failed test can leave it Pending or changed | Every case must record and restore BRN265's state | — |
+
+## 10. Coverage
+
+| Area / Module | Coverage Status | Discovery Mode | Notes |
+|---|---|---|---|
+| Checkbox on Create/Update Branch | Covered | Browser Driver | Create unsaved only |
+| Saved value retrieved | Covered | Browser Driver | |
+| Credential selection (UI) | Covered | Browser Driver | TravelportNdc not seen |
+| Backend rules via Branch API | Skipped | — | Done against the Agency API only (OQ-BR-R6-2) |
+| S-7 / read-time clean-up | Partial | Browser Driver | S-7 covered. Clean-up blocked (OQ-BR-R6-1) |
+| Independence from Agencies | Covered | Browser Driver | |
+| Maker–checker with Remarks | Covered | Browser Driver | Remarks-missing case not tried |
+| Regression smoke | Skipped | — | Stage 3 (RISK-BR-12) |
+| Branch-owned booking Itinerary (was §3, conditional) | Covered | Browser Driver | ASM-BR-6 refuted |
+
+**Roll-up:** 6 Covered · 1 Partial · 0 Blocked · 0 Unreachable (2 Skipped). **7/9 areas visited = 78%.**
+
+## 11. Gaps
+
+| ID | Gap Type | Description | Project Context Ref | Finding ID(s) |
+|---|---|---|---|---|
+| GAP-BR-R6-01 | Extends | `PO-19` and §4/§5 say run-006 changes only a Branch **it creates**. The run instead changed the user's **designated** BRN265 (`AUTH-BRANCH-*-DedicatedTestData`), with Branch creation revoked. This isn't in the Project Context | `PO-19`; §4; §5 | — |
+| GAP-BR-R6-02 | Contradicts | §3 excludes the Admin Itinerary for **Branch-created** bookings unless Stage 2 shows Branch-level booking exists. It does (`agencyId null`), so ASM-BR-6 is refuted and this row should move to §2 | §3; ASM-BR-6 | FINDING-017 |
+| GAP-BR-R6-03 | Extends | `PO-21` … `PO-26` and the `.60` target were written into the approved context during Stage 2. They need approval. The `PO-26` row in §1.2 also has one more cell than the two-column table | §1.2; header | — |
+| GAP-BR-R6-04 | Contradicts | §8.1 still says *"Verify `odeysysadmin` login on `http://192.168.1.70`"*. The login was verified on `.60` | §8.1 | — |
+| GAP-BR-R6-05 | Contradicts (resolved) | §3 REV 9 "Portal impact … Admin only (`PO-20`)" is superseded by `PO-25` | §3; `PO-25` | — |
+
+## 12. Recommendations
+
+| ID | Recommendation | Rationale | Finding ID(s) |
+|---|---|---|---|
+| REC-BR-R6-1 | Approve or amend `PO-21` … `PO-26`. Record BRN265 as designated test data in `PO-19`/§5. Move the Branch-created Itinerary row from §3 to §2, and set ASM-BR-6 to refuted. Fix `.70` → `.60` in §8.1, and fix the `PO-26` row | Closes GAP-BR-R6-01 … -05 at Stage 1 | — |
+| REC-BR-R6-2 | Design Branch API cases for `S-3` … `S-6` on BRN265, restoring its state after each | OQ-BR-R6-2 | — |
+
+**Regression Test Candidates:** the Branch-owned booking's button following BRN265 (on/off); S-7 pre-fill on the Branch; the picker excluding LCC and Amadeus; independence from AGN9780.
+
+## 13. Inputs for Test Design
+
+| Finding ID | Category | Status | Severity | Module |
+|---|---|---|---|---|
+| FINDING-017 | Observation | Rejected — Confirmed Intended (`PO-22`) | N/A | branch |
+
+| Assumption ID | Disposition | Basis |
+|---|---|---|
+| ASM-BR-4 | Confirmed | The candidates are the Branch's assigned GDS credentials, filtered by `PO-21` |
+| ASM-BR-5 | Confirmed | Endpoints in §4. Remarks carried in the approve body |
+| ASM-BR-6 | **Refuted** | A Branch-owned booking exists (`agencyId null`) |
+| RISK-BR-10 | Unresolved (partly) | A-BR-R6-1 |
+| RISK-BR-11 | Partly unresolved | OQ-BR-R6-1 |
+| RISK-BR-12 | Carried to Stage 3 | — |
+
+| Gap ID | Requirement | Decision Needed From Test Design |
+|---|---|---|
+| GAP-BR-R6-02 | Branch-owned booking Itinerary | Add to the designed scope (it's reachable) |
+| OQ-BR-R6-2 | `S-3` … `S-6` on the Branch API | Design as API cases |
+| OQ-BR-R6-1 | `S-5` inactive, clean-up | Defer or design with a precondition |
+| — | TravelportNdc | Design (needs a Travelport credential) |
+
+**Handoff confirmation:** present: this section, the Timeline (run-006 section), the Coverage Summary (run-006 section), the Findings Summary (FINDING-017 row), FINDING-017's evidence package, and the snapshot `DiscoverySnapshot_BranchAutoReissue_run-006.md`. Stage 3 should start after the §11 context items are approved.

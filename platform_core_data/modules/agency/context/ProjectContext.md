@@ -5,20 +5,21 @@
 | Module | `agency` |
 | PRD Source | `platform_core_data/knowledge_base/PRD.md` |
 | PRD sections this module derives from | **§7.2 (ORG-05 – ORG-10)** primary · §6 (XC-01 – XC-23) cross-cutting · §8 (data model) · §9.1–§9.2 (message catalogue) · §10 (file storage, environments) · §11 (E2E-04) · §13 (GAP-7, GAP-8) · §15 (OQ-1, OQ-2, OQ-7) |
-| In-scope requirement | `knowledge_base/requirements/user_stories/US-4222_Admin_Update_Agency.md` |
+| In-scope requirement | `knowledge_base/requirements/user_stories/US-4222_Admin_Update_Agency.md` (run-004) · **`knowledge_base/requirements/user_stories/Auto_Reissue_Checkbox_Branch_Agency.md` (run-006, Revision 5)** + its technical specification `knowledge_base/requirements/specifications/Auto_Reissue_Checkbox_Documentation.md` |
 | Run Scope Type | **User Story** |
 | Run Type | **User Story** |
-| Pipeline branch | **Automation Pipeline** (1 → 2 → 3 → `4A` → `5A` → optional `5H` → `6A`) — **changed at Revision 3**; run-001 took the Manual branch |
-| Target Environment | `http://192.168.1.70` — STG, shared staging |
-| Produced by run | `run-004__2026-08-17_14-35-25__UserStory__US-4222-UpdateAgency` |
-| Revision | 4 <!-- rev 4, 2026-08-18: two product-owner decisions from the Stage 2 gate — PO-13 (three undocumented controls out of scope) and PO-14 (dependency grant: the run may build and approve its own Branch). §5's mutation rows corrected for Branch only. --> |
-| Target ref at write | `b0a6eb1` |
-| Generated | 2026-08-17 |
-| Status | **Approved** |
-| Approved by | Revisions 1–2: Ahmed Ayman — Stage 1 Human Review gate, 2026-07-31. **Revision 3: Ahmed Ayman — Stage 1 Human Review gate, 2026-08-17**, after review of the full document and the twelve product-owner decisions at §1.2. **Revision 4: Ahmed Ayman — Stage 1 Human Review gate, 2026-08-18**, approving `PO-13`, `PO-14`, and the §5 mutation correction. |
+| Pipeline branch | run-004: **Automation Pipeline** (1 → 2 → 3 → `4A` → `5A` → optional `5H` → `6A`) — **changed at Revision 3**; run-001 took the Manual branch. **run-006: not yet chosen — decided at the Stage 3 gate** (user, 2026-09-23) |
+| Target Environment | run-004: `http://192.168.1.70` — STG, shared staging. **run-006: `http://192.168.1.60` (Admin) — shared; same mutation rules** (corrected by the user 2026-09-24: *"the task is not on 192.168.1.70"*). Wherever §4, §5 and §8.5 name `.70` for a run-006 action, read `.60` |
+| Produced by run | `run-004__2026-08-17_14-35-25__UserStory__US-4222-UpdateAgency` (Revisions 3–4) · **`run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` (Revision 5)** |
+| Revision | 5 <!-- rev 5, 2026-09-23: run-006 adds the Auto Reissue checkbox story (CRUD coverage across agency + branch). Additive only — see §0.3. --> |
+| Target ref at write | `bc564a4` |
+| Generated | 2026-08-17 · Revision 5: 2026-09-23 |
+| Status | **Approved** — Revision 5, 2026-09-24. Revisions 1–4 keep their own approvals for everything §0.3 does not list as changed. |
+| Approved by | **Stage 2 additions (`PO-21` … `PO-26`, run-006 target `.60`): Mohamed Soliman, 2026-09-24, at the Stage 2 review.** Revisions 1–2: Ahmed Ayman — Stage 1 Human Review gate, 2026-07-31. **Revision 3: Ahmed Ayman — Stage 1 Human Review gate, 2026-08-17**, after review of the full document and the twelve product-owner decisions at §1.2. **Revision 4: Ahmed Ayman — Stage 1 Human Review gate, 2026-08-18**, approving `PO-13`, `PO-14`, and the §5 mutation correction. **Revision 5: Mohamed Soliman (mohamed.soliman@tildetech.ae) — Stage 1 Human Review gate, 2026-09-24**, approving the Auto Reissue additions, confirming `PO-15` … `PO-20` as decisions with product-owner standing, and confirming that reissue-credential selection is an `UPDATE` of a supplier-credential selection, not a `CREDENTIAL_CHANGE` (§5, §8.5). |
 | Revision 2 authored by | Ahmed Ayman (directive), 2026-07-31 — the application becomes the primary reference where US-4222 is clearly outdated; disposition taxonomy added at §1.1; Threshold fields confirmed as later enhancements |
 | Revision 3 authored by | Stage 1, run-004, 2026-08-17 — see §0.1 for exactly what changed and what did not |
 | Revision 4 authored by | Stage 1, run-004, 2026-08-18 — **two decisions taken during Stage 2** and written back here because §1.2 is where product-owner decisions live. See §0.2 |
+| Revision 5 authored by | Stage 1, run-006, 2026-09-23 — **the Auto Reissue checkbox story added as new CRUD coverage**, with the user's intake answers recorded at §1.3. See §0.3 |
 | Revision 3 amended | 2026-08-17 — **twelve product-owner decisions applied** (§1.2) plus five document corrections. Still `Pending Review`; the decisions are recorded, the approval of the document is not yet given. |
 
 ## 0.1 What Revision 3 changed
@@ -65,6 +66,29 @@ recorded and evaluated, at
 (`AUTH-BRANCH-CREATE` / `UPDATE` / `SUBMIT` / `APPROVE-SelfCreated`, approved by ahmed.ayman@tildetech.ae,
 2026-08-18, verified against `platform_core/tools/execution_safety`). This document **cites** them so scope
 and safety stop disagreeing; the grant itself lives where grants live.
+
+## 0.3 What Revision 5 changed
+
+Revision 5 is **additive**. It brings a second, independent User Story into this module — the **Auto
+Reissue checkbox** (run-006) — and changes nothing that Revisions 1–4 established for US-4222. Everything
+not listed here keeps its original approval.
+
+| # | Change | Why |
+|---|---|---|
+| 1 | **New in-scope requirement:** `Auto_Reissue_Checkbox_Branch_Agency.md` + the technical specification `Auto_Reissue_Checkbox_Documentation.md` (the PDF, transcribed; save scenarios `S-1` … `S-10`) | Supplied by the user 2026-09-23. Routed at intake as **CRUD** coverage added to the existing `agency` and `branch` modules — **not** a Feature folder (user answer, 2026-09-23) |
+| 2 | **§1.3 added** — six decisions `PO-15` … `PO-20` from the user's intake answers | §1.2's convention: decisions are stated once and cited everywhere else |
+| 3 | **§2 gains the Auto Reissue rows**; §3 gains the exclusions this story creates; §3.1 gains the boundary to the `reissue` Supplier Feature | So the new scope is visible in the same tables as the old |
+| 4 | **§5 gains run-006's grant** — create / update / submit / approve **self-created** Agency (and Branch) records only | Granted by the user 2026-09-23, recorded at `runs/run-006…/metadata/SafetyAuthorizations.json` and verified against the evaluator |
+| 5 | **ASM-003 is refined, not reversed** (see `PO-16`); new items `ASM-019` … `ASM-022` and `RSK-011` … `RSK-014` in §6 | The PDF and the user's answers add facts about credentials that ASM-003's one-line statement did not cover |
+| 6 | **§8.5 added** — run-006's own open items | Kept separate from §8.1–§8.4, which describe run-004 |
+
+**What Revision 5 deliberately did not change.** US-4222's scope, `PO-1` … `PO-14`, the disposition
+taxonomy at §1.1, run-004's pipeline branch, and every §6 entry that already existed (except the one-line
+refinement note on ASM-003). **run-004's folder is not touched** — run-006 is a new, independent run.
+
+**The two stories are separate scopes inside one module.** US-4222 (update flow) and the Auto Reissue
+story (one new checkbox + credential selection) are designed, traced and reported separately. A test case
+cites the story it belongs to; nothing from one is counted as coverage of the other.
 
 ## 0. How to read the requirement references in this document
 
@@ -223,6 +247,40 @@ from this run entirely. That is a deliberate narrowing, and it has a cost: **run
 a maker can approve their own Agency change** (PRD `OQ-1`). The workflow is tested; the governance around it
 is not. That is Role CRUD's job, and this document no longer pretends otherwise.
 
+## 1.3 Auto Reissue decisions — 2026-09-23 (run-006)
+
+*(Added Revision 5.)* The answers the user (Mohamed Soliman) gave at run-006 intake, stated once and cited
+as `PO-n` like §1.2. The same six decisions appear, unchanged, in the `branch` Project Context (Revision 9)
+— one decision, recorded in both modules it governs, never re-worded differently in either.
+
+**Standing of these answers.** They came from the requester at intake, and **their product-owner standing
+was confirmed at the Stage 1 gate on 2026-09-24** (Mohamed Soliman). As §1.2 says, **a decision is not
+evidence**: Stage 2 still observes each on the live screens before Stage 3 asserts it.
+
+| ID | Decision | What it settles |
+|---|---|---|
+| **PO-15** | **The checkbox is named `Auto Reissue`.** The story's "Reissue Feature Allowed" checkbox is this control. It is stored per organization as `TT_ORGANIZATION.AUTO_REISSUE_ENABLED`, default **unchecked**. The Itinerary button it governs is named **`Reissue`**. | Which control and which button the story means. Stage 2 captures the exact live labels (`PO-12` method); Stage 3 asserts what was captured. |
+| **PO-16** | **Agency and Branch checkboxes are independent.** Turning Auto Reissue on or off on a Branch does **not** change the checkbox of any Agency under it, and the reverse. **Credentials:** an Agency **inherits its parent Branch's supplier credentials**; it may **customize** its own reissue-credential selection in Agency CRUD, but **cannot be assigned a supplier credential that does not exist on its parent Branch**. | Answers the story's **Permission Precedence** AC ("define the expected behavior when the Agency and Branch have different values"): there is no precedence — each organization's own value applies to that organization. Combined with the specification §5, **the Itinerary uses the flag of the organization that created the booking**. Refines ASM-003 (see §6). |
+| **PO-17** | **Reissue-credential selection is in scope on both the UI and the backend.** The UI's credential selection that accompanies the checkbox is tested on the screen; the specification's API-only rules (`S-3` … `S-6`, marked *"Backend API validation through Postman"*) are tested against the API. | Which of `S-1` … `S-10` are UI cases and which are API cases. |
+| **PO-18** | **This story's checkbox is Auto-Reissue as the specification describes it.** `AUTO_REISSUE_ENABLED`, `reissueCredentials`, the `autoReissueAllowed` supplier flag and `actionsDetails.canAutoReissue` are the technical source. | Removes the ambiguity between the story's generic "reissue feature" and the specification's "auto-reissue". |
+| **PO-19** | **run-006 may create a new test Agency (and Branch) and edit, submit and approve only those.** It never edits, approves, rejects or deletes an Agency or Branch it did not create. **The platform never books anything** — every booking used by this run is made **manually by the user**, and the platform only *reads* the resulting Itinerary. | The run's mutation boundary (§5). Recorded as `AUTH-AGENCY-*-SelfCreated` / `AUTH-BRANCH-*-SelfCreated`. |
+| **PO-20** | **Admin only for run-006.** Portal-side checks are designed and marked deferred; no Portal credential is provisioned. **The pipeline branch (Manual `4M` or Automation `4A`) is chosen at the Stage 3 gate.** | Where the story's **Portal Impact** AC stands in this run, and why the header's pipeline-branch field is blank. |
+
+| **PO-21** *(added during Stage 2, 2026-09-24)* | **Where the Auto Reissue picker's options come from.** They come from the suppliers assigned in **Product Access**. **GDS suppliers — Galileo, Travelport, Amadeus, Sabre, NDCsbr** — can hold several credentials. Ticking one adds a **tab with its name** under *Airline Supplier credential (PCC)*: a multi-select, `id-Genericsuppliercredentials(PCC)`. **Every other supplier is an LCC.** An LCC's credential is chosen in its own Product Access row and **never** feeds the Auto Reissue picker. **Corrected by the user the same day:** being a GDS is necessary but not enough. A supplier supports reissue only if it is **also on a list hard-coded in the application, checked first: `NDCsbr`, `Sabre`, `TravelportNdc`, `Galileo`.** **Amadeus is a GDS but is not on that list, so it does not support reissue.** The picker therefore lists the tab-chosen credentials of assigned GDS suppliers that are on the hard-coded list (the `autoReissueAllowed` flag). | Explains the picker's contents and gives Test Design the rule to design against. **Observed 2026-09-24, unsaved forms:** AGN9780 Sabre tab "Sabre Staging" → picker `["Sabre Staging"]`. New Branch: LCC AirArabiaEgypt with row credential → picker empty. Galileo tab "GalileoLive" → picker `["GalileoLive"]`. Amadeus tab "Amadeus Live" → picker empty — **expected**; this is spec `S-9` in the UI. Credential flags: `37-supplier-credentials-autoReissueAllowed.json`. |
+
+| **PO-22** *(Stage 2, 2026-09-24)* | **The checkbox controls only whether the `Reissue` button is shown.** The selected *Auto Reissue Credentials* are enforced **when the reissue is attempted**. When the user clicks **Reissue** on a booking whose credential is not among the organization's selected reissue credentials, **the reissue** is refused with **"No credential for this booking is assigned to your organisation"**. **Making a booking is never affected** — any assigned credential can still be booked on. | Explains the Stage 2 observation that booking `NDCEG-BR-F260916ENYOeQ` (credential 315 "Sabre Staging") shows the button while BRN265's selection is only 313. **Expected, not a defect.** The refusal message belongs to the Reissue flow, shared scope `reissue-flow`, and is tested there, not here. |
+| **PO-23** *(Stage 2, 2026-09-24)* | **Two correct messages for "on with no credential" (`S-2`).** The UI blocks the save and shows **"Required"** under the picker. **"Select at least one eligible credential"** is the **API's** message, returned only when such a request reaches the server. | Stage 3 asserts "Required" on the screen and the specification's text on the API case. Neither is a wording defect. |
+| **PO-24** *(Stage 2, 2026-09-24)* | **The Itinerary condition is Status `Booked`** (Booking Information and passenger rows), **not** the "Ticketed Document" label in the top status bar. **An organization is Inactive while its change is Pending for approval — normal behaviour.** The edit form's own **Approve** button saves and approves in one step and avoids that state. | Stage 3 designs to Status `Booked`, and may use the edit form's **Approve** where a case does not test the maker–checker path itself. |
+| **PO-25** *(Stage 2, 2026-09-24 — supersedes `PO-20`'s "Admin only")* | **The Portal is in scope.** The user supplied a Portal login for AGN9780 (stored only in the git-ignored `credentials.json`, key `PORTAL_60`, `http://192.168.1.60:9500`). **Observed 13:11–13:13 in one session order:** AGN9780 OFF → Portal `canAutoReissue: false`, no `Reissue` button · ON → `true`, **`Reissue` shown** · OFF → `false`, hidden. **Portal differences from Admin:** the button shows **without a lock** (`lockedStatus 0`), and **Manual Reissue is not offered on the Portal** (`canManualReissue: false`). **No lock on the Portal is intended** (user, 2026-09-24: *"there is no need of lock on the portal"*). The lock is an Admin-only precondition. Path: `/myBooking` → Search → the **Order Id** link opens `/myBooking/booking-details/{orderId}`. | The story's **Portal Impact** AC is now covered by observation, not deferred. The pipeline branch is still chosen at Stage 3. |
+| **PO-26** *(Stage 2, 2026-09-24 — user statement, not yet observed)* | **Booking visibility follows the hierarchy.** An **Agency's Portal login cannot see its parent Branch's bookings**. **A Branch can see its Agencies' bookings** and **can book on behalf of an Agency**. | Portal Reissue cases use **Agency-created** bookings only. A Branch-created booking is never expected on an Agency's Portal. **Answered by the user the same day:** a booking made by Admin/Branch **on behalf of an Agency belongs to that Agency**, so **the Agency's Auto Reissue checkbox** controls the `Reissue` button, on both Admin and the Portal. The Branch's checkbox does not. (Spec §5's *"the organization that created the booking"* means the organization the booking belongs to.) |
+| **PO-27** *(Stage 3, 2026-09-25 — user statement; **approved by Mohamed Soliman 2026-09-25**)* | **The Branch is the supplier ceiling for its Agencies.** The Branch is the parent of the Agency, so the Agency inherits the Branch's suppliers, and **the suppliers assigned to an Agency can only be ones its Branch has**. The reverse doesn't hold: **a Branch can have suppliers that are not assigned to its Agency**, because Branch and Agency each have their own CRUD. | Extends `PO-16` from credentials to suppliers. Stage 3 tests both directions (TC-AGENCY-091, TC-BR-109). |
+
+**What these decisions do not settle** — carried to §8.5 rather than guessed:
+
+- Which suppliers on STG have `autoReissueAllowed = true`. `S-9` and `S-10` both depend on it.
+- What the UI does when the checkbox is on and a credential selection is invalid. The specification states API messages only.
+- Whether the Admin Itinerary is reachable for a booking the user makes under the run's test Agency. The user supplies the booking references.
+
 ## 2. In Scope for This Module
 
 | Area / Screen / Flow | Why in scope | PRD Reference — ID **and what it says** |
@@ -246,6 +304,25 @@ is not. That is Role CRUD's job, and this document no longer pretends otherwise.
 | **Field-level validation and messages for every field above** | US-4222 states an exact message per field. **`PO-12` changes where the expected result comes from:** Stage 2 triggers each validation through a valid interaction and captures the exact displayed string, punctuation and capitalization included; **Stage 3 designs expected results from those verified observations**, not from a blind exact-match against the story. Every story-vs-application difference is recorded and classified under §1.1. | **§9.1** — the catalogue of literal, product-owned validation strings · **GAP-7** — *"The Create-Agency story specifies ~45 fields with exact validation and message per field… only the happy path is automated; no negative field-level coverage"* — i.e. **this run is the first verification of those messages** · **`PO-12`** |
 | **Branch field is read-only on the Update form** | *(Added by `PO-10`.)* Branch **cannot be changed** from inside Agency Update. Stage 2 **verifies it is non-editable and does not attempt to change it.** This is a *confirmation* case, not an inheritance-behaviour case. | **ORG-05** `[V]` — Branch is part of the agency form · **`PO-10`** |
 
+**Added at Revision 5 — the Auto Reissue checkbox story (run-006).** The PRD predates this requirement and
+has **no** reissue requirement at all. Every row below therefore rests on the story, the technical
+specification, and `PO-15` … `PO-20`. The PRD column cites only the cross-cutting rules the rows use.
+
+| Area / Screen / Flow | Why in scope | Source — ID **and what it says** |
+|---|---|---|
+| **Auto Reissue checkbox on Create Agency and Update Agency** — present, default **unchecked**, can be switched on and off | Story AC *Agency CRUD* 1–2. `PO-15` names the control | Story AC *Agency CRUD*; spec §1 — *"stored per organization … `AUTO_REISSUE_ENABLED`. Its default is unchecked (`0`)"*; `PO-15` |
+| **Saved value is retrieved when the Agency is edited** — the Update form shows what was saved, and the Agency GET returns `autoReissueEnabled` and `reissueCredentials` | Story AC *Agency CRUD* 3 | Story AC *Agency CRUD*; spec §4 — `GET /Admin2/agency/{agencyId}` returns both, plus the supplier-credential list with its `autoReissueAllowed` flag |
+| **Reissue-credential selection (UI)** — when Auto Reissue is on, the user picks one or more supplier credentials; only credentials **mapped to this Agency** and whose supplier supports auto-reissue are eligible | `PO-17` puts the UI in scope. `PO-16` sets the eligible set | Spec §3 `S-1`, `S-2`, `S-7`, `S-8`, `S-9`, `S-10`; `PO-16`, `PO-17` |
+| **Agency credential set is bounded by the parent Branch** — the Agency inherits the Branch's supplier credentials, may customize its reissue selection, and **cannot** be given a credential its Branch does not have | `PO-16` — the user's answer to the story's precedence AC. **Not in the specification.** It is the one rule here that only the user's answer supports | `PO-16`; spec `S-8` (*"Each auto-reissue credential must be mapped to this organization"*) is the nearest backend rule; ORG-07 `[V]`, SUP-05 `[V]` (the inheritance mechanism) |
+| **Backend save rules through the API** — `S-3` (Off + credentials on update → the list is replaced by existing valid selections), `S-4` (missing `credentialId`), `S-5` (unknown or inactive credential), `S-6` (duplicate IDs) | `PO-17` — backend in scope; the specification marks these four *"Backend API validation through Postman"* | Spec §2 (`POST/PUT /Admin2/agency/...`), §3 `S-3` … `S-6` |
+| **Turning Auto Reissue off keeps the saved credentials** — turning it back on returns them | Spec `S-7`. A persistence rule the story's "saved and retrieved correctly" does not state | Spec §3 `S-7` |
+| **Read-time clean-up of invalid credentials** — on every read, a selected credential that has become inactive, unmapped or unsupported is removed; **the checkbox itself stays on** even if none remain | Spec §4. A direct consequence of "retrieved correctly" | Spec §4. See RSK-012 — reaching this state needs a change the run may not be allowed to make |
+| **Agency and Branch are independent** — changing the parent Branch's checkbox does not change this Agency's checkbox | `PO-16`; spec §3 closing line | Spec §3 — *"Agency and branch selections are independent; enabling on branch does not enable for all agencies under this branch"*; `PO-16` |
+| **Admin Itinerary `Reissue` button visibility** for a booking made under this Agency — shown only when the booking is `BOOKED`, the Agency has Auto Reissue on, **and** the booking's supplier is allowed for auto-reissue; hidden otherwise | Story AC *Admin Impact* and *Regression & Validation* 3. **Booking is made manually by the user** (`PO-19`); the platform only reads the Itinerary. **Admin only** (`PO-20`) | Spec §5 — `actionsDetails.canAutoReissue` and its three conditions; `PO-19`, `PO-20` |
+| **Admin can view and manage the permission** — the checkbox and credential selection are visible and editable on the Agency form | Story AC *Admin Impact* 2 | Story AC *Admin Impact* |
+| **Regression — existing Agency CRUD is unaffected** — Create and Update still save and submit as before when the checkbox is untouched (default off) | Story AC *Regression & Validation* 1 and *Admin Impact* 3. **Narrowest reading:** a smoke check that the existing create and update paths still work. Not a re-run of US-4222's field matrix | Story AC *Regression & Validation*; XC-01, XC-04 `[V]` (maker–checker still applies) |
+| **Maker–checker on the new field** — an Auto Reissue change goes through Send For Approval → *Pending for approval* → Approve before it takes effect | The field lives on a governed record, so XC-01/XC-04 apply to it like any other field. **Performed only on self-created Agencies** (`PO-19`) | XC-01, XC-04 `[V]`; §9.2 (`Pending for approval`) |
+
 ## 3. Out of Scope for This Module
 
 | Area / Screen / Flow | Why out of scope | Covered by | PRD Reference |
@@ -268,6 +345,11 @@ is not. That is Role CRUD's job, and this document no longer pretends otherwise.
 | ↳ **Top Up submodule** | Additionally blocked: no wallet charge or top-up is authorized (§5, `Forbidden (absolute)`). | `company` (Admin Top-Up Request) and `portal-self-service` (Portal top-up) | ORG-13, PTL-01 – PTL-07 |
 | **Agency Owner activation → Portal login** (E2E-04's second half) | Not named by US-4222; owned by the module that manages agency users. | `agency-user-administration` | USM-09, AUTH-30, E2E-04 |
 | **Non-functional requirements** — performance, accessibility, concurrency, multi-browser, localisation/RTL | The PRD states these are not derivable and largely absent; nothing in US-4222 states one. | **Not tested — out of project scope for this run** | §12 (NFR-01 – NFR-06 and the "Missing" row), OQ-4, OQ-5 |
+| **The Reissue flow itself** — Eligibility, Re-shop, results, Review & Pay, Exchange, confirmation, PNR Query *(Revision 5)* | This story only adds the **switch** that allows reissue. What happens after the `Reissue` button is pressed is the separate Reissue story | Supplier Feature **`reissue`**, shared scope **`reissue-flow`** | `Reissue_Flow_From_Itinerary.md` |
+| **Making any booking** *(Revision 5)* | `PO-19`: **the platform never books.** Bookings used to observe the Itinerary button are made manually by the user. `BOOK` stays `Forbidden (absolute)` | The user, manually — outside the platform | `PO-19`; `execution_safety_policy.json` |
+| **Portal-side impact of Auto Reissue** — the Portal Itinerary's `Reissue` button *(Revision 5)* | `PO-20`: **Admin only** in run-006. No Portal credential is provisioned. Cases are designed and marked `Deferred / Requires Portal Access` | `portal-self-service` — deferred | Story AC *Portal Impact*; spec §5 (*"Both Admin and Portal itinerary responses expose …"*); `PO-20` |
+| **Changing a Supplier's own auto-reissue support**, or a supplier credential's active status *(Revision 5)* | Needed to produce `S-5` (inactive credential), `S-9` (unsupported supplier) and read-time clean-up **by changing the supplier**. Supplier and credential records are shared reference data, and changing them is not granted | Nobody in this run. Test these states only where STG **already** has such a credential; otherwise `Deferred / Requires Authorization` (RSK-012) | spec §3, §4 |
+| **Exchange Fees Rule Engine** *(Revision 5)* | Named in the Reissue flow story, not in the checkbox story | `rule-engine` (Proposed) via the `reissue-flow` scope | `Reissue_Flow_From_Itinerary.md` |
 
 ### 3.1 Module Boundaries
 
@@ -283,6 +365,9 @@ is not. That is Role CRUD's job, and this document no longer pretends otherwise.
 | `company` | Credit limits set here bound the Top-Up Requests that module processes (ORG-13). | **`company`** — not verified by this run. |
 | `authentication` | An `odeysysadmin` session is a precondition for reaching the form. | **`authentication`** — assumed working, not a test target. Stage 2 confirms login succeeds before anything else, as an environment check rather than a test case. |
 | **Role CRUD** *(future module, not yet proposed)* | Owns the question `PO-9` removed from this run: which roles may Approve or Reject, and whether maker and checker must be different identities (XC-06, PRD `OQ-1`, `OQ-2`). | **Role CRUD** — **explicitly not verified by run-004.** The boundary is recorded so the gap stays visible rather than looking like coverage. |
+| `branch` — **Auto Reissue** *(Revision 5)* | Two different relationships, kept apart. **Checkbox: independent** — a Branch's Auto Reissue value never changes its Agencies' values (`PO-16`, spec §3). **Credentials: inherited and bounded** — the Agency's eligible reissue credentials are those of its parent Branch; it may narrow or customize the selection, never extend beyond it (`PO-16`) | **this module** for the Agency side of both. `branch` for the Branch's own checkbox. A case that changes the Branch and then checks the Agency needs a **self-created** Branch (`PO-19`) |
+| **Supplier Feature `reissue`** (`supplier-features/reissue/`, shared scope `reissue-flow`) *(Revision 5)* | This checkbox is the Reissue flow's **prerequisite**: the flow story says it must *"be controlled through the Reissue checkbox configured on Branch and Agency CRUD"*. The `Reissue` button this module's setting controls is where that flow starts | **this module** for the setting and the button's visibility. **`reissue-flow`** for everything after the button is pressed. A separate registry (`supplier-features/modules.json`) — never merged with this module |
+| `master-supplier` — **auto-reissue support** *(Revision 5)* | Whether a supplier allows auto-reissue (`autoReissueAllowed`) decides which credentials are eligible (`S-9`) and whether the button shows (spec §5 condition 3) | **this module** reads the flag; **`master-supplier`** owns it. Not changed by this run |
 
 ## 4. Roles & Credentials Required
 
@@ -302,6 +387,9 @@ the single account is neither a blocker nor a risk, because role authorization i
 | **`odeysysadmin`** — standing in as **both Admin and Super Admin** (`PO-1`) | **Create** Agency test records · **Update** self-created Agency records · **Send For Approval** · **Approve** · **Reject**. Also: navigate Admin → Agency, open a record, edit every section, and Cancel. | `knowledge_base/credentials/credentials.json` — **exists (2026-08-03), git-ignored, resolved at runtime, not yet re-verified in run-004** | §2 (Actors), AUTH-01, XC-02 |
 | **`odeysysadmin` — explicitly NOT authorized for** | Booking, ticketing, payments, wallet charges, top-ups, holds, refunds, voids, or similar commercial operations. Restrictions for those arrive with their own modules. | — | `PO-1`; `execution_safety_policy.json` (all `Forbidden (absolute)`) |
 | Agency Owner / Agent (Portal) | **Not required.** Portal-side reflection is out of scope (`PO-11`, §3). | — | AUTH-24, PTL-01 |
+| **`odeysysadmin` — run-006** *(Revision 5)* | Create a test Agency · set Auto Reissue on/off and choose reissue credentials on it · Send For Approval · Approve · read it back · open the Admin Itinerary of bookings the user made under it (read only). **Only on records run-006 created** (`PO-19`). | `knowledge_base/credentials/credentials.json` — **not re-verified in run-006**; Stage 2 verifies login first | `PO-19`; `AUTH-AGENCY-*-SelfCreated` |
+| **The user (manual booker)** — run-006 *(Revision 5)* | Makes every booking this run observes, **by hand, outside the platform** (`PO-19`), under the run's test Agency, and supplies the booking references. | Not a platform credential. The platform never logs in as the booker and never books | `PO-19` |
+| Agency Owner / Agent (Portal) — run-006 | **Not required.** Admin only (`PO-20`). | — | `PO-20` |
 
 **What this section deliberately no longer claims.** Revision 2 said a Super Admin was *required as a
 separate checker* because "a maker may not approve their own change". That was an `[I]`-tagged inference,
@@ -338,13 +426,25 @@ tool call, or report.**
 | **Expected results for validation messages come from Stage 2 observation, not from the story** (`PO-12`) | Stage 2 triggers each validation **through a valid interaction** (see `branch` reuse R-1 — a scripted `.value` assignment does not trigger real validation), captures the exact displayed string with punctuation and capitalization, and records every story-vs-application difference under §1.1. Stage 3 designs from those observations. **No blind exact-match against outdated US-4222 strings.** | `PO-12`; §9.1 |
 | **Branch is read-only on the Update form and must not be changed** (`PO-10`) | Stage 2 **verifies** non-editability; it does not attempt an edit. No re-inheritance-after-Branch-change coverage exists in this run. | `PO-10` |
 
+**run-006 (Revision 5).** run-004's grants do not carry forward. run-006 has its own, evaluated against
+the same policy on 2026-09-23:
+
+| Constraint | Implication for downstream stages | Source |
+|---|---|---|
+| **Mutation limited to self-created Agency and Branch records** — `CREATE / UPDATE / SUBMIT / APPROVE SelfCreated` on `agency` and on `branch` | The run builds its own test Branch, then its own test Agency under it, and changes Auto Reissue and credential selection **only** on those. The evaluator returns `UPDATE SelfCreated agency` → **Allowed**, `UPDATE Shared agency` → **Approval Required** (not granted), `APPROVE Shared branch` → **Forbidden**. **`REJECT` is not granted** — no case in this story needs it | `PO-19`; `runs/run-006…/metadata/SafetyAuthorizations.json` (approved by mohamed.soliman@tildetech.ae, 2026-09-23) |
+| **Choosing reissue credentials is an `UPDATE` of the run's own Agency, not a `CREDENTIAL_CHANGE`** | The policy's `CREDENTIAL_CHANGE` class is about changing an **account's login credential** (`execution_safety_policy.md`: *"changing its credential would lock out the run and anyone else using it"*). Selecting which supplier credentials an organization may reissue with is a field on the organization record. **Confirmed at the Stage 1 gate, 2026-09-24**, in the reviewer's words: *"all you need to change the selection of credential and it is the supplier credential not login credentials"*. No login credential is ever changed | `execution_safety_policy.md`; reviewer confirmation 2026-09-24 |
+| **The platform never books** — `BOOK` is `Forbidden (absolute)` (evaluator: `BOOK SelfCreated agency` → **Forbidden**) | Every booking this run observes is made **manually by the user** (`PO-19`). The platform opens the Admin Itinerary **read only**. A case needing a booking that does not exist yet waits for the user's reference. It is never worked around | `PO-19`; `execution_safety_policy.json` |
+| **API cases send requests only against the run's own Agency** | `S-3` … `S-6` are backend requests. `PUT` against a record the run did not create is an `UPDATE Shared` and is not granted | `PO-17`, `PO-19` |
+| **Retention and ownership rules carry over unchanged** — no `DELETE`; capture the test Agency's ID at creation; record how many records each execution created | Same obligations as `PO-2`/`PO-3`, applied to run-006's own records | `PO-2`, `PO-3` (method); run-006 grant |
+| **Headed vs Headless is asked before every execution** | Unchanged standing rule | user standing instruction |
+
 ## 6. Carried-Forward Assumptions & Risks
 
 | ID | Type | Statement (meaning preserved) | Affected Module(s) | PRD Reference |
 |---|---|---|---|---|
 | ASM-001 | Assumption | The PRD was **reverse-engineered from an automation suite**, is marked *Draft for business review*, and is **not business-approved**. Every requirement carries `[V]` verified / `[O]` observed / `[I]` inferred; `[O]` and `[I]` must be **probed, never treated as settled acceptance criteria**. Where automation and business intent disagree, business intent wins. | all | §0, §0.1, §17 |
 | ASM-002 | Assumption | **The PRD contains no requirement describing the Agency *update* flow.** ORG-05 describes creation; XC-04 establishes only that the maker–checker workflow covers updates. The update form's section list is *assumed* to mirror the create form's. US-4222 is the sole requirement for the flow under test. | `agency` | ORG-05, XC-04 |
-| ASM-003 | Assumption | Agency PCCs are **inherited from Supplier & Branch** — an agency does not define credentials of its own. | `agency`, `master-supplier`, `branch` | ORG-07 `[V]`, SUP-05 `[V]` |
+| ASM-003 | Assumption | Agency PCCs are **inherited from Supplier & Branch** — an agency does not define credentials of its own. **Refined at Revision 5 (`PO-16`):** the Agency still defines no credential *of its own*, but it **may customize which inherited credentials it selects** — within the set its parent Branch holds, never beyond it. | `agency`, `master-supplier`, `branch` | ORG-07 `[V]`, SUP-05 `[V]`; `PO-16` |
 | ASM-004 | ~~Assumption~~ **Retired — Out of Scope (`PO-9`)** | **"Self-approval is assumed prohibited but never proven."** Retired as a test target. `PO-1` approves `odeysysadmin` for both actors; `PO-9` removes role-permission and self-approval authorization cases from this run. **run-004 does not test who may approve.** The underlying question (XC-06, PRD `OQ-1`) is real and stays open **for the Role CRUD module** — it is not answered here and must not be reported as covered. | Role CRUD (future) | XC-06 `[I]`, OQ-1; `PO-1`, `PO-9` |
 | ASM-005 | Assumption | **Credit enforcement behaviour is unspecified.** What actually happens at the credit limit, the top-up limit, the reaching-percentage threshold, and past credit terms in days is configured everywhere and exercised nowhere. Setting these fields is testable; their *effect* is not. | `agency`, `company`, `reports` | OQ-7 |
 | ASM-006 | ~~Assumption~~ **Deferred to Role CRUD (`PO-9`)** | **The complete approval matrix is unknown** — which record types require approval, and which role approves each. Still true, still unanswered, but **no longer this run's concern**: run-004 asserts workflow behaviour, not the authorization model. Carried as a documented boundary (§3.1) so the gap stays visible. | Role CRUD (future) | OQ-2; `PO-9` |
@@ -370,7 +470,14 @@ tool call, or report.**
 | RSK-008 | **Risk — mitigation now mandatory (`PO-2`)** | **An untagged self-created record is indistinguishable from a shared one after the fact.** The grant's boundary is "records this run created". Without a captured, run-tagged identifier a later Approve cannot prove it acted on an authorized record — and Approve on a shared record is `Forbidden (absolute)`. **`PO-2` makes the mitigation a directive rather than advice:** capture the identifier **immediately at creation**, before any other action, and **preserve it in the execution evidence**. | `agency` | run-004 mutation grant; `PO-2` |
 | RSK-009 | **Risk — accepted, with two obligations (`PO-3`)** | **Records accumulate and are never cleaned up.** `DELETE` is not authorized in any form, so every agency this run creates stays on shared staging permanently, and every rerun adds more. **`PO-3` accepts this explicitly.** Two binding obligations replace cleanup: **(1)** reuse a self-created record **where test independence and test validity allow it** — reuse never at the cost of a valid test; **(2)** **record how many Agency records each execution created**. **No cleanup through DELETE.** An accepted cost, recorded — not a defect to fix silently, and not a reason to skip a test. | `agency` | `execution_safety_policy.json`; run-004 grant; `PO-3` |
 | RSK-010 | Risk | *(New, Revision 3.)* **Automation-branch drift risk on a form of ~45 fields.** Stage `4A` verifies every selector live, but the Agency form is built on PrimeNG widgets whose DOM shape differs from their apparent control (`p-dropdown`, `p-calendar`, `p-multiselect`). A locator written against the hidden native input rather than the wrapper compiles, runs, and silently does nothing. Mitigation: apply the shared PrimeNG repair patterns (REP-004 … REP-009) **before** generating, not after the first failure. | `agency` | `knowledge/patterns/repair/`; `branch` reuse R-8 |
-
+| ASM-019 | Assumption | *(Revision 5.)* **The UI's credential picker is not described anywhere.** The specification gives the API body and the API messages. It does not say whether the picker is a multi-select, a checkbox list or a table, whether it appears only when Auto Reissue is on, or what the UI shows when `S-2` / `S-8` / `S-9` is rejected. Stage 2 observes the live control and the messages it shows (`PO-12` method). Stage 3 designs from that observation, never from the API messages alone. | `agency` | spec §2, §3; `PO-17` |
+| ASM-020 | Assumption | *(Revision 5.)* **The specification's endpoints are abbreviated** (`POST/PUT /Admin2/agency/...`). The full path, the rest of the request body, and the authentication the API expects are not stated. Stage 2 reads them from the Admin application's own network traffic while saving a self-created Agency. Nothing is guessed. | `agency` | spec §2 |
+| ASM-021 | Assumption | *(Revision 5.)* **"Mapped to this organization" (`S-8`) and "exists on the parent Branch" (`PO-16`) are assumed to be the same set for an Agency.** The specification says a credential must be mapped to the organization. The user says an Agency cannot hold one its Branch lacks. If the two sets can differ on STG, Stage 2 reports it as a Finding rather than choosing one. | `agency`, `branch` | spec `S-8`; `PO-16` |
+| ASM-022 | Assumption | *(Revision 5.)* **`BOOKED` in spec §5 is assumed to be the Itinerary's displayed booking status.** A booking in another state (ticketed, cancelled, pending) must hide the button. Which statuses a manual booking can reach on STG depends on what the user books. | `agency` | spec §5; `PO-19` |
+| RSK-011 | Risk | *(Revision 5.)* **Itinerary cases depend on bookings the platform cannot make.** Every Admin Impact case needs a `BOOKED` booking under the run's test Agency, made manually by the user (`PO-19`). Without the booking reference, those cases stay `Blocked — Awaiting User Booking`. That is not a failure, and not a reason to book. **Order matters:** the test Agency must exist and be approved **before** the user books under it. | `agency` | `PO-19`; spec §5 |
+| RSK-012 | Risk | *(Revision 5.)* **Several specification states can only be reached by changing shared reference data.** An inactive credential (`S-5`), a supplier that does not support auto-reissue (`S-9`), and read-time clean-up after a credential becomes invalid (spec §4) each need a supplier or credential to *be* in that state. **This run may not change Supplier or credential records.** Mitigation: first look for credentials already in that state on STG (read only). Otherwise, test the API form where the request can carry the condition (`S-5` with an unknown ID), and mark the rest `Deferred / Requires Authorization`. | `agency`, `master-supplier` | spec §3, §4; §5 of this document |
+| RSK-013 | Risk | *(Revision 5.)* **A saved-but-unapproved change may not be what the Itinerary reads.** The Agency is maker–checker governed (XC-01, XC-04). Whether `canAutoReissue` uses the approved value or the pending value is not stated. Test Design must check the button **after Approve**, and treat "after Send For Approval, before Approve" as a separate, explicitly labelled observation. | `agency` | XC-01, XC-04; spec §5 |
+| RSK-014 | Risk | *(Revision 5.)* **Regression scope can silently grow.** *"Verify existing Agency CRUD functionality is not affected"* could be read as re-running all of US-4222. The narrowest-reading rule for a User Story run applies: a small smoke set on create and update with the checkbox untouched. Anything wider is a disclosed human decision at the Stage 3 gate, never a default. | `agency` | `test-design-skill` §16; story AC *Regression & Validation* |
 ## 6.1 Knowledge reused from the `branch` module
 
 *(Added Revision 3, on user direction, 2026-08-17.)*
@@ -439,6 +546,16 @@ prohibited for validation messages; this subsection extends the same discipline 
 | Draft-save discrepancy | §3, ASM-008 | GAP-8 |
 | Credit enforcement behaviour unspecified (still open) | ASM-005 | OQ-7 |
 | Absent non-functional requirements | §3, RSK-005 | §12 |
+| **Auto Reissue checkbox on Create/Update Agency; default off** *(Rev 5)* | §2 | Story AC *Agency CRUD*; spec §1; `PO-15` |
+| **Saved value retrieved on edit and on GET** *(Rev 5)* | §2 | Story AC *Agency CRUD* 3; spec §4 |
+| **Reissue-credential selection — UI and API rules `S-1` … `S-10`** *(Rev 5)* | §2, ASM-019, ASM-020, RSK-012 | spec §2, §3; `PO-17` |
+| **Agency credentials bounded by the parent Branch** *(Rev 5)* | §2, §3.1, ASM-003, ASM-021 | `PO-16`; spec `S-8`; ORG-07, SUP-05 |
+| **Agency and Branch checkboxes independent (Permission Precedence)** *(Rev 5)* | §1.3, §2, §3.1 | Story AC *Permission Precedence*; spec §3; `PO-16` |
+| **Admin Itinerary `Reissue` button — `canAutoReissue`** *(Rev 5)* | §2, ASM-022, RSK-011, RSK-013 | Story AC *Admin Impact*, *Regression & Validation*; spec §5; `PO-19`, `PO-20` |
+| **Portal impact — deferred** *(Rev 5)* | §3 | Story AC *Portal Impact*; `PO-20` |
+| **Existing Agency CRUD not affected (smoke)** *(Rev 5)* | §2, RSK-014 | Story AC *Regression & Validation* 1 |
+| **Reissue flow is a different scope** *(Rev 5)* | §3, §3.1 | `Reissue_Flow_From_Itinerary.md` → `supplier-features/reissue/shared/reissue-flow/` |
+| **run-006 mutation grant and no-booking rule** *(Rev 5)* | §4, §5 | `PO-19`; `runs/run-006…/metadata/SafetyAuthorizations.json` |
 
 ## 8. Open Questions — Requires Run Configuration
 
@@ -492,3 +609,32 @@ Two items, neither blocking Stage 1 approval.
 |---|---|---|
 | 1 | **Where exactly the upload fixtures live.** `PO-4` says "within the automation test resources"; `agency` has no automation package yet, so no such folder exists to put them in. | A repo-structure call, so I recommend rather than default. **Recommendation:** `platform_core_data/automation_baseline/shaft/tests_SHAFT/src/test/resources/testDataFiles/agency/uploads/` — `testDataFiles/` is the SHAFT baseline's existing test-resource root, so the path is suite-resolvable on day one and needs no new convention. **Confirm or name a different path**; Stage `4A` needs it settled before it writes the upload steps. |
 | 2 | **Whether to register a `Role CRUD` module now.** Four items are deferred to it — ASM-004, ASM-006, ASM-015, and RSK-003's underlying question — and it does not exist in `modules.json`. | Only Stage 1 may *propose* a module and only you may approve one. **Recommendation: not yet.** Proposing it now would be a placeholder with no requirement behind it; the deferrals are already recorded as a `Role CRUD` boundary in §3.1, which keeps the gap visible without asserting a module exists. **Say so if you would rather it be proposed at this gate.** |
+
+### 8.5 run-006 — Auto Reissue *(Revision 5)*
+
+**Closed at intake (2026-09-23):** the checkbox's name (`PO-15`), Agency vs Branch precedence (`PO-16`), UI
+and backend both in scope (`PO-17`), Auto-Reissue as the technical source (`PO-18`), the mutation grant and
+the no-booking rule (`PO-19`), Admin only (`PO-20`).
+
+**Outstanding work — decided, not yet done:**
+
+| Item | Owner | Sections |
+|---|---|---|
+| **Verify `odeysysadmin` can log in** on `http://192.168.1.70` | Stage 2, first | §4 |
+| **Observe the Auto Reissue checkbox and the credential picker** on the live Create and Update Agency forms: exact labels, default, when the picker appears, what it lists, and what the UI shows on each rejection | Stage 2 | §2, ASM-019, `PO-12` method |
+| **Capture the real save / read endpoints and body** from the Admin application's own traffic while saving the run's test Agency | Stage 2 | ASM-020 |
+| **List which STG supplier credentials have `autoReissueAllowed = true`**, and whether any credential is already inactive or unsupported, **read only** | Stage 2 | RSK-012, spec §4 |
+| **Create and approve the run's test Branch, then its test Agency** — *before* the user books | Stage 2 (fixture) or Stage 3/`4M`/`4A` — decided at Stage 3 | RSK-011, `PO-19` |
+| **User makes the manual bookings** under the run's test Agency and supplies the booking references | The user | RSK-011, `PO-19` |
+
+**Resolved at the Stage 1 gate, 2026-09-24 (Mohamed Soliman):**
+
+| # | Decision | Resolution |
+|---|---|---|
+| 1 | Is selecting reissue credentials an `UPDATE`, not a `CREDENTIAL_CHANGE`? | **Confirmed.** *"all you need to change the selection of credential and it is the supplier credential not login credentials."* Credential-selection cases are executable on the run's own records (§5) |
+| 2 | Do `PO-15` … `PO-20` carry product-owner authority? | **Confirmed** |
+| 3 | Revision 5 approval | **Approved** |
+
+**Raised and closed during Stage 2 (2026-09-24):** `Amadeus Live` (278) has `autoReissueAllowed: false`. **Intended.** Amadeus is not on the hard-coded reissue list (`NDCsbr`, `Sabre`, `TravelportNdc`, `Galileo`) — `PO-21` as corrected by the user.
+
+**Still requires a human decision:** the **pipeline branch for run-006** (Manual `4M` or Automation `4A`), asked at the Stage 3 gate (`PO-20`).

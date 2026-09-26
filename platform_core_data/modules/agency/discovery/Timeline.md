@@ -2,6 +2,66 @@
 
 ---
 
+## run-006 — 2026-09-23 / 2026-09-24 (times **UTC**; local is UTC+3)
+
+Run `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch`. Discovery Mode: Browser Driver, headed (Admin, `http://192.168.1.60`) and Playwright direct login, headed (Portal, `:9500`).
+
+> **How this log was built.** It wasn't typed line by line during the session. It was **assembled when the stage ended** from timestamps recorded at the time: each script's own `HH:MM:SS` log lines, and the tool-return time of every step. Those sources are kept verbatim in `runs/run-006…/discovery/evidence/44-session-output-extract.txt` and `43-portal-cycle-results.json`. §6 asks for a continuously appended log, so this is disclosed rather than presented as one.
+
+```
+2026-09-23
+21:15  STAGE 2 start (headed, at the user's request). Target first probed on .70: no response
+21:18  User: environment is .60, shared, same mutation rules
+21:21  Safety policy check: raw URL classifies as Unknown -> Forbidden; grants are recorded against "Staging"
+21:22  Browser Driver login on http://192.168.1.60 -> /dashboard (odeysysadmin role verified)          [00]
+21:24  Navigate /admin/agency/add (unsaved): "Auto Reissue" checkbox found, unchecked                  [01-agency-add-form]
+21:25  Tick Auto Reissue (unsaved): "Auto Reissue Credentials" picker appears; no network call         [02-agency-add-…]
+21:34  User designates BRN265 ("you can use BRN265 all over the steps"); 21:35 BRANCH DedicatedTestData grants recorded
+21:37  Read-only: the 3 agencies under BRN265, all Auto Reissue off. User picks AGN9780 (id 10961); AGENCY DedicatedTestData grants recorded; baseline saved [06]
+21:38  Edit AGN9780: tick Auto Reissue, picker offers Sabre Staging (315) + NDCSabre staging (313); pick 315 [07,08]
+21:39  Send For Approval -> PUT /Admin2/agency/10961 204 -> Inactive + Pending for approval             [10,11]
+21:41  Approve (Remarks dialog) -> PATCH approveOrReject 200 -> Active + Approved                         [12,13]
+21:41  Read back: form ticked, picker "Sabre Staging"; GET autoReissueEnabled true, [315]                [14]
+2026-09-24
+08:12  User: booking NDCEG-BR-F260924EAzzYT made under AGN9780, Sabre Staging, BOOKED
+08:14  Dashboard search: counts under "Ticketed Document"; the tile path isn't an Itinerary route       [15,16]
+08:20  STOP at the user's request (read-only up to here)
+09:56  User-guided path: /booking/search-booking -> Flight -> ref -> Search -> open booking             [17,18]
+09:56  Itinerary GET: bookingStatus 2, lockedStatus 0, canAutoReissue true, canManualReissue true
+09:58  Lock taken (Created By lock icon); lock holder Mohamed Soliman                                   [19,20]
+10:00  Passenger panel: Void/Cancel · Manual Reissue · Reissue · Sync PNR · Release PNR. None clicked   [21,22,23]
+10:04  AGN9780 untick -> PUT 204 (reissueCredentials []) -> Pending -> PATCH 200 -> Approved             [24]
+10:05  Read back: autoReissueEnabled false, [315] kept (S-7)                                             [25]
+10:05  Itinerary: canAutoReissue false, Reissue hidden; Manual Reissue still shown (BRN265 on)           [26]
+10:30  S-2 (UI): on + empty picker -> "Required", no request sent                                        [34-rule-S-2]
+10:30  S-4: PUT body [{}] -> 400 "Every auto-reissue credential must have an ID"                         [34-rule-S-4]
+10:31  S-5: [999999] -> 400 "Every auto-reissue credential must exist and be active"                     [34-rule-S-5]
+10:31  S-6: [315,315] -> 400 "Auto-reissue credentials must not contain duplicates"                      [34-rule-S-6]
+10:31  S-8: [277] -> 400 "Each auto-reissue credential must be mapped to this organization"; nothing saved [34-rule-S-8]
+10:32  S-5 re-run: message briefly shown on screen after the 400                                         [35]
+10:34  Supplier credentials (page 1 of 10): autoReissueAllowed true 3, false 7; no field on the edit screen [36,37]
+10:39  Unsaved AGN9780: Sabre tab "Sabre Staging" -> picker ["Sabre Staging"]; left without saving       [38]
+11:45  User corrects PO-21 (hard-coded list NDCsbr/Sabre/TravelportNdc/Galileo; Amadeus unsupported)
+12:03  User: PO-22 (checkbox shows button only; credential checked on Reissue), PO-23, PO-24
+13:02  Portal in scope (PO-25). Portal login stored in git-ignored credentials.json (PORTAL_60)
+13:10  Portal login AGN9780 -> /dashboard
+13:11  Portal OFF: booking details via Order Id link; lockedStatus 0; canAutoReissue false; no Reissue     [41-0,42-0]
+13:11  Admin edit AGN9780: picker now offers only GalileoLive (277; manual change by the user); tick
+13:11  Edit-form Approve -> single PUT /Admin2/agency/10961; read back true, [277], approvalStatus 1
+13:12  Portal ON: canAutoReissue true; Reissue SHOWN; lockedStatus 0; no Manual Reissue                  [41-1,42-1]
+13:13  Admin untick -> edit-form Approve -> single PUT; read back false, [277], approvalStatus 1
+13:13  Portal OFF: canAutoReissue false; Reissue hidden                                                  [41-2,42-2]
+13:43  User: PO-26 (visibility hierarchy); 13:46 on-behalf bookings follow the Agency
+13:52  Write-up started
+14:00  FINDING-013 … FINDING-016 created; 42-portal-1 annotated copy drawn (Q1a, Q1b)
+14:10  QA Assessment Report Rev 4 (+ HTML), Coverage, Findings Summary, 3 snapshots written. STAGE 2 artifacts -> Pending Review
+14:16  User answers OQ-AG-R6-1: no lock is needed on the Portal. FINDING-016 -> Rejected (confirmed intended); PO-25 updated
+```
+
+Numbers in brackets are files in `runs/run-006…/discovery/evidence/`. **Never done:** booking, clicking Reissue / Release PNR / Void-Cancel, or changing any record other than AGN9780 and BRN265.
+
+---
+
 ## run-004 — 2026-08-18 (times local, UTC+3; the raw session log is `evidence/run-004/phase_a_timeline.txt`)
 
 Discovery Mode for every entry: Browser automation — Browser Driver, headed.

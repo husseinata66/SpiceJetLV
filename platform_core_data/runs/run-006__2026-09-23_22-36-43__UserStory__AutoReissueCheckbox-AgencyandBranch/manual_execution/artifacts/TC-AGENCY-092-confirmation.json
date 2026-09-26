@@ -1,0 +1,109 @@
+{
+  "afterFirstReactivation": {
+    "ag": {
+      "st": {
+        "api": true,
+        "creds": [],
+        "appr": 1,
+        "status": 1
+      },
+      "ticked": true,
+      "picker": "Select",
+      "options": [
+        "Sabre Staging",
+        "NDCSabre staging"
+      ],
+      "pcc": {
+        "Sabre": "Sabre Staging",
+        "NDCsbr": "NDCSabre staging"
+      }
+    },
+    "br": {
+      "st": {
+        "api": true,
+        "creds": [],
+        "appr": 1,
+        "pa": [
+          "Sabre:315",
+          "NDCsbr:313"
+        ]
+      },
+      "ticked": true,
+      "picker": "Select",
+      "options": [
+        "Sabre Staging",
+        "NDCSabre staging"
+      ],
+      "pcc": {
+        "Sabre": "Sabre Staging",
+        "NDCsbr": "NDCSabre staging"
+      }
+    }
+  },
+  "observations": [
+    {
+      "k": 1,
+      "at": "2026-09-25T17:41:38.830Z",
+      "ag": {
+        "st": {
+          "api": true,
+          "creds": [],
+          "appr": 1,
+          "status": 1
+        },
+        "ticked": true,
+        "picker": "Select",
+        "options": [
+          "Sabre Staging",
+          "NDCSabre staging"
+        ],
+        "pcc": {
+          "Sabre": "Sabre Staging",
+          "NDCsbr": "NDCSabre staging"
+        }
+      },
+      "evidence": "manual_execution/artifacts/TC-AGENCY-092-confirm-1.png",
+      "br": {
+        "st": {
+          "api": true,
+          "creds": [],
+          "appr": 1,
+          "pa": [
+            "Sabre:315"
+          ]
+        },
+        "ticked": true,
+        "picker": "Select",
+        "options": [
+          "Sabre Staging"
+        ],
+        "pcc": {
+          "Sabre": "Sabre Staging"
+        }
+      }
+    },
+    {
+      "k": 2,
+      "at": "2026-09-25T17:42:11.458Z",
+      "ag": {
+        "st": {
+          "api": true,
+          "creds": [],
+          "appr": 1,
+          "status": 1
+        },
+        "ticked": true,
+        "picker": "Select",
+        "options": [
+          "Sabre Staging",
+          "NDCSabre staging"
+        ],
+        "pcc": {
+          "Sabre": "Sabre Staging",
+          "NDCsbr": "NDCSabre staging"
+        }
+      },
+      "evidence": "manual_execution/artifacts/TC-AGENCY-092-confirm-2.png"
+    }
+  ]
+}

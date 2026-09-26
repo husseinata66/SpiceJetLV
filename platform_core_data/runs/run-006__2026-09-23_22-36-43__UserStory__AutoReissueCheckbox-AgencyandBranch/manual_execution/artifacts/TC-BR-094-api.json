@@ -1,0 +1,24 @@
+{
+  "request": {
+    "autoReissueEnabled": true,
+    "reissueCredentials": []
+  },
+  "response": {
+    "status": 400,
+    "body": "{\"code\":400,\"message\":\"Select at least one eligible credential\",\"requestId\":\"4076f58c-671d-4283-8c50-957643387a5e\"}"
+  },
+  "branchBefore": {
+    "api": true,
+    "creds": [
+      313
+    ],
+    "appr": 1
+  },
+  "branchAfter": {
+    "api": true,
+    "creds": [
+      313
+    ],
+    "appr": 1
+  }
+}

@@ -1,0 +1,1387 @@
+{
+  "ids": [
+    "TC-AGENCY-061",
+    "TC-AGENCY-062",
+    "TC-AGENCY-063",
+    "TC-AGENCY-064",
+    "TC-AGENCY-065",
+    "TC-AGENCY-066",
+    "TC-AGENCY-067",
+    "TC-AGENCY-068",
+    "TC-AGENCY-069",
+    "TC-AGENCY-070",
+    "TC-AGENCY-071",
+    "TC-AGENCY-072",
+    "TC-AGENCY-073",
+    "TC-AGENCY-074",
+    "TC-AGENCY-075",
+    "TC-AGENCY-076",
+    "TC-AGENCY-077",
+    "TC-AGENCY-078",
+    "TC-AGENCY-079",
+    "TC-AGENCY-080",
+    "TC-AGENCY-081",
+    "TC-AGENCY-082",
+    "TC-AGENCY-083",
+    "TC-AGENCY-084",
+    "TC-AGENCY-085",
+    "TC-AGENCY-086",
+    "TC-AGENCY-087",
+    "TC-AGENCY-088",
+    "TC-AGENCY-089",
+    "TC-AGENCY-090",
+    "TC-AGENCY-091",
+    "TC-AGENCY-092",
+    "TC-AGENCY-093",
+    "TC-AGENCY-094",
+    "TC-BR-083",
+    "TC-BR-084",
+    "TC-BR-085",
+    "TC-BR-086",
+    "TC-BR-087",
+    "TC-BR-088",
+    "TC-BR-089",
+    "TC-BR-090",
+    "TC-BR-091",
+    "TC-BR-092",
+    "TC-BR-093",
+    "TC-BR-094",
+    "TC-BR-095",
+    "TC-BR-096",
+    "TC-BR-097",
+    "TC-BR-098",
+    "TC-BR-099",
+    "TC-BR-100",
+    "TC-BR-101",
+    "TC-BR-102",
+    "TC-BR-103",
+    "TC-BR-104",
+    "TC-BR-105",
+    "TC-BR-106",
+    "TC-BR-107",
+    "TC-BR-108",
+    "TC-BR-109",
+    "TC-BR-110",
+    "TC-BR-111",
+    "TC-BR-112"
+  ],
+  "cases": {
+    "TC-AGENCY-001": {
+      "title": "Update Agency Master fields successfully",
+      "priority": "P1",
+      "tags": "Scenario, Smoke",
+      "review": "Approved"
+    },
+    "TC-AGENCY-002": {
+      "title": "Mandatory Agency Master fields block submission when cleared",
+      "priority": "P1",
+      "tags": "Atomic, Negative-EmptyValues, Regression",
+      "review": "Approved"
+    },
+    "TC-AGENCY-003": {
+      "title": "Country is read-only and inherited from the Branch",
+      "priority": "P2",
+      "tags": "Atomic, Regression",
+      "review": "Approved"
+    },
+    "TC-AGENCY-004": {
+      "title": "Post office box discards non-numeric input and caps at 8 characters",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs, Negative-BoundaryValues",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-005": {
+      "title": "Agency name rejects characters outside letters, digits and underscore",
+      "priority": "P3",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-006": {
+      "title": "Agency name rejects an over-length value",
+      "priority": "P3",
+      "tags": "Atomic, Negative-BoundaryValues",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-007": {
+      "title": "Agency name refuses injection-shaped input",
+      "priority": "P2",
+      "tags": "Atomic, Negative-SecurityInputs",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-008": {
+      "title": "Phone No rejects an invalid phone number",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Approved"
+    },
+    "TC-AGENCY-009": {
+      "title": "Company URL accepts free text with no format message",
+      "priority": "P3",
+      "tags": "Atomic, Negative-InvalidInputs, Exploratory",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-010": {
+      "title": "IATA Agency selection persists",
+      "priority": "P3",
+      "tags": "Atomic",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-011": {
+      "title": "Agency Business Type selection persists",
+      "priority": "P3",
+      "tags": "Atomic",
+      "review": "Approved"
+    },
+    "TC-AGENCY-012": {
+      "title": "Update Agency Owner Details successfully",
+      "priority": "P1",
+      "tags": "Atomic, Smoke",
+      "review": "Approved"
+    },
+    "TC-AGENCY-013": {
+      "title": "Mandatory Agency Owner fields block submission when cleared",
+      "priority": "P1",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-AGENCY-014": {
+      "title": "Owner Email ID rejects an invalid email format",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Approved"
+    },
+    "TC-AGENCY-015": {
+      "title": "Contact person rejects numeric input",
+      "priority": "P3",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-016": {
+      "title": "Upload a valid PDF document with contract dates",
+      "priority": "P1",
+      "tags": "Scenario, Smoke",
+      "review": "Approved"
+    },
+    "TC-AGENCY-017": {
+      "title": "Upload multiple documents",
+      "priority": "P2",
+      "tags": "Atomic",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-018": {
+      "title": "Remove an uploaded document",
+      "priority": "P2",
+      "tags": "Atomic",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-019": {
+      "title": "Non-PDF document is rejected",
+      "priority": "P1",
+      "tags": "Atomic, Negative-InvalidInputs, Regression",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-020": {
+      "title": "File named .pdf with non-PDF content is rejected",
+      "priority": "P1",
+      "tags": "Atomic, Negative-SecurityInputs, Regression",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-021": {
+      "title": "Contract dates block submission when cleared",
+      "priority": "P2",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-AGENCY-022": {
+      "title": "Upload a valid agency logo",
+      "priority": "P1",
+      "tags": "Atomic, Smoke",
+      "review": "Approved"
+    },
+    "TC-AGENCY-023": {
+      "title": "Logo larger than 2 MB is rejected",
+      "priority": "P1",
+      "tags": "Atomic, Negative-BoundaryValues, Regression",
+      "review": "Approved"
+    },
+    "TC-AGENCY-024": {
+      "title": "Non-image file is rejected as a logo",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Approved"
+    },
+    "TC-AGENCY-025": {
+      "title": "Update Wonder Travel Sales Contact successfully",
+      "priority": "P2",
+      "tags": "Atomic",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-026": {
+      "title": "Add a second sales contact",
+      "priority": "P2",
+      "tags": "Atomic",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-027": {
+      "title": "Mandatory Sales Contact fields block submission when cleared",
+      "priority": "P2",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-028": {
+      "title": "Sales Contact defaults inherit from the Branch contact person",
+      "priority": "P3",
+      "tags": "Atomic",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-029": {
+      "title": "Add a bank account",
+      "priority": "P2",
+      "tags": "Atomic",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-030": {
+      "title": "Add multiple bank accounts",
+      "priority": "P3",
+      "tags": "Atomic",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-031": {
+      "title": "Agency saves with all bank account fields empty",
+      "priority": "P3",
+      "tags": "Atomic",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-032": {
+      "title": "Account Number rejects non-numeric input",
+      "priority": "P3",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-033": {
+      "title": "Update Payment Settings successfully",
+      "priority": "P1",
+      "tags": "Scenario, Smoke",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-034": {
+      "title": "Mandatory Payment Settings fields block submission when cleared",
+      "priority": "P1",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-035": {
+      "title": "Numeric Payment Settings fields discard non-numeric keystrokes",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-036": {
+      "title": "Select multiple payment options",
+      "priority": "P2",
+      "tags": "Atomic",
+      "review": "Approved"
+    },
+    "TC-AGENCY-037": {
+      "title": "Payment option blocks submission when none is selected",
+      "priority": "P2",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-AGENCY-038": {
+      "title": "Set a target for a month and year",
+      "priority": "P3",
+      "tags": "Atomic",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-039": {
+      "title": "Credit agency selection persists",
+      "priority": "P3",
+      "tags": "Atomic",
+      "review": "Approved"
+    },
+    "TC-AGENCY-040": {
+      "title": "Product Access is populated from the parent Branch",
+      "priority": "P2",
+      "tags": "Atomic",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-041": {
+      "title": "Change the selected products",
+      "priority": "P2",
+      "tags": "Atomic",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-042": {
+      "title": "Supplier Name and Product Name are read-only",
+      "priority": "P3",
+      "tags": "Atomic",
+      "review": "Approved"
+    },
+    "TC-AGENCY-043": {
+      "title": "Airline Supplier credential (PCC) section renders with its three controls",
+      "priority": "P1",
+      "tags": "Scenario, Regression",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-044": {
+      "title": "Import PNR Option persists",
+      "priority": "P2",
+      "tags": "Atomic",
+      "review": "Approved"
+    },
+    "TC-AGENCY-045": {
+      "title": "Submit an agency update for approval",
+      "priority": "P1",
+      "tags": "Scenario, Smoke",
+      "review": "Approved"
+    },
+    "TC-AGENCY-046": {
+      "title": "Remarks blocks submission when empty",
+      "priority": "P2",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-AGENCY-047": {
+      "title": "Cancel discards unsaved changes",
+      "priority": "P1",
+      "tags": "Atomic, Regression",
+      "review": "Approved"
+    },
+    "TC-AGENCY-048": {
+      "title": "Approve a pending agency update",
+      "priority": "P1",
+      "tags": "Atomic",
+      "review": "Approved"
+    },
+    "TC-AGENCY-049": {
+      "title": "Reject a pending agency update with a reason",
+      "priority": "P1",
+      "tags": "Atomic",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-050": {
+      "title": "Agency update end to end: edit, submit, approve",
+      "priority": "P1",
+      "tags": "E2E",
+      "review": "Approved"
+    },
+    "TC-AGENCY-051": {
+      "title": "Save an update without re-uploading the existing document and logo",
+      "priority": "P2",
+      "tags": "Atomic",
+      "review": "Approved"
+    },
+    "TC-AGENCY-052": {
+      "title": "Changing Branch re-inherits dependent values",
+      "priority": "P2",
+      "tags": "Atomic, OutOfScope",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-053": {
+      "title": "Agency name accepts a space between words",
+      "priority": "P1",
+      "tags": "Atomic, Regression",
+      "review": "Approved"
+    },
+    "TC-AGENCY-054": {
+      "title": "PCC section is removed when the Product Access supplier is deselected",
+      "priority": "P2",
+      "tags": "Atomic, Regression",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-055": {
+      "title": "Manager Name shows the supplier's value and cannot be edited",
+      "priority": "P2",
+      "tags": "Atomic, Regression",
+      "review": "Rejected"
+    },
+    "TC-AGENCY-056": {
+      "title": "Generic supplier credentials (PCC) blocks submission when cleared",
+      "priority": "P2",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-AGENCY-057": {
+      "title": "Supplier Credentials Description change persists",
+      "priority": "P3",
+      "tags": "Atomic",
+      "review": "Approved"
+    },
+    "TC-AGENCY-058": {
+      "title": "Credit limit shows the numeric format message for alphabetic input",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs, Regression",
+      "review": "Approved"
+    },
+    "TC-AGENCY-059": {
+      "title": "Branch is read-only on the Update form",
+      "priority": "P2",
+      "tags": "Atomic, Regression",
+      "review": "Approved"
+    },
+    "TC-AGENCY-060": {
+      "title": "One PCC tab renders per supplier inherited from the parent Branch",
+      "priority": "P1",
+      "tags": "Atomic, Regression",
+      "review": "Approved"
+    },
+    "TC-AGENCY-061": {
+      "title": "Auto Reissue is unchecked by default on Add Agency",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-AGENCY-062": {
+      "title": "Ticking Auto Reissue shows the credentials picker",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-AGENCY-063": {
+      "title": "Turn Auto Reissue on for an Agency and save",
+      "priority": "P1",
+      "tags": "Scenario, Positive, Smoke",
+      "review": "Approved"
+    },
+    "TC-AGENCY-064": {
+      "title": "Auto Reissue change waits for approval after Send For Approval",
+      "priority": "P2",
+      "tags": "Scenario, Regression",
+      "review": "Approved"
+    },
+    "TC-AGENCY-065": {
+      "title": "Auto Reissue on with no credential shows \"Required\"",
+      "priority": "P1",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-AGENCY-066": {
+      "title": "API rejects Auto Reissue on with an empty credential list",
+      "priority": "P2",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-AGENCY-067": {
+      "title": "API keeps the saved credentials when Auto Reissue is sent off with others",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-AGENCY-068": {
+      "title": "API rejects a credential without an ID",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Approved"
+    },
+    "TC-AGENCY-069": {
+      "title": "API rejects an unknown credential ID",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Approved"
+    },
+    "TC-AGENCY-070": {
+      "title": "API rejects an inactive credential",
+      "priority": "P3",
+      "tags": "Atomic, Negative-InvalidInputs, Assumption-based",
+      "review": "Approved"
+    },
+    "TC-AGENCY-071": {
+      "title": "API rejects duplicate credential IDs",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Approved"
+    },
+    "TC-AGENCY-072": {
+      "title": "API rejects a credential not assigned to the Agency",
+      "priority": "P1",
+      "tags": "Atomic, Negative-InvalidInputs, Permissions",
+      "review": "Approved"
+    },
+    "TC-AGENCY-073": {
+      "title": "Turning Auto Reissue off keeps the saved credentials",
+      "priority": "P1",
+      "tags": "Scenario, Positive, Regression",
+      "review": "Approved"
+    },
+    "TC-AGENCY-074": {
+      "title": "Agency picker offers only credentials the Agency itself holds",
+      "priority": "P2",
+      "tags": "Atomic, Integration, Business-Rule",
+      "review": "Approved"
+    },
+    "TC-AGENCY-075": {
+      "title": "Reading the Agency drops a credential that became invalid",
+      "priority": "P3",
+      "tags": "Atomic, Assumption-based",
+      "review": "Approved"
+    },
+    "TC-AGENCY-076": {
+      "title": "Admin shows Reissue for an Agency booking when Auto Reissue is on",
+      "priority": "P1",
+      "tags": "Atomic, Positive, Smoke",
+      "review": "Approved"
+    },
+    "TC-AGENCY-077": {
+      "title": "Admin hides Reissue for an Agency booking when Auto Reissue is off",
+      "priority": "P1",
+      "tags": "Atomic, Negative, Smoke",
+      "review": "Approved"
+    },
+    "TC-AGENCY-078": {
+      "title": "Branch Auto Reissue on does not enable an Agency booking",
+      "priority": "P1",
+      "tags": "Atomic, Integration",
+      "review": "Approved"
+    },
+    "TC-AGENCY-079": {
+      "title": "Portal shows Reissue when the Agency has Auto Reissue on",
+      "priority": "P1",
+      "tags": "Atomic, Positive, Smoke",
+      "review": "Approved"
+    },
+    "TC-AGENCY-080": {
+      "title": "Portal hides Reissue when the Agency has Auto Reissue off",
+      "priority": "P1",
+      "tags": "Atomic, Negative, Smoke",
+      "review": "Approved"
+    },
+    "TC-AGENCY-081": {
+      "title": "Portal shows Reissue without a lock and offers no Manual Reissue",
+      "priority": "P3",
+      "tags": "Atomic, Regression",
+      "review": "Approved"
+    },
+    "TC-AGENCY-082": {
+      "title": "Reissue shows even if the booking's credential is not selected",
+      "priority": "P3",
+      "tags": "Atomic, Business-Rule",
+      "review": "Approved"
+    },
+    "TC-AGENCY-083": {
+      "title": "A booking made on behalf of the Agency follows the Agency's checkbox",
+      "priority": "P2",
+      "tags": "Atomic, Integration, Assumption-based",
+      "review": "Approved"
+    },
+    "TC-AGENCY-084": {
+      "title": "A booking not in Booked status does not show Reissue",
+      "priority": "P3",
+      "tags": "Atomic, Negative, Assumption-based",
+      "review": "Approved"
+    },
+    "TC-AGENCY-085": {
+      "title": "Which value the Itinerary uses while an Auto Reissue change is pending",
+      "priority": "P3",
+      "tags": "Atomic, Exploratory, Assumption-based",
+      "review": "Approved"
+    },
+    "TC-AGENCY-086": {
+      "title": "Updating an Agency without touching Auto Reissue still works",
+      "priority": "P2",
+      "tags": "Atomic, Regression, Smoke",
+      "review": "Approved"
+    },
+    "TC-AGENCY-087": {
+      "title": "Create an Agency with Auto Reissue on",
+      "priority": "P3",
+      "tags": "Scenario, Positive",
+      "review": "Approved"
+    },
+    "TC-AGENCY-088": {
+      "title": "Create an Agency with Auto Reissue off",
+      "priority": "P2",
+      "tags": "Scenario, Positive",
+      "review": "Approved"
+    },
+    "TC-AGENCY-089": {
+      "title": "Edit an Agency with Auto Reissue off",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-AGENCY-090": {
+      "title": "Edit an Agency with Auto Reissue on",
+      "priority": "P2",
+      "tags": "Atomic, Regression",
+      "review": "Approved"
+    },
+    "TC-AGENCY-091": {
+      "title": "An Agency can only have suppliers its Branch has",
+      "priority": "P1",
+      "tags": "Atomic, Integration, Permissions",
+      "review": "Approved"
+    },
+    "TC-AGENCY-092": {
+      "title": "An inactive credential leaves the Agency's Auto Reissue picker",
+      "priority": "P1",
+      "tags": "Scenario, Negative, Integration",
+      "review": "Approved"
+    },
+    "TC-AGENCY-093": {
+      "title": "What the Agency's Auto Reissue picker shows when the supplier is made inactive",
+      "priority": "P2",
+      "tags": "Scenario, Exploratory, Integration",
+      "review": "Approved"
+    },
+    "TC-AGENCY-094": {
+      "title": "Portal hides Reissue for an Agency booking on hold",
+      "priority": "P2",
+      "tags": "Atomic, Negative",
+      "review": "Approved"
+    },
+    "TC-BR-001": {
+      "title": "Create Branch with all mandatory Branch Details fields",
+      "priority": "P1",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-002": {
+      "title": "Mandatory Branch Details fields block submission when empty",
+      "priority": "P1",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-BR-003": {
+      "title": "Branch Name rejects non-alphanumeric special characters",
+      "priority": "P2",
+      "tags": "Atomic, Negative-SpecialCharacters",
+      "review": "Approved"
+    },
+    "TC-BR-004": {
+      "title": "Country field auto-fills based on selected Operating Country",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-005": {
+      "title": "State dropdown populates based on selected Country",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-006": {
+      "title": "City dropdown populates based on selected State",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-007": {
+      "title": "Post Office Box accepts an alphanumeric value up to 8 characters",
+      "priority": "P2",
+      "tags": "Atomic, Positive, Boundary",
+      "review": "Rejected"
+    },
+    "TC-BR-008": {
+      "title": "Post Office Box rejects a value exceeding 8 characters",
+      "priority": "P1",
+      "tags": "Atomic, Negative-BoundaryValues, Regression",
+      "review": "Rejected"
+    },
+    "TC-BR-009": {
+      "title": "Phone Number requires a country code and a numeric value",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Rejected"
+    },
+    "TC-BR-010": {
+      "title": "Phone Number rejects non-numeric characters",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Approved"
+    },
+    "TC-BR-011": {
+      "title": "Service Tax Number and ABTA Number accept optional uppercase alphanumeric values",
+      "priority": "P3",
+      "tags": "Atomic, Positive",
+      "review": "Rejected"
+    },
+    "TC-BR-012": {
+      "title": "Create Branch with valid Branch Email Configuration",
+      "priority": "P1",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-013": {
+      "title": "Mandatory Branch Email Configuration fields block submission when empty",
+      "priority": "P1",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-BR-014": {
+      "title": "Email Password accepts a value up to 15 characters",
+      "priority": "P2",
+      "tags": "Atomic, Positive, Boundary",
+      "review": "Rejected"
+    },
+    "TC-BR-015": {
+      "title": "Email Password rejects a value exceeding 15 characters",
+      "priority": "P2",
+      "tags": "Atomic, Negative-BoundaryValues",
+      "review": "Rejected"
+    },
+    "TC-BR-016": {
+      "title": "Add Branch Contact Person with valid Name, Email, and Phone",
+      "priority": "P1",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-017": {
+      "title": "Mandatory Branch Contact Info fields block submission when empty",
+      "priority": "P1",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-BR-018": {
+      "title": "Contact Name rejects characters other than letters, spaces, and a single dot",
+      "priority": "P2",
+      "tags": "Atomic, Negative-SpecialCharacters",
+      "review": "Rejected"
+    },
+    "TC-BR-019": {
+      "title": "Add multiple Contact Persons using the Add button",
+      "priority": "P3",
+      "tags": "Scenario, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-020": {
+      "title": "Add Target requires Target Amount, Month, and Year before enabling Add Target",
+      "priority": "P3",
+      "tags": "Atomic, Positive",
+      "review": "Rejected"
+    },
+    "TC-BR-021": {
+      "title": "Mandatory Branch Sales Configuration fields block submission when empty",
+      "priority": "P1",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-BR-022": {
+      "title": "Credit Limit rejects non-numeric input",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Approved"
+    },
+    "TC-BR-023": {
+      "title": "Credit Limit rejects a value exceeding 15 characters",
+      "priority": "P1",
+      "tags": "Atomic, Negative-BoundaryValues, Regression",
+      "review": "Approved"
+    },
+    "TC-BR-024": {
+      "title": "Reaching Percentage rejects a value greater than 100%",
+      "priority": "P2",
+      "tags": "Atomic, Negative-BoundaryValues",
+      "review": "Approved"
+    },
+    "TC-BR-025": {
+      "title": "Reaching Percentage accepts a value with up to 3 decimal places",
+      "priority": "P3",
+      "tags": "Atomic, Positive, Boundary",
+      "review": "Approved"
+    },
+    "TC-BR-026": {
+      "title": "Warning Prompt (Days) rejects a value exceeding 11 digits",
+      "priority": "P1",
+      "tags": "Atomic, Negative-BoundaryValues, Regression, Blocked-NeedsClarification",
+      "review": "Approved"
+    },
+    "TC-BR-027": {
+      "title": "Warning Prompt (Days) rejects a value greater than Credit Terms (Days)",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Approved"
+    },
+    "TC-BR-028": {
+      "title": "Select at least one Payment Option",
+      "priority": "P3",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-029": {
+      "title": "Product Access grid displays the required columns",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-030": {
+      "title": "Description field is enabled only when a Supplier row is selected",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-031": {
+      "title": "Description field is mandatory once a Supplier row is selected",
+      "priority": "P2",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-BR-032": {
+      "title": "Selecting a GDS-type Supplier reveals the Supplier Credentials sub-grid",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-033": {
+      "title": "Search Supplier Credentials PCC and Ticketing Supplier Credential PCC are not present on the UI",
+      "priority": "P3",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-034": {
+      "title": "Submit for Approval saves the Branch and submits it for review",
+      "priority": "P1",
+      "tags": "Scenario, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-035": {
+      "title": "Submit action button displays the label \"Submit for Approval\"",
+      "priority": "P4",
+      "tags": "Atomic, Negative-UILabel, Regression",
+      "review": "Approved"
+    },
+    "TC-BR-036": {
+      "title": "Cancel exits the Create Branch form without saving",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-037": {
+      "title": "Create Branch with a valid Child Agencies Threshold Amount value",
+      "priority": "P2",
+      "tags": "Atomic, Positive, ExpectedImplementation",
+      "review": "Approved"
+    },
+    "TC-BR-038": {
+      "title": "Child Agencies Threshold Amount opens pre-filled with a default value",
+      "priority": "P3",
+      "tags": "Atomic, Positive, ExpectedImplementation",
+      "review": "Approved"
+    },
+    "TC-BR-039": {
+      "title": "Child Agencies Threshold Amount accepts a numeric value",
+      "priority": "P3",
+      "tags": "Atomic, Positive, ExpectedImplementation",
+      "review": "Approved"
+    },
+    "TC-BR-040": {
+      "title": "Search Branch by Branch Code returns the matching record",
+      "priority": "P1",
+      "tags": "Atomic, Positive, Smoke",
+      "review": "Approved"
+    },
+    "TC-BR-041": {
+      "title": "Search Branch by Branch Name returns the matching record",
+      "priority": "P1",
+      "tags": "Atomic, Positive, Smoke",
+      "review": "Approved"
+    },
+    "TC-BR-042": {
+      "title": "Search with no criteria returns the default Active result set",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-043": {
+      "title": "Search with non-matching criteria shows the empty-state message",
+      "priority": "P1",
+      "tags": "Atomic, Negative-InvalidInputs, Regression",
+      "review": "Approved"
+    },
+    "TC-BR-044": {
+      "title": "Status filter defaults to Active on page load",
+      "priority": "P1",
+      "tags": "Atomic, Positive, BusinessRule",
+      "review": "Approved"
+    },
+    "TC-BR-045": {
+      "title": "Status filter returns only records matching the selected status",
+      "priority": "P1",
+      "tags": "Atomic, Positive, BusinessRule, Regression",
+      "review": "Approved"
+    },
+    "TC-BR-046": {
+      "title": "State filter stays disabled until a Country is selected",
+      "priority": "P2",
+      "tags": "Atomic, Positive, BusinessRule",
+      "review": "Approved"
+    },
+    "TC-BR-047": {
+      "title": "City filter stays disabled until a State is selected",
+      "priority": "P2",
+      "tags": "Atomic, Positive, BusinessRule",
+      "review": "Approved"
+    },
+    "TC-BR-048": {
+      "title": "Branch Code filter accepts alphanumeric input",
+      "priority": "P3",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-049": {
+      "title": "Branch Name filter accepts alphabetic and special characters",
+      "priority": "P3",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-050": {
+      "title": "Branch Name filter handles Unicode input without error",
+      "priority": "P3",
+      "tags": "Atomic, Negative-Unicode",
+      "review": "Approved"
+    },
+    "TC-BR-051": {
+      "title": "Search filters handle security-payload-shaped input safely",
+      "priority": "P2",
+      "tags": "Atomic, Negative-SecurityInputs",
+      "review": "Approved"
+    },
+    "TC-BR-052": {
+      "title": "Results grid displays all specified columns",
+      "priority": "P1",
+      "tags": "Atomic, Regression",
+      "review": "Approved"
+    },
+    "TC-BR-053": {
+      "title": "Approval Status column reflects each record's approval state",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-054": {
+      "title": "Row action icons match the selected Status filter",
+      "priority": "P2",
+      "tags": "Atomic, Positive, BusinessRule",
+      "review": "Approved"
+    },
+    "TC-BR-055": {
+      "title": "Edit pen opens Update Branch with the record's details pre-filled",
+      "priority": "P1",
+      "tags": "Scenario, Positive, Smoke",
+      "review": "Approved"
+    },
+    "TC-BR-056": {
+      "title": "Approve a Pending branch from the results grid",
+      "priority": "P1",
+      "tags": "Scenario, Positive, SelfCreatedRecord",
+      "review": "Approved"
+    },
+    "TC-BR-057": {
+      "title": "Reject a Pending branch from the results grid",
+      "priority": "P1",
+      "tags": "Scenario, Positive, SelfCreatedRecord",
+      "review": "Approved"
+    },
+    "TC-BR-058": {
+      "title": "Approve and Reject capture a Remarks entry",
+      "priority": "P2",
+      "tags": "Atomic, Positive, SelfCreatedRecord",
+      "review": "Approved"
+    },
+    "TC-BR-059": {
+      "title": "Same account attempts to approve the branch it created",
+      "priority": "P1",
+      "tags": "Atomic, Security, SelfCreatedRecord, AssumptionBased",
+      "review": "Approved"
+    },
+    "TC-BR-060": {
+      "title": "Navigate to the next page of results",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-061": {
+      "title": "Navigate to the last page of results",
+      "priority": "P3",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-062": {
+      "title": "Pagination preserves the active status filter",
+      "priority": "P1",
+      "tags": "Atomic, Positive, Regression",
+      "review": "Approved"
+    },
+    "TC-BR-063": {
+      "title": "Result count text reflects the filtered total",
+      "priority": "P3",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-064": {
+      "title": "A record on a later page is findable by direct search",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-065": {
+      "title": "Update Branch pre-fills every stored value",
+      "priority": "P1",
+      "tags": "Scenario, Positive, Smoke",
+      "review": "Approved"
+    },
+    "TC-BR-066": {
+      "title": "Update a branch and submit it for approval",
+      "priority": "P1",
+      "tags": "Scenario, Positive, SelfCreatedRecord",
+      "review": "Approved"
+    },
+    "TC-BR-067": {
+      "title": "Remarks is mandatory before any Update action",
+      "priority": "P1",
+      "tags": "Atomic, Negative-EmptyValues, SelfCreatedRecord",
+      "review": "Approved"
+    },
+    "TC-BR-068": {
+      "title": "Cancel discards unsaved changes on Update Branch",
+      "priority": "P2",
+      "tags": "Atomic, Positive, SelfCreatedRecord",
+      "review": "Approved"
+    },
+    "TC-BR-069": {
+      "title": "Approve a branch update request from the Update screen",
+      "priority": "P1",
+      "tags": "Scenario, Positive, SelfCreatedRecord",
+      "review": "Approved"
+    },
+    "TC-BR-070": {
+      "title": "Reject a branch update request from the Update screen",
+      "priority": "P1",
+      "tags": "Scenario, Positive, SelfCreatedRecord",
+      "review": "Approved"
+    },
+    "TC-BR-071": {
+      "title": "Mandatory Update Branch fields block submission when cleared",
+      "priority": "P1",
+      "tags": "Atomic, Negative-EmptyValues, SelfCreatedRecord",
+      "review": "Approved"
+    },
+    "TC-BR-072": {
+      "title": "Post Office Box rejects a value exceeding 8 characters on Update",
+      "priority": "P2",
+      "tags": "Atomic, Negative-BoundaryValues, Regression, SelfCreatedRecord",
+      "review": "Approved"
+    },
+    "TC-BR-073": {
+      "title": "Credit Limit rejects a value exceeding 15 characters on Update",
+      "priority": "P2",
+      "tags": "Atomic, Negative-BoundaryValues, Regression, SelfCreatedRecord",
+      "review": "Approved"
+    },
+    "TC-BR-074": {
+      "title": "Warning Prompt must not exceed Credit Terms on Update",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs, SelfCreatedRecord",
+      "review": "Approved"
+    },
+    "TC-BR-075": {
+      "title": "Reaching Percentage rejects a value above 100 on Update",
+      "priority": "P2",
+      "tags": "Atomic, Negative-BoundaryValues, SelfCreatedRecord",
+      "review": "Approved"
+    },
+    "TC-BR-076": {
+      "title": "Change Threshold lists child agencies before confirming",
+      "priority": "P2",
+      "tags": "Scenario, Positive, SelfCreatedRecord, AssumptionBased",
+      "review": "Approved"
+    },
+    "TC-BR-077": {
+      "title": "Stored Branch Email Password is not recoverable from the Update form",
+      "priority": "P1",
+      "tags": "Atomic, Security, Regression, Blocked-NeedsClarification",
+      "review": "Approved"
+    },
+    "TC-BR-078": {
+      "title": "Exploratory — is Active/Inactive status discoverable from the grid?",
+      "priority": "P2",
+      "tags": "Atomic, Exploratory",
+      "review": "Approved"
+    },
+    "TC-BR-079": {
+      "title": "Exploratory — does the City filter accept and apply multiple cities?",
+      "priority": "P3",
+      "tags": "Atomic, Exploratory",
+      "review": "Approved"
+    },
+    "TC-BR-080": {
+      "title": "Admin-role operator sees the same grid columns and row actions",
+      "priority": "P3",
+      "tags": "Atomic, Permissions, NotCovered-SingleAccountRun",
+      "review": "Approved"
+    },
+    "TC-BR-081": {
+      "title": "Repeated failed login attempts lock the account",
+      "priority": "P3",
+      "tags": "Atomic, Security, Deferred-RequiresDedicatedEnvironment",
+      "review": "Approved"
+    },
+    "TC-BR-082": {
+      "title": "Credit Terms (Days) rejects a value exceeding 7 digits",
+      "priority": "P2",
+      "tags": "Atomic, Negative-BoundaryValues",
+      "review": "Approved"
+    },
+    "TC-BR-083": {
+      "title": "Auto Reissue is unchecked by default on Add Branch",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-084": {
+      "title": "Picker is empty on a new Branch with no supplier",
+      "priority": "P3",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-BR-085": {
+      "title": "An LCC credential is not offered for Auto Reissue",
+      "priority": "P2",
+      "tags": "Atomic, Negative, Business-Rule",
+      "review": "Approved"
+    },
+    "TC-BR-086": {
+      "title": "A Galileo PCC credential is offered for Auto Reissue",
+      "priority": "P2",
+      "tags": "Atomic, Positive, Business-Rule",
+      "review": "Approved"
+    },
+    "TC-BR-087": {
+      "title": "An Amadeus PCC credential is not offered for Auto Reissue",
+      "priority": "P2",
+      "tags": "Atomic, Negative, Business-Rule",
+      "review": "Approved"
+    },
+    "TC-BR-088": {
+      "title": "A TravelportNdc PCC credential is offered for Auto Reissue",
+      "priority": "P3",
+      "tags": "Atomic, Positive, Assumption-based",
+      "review": "Approved"
+    },
+    "TC-BR-089": {
+      "title": "Turn Auto Reissue on for a Branch and save",
+      "priority": "P1",
+      "tags": "Scenario, Positive, Smoke",
+      "review": "Approved"
+    },
+    "TC-BR-090": {
+      "title": "Branch Auto Reissue change waits for approval",
+      "priority": "P2",
+      "tags": "Scenario, Regression",
+      "review": "Approved"
+    },
+    "TC-BR-091": {
+      "title": "Turning Branch Auto Reissue off keeps the saved credentials",
+      "priority": "P1",
+      "tags": "Scenario, Positive, Regression",
+      "review": "Approved"
+    },
+    "TC-BR-092": {
+      "title": "Branch Auto Reissue on with no credential shows \"Required\"",
+      "priority": "P1",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-BR-093": {
+      "title": "Branch update without a remark is refused",
+      "priority": "P3",
+      "tags": "Atomic, Negative-EmptyValues, Assumption-based",
+      "review": "Approved"
+    },
+    "TC-BR-094": {
+      "title": "Branch API rejects Auto Reissue on with an empty credential list",
+      "priority": "P2",
+      "tags": "Atomic, Negative-EmptyValues",
+      "review": "Approved"
+    },
+    "TC-BR-095": {
+      "title": "Branch API keeps saved credentials when sent off with others",
+      "priority": "P2",
+      "tags": "Atomic, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-096": {
+      "title": "Branch API rejects a credential without an ID",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Approved"
+    },
+    "TC-BR-097": {
+      "title": "Branch API rejects an unknown credential ID",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Approved"
+    },
+    "TC-BR-098": {
+      "title": "Branch API rejects duplicate credential IDs",
+      "priority": "P2",
+      "tags": "Atomic, Negative-InvalidInputs",
+      "review": "Approved"
+    },
+    "TC-BR-099": {
+      "title": "Branch API rejects a credential not assigned to the Branch",
+      "priority": "P1",
+      "tags": "Atomic, Negative-InvalidInputs, Permissions",
+      "review": "Approved"
+    },
+    "TC-BR-100": {
+      "title": "Branch Auto Reissue does not change its Agencies' checkbox",
+      "priority": "P1",
+      "tags": "Atomic, Integration",
+      "review": "Approved"
+    },
+    "TC-BR-101": {
+      "title": "Admin shows Reissue for a Branch booking when Branch Auto Reissue is on",
+      "priority": "P1",
+      "tags": "Atomic, Positive, Smoke",
+      "review": "Approved"
+    },
+    "TC-BR-102": {
+      "title": "Admin hides Reissue for a Branch booking when Branch Auto Reissue is off",
+      "priority": "P1",
+      "tags": "Atomic, Negative, Smoke",
+      "review": "Approved"
+    },
+    "TC-BR-103": {
+      "title": "Reissue shows on a Branch booking whose credential is not selected",
+      "priority": "P3",
+      "tags": "Atomic, Business-Rule",
+      "review": "Approved"
+    },
+    "TC-BR-104": {
+      "title": "Agency Auto Reissue off does not hide Reissue on a Branch booking",
+      "priority": "P2",
+      "tags": "Atomic, Integration",
+      "review": "Approved"
+    },
+    "TC-BR-105": {
+      "title": "Reading the Branch drops a credential that became invalid",
+      "priority": "P3",
+      "tags": "Atomic, Assumption-based",
+      "review": "Approved"
+    },
+    "TC-BR-106": {
+      "title": "Updating a Branch without touching Auto Reissue still works",
+      "priority": "P2",
+      "tags": "Atomic, Regression, Smoke",
+      "review": "Approved"
+    },
+    "TC-BR-107": {
+      "title": "Create a Branch with Auto Reissue on",
+      "priority": "P3",
+      "tags": "Scenario, Positive",
+      "review": "Approved"
+    },
+    "TC-BR-108": {
+      "title": "Agency Portal does not list its Branch's own bookings",
+      "priority": "P3",
+      "tags": "Atomic, Permissions, Assumption-based",
+      "review": "Approved"
+    },
+    "TC-BR-109": {
+      "title": "A Branch can have a supplier its Agency doesn't have",
+      "priority": "P2",
+      "tags": "Atomic, Integration",
+      "review": "Approved"
+    },
+    "TC-BR-110": {
+      "title": "An inactive credential leaves the Branch's Auto Reissue picker",
+      "priority": "P1",
+      "tags": "Scenario, Negative, Integration",
+      "review": "Approved"
+    },
+    "TC-BR-111": {
+      "title": "What the Branch's Auto Reissue picker shows when the supplier is made inactive",
+      "priority": "P2",
+      "tags": "Scenario, Exploratory, Integration",
+      "review": "Approved"
+    },
+    "TC-BR-112": {
+      "title": "Admin hides Reissue for a Branch booking on hold",
+      "priority": "P2",
+      "tags": "Atomic, Negative",
+      "review": "Approved"
+    }
+  },
+  "reqOf": {
+    "TC-AGENCY-061": "PC §2 \"Auto Reissue checkbox on Create/Update Agency\" / `PO-15` / spec §1",
+    "TC-AGENCY-062": "PC §2 \"Reissue-credential selection (UI)\" / ASM-019",
+    "TC-AGENCY-063": "PC §2 \"Saved value is retrieved when the Agency is edited\" / spec `S-10`, §4",
+    "TC-AGENCY-064": "PC §2 \"Maker–checker on the new field\" / XC-01, XC-04 / `PO-24`",
+    "TC-AGENCY-065": "spec `S-2` / `PO-23`",
+    "TC-AGENCY-066": "spec `S-2` / `PO-23` / `PO-17`",
+    "TC-AGENCY-067": "spec `S-3` / `PO-17`",
+    "TC-AGENCY-068": "spec `S-4` / `PO-17`",
+    "TC-AGENCY-069": "spec `S-5` (unknown) / `PO-17`",
+    "TC-AGENCY-070": "spec `S-5` (inactive) / RSK-012",
+    "TC-AGENCY-071": "spec `S-6` / `PO-17`",
+    "TC-AGENCY-072": "spec `S-8` / `PO-16` / ASM-021",
+    "TC-AGENCY-073": "spec `S-7`",
+    "TC-AGENCY-074": "`PO-21` (picker lists the organisation's own chosen credentials) / `PO-16`, `PO-27` (Agency credentials are a subset of the Branch's)",
+    "TC-AGENCY-075": "spec §4 (read-time clean-up) / RSK-012",
+    "TC-AGENCY-076": "PC §2 \"Admin Itinerary Reissue button visibility\" / spec §5",
+    "TC-AGENCY-077": "PC §2 \"Admin Itinerary Reissue button visibility\" / spec §5",
+    "TC-AGENCY-078": "PC §2 \"Agency and Branch are independent\" / `PO-16` / spec §3",
+    "TC-AGENCY-079": "`PO-25` / spec §5",
+    "TC-AGENCY-080": "`PO-25` / spec §5",
+    "TC-AGENCY-081": "`PO-25`",
+    "TC-AGENCY-082": "`PO-22`",
+    "TC-AGENCY-083": "`PO-26`",
+    "TC-AGENCY-084": "spec §5 (BOOKED) / ASM-022 / `PO-24`",
+    "TC-AGENCY-085": "RSK-013 / XC-01, XC-04",
+    "TC-AGENCY-086": "PC §2 \"Regression — existing Agency CRUD is unaffected\" / RSK-014",
+    "TC-AGENCY-087": "PC §2 \"Auto Reissue checkbox on Create/Update Agency\" / `PO-19`",
+    "TC-AGENCY-088": "spec `S-1` / PC §2 \"Auto Reissue checkbox on Create/Update Agency\"",
+    "TC-AGENCY-089": "spec `S-1` / PC §2 \"Saved value is retrieved when the Agency is edited\"",
+    "TC-AGENCY-090": "PC §2 \"Saved value is retrieved when the Agency is edited\" / spec §4",
+    "TC-AGENCY-091": "`PO-27` / `PO-16` / ASM-003",
+    "TC-AGENCY-092": "spec §4 (read-time clean-up) / spec `S-5` / RSK-012",
+    "TC-AGENCY-093": "spec §4 / RSK-012 (supplier-level case not stated)",
+    "TC-AGENCY-094": "spec §5 (BOOKED) / `PO-24` / `PO-25`",
+    "TC-BR-083": "PC §2 REV 9 \"Auto Reissue checkbox on Create Branch and Update Branch\" / `PO-15`",
+    "TC-BR-084": "PC §2 REV 9 \"Reissue-credential selection (UI)\" / ASM-BR-4",
+    "TC-BR-085": "`PO-21`",
+    "TC-BR-086": "`PO-21`",
+    "TC-BR-087": "`PO-21` / spec `S-9`",
+    "TC-BR-088": "`PO-21`",
+    "TC-BR-089": "PC §2 REV 9 \"Saved value retrieved on edit and on GET\" / spec `S-10`",
+    "TC-BR-090": "PC §2 REV 9 \"Maker–checker on the new field\" / XC-01, XC-03, XC-04",
+    "TC-BR-091": "PC §2 REV 9 \"Off keeps saved credentials\" / spec `S-7`",
+    "TC-BR-092": "spec `S-2` / `PO-23`",
+    "TC-BR-093": "RISK-BR-10 / US 8606 \"mandatory Remarks\"",
+    "TC-BR-094": "spec `S-2` / `PO-23` / `PO-17`",
+    "TC-BR-095": "spec `S-3` / `PO-17`",
+    "TC-BR-096": "spec `S-4` / `PO-17`",
+    "TC-BR-097": "spec `S-5` (unknown) / `PO-17`",
+    "TC-BR-098": "spec `S-6` / `PO-17`",
+    "TC-BR-099": "spec `S-8` / `PO-17`",
+    "TC-BR-100": "PC §2 REV 9 \"Independence from Agencies\" / `PO-16` / spec §3",
+    "TC-BR-101": "spec §5 / `PO-26` / PC §3 REV 9 row (Branch-created bookings — now reachable, GAP-BR-R6-02)",
+    "TC-BR-102": "spec §5 / `PO-26`",
+    "TC-BR-103": "`PO-22`",
+    "TC-BR-104": "`PO-16` / `PO-26` / spec §5",
+    "TC-BR-105": "PC §2 REV 9 \"read-time clean-up\" / spec §4 / RISK-BR-11",
+    "TC-BR-106": "PC §2 REV 9 \"Regression smoke\" / RISK-BR-12",
+    "TC-BR-107": "PC §2 REV 9 \"Auto Reissue checkbox on Create Branch\" / `PO-19`",
+    "TC-BR-108": "`PO-26`",
+    "TC-BR-109": "`PO-27`",
+    "TC-BR-110": "spec §4 / RISK-BR-11",
+    "TC-BR-111": "spec §4 / RISK-BR-11 (supplier-level case not stated)",
+    "TC-BR-112": "spec §5 (BOOKED) / `PO-24` / `PO-26`"
+  },
+  "count": {
+    "Passed": 64,
+    "Failed": 0,
+    "Blocked": 0,
+    "Skipped": 0,
+    "Not Executed": 0,
+    "Inconclusive": 0
+  },
+  "start": "2026-09-25T13:36:14.844Z",
+  "end": "2026-09-25T17:38:28.414Z",
+  "EXPL": [
+    "TC-AGENCY-085",
+    "TC-AGENCY-093",
+    "TC-BR-111"
+  ]
+}

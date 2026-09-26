@@ -1,0 +1,52 @@
+{
+  "folderName": "run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
+  "index": 7,
+  "scope": "UserStory",
+  "target": "Reissue Flow From Itinerary",
+  "workflow": "user_story_run",
+  "targetRef": "bc564a4c8364560b2664de5c4e64ad21c8b70925",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-09-26T14:10:56.501Z",
+  "targetRepoRoot": "C:/Users/Mohamed/Desktop/New folder (2)/Ai/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at C:/Users/Mohamed/Desktop/New folder (2)/Ai/agentic-ai-testing-platform",
+  "createdBy": "Run Manager",
+  "startedTime": "2026-09-26T14:10:56.501Z",
+  "status": "Preparing",
+  "scopeFamily": "supplier-feature",
+  "feature": "reissue",
+  "supplier": null,
+  "sharedScope": "reissue-flow",
+  "testingLayerScope": {
+    "UI": {
+      "status": "In Scope"
+    },
+    "API": {
+      "status": "In Scope"
+    },
+    "Contract": {
+      "status": "In Scope"
+    },
+    "Integration": {
+      "status": "In Scope"
+    },
+    "E2E": {
+      "status": "In Scope"
+    },
+    "Regression": {
+      "status": "In Scope"
+    },
+    "DB": {
+      "status": "Deferred",
+      "reason": "No read-only DB access provided (user intake, 2026-09-26)"
+    },
+    "Security": {
+      "status": "Out of Scope",
+      "reason": "Not selected by the user at intake, 2026-09-26"
+    },
+    "Performance": {
+      "status": "Out of Scope",
+      "reason": "Not selected by the user at intake, 2026-09-26"
+    }
+  },
+  "scopeHistory": []
+}

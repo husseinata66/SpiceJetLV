@@ -1,0 +1,32 @@
+{
+  "capturedAt": "2026-09-24",
+  "source": "GET /odeysysadmin/Master2/Branch/BRN265/details (HTTP 200), read during Discovery, before any change",
+  "branchId": "BRN265",
+  "branchName": "NDC2_Mohamed Soliman",
+  "approvalStatus": 1,
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+    {
+      "credentialId": 313
+    }
+  ],
+  "assignedSuppliers": [
+    {
+      "supplier": "NDCsbr",
+      "credentials": [
+        {
+          "credentialId": 313,
+          "credentialName": "NDCSabre staging",
+          "autoReissueAllowed": true
+        }
+      ]
+    }
+  ],
+  "note": "Restore target: run-006 returns BRN265 to exactly these Auto Reissue values when it finishes. Mail/contact/payment sections deliberately not copied (they contain the branch mail configuration).",
+  "laterChangeOutsideRun006": {
+    "recordedAt": "2026-09-24",
+    "change": "Supplier \"Sabre\" (credential 315 \"Sabre Staging\" ticked, 297 \"SabreLive\" unticked) added to BRN265 Product Access",
+    "by": "the user / another operator — confirmed by the user (\"yes\"), not by run-006",
+    "effectOnRestoreTarget": "Restore target is Auto Reissue ON with reissueCredentials [313]; the Sabre supplier stays as the user configured it."
+  }
+}

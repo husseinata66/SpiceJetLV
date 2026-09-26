@@ -1,0 +1,27 @@
+{
+  "at": "2026-09-25T15:10:27.681Z",
+  "state": {
+    "api": true,
+    "creds": [
+      315
+    ],
+    "appr": 1,
+    "pa": [
+      "Sabre:315",
+      "NDCsbr:313"
+    ]
+  },
+  "pcc": {
+    "Sabre": "Sabre Staging",
+    "NDCsbr": "NDCSabre staging"
+  },
+  "save": {
+    "ok": true,
+    "w": [
+      "PUT /odeysysadmin/Master2/Branch/10950",
+      "PATCH /odeysysadmin/Master2/Branch/approveOrReject"
+    ],
+    "pending": "BRN265 NDC2_Mohamed Soliman Egypt Cairo Pending for approval ",
+    "approved": "BRN265 NDC2_Mohamed Soliman Egypt Cairo Approved "
+  }
+}

@@ -4,11 +4,12 @@
 |---|---|
 | Module | `branch` |
 | Produced by run | `run-002__2026-08-03…US-8605CreateBranch` (TC-BR-001…039) · `run-003__2026-08-04…US-8599-SearchActions_US-8606-UpdateBranch` (TC-BR-040…081) |
-| Revision | 3 (in place — run-003 added TC-BR-040…081; the 39 existing rows are unchanged) |
+| Status | **Approved** — §5 approved by Mohamed Soliman, 2026-09-25 |
+| Revision | 4 (run-006 adds §5, TC-BR-083 … 108) · 3 (in place — run-003 added TC-BR-040…081; the 39 existing rows are unchanged) |
 | Project Context | `modules/branch/context/ProjectContext.md` |
 | Run Scope Type / Run Type | User Story / User Story |
-| Test Cases Traced | 81 |
-| Generated | 2026-08-03 (TC-BR-001…039) · 2026-08-04 (TC-BR-040…081) |
+| Test Cases Traced | 111 (81 + 30 in §5). **TC-BR-082 has no row** — a gap from before run-006, flagged in the Coverage Report |
+| Generated | 2026-08-03 (TC-BR-001…039) · 2026-08-04 (TC-BR-040…081) · 2026-09-24 (§5) |
 
 ## 1. Matrix
 
@@ -142,3 +143,78 @@
 | Medium | TC-BR-026 | An unreasonably large Warning Prompt value undermines the early-warning threshold's intent | FINDING-004 Business Risk |
 | Low | TC-BR-035 | Minor confusion if the business expects the literal label "Submit for Approval" | FINDING-011 Business Risk |
 | Low | All other 35 test cases | No elevated risk beyond standard functional/validation coverage | Project Context / standard AC |
+
+## 5. Revision 4 — run-006, Auto Reissue
+
+Rows for TC-BR-083 … TC-BR-111 (109 … 111 added 2026-09-25 at the user's request). **Requirement Reference** cites the Project Context row, the `PO-n` decision, or the specification save rule `S-n` (numbered in `knowledge_base/requirements/specifications/Auto_Reissue_Checkbox_Documentation.md` §3). **Discovery Reference** cites run-006 artifacts in `modules/branch/discovery/` unless another module is named. "run evidence" means `runs/run-006…/discovery/evidence/`. **Finding Reference is N/A on every row:** every run-006 Finding is `Rejected — Confirmed Intended`, so each is a documented exception (§5.3), listed in §5.3 below. The cases test the decision (`PO-n`) the Finding led to.
+
+### 5.1 Matrix
+
+| Test Case ID | Requirement Reference | Discovery Reference | Finding Reference | Evidence Reference | Acceptance Criteria Reference | Run Scope Reference | Risk Level | Risk Statement | Validation Status |
+|---|---|---|---|---|---|---|---|---|---|
+| TC-BR-083 | PC §2 REV 9 "Auto Reissue checkbox on Create Branch and Update Branch" / `PO-15` | `DiscoverySnapshot_BranchAutoReissue_run-006.md` §4, §6; evidence: run evidence `01-branch-add-form.png` | N/A | N/A | Branch CRUD — "Add a Reissue Feature Allowed checkbox to the Branch Create/Edit screens" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Read-only | Validated in Discovery |
+| TC-BR-084 | PC §2 REV 9 "Reissue-credential selection (UI)" / ASM-BR-4 | `DiscoverySnapshot_BranchAutoReissue_run-006.md` §6 (Add, no supplier); evidence: run evidence `03-branch-add-picker-open-unsaved.png` | N/A | N/A | Branch CRUD — "The checkbox value can be enabled or disabled" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Read-only | Validated in Discovery |
+| TC-BR-085 | `PO-21` | `DiscoverySnapshot_BranchAutoReissue_run-006.md` §5; Timeline run-006 10:41; evidence: run evidence `39-NEWBRANCH-unsaved-AirArabiaEgypt-ticked.png` | N/A | N/A | Branch CRUD — credential selection (CL-3) | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Read-only | Validated in Discovery |
+| TC-BR-086 | `PO-21` | `DiscoverySnapshot_BranchAutoReissue_run-006.md` §5; Timeline run-006 10:51; evidence: run evidence `39-NEWBRANCH-unsaved-Galileo-ticked.png`, `40-NEWBRANCH-unsaved-gds-tabs-and-picker.png` | N/A | N/A | Branch CRUD — credential selection (CL-3) | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Read-only | Validated in Discovery |
+| TC-BR-087 | `PO-21` / spec `S-9` | `DiscoverySnapshot_BranchAutoReissue_run-006.md` §5; Timeline run-006 10:51; evidence: run evidence `39-NEWBRANCH-unsaved-Amadeus-ticked.png`, `40-NEWBRANCH-unsaved-gds-tabs-and-picker.png`, `37-supplier-credentials-autoReissueAllowed.json` | N/A | N/A | Branch CRUD — credential selection (CL-3) | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Read-only | Validated in Discovery |
+| TC-BR-088 | `PO-21` | Not independently verified in Discovery (QA run-006 §7 A-BR-R6-3) | N/A | N/A | Branch CRUD — credential selection (CL-3) | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | User statement, not observed | Assumption-based |
+| TC-BR-089 | PC §2 REV 9 "Saved value retrieved on edit and on GET" / spec `S-10` | QA run-006 §5 "Save → approve (on, S-7 pre-fill)"; Timeline run-006 10:27:51–10:28:24; evidence: run evidence `33-branchbooking-cycle-results.json` | N/A | N/A | Branch CRUD — "The selected value is saved and retrieved correctly when editing the branch" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Changes the designated record BRN265 | Validated in Discovery |
+| TC-BR-090 | PC §2 REV 9 "Maker–checker on the new field" / XC-01, XC-03, XC-04 | QA run-006 §5 "Save → approve (off)"; Timeline run-006 10:27:00–10:27:24; evidence: run evidence `33-branchbooking-cycle-results.json` | N/A | N/A | Admin Impact — "manage the reissue permission for … branches" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | BRN265 pending during the case | Validated in Discovery |
+| TC-BR-091 | PC §2 REV 9 "Off keeps saved credentials" / spec `S-7` | QA run-006 §5 "Save → approve (on, S-7 pre-fill)"; Timeline run-006 10:27:51; evidence: run evidence `33-branchbooking-cycle-results.json` | N/A | N/A | Branch CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Pre-filled state affects later cases | Validated in Discovery |
+| TC-BR-092 | spec `S-2` / `PO-23` | Not independently verified in Discovery on the Branch form (seen on the Agency form — agency QA Report Rev 4 §5 "S-2 (UI)") | N/A | N/A | Branch CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Nothing saved | Not independently verified in Discovery |
+| TC-BR-093 | RISK-BR-10 / US 8606 "mandatory Remarks" | Not independently verified in Discovery (QA run-006 §7 A-BR-R6-1) | N/A | N/A | Branch CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Assumption | Assumption-based |
+| TC-BR-094 | spec `S-2` / `PO-23` / `PO-17` | Not independently verified in Discovery (QA run-006 OQ-BR-R6-2) | N/A | N/A | Branch CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Rejected; nothing saved | Not independently verified in Discovery |
+| TC-BR-095 | spec `S-3` / `PO-17` | Not independently verified in Discovery (QA run-006 OQ-BR-R6-2) | N/A | N/A | Branch CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Real save on BRN265 | Not independently verified in Discovery |
+| TC-BR-096 | spec `S-4` / `PO-17` | Not independently verified in Discovery on the Branch API (seen on the Agency API — agency QA Report Rev 4 §5) | N/A | N/A | Branch CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Rejected; nothing saved | Not independently verified in Discovery |
+| TC-BR-097 | spec `S-5` (unknown) / `PO-17` | Not independently verified in Discovery on the Branch API (seen on the Agency API) | N/A | N/A | Branch CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Rejected; nothing saved | Not independently verified in Discovery |
+| TC-BR-098 | spec `S-6` / `PO-17` | Not independently verified in Discovery on the Branch API (seen on the Agency API) | N/A | N/A | Branch CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Rejected; nothing saved | Not independently verified in Discovery |
+| TC-BR-099 | spec `S-8` / `PO-17` | Not independently verified in Discovery on the Branch API (seen on the Agency API) | N/A | N/A | Branch CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Credential boundary | Not independently verified in Discovery |
+| TC-BR-100 | PC §2 REV 9 "Independence from Agencies" / `PO-16` / spec §3 | QA run-006 §6 "independence from Agencies"; evidence: run evidence `33-branchbooking-cycle-results.json`, `43-portal-cycle-results.json` (13:11 AGN9780 off while BRN265 on) | N/A | N/A | Permission Precedence — "behaviour when the Agency and Branch have different values" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Precedence rule | Validated in Discovery |
+| TC-BR-101 | spec §5 / `PO-26` / PC §3 REV 9 row (Branch-created bookings — now reachable, GAP-BR-R6-02) | `agency/discovery/BookingItinerary_Admin_run-006.md` §5; Timeline run-006 10:28:30; evidence: FINDING-017 package `33-branchbooking-cycle-ON.png` | N/A | N/A | Admin Impact — "Verify the impact of the new permission on Admin reissue-related screens" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Core permission effect | Validated in Discovery |
+| TC-BR-102 | spec §5 / `PO-26` | `agency/discovery/BookingItinerary_Admin_run-006.md` §5; Timeline run-006 10:27:37; evidence: FINDING-017 package `33-branchbooking-cycle-OFF.png` | N/A | N/A | Regression & Validation — "unauthorized users cannot access or execute reissue actions" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Core permission effect | Validated in Discovery |
+| TC-BR-103 | `PO-22` | QA run-006 §5 "Credential selection and the button"; evidence: FINDING-017 package `45-itinerary-credential-fields.txt`, `33-branchbooking-cycle-ON.png` | N/A | N/A | Admin Impact — "available according to the existing business rules" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Confirmed intended | Validated in Discovery |
+| TC-BR-104 | `PO-16` / `PO-26` / spec §5 | QA run-006 §5 "Itinerary vs BRN265" (AGN9780 off during the cycle); evidence: FINDING-017 package `33-branchbooking-cycle-ON.png`, `33-branchbooking-cycle-results.json` | N/A | N/A | Permission Precedence — "behaviour when the Agency and Branch have different values" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Precedence rule | Validated in Discovery |
+| TC-BR-105 | PC §2 REV 9 "read-time clean-up" / spec §4 / RISK-BR-11 | Not independently verified in Discovery (QA run-006 OQ-BR-R6-1) | N/A | N/A | Branch CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Precondition unreachable | Assumption-based — Blocked |
+| TC-BR-106 | PC §2 REV 9 "Regression smoke" / RISK-BR-12 | Not independently verified in Discovery (regression smoke skipped — `Coverage_Summary.md` run-006) | N/A | N/A | Regression & Validation — "Verify existing Agency and Branch CRUD functionality is not affected" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Regression kept narrow | Not independently verified in Discovery |
+| TC-BR-107 | PC §2 REV 9 "Auto Reissue checkbox on Create Branch" / `PO-19` | Not independently verified in Discovery (Create observed unsaved only — `DiscoverySnapshot_BranchAutoReissue_run-006.md` §9) | N/A | N/A | Branch CRUD — "Add … to the Branch Create/Edit screens"; "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Creates a permanent STG record; needs authorization | Not independently verified in Discovery |
+| TC-BR-108 | `PO-26` | Not independently verified in Discovery (QA run-006 §7 A-BR-R6-2) | N/A | N/A | Portal Impact — "Verify the impact of the Agency-level and Branch-level permission on the Portal" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | User statement, not observed | Assumption-based |
+| TC-BR-109 | `PO-27` | Timeline run-006 (agency) 10:39 — NDCsbr unticked in AGN9780's Product Access while on BRN265; evidence: run evidence `38-AGN9780-picker-source-unsaved.png`, `05-BRN265-baseline-before-changes.json` | N/A | N/A | Permission Precedence (CL-2) | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Read-only | Validated in Discovery |
+| TC-BR-110 | spec §4 / RISK-BR-11 | Not independently verified in Discovery (QA run-006 OQ-BR-R6-1). User request 2026-09-25 | N/A | N/A | Branch CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Changes shared master data; needs the user's go-ahead | Not independently verified in Discovery |
+| TC-BR-111 | spec §4 / RISK-BR-11 (supplier-level case not stated) | Not independently verified in Discovery. User request 2026-09-25 | N/A | N/A | Branch CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Changes shared master data; rule not stated | Exploratory — not independently verified in Discovery |
+| TC-BR-112 | spec §5 (BOOKED) / `PO-24` / `PO-26` | Not independently verified in Discovery (only a Booked Branch booking was available). Booking supplied by the user 2026-09-25 | N/A | N/A | Admin Impact — "available according to the existing business rules" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Read-only | Not independently verified in Discovery |
+
+### 5.2 Requirement → Test Case Roll-Up
+
+| Requirement ID | Requirement Summary | Test Case ID(s) | Coverage Status |
+|---|---|---|---|
+| Story AC *Branch CRUD* / `PO-15` | Checkbox on Create/Edit, default off | TC-BR-83, TC-BR-107 | Covered (107 needs authorization) |
+| PC §2 REV 9 credential selection / `PO-21` / spec `S-9` | Picker contents: none, LCC, Galileo, Amadeus, TravelportNdc | TC-BR-84, TC-BR-85, TC-BR-86, TC-BR-87, TC-BR-88 | Covered (088 assumption-based) |
+| Story AC *Branch CRUD* "saved and retrieved" / spec `S-10` | Save and read back | TC-BR-89 | Covered |
+| XC-01, XC-03, XC-04 / RISK-BR-10 | Maker–checker with Remarks | TC-BR-90, TC-BR-93 | Covered (093 assumption-based) |
+| spec `S-7` | Off keeps credentials | TC-BR-91 | Covered |
+| spec `S-2` / `PO-23` | On with no credential (UI and API) | TC-BR-92, TC-BR-94 | Covered |
+| spec `S-3` … `S-6`, `S-8` (Branch API) | Backend save rules | TC-BR-95, TC-BR-96, TC-BR-97, TC-BR-98, TC-BR-99 | Covered — S-5 inactive variant: see agency TC-AGENCY-070 (same rule, Blocked) |
+| `PO-16` / spec §3 / Story AC *Permission Precedence* | Branch and Agency independent | TC-BR-100, TC-BR-104 | Covered |
+| spec §5 / `PO-26` / PC §3 REV 9 (now reachable) | Branch-owned booking Reissue on/off, and hidden when not Booked | TC-BR-101, TC-BR-102, TC-BR-112 | Covered |
+| `PO-22` | Button independent of the selected credential | TC-BR-103 | Covered |
+| spec §4 / RISK-BR-11 | Read-time clean-up | TC-BR-105, TC-BR-110, TC-BR-111 | Covered — needs the user's go-ahead for a shared credential/supplier change (111 is exploratory) |
+| `PO-27` | A Branch can have suppliers its Agency doesn't | TC-BR-109; other direction TC-AGENCY-091 (agency) | Covered |
+| Story AC *Regression & Validation* / RISK-BR-12 | Existing Branch update unaffected | TC-BR-106 | Covered (smoke) |
+| `PO-26` | Agency Portal can't see Branch bookings | TC-BR-108 | Covered (assumption-based) |
+| Portal impact of the **Branch** checkbox | A Branch has no Portal login in this run | — | **Out-of-Scope** — the Portal shows Agency bookings only (`PO-26`) |
+
+### 5.3 Finding Disposition
+
+| Finding ID | Status | Disposition | Reason |
+|---|---|---|---|
+| FINDING-017 | Rejected — Confirmed Intended (`PO-22`) | Documented exception | Intended; TC-BR-103 asserts `PO-22` |
+
+### 5.4 Risk Register
+
+| Risk Level | Test Case ID(s) | Statement | Source |
+|---|---|---|---|
+| **High** | TC-BR-100, TC-BR-101, TC-BR-102 | The core permission effect and independence rule | spec §3, §5; `PO-16` |
+| Medium | TC-BR-89, TC-BR-90, TC-BR-91, TC-BR-95, TC-BR-106 | Real saves on the user's own Branch BRN265 — restore after each | `AUTH-BRANCH-*-DedicatedTestData`; R-BR-R6-2 |
+| Medium | TC-BR-107 | Creates a permanent record; allowed after asking the user | `PO-19` |
+| **High** | TC-BR-110, TC-BR-111 | Make a credential or supplier inactive on shared staging. Ask first, use one only the test records use, and reactivate it | spec §4; RISK-BR-11 |
+| Medium | TC-BR-105 | Its precondition now comes from TC-BR-110 | RISK-BR-11 |

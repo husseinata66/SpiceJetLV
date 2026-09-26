@@ -1,0 +1,33 @@
+{
+  "code": "BRN502",
+  "name": "RUN006_AR_Branch",
+  "filled": {
+    "operatingCountryOptions": [
+      "egypttt",
+      "EGY",
+      "egypt",
+      "EgyptLiveeee",
+      "egyptbbbb",
+      "EgyptUplift",
+      "EgyptUAT"
+    ],
+    "operatingCountry": "EgyptLiveeee",
+    "country": "Egypt",
+    "state": "Asyut",
+    "city": "Asyut",
+    "pcc": {
+      "opts": [
+        "GalileoLive",
+        "Galileo Live UAE",
+        "Live EGY PCC",
+        "KSA Galileoo",
+        "HH"
+      ],
+      "chosen": true
+    },
+    "pickerOptions": [
+      "GalileoLive"
+    ],
+    "picker": "GalileoLive GalileoLive"
+  }
+}

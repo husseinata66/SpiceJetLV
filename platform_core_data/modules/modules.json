@@ -7,16 +7,17 @@
   },
   "approvedAt": "2026-09-01T08:09:09.619Z",
   "approvedBy": "Ahmed Ayman",
-  "activeModules": [],
-  "activeScope": null,
-  "spansEveryModule": false,
-  "activeFeature": null,
-  "previousActiveFeature": "new-layer-contract",
-  "switchedAt": "2026-09-02T07:13:40.168Z",
-  "setBy": "Module Manager",
-  "previousActiveModules": [
-    "import-booked-pnr"
+  "activeModules": [
+    "agency",
+    "branch"
   ],
+  "activeScope": "multi",
+  "spansEveryModule": true,
+  "activeFeature": null,
+  "previousActiveFeature": null,
+  "switchedAt": "2026-09-23T19:36:37.756Z",
+  "setBy": "Module Manager",
+  "previousActiveModules": [],
   "modules": [
     {
       "slug": "authentication",
@@ -233,31 +234,31 @@
       "status": "Active",
       "derivedFromSections": [],
       "createdAt": "2026-07-31T08:55:57.829Z",
-      "updatedAt": "2026-08-05T10:41:55.175Z",
+      "updatedAt": "2026-09-25T13:25:50.507Z",
       "supersededBy": null,
       "stages": {
         "context": {
           "status": "Approved",
           "artifactPath": "platform_core_data/modules/branch/context/ProjectContext.md",
-          "lastRun": "run-003__2026-08-04_11-24-38__UserStory__US-8599-SearchActions_US-8606-UpdateBranch",
-          "lastUpdated": "2026-08-04T09:02:26.070Z",
-          "revisionCount": 8,
+          "lastRun": "run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+          "lastUpdated": "2026-09-23T21:14:37.085Z",
+          "revisionCount": 10,
           "targetRefAtWrite": "ff287f9"
         },
         "discovery": {
           "status": "Approved",
           "artifactPath": "platform_core_data/modules/branch/discovery/QA_Assessment_Report.md",
-          "lastRun": "run-003__2026-08-04_11-24-38__UserStory__US-8599-SearchActions_US-8606-UpdateBranch",
-          "lastUpdated": "2026-08-04T09:34:11.696Z",
-          "revisionCount": 6,
+          "lastRun": "run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+          "lastUpdated": "2026-09-24T20:40:27.425Z",
+          "revisionCount": 8,
           "targetRefAtWrite": "ff287f9"
         },
         "test_design": {
           "status": "Approved",
           "artifactPath": "platform_core_data/modules/branch/test_design/TestCases_Branch.md",
-          "lastRun": "run-003__2026-08-04_11-24-38__UserStory__US-8599-SearchActions_US-8606-UpdateBranch",
-          "lastUpdated": "2026-08-04T12:25:48.122Z",
-          "revisionCount": 4,
+          "lastRun": "run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+          "lastUpdated": "2026-09-25T13:25:50.507Z",
+          "revisionCount": 6,
           "targetRefAtWrite": "ff287f9"
         },
         "automation": {
@@ -285,31 +286,31 @@
       "status": "Active",
       "derivedFromSections": [],
       "createdAt": "2026-07-31T08:55:57.892Z",
-      "updatedAt": "2026-08-23T12:20:03.893Z",
+      "updatedAt": "2026-09-25T13:07:55.174Z",
       "supersededBy": null,
       "stages": {
         "context": {
           "status": "Approved",
           "artifactPath": "platform_core_data/modules/agency/context/ProjectContext.md",
-          "lastRun": "run-004__2026-08-17_14-35-25__UserStory__US-4222-UpdateAgency",
-          "lastUpdated": "2026-08-18T10:59:20.354Z",
-          "revisionCount": 5,
+          "lastRun": "run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+          "lastUpdated": "2026-09-23T21:14:36.979Z",
+          "revisionCount": 7,
           "targetRefAtWrite": null
         },
         "discovery": {
           "status": "Approved",
           "artifactPath": "platform_core_data/modules/agency/discovery/QA_Assessment_Report.md",
-          "lastRun": "run-004__2026-08-17_14-35-25__UserStory__US-4222-UpdateAgency",
-          "lastUpdated": "2026-08-18T10:59:20.505Z",
-          "revisionCount": 4,
+          "lastRun": "run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+          "lastUpdated": "2026-09-24T20:40:27.331Z",
+          "revisionCount": 6,
           "targetRefAtWrite": null
         },
         "test_design": {
           "status": "Approved",
           "artifactPath": "platform_core_data/modules/agency/test_design/TestCases_Agency.md",
-          "lastRun": "run-004__2026-08-17_14-35-25__UserStory__US-4222-UpdateAgency",
-          "lastUpdated": "2026-08-18T12:54:32.802Z",
-          "revisionCount": 4,
+          "lastRun": "run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+          "lastUpdated": "2026-09-25T13:07:55.174Z",
+          "revisionCount": 6,
           "targetRefAtWrite": null
         },
         "automation": {

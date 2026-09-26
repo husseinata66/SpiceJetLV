@@ -4,12 +4,12 @@
 |---|---|
 | Module | `agency` |
 | Produced by run | `run-004__2026-08-17_14-35-25__UserStory__US-4222-UpdateAgency` |
-| Revision | 3 |
+| Revision | 4 |
 | Project Context | `modules/agency/context/ProjectContext.md` (revision 4, Approved) |
 | Run Scope Type / Run Type | User Story / User Story |
-| Test Cases Traced | 60 |
+| Test Cases Traced | 94 (60 + 34 in §5) |
 | Generated | 2026-08-18 |
-| Status | **Approved** |
+| Status | **Approved** — §5 (Revision 4) approved by Mohamed Soliman, 2026-09-25; §1–§4 keep their approval |
 | Approved | 2026-08-18 — Ahmed Ayman, alongside the suite and Coverage Report |
 | Revision 1–2 | run-001, 2026-08-01 — 53 cases. Approved 2026-08-02 alongside the suite and Coverage Report. |
 
@@ -177,3 +177,95 @@ recorded here rather than deleted, so the change is auditable:
 | Four-eyes governance unverifiable with one identity (TC-AGENCY-048, 049, 050) | High | `PO-9` scopes role authorization out entirely; the cases assert workflow behaviour and state |
 | Changing Branch may overwrite live values (TC-AGENCY-028, 052) | High | `PO-10` — Branch is not editable from this form. TC-028 is unblocked by the self-created fixture instead |
 | Two `[V]` PRD requirements describe an absent section (TC-AGENCY-043) | High | FINDING-008 — the section is present; the risk narrows to two fields, at Medium |
+
+## 5. Revision 4 — run-006, Auto Reissue
+
+Rows for TC-AGENCY-061 … TC-AGENCY-093 (088 … 093 added 2026-09-25 at the user's request). **Requirement Reference** cites the Project Context row, the `PO-n` decision, or the specification save rule `S-n` (numbered in `knowledge_base/requirements/specifications/Auto_Reissue_Checkbox_Documentation.md` §3). **Discovery Reference** cites run-006 artifacts in `modules/agency/discovery/` unless another module is named. "run evidence" means `runs/run-006…/discovery/evidence/`. **Finding Reference is N/A on every row:** every run-006 Finding is `Rejected — Confirmed Intended`, so each is a documented exception (§5.3), listed in §5.3 below. The cases test the decision (`PO-n`) the Finding led to.
+
+### 5.1 Matrix
+
+| Test Case ID | Requirement Reference | Discovery Reference | Finding Reference | Evidence Reference | Acceptance Criteria Reference | Run Scope Reference | Risk Level | Risk Statement | Validation Status |
+|---|---|---|---|---|---|---|---|---|---|
+| TC-AGENCY-061 | PC §2 "Auto Reissue checkbox on Create/Update Agency" / `PO-15` / spec §1 | `AgencyUpdateForm_AutoReissue_run-006.md` §4, §6 (Off); evidence: run evidence `01-agency-add-form.png` | N/A | N/A | Agency CRUD — "Add a Reissue Feature Allowed checkbox to the Agency Create/Edit screens" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Read-only; nothing saved | Validated in Discovery |
+| TC-AGENCY-062 | PC §2 "Reissue-credential selection (UI)" / ASM-019 | `AgencyUpdateForm_AutoReissue_run-006.md` §3, §6; evidence: run evidence `02-agency-add-autoreissue-ticked-unsaved.png` | N/A | N/A | Agency CRUD — "The checkbox value can be enabled or disabled" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Read-only | Validated in Discovery |
+| TC-AGENCY-063 | PC §2 "Saved value is retrieved when the Agency is edited" / spec `S-10`, §4 | QA Report Rev 4 §5 "Save → approve → read back (on)"; Timeline run-006 21:38–21:41, 13:11; evidence: run evidence `08-AGN9780-edit-autoreissue-on-cred-selected.png`, `14-AGN9780-edit-readback-after-approve.png` | N/A | N/A | Agency CRUD — "The selected value is saved and retrieved correctly when editing the agency" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Changes the designated record AGN9780; restore required | Validated in Discovery |
+| TC-AGENCY-064 | PC §2 "Maker–checker on the new field" / XC-01, XC-04 / `PO-24` | QA Report Rev 4 §5 "Save → approve → read back (on)"; Timeline run-006 21:39–21:41; evidence: run evidence `11-AGN9780-grid-after-submit.png`, `13-AGN9780-grid-after-approve.png` | N/A | N/A | Admin Impact — "Admin users can correctly view and manage the reissue permission" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | AGN9780 is Inactive while pending | Validated in Discovery |
+| TC-AGENCY-065 | spec `S-2` / `PO-23` | QA Report Rev 4 §5 "S-2 (UI)"; `AgencyUpdateForm_AutoReissue_run-006.md` §5; evidence: run evidence `34-rule-S-2.png`, `34-rules-results.json` | N/A | N/A | Agency CRUD — "saved and retrieved correctly" (invalid save refused) | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Nothing is saved | Validated in Discovery |
+| TC-AGENCY-066 | spec `S-2` / `PO-23` / `PO-17` | Not independently verified in Discovery (QA Report Rev 4 §13 TD-AG-R6-5) | N/A | N/A | Agency CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Rejected request; nothing saved | Not independently verified in Discovery |
+| TC-AGENCY-067 | spec `S-3` / `PO-17` | Not independently verified in Discovery (S-3 not run; `Coverage_Summary.md` run-006 "Skipped areas") | N/A | N/A | Agency CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Real save on AGN9780 | Not independently verified in Discovery |
+| TC-AGENCY-068 | spec `S-4` / `PO-17` | QA Report Rev 4 §5 "S-4 / S-5 / S-6 / S-8 (API)"; Timeline run-006 10:30; evidence: run evidence `34-rule-S-4.png`, `34-rules-results.json` | N/A | N/A | Agency CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Rejected; nothing saved | Validated in Discovery |
+| TC-AGENCY-069 | spec `S-5` (unknown) / `PO-17` | QA Report Rev 4 §5 "S-4 / S-5 / S-6 / S-8 (API)"; Timeline run-006 10:31; evidence: run evidence `34-rule-S-5.png`, `35-rule-S-5-ui-right-after-400.png` | N/A | N/A | Agency CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Rejected; nothing saved | Validated in Discovery |
+| TC-AGENCY-070 | spec `S-5` (inactive) / RSK-012 | Not independently verified in Discovery (QA Report Rev 4 OQ-AG-R6-3) | N/A | N/A | Agency CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Precondition may not exist on STG | Assumption-based — Blocked unless an inactive credential exists |
+| TC-AGENCY-071 | spec `S-6` / `PO-17` | QA Report Rev 4 §5 "S-4 / S-5 / S-6 / S-8 (API)"; Timeline run-006 10:31; evidence: run evidence `34-rule-S-6.png` | N/A | N/A | Agency CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Rejected; nothing saved | Validated in Discovery |
+| TC-AGENCY-072 | spec `S-8` / `PO-16` / ASM-021 | QA Report Rev 4 §5 "S-4 / S-5 / S-6 / S-8 (API)"; Timeline run-006 10:31; evidence: run evidence `34-rule-S-8.png` | N/A | N/A | Permission Precedence — "Agency cannot be assigned a credential its Branch lacks" (CL-2) | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Guards the Branch → Agency credential boundary | Validated in Discovery |
+| TC-AGENCY-073 | spec `S-7` | QA Report Rev 4 §5 "Off keeps credentials (S-7)"; Timeline run-006 10:04–10:05; evidence: run evidence `24-AGN9780-edit-autoreissue-unticked.png`, `25-AGN9780-edit-readback-off.png` | N/A | N/A | Agency CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | A later "turn on" starts pre-filled (R-AG-R6-2) | Validated in Discovery |
+| TC-AGENCY-074 | `PO-21` (picker lists the organisation's own chosen credentials) / `PO-16`, `PO-27` (Agency credentials are a subset of the Branch's) | Agency Timeline run-006 21:38 (picker offered 315 and 313) and 10:39 (unsaved Sabre-tab check); evidence: run evidence `07-AGN9780-edit-picker-open.png`, `38-AGN9780-picker-source-unsaved.png` | N/A | N/A | Permission Precedence (CL-2) | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Corrected by the user 2026-09-25; not settled in Discovery | Partly observed in Discovery |
+| TC-AGENCY-075 | spec §4 (read-time clean-up) / RSK-012 | Not independently verified in Discovery (Blocked — `Coverage_Summary.md` run-006 "Blocked areas") | N/A | N/A | Agency CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Precondition unreachable without supplier changes | Assumption-based — Blocked |
+| TC-AGENCY-076 | PC §2 "Admin Itinerary Reissue button visibility" / spec §5 | `BookingItinerary_Admin_run-006.md` §5; Timeline run-006 09:56–10:00; evidence: run evidence `22-on-itinerary-reissue-button.annotated.png`, `23-on-passenger-panel-open.png` | N/A | N/A | Admin Impact — "Verify the impact of the new permission on Admin reissue-related screens and actions" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Core permission effect | Validated in Discovery |
+| TC-AGENCY-077 | PC §2 "Admin Itinerary Reissue button visibility" / spec §5 | `BookingItinerary_Admin_run-006.md` §5; Timeline run-006 10:05; evidence: run evidence `26-off-itinerary-passenger-panel.png` | N/A | N/A | Regression & Validation — "Verify unauthorized users cannot access or execute reissue actions" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Core permission effect | Validated in Discovery |
+| TC-AGENCY-078 | PC §2 "Agency and Branch are independent" / `PO-16` / spec §3 | QA Report Rev 4 §5 "Admin Itinerary, AGN9780 off (BRN265 on)"; Timeline run-006 10:05; evidence: run evidence `26-off-itinerary-passenger-panel.png` | N/A | N/A | Permission Precedence — "consistently apply the final permission based on the agreed business rule" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Precedence rule | Validated in Discovery |
+| TC-AGENCY-079 | `PO-25` / spec §5 | `BookingItinerary_Portal_run-006.md` §5, §6; Timeline run-006 13:12; evidence: run evidence `42-portal-1-AGN9780-ON-itinerary.png`, `43-portal-cycle-results.json` | N/A | N/A | Portal Impact — "When the permission is enabled, the related reissue functionality should be available" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Core permission effect | Validated in Discovery |
+| TC-AGENCY-080 | `PO-25` / spec §5 | `BookingItinerary_Portal_run-006.md` §6; Timeline run-006 13:11, 13:13; evidence: run evidence `42-portal-0-AGN9780-OFF-start-itinerary.png`, `42-portal-2-AGN9780-OFF-itinerary.png` | N/A | N/A | Portal Impact — "When the reissue permission is disabled, the related reissue functionality should not be available" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Core permission effect | Validated in Discovery |
+| TC-AGENCY-081 | `PO-25` | `BookingItinerary_Portal_run-006.md` §3; evidence: run evidence `42-portal-1-AGN9780-ON-itinerary.annotated.png` | N/A | N/A | Portal Impact — "available according to the existing business rules" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Confirmed intended | Validated in Discovery |
+| TC-AGENCY-082 | `PO-22` | QA Report Rev 4 §5 (FINDING-017 second occurrence); `43-portal-cycle-results.json` 13:12; evidence: run evidence `43-portal-cycle-results.json`, `45-itinerary-credential-fields.txt` | N/A | N/A | Portal/Admin Impact — "available according to the existing business rules" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Confirmed intended | Validated in Discovery |
+| TC-AGENCY-083 | `PO-26` | Not independently verified in Discovery (QA Report Rev 4 §7 A-AG-R6-1) | N/A | N/A | Permission Precedence — "consistently apply the final permission" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | User statement, not observed | Assumption-based |
+| TC-AGENCY-084 | spec §5 (BOOKED) / ASM-022 / `PO-24` | Not independently verified in Discovery (only a Booked booking was available) | N/A | N/A | Admin Impact — "available according to the existing business rules" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Needs a user-made booking | Assumption-based |
+| TC-AGENCY-085 | RSK-013 / XC-01, XC-04 | Not independently verified in Discovery (QA Report Rev 4 OQ-AG-R6-2) | N/A | N/A | Admin Impact — "changing the permission does not negatively affect existing Admin functionality" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Unstated rule | Assumption-based — exploratory |
+| TC-AGENCY-086 | PC §2 "Regression — existing Agency CRUD is unaffected" / RSK-014 | Not independently verified in Discovery (regression smoke skipped — `Coverage_Summary.md` run-006) | N/A | N/A | Regression & Validation — "Verify existing Agency and Branch CRUD functionality is not affected" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Regression scope kept narrow (RSK-014) | Not independently verified in Discovery |
+| TC-AGENCY-087 | PC §2 "Auto Reissue checkbox on Create/Update Agency" / `PO-19` | Not independently verified in Discovery (Create observed unsaved only — `AgencyUpdateForm_AutoReissue_run-006.md` §9) | N/A | N/A | Agency CRUD — "Add … to the Agency Create/Edit screens"; "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Creates a permanent STG record | Not independently verified in Discovery |
+| TC-AGENCY-088 | spec `S-1` / PC §2 "Auto Reissue checkbox on Create/Update Agency" | Not independently verified in Discovery (Create observed unsaved only — `AgencyUpdateForm_AutoReissue_run-006.md` §9) | N/A | N/A | Agency CRUD — "The checkbox value can be enabled or disabled"; "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Creates a permanent STG record | Not independently verified in Discovery |
+| TC-AGENCY-089 | spec `S-1` / PC §2 "Saved value is retrieved when the Agency is edited" | QA Report Rev 4 §5 "Save → approve → read back" (off); Timeline run-006 10:04, 13:13; evidence: run evidence `25-AGN9780-edit-readback-off.png`, `43-portal-cycle-results.json` | N/A | N/A | Agency CRUD — "saved and retrieved correctly when editing the agency" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Low | Save on AGN9780; state unchanged | Validated in Discovery |
+| TC-AGENCY-090 | PC §2 "Saved value is retrieved when the Agency is edited" / spec §4 | QA Report Rev 4 §5 "Save → approve → read back (on)"; Timeline run-006 13:11; evidence: run evidence `14-AGN9780-edit-readback-after-approve.png` | N/A | N/A | Agency CRUD — "saved and retrieved correctly when editing the agency" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Changes AGN9780; restore required | Validated in Discovery |
+| TC-AGENCY-091 | `PO-27` / `PO-16` / ASM-003 | Not independently verified in run-006 Discovery. Supported by run-004: Agency PCC tabs follow the parent Branch's suppliers (`findings/FINDING-008_PccSectionConditionallyRendered/`) | N/A | N/A | Permission Precedence (CL-2) — "cannot be assigned a supplier credential that does not exist on its parent Branch" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Guards the Branch → Agency supplier ceiling | Not independently verified in run-006 Discovery |
+| TC-AGENCY-092 | spec §4 (read-time clean-up) / spec `S-5` / RSK-012 | Not independently verified in Discovery (Blocked — `Coverage_Summary.md` run-006). User request 2026-09-25 | N/A | N/A | Agency CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Changes shared master data; needs the user's go-ahead | Not independently verified in Discovery |
+| TC-AGENCY-093 | spec §4 / RSK-012 (supplier-level case not stated) | Not independently verified in Discovery. User request 2026-09-25 | N/A | N/A | Agency CRUD — "saved and retrieved correctly" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | High | Changes shared master data; rule not stated | Exploratory — not independently verified in Discovery |
+| TC-AGENCY-094 | spec §5 (BOOKED) / `PO-24` / `PO-25` | Not independently verified in Discovery (only a Booked booking was available). Booking supplied by the user 2026-09-25 | N/A | N/A | Portal Impact — "available according to the existing business rules" | User Story / Auto Reissue checkbox — Branch & Agency (run-006) | Medium | Read-only | Not independently verified in Discovery |
+
+### 5.2 Requirement → Test Case Roll-Up
+
+| Requirement ID | Requirement Summary | Test Case ID(s) | Coverage Status |
+|---|---|---|---|
+| Story AC *Agency CRUD* / `PO-15` | Checkbox on Create/Edit, default off, toggles | TC-AGENCY-061, TC-AGENCY-062, TC-AGENCY-087 | Covered |
+| Story AC *Agency CRUD* "saved and retrieved" / spec `S-10`, §4 | Save and read back (on, and edit while on) | TC-AGENCY-063, TC-AGENCY-073, TC-AGENCY-090 | Covered |
+| spec `S-1` | Create and edit with Auto Reissue off | TC-AGENCY-088, TC-AGENCY-089 | Covered |
+| `PO-27` | The Branch is the Agency's supplier ceiling | TC-AGENCY-091; reverse direction TC-BR-109 (branch) | Covered |
+| XC-01, XC-04 / `PO-24` | Maker–checker on the new field | TC-AGENCY-064 | Covered |
+| spec `S-2` / `PO-23` | On with no credential | TC-AGENCY-065, TC-AGENCY-066 | Covered |
+| spec `S-3` | Off with credentials | TC-AGENCY-067 | Covered |
+| spec `S-4`, `S-6` | Missing ID, duplicates | TC-AGENCY-068, TC-AGENCY-071 | Covered |
+| spec `S-5` | Unknown / inactive credential | TC-AGENCY-069, TC-AGENCY-070, TC-AGENCY-092 | Covered — the inactive variant needs the user's go-ahead for a shared credential/supplier change (TC-AGENCY-092 sets it up) |
+| spec `S-8` / `PO-16` / ASM-021 | Credential bounded by the Agency's own assignment (a subset of its Branch's) | TC-AGENCY-072, TC-AGENCY-074 | Covered |
+| spec `S-7` | Off keeps credentials | TC-AGENCY-073 | Covered |
+| spec `S-9` / `PO-21` | Unsupported supplier excluded | TC-BR-085, TC-BR-087 (branch suite) | Covered in `branch` — the picker rule is the same form component |
+| spec §4 read-time clean-up / RSK-012 | Invalid credential dropped on read | TC-AGENCY-075, TC-AGENCY-092, TC-AGENCY-093 | Covered — needs the user's go-ahead for a shared credential/supplier change (093 is exploratory) |
+| spec §5 / Story AC *Admin Impact* | Admin Itinerary Reissue on/off | TC-AGENCY-076, TC-AGENCY-077 | Covered |
+| `PO-16` / Story AC *Permission Precedence* | Branch on does not enable the Agency | TC-AGENCY-078 | Covered |
+| `PO-25` / Story AC *Portal Impact* | Portal Reissue on/off; no lock, no Manual Reissue | TC-AGENCY-079, TC-AGENCY-080, TC-AGENCY-081 | Covered |
+| `PO-22` | Button independent of the selected credential | TC-AGENCY-082 | Covered |
+| `PO-26` | On-behalf booking follows the Agency | TC-AGENCY-083 | Covered (assumption-based; needs a user booking) |
+| ASM-022 / `PO-24` | Only Booked status shows Reissue | TC-AGENCY-084, TC-AGENCY-094 | Covered (assumption-based; needs a user booking) |
+| RSK-013 | Pending vs approved value | TC-AGENCY-085 | Covered (exploratory) |
+| Story AC *Regression & Validation* / RSK-014 | Existing Agency update unaffected | TC-AGENCY-086 | Covered (smoke only, per RSK-014) |
+| Story AC *Regression & Validation* "existing reissue functionality remains working" | The Reissue flow itself | — | **Out-of-Scope** — shared scope `reissue-flow` (PC §3.1) |
+| Role authorization (which roles may change the flag) | — | — | **Out-of-Scope** — single Super Admin account; PC §3 |
+
+### 5.3 Finding Disposition
+
+| Finding ID | Status | Disposition | Reason |
+|---|---|---|---|
+| FINDING-013 | Rejected — Confirmed Intended (`PO-23`) | Documented exception | Intended; TC-AGENCY-065/066 assert the two messages |
+| FINDING-014 | Rejected — Confirmed Intended (`PO-24`) | Documented exception | Intended; TC-AGENCY-064 asserts the pending path |
+| FINDING-015 | Rejected — Confirmed Intended (`PO-24`) | Documented exception | Intended; the Booked condition is in every Itinerary case's Notes |
+| FINDING-016 | Rejected — Confirmed Intended (user, 2026-09-24) | Documented exception | Intended; TC-AGENCY-081 asserts no Portal lock |
+| FINDING-017 *(branch)* | Rejected — Confirmed Intended (`PO-22`) | Documented exception | Second occurrence on AGN9780; TC-AGENCY-082 asserts `PO-22` |
+
+### 5.4 Risk Register
+
+| Risk Level | Test Case ID(s) | Statement | Source |
+|---|---|---|---|
+| **High** | TC-AGENCY-072, TC-AGENCY-076, TC-AGENCY-077, TC-AGENCY-078, TC-AGENCY-079, TC-AGENCY-080, TC-AGENCY-083 | The core permission effect and precedence rule. A wrong result here means users see Reissue when they shouldn't, or can't when they should | spec §5; `PO-16`, `PO-25`, `PO-26` |
+| Medium | TC-AGENCY-063, TC-AGENCY-064, TC-AGENCY-067, TC-AGENCY-073, TC-AGENCY-086, TC-AGENCY-087 | Real saves on a designated, shared record (AGN9780) or a new permanent record | `AUTH-AGENCY-*-DedicatedTestData` |
+| **High** | TC-AGENCY-091, TC-AGENCY-092, TC-AGENCY-093 | 091 guards the supplier ceiling. 092/093 make a supplier or credential inactive on shared staging, which affects every organisation using it. Ask first, use one only the test records use, and reactivate it | `PO-27`; spec §4; RSK-012 |
+| Medium | TC-AGENCY-070, TC-AGENCY-075 | Their precondition now comes from TC-AGENCY-092 | RSK-012 |
+| Medium | TC-AGENCY-083, TC-AGENCY-084 | Need bookings the user must make | RSK-011; `PO-19` |
+| Medium | TC-AGENCY-085 | Pending-state rule unstated | RSK-013 |
