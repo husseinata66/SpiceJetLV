@@ -1,0 +1,3 @@
+/* CSS file: Presentation/Components/WorkItemTypeIcon */
+.work-item-type-icon-wrapper,.work-item-type-icon-no-tooltip{margin-right:5px}.work-item-type-icon-host{display:inline-block}.work-item-type-icon-host .work-item-type-icon{min-width:14px;display:inline}.menu-item>.menu-item-icon .work-item-type-icon,.menu.sub-menu>.menu-item>.menu-item-icon .work-item-type-icon{margin-top:-1px}
+

@@ -1,0 +1,22 @@
+- **Finding ID**: FINDING-009
+- **Title**: Itinerary (My Bookings) confirmed to reflect ancillaries per passenger, per segment
+- **Category**: Observation
+- **Severity**: N/A
+- **Severity Reason**: Observation is always N/A per the Severity Matrix (§5.4) — a positive confirmation.
+- **Confidence Score**: 98% (Direct Observation independently reproduced the identical "Segment Ancillaries" structure on a second, real booking, navigated to via My Bookings — a genuinely separate path from the immediate post-booking confirmation)
+- **Evidence Category**: Direct Observation (2026-09-27, live browser automation — navigated My Bookings -> opened the itinerary detail for the freshly-created booking -> expanded "Segment Ancillaries (Meals, Baggage, Seats)"), corroborated by the original Human Observation + Static Artifact. Per §18, Direct Observation is the only Evidence Category that can reach `Confirmed`.
+- **Status**: Confirmed
+- **Business Risk**: None identified — confirms the platform-wide rule holds for AirIndia.
+- **Technical Risk**: None identified.
+- **Module**: Ancillaries / AirIndia (Supplier Feature scope)
+- **Workflow**: Portal — My Bookings -> itinerary detail for the confirmed booking
+- **Description**: The itinerary view (reached via My Bookings, separate from the immediate post-booking confirmation) shows a **"Segment Ancillaries (Meals, Baggage, Seats)"** section, broken out per passenger: "ali adel (Adult)" shows Extra Baggage ("Special equipment Handling Fee 3 Pc EGP 5250.0") and, per segment (DEL->IXE shown), Meal Preference ("VSDB — Shondesh Tiramisu", 125 EGP, marked selected/confirmed with a checkmark). "ahmeed gggamal (Child)" shows the same structure. This is a **second, independent confirmation point** beyond the immediate booking confirmation (FINDING-008) — satisfying the "search for the booked flight later" half of ANC-53.
+- **Expected Behavior**: Per ANC-53 (shared baseline, confirmed 2026-09-25): "When a booked flight is searched or retrieved, ancillaries are reflected in the itinerary and in reports."
+- **Actual Behavior**: Matches exactly — ancillaries are reflected in the itinerary view, per passenger and per segment, with prices.
+- **Steps to Reproduce**: After booking confirmation, navigate to My Bookings -> open the itinerary detail for this booking -> expand "Segment Ancillaries (Meals, Baggage, Seats)" per passenger.
+- **Investigation/Recovery Result**: Not applicable — a direct, static observation.
+- **Investigation Notes**: The section header groups "Meals, Baggage, Seats" together (not Bundle) — consistent with FINDING-002/005's observation that the live app's "Ancillaries"/"Segment Ancillaries" terminology excludes Bundle, which is tracked as its own concept throughout this app's UI. Bundle's itinerary-level reflection was not separately re-verified here (already confirmed at the immediate booking-confirmation stage in FINDING-008). Live re-verification also confirms no "Test Infant" section appears in this itinerary list, consistent with FINDING-006.
+- **Root Cause Hypothesis**: *(omitted — confirmed expected behavior)*
+- **Occurrence Count**: 2 (original human-reported booking; independently reproduced via Direct Observation on a fresh live booking)
+- **Evidence Links**: `itinerary_segment_ancillaries_pax1.png`, `itinerary_segment_ancillaries_pax2.png`; `live_itinerary_segment_ancillaries_direct_observation.png` (2026-09-27, live automation screenshot of the second booking's itinerary detail, "Segment Ancillaries" expanded for Test Adult, showing Extra Baggage and per-leg Meal Preference).
+- **Recommendation**: Mark the itinerary/reports half of ANC-53 as Verified for AirIndia during the next Stage 1 revision. If report-level (not just itinerary-level) reflection needs separate verification, note that as a remaining gap for a future Discovery pass — this Finding covers the itinerary only, not a generated report artifact.

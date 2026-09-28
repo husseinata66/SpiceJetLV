@@ -8,16 +8,25 @@
      requirement written here. -->
 
 **Feature:** Ancillaries (`ancillaries`)
-**Integration layer:** `null` — deliberately unset. Ancillaries may use different backend paths
-depending on the implementation. It is set later, only on confirmed evidence, and only via
-`cli.js supplier-feature feature set-integration-layer` (`module_architecture.md` §11.2, §11.4).
+**Integration layer:** `ndc-core-service` — set 2026-09-23 on confirmed evidence from AirIndia's
+onboarding (OQ-ANC-11), via `cli.js supplier-feature feature set-integration-layer`
+(`module_architecture.md` §11.2, §11.4). This is Feature metadata, not an organizational parent —
+see §12.2a of `new_us_intake.md` for why it is never presented as owning the Feature.
 **Shared scope:** `ancillaries-baseline`
 **Canonical location:** `platform_core_data/supplier-features/ancillaries/shared/ancillaries-baseline/context/ProjectContext.md`
-**Status:** Draft — pending approval
-**Revision:** 1
-**Last Updated:** 2026-09-04
+**Status:** Approved
+**Approved by:** Ahmed Alhussieny
+**Approved on:** 2026-09-28 (rev 4)
+**Revision:** 4 (2026-09-28 — adds ANC-54…ANC-58, Admin's own booking cycle)
+**Last Updated:** 2026-09-28
 **Source:** Business-supplied Ancillaries Feature definition and its two rounds of corrections,
-recorded 2026-09-04. No other source exists for this Feature today.
+recorded 2026-09-04, a third round resolving OQ-ANC-01 through OQ-ANC-08, supplied by
+Ahmed Alhussieny and recorded 2026-09-23, plus a fourth round resolving OQ-ANC-03b and the
+remainder of OQ-ANC-04, supplied by Ahmed Alhussieny and recorded 2026-09-25 during AirIndia's
+Stage 1 Project Context revision. **A fifth round (2026-09-27/28), approved 2026-09-28**, supplied by
+Ahmed Alhussieny during AirIndia's Stage 2/3 sessions via direct narration and screenshots of the live
+Admin application, established that Admin provides its own parallel booking cycle, recorded as
+ANC-54…ANC-58.
 
 ## 1. Scope Summary
 
@@ -51,6 +60,16 @@ scope, against the model in
 - Any Supplier's API mapping, pricing behavior, restrictions, UI deviations, or error catalogue.
 - Test Cases of any kind. This baseline issues requirement IDs; it designs no coverage.
 
+**Added 2026-09-27/28, on Admin's own booking cycle (§6.12):** the following Admin-side controls are
+explicitly Out of Scope for Ancillaries verification, per direct business decision — not because they
+were overlooked, but because they were named and deliberately excluded:
+- Admin's **Markup / Send Quotation / Save Quote** search-results controls (mid-office quoting tools).
+- Admin's **"Void/Cancel"** control on a booking's detail page. Its mere presence does not reopen
+  ANC-52 (post-booking immutability, confirmed via Portal) — that requirement stands; this control is
+  simply not exercised or asserted against by this Feature.
+- **Daily Sales Report** (one of Admin's report cards) — never evidenced, explicitly excluded.
+- **Banque Misr** as a payment method — noted as existing alongside Wallet, but not itself in scope.
+
 ### 3.1 Feature boundaries — open by decision
 
 Ancillaries may expose **Seat** and **Bundle** as Supplier capabilities. Exposing them does **not**
@@ -63,7 +82,7 @@ Two applications are involved. This split is confirmed business information.
 
 | Application | Owns |
 |---|---|
-| **Admin** | Configure/select the Branch · ensure the Supplier is assigned · ensure the correct Supplier Credential / PCC / Market is available |
+| **Admin** | Configure/select the Branch · ensure the Supplier is assigned · ensure the correct Supplier Credential / PCC / Market is available · **also provides its own parallel booking cycle (Booking-Mid Office) — see §6.12, ANC-54…ANC-58 (confirmed 2026-09-27/28)** |
 | **Portal** | Search flights · select a flight returned by the Supplier under test · continue to PAX Details · open and use Ancillaries per the Supplier's supported capabilities · continue booking · validate persistence and pricing |
 
 Import Booked PNR's Source/Target dual-**environment** preparation model
@@ -167,9 +186,65 @@ Duplicating them would create a second copy that drifts.
 | ANC-40 | DSC | Per supported capability, establish pricing behavior: price returned? currency returned? per passenger / per segment / per journey? varies by quantity or type? | Confirmed |
 | ANC-41 | DSC | Establish selection restrictions: maximum baggage quantity, meal availability, seat eligibility, bundle restrictions, passenger-type, route, fare-family. Restrictions are recorded from evidence, never invented | Confirmed |
 
+### 6.8 Pricing, currency, and ancillary lifecycle — confirmed 2026-09-23
+
+| ID | Type | Requirement | Status |
+|---|---|---|---|
+| ANC-42 | BUS | Booking price conversion uses a configured Rate of Exchange (ROE): `booking price = Supplier price × ROE`, converting the Supplier's currency into the platform's currency | Confirmed |
+| ANC-43 | BUS | Taxes and fees are calculated from the Supplier, per offer | Confirmed |
+| ANC-44 | BUS | A rule engine applies markup, discount, and service-fee adjustments per passenger. The specific amounts (e.g. Markup, Discount, Service Fee) are configuration-driven, not fixed platform constants — the values observed 2026-09-23 are an example configuration, not a hardcoded rule | Confirmed as a mechanism. Exact configured values are per-environment, not restated here |
+| ANC-45 | BUS | Ancillary and Bundle amounts are added to the booking total price | Confirmed |
+| ANC-46 | BUS | No amount is held or deducted for ancillary/Bundle selection alone. The full price, including ancillaries and Bundle, is deducted only at booking confirmation | Confirmed |
+| ANC-47 | BUS | A selected ancillary can be changed or removed before booking, on a per-passenger basis — it is not mandatory to apply a change/removal to every passenger on the booking | Confirmed for the before-booking case. Whether an ancillary can be changed or removed **after** booking remains unconfirmed — carried forward as OQ-ANC-03b |
+| ANC-50 | BUS | A Bundle coexists with individually selected capabilities without conflict. Bundle pricing is shown separately in the fare breakdown, then included in the total price | Confirmed |
+
+### 6.9 Application level and eligibility defaults — confirmed 2026-09-23, platform-wide
+
+<!-- These are recorded as PLATFORM-WIDE DEFAULTS per explicit business direction (2026-09-23).
+     ANC-13 still governs: a default is an expectation, not a substitute for per-Supplier
+     verification. Discovery still confirms each Supplier's actual behavior against this default
+     and records any deviation via the Capability Model's discrepancy process (CapabilityModel.md
+     §6) rather than assuming every Supplier matches it silently. -->
+
+| ID | Type | Requirement | Status |
+|---|---|---|---|
+| ANC-48 | BUS | Platform-wide default application level: Meal and Seat ancillaries apply at the Segment level; Baggage applies at the Journey level (across the whole journey). All contribute to the total price. A Supplier's actual behavior is still verified per Supplier during Discovery (ANC-13) — this default does not replace that verification, and a confirmed deviation is recorded as a discrepancy, not silently overridden | Confirmed as platform default |
+| ANC-49 | BUS | Platform-wide default eligibility: ancillaries are eligible for Adult and Child passenger types only, not Infant. A Supplier's actual eligibility rules are still verified per Supplier during Discovery (ANC-41) | Confirmed as platform default |
+
+### 6.10 Environment architecture — confirmed 2026-09-23
+
+| ID | Type | Requirement | Status |
+|---|---|---|---|
+| ANC-51 | EXE | Admin and Portal target the same environment/tenant, but use two different URLs and two independent credential sets. Per ANC-26, their access details are still recorded independently, never merged. The actual URL and credential values for a given run are recorded in that run's own Environment & Access record (Supplier Checklist §3), never in this shared baseline | Confirmed |
+
+### 6.11 Post-booking lifecycle and downstream representation — confirmed 2026-09-25
+
+| ID | Type | Requirement | Status |
+|---|---|---|---|
+| ANC-52 | BUS | A selected ancillary cannot be changed or removed **after** booking. Change/removal is permitted only **before** booking, per the per-passenger rule in ANC-47 | Confirmed |
+| ANC-53 | BUS | Booking confirmation reflects the selected ancillaries and their prices. When a booked flight is searched or retrieved, ancillaries are reflected in the itinerary and in reports | Confirmed |
+
+### 6.12 Admin's own booking cycle — confirmed 2026-09-27/28, platform-wide
+
+<!-- Source: Ahmed Alhussieny, supplied directly during AirIndia's Stage 2/3 sessions this run, via
+     narrated steps and screenshots of the live Admin application (Booking-Mid Office). Recorded here,
+     not only in AirIndia's own Supplier scope, because the user confirmed this is a platform-wide
+     Admin capability, not an AirIndia-specific one — consistent with §6.9's existing pattern for
+     platform-wide defaults. Per ANC-13's own ethos, this is still a default/baseline description:
+     Discovery still verifies actual behavior per Supplier, and a confirmed deviation is a recorded
+     discrepancy, never a silent override. -->
+
+| ID | Type | Requirement | Status |
+|---|---|---|---|
+| ANC-54 | EXE | Admin provides its own booking cycle (**Booking-Mid Office**), functionally mirroring Portal's: flight search -> flight selection -> PAX Details -> Bundle -> Ancillaries -> Payment -> booking confirmation. The two channels are exercised and verified independently — the same "not assumed to share" ethos ANC-26 already applies to Admin/Portal environment details, extended here to booking capability | Confirmed |
+| ANC-55 | BUS | The rule engine applying markup/discount/service-fee adjustments (ANC-44) is **shared** between Admin and Portal — it is not a separate engine per channel. **Markup specifically** is applied per passenger and folds directly into **Base Fare** on both channels — it is never shown as its own line item in the Fare Breakdown/Fare Details panel, consistent with the original Portal observation (FINDING-003). Service Charge and Discount, by contrast, were observed as their own separate line items on Admin (FINDING-014) — whether Portal's UI can also show them separately under the right configuration remains open (see FINDING-014's recommendation) | Confirmed |
+| ANC-56 | BUS | Admin's wallet is structured as three components — **Your Balance**, **Credit Balance**, **Top Up Balance** (Your Balance = Credit Balance + Top Up Balance) — distinct from Portal's single-balance model (ANC-46 still governs deduction timing: no deduction until booking confirmation, then the exact total; in the observed case, deduction reduced Top Up Balance specifically) | Confirmed |
+| ANC-57 | BUS | Admin exposes its own Reports for price verification, distinct from Portal's, in service of ANC-53's downstream-reflection requirement: **Total Due to NDC**, **Agency Wallet**, **Sales**, **AR Ledger Report**, **Wallet History Report**, and **Statement**. (Daily Sales Report exists on Admin but is Out of Scope — §3.) | Confirmed |
+| ANC-58 | EXE | Admin's Booking-Mid Office additionally allows selecting a specific **Agency and Agent** at search time, distinct from Portal (always booking under its own logged-in agency); whichever Agency is selected supplies the wallet (ANC-56) for that booking | Confirmed |
+
 ## 7. Traceability Anchor
 
-`ANC-01` … `ANC-41` is the canonical ID series for this Feature. Supplier Test Cases trace against
+`ANC-01` … `ANC-58` is the canonical ID series for this Feature. Supplier Test Cases trace against
 these IDs. A Supplier-specific behavior that no ANC-xx covers is recorded in that Supplier's own
 scope; it does not silently become a shared requirement. Extending this series requires a revision of
 this document, approved in the normal way.
@@ -179,22 +254,25 @@ Supplier scope exists with a verified capability matrix (`ndc_execution_rules.md
 
 ## 8. Open Questions — require business confirmation
 
-| ID | Question | Blocks | Owner |
-|---|---|---|---|
-| OQ-ANC-01 | What is the confirmed ancillary pricing contract? Which of taxes, fees, markup, commission, discount, and bundle pricing sit between the ancillary amounts and the final booking total? | ANC-36. No expected total can be asserted | Unassigned |
-| OQ-ANC-02 | Does ancillary selection trigger wallet or payment validation, and is any amount held or deducted at selection time? | Whether wallet coverage is in scope at all | Unassigned |
-| OQ-ANC-03 | Can a selected ancillary be changed or removed before booking? After booking? | Whether modify/remove coverage exists | Unassigned |
-| OQ-ANC-04 | Which downstream representations must reflect ancillaries — itinerary, fare breakdown, booking details, reports? | ANC-25's completion criteria | Unassigned |
-| OQ-ANC-05 | How is currency handled when the credential's market currency differs from the booking currency? | ANC-28, ANC-33 currency checks | Unassigned |
-| OQ-ANC-06 | Are passenger-type eligibility rules (ADT/CHD/INF) global business rules, or purely per-Supplier? | Whether ANC-41 restrictions are Feature-level or Supplier-level | Unassigned |
-| OQ-ANC-07 | Do Bundle and individual capabilities conflict? Does a Bundle include, exclude, or coexist with separately selected Baggage/Meal/Seat? | Bundle coverage design | Unassigned |
-| OQ-ANC-08 | Are Admin and Portal the same environment and tenant? Same login or two accounts? Two URLs? | ANC-26. Admin and Portal details stay recorded independently until answered | Unassigned |
-| OQ-ANC-09 | **Deferred by decision.** Ancillaries may expose Seat as a Supplier capability. That does not mean Ancillaries owns the Seatmap business scope. Resolved when Seatmap is introduced | Nothing today. Prevents duplicate ownership later | Deferred |
-| OQ-ANC-10 | **Deferred by decision.** Ancillaries may expose Bundle as a Supplier capability. That does not mean Ancillaries owns the Upselling business scope. Resolved when Upselling is introduced | Nothing today | Deferred |
-| OQ-ANC-11 | **Deferred by decision.** Which integration/backend path does Ancillaries actually use? `integrationLayer` stays `null` until confirmed evidence exists | Keeps `ndc_execution_rules.md` §B inactive for this Feature | Deferred |
+| ID | Question | Status | Blocks | Owner |
+|---|---|---|---|---|
+| OQ-ANC-01 | What is the confirmed ancillary pricing contract? Which of taxes, fees, markup, commission, discount, and bundle pricing sit between the ancillary amounts and the final booking total? | **Resolved 2026-09-23** — see ANC-42, ANC-43, ANC-44, ANC-45 | — | Ahmed Alhussieny |
+| OQ-ANC-02 | Does ancillary selection trigger wallet or payment validation, and is any amount held or deducted at selection time? | **Resolved 2026-09-23** — see ANC-46 | — | Ahmed Alhussieny |
+| OQ-ANC-03 | Can a selected ancillary be changed or removed before booking? After booking? | **Partially resolved 2026-09-23** — before-booking case confirmed, see ANC-47 | ANC-47 covers before-booking only | Ahmed Alhussieny |
+| OQ-ANC-03b | Can a selected ancillary be changed or removed **after** booking? | **Resolved 2026-09-25** — see ANC-52. Not permitted after booking | — | Ahmed Alhussieny |
+| OQ-ANC-04 | Which downstream representations must reflect ancillaries — itinerary, fare breakdown, booking details, reports? | **Resolved 2026-09-25** — see ANC-53. Booking confirmation, itinerary, and reports all reflect selected ancillaries and their prices | — | Ahmed Alhussieny |
+| OQ-ANC-05 | How is currency handled when the credential's market currency differs from the booking currency? | **Resolved 2026-09-23** — see ANC-42 | — | Ahmed Alhussieny |
+| OQ-ANC-06 | Are passenger-type eligibility rules (ADT/CHD/INF) global business rules, or purely per-Supplier? | **Resolved 2026-09-23** as a platform-wide default — see ANC-49 | — | Ahmed Alhussieny |
+| OQ-ANC-07 | Do Bundle and individual capabilities conflict? Does a Bundle include, exclude, or coexist with separately selected Baggage/Meal/Seat? | **Resolved 2026-09-23** — see ANC-50 | — | Ahmed Alhussieny |
+| OQ-ANC-08 | Are Admin and Portal the same environment and tenant? Same login or two accounts? Two URLs? | **Resolved 2026-09-23** — see ANC-51. Actual URL/credential values recorded per-run in each Supplier's own Environment & Access record, not here | — | Ahmed Alhussieny |
+| OQ-ANC-09 | **Deferred by decision.** Ancillaries may expose Seat as a Supplier capability. That does not mean Ancillaries owns the Seatmap business scope. Resolved when Seatmap is introduced | Open — deferred, to be asked when Seatmap is introduced | Nothing today. Prevents duplicate ownership later | Deferred |
+| OQ-ANC-10 | **Deferred by decision.** Ancillaries may expose Bundle as a Supplier capability. That does not mean Ancillaries owns the Upselling business scope. Resolved when Upselling is introduced | Open — deferred, to be asked when Upselling is introduced | Nothing today | Deferred |
+| OQ-ANC-11 | Which integration/backend path does Ancillaries actually use? | **Resolved 2026-09-23** — AirIndia's onboarding confirmed the `ndc-core-service` integration layer (the same layer Import Booked PNR uses). Set via `cli.js supplier-feature feature set-integration-layer ancillaries --value "ndc-core-service"` | Activates `ndc_execution_rules.md` §B (NDC-Core-Service-specific rules) for this Feature | Ahmed Alhussieny |
 
-OQ-ANC-09, -10, and -11 are decided-to-defer, not gaps. The other eight are genuinely missing
-business information and must not be filled by assumption.
+Eight of the original eleven open questions were resolved 2026-09-23 on business direction from
+Ahmed Alhussieny (recorded above as ANC-42…ANC-51). OQ-ANC-03b is a new open item split out from the
+unresolved half of OQ-ANC-03. OQ-ANC-09, -10, and -11 remain decided-to-defer, not gaps — the business
+has not been asked yet, by decision.
 
 ## 9. Discrepancies Between Sources
 

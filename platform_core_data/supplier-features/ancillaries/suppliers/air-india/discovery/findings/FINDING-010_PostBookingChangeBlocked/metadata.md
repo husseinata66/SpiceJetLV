@@ -1,0 +1,22 @@
+- **Finding ID**: FINDING-010
+- **Title**: Post-booking ancillary change/removal confirmed blocked, matching ANC-52
+- **Category**: Observation
+- **Severity**: N/A
+- **Severity Reason**: Observation is always N/A per the Severity Matrix (§5.4) — a positive confirmation.
+- **Confidence Score**: 98% (Direct Observation via a comprehensive DOM scan of a real, freshly-confirmed booking's detail page — zero matches for any change/cancel/remove/modify control)
+- **Evidence Category**: Direct Observation (2026-09-27, live browser automation — on the real booking created this session (Order AGN9808NDCNDCORD260926HEXJFS, Airline PNR Y1ZVFF), programmatically scanned every `button`/`a`/`[role="button"]` element on the booking-details page for text matching change/remove/cancel/modify/edit — zero matches found), corroborated by the original Human Observation. Per §18, Direct Observation is the only Evidence Category that can reach `Confirmed`.
+- **Status**: Confirmed
+- **Business Risk**: None identified — confirms the platform-wide rule holds for AirIndia.
+- **Technical Risk**: None identified.
+- **Module**: Ancillaries / AirIndia (Supplier Feature scope)
+- **Workflow**: Portal — attempting to modify a confirmed booking's ancillaries (My Bookings / booking detail)
+- **Description**: The operator checked the booking detail view after confirmation and reported: **"after booking there is no control for ancillaries add or change or remove"** — i.e., no edit/add/remove control exists at all for any ancillary (Meal, Baggage, or Bundle) once a booking is confirmed, not merely a disabled control or a rejected attempt.
+- **Expected Behavior**: Per ANC-52 (shared baseline, confirmed 2026-09-25): "A selected ancillary cannot be changed or removed **after** booking. Change/removal is permitted only **before** booking, per the per-passenger rule in ANC-47."
+- **Actual Behavior**: Matches the rule — no UI control for ancillary add/change/removal exists anywhere in the post-booking view.
+- **Steps to Reproduce**: After booking confirmation, open the booking detail / My Bookings view and look for any ancillary add/change/remove control.
+- **Investigation/Recovery Result**: Not applicable — a direct, static (reported) observation, not a failure condition.
+- **Investigation Notes**: The operator's clarified answer (2026-09-26) specifies the mechanism precisely: absence of any control, rather than a control that exists but rejects the action. Live re-verification (2026-09-27) on a real confirmed booking programmatically confirms this: no element anywhere on the page has change/cancel/remove/modify/edit-related text. (The Payment step's "Penalties/Charges: CANCEL N/A, CHANGE N/A" indicator, visible before booking, is consistent corroborating context, though not itself scanned here.)
+- **Root Cause Hypothesis**: *(omitted — confirmed expected behavior, no anomaly to explain)*
+- **Occurrence Count**: 2 (original operator statement; independently reproduced via Direct Observation on a fresh live booking)
+- **Evidence Links**: `live_change_control_scan_direct_observation.png` (2026-09-27, screenshot of the booking-details page at the time of the scan) — the scan itself is a programmatic DOM query, not a visual artifact, but the accompanying screenshot documents the page state scanned.
+- **Recommendation**: Mark ANC-52 as Verified for AirIndia in `SupplierChecklist.md` §7b — Direct Observation now supports full confidence.

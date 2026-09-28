@@ -87,9 +87,9 @@ class BrowserDriver {
    * every call site having to remember to ask for it. An explicit `headless` still wins over both
    * the per-stage and the global default.
    */
-  static async authenticate({ env, credentialsPath, headless, stage } = {}) {
+  static async authenticate({ env, credentialsPath, headless, stage, app } = {}) {
     const { browser, context, page, profile, env: resolvedEnv } = await launchAuthenticated({
-      env, credentialsPath, headless, stage,
+      env, credentialsPath, headless, stage, app,
     });
     return new BrowserDriver({ browser, context, page, profile, env: resolvedEnv });
   }

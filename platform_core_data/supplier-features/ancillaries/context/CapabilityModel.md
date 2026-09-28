@@ -15,11 +15,13 @@
 
 **Feature:** Ancillaries (`ancillaries`)
 **Canonical location:** `platform_core_data/supplier-features/ancillaries/context/CapabilityModel.md`
-**Status:** Draft — pending approval
+**Status:** Approved
 **Revision:** 1
-**Last Updated:** 2026-09-04
-**Source:** `shared/ancillaries-baseline/context/ProjectContext.md` rev 1 — ANC-01 … ANC-13,
-ANC-37 … ANC-41. Every rule below traces to one of those requirement IDs.
+**Last Updated:** 2026-09-23
+**Source:** `shared/ancillaries-baseline/context/ProjectContext.md` rev 2 (Approved 2026-09-23) —
+ANC-01 … ANC-13, ANC-37 … ANC-41, plus ANC-48/ANC-49 (platform-wide application-level and
+eligibility defaults, subject to per-Supplier verification per ANC-13). Every rule below traces to
+one of those requirement IDs.
 
 ## 0. What this file is, and is not
 

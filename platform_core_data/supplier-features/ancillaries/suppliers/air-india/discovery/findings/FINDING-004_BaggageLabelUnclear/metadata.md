@@ -1,0 +1,23 @@
+- **Finding ID**: FINDING-004
+- **Title**: "Special equipment Handling Fee" is one of several selectable Extra Baggage options, not a mislabeled section — resolved
+- **Category**: Observation
+- **Severity**: N/A
+- **Severity Reason**: Observation is always N/A per the Severity Matrix (§5.4) — resolved, not a defect.
+- **Confidence Score**: 90%
+- **Evidence Category**: Human Observation, corroborated by Static Artifact (both the original and the follow-up "Choose a baggage" dropdown screenshot).
+- **Status**: Rejected — investigated further in this same session and determined to be a false read: the earlier screenshot showed only one pre-filled value, not the full set of choices.
+- **Business Risk**: If a tester or end user reads "Special equipment Handling Fee" they may not recognize it as the standard checked-baggage ancillary, causing confusion or missed test coverage of ordinary extra-baggage purchase.
+- **Technical Risk**: Unclear whether "Special equipment Handling Fee" is (a) the only baggage-type ancillary this Supplier/route offers, (b) a distinct ancillary from standard extra baggage that happens to sit under the same "Extra Baggage" section header, or (c) a labeling inconsistency in the UI/mapping layer.
+- **Module**: Ancillaries / AirIndia (Supplier Feature scope)
+- **Workflow**: Portal — Passenger Details, Extra Baggage section (per passenger)
+- **Description**: The "Extra Baggage" section actually presents a **"Choose a baggage" dropdown** with (at least) four selectable options: "Special equipment Handling Fee 1/2/3 Pc" (priced 1,750 / 3,500 / 5,250 EGP — per-piece scaling) and "+5Kgs Xtra-Carry-On" (3,000 EGP, flat). Earlier screenshots only showed whichever option happened to be pre-filled/selected at the time (1 Pc, then 3 Pc), which read as if it were the sole, mislabeled line item.
+- **Expected Behavior**: Not defined in Project Context — `SupplierChecklist.md` §5c records Baggage as Supported with Application Level Per Journey, but did not describe the selectable option set.
+- **Actual Behavior**: "Special equipment Handling Fee" (by piece count) and "+5Kgs Xtra-Carry-On" (by weight) are both legitimate, distinct selectable Extra Baggage options in the same dropdown — not a mislabeling of a single option.
+- **Steps to Reproduce**: Portal booking flow -> Passenger Details screen -> "Extra Baggage" section -> open the "Choose a baggage" dropdown for the DEL -> DXB journey.
+- **Investigation/Recovery Result**: Not applicable — resolved by viewing the full dropdown rather than a pre-filled value.
+- **Investigation Notes**: Confirmed by the operator directly: "Special equipment Handling Fee" is not a fixed label but one of several catalog entries depending on which baggage option is selected.
+- **Root Cause Hypothesis**: *(omitted — resolved, no anomaly remains)*
+- **Occurrence Count**: 1
+- **Unclear Items**: *(resolved — originally raised as Q1, closed by the "Choose a baggage" dropdown screenshot and the operator's direct confirmation; no longer an open item)*
+- **Evidence Links**: `pax_details_fare_breakdown.png`, `baggage_dropdown_options.png` (resolves Q1).
+- **Recommendation**: Record the Extra Baggage option set ("Special equipment Handling Fee" by piece count, "+5Kgs Xtra-Carry-On" by weight) in `SupplierChecklist.md` §5b/§6 (Contract/Mapping) during the next Stage 1 revision, so Test Design can design cases against the actual catalog rather than a single assumed label.
