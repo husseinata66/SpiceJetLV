@@ -1,0 +1,202 @@
+{
+ "at": "2026-09-27T10:05:58.941Z",
+ "orgs": {
+  "BRN265": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ]
+  },
+  "AGN9780": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  }
+ },
+ "results": [
+  {
+   "testCase": "TC-AGENCY-077",
+   "tag": "TC-AGENCY-077-admin",
+   "orderId": "AGN9780NDCNDCORD260924GKP8CP",
+   "lockTaken": true,
+   "passengerDetailsOpened": true,
+   "buttons": [
+    "Welcome Mohamed Soliman",
+    "MS",
+    "Time Limit",
+    "History",
+    "Void / Cancel",
+    "Sync PNR",
+    "Release PNR"
+   ],
+   "reissueShown": false,
+   "manualReissueShown": false,
+   "api": {
+    "showViewTicket": true,
+    "canManualReissue": true,
+    "canAutoReissue": false,
+    "showSyncPnr": true,
+    "showPayAndBook": false,
+    "showModifiedTicket": false,
+    "showCancelBtn": true,
+    "showCancelHoldBtn": false,
+    "showRefundBtn": true,
+    "canReleaseLock": true
+   },
+   "order": {
+    "lockedStatus": 0,
+    "lockHolderName": null,
+    "agencyId": "AGN9780",
+    "branchId": "BRN265",
+    "agentBookStatus": 2
+   },
+   "screenshot": "manual_execution/artifacts/TC-AGENCY-077-admin.png",
+   "lockReleased": true,
+   "lockAfterRelease": {
+    "lockedStatus": 0,
+    "lockHolderName": null,
+    "agencyId": "AGN9780",
+    "branchId": "BRN265",
+    "agentBookStatus": 2
+   }
+  },
+  {
+   "testCase": "TC-AGENCY-078",
+   "tag": "TC-AGENCY-078-admin",
+   "orderId": "AGN9780NDCNDCORD260924GKP8CP",
+   "lockTaken": true,
+   "passengerDetailsOpened": true,
+   "buttons": [
+    "Welcome Mohamed Soliman",
+    "MS",
+    "Time Limit",
+    "History",
+    "Void / Cancel",
+    "Sync PNR",
+    "Release PNR"
+   ],
+   "reissueShown": false,
+   "manualReissueShown": false,
+   "api": {
+    "showViewTicket": true,
+    "canManualReissue": true,
+    "canAutoReissue": false,
+    "showSyncPnr": true,
+    "showPayAndBook": false,
+    "showModifiedTicket": false,
+    "showCancelBtn": true,
+    "showCancelHoldBtn": false,
+    "showRefundBtn": true,
+    "canReleaseLock": true
+   },
+   "order": {
+    "lockedStatus": 0,
+    "lockHolderName": null,
+    "agencyId": "AGN9780",
+    "branchId": "BRN265",
+    "agentBookStatus": 2
+   },
+   "screenshot": "manual_execution/artifacts/TC-AGENCY-078-admin.png",
+   "lockReleased": true,
+   "lockAfterRelease": {
+    "lockedStatus": 0,
+    "lockHolderName": null,
+    "agencyId": "AGN9780",
+    "branchId": "BRN265",
+    "agentBookStatus": 2
+   }
+  },
+  {
+   "testCase": "TC-AGENCY-083",
+   "tag": "TC-AGENCY-083-admin",
+   "orderId": "AGN9780NDCNDCORD260924LYGN34",
+   "lockTaken": false,
+   "passengerDetailsOpened": true,
+   "buttons": [
+    "Welcome Mohamed Soliman",
+    "MS",
+    "Time Limit",
+    "History",
+    "Manual Reissue",
+    "Sync PNR",
+    "Release PNR"
+   ],
+   "reissueShown": false,
+   "manualReissueShown": true,
+   "api": {
+    "showViewTicket": true,
+    "canManualReissue": true,
+    "canAutoReissue": false,
+    "showSyncPnr": true,
+    "showPayAndBook": false,
+    "showModifiedTicket": false,
+    "showCancelBtn": true,
+    "showCancelHoldBtn": false,
+    "showRefundBtn": true,
+    "canReleaseLock": false
+   },
+   "order": {
+    "lockedStatus": 1,
+    "lockHolderName": "odeysysadmin",
+    "agencyId": "AGN9780",
+    "branchId": "BRN265",
+    "agentBookStatus": 2
+   },
+   "screenshot": "manual_execution/artifacts/TC-AGENCY-083-admin.png"
+  },
+  {
+   "testCase": "TC-BR-104",
+   "tag": "TC-BR-104-admin",
+   "orderId": "BRN265NDCORD2609269C3COS",
+   "lockTaken": true,
+   "passengerDetailsOpened": true,
+   "buttons": [
+    "Welcome Mohamed Soliman",
+    "MS",
+    "Time Limit",
+    "History",
+    "Void / Cancel",
+    "Reissue",
+    "Sync PNR",
+    "Release PNR"
+   ],
+   "reissueShown": true,
+   "manualReissueShown": false,
+   "api": {
+    "showViewTicket": true,
+    "canManualReissue": true,
+    "canAutoReissue": true,
+    "showSyncPnr": true,
+    "showPayAndBook": false,
+    "showModifiedTicket": false,
+    "showCancelBtn": true,
+    "showCancelHoldBtn": false,
+    "showRefundBtn": true,
+    "canReleaseLock": true
+   },
+   "order": {
+    "lockedStatus": 0,
+    "lockHolderName": null,
+    "agencyId": "null",
+    "branchId": "BRN265",
+    "agentBookStatus": 2
+   },
+   "screenshot": "manual_execution/artifacts/TC-BR-104-admin.png",
+   "lockReleased": true,
+   "lockAfterRelease": {
+    "lockedStatus": 0,
+    "lockHolderName": null,
+    "agencyId": "null",
+    "branchId": "BRN265",
+    "agentBookStatus": 2
+   }
+  }
+ ]
+}

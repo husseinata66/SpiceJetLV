@@ -1,0 +1,12 @@
+{
+  "supplier": "SABRE_ATPCO",
+  "credential": "EGY",
+  "responseId": "<responseId from eligibility, 722 chars>",
+  "searchCriteria": [
+    {
+      "origin": "CAI",
+      "destination": "RUH",
+      "date": "2026-12-20"
+    }
+  ]
+}

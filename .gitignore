@@ -145,3 +145,6 @@ platform_core_data/automation_baseline/**/generatedReport_*.zip
 # Re-included by path, so an incidental log anywhere else is still ignored.
 !platform_core_data/modules/**/evidence/**/*.log
 !platform_core_data/runs/**/artifacts/**/*.log
+
+# Excel lock files - never commit
+~$*

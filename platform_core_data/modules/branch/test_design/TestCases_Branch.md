@@ -163,7 +163,7 @@ request returns 401, capture it again.
 | TC-BR-100 | Branch Auto Reissue does not change its Agencies' checkbox | Atomic | P1 | Atomic, Integration | Approved | Pending |
 | TC-BR-101 | Admin shows Reissue for a Branch booking when Branch Auto Reissue is on | Atomic | P1 | Atomic, Positive, Smoke | Approved | Pending |
 | TC-BR-102 | Admin hides Reissue for a Branch booking when Branch Auto Reissue is off | Atomic | P1 | Atomic, Negative, Smoke | Approved | Pending |
-| TC-BR-103 | Reissue shows on a Branch booking whose credential is not selected | Atomic | P3 | Atomic, Business-Rule | Approved | Pending |
+| TC-BR-103 | Reissue is hidden on a Branch booking whose credential is not selected | Atomic | P1 | Atomic, Negative, Business-Rule | Approved | Pending |
 | TC-BR-104 | Agency Auto Reissue off does not hide Reissue on a Branch booking | Atomic | P2 | Atomic, Integration | Approved | Pending |
 | TC-BR-105 | Reading the Branch drops a credential that became invalid | Atomic | P3 | Atomic, Assumption-based | Approved | Pending |
 | TC-BR-106 | Updating a Branch without touching Auto Reissue still works | Atomic | P2 | Atomic, Regression, Smoke | Approved | Pending |
@@ -3030,13 +3030,13 @@ request returns 401, capture it again.
 
 **Objective:** Verify that the Admin Itinerary shows Reissue on a Branch-owned booking when the Branch has Auto Reissue on.
 
-**Preconditions:** BRN265 has Auto Reissue on (Approved). Booking `NDCEG-BR-F260916ENYOeQ` (owned by BRN265, Booked) is not locked by another user.
+**Preconditions:** BRN265 has Auto Reissue on (Approved) **with Sabre Staging (315) — the booking's credential — in the selection (`PO-28`)**. Booking `NDCEG-BR-F260926PwYMR2` (owned by BRN265, credential 315, Booked) is not locked by another user.
 
 **Steps:**
 
 1. Open **Booking-Mid Office → Search Booking** (`/booking/search-booking`).
 2. Click the **Flight** tab.
-3. Enter Booking Reference `NDCEG-BR-F260916ENYOeQ` and click **Search**.
+3. Enter Booking Reference `NDCEG-BR-F260926PwYMR2` and click **Search**.
 4. Open the booking from the result row.
 5. Click the lock icon on the **Created By** card.
 6. Click **View Passenger Details**.
@@ -3057,18 +3057,18 @@ request returns 401, capture it again.
 
 **Objective:** Verify that the Admin Itinerary hides Reissue on a Branch-owned booking when the Branch has Auto Reissue off.
 
-**Preconditions:** BRN265 has Auto Reissue off (Approved). Booking `NDCEG-BR-F260916ENYOeQ` is not locked by another user.
+**Preconditions:** BRN265 has Auto Reissue off (Approved). Booking `NDCEG-BR-F260926PwYMR2` is not locked by another user.
 
 **Steps:**
 
 1. Open **Booking-Mid Office → Search Booking** (`/booking/search-booking`).
 2. Click the **Flight** tab.
-3. Enter Booking Reference `NDCEG-BR-F260916ENYOeQ` and click **Search**.
+3. Enter Booking Reference `NDCEG-BR-F260926PwYMR2` and click **Search**.
 4. Open the booking from the result row.
 5. Click the lock icon on the **Created By** card.
 6. Click **View Passenger Details**.
 
-**Expected Result:** The **Reissue** button is not shown. **Manual Reissue** is still shown.
+**Expected Result:** The **Reissue** button is not shown. **Manual Reissue is out of scope** for this story (`PO-29`, user decision 2026-09-27) and is not asserted here.
 
 **Priority:** P1
 
@@ -3080,28 +3080,28 @@ request returns 401, capture it again.
 
 **Automation:** Pending
 
-### TC-BR-103 — Reissue shows on a Branch booking whose credential is not selected
+### TC-BR-103 — Reissue is hidden on a Branch booking whose credential is not selected
 
-**Objective:** Verify that the Branch booking's Reissue button depends on the checkbox, not on the selected credentials.
+**Objective:** Verify that the Branch booking's Reissue button requires **both** the checkbox on **and** a selected credential matching the credential the PNR was booked on (`PO-28`).
 
-**Preconditions:** BRN265 has Auto Reissue on with only **NDCSabre staging** (313) selected. Booking `NDCEG-BR-F260916ENYOeQ` is on **Sabre Staging** (315).
+**Preconditions:** BRN265 has Auto Reissue on with only **NDCSabre staging** (313) selected. Booking `NDCEG-BR-F260926PwYMR2` is on **Sabre Staging** (315).
 
 **Steps:**
 
 1. Open **Booking-Mid Office → Search Booking** (`/booking/search-booking`).
 2. Click the **Flight** tab.
-3. Enter Booking Reference `NDCEG-BR-F260916ENYOeQ` and click **Search**.
+3. Enter Booking Reference `NDCEG-BR-F260926PwYMR2` and click **Search**.
 4. Open the booking from the result row.
 5. Click the lock icon on the **Created By** card.
 6. Click **View Passenger Details**.
 
-**Expected Result:** The **Reissue** button is shown.
+**Expected Result:** The **Reissue** button is **not** shown (`actionsDetails.canAutoReissue: false`). **Manual Reissue is out of scope** for this story (`PO-29`, user decision 2026-09-27) and is not asserted here.
 
-**Priority:** P3
+**Priority:** P1
 
-**Tags:** Atomic, Business-Rule
+**Tags:** Atomic, Negative, Business-Rule
 
-**Notes:** Intended (`PO-22`). The credential is checked only when Reissue is clicked, in the `reissue-flow` scope. Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
+**Notes:** **Rev 2, 2026-09-27 — expected result inverted under `PO-28`** (product owner: the button needs the checkbox **and** a selected credential matching the PNR's booking credential). Rev 1 expected "shown" under the now-superseded `PO-22`. Already observed this way in run-007 Discovery `DS-2` (`reissue-flow/discovery/evidence/cl1-check.json`). Booking reference changed from `NDCEG-BR-F260916ENYOeQ` to `NDCEG-BR-F260926PwYMR2` per run-007 `D-13` (the old PNR was exchanged outside the app and is no longer reissuable). Restore BRN265's selection to include 315 afterwards. Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
 
 **Review:** Approved
 
@@ -3111,13 +3111,13 @@ request returns 401, capture it again.
 
 **Objective:** Verify that an Agency's Auto Reissue value does not affect a booking owned by its Branch.
 
-**Preconditions:** BRN265 has Auto Reissue on. AGN9780 has Auto Reissue off. Both Approved.
+**Preconditions:** BRN265 has Auto Reissue on **with Sabre Staging (315) — the booking's credential — in the selection (`PO-28`)**. AGN9780 has Auto Reissue off. Both Approved.
 
 **Steps:**
 
 1. Open **Booking-Mid Office → Search Booking** (`/booking/search-booking`).
 2. Click the **Flight** tab.
-3. Enter Booking Reference `NDCEG-BR-F260916ENYOeQ` and click **Search**.
+3. Enter Booking Reference `NDCEG-BR-F260926PwYMR2` and click **Search**.
 4. Open the booking from the result row.
 5. Click the lock icon on the **Created By** card.
 6. Click **View Passenger Details**.
@@ -3324,7 +3324,7 @@ request returns 401, capture it again.
 
 **Objective:** Verify that the Admin Itinerary does not show Reissue for a Branch booking whose status is On Hold.
 
-**Preconditions:** BRN265 has Auto Reissue on (Approved). Booking `NDCEG-BR-F251103CdegUo` (BRN265, On Hold) is not locked by another user.
+**Preconditions:** BRN265 has Auto Reissue on (Approved) **with that booking's credential in the selection (`PO-28`)**, so status is the only condition left unmet. Booking `NDCEG-BR-F251103CdegUo` (BRN265, On Hold) is not locked by another user.
 
 **Steps:**
 

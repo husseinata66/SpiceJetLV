@@ -1,0 +1,16 @@
+{
+ "at": "2026-09-27T10:11:12.850Z",
+ "orgState": "AGN9780 Auto Reissue OFF (Approved), selection [315]",
+ "tag": "TC-AGENCY-080-portal",
+ "orderId": "AGN9780NDCNDCORD260924GKP8CP",
+ "url": "http://192.168.1.60:9500/myBooking/booking-details/AGN9780NDCNDCORD260924GKP8CP",
+ "passengerDetailsOpened": true,
+ "buttons": [
+  "Welcome Mohamed Soliman",
+  "Time Limit"
+ ],
+ "lockControlCount": 0,
+ "reissueShown": false,
+ "manualReissueShown": false,
+ "screenshot": "manual_execution/artifacts/TC-AGENCY-080-portal.png"
+}

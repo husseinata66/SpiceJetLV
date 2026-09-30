@@ -1,0 +1,52 @@
+{
+ "at": "2026-09-27T10:01:38.588Z",
+ "results": [
+  {
+   "testCase": "TC-AGENCY-079",
+   "tag": "TC-AGENCY-079-portal",
+   "orderId": "AGN9780NDCNDCORD260924GKP8CP",
+   "url": "http://192.168.1.60:9500/myBooking/booking-details/AGN9780NDCNDCORD260924GKP8CP",
+   "passengerDetailsOpened": true,
+   "buttons": [
+    "Welcome Mohamed Soliman",
+    "Time Limit",
+    "Reissue"
+   ],
+   "lockControlCount": 0,
+   "reissueShown": true,
+   "manualReissueShown": false,
+   "screenshot": "manual_execution/artifacts/TC-AGENCY-079-portal.png"
+  },
+  {
+   "testCase": "TC-AGENCY-081",
+   "tag": "TC-AGENCY-081-portal",
+   "orderId": "AGN9780NDCNDCORD260924GKP8CP",
+   "url": "http://192.168.1.60:9500/myBooking/booking-details/AGN9780NDCNDCORD260924GKP8CP",
+   "passengerDetailsOpened": true,
+   "buttons": [
+    "Welcome Mohamed Soliman",
+    "Time Limit",
+    "Reissue"
+   ],
+   "lockControlCount": 0,
+   "reissueShown": true,
+   "manualReissueShown": false,
+   "screenshot": "manual_execution/artifacts/TC-AGENCY-081-portal.png"
+  },
+  {
+   "testCase": "TC-AGENCY-094",
+   "tag": "TC-AGENCY-094-portal",
+   "orderId": "AGN9780NDCNDCORD251014NIEDYF",
+   "url": "http://192.168.1.60:9500/myBooking/booking-details/AGN9780NDCNDCORD251014NIEDYF",
+   "passengerDetailsOpened": true,
+   "buttons": [
+    "Welcome Mohamed Soliman",
+    "Time Limit"
+   ],
+   "lockControlCount": 0,
+   "reissueShown": false,
+   "manualReissueShown": false,
+   "screenshot": "manual_execution/artifacts/TC-AGENCY-094-portal.png"
+  }
+ ]
+}

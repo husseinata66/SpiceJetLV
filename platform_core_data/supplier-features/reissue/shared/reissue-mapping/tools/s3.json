@@ -1,0 +1,7 @@
+{
+  "label": "scenario 3 · PRUOOC · MULTI CITY CAI-JED-RUH · paired capture 2026-09-28T15:29Z",
+  "supplier": "../discovery/evidence/s3-sabre-reshop-PRUOOC.json",
+  "core": "../discovery/evidence/s3-core-reshop-PRUOOC.json",
+  "portal": "../discovery/evidence/s3-portal-search-PRUOOC.json",
+  "offerIndex": 0
+}

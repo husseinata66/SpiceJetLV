@@ -1,0 +1,6 @@
+{
+  "label": "SMOKE TEST — mismatched supplier on purpose",
+  "supplier": "../discovery/evidence/sabre-reshop-RGGMXP.json",
+  "core": "../discovery/evidence/s1-core-reshop-CAI-RUH.json",
+  "portal": "../discovery/evidence/s1-portal-search-CAI-RUH.json"
+}

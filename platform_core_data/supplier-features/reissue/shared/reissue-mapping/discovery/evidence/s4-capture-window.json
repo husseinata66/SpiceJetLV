@@ -1,0 +1,25 @@
+{
+  "startedAt": "2026-09-28T16:12:06.478Z",
+  "finishedAt": "2026-09-28T16:12:37.225Z",
+  "criteria": [
+    {
+      "origin": "CAI",
+      "destination": "JED",
+      "date": "2027-01-08"
+    },
+    {
+      "origin": "JED",
+      "destination": "RUH",
+      "date": "2027-01-12"
+    }
+  ],
+  "tickets": [
+    "0654859779105",
+    "0654859779106",
+    "0654859779107",
+    "0654859779108",
+    "0654859779109",
+    "0654859779110"
+  ],
+  "note": "ticket 0654859779105 (lead passenger) held by Sabre but absent from the application - FINDING-R06"
+}

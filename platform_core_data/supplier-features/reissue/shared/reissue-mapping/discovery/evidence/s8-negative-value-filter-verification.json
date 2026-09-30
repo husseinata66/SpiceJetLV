@@ -1,0 +1,78 @@
+{
+  "what": "core /api/v1/reissue/reshop drops every offer whose supplier baseFare is negative; when that is all of them it returns 422 NO_EXCHANGE_OPTIONS_AVAILABLE",
+  "confirmedBy": "user 2026-09-29: a new implementation neglects offers with negative values for base fare, tax and totals",
+  "booking": {
+    "bookingRef": "NDCEG-BR-F260929u1ptMk",
+    "gdsPnr": "QZTJRV",
+    "pax": 6,
+    "currency": "AED"
+  },
+  "deployWindow": "between 2026-09-29T13:18:43Z (core returned 50 RUH offers) and 2026-09-29T13:35:28Z (Admin UI search returned none)",
+  "matrix": [
+    {
+      "criteria": "CAI-RUH 20Dec/10Jan",
+      "when": "13:18  before the change",
+      "sabreOffers": 50,
+      "sabreNegativeBaseFare": 48,
+      "coreOffers": 50,
+      "coreHttp": "200"
+    },
+    {
+      "criteria": "CAI-RUH 20Dec/10Jan",
+      "when": "13:38  after the change",
+      "sabreOffers": 50,
+      "sabreNegativeBaseFare": 50,
+      "coreOffers": 0,
+      "coreHttp": "422"
+    },
+    {
+      "criteria": "CAI-JED 20Dec/10Jan",
+      "when": "after",
+      "sabreOffers": 50,
+      "sabreNegativeBaseFare": 0,
+      "coreOffers": 50,
+      "coreHttp": "200"
+    },
+    {
+      "criteria": "CAI-DMM 20Dec/10Jan",
+      "when": "after",
+      "sabreOffers": 50,
+      "sabreNegativeBaseFare": 0,
+      "coreOffers": 50,
+      "coreHttp": "200"
+    },
+    {
+      "criteria": "CAI-KWI 20Dec/10Jan",
+      "when": "after",
+      "sabreOffers": null,
+      "sabreNegativeBaseFare": null,
+      "coreOffers": 50,
+      "coreHttp": "200"
+    },
+    {
+      "criteria": "CAI-JED 15Feb/01Mar",
+      "when": "after",
+      "sabreOffers": 50,
+      "sabreNegativeBaseFare": 0,
+      "coreOffers": null,
+      "coreHttp": "not called"
+    },
+    {
+      "criteria": "CAI-MED 20Dec/10Jan",
+      "when": "after",
+      "sabreOffers": 50,
+      "sabreNegativeBaseFare": 0,
+      "coreOffers": null,
+      "coreHttp": "not called"
+    }
+  ],
+  "theRejectedOffersWereSellable": {
+    "note": "every rejected RUH offer has a POSITIVE grandTotal - the customer pays money, nothing is refunded",
+    "arithmetic": "baseFare -5186.00 + totalTax 1318.80 = subtotal -3867.20 ; subtotal + penalty 13018.00 = grandTotal 9150.80 payable",
+    "grandTotalRange": "9150.80 to 14630.80 EGP across all 50 offers",
+    "negativeGrandTotals": 0,
+    "negativeTotalTax": 0,
+    "negativeTotalFee": 0
+  },
+  "openQuestion": "Is the filter meant to suppress offers that REFUND the customer (grandTotal < 0), or offers whose FARE is a downgrade regardless of total (baseFare < 0)? On this booking no offer refunds anything, yet all 50 were dropped."
+}

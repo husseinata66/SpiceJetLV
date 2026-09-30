@@ -1,0 +1,68 @@
+{
+ "at": "2026-09-27T11:16:15.474Z",
+ "orgs": {
+  "BRN265": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ]
+  },
+  "AGN9780": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  }
+ },
+ "bookingCredential": 315,
+ "selectedCredential": 313,
+ "tag": "TC-BR-103-admin",
+ "orderId": "BRN265NDCORD2609269C3COS",
+ "lockTaken": true,
+ "passengerDetailsOpened": true,
+ "buttons": [
+  "Welcome Mohamed Soliman",
+  "MS",
+  "Time Limit",
+  "History",
+  "Void / Cancel",
+  "Sync PNR",
+  "Release PNR"
+ ],
+ "reissueShown": false,
+ "manualReissueShown": false,
+ "api": {
+  "showViewTicket": true,
+  "canManualReissue": true,
+  "canAutoReissue": false,
+  "showSyncPnr": true,
+  "showPayAndBook": false,
+  "showModifiedTicket": false,
+  "showCancelBtn": true,
+  "showCancelHoldBtn": false,
+  "showRefundBtn": true,
+  "canReleaseLock": true
+ },
+ "order": {
+  "lockedStatus": 0,
+  "lockHolderName": null,
+  "agencyId": "null",
+  "branchId": "BRN265",
+  "agentBookStatus": 2
+ },
+ "screenshot": "manual_execution/artifacts/TC-BR-103-admin.png",
+ "lockReleased": true,
+ "lockAfterRelease": {
+  "lockedStatus": 0,
+  "lockHolderName": null,
+  "agencyId": "null",
+  "branchId": "BRN265",
+  "agentBookStatus": 2
+ }
+}

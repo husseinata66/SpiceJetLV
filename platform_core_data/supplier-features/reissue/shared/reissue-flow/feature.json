@@ -3,34 +3,34 @@
   "name": "Reissue Flow",
   "description": null,
   "sourceUserStory": "Reissue - Auto Reissue flow from Itinerary",
-  "acceptanceCriteriaRef": null,
+  "acceptanceCriteriaRef": "knowledge_base/requirements/user_stories/Reissue_Flow_From_Itinerary.md#acceptance-criteria",
   "status": "Active",
   "createdAt": "2026-09-23T19:34:29.079Z",
-  "updatedAt": "2026-09-26T16:13:46.584Z",
+  "updatedAt": "2026-09-30T15:00:53.818Z",
   "supersededBy": null,
   "stages": {
     "context": {
-      "status": "Approved",
+      "status": "Pending Review",
       "artifactPath": "platform_core_data/supplier-features/reissue/shared/reissue-flow/context/ProjectContext.md",
-      "lastRun": null,
-      "lastUpdated": "2026-09-26T16:13:46.584Z",
-      "revisionCount": 4,
-      "targetRefAtWrite": null
+      "lastRun": "run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature",
+      "lastUpdated": "2026-09-30T14:41:59.194Z",
+      "revisionCount": 8,
+      "targetRefAtWrite": "0000c1e9f51c4c17774a1a842608cd25d9ec2222"
     },
     "discovery": {
-      "status": "Not Started",
-      "artifactPath": null,
-      "lastRun": null,
-      "lastUpdated": null,
-      "revisionCount": 0,
+      "status": "Pending Review",
+      "artifactPath": "platform_core_data/supplier-features/reissue/shared/reissue-flow/discovery/QA_Assessment_Report.md",
+      "lastRun": "run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature",
+      "lastUpdated": "2026-09-30T14:41:52.854Z",
+      "revisionCount": 1,
       "targetRefAtWrite": null
     },
     "test_design": {
-      "status": "Not Started",
-      "artifactPath": null,
-      "lastRun": null,
-      "lastUpdated": null,
-      "revisionCount": 0,
+      "status": "Pending Review",
+      "artifactPath": "platform_core_data/supplier-features/reissue/shared/reissue-flow/test_design/TestCases_ReissueFlow.md",
+      "lastRun": "run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature",
+      "lastUpdated": "2026-09-30T15:00:53.818Z",
+      "revisionCount": 1,
       "targetRefAtWrite": null
     },
     "automation": {

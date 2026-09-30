@@ -1,0 +1,21 @@
+{
+  "startedAt": "2026-09-29T09:41:56.599Z",
+  "finishedAt": "2026-09-29T09:42:14.696Z",
+  "criteria": [
+    {
+      "origin": "CAI",
+      "destination": "JED",
+      "date": "2026-12-31"
+    }
+  ],
+  "tickets": [
+    "0654859779130",
+    "0654859779131",
+    "0654859779132",
+    "0654859779133",
+    "0654859779134",
+    "0654859779135"
+  ],
+  "agency": "AGN10030 (Emirates, AED)",
+  "note": "currency test: supplier/core in EGP, Portal in AED; stated rate 9, change fee 25"
+}

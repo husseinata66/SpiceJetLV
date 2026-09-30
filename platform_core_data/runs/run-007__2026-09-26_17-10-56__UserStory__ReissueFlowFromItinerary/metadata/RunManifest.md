@@ -7,7 +7,7 @@
 | Workflow | user_story_run |
 | Status | Preparing |
 | Created | 2026-09-26T14:10:56.501Z |
-| Last updated | 2026-09-26T14:49:20.519Z |
+| Last updated | 2026-09-30T12:40:18.116Z |
 
 ## 1. Code-State Anchor
 
@@ -29,6 +29,8 @@
 | Stage | Artifact | Timestamp | Checkpoint Status | Reviewer | Revisions | Invocation Path | Run-Scoped Instruction |
 |---|---|---|---|---|---|---|---|
 | Stage 1 — Project Context | — | 2026-09-26T14:49:20.519Z | Approved | Mohamed Soliman | 0 | — | — |
+| Stage 2 - Explorer | — | 2026-09-30T12:25:07.239Z | Pending Review | — | 0 | — | — |
+| Stage 3 - Test Design | — | 2026-09-30T12:40:18.116Z | Pending Review | — | 0 | — | — |
 
 ## 3. Cross-Run Reuse / Source Runs
 
@@ -51,6 +53,8 @@
 | 1 | 2026-09-26T14:10:56.501Z | — | Run created (`Preparing`) | Run Manager | via user_story_run |
 | 2 | 2026-09-26T14:17:05.481Z | Stage 1 — Project Context | Pending Review | Run Manager | — |
 | 3 | 2026-09-26T14:49:20.519Z | Stage 1 — Project Context | Pending Review → Approved | Mohamed Soliman | — |
+| 4 | 2026-09-30T12:25:07.239Z | Stage 2 - Explorer | Pending Review | Run Manager | — |
+| 5 | 2026-09-30T12:40:18.116Z | Stage 3 - Test Design | Pending Review | Run Manager | — |
 
 ## 5. Declared Gaps
 
@@ -59,7 +63,9 @@
 
 | Gap | Stage Affected | Why | Consequence Stated In |
 |---|---|---|---|
-| _(none declared)_ | | | |
+| B9 negative/refund differences never exercised | all | No booking exists whose re-shop is cheaper than the original ticket (OQ-M4). Highest-risk unmapped path in the reissue-mapping scope. | — |
+| logs/detail.log never accessible | all | Blocks the CAUSE of FINDING-R06, R07, R11, R13 and R18 - five findings recorded with cause not established. | — |
+| Scenarios 1,2,5,6,8b not verified per-passenger at the supplier | all | The R13 post-exchange fulfilment check did not exist until scenario 9. Five getBooking calls outstanding; the defect may sit undetected in a completed exchange. | — |
 
 ## 6. Execution Safety
 

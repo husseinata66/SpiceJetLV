@@ -1,0 +1,7 @@
+{
+  "label": "scenario 5 · PTFEBY · MULTI CITY CAI-JED-DXB · all six tickets present · paired capture 2026-09-28T18:00Z",
+  "supplier": "../discovery/evidence/s5-sabre-reshop-PTFEBY.json",
+  "core": "../discovery/evidence/s5-core-reshop-PTFEBY.json",
+  "portal": "../discovery/evidence/s5-portal-search-PTFEBY.json",
+  "offerIndex": 0
+}

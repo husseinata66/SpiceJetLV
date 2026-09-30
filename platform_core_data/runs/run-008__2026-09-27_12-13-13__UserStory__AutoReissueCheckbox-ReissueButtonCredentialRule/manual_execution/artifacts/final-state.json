@@ -1,0 +1,39 @@
+{
+ "at": "2026-09-27T11:22:11.864Z",
+ "orgs": {
+  "BRN265": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ]
+  },
+  "AGN9780": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  }
+ },
+ "locks": {
+  "NDCEG-BR-F260924EAzzYT": "unlocked",
+  "NDCEG-BR-F260926PwYMR2": "unlocked",
+  "NDCEG-BR-F251103CdegUo": "unlocked",
+  "NDCEG-BR-F251014N1oohh": "unlocked",
+  "NDCEG-BR-F2609242aZ6EJ": "LOCKED by odeysysadmin"
+ },
+ "agencyProductAccess": [
+  {
+   "supplier": "Sabre",
+   "credentialIds": [
+    315
+   ],
+   "checked": true
+  }
+ ]
+}

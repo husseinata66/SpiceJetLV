@@ -1,0 +1,8 @@
+{
+  "label": "scenario 9 · RPTIYO · ADMIN UI · MULTI CITY CAI-RUH 05 Mar / RUH-DMM 08 Mar 2027 · AED · paired capture 2026-09-29T19:14Z",
+  "supplier": "../discovery/evidence/s9-sabre-reshop-RPTIYO.json",
+  "core": "../discovery/evidence/s9-core-reshop-RPTIYO.json",
+  "portal": "../discovery/evidence/s9-admin-search-RPTIYO.json",
+  "offerIndex": 0,
+  "rate": 9
+}

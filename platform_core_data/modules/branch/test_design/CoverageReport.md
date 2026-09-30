@@ -398,7 +398,7 @@ This run took the **Manual Execution branch (`4M`)**, which gates on `Review` al
 
 ## 2. Requirements Covered
 
-`PO-15` · `PO-16` · `PO-21` · `PO-22` · `PO-23` · `PO-26` · `PO-27` · spec `S-2` … `S-10` (Branch UI and Branch API), §3, §5 · XC-01/XC-03/XC-04 · RISK-BR-10 · RISK-BR-12 · Story AC groups *Branch CRUD*, *Admin Impact*, *Permission Precedence*, *Regression & Validation*.
+`PO-15` · `PO-16` · `PO-21` · `PO-22` (superseded) · `PO-28` · `PO-29` · `PO-23` · `PO-26` · `PO-27` · spec `S-2` … `S-10` (Branch UI and Branch API), §3, §5 · XC-01/XC-03/XC-04 · RISK-BR-10 · RISK-BR-12 · Story AC groups *Branch CRUD*, *Admin Impact*, *Permission Precedence*, *Regression & Validation*.
 
 **Requirement coverage: 14 / 14 in-scope requirement rows Covered = 100%** (basis: `TraceabilityMatrix.md` §5.2). 1 Out-of-Scope, 0 Partially Covered, 0 Uncovered, 0 Unknown. The clean-up rows need the user's go-ahead to make a supplier or credential inactive.
 
@@ -425,7 +425,7 @@ Full rows: `TraceabilityMatrix.md` §5.1.
 |---|---|
 | `PO-16` Branch and Agency independent | TC-BR-100, 104 |
 | `PO-21` Only NDCsbr, Sabre, TravelportNdc, Galileo; no LCC, no Amadeus | TC-BR-085, 086, 087, 088 |
-| `PO-22` Checkbox controls the button only | TC-BR-103 |
+| `PO-28` Button needs the checkbox **and** a matching credential *(supersedes `PO-22`, 2026-09-27)* | TC-BR-103 (negative); TC-BR-101, 104 (positive) |
 | `PO-23` "Required" on screen, API message on the API | TC-BR-092, 094 |
 | `PO-26` Branch-owned bookings follow the Branch; the Agency Portal can't see them | TC-BR-101, 102, 108 |
 | `PO-27` A Branch can have suppliers its Agency doesn't | TC-BR-109 (reverse: TC-AGENCY-091) |

@@ -196,7 +196,8 @@ Rows for TC-BR-083 … TC-BR-111 (109 … 111 added 2026-09-25 at the user's req
 | spec `S-3` … `S-6`, `S-8` (Branch API) | Backend save rules | TC-BR-95, TC-BR-96, TC-BR-97, TC-BR-98, TC-BR-99 | Covered — S-5 inactive variant: see agency TC-AGENCY-070 (same rule, Blocked) |
 | `PO-16` / spec §3 / Story AC *Permission Precedence* | Branch and Agency independent | TC-BR-100, TC-BR-104 | Covered |
 | spec §5 / `PO-26` / PC §3 REV 9 (now reachable) | Branch-owned booking Reissue on/off, and hidden when not Booked | TC-BR-101, TC-BR-102, TC-BR-112 | Covered |
-| `PO-22` | Button independent of the selected credential | TC-BR-103 | Covered |
+| ~~`PO-22`~~ | ~~Button independent of the selected credential~~ — superseded 2026-09-27 | — | Withdrawn |
+| `PO-28` *(supersedes `PO-22`)* | Button needs the checkbox **and** a selection matching the PNR's booking credential | TC-BR-103 (negative); TC-BR-101, 104 (positive, credential matched) | Covered |
 | spec §4 / RISK-BR-11 | Read-time clean-up | TC-BR-105, TC-BR-110, TC-BR-111 | Covered — needs the user's go-ahead for a shared credential/supplier change (111 is exploratory) |
 | `PO-27` | A Branch can have suppliers its Agency doesn't | TC-BR-109; other direction TC-AGENCY-091 (agency) | Covered |
 | Story AC *Regression & Validation* / RISK-BR-12 | Existing Branch update unaffected | TC-BR-106 | Covered (smoke) |

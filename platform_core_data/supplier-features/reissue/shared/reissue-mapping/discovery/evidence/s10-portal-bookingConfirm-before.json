@@ -1,0 +1,20 @@
+{"label":"scenario 10 - ORIGINAL booking before reissue - NDCEG-BR-F260930LAlLPj / TTDMXL / AGN10030 AED / ROE 0.1 / rule engine markup 100, service charge 25, discount 50","capturedAt":"2026-09-30T11:05Z","endpoint":"/odeysysportal/v2/bookingConfirm/AGN10030NDCNDCORD260930YZQI2K","body":
+{"orderType":0,"paymentSurcharge":0,"paymentStatus":true,"flightInfo":{"bookingDate":"2026-09-30T10:52:55","bookingStatus":2,"supplierName":"Sabre","bookingRefNo":"NDCEG-BR-F260930LAlLPj","tripType":1,"totalFeeNTaxes":1651.88,"origin":"CAI","destination":"JED","orderId":"AGN10030NDCNDCORD260930YZQI2K","gdsPnr":"TTDMXL","airlinePnr":"DCSV"},
+"invoiceInfo":{"currency":"AED","serviceCharges":150,"discountPrice":300,"agencyInvoiceAmt":3605,"feeNTaxes":16518.8,"totalTax":1651.88,"totalFare":2103,"totalAmt":3605},
+"segment":{"airlineCode":"SV","flightNo":"382","cabinClass":"ECONOMY","origin":"CAI","destination":"JED","departureDateTime":"2026-12-26T06:10","arrivalDateTime":"2026-12-26T09:20","deptTerminal":"2","arrTerminal":"1","equipment":"330","flightDuration":"2h 10m"},
+"passengers":[
+{"seq":1,"type":"ADT","name":"mahmoud ahmed","ticketNo":"0654859779617"},
+{"seq":2,"type":"ADT","name":"mohamed emad","ticketNo":"0654859779618"},
+{"seq":3,"type":"CHD","name":"emad ahmed","ticketNo":"0654859779619"},
+{"seq":4,"type":"CHD","name":"fawaz khaled","ticketNo":"0654859779620"},
+{"seq":5,"type":"INF","name":"eid ahmed","ticketNo":"0654859779621"},
+{"seq":6,"type":"INF","name":"hazem ali","ticketNo":"0654859779622"}]},
+"derived":{
+"chargedPerBookingList":3604.88,
+"arithmetic":"2103 + 1651.88 + 150 - 300 = 3604.88  (exact)",
+"serviceChargeCheck":"150 = 25 x 6 passengers - matches the configured rule",
+"discountCheck":"300 = 50 x 6 passengers - matches the configured rule",
+"roeCheck":"feeNTaxes 16518.8 (EGP, unconverted) x 0.1 = totalTax 1651.88 - confirms new ROE 0.1 and reconfirms FINDING-R15 feeNTaxes-in-supplier-currency at a second, very different rate",
+"roundingNote":"agencyInvoiceAmt and totalAmt are BOTH 3605 against a charge of 3604.88 - both round UP. This differs from FINDING-R15's four AED cases where one floored and the other ceilinged.",
+"ticketNumbers":"all six present and sequential 617-622 - FINDING-R06 does NOT reproduce on this booking",
+"markupNotYetVerified":"markup 100/pax (600 total) cannot be separated from totalFare 2103 without the supplier base fare - pending Sabre capture"}}

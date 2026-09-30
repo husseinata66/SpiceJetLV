@@ -1,0 +1,1 @@
+{"status":422,"transactionId":"7368e43425074b49a9be3aeda46eb756","errorCode":"NO_EXCHANGE_OPTIONS_AVAILABLE","errorMessage":"No alternative flights are available for the requested change. Try a different date, route or cabin.","context":[{"name":"path","value":"/api/v1/reissue/reshop"}]}

@@ -1,0 +1,7 @@
+{
+  "label": "scenario 2 · QIKISQ · round trip CAI-RUH-CAI · paired capture 2026-09-28T12:06Z",
+  "supplier": "../discovery/evidence/s2-sabre-reshop-QIKISQ.json",
+  "core": "../discovery/evidence/s2-core-reshop-QIKISQ.json",
+  "portal": "../discovery/evidence/s2-portal-search-QIKISQ.json",
+  "offerIndex": 0
+}

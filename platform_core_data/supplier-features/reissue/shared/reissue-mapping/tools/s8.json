@@ -1,0 +1,8 @@
+{
+  "label": "scenario 8 · QZTJRV · ADMIN UI · Round Trip CAI-RUH 20 Dec / RUH-CAI 10 Jan · AED · rule engine (markup 100, discount 50, service charge 25 per passenger) · paired capture 2026-09-29T13:18Z",
+  "supplier": "../discovery/evidence/s8-sabre-reshop-QZTJRV.json",
+  "core": "../discovery/evidence/s8-core-reshop-QZTJRV.json",
+  "portal": "../discovery/evidence/s8-admin-search-QZTJRV.json",
+  "offerIndex": 0,
+  "rate": 9
+}

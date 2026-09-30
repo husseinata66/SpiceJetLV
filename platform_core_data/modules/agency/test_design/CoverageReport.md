@@ -30,7 +30,7 @@
 
 ## 2. Requirements Covered
 
-`PO-15` · `PO-16` · `PO-21` (via `branch`) · `PO-22` · `PO-23` · `PO-24` · `PO-25` · `PO-26` · `PO-27` · spec `S-1`, `S-2`, `S-3`, `S-4`, `S-6`, `S-7`, `S-8`, `S-9` (via `branch`), `S-10`, §4, §5 · XC-01/XC-04 · ASM-021 · ASM-022 · RSK-013 · RSK-014 · Story AC groups *Agency CRUD*, *Admin Impact*, *Portal Impact*, *Permission Precedence*, *Regression & Validation*.
+`PO-15` · `PO-16` · `PO-21` (via `branch`) · `PO-22` (superseded) · `PO-28` · `PO-29` · `PO-23` · `PO-24` · `PO-25` · `PO-26` · `PO-27` · spec `S-1`, `S-2`, `S-3`, `S-4`, `S-6`, `S-7`, `S-8`, `S-9` (via `branch`), `S-10`, §4, §5 · XC-01/XC-04 · ASM-021 · ASM-022 · RSK-013 · RSK-014 · Story AC groups *Agency CRUD*, *Admin Impact*, *Portal Impact*, *Permission Precedence*, *Regression & Validation*.
 
 **Requirement coverage: 21 / 21 in-scope requirement rows Covered = 100%** (basis: `TraceabilityMatrix.md` §5.2). 2 Out-of-Scope, 0 Partially Covered, 0 Uncovered, 0 Unknown. **Covered is not the same as runnable:** 5 rows depend on the user (two bookings, and the go-ahead to make a supplier or credential inactive).
 
@@ -57,12 +57,13 @@ The Project Context has no `BR-` IDs; its business rules are the `PO-n` decision
 | `PO-16` Agency and Branch independent; Agency limited to its Branch's credentials | TC-AGENCY-072, 074, 078 |
 | `PO-27` The Branch is the Agency's supplier ceiling | TC-AGENCY-091 (reverse: TC-BR-109) |
 | spec §4 An inactive credential is dropped on read; the checkbox stays on | TC-AGENCY-075, 092 (093 exploratory, supplier-level) |
-| `PO-22` Checkbox controls the button only | TC-AGENCY-082 |
+| `PO-28` Button needs the checkbox **and** a matching credential *(supersedes `PO-22`, 2026-09-27)* | TC-AGENCY-082 (negative); TC-AGENCY-076, 079, 081 (positive) |
 | `PO-23` "Required" on screen, API message on the API | TC-AGENCY-065, 066 |
 | `PO-24` Booked is the condition; Inactive while pending | TC-AGENCY-064, 084 |
 | `PO-25` Portal in scope, no lock, no Manual Reissue | TC-AGENCY-079, 080, 081 |
 | `PO-26` On-behalf bookings follow the Agency | TC-AGENCY-083 |
 | spec §5 (the three Itinerary conditions) | TC-AGENCY-076, 077 |
+| `PO-29` Manual Reissue is out of scope for this story | — (asserted by no case, by decision) |
 
 ## 5. Test Scenarios
 

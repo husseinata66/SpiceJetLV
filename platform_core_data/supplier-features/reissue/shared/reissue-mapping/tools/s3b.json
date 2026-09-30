@@ -1,0 +1,7 @@
+{
+  "label": "scenario 3b · PRUOOC · MULTI CITY CAI-RUH-JED · new routes+dates · paired capture 2026-09-28T15:43Z",
+  "supplier": "../discovery/evidence/s3b-sabre-reshop-PRUOOC.json",
+  "core": "../discovery/evidence/s3b-core-reshop-PRUOOC.json",
+  "portal": "../discovery/evidence/s3b-portal-search-PRUOOC.json",
+  "offerIndex": 0
+}

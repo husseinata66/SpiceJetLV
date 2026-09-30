@@ -1,0 +1,29 @@
+{
+  "startedAt": "2026-09-29T14:04:34.691Z",
+  "finishedAt": "2026-09-29T14:05:10.359Z",
+  "criteria": [
+    {
+      "origin": "CAI",
+      "destination": "JED",
+      "date": "2026-12-20"
+    },
+    {
+      "origin": "JED",
+      "destination": "CAI",
+      "date": "2027-01-10"
+    }
+  ],
+  "tickets": [
+    "0654859779334",
+    "0654859779335",
+    "0654859779336",
+    "0654859779337",
+    "0654859779338",
+    "0654859779339"
+  ],
+  "gdsPnr": "QZTJRV",
+  "bookingRef": "NDCEG-BR-F260929u1ptMk",
+  "surface": "ADMIN UI",
+  "currency": "AED",
+  "note": "rule engine test: markup 100/pax, discount 50/pax, service charge 25/pax, total profit 450 on 6 pax"
+}

@@ -1,0 +1,25 @@
+{
+  "startedAt": "2026-09-28T18:00:30.347Z",
+  "finishedAt": "2026-09-28T18:01:08.069Z",
+  "criteria": [
+    {
+      "origin": "CAI",
+      "destination": "JED",
+      "date": "2026-12-15"
+    },
+    {
+      "origin": "JED",
+      "destination": "DXB",
+      "date": "2026-12-20"
+    }
+  ],
+  "tickets": [
+    "0654859779111",
+    "0654859779112",
+    "0654859779113",
+    "0654859779114",
+    "0654859779115",
+    "0654859779116"
+  ],
+  "note": "ticket all six ticket numbers present in the application - discriminating test for FINDING-R06 vs FINDING-R07"
+}

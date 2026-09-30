@@ -227,8 +227,8 @@ request returns 401, capture it again.
 | TC-AGENCY-078 | Branch Auto Reissue on does not enable an Agency booking | Atomic | P1 | Atomic, Integration | Approved | Pending |
 | TC-AGENCY-079 | Portal shows Reissue when the Agency has Auto Reissue on | Atomic | P1 | Atomic, Positive, Smoke | Approved | Pending |
 | TC-AGENCY-080 | Portal hides Reissue when the Agency has Auto Reissue off | Atomic | P1 | Atomic, Negative, Smoke | Approved | Pending |
-| TC-AGENCY-081 | Portal shows Reissue without a lock and offers no Manual Reissue | Atomic | P3 | Atomic, Regression | Approved | Pending |
-| TC-AGENCY-082 | Reissue shows even if the booking's credential is not selected | Atomic | P3 | Atomic, Business-Rule | Approved | Pending |
+| TC-AGENCY-081 | Portal shows Reissue without a lock | Atomic | P3 | Atomic, Regression | Approved | Pending |
+| TC-AGENCY-082 | Reissue is hidden when the booking's credential is not selected | Atomic | P1 | Atomic, Negative, Business-Rule | Approved | Pending |
 | TC-AGENCY-083 | A booking made on behalf of the Agency follows the Agency's checkbox | Atomic | P2 | Atomic, Integration, Assumption-based | Approved | Pending |
 | TC-AGENCY-084 | A booking not in Booked status does not show Reissue | Atomic | P3 | Atomic, Negative, Assumption-based | Approved | Pending |
 | TC-AGENCY-085 | Which value the Itinerary uses while an Auto Reissue change is pending | Atomic | P3 | Atomic, Exploratory, Assumption-based | Approved | Pending |
@@ -2301,7 +2301,7 @@ resolution in the Coverage Report §11.
 
 **Objective:** Verify that the Admin Itinerary shows Reissue when the booking's Agency has Auto Reissue on.
 
-**Preconditions:** AGN9780 has Auto Reissue on (Approved). Booking `NDCEG-BR-F260924EAzzYT` (AGN9780, Sabre, Status Booked) is not locked by another user.
+**Preconditions:** AGN9780 has Auto Reissue on (Approved) **with Sabre Staging (315) — the booking's credential — in the selection (`PO-28`)**. Booking `NDCEG-BR-F260924EAzzYT` (AGN9780, Sabre, credential 315, Status Booked) is not locked by another user.
 
 **Steps:**
 
@@ -2339,13 +2339,13 @@ resolution in the Coverage Report §11.
 5. Click the lock icon on the **Created By** card.
 6. Click **View Passenger Details**.
 
-**Expected Result:** The **Reissue** button is not shown. **Manual Reissue** is still shown.
+**Expected Result:** The **Reissue** button is not shown. **Manual Reissue is out of scope** for this story (`PO-29`, user decision 2026-09-27) and is not asserted here.
 
 **Priority:** P1
 
 **Tags:** Atomic, Negative, Smoke
 
-**Notes:** Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`). Manual Reissue does not depend on this checkbox.
+**Notes:** **Rev 2, 2026-09-27** — the clause *"Manual Reissue is still shown"* was removed: Manual Reissue is out of scope for this story (`PO-29`). Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
 
 **Review:** Approved
 
@@ -2382,7 +2382,7 @@ resolution in the Coverage Report §11.
 
 **Objective:** Verify that the Portal shows Reissue on the Agency's booking when Auto Reissue is on.
 
-**Preconditions:** AGN9780 has Auto Reissue on (Approved). The AGN9780 Portal login is available.
+**Preconditions:** AGN9780 has Auto Reissue on (Approved) **with Sabre Staging (315) — the booking's credential — in the selection (`PO-28`)**. The AGN9780 Portal login is available.
 
 **Steps:**
 
@@ -2426,11 +2426,11 @@ resolution in the Coverage Report §11.
 
 **Automation:** Pending
 
-### TC-AGENCY-081 — Portal shows Reissue without a lock and offers no Manual Reissue
+### TC-AGENCY-081 — Portal shows Reissue without a lock
 
-**Objective:** Verify that the Portal booking has no lock control and no Manual Reissue.
+**Objective:** Verify that the Portal booking shows Reissue with no lock control on the Created By card.
 
-**Preconditions:** AGN9780 has Auto Reissue on (Approved).
+**Preconditions:** AGN9780 has Auto Reissue on (Approved) **with Sabre Staging (315) — the booking's credential — in the selection (`PO-28`)**, so the button is expected to render.
 
 **Steps:**
 
@@ -2439,7 +2439,7 @@ resolution in the Coverage Report §11.
 3. Click the **Order Id** of booking `NDCEG-BR-F260924EAzzYT`.
 4. Click **View Passenger Details**.
 
-**Expected Result:** The **Created By** card has no lock control. **Reissue** is shown. **Manual Reissue** is not shown.
+**Expected Result:** The **Created By** card has no lock control. **Reissue** is shown. **Manual Reissue is out of scope** for this story (`PO-29`, user decision 2026-09-27) and is not asserted here.
 
 **Priority:** P3
 
@@ -2451,11 +2451,11 @@ resolution in the Coverage Report §11.
 
 **Automation:** Pending
 
-### TC-AGENCY-082 — Reissue shows even if the booking's credential is not selected
+### TC-AGENCY-082 — Reissue is hidden when the booking's credential is not selected
 
-**Objective:** Verify that the Reissue button depends on the checkbox only, not on which credentials are selected.
+**Objective:** Verify that the Reissue button requires **both** the checkbox on **and** a selected credential matching the credential the PNR was booked on (`PO-28`).
 
-**Preconditions:** AGN9780 has Auto Reissue on (Approved), with a selected credential that is **not** the booking's credential (the booking is on "Sabre Staging").
+**Preconditions:** AGN9780 has Auto Reissue on (Approved), with a selected credential that is **not** the booking's credential — selection is **NDCSabre staging (313)** only, while booking `NDCEG-BR-F260924EAzzYT` is on **Sabre Staging (315)**.
 
 **Steps:**
 
@@ -2466,13 +2466,13 @@ resolution in the Coverage Report §11.
 5. Click the lock icon on the **Created By** card.
 6. Click **View Passenger Details**.
 
-**Expected Result:** The **Reissue** button is shown.
+**Expected Result:** The **Reissue** button is **not** shown (`actionsDetails.canAutoReissue: false`). **Manual Reissue is out of scope** for this story (`PO-29`, user decision 2026-09-27) and is not asserted here.
 
-**Priority:** P3
+**Priority:** P1
 
-**Tags:** Atomic, Business-Rule
+**Tags:** Atomic, Negative, Business-Rule
 
-**Notes:** The credential check happens only when Reissue is clicked, and belongs to the `reissue-flow` scope (`PO-22`). Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
+**Notes:** **Rev 2, 2026-09-27 — expected result inverted under `PO-28`** (product owner: the button needs the checkbox **and** a selected credential matching the PNR's booking credential). Rev 1 expected "shown" under the now-superseded `PO-22`. Restore AGN9780's selection to include 315 afterwards. Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
 
 **Review:** Approved
 
@@ -2509,7 +2509,7 @@ resolution in the Coverage Report §11.
 
 **Objective:** Verify that Reissue is hidden for an Agency booking whose status is not Booked.
 
-**Preconditions:** A booking under AGN9780 in a status other than Booked (e.g. Cancelled), supplied by the user (`{NOTBOOKED_REF}`). AGN9780 on (Approved).
+**Preconditions:** A booking under AGN9780 in a status other than Booked (e.g. Cancelled), supplied by the user (`{NOTBOOKED_REF}`). AGN9780 on (Approved) **with that booking's credential in the selection (`PO-28`)**, so status is the only condition left unmet.
 
 **Steps:**
 
@@ -2540,7 +2540,7 @@ resolution in the Coverage Report §11.
 
 **Steps:**
 
-1. Edit AGN9780, tick **Auto Reissue**, select one credential, enter a remark.
+1. Edit AGN9780, tick **Auto Reissue**, select **Sabre Staging (315)** — the booking's credential, so only the pending/approved state is under test (`PO-28`) — and enter a remark.
 2. Click **Send For Approval**. Do not approve yet.
 3. Open **Booking-Mid Office → Search Booking** (`/booking/search-booking`).
 4. Click the **Flight** tab.
@@ -2790,7 +2790,7 @@ resolution in the Coverage Report §11.
 
 **Objective:** Verify that the Portal does not show Reissue for an Agency booking whose status is On Hold.
 
-**Preconditions:** AGN9780 has Auto Reissue on (Approved). Booking `NDCEG-BR-F251014N1oohh` (AGN9780, On Hold). The AGN9780 Portal login is available.
+**Preconditions:** AGN9780 has Auto Reissue on (Approved) **with that booking's credential in the selection (`PO-28`)**, so status is the only condition left unmet. Booking `NDCEG-BR-F251014N1oohh` (AGN9780, On Hold). The AGN9780 Portal login is available.
 
 **Steps:**
 

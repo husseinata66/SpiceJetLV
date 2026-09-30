@@ -1,0 +1,85 @@
+{
+  "label": "OQ-M7 reproduction - wallet balance by channel, agency AGN9780 (agentId 10961, NDC2_Mohamed Soliman, EGP)",
+  "capturedAt": "2026-09-30T10:07Z - 10:10Z",
+  "sameAgencyProof": {
+    "portal": {
+      "endpoint": "/odeysysportal/v2/dashboard/userDetails",
+      "agencyCode": "AGN9780",
+      "agentId": 10961,
+      "agencyName": "NDC2_Mohamed Soliman"
+    },
+    "admin": {
+      "route": "/admin/agency/edit/10961",
+      "endpoint": "/odeysysadmin/Admin2/agency/10961",
+      "code": "AGN9780",
+      "name": "NDC2_Mohamed Soliman"
+    }
+  },
+  "portalFinancialDetails": {
+    "endpoint": "/odeysysportal/v2/financial/financial-details",
+    "capturedAt": "2026-09-30T10:06:59.533Z",
+    "status": 200,
+    "body": {
+      "walletBalance": 8405996.2,
+      "topUpBalance": 8405996.2,
+      "creditLimit": null,
+      "walletBlocked": false,
+      "reachCreditLimit": false,
+      "reachDayOutStandingLimit": false,
+      "warningMessages": [],
+      "currencyCode": "EGP"
+    }
+  },
+  "adminAgencyPaymentSetting": {
+    "endpoint": "/odeysysadmin/Admin2/agency/10961",
+    "capturedAt": "2026-09-30T10:09:47.338Z",
+    "paymentSetting": {
+      "invoiceGeneration": 0,
+      "creditLimit": 9999999,
+      "topUpLimit": 9999999999,
+      "targetDates": [],
+      "creditTerm": 100,
+      "reachingPercentage": null,
+      "warningPrompt": null,
+      "outstandingThreshold": 5,
+      "creditAgency": false,
+      "paymentOptionIds": [
+        1,
+        2,
+        14
+      ]
+    }
+  },
+  "arithmetic": {
+    "originalObservation_2026-09-27": {
+      "adminYourBalance": 18710204.2,
+      "portalYourBalance": 8710205.2,
+      "difference": 9999999.0
+    },
+    "configuredCreditLimit": 9999999,
+    "match": "exact - the channel difference equals the agency's configured creditLimit to the cent"
+  },
+  "portalDecimalRendering": {
+    "route": "http://192.168.1.60:9500/dashboard",
+    "cssClass": "balance-amount",
+    "occurrences": 2,
+    "rendered": "8,405,996.200",
+    "sourceValue": 8405996.2,
+    "currency": "EGP",
+    "decimalPlaces": 3,
+    "note": "The Portal Review & Pay page renders the same quantity with 2 decimals. Same channel, same value, two formats."
+  },
+  "adminFinancialDetailsDirectCall": {
+    "endpoint": "/odeysysadmin/v2/financial/financial-details",
+    "status": 401,
+    "body": "Unauthorized access attempted.",
+    "note": "The admin user has no wallet of its own; the endpoint resolves an agency only inside a booking context (the reissue Review & Pay chunk). The Admin composite figure was therefore not captured as a raw payload in this reproduction - it is established from the screen reading of 2026-09-27 plus the exact creditLimit match above."
+  },
+  "verdict": {
+    "composition": "INTENDED SYSTEM BEHAVIOUR. Confirmed by the user 2026-09-30: the creditAgency checkbox scopes the agency channel only and does not constrain what Admin displays. FINDING-R16 was raised and withdrawn the same day.",
+    "decimals": "DEFECT. FINDING-R17 - the Portal renders the same value with 3 decimals on the dashboard and 2 on Review & Pay. Untouched by the credit-line rule."
+  },
+  "notEstablished": [
+    "Whether Admin sums topUp + creditLimit server-side or client-side. Recorded for completeness only; no longer blocks anything now that the behaviour is confirmed intended."
+  ]
+}

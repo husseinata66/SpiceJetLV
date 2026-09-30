@@ -1,0 +1,35 @@
+{
+  "startedAt": "2026-09-30T11:12:58.416Z",
+  "finishedAt": "2026-09-30T11:13:21.895Z",
+  "criteria": [
+    {
+      "origin": "CAI",
+      "destination": "JED",
+      "date": "2026-12-26"
+    }
+  ],
+  "tickets": [
+    "0654859779617",
+    "0654859779618",
+    "0654859779619",
+    "0654859779620",
+    "0654859779621",
+    "0654859779622"
+  ],
+  "gdsPnr": "TTDMXL",
+  "airlinePnr": "DCSV",
+  "bookingRef": "NDCEG-BR-F260930LAlLPj",
+  "orderId": "AGN10030NDCNDCORD260930YZQI2K",
+  "surface": "PORTAL",
+  "agency": "AGN10030 NDC2_Mohamed SolimanEmirates",
+  "currency": "AED",
+  "roe": 0.1,
+  "ruleEngine": {
+    "markup": 100,
+    "serviceCharge": 25,
+    "discount": 50
+  },
+  "tripType": "ONE WAY",
+  "originalDate": "2026-12-26",
+  "note": "scenario 10 - rule engine ON, new ROE 0.1"
+}

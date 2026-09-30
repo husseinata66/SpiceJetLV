@@ -1,0 +1,72 @@
+{
+ "label": "scenario 10 - Portal Review & Pay - NDCEG-BR-F260930LAlLPj / TTDMXL / AGN10030 AED / ROE 0.1 / rule engine markup 100, service charge 25, discount 50 per pax",
+ "capturedAt": "2026-09-30T11:18Z",
+ "endpoint": "GET /odeysysportal/v2/reissue/NDCEG-BR-F260930LAlLPj/review",
+ "selectedOffer": "SV 390 CAI-MED 04:30 + SV 1425 MED-JED 10:20, 26 Dec 2026, 1 stop, 6h",
+ "currencyRateInPayload": 0.1,
+
+ "currentlyTicketed": {
+  "perPassengerType": {
+   "ADT": {"pax":2,"totalBaseAmount":1014.00,"totalBaseWithDiscountAmount":914.00,"discountAmount":100.00,"serviceChargeAmount":50.00,"totalTaxesAndFeesAmount":630.16},
+   "CHD": {"pax":2,"totalBaseAmount":805.40,"totalBaseWithDiscountAmount":705.40,"discountAmount":100.00,"serviceChargeAmount":50.00,"totalTaxesAndFeesAmount":630.16},
+   "INF": {"pax":2,"totalBaseAmount":283.60,"totalBaseWithDiscountAmount":183.60,"discountAmount":100.00,"serviceChargeAmount":50.00,"totalTaxesAndFeesAmount":391.56}
+  },
+  "priceDetails": {"totalBaseAmount":2103.00,"totalTaxAndFeesAmount":1651.88,"discountAmount":300.00,"serviceChargeAmount":150.00,
+    "totalWithoutRuleEngineAmount":3754.88,"totalWithDiscountAmount":3454.88,"totalWithServiceChargeAmount":3904.88,
+    "totalOfferAmount":3605,"totalOfferAmountRoundedUp":3605,"onFlyMarkupAmount":0.00},
+  "screenTotal": 3605.00,
+  "correctSum": 3604.88,
+  "error": 0.12,
+  "verdict": "DEFECT - FINDING-R02 reproduces. The screen's own line items sum to 3604.88; it prints 3605.00. totalOfferAmount is ITSELF 3605 in the payload (not only totalOfferAmountRoundedUp), confirming R02's corrected root cause at ROE 0.1 - the fault is not the binding and not rate-specific."
+ },
+
+ "ruleEngineVerification": {
+  "discountPerPax": "300.00 total / 6 pax = 50.00 - matches configured discount 50",
+  "serviceChargePerPax": "150.00 total / 6 pax = 25.00 - matches configured service charge 25",
+  "markupPerPax": "booked totalBaseAmount 2103.00 vs the same flight's supplier base 1503.00 in the reissue search = 600.00 difference = 100.00 x 6 pax - matches configured markup 100",
+  "onFlyMarkupAmount": 0.00,
+  "appliedToNewOffer": "NO - the new offer carries discountAmount 0 and serviceChargeAmount 0 for every passenger type. Consistent with ProjectContext 2.5 (rule engine not applied to a reissued ticket)."
+ },
+
+ "newOfferConversion": {
+  "supplierPricesEGP": {"totalBaseAmount":33084.0,"totalTaxAndFeesAmount":23665.6,"totalOfferAmount":56749.6},
+  "screenAED":        {"totalBaseAmount":3308.4,"totalTaxAndFeesAmount":2366.56,"totalOfferAmount":5674.96},
+  "check": "EGP x 0.1 = AED exactly on all three"
+ },
+
+ "reissuePricing": {
+  "EGP": {"additionalTotalBaseAmount":18054.0,"additionalTotalTaxesAndFeesAmount":7146.8,"supplierPenalty":13068.0,"changeFee":null,"totalPayable":38268.8},
+  "AED": {"additionalTotalBaseAmount":1805.4,"additionalTotalTaxesAndFeesAmount":714.68,"supplierPenalty":1306.8,"changeFee":150.0,"totalPayable":3976.88},
+  "check": "38268.8 x 0.1 = 3826.88, + changeFee 150.00 = 3976.88 exact. changeFee is null in the EGP block and present only in AED - confirms it is app-origin and added AFTER conversion (ProjectContext 2.5).",
+  "perPassengerSums": {
+    "additionalBase": "970.6 + 741.0 + 93.8 = 1805.4 OK",
+    "additionalTax":  "340.56 + 340.56 + 33.56 = 714.68 OK",
+    "penalty":        "705.6 + 530.6 + 70.6 = 1306.8 OK",
+    "changeFee":      "50 + 50 + 50 = 150 OK (25 per pax incl. infants)"
+  },
+  "taxCodeSums": {
+    "ADT": "XL 2.16 + E3 22.4 + IO 316.0 = 340.56 OK",
+    "CHD": "XL 2.16 + E3 22.4 + IO 316.0 = 340.56 OK",
+    "INF": "XK 9.0 + XL 2.16 + E3 22.4 = 33.56 OK"
+  },
+  "findingR08": "Does NOT reproduce - per-passenger-type tax detail is present and sums correctly.",
+  "findingR03": "Does NOT reproduce - the supplier penalty is carried in its own supplierPenalty field and shown on screen as 'Supplier fee', not folded into tax."
+ },
+
+ "additionalToPayBlock": {
+  "screenLines": [970.60,741.00,93.80,340.56,340.56,33.56,1306.80,150.00],
+  "screenTotal": 3976.88,
+  "correctSum": 3976.88,
+  "verdict": "CORRECT - sums exactly. Only the currently-ticketed total is wrong."
+ },
+
+ "walletOnThisScreen": {
+  "YourBalance": 119062.00, "CreditBalance": 50000.00, "TopUpBalance": 69062.00,
+  "sidebarRendering": "119,062.000 AED and 0.000 AED (3 decimals)",
+  "pageRendering": "119,062.00 AED (2 decimals)",
+  "findingR17": "REPRODUCES within one page - sidebar 3 dp, page 2 dp, same value.",
+  "findingR16note": "The Portal DOES show Credit Balance for this credit-enabled agency (creditAgency true, creditLimit 50000). This confirms the withdrawal of FINDING-R16: AGN9780's Portal-vs-Admin gap was the creditAgency flag, nothing else."
+ },
+
+ "observationNotRaised": "The currently-ticketed block prints 'Discount 300.00' and 'Service charge 150.00' with no sign, so a reader cannot tell that one subtracts and the other adds. Recorded as a presentation observation only - not raised as a defect."
+}

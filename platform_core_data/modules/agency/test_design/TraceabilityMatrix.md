@@ -241,7 +241,8 @@ Rows for TC-AGENCY-061 … TC-AGENCY-093 (088 … 093 added 2026-09-25 at the us
 | spec §5 / Story AC *Admin Impact* | Admin Itinerary Reissue on/off | TC-AGENCY-076, TC-AGENCY-077 | Covered |
 | `PO-16` / Story AC *Permission Precedence* | Branch on does not enable the Agency | TC-AGENCY-078 | Covered |
 | `PO-25` / Story AC *Portal Impact* | Portal Reissue on/off; no lock, no Manual Reissue | TC-AGENCY-079, TC-AGENCY-080, TC-AGENCY-081 | Covered |
-| `PO-22` | Button independent of the selected credential | TC-AGENCY-082 | Covered |
+| ~~`PO-22`~~ | ~~Button independent of the selected credential~~ — superseded 2026-09-27 | — | Withdrawn |
+| `PO-28` *(supersedes `PO-22`)* | Button needs the checkbox **and** a selection matching the PNR's booking credential | TC-AGENCY-082 (negative); TC-AGENCY-076, 079, 081 (positive, credential matched) | Covered |
 | `PO-26` | On-behalf booking follows the Agency | TC-AGENCY-083 | Covered (assumption-based; needs a user booking) |
 | ASM-022 / `PO-24` | Only Booked status shows Reissue | TC-AGENCY-084, TC-AGENCY-094 | Covered (assumption-based; needs a user booking) |
 | RSK-013 | Pending vs approved value | TC-AGENCY-085 | Covered (exploratory) |
