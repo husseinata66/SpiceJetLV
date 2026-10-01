@@ -836,13 +836,13 @@ for much cheaper recovery from mid-flow failures.
 
 ### 13.6 Exact next steps, in order (updated 2026-10-01)
 
-**Status: 4 of 6 E2E scenarios done.** TC-ANC-002 (Portal, one-way w/ stop, DEL-DXB), TC-ANC-003
-(Portal, round-trip non-stop, BOM-COK), TC-ANC-004 (Admin, one-way non-stop, BOM-COK), and TC-ANC-005
-(Admin, round-trip w/ stop, DEL-DXB) are all **proposed Passed**, fully reconciled through all 9
-checkpoints each. Remaining:
+**Status: 5 of 6 E2E scenarios done.** TC-ANC-002 (Portal, one-way w/ stop, DEL-DXB), TC-ANC-003
+(Portal, round-trip non-stop, BOM-COK), TC-ANC-004 (Admin, one-way non-stop, BOM-COK), TC-ANC-005
+(Admin, round-trip w/ stop, DEL-DXB), and TC-ANC-034 (Admin, one-way, no ancillaries, boundary case,
+DEL-DXB) are all **proposed Passed**, fully reconciled through all 9 checkpoints each. Remaining:
 
-1. Execute the final two E2E scenarios: **TC-ANC-034** (Admin, one-way, no ancillaries, boundary case)
-   and **TC-ANC-035** (Portal, round-trip, ancillaries onward-leg-only, boundary case).
+1. Execute the final E2E scenario: **TC-ANC-035** (Portal, round-trip, ancillaries onward-leg-only,
+   boundary case).
 2. Execute the remaining Atomic/Scenario cases (12 of which carry Notes pointing to which E2E case's
    evidence they can reuse instead of a fresh booking — see the test suite itself).
 3. TC-ANC-026 stays `Excluded`/unexecuted until FINDING-012 (Statement report) is actually fixed.
@@ -851,6 +851,20 @@ checkpoints each. Remaining:
    `ManualTestResults.csv`, `ManualQAReport.md` (+ `.report.json` + generated `.html`) — none of these
    exist yet; they are a single finished-state write per the skill spec, not something to checkpoint
    partway through.
+
+**TC-ANC-034 (Admin) executed 2026-10-01 — proposed Passed.** PNR **H9ZK7E**,
+`BRN297NDCORD261001JQUISB`, 24,742 EGP, one-way DEL-DXB (1 stop), 2A/2C/2I returned 200 offers
+*directly* (no fallback needed, unlike TC-ANC-005's round-trip on the same route). Zero ancillaries
+selected for any passenger — Bundle is itself a required field but offers a free "DEL" option (0 EGP)
+distinct from the paid "Value Pack"; Meal/Baggage carry no asterisk and were left fully unset. All 9
+checkpoints reconcile: confirmation shows Meal/Seat/Bundle "-" for all 6 passengers; supplier retrieve
+shows `passengersSelectedAncillaries: {}` and `totalAncillariesAmount: 0`; **ANC-55 confirmed** — Base
+fare Markup gap (600 EGP = 100/pax × 6) is present identically with zero ancillaries, proving Markup is
+unconditional; Search Booking's Booking Details page **omits the Segment Ancillaries section entirely**
+when there's nothing to show (not a defect, just documented absence-of-content behavior); Costing Net
+24,292 = supplier total exactly, Profit 450 = Markup(600)+Service(150)-Discount(300); all five reports
+reconcile with wallet delta 7,780,111.19 → 7,755,369.19. No new defect. Log:
+`TC-ANC-034/00_execution_log.md`. Next: TC-ANC-035 (Portal, round-trip, ancillaries onward-leg-only).
 
 **Defect A has grown in scope** (§13.3/TC-ANC-023): the supplier retrieve endpoint's itemized
 `passengerAncillaries` list undercounts any ancillary code that repeats across multiple
