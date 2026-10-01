@@ -1,0 +1,462 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - text:          
+      - generic [ref=e7]:
+        - text:  
+        - button [ref=e8] [cursor=pointer]:
+          - generic [aria-hidden] [ref=e9]: 
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - banner [ref=e13]:
+          - generic [ref=e14]:
+            - img "Logo" [ref=e17] [cursor=pointer]
+            - generic [ref=e18]:
+              - text:  
+              - generic [ref=e19]:
+                - button "Take a tour" [ref=e21] [cursor=pointer]:
+                  - generic [aria-hidden] [ref=e22]: 
+                - button "Top Up Wallet" [ref=e23] [cursor=pointer]:
+                  - generic [ref=e24]: 
+                - button "Settings" [ref=e25] [cursor=pointer]:
+                  - generic [ref=e26]: 
+              - generic [ref=e28]:
+                - button "Welcome Ahmed Alhussieny " [ref=e29] [cursor=pointer]:
+                  - generic [ref=e30]:
+                    - generic [ref=e31]: Welcome
+                    - generic [ref=e32]:
+                      - text: Ahmed Alhussieny
+                      - generic [ref=e33]: 
+                - button "Profile menu" [ref=e34] [cursor=pointer]:
+                  - img "Ahmed Alhussieny profile" [ref=e37]
+        - generic [ref=e2015]:
+          - generic [ref=e2017]:
+            - generic [ref=e2018]: RoundTrip
+            - generic [ref=e2020]: "Passengers: 6"
+            - generic [ref=e2022]: "Trip Departure: Wed, 21 Oct, 2026"
+            - generic [ref=e2024]: "Trip Arrival: Sun, 25 Oct, 2026"
+          - generic [ref=e2028]:
+            - button "Open booking summary" [ref=e2030] [cursor=pointer]:
+              - generic [aria-hidden] [ref=e2031]: 
+              - generic [ref=e2032]: Booking Summary
+            - tablist [ref=e2036]:
+              - generic [ref=e2038]:
+                - tab " Segments Details" [ref=e2040] [cursor=pointer]:
+                  - generic [ref=e2041]: 
+                  - generic [ref=e2042]: Segments Details
+                - generic [ref=e2048]:
+                  - generic [ref=e2049]:
+                    - generic [ref=e2050]: BOM✈COK
+                    - generic [ref=e2051]: Onward Flights
+                    - generic [ref=e2052]: "Total Journey Duration: 2h"
+                  - generic [ref=e2055]:
+                    - generic [ref=e2056]:
+                      - generic [ref=e2059]: ECONOMY
+                      - generic [ref=e2062]: 
+                    - generic [ref=e2064]:
+                      - generic [ref=e2065]:
+                        - generic [ref=e2066]: Departure
+                        - generic [ref=e2067]: BOM
+                        - generic [ref=e2068]: Chhatrapati Shivaji International (Sahar International)
+                        - generic [ref=e2069]: Mumbai
+                        - generic [ref=e2070]: 05:05 Wed, 21 Oct, 2026
+                        - generic [ref=e2071]: "Terminal: 2"
+                      - generic [ref=e2072]:
+                        - generic [ref=e2073]: "Segment Duration: 2h"
+                        - generic [ref=e2081]: "Aircraft: Airbus 7M8F"
+                      - generic [ref=e2082]:
+                        - generic [ref=e2083]: Arrival
+                        - generic [ref=e2084]: COK
+                        - generic [ref=e2085]: Cochin International
+                        - generic [ref=e2086]: Kochi
+                        - generic [ref=e2087]: 07:05 Wed, 21 Oct, 2026
+                        - generic [ref=e2088]: "Terminal: 1"
+                  - generic [ref=e2089]:
+                    - generic [ref=e2090]: COK✈BOM
+                    - generic [ref=e2091]: Return Flights
+                    - generic [ref=e2092]: "Total Journey Duration: 2h 25m"
+                  - generic [ref=e2095]:
+                    - generic [ref=e2096]:
+                      - generic [ref=e2099]: ECONOMY
+                      - generic [ref=e2102]: 
+                    - generic [ref=e2104]:
+                      - generic [ref=e2105]:
+                        - generic [ref=e2106]: Departure
+                        - generic [ref=e2107]: COK
+                        - generic [ref=e2108]: Cochin International
+                        - generic [ref=e2109]: Kochi
+                        - generic [ref=e2110]: 07:50 Sun, 25 Oct, 2026
+                        - generic [ref=e2111]: "Terminal: 1"
+                      - generic [ref=e2112]:
+                        - generic [ref=e2113]: "Segment Duration: 2h 25m"
+                        - generic [ref=e2121]: "Aircraft: Airbus 32L"
+                      - generic [ref=e2122]:
+                        - generic [ref=e2123]: Arrival
+                        - generic [ref=e2124]: BOM
+                        - generic [ref=e2125]: Chhatrapati Shivaji International (Sahar International)
+                        - generic [ref=e2126]: Mumbai
+                        - generic [ref=e2127]: 10:15 Sun, 25 Oct, 2026
+                        - generic [ref=e2128]: "Terminal: 2"
+            - generic [ref=e2130]:
+              - generic [ref=e2131]:
+                - generic [ref=e2132]: 
+                - generic [ref=e2133]: Passenger Details
+              - generic [ref=e2134]:
+                - generic [ref=e2136]:
+                  - generic [ref=e2137]:
+                    - generic [ref=e2138]:
+                      - generic [ref=e2139]: "01"
+                      - generic [ref=e2140]: 
+                    - generic [ref=e2142]:
+                      - generic [ref=e2143]: Passenger Info
+                      - generic [ref=e2144]: Traveler details
+                      - generic [ref=e2145]: Completed
+                  - generic [ref=e2148]:
+                    - generic [ref=e2149]:
+                      - generic [ref=e2150]: "02"
+                      - generic [ref=e2151]: 
+                    - generic [ref=e2153]:
+                      - generic [ref=e2154]: Bundles
+                      - generic [ref=e2155]: Fare services
+                      - generic [ref=e2156]: Completed
+                  - generic [ref=e2159]:
+                    - generic [ref=e2160]:
+                      - generic [ref=e2161]: "03"
+                      - generic [ref=e2162]: 
+                    - generic [ref=e2164]:
+                      - generic [ref=e2165]: Ancillaries
+                      - generic [ref=e2166]: Meals and baggage
+                      - generic [ref=e2167]: In progress
+                - generic [ref=e8808]:
+                  - generic [ref=e8809]:
+                    - button "Expand All" [ref=e8813] [cursor=pointer]:
+                      - generic [aria-hidden] [ref=e8814]: 
+                    - tablist [ref=e8817]:
+                      - generic [ref=e8819]:
+                        - generic [ref=e8821]:
+                          - tab " AT Ahmed TestAdultOne Passenger 1" [expanded] [ref=e8823] [cursor=pointer]:
+                            - generic [ref=e8824]: 
+                            - generic [ref=e8825]:
+                              - generic [ref=e8826]: AT
+                              - generic [ref=e8827]:
+                                - generic [ref=e8828]: Ahmed TestAdultOne
+                                - generic [ref=e8829]: Passenger 1
+                          - region " AT Ahmed TestAdultOne Passenger 1" [ref=e8830]:
+                            - generic [ref=e8831]:
+                              - generic [ref=e8832]:
+                                - generic [ref=e8833]:
+                                  - img "meal" [ref=e8835]
+                                  - generic [ref=e8836]:
+                                    - generic [ref=e8837]: Meal Preference
+                                    - generic [ref=e8838]: Meals included in this flight itinerary
+                                - generic [ref=e8839]:
+                                  - generic [ref=e8841]:
+                                    - generic [ref=e8842]:
+                                      - generic [ref=e8843]:
+                                        - generic [ref=e8844]: BOM
+                                        - generic [ref=e8845]: 
+                                        - generic [ref=e8846]: COK
+                                      - generic [ref=e8847]: Onward
+                                    - generic [ref=e8850] [cursor=pointer]:
+                                      - generic [ref=e8851]:
+                                        - combobox "Choose a meal"
+                                      - generic [ref=e8852]: Choose a meal
+                                      - button "dropdown trigger" [ref=e8853]:
+                                        - generic [ref=e8854]: 
+                                  - generic [ref=e8856]:
+                                    - generic [ref=e8857]:
+                                      - generic [ref=e8858]:
+                                        - generic [ref=e8859]: COK
+                                        - generic [ref=e8860]: 
+                                        - generic [ref=e8861]: BOM
+                                      - generic [ref=e8862]: Return
+                                    - generic [ref=e8865] [cursor=pointer]:
+                                      - generic [ref=e8866]:
+                                        - combobox "Choose a meal"
+                                      - generic [ref=e8867]: Choose a meal
+                                      - button "dropdown trigger" [ref=e8868]:
+                                        - generic [ref=e8869]: 
+                              - generic [ref=e8870]:
+                                - generic [ref=e8871]:
+                                  - img "extra-baggage" [ref=e8873]
+                                  - generic [ref=e8874]: Extra Baggage
+                                - generic [ref=e8877]:
+                                  - generic [ref=e8879]:
+                                    - generic [ref=e8880]:
+                                      - generic [ref=e8881]:
+                                        - generic [ref=e8882]: BOM
+                                        - generic [ref=e8883]: 
+                                        - generic [ref=e8884]: COK
+                                      - generic [ref=e8885]: Onward
+                                    - generic [ref=e8888] [cursor=pointer]:
+                                      - generic [ref=e8889]:
+                                        - combobox "Choose a baggage"
+                                      - generic [ref=e8890]: Choose a baggage
+                                      - button "dropdown trigger" [ref=e8891]:
+                                        - generic [ref=e8892]: 
+                                  - generic [ref=e8894]:
+                                    - generic [ref=e8895]:
+                                      - generic [ref=e8896]:
+                                        - generic [ref=e8897]: COK
+                                        - generic [ref=e8898]: 
+                                        - generic [ref=e8899]: BOM
+                                      - generic [ref=e8900]: Return
+                                    - generic [ref=e8903] [cursor=pointer]:
+                                      - generic [ref=e8904]:
+                                        - combobox "Choose a baggage"
+                                      - generic [ref=e8905]: Choose a baggage
+                                      - button "dropdown trigger" [ref=e8906]:
+                                        - generic [ref=e8907]: 
+                        - generic [ref=e8909]:
+                          - tab " ST Sara TestAdultTwo Passenger 2" [ref=e8911] [cursor=pointer]:
+                            - generic [ref=e8912]: 
+                            - generic [ref=e8913]:
+                              - generic [ref=e8914]: ST
+                              - generic [ref=e8915]:
+                                - generic [ref=e8916]: Sara TestAdultTwo
+                                - generic [ref=e8917]: Passenger 2
+                          - generic [ref=e8918]:
+                            - generic [ref=e8919]:
+                              - generic [ref=e8923]:
+                                - generic [ref=e8924]: Meal Preference
+                                - generic [ref=e8925]: Meals included in this flight itinerary
+                              - generic [ref=e8926]:
+                                - generic [ref=e8928]:
+                                  - generic [ref=e8929]:
+                                    - generic [ref=e8930]:
+                                      - generic [ref=e8931]: BOM
+                                      - generic [ref=e8932]: 
+                                      - generic [ref=e8933]: COK
+                                    - generic [ref=e8934]: Onward
+                                  - generic [ref=e8937] [cursor=pointer]:
+                                    - generic [ref=e8939]: Choose a meal
+                                    - button [ref=e8940]:
+                                      - generic [ref=e8941]: 
+                                - generic [ref=e8943]:
+                                  - generic [ref=e8944]:
+                                    - generic [ref=e8945]:
+                                      - generic [ref=e8946]: COK
+                                      - generic [ref=e8947]: 
+                                      - generic [ref=e8948]: BOM
+                                    - generic [ref=e8949]: Return
+                                  - generic [ref=e8952] [cursor=pointer]:
+                                    - generic [ref=e8954]: Choose a meal
+                                    - button [ref=e8955]:
+                                      - generic [ref=e8956]: 
+                            - generic [ref=e8957]:
+                              - generic [ref=e8958]: Extra Baggage
+                              - generic [ref=e8964]:
+                                - generic [ref=e8966]:
+                                  - generic [ref=e8967]:
+                                    - generic [ref=e8968]:
+                                      - generic [ref=e8969]: BOM
+                                      - generic [ref=e8970]: 
+                                      - generic [ref=e8971]: COK
+                                    - generic [ref=e8972]: Onward
+                                  - generic [ref=e8975] [cursor=pointer]:
+                                    - generic [ref=e8977]: Choose a baggage
+                                    - button [ref=e8978]:
+                                      - generic [ref=e8979]: 
+                                - generic [ref=e8981]:
+                                  - generic [ref=e8982]:
+                                    - generic [ref=e8983]:
+                                      - generic [ref=e8984]: COK
+                                      - generic [ref=e8985]: 
+                                      - generic [ref=e8986]: BOM
+                                    - generic [ref=e8987]: Return
+                                  - generic [ref=e8990] [cursor=pointer]:
+                                    - generic [ref=e8992]: Choose a baggage
+                                    - button [ref=e8993]:
+                                      - generic [ref=e8994]: 
+                        - generic [ref=e8996]:
+                          - tab " TT Tom TestChildOne Passenger 3" [ref=e8998] [cursor=pointer]:
+                            - generic [ref=e8999]: 
+                            - generic [ref=e9000]:
+                              - generic [ref=e9001]: TT
+                              - generic [ref=e9002]:
+                                - generic [ref=e9003]: Tom TestChildOne
+                                - generic [ref=e9004]: Passenger 3
+                          - generic [ref=e9005]:
+                            - generic [ref=e9006]:
+                              - generic [ref=e9010]:
+                                - generic [ref=e9011]: Meal Preference
+                                - generic [ref=e9012]: Meals included in this flight itinerary
+                              - generic [ref=e9013]:
+                                - generic [ref=e9015]:
+                                  - generic [ref=e9016]:
+                                    - generic [ref=e9017]:
+                                      - generic [ref=e9018]: BOM
+                                      - generic [ref=e9019]: 
+                                      - generic [ref=e9020]: COK
+                                    - generic [ref=e9021]: Onward
+                                  - generic [ref=e9024] [cursor=pointer]:
+                                    - generic [ref=e9026]: Choose a meal
+                                    - button [ref=e9027]:
+                                      - generic [ref=e9028]: 
+                                - generic [ref=e9030]:
+                                  - generic [ref=e9031]:
+                                    - generic [ref=e9032]:
+                                      - generic [ref=e9033]: COK
+                                      - generic [ref=e9034]: 
+                                      - generic [ref=e9035]: BOM
+                                    - generic [ref=e9036]: Return
+                                  - generic [ref=e9039] [cursor=pointer]:
+                                    - generic [ref=e9041]: Choose a meal
+                                    - button [ref=e9042]:
+                                      - generic [ref=e9043]: 
+                            - generic [ref=e9044]:
+                              - generic [ref=e9045]: Extra Baggage
+                              - generic [ref=e9051]:
+                                - generic [ref=e9053]:
+                                  - generic [ref=e9054]:
+                                    - generic [ref=e9055]:
+                                      - generic [ref=e9056]: BOM
+                                      - generic [ref=e9057]: 
+                                      - generic [ref=e9058]: COK
+                                    - generic [ref=e9059]: Onward
+                                  - generic [ref=e9062] [cursor=pointer]:
+                                    - generic [ref=e9064]: Choose a baggage
+                                    - button [ref=e9065]:
+                                      - generic [ref=e9066]: 
+                                - generic [ref=e9068]:
+                                  - generic [ref=e9069]:
+                                    - generic [ref=e9070]:
+                                      - generic [ref=e9071]: COK
+                                      - generic [ref=e9072]: 
+                                      - generic [ref=e9073]: BOM
+                                    - generic [ref=e9074]: Return
+                                  - generic [ref=e9077] [cursor=pointer]:
+                                    - generic [ref=e9079]: Choose a baggage
+                                    - button [ref=e9080]:
+                                      - generic [ref=e9081]: 
+                        - generic [ref=e9083]:
+                          - tab " AT Amy TestChildTwo Passenger 4" [ref=e9085] [cursor=pointer]:
+                            - generic [ref=e9086]: 
+                            - generic [ref=e9087]:
+                              - generic [ref=e9088]: AT
+                              - generic [ref=e9089]:
+                                - generic [ref=e9090]: Amy TestChildTwo
+                                - generic [ref=e9091]: Passenger 4
+                          - generic [ref=e9092]:
+                            - generic [ref=e9093]:
+                              - generic [ref=e9097]:
+                                - generic [ref=e9098]: Meal Preference
+                                - generic [ref=e9099]: Meals included in this flight itinerary
+                              - generic [ref=e9100]:
+                                - generic [ref=e9102]:
+                                  - generic [ref=e9103]:
+                                    - generic [ref=e9104]:
+                                      - generic [ref=e9105]: BOM
+                                      - generic [ref=e9106]: 
+                                      - generic [ref=e9107]: COK
+                                    - generic [ref=e9108]: Onward
+                                  - generic [ref=e9111] [cursor=pointer]:
+                                    - generic [ref=e9113]: Choose a meal
+                                    - button [ref=e9114]:
+                                      - generic [ref=e9115]: 
+                                - generic [ref=e9117]:
+                                  - generic [ref=e9118]:
+                                    - generic [ref=e9119]:
+                                      - generic [ref=e9120]: COK
+                                      - generic [ref=e9121]: 
+                                      - generic [ref=e9122]: BOM
+                                    - generic [ref=e9123]: Return
+                                  - generic [ref=e9126] [cursor=pointer]:
+                                    - generic [ref=e9128]: Choose a meal
+                                    - button [ref=e9129]:
+                                      - generic [ref=e9130]: 
+                            - generic [ref=e9131]:
+                              - generic [ref=e9132]: Extra Baggage
+                              - generic [ref=e9138]:
+                                - generic [ref=e9140]:
+                                  - generic [ref=e9141]:
+                                    - generic [ref=e9142]:
+                                      - generic [ref=e9143]: BOM
+                                      - generic [ref=e9144]: 
+                                      - generic [ref=e9145]: COK
+                                    - generic [ref=e9146]: Onward
+                                  - generic [ref=e9149] [cursor=pointer]:
+                                    - generic [ref=e9151]: Choose a baggage
+                                    - button [ref=e9152]:
+                                      - generic [ref=e9153]: 
+                                - generic [ref=e9155]:
+                                  - generic [ref=e9156]:
+                                    - generic [ref=e9157]:
+                                      - generic [ref=e9158]: COK
+                                      - generic [ref=e9159]: 
+                                      - generic [ref=e9160]: BOM
+                                    - generic [ref=e9161]: Return
+                                  - generic [ref=e9164] [cursor=pointer]:
+                                    - generic [ref=e9166]: Choose a baggage
+                                    - button [ref=e9167]:
+                                      - generic [ref=e9168]: 
+                  - generic:
+                    - paragraph
+                - generic [ref=e2682]:
+                  - button "Prev" [ref=e8740] [cursor=pointer]:
+                    - generic [aria-hidden] [ref=e8741]: 
+                  - text: 
+            - tablist [ref=e2690]:
+              - generic [ref=e2692]:
+                - tab "  Payment Details" [expanded] [ref=e2694] [cursor=pointer]:
+                  - generic [ref=e2695]: 
+                  - generic [ref=e2696]:
+                    - generic [ref=e2697]: 
+                    - generic [ref=e2698]: Payment Details
+                - region "  Payment Details" [ref=e2699]:
+                  - generic [ref=e2701]:
+                    - generic [ref=e2702]:
+                      - generic [ref=e2703]: "Net Payable Amount: 17,854 EGP"
+                      - paragraph [ref=e2705]: "Note: Your money is currently being deducted from your wallet balance."
+                    - generic [ref=e2707]:
+                      - tablist [ref=e2710]:
+                        - tab "Wallet" [selected] [ref=e2711] [cursor=pointer]
+                        - tab "BANQUE MISR" [ref=e2713] [cursor=pointer]
+                        - listitem [ref=e2715]
+                      - tabpanel "Wallet" [ref=e2718]:
+                        - generic [ref=e2719]:
+                          - heading "Wallet Payment" [level=3] [ref=e2720]
+                          - generic [ref=e2721]:
+                            - generic [ref=e2726]:
+                              - generic [ref=e2727]: Your Balance
+                              - generic [ref=e2728]: 1,127,926.9 EGP
+                            - generic [ref=e2733]:
+                              - generic [ref=e2734]: Credit Balance
+                              - generic [ref=e2735]: 1,000,000 EGP
+                            - generic [ref=e2740]:
+                              - generic [ref=e2741]: Top Up Balance
+                              - generic [ref=e2742]: 127,926.9 EGP
+                          - list
+                        - generic [ref=e2743]:
+                          - generic [ref=e2746] [cursor=pointer]:
+                            - checkbox "Send booking confirmation email/e-ticket PDF attachments without price details + no invoice email to customer. Send booking confirmation email/e-ticket PDF attachments without price details + no invoice email to customer."
+                          - generic [ref=e2748] [cursor=pointer]: Send booking confirmation email/e-ticket PDF attachments without price details + no invoice email to customer.
+            - generic [ref=e2754]:
+              - generic [ref=e2757] [cursor=pointer]:
+                - checkbox "I have read and agree to the"
+              - generic [ref=e2759] [cursor=pointer]: I have read and agree to the
+              - generic [ref=e2760] [cursor=pointer]: Terms & Conditions
+            - generic [ref=e2766]:
+              - button "Book" [ref=e9170] [cursor=pointer]
+              - button "Save Quote" [ref=e2768] [cursor=pointer]
+      - contentinfo [ref=e129]:
+        - contentinfo [ref=e131]:
+          - generic [ref=e132]:
+            - navigation "Footer navigation" [ref=e133]:
+              - link "About Us" [ref=e134] [cursor=pointer]:
+                - /url: /info/info-group/about
+              - link "Mission" [ref=e135] [cursor=pointer]:
+                - /url: /info/info-group/mission
+              - link "Vision" [ref=e136] [cursor=pointer]:
+                - /url: /info/info-group/vision
+              - link "Policy" [ref=e137] [cursor=pointer]:
+                - /url: /info/info-group/policy
+              - link "Contact Us" [ref=e138] [cursor=pointer]:
+                - /url: /info/info-group/contact
+            - generic [ref=e139]: Copyright © Wonder Travel 2026. All Rights Reserved.
+  - generic [ref=e164] [cursor=pointer]:
+    - emphasis [ref=e165]: 
+    - text:  
+  - generic:
+    - generic:
+      - iframe

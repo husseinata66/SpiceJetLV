@@ -1,0 +1,19 @@
+{
+  "calledAt": "2026-09-30T14:30:59.504Z",
+  "method": "POST",
+  "endpoint": "https://ndc-integration-stg-ne-3.azurewebsites.net/api/V2/FlightBooking/Retrieve",
+  "headers": {
+    "Content-Type": "application/json",
+    "x-api-key": "[REDACTED]",
+    "Client-Id": "[REDACTED]"
+  },
+  "body": {
+    "supplier": "AirIndia",
+    "CredentialsSelector": "EGY",
+    "pnr": "P6MVJA",
+    "gdsPNR": "",
+    "bookingToken": "",
+    "SurName": "x"
+  },
+  "httpStatus": 200
+}

@@ -686,6 +686,34 @@ both places), only the name differs between the selection UI and the confirmatio
 needs a disposition decision (defect vs. accepted labeling quirk) before TC-ANC-002 can be marked
 `Passed` outright.
 
+**Dispositioned 2026-09-29 by the user: not an issue, but keep it traced.** Not a defect and not a
+Finding — it does not block TC-ANC-002 from `Passed`. Record it in TC-ANC-002's `Notes` field in
+`manual_execution/ManualExecutionResults.md` (and the matching CSV row) as a traced observation:
+"Bundle name differs between selection UI ('Value Pack') and Booking Confirmation 'Bundle Details'
+('Xtra Pack'); price consistent at 2,000 EGP; dispositioned by user 2026-09-29 as not an issue —
+traced only." Check the other E2E cases (TC-ANC-003/004/005/035) for the same label difference and
+note it the same way wherever it recurs; do not raise it as a defect.
+
+**Checkpoint 1 (supplier Retrieve) — done 2026-09-29.** Called via the exported collection
+(`air-india/NDC-INT-ANC… Copy.postman_collection.json`, locally git-excluded because it holds live
+API keys; `CI_RetreiveBooking` now uses `{{baseUrl}}` =
+`https://ndc-integration-stg-ne-3.azurewebsites.net/`; body `supplier: AirIndia`,
+`CredentialsSelector: EGY`, `pnr` = airline PNR, `gdsPNR`/`bookingToken` empty, `SurName: x`).
+Full reconciliation in `manual_execution/artifacts/TC-ANC-002/06_supplier_retrieve_reconciliation.md`.
+Taxes, baggage and bundle match exactly at ROE 0.5; base/grand total differ by 600 EGP, consistent
+with Markup (confirm in Search Booking Costing). Four observations awaiting user disposition there:
+A) second-leg Meal missing from the supplier's itemization while included in its totals (same
+pattern as the Y1ZVFF 800 INR gap); B) check-in baggage 30 kg on confirmation vs 40/30 kg in
+Retrieve; C) Retrieve `bookingStatus: UnKnown` vs Portal `Confirmed`; D) bundle naming (traced only).
+
+**Observation A verified as a defect 2026-09-29 (TC-ANC-023 executed).** Retrieved YSTPMB, Y1ZVFF and
+Z33F4Z live: in all three the gap between itemized and aggregate ancillary totals equals exactly the
+per-passenger meal lines (500 / 800 / 1,000 INR), and the Portal charged both legs every time, matching
+the aggregate. Meal is itemized once per passenger instead of per segment. Details and defect draft:
+`manual_execution/artifacts/TC-ANC-023/TC-ANC-023_investigation.md`. Carry into
+ManualExecutionResults as a defect against the Retrieve mapping; TC-ANC-022 and the six E2E cases'
+retrieve checkpoints should compare meals against the aggregate, not the itemization, until fixed.
+
 **Still open — the remaining checkpoints from TC-ANC-002's own Steps:**
 1. Supplier retrieve-endpoint call (via the Postman collection the user shared) — compare passenger/
    ancillary data directly, but remember the fare comparison is **not** raw equality: apply
@@ -695,6 +723,54 @@ needs a disposition decision (defect vs. accepted labeling quirk) before TC-ANC-
 3. Search Booking Costing (Admin) — verify costing recorded correctly against this PNR.
 4. Portal Reports — verify this booking's amount surfaces correctly (same pattern as FINDING-011 from
    the earlier Discovery session, §2 #8 above).
+
+**Update 2026-09-29 (afternoon): steps 6–8 executed, all Pass on their own checks.** Done via
+Playwright MCP (headed) with a `BrowserDriver`-generated storage-state (see §13.5 update below).
+Details: `manual_execution/artifacts/TC-ANC-002/07_steps6-8_checkpoints.md`. The 600 EGP residual is
+resolved as a uniform +100 EGP/passenger on base fare, infants included (not yet checked against the Admin
+markup config). Total Due to NDC and Sales both show 45,692. New observations awaiting user disposition
+there: **E** (flight/booking times shifted by the browser timezone, +3h in Cairo), **G** (My Bookings list
+Total 21,692 leaves out the 24,000 SSR, a candidate defect), **F** (`[Xtra Pack` label glitch), **H**
+(Booked / Ticketed Document / Confirmed / UnKnown status wording).
+**Dispositioned by the user 2026-09-29:** G = system behavior, not a bug (the full amount shows in the booking
+details). B = real but outside Ancillaries scope, a Note. E = outside scope, kept as an observation. C/H = a Note.
+F = **Low-severity UI defect** (draft in `07_steps6-8_checkpoints.md`). **Proposed TC-ANC-002 status: Passed**,
+with Notes D/G/B/E/C/H and defect F. Nothing on TC-ANC-002 is still open.
+
+**TC-ANC-003 attempted 2026-09-29 ~14:18–14:43 UTC — proposed Blocked at step 2, no booking made.**
+The Portal booking flow **no longer shows the "03 Ancillaries (Meals and baggage)" step** that existed on
+28 Sep. It stops at 01 Passenger Info → 02 Bundles and then goes to Payment, with no meal/SSR request at all.
+Reproduced on 6 offers: BOM↔COK round trip (EC/BT/SM), BOM→COK one way, DEL→DXB one way, and **the same
+IX-1782/IX-813 flight as TC-ANC-002**. This blocks every remaining E2E case and every Meal/Baggage atomic case.
+2A/2C/2I got no BOM↔COK offers; 1A/1C/1I did. Full log:
+`manual_execution/artifacts/TC-ANC-003/00_execution_log.md`. **Next: user/dev to find out why the
+Ancillaries step disappeared (deploy? Admin config? supplier SSR?) before any further E2E execution.**
+**Update 2026-09-30:** the missing step was a wrong deployment (user). Attempt 2 (29 Sep) got stuck "In Progress"
+(order `…260929ULRTYZ`, no PNR, not charged) and was abandoned. **Attempt 3 is the attempt of record: Confirmed, PNR
+`P6MVJA`**, Trip `AGN9808NDCNDCORD260930KLWHYX`, 35,854 EGP. All 8 steps Pass → **proposed TC-ANC-003 Passed**. Round-trip
+Baggage is offered **once per direction**. Retrieve totals match exactly at ROE 0.5 (no markup today). **Defect A extended:**
+the Retrieve itemization lists each ancillary code once per passenger, so a round trip's return-direction baggage, bundle
+and meal are all missing from the itemization (the totals include them). Full log: `TC-ANC-003/00_execution_log.md`.
+Speed: the booking page has a hard **20-minute** session, so fill forms with batched `browser_run_code_unsafe` and keep
+Book Flight / Book / Confirm-Book as separate visible clicks. Supplier Retrieve: scratchpad `retrieve.js <PNR> <dir> <prefix>`
+(reads the keys from the local collection in-process and redacts them in the saved request). Next: TC-ANC-004 (Admin,
+one-way non-stop BOM-COK).
+**TC-ANC-004 (Admin) executed 2026-09-30 — proposed Passed.** PNR **USCWVR**, `BRN297NDCORD260930QJBKMA`, 18,176 EGP,
+Branch BRN297 (no Agency). All 9 steps reconcile, including the Retrieve with ROE 0.5 + Markup 100/pax + Service Charge 150
+− Discount 300, Costing (Net = supplier total, Profit 450), and all five reports with the wallet delta 7,849,943.19 → 7,831,767.19.
+Attempt 1 hit the duplicate-passenger guard (409, same names as P6MVJA), which the **UI did not surface**. Use **unique
+passenger names per booking** from now on. Admin notes: Sales "Total Markup 0.00" vs Profit 450; AR Ledger/Wallet History
+show the deduction under Credit; Agency Wallet "Last Transaction Date" stale. Log: `TC-ANC-004/00_execution_log.md`.
+Admin navigation: top tabs (Booking-Mid Office, Reports); sub-pages sit in the collapsible left `.side-menu`. Report Branch
+filters are `p-multiselect`; Agency Wallet needs Currency "Egyptian Pound". Next: TC-ANC-005 (Admin, round-trip with stop, DEL-DXB).
+Technique update: `pressSequentially` into `p-calendar` date fields works (no calendar clicking needed).
+MCP session refresh: rerun `save_session.js`, then `browser_close` and navigate — no `/mcp` reconnect needed.
+
+**§13.5 update — resolved: MCP with storage-state.** Scratchpad `save_session.js` calls
+`BrowserDriver.authenticate()` for `STG_PORTAL` and `ANCILLARIES_STG` and writes a merged
+`mcp_storage_state.json` into the session scratchpad. `.mcp.json`'s playwright args gain
+`--storage-state <that path>` (a **local-only edit — do not commit it**; the path is per machine and per
+session). When tokens expire, rerun the script and `/mcp` reconnect.
 
 ### 13.4 Reusable technique notes (PrimeNG quirks) — don't re-derive these from scratch
 
