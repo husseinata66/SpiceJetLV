@@ -836,21 +836,37 @@ for much cheaper recovery from mid-flow failures.
 
 ### 13.6 Exact next steps, in order (updated 2026-10-01)
 
-**Status: 5 of 6 E2E scenarios done.** TC-ANC-002 (Portal, one-way w/ stop, DEL-DXB), TC-ANC-003
+**Status: all 6 of 6 E2E scenarios done.** TC-ANC-002 (Portal, one-way w/ stop, DEL-DXB), TC-ANC-003
 (Portal, round-trip non-stop, BOM-COK), TC-ANC-004 (Admin, one-way non-stop, BOM-COK), TC-ANC-005
-(Admin, round-trip w/ stop, DEL-DXB), and TC-ANC-034 (Admin, one-way, no ancillaries, boundary case,
-DEL-DXB) are all **proposed Passed**, fully reconciled through all 9 checkpoints each. Remaining:
+(Admin, round-trip w/ stop, DEL-DXB), TC-ANC-034 (Admin, one-way, no ancillaries, boundary case,
+DEL-DXB), and TC-ANC-035 (Portal, round-trip, ancillaries onward-leg-only, boundary case, DEL-DXB) are
+all **proposed Passed**, fully reconciled through all of their own checkpoints. Remaining:
 
-1. Execute the final E2E scenario: **TC-ANC-035** (Portal, round-trip, ancillaries onward-leg-only,
-   boundary case).
-2. Execute the remaining Atomic/Scenario cases (12 of which carry Notes pointing to which E2E case's
+1. Execute the remaining Atomic/Scenario cases (12 of which carry Notes pointing to which E2E case's
    evidence they can reuse instead of a fresh booking — see the test suite itself).
-3. TC-ANC-026 stays `Excluded`/unexecuted until FINDING-012 (Statement report) is actually fixed.
-4. Only once every `Approved` case has a recorded result: produce the terminal Stage 4M deliverables
+2. TC-ANC-026 stays `Excluded`/unexecuted until FINDING-012 (Statement report) is actually fixed.
+3. Only once every `Approved` case has a recorded result: produce the terminal Stage 4M deliverables
    — `manual_execution/ManualExecutionResults.md`, `ManualExecutionSummary.md`,
    `ManualTestResults.csv`, `ManualQAReport.md` (+ `.report.json` + generated `.html`) — none of these
    exist yet; they are a single finished-state write per the skill spec, not something to checkpoint
    partway through.
+
+**TC-ANC-035 (Portal) executed 2026-10-01 — proposed Passed.** PNR **S13GWS**,
+`AGN9808NDCNDCORD2610018SZQCK`, 35,281 EGP, round-trip DEL-DXB (1 stop each way), 1A/1C/1I (2A/2C/2I
+returned no offers). Meal+Baggage selected **onward only**; every checkpoint confirms zero
+carry-over to the return leg — confirmation shows ancillaries tied only to the onward flight numbers,
+My Bookings' Segment Ancillaries explicitly labels the return journey **"No Ancillaries"**, Costing
+shows Total SSR exactly 7,600 EGP (Meal 800 + Baggage 6,800), reports match. **Answers the test case's
+own open question**: Baggage (Per-Journey, ANC-48/FINDING-002) CAN be selected onward-only/
+asymmetrically on a round trip — confirmed independent per direction, not whole-journey-forced.
+**Defect A generalizes again**: supplier retrieve itemization undercounts a repeated ancillary code
+even when the repeats are two legs of the *same* direction (not only onward-vs-return) — and this
+time the undercount also corrupted the per-passenger `paxTotalAncillaryAmount` field, not just the
+itemized list; the booking-level aggregate stayed correct. No Markup on Base fare (Portal booking,
+consistent with TC-ANC-003). Log: `TC-ANC-035/00_execution_log.md`.
+
+**Next: the remaining Atomic/Scenario cases** (per the test suite's own Notes on evidence reuse),
+then the terminal Stage 4M deliverables once every `Approved` case has a result.
 
 **TC-ANC-034 (Admin) executed 2026-10-01 — proposed Passed.** PNR **H9ZK7E**,
 `BRN297NDCORD261001JQUISB`, 24,742 EGP, one-way DEL-DXB (1 stop), 2A/2C/2I returned 200 offers
