@@ -834,21 +834,30 @@ everything before it. Worth deciding at the start of tomorrow's session whether 
 MCP-tool-driven execution for the remaining checkpoints/test cases, trading more individual tool calls
 for much cheaper recovery from mid-flow failures.
 
-### 13.6 Exact next steps, in order
+### 13.6 Exact next steps, in order (updated 2026-10-01)
 
-1. On the new computer: `git fetch && git checkout ancillaries-airindia-run007`, copy
-   `credentials.json` into place by hand (§13.2), run `npm install`, connect the Playwright MCP server
-   (`/mcp`).
-2. Decide script-vs-MCP-tools for execution (§13.5) before starting.
-3. Finish TC-ANC-002's four remaining checkpoints (§13.3) and disposition the Bundle-naming finding.
-4. Execute the remaining five E2E scenarios: TC-ANC-003 (Portal, round-trip non-stop, BOM-COK),
-   TC-ANC-004 (Admin, one-way non-stop, BOM-COK), TC-ANC-005 (Admin, round-trip with stop, DEL-DXB),
-   TC-ANC-034, TC-ANC-035.
-5. Execute the remaining Atomic/Scenario cases (12 of which carry Notes pointing to which E2E case's
+**Status: 4 of 6 E2E scenarios done.** TC-ANC-002 (Portal, one-way w/ stop, DEL-DXB), TC-ANC-003
+(Portal, round-trip non-stop, BOM-COK), TC-ANC-004 (Admin, one-way non-stop, BOM-COK), and TC-ANC-005
+(Admin, round-trip w/ stop, DEL-DXB) are all **proposed Passed**, fully reconciled through all 9
+checkpoints each. Remaining:
+
+1. Execute the final two E2E scenarios: **TC-ANC-034** (Admin, one-way, no ancillaries, boundary case)
+   and **TC-ANC-035** (Portal, round-trip, ancillaries onward-leg-only, boundary case).
+2. Execute the remaining Atomic/Scenario cases (12 of which carry Notes pointing to which E2E case's
    evidence they can reuse instead of a fresh booking — see the test suite itself).
-6. TC-ANC-026 stays `Excluded`/unexecuted until FINDING-012 (Statement report) is actually fixed.
-7. Only once every `Approved` case has a recorded result: produce the terminal Stage 4M deliverables
+3. TC-ANC-026 stays `Excluded`/unexecuted until FINDING-012 (Statement report) is actually fixed.
+4. Only once every `Approved` case has a recorded result: produce the terminal Stage 4M deliverables
    — `manual_execution/ManualExecutionResults.md`, `ManualExecutionSummary.md`,
    `ManualTestResults.csv`, `ManualQAReport.md` (+ `.report.json` + generated `.html`) — none of these
    exist yet; they are a single finished-state write per the skill spec, not something to checkpoint
    partway through.
+
+**Defect A has grown in scope** (§13.3/TC-ANC-023): the supplier retrieve endpoint's itemized
+`passengerAncillaries` list undercounts any ancillary code that repeats across multiple
+segments/directions — originally found for Meal only, now also confirmed for Baggage and Bundle on
+TC-ANC-005's round-trip. Carry this as one defect against the Retrieve mapping, not several.
+
+**MCP session refresh procedure, confirmed working**: when the Admin/Portal session genuinely expires
+(not just a load-race), rerun `save_session.js` (may need 1-2 retries — known transient login
+flakiness), then `browser_close` + `navigate` — no `/mcp` reconnect needed, since the storage-state
+*file* is what gets re-read, and the arg path doesn't change.
