@@ -885,10 +885,44 @@ explicit disposition). The remaining 4 needed one new live Portal booking (one-w
   — re-open once that call is made.
 
 **Status: 26 of 27 cases now have a recorded result — only TC-ANC-026 remains Excluded/Pending**
-(Statement report defect, FINDING-012, still open). **Next: the terminal Stage 4M deliverables**
-(`ManualExecutionResults.md`, `ManualExecutionSummary.md`, `ManualTestResults.csv`, `ManualQAReport.md`
-+ `.report.json` + `.html`) — per the skill spec, a single finished-state write now that every
-`Approved` case has a result (TC-ANC-026 stays `Excluded`, reported but not executed).
+(Statement report defect, FINDING-012, still open).
+
+**Update 2026-10-03: Stage 4M terminal deliverables produced — this branch's work is complete
+pending reviewer approval.** All four required artifacts written under
+`manual_execution/`: `ManualExecutionResults.md`, `ManualExecutionSummary.md`, `ManualTestResults.csv`,
+`ManualQAReport.md` (+ `.report.json` + `.html`, built via `report_builder`, validated clean — 27 test
+cases, 6 categories, 3 sections).
+
+**Terminal classification reconciliation (important — read before trusting any single test case's
+earlier "Proposed Passed" note in isolation):** each live execution session proposed a per-booking
+status reflecting that booking's own system-side consistency. At this terminal synthesis stage, Defect
+A's full cross-run pattern (the supplier retrieve endpoint's itemization undercounts any ancillary code
+repeated for a passenger, confirmed on 5 independent bookings: Z33F4Z, P6MVJA, MSK5XB, S13GWS, plus
+TC-ANC-023's own 3-PNR investigation) was applied strictly against the Result Classification rules
+(manual-execution-skill §8): **TC-ANC-022** — whose sole purpose is exactly this retrieve-endpoint
+comparison — is reclassified **Failed** (it was never formally dispositioned case-by-case before now).
+TC-ANC-002/003/005/035 remain **Passed** (their own primary six-checkpoint business-flow assertion held
+in full; Defect A is carried as a documented, cross-referenced defect in their own entries, consistent
+with how the independently-observed Bundle-label bracket glitch was already handled under TC-ANC-002
+during execution). TC-ANC-004/034 are unaffected (no repeated ancillary code in either booking, so
+Defect A never manifests — clean control cases).
+
+**Final suite result: 24 Passed · 1 Failed (TC-ANC-022, Defect A, Medium/P2) · 1 Inconclusive
+(TC-ANC-027, Wallet History labeling — product decision explicitly deferred by the user) · 1 Excluded
+(TC-ANC-026, Pending Review) · 0 Blocked/Skipped/Not Executed.** Pass rate 24/26 = 92.3% of executable
+scope; authorized coverage 26/27 = 96.3% of the suite. Full defect write-ups (15-section Defect
+Documentation Standard) for Defect A and the Wallet History observation are in
+`ManualExecutionResults.md` §3.1.
+
+**Recommendations carried into the QA Report:** (1) fix Defect A's NDC integration service mapping,
+then re-execute TC-ANC-022; (2) obtain the deferred Wallet History labeling decision, then re-execute
+TC-ANC-027; (3) fix FINDING-012, move TC-ANC-026's `Review` to `Approved`, then execute it; (4) low
+priority — fix the Bundle Services label's stray `[` bracket.
+
+**Next step belongs to the human reviewer**, per this skill's own closing-message convention: approve
+the delivery as-is, request a re-run of the Failed/Inconclusive cases once their underlying items are
+resolved, or send feedback back to Test Design. This stage has no downstream skill — it is the Manual
+pipeline's terminal stage (`pipeline.md` §3.3).
 
 **TC-ANC-034 (Admin) executed 2026-10-01 — proposed Passed.** PNR **H9ZK7E**,
 `BRN297NDCORD261001JQUISB`, 24,742 EGP, one-way DEL-DXB (1 stop), 2A/2C/2I returned 200 offers

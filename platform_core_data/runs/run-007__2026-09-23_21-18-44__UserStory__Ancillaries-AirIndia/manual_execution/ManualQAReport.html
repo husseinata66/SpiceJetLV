@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ancillaries/AirIndia — Manual QA Report</title>
+<style>
+  :root{
+    color-scheme: light;
+    --paper:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAEEF4;
+    --ink:#10151F; --ink-2:#45536B; --ink-muted:#7C8AA0;
+    --line:#DDE3EC; --line-strong:#C6CEDC;
+    --accent:#2A78D6; --accent-ink:#1C5CAB; --accent-wash:#E4EEFA;
+    --good:#0CA30C; --warning:#C98A17; --serious:#D9673C; --critical:#D03B3B;
+    --good-wash:rgba(12,163,12,0.12); --warning-wash:rgba(250,178,25,0.16);
+    --serious-wash:rgba(236,131,90,0.14); --critical-wash:rgba(208,59,59,0.12);
+    --shadow:rgba(16,21,31,0.08);
+    --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --font-mono:ui-monospace,"SF Mono","Cascadia Code","Roboto Mono",Consolas,"Courier New",monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --paper:#0A0E15; --surface:#111826; --surface-2:#16202F;
+      --ink:#EDF1F7; --ink-2:#B7C2D1; --ink-muted:#8290A6;
+      --line:#232E40; --line-strong:#324058;
+      --accent:#3987E5; --accent-ink:#8FBBEF; --accent-wash:#152A45;
+      --good:#35C24A; --warning:#E3A730; --serious:#E88A5E; --critical:#EA5B5B;
+      --good-wash:rgba(53,194,74,0.16); --warning-wash:rgba(227,167,48,0.16);
+      --serious-wash:rgba(232,138,94,0.16); --critical-wash:rgba(234,91,91,0.18);
+      --shadow:rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --paper:#0A0E15; --surface:#111826; --surface-2:#16202F;
+    --ink:#EDF1F7; --ink-2:#B7C2D1; --ink-muted:#8290A6;
+    --line:#232E40; --line-strong:#324058;
+    --accent:#3987E5; --accent-ink:#8FBBEF; --accent-wash:#152A45;
+    --good:#35C24A; --warning:#E3A730; --serious:#E88A5E; --critical:#EA5B5B;
+    --good-wash:rgba(53,194,74,0.16); --warning-wash:rgba(227,167,48,0.16);
+    --serious-wash:rgba(232,138,94,0.16); --critical-wash:rgba(234,91,91,0.18);
+    --shadow:rgba(0,0,0,0.5);
+  }
+  :root[data-theme="light"]{
+    color-scheme: light;
+    --paper:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAEEF4;
+    --ink:#10151F; --ink-2:#45536B; --ink-muted:#7C8AA0;
+    --line:#DDE3EC; --line-strong:#C6CEDC;
+    --accent:#2A78D6; --accent-ink:#1C5CAB; --accent-wash:#E4EEFA;
+    --good:#0CA30C; --warning:#C98A17; --serious:#D9673C; --critical:#D03B3B;
+    --good-wash:rgba(12,163,12,0.12); --warning-wash:rgba(250,178,25,0.16);
+    --serious-wash:rgba(236,131,90,0.14); --critical-wash:rgba(208,59,59,0.12);
+    --shadow:rgba(16,21,31,0.08);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--paper); color:var(--ink); font-family:var(--font-sans);
+        font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation-duration:.001ms !important; transition-duration:.001ms !important; } }
+  a{ color:var(--accent-ink); }
+  .wrap{ max-width:960px; margin:0 auto; padding:32px 20px 80px; }
+  .dashboard-card{ background:var(--surface); border:1px solid var(--line-strong); border-radius:24px; padding:24px; }
+  code,.mono{ font-family:var(--font-mono); font-size:.92em; }
+  .header{ display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:24px; }
+  .header-main{ flex:1 1 auto; min-width:280px; }
+  .header h1{ font-size:32px; font-weight:800; margin:0 0 8px; }
+  .header .meta{ color:var(--ink-muted); font-size:13px; }
+  .pill{ display:inline-flex; align-items:center; gap:6px; padding:6px 18px; border-radius:999px; font-size:12px; font-weight:700; letter-spacing:.03em; border:1px solid transparent; }
+  .pill-complete{ background:var(--good-wash); color:var(--good); border-color:var(--good); }
+  .pill-interrupted{ background:var(--critical-wash); color:var(--critical); }
+  .section-num{ font-size:17px; font-weight:700; color:var(--ink); margin:32px 0 14px; text-transform:none; letter-spacing:normal; border-bottom:none; padding-bottom:0; }
+  .summary-layout{ display:flex; align-items:center; gap:36px; flex-wrap:wrap; margin-bottom:28px; }
+  .donut-block{ display:flex; align-items:center; gap:20px; flex-shrink:0; }
+  .stats-block{ flex:1 1 360px; min-width:280px; display:flex; flex-direction:column; gap:14px; }
+  .scard{ text-align:center; }
+  .scard .lbl{ font-size:15px; font-weight:700; color:var(--ink-muted); margin-top:4px; }
+  .scard .val{ font-size:24px; font-weight:700; color:var(--ink); }
+  .scard .val.pass{ color:var(--good); }
+  .scard .val.fail{ color:var(--critical); }
+  .scard .val.blocked{ color:var(--serious); }
+  .scard .val.accent{ color:var(--accent-ink); }
+  .scard-total .lbl{ font-size:17px; margin-top:6px; }
+  .scard-total .val{ font-size:28px; }
+  summary.section-summary-flex > .section-count-badges,
+  summary.section-summary-flex > .section-count-badge{ float:right; }
+  .section-count-badge{ display:flex; flex-direction:column; align-items:center; justify-content:center;
+      background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; padding:6px 20px;
+      text-transform:none; letter-spacing:normal; flex-shrink:0; }
+  .section-count-badge .scb-val{ font-size:20px; font-weight:700; color:var(--accent-ink); line-height:1.2; }
+  .section-count-badge .scb-lbl{ font-size:11px; color:var(--ink-muted); margin-top:1px; }
+  .section-count-badges{ display:flex; gap:10px; flex-shrink:0; }
+  .scb-val.serious{ color:var(--serious); }
+  .scb-val.accent{ color:var(--accent-ink); }
+  .summary-cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; }
+  .donut{ width:280px; height:280px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .donut-hole{ width:190px; height:190px; border-radius:50%; background:var(--paper); display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .donut-pct{ font-size:34px; font-weight:800; color:var(--ink); }
+  .donut-sub{ font-size:15px; color:var(--ink-muted); }
+  .donut-legend{ display:flex; flex-direction:column; gap:10px; }
+  .litem{ display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-2); white-space:nowrap; }
+  .litem .lcount{ margin-left:4px; color:var(--ink-muted); }
+  .swatch{ width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+  .swatch.pass{ background:var(--good); }
+  .swatch.fail{ background:var(--critical); }
+  .swatch.blocked{ background:var(--serious); }
+  h2{ font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-2);
+      border-bottom:1px solid var(--line); padding-bottom:6px; margin:32px 0 12px; }
+  .section-collapse{ margin:0; }
+  .section-collapse > summary{ font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-2);
+      border-bottom:1px solid var(--line); padding-bottom:6px; margin:32px 0 12px; cursor:pointer; }
+  .section-collapse > summary::-webkit-details-marker{ color:var(--ink-muted); }
+  .tc-section > summary{ margin-top:0; }
+  .tc-category{ background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; margin-bottom:10px; }
+  .tc-category > summary{ display:flex; align-items:center; gap:10px; padding:14px 16px; cursor:pointer; list-style:none; }
+  .tc-category > summary::-webkit-details-marker{ display:none; }
+  .cat-icon{ font-size:16px; flex-shrink:0; width:22px; display:inline-flex; align-items:center; justify-content:center; }
+  .cat-name{ font-weight:700; color:var(--ink); flex-shrink:0; }
+  .cat-counts{ display:flex; gap:14px; margin-left:auto; font-size:12px; }
+  .cc{ font-weight:600; }
+  .cc.pass{ color:var(--good); }
+  .cc.fail{ color:var(--critical); }
+  .cc.blocked{ color:var(--serious); }
+  .cat-chev{ display:inline-block; width:9px; flex-shrink:0; color:var(--ink-muted); font-size:10px; transition:transform .15s ease; }
+  .cat-chev::before{ content:'\25B8'; }
+  details.tc-category[open] > summary .cat-chev{ transform:rotate(90deg); }
+  .tc-category-body{ padding:0 16px 16px; }
+  .tc-category.cat-empty{ display:none; }
+  .tc-subhead{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:14px 0 8px; padding-bottom:4px; border-bottom:1px solid var(--line); }
+  .tc-subhead:first-child{ margin-top:4px; }
+  .tc-subhead-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+  .tc-subhead-label.pos{ color:var(--good); }
+  .tc-subhead-label.neg{ color:var(--critical); }
+  .tc-subhead-counts{ display:flex; gap:12px; font-size:11px; }
+  .tc{ background:var(--surface); border:1px solid var(--line-strong); border-left-width:4px; border-radius:12px; padding:16px 18px; margin-bottom:8px; }
+  .tc.PASS{ border-left-color:var(--good); }
+  .tc.FAIL{ border-left-color:var(--critical); }
+  .tc.BLOCKED{ border-left-color:var(--serious); }
+  .tc-head{ display:flex; justify-content:space-between; gap:10px; font-weight:600; }
+  .badge{ font-size:11px; font-weight:700; padding:2px 8px; border-radius:5px; }
+  .badge.PASS{ background:var(--good-wash); color:var(--good); }
+  .badge.FAIL{ background:var(--critical-wash); color:var(--critical); }
+  .badge.BLOCKED{ background:var(--serious-wash); color:var(--serious); }
+  .tc .row{ margin-top:6px; font-size:13px; color:var(--ink-2); overflow-wrap:anywhere; }
+  .tc .row b{ color:var(--ink); }
+  .view-tc-wrap{ margin-top:10px; }
+  .view-tc > summary{ display:block; text-align:right; color:var(--accent-ink); text-decoration:underline; cursor:pointer; font-size:12px; font-weight:600; list-style:none; }
+  .view-tc > summary::-webkit-details-marker{ display:none; }
+  .view-tc-body{ margin-top:8px; padding:14px 16px; background:var(--surface-2); border:1px solid var(--line); border-radius:8px; font-size:13px; }
+  .vtc-h{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-muted); margin:12px 0 4px; }
+  .vtc-h:first-child{ margin-top:0; }
+  .vtc-p{ color:var(--ink-2); overflow-wrap:anywhere; }
+  .vtc-steps{ margin:0; padding-left:18px; color:var(--ink-2); }
+  .vtc-steps li{ margin-bottom:4px; overflow-wrap:anywhere; }
+  details.evidence, details.hops{ margin-top:6px; }
+  details.evidence summary, details.hops summary{ cursor:pointer; font-size:12px; color:var(--accent-ink); }
+  details.evidence .ev-body{ margin-top:4px; padding:8px 10px; background:var(--surface-2); border-radius:6px; font-size:12px; overflow-wrap:anywhere; }
+  .hop{ padding:6px 0; border-top:1px solid var(--line); font-size:12px; }
+  .hop:first-child{ border-top:none; }
+  .hop-endpoint{ font-weight:600; color:var(--ink); }
+  .hop .hd{ color:var(--ink-muted); margin-top:2px; overflow-wrap:anywhere; }
+  .hop .hd.hop-reqres.js-hidden{ display:none; }
+  .hop-reqres-toggle{ margin-left:8px; font-size:11px; font-weight:600; color:var(--accent-ink); text-decoration:underline; cursor:pointer; }
+  .hop-reqres-panel{ margin-top:10px; display:flex; flex-direction:column; gap:18px; }
+  .hop-reqres-panel.js-hidden{ display:none; }
+  .rr-title{ font-size:15px; font-weight:700; color:var(--ink); margin-bottom:6px; }
+  .rr-line{ font-size:13px; color:var(--ink-2); margin-bottom:10px; font-family:var(--font-mono); overflow-wrap:anywhere; }
+  .rr-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-muted); margin:10px 0 6px; }
+  .rr-box{ background:#0B0E15; color:#D7DEE8; border-radius:10px; padding:14px 16px; font-family:var(--font-mono); font-size:12.5px; overflow:auto; }
+  .rr-headers-box .rr-h-line{ margin-bottom:14px; white-space:pre-wrap; overflow-wrap:anywhere; }
+  .rr-headers-box .rr-h-line:last-child{ margin-bottom:0; }
+  .rr-body-box{ max-height:340px; }
+  .rr-body-box pre{ margin:0; white-space:pre; }
+  .rr-redacted{ color:#8290A6; }
+  .rr-note{ font-size:11px; color:var(--ink-muted); font-style:italic; margin-top:6px; }
+  .tc-status-row{ display:flex; align-items:center; gap:10px; }
+  .tc-reqres-toggle{ margin-left:auto; }
+  .tc-reqres-panel{ margin-top:10px; display:flex; flex-direction:column; gap:18px; }
+  .tc-reqres-panel.js-hidden{ display:none; }
+  .rr-attempt-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--accent-ink); margin:0 0 4px; }
+  .finding{ border-radius:12px; padding:10px 12px; margin-bottom:8px; font-size:13px; overflow-wrap:anywhere; }
+  .finding.defect{ background:var(--serious-wash); border:1px solid var(--serious); }
+  .finding.unknown_resolution{ background:var(--accent-wash); border:1px solid var(--accent); }
+  .finding .kind{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; }
+  .cleanup{ background:var(--warning-wash); border:1px solid var(--warning); border-radius:12px; padding:12px 14px; }
+  .cleanup ul{ margin:6px 0 0; padding-left:18px; }
+  .cleanup li{ margin-bottom:6px; overflow-wrap:anywhere; }
+  .empty{ color:var(--ink-muted); font-size:13px; font-style:italic; }
+.meta-card{ margin-top:8px; }
+.fields{ display:flex; flex-direction:column; gap:4px; margin:4px 0 6px; }
+.fields.run-meta{ margin-top:10px; padding-top:10px; border-top:1px solid var(--line); }
+.field-row{ display:flex; flex-wrap:wrap; gap:4px 28px; }
+.field{ font-size:14px; display:flex; gap:6px; }
+.field .k{ color:var(--ink-2); font-weight:700; font-size:15px; letter-spacing:normal; text-transform:none; flex-shrink:0; }
+.field .k::after{ content:':'; }
+.field .v{ color:var(--ink); }
+.tc-actions{ display:flex; justify-content:flex-end; gap:8px; margin:32px 0 8px; }
+.tc-actions button{ padding:7px 12px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:12px; font-weight:600; cursor:pointer; }
+.tc-cat-actions{ display:flex; justify-content:flex-end; gap:8px; margin:4px 0 10px; }
+.tc-cat-actions button{ padding:5px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:11px; font-weight:600; cursor:pointer; }
+.tc-cat-actions button:hover{ background:var(--surface-2); }
+.tc-actions button:hover{ background:var(--surface-2); }
+.tc-toolbar{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:0 0 14px; position:sticky; top:0; z-index:5; }
+.tc-toolbar input[type="search"]{ flex:1 1 240px; min-width:180px; padding:7px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); font-size:13px; }
+.tc-toolbar select{ padding:7px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); font-size:13px; }
+.tc-toolbar button{ padding:7px 12px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:12px; font-weight:600; cursor:pointer; }
+.tc-toolbar button:hover{ background:var(--surface-2); }
+#tcResetFilters{ color:var(--critical); border-color:var(--critical); }
+#tcResetFilters:hover{ background:var(--critical-wash); }
+.tc-toolbar .tc-count{ font-size:12px; color:var(--ink-muted); margin-left:auto; white-space:nowrap; }
+details.tc > summary.tc-head{ cursor:pointer; list-style:none; }
+details.tc > summary.tc-head::-webkit-details-marker{ display:none; }
+.tc-head .chev{ display:inline-block; width:9px; flex-shrink:0; color:var(--ink-muted); font-size:10px; transition:transform .15s ease; align-self:center; }
+.tc-head .chev::before{ content:'\25B8'; }
+details.tc[open] > summary.tc-head .chev{ transform:rotate(90deg); }
+details.tc.js-hidden{ display:none; }
+.tc-no-results{ padding:28px 20px; text-align:center; color:var(--critical); font-size:18px; font-weight:700; background:var(--critical-wash); border:1px solid var(--critical); border-radius:12px; margin-bottom:10px; }
+.tc-no-results.js-hidden{ display:none; }
+
+/* --- Generated-report status tones ---------------------------------------
+   The reference report hardcoded PASS/FAIL/BLOCKED. Generated reports declare
+   their own status vocabulary and map each status to one of these tones, so a
+   Stage 5A "ERROR" or a Stage 6A "PARTIAL" colours correctly without new CSS. */
+.tc.tone-pass{ border-left-color:var(--good); }
+.tc.tone-fail{ border-left-color:var(--critical); }
+.tc.tone-blocked{ border-left-color:var(--serious); }
+.tc.tone-warning{ border-left-color:var(--warning); }
+.tc.tone-accent{ border-left-color:var(--accent); }
+.tc.tone-neutral{ border-left-color:var(--line-strong); }
+.badge.tone-pass{ background:var(--good-wash); color:var(--good); }
+.badge.tone-fail{ background:var(--critical-wash); color:var(--critical); }
+.badge.tone-blocked{ background:var(--serious-wash); color:var(--serious); }
+.badge.tone-warning{ background:var(--warning-wash); color:var(--warning); }
+.badge.tone-accent{ background:var(--accent-wash); color:var(--accent-ink); }
+.badge.tone-neutral{ background:var(--surface-2); color:var(--ink-muted); }
+.swatch.tone-pass{ background:var(--good); }
+.swatch.tone-fail{ background:var(--critical); }
+.swatch.tone-blocked{ background:var(--serious); }
+.swatch.tone-warning{ background:var(--warning); }
+.swatch.tone-accent{ background:var(--accent); }
+.swatch.tone-neutral{ background:var(--line-strong); }
+.cc.tone-pass{ color:var(--good); }
+.cc.tone-fail{ color:var(--critical); }
+.cc.tone-blocked{ color:var(--serious); }
+.cc.tone-warning{ color:var(--warning); }
+.cc.tone-accent{ color:var(--accent-ink); }
+.cc.tone-neutral{ color:var(--ink-muted); }
+.scard .val.tone-pass{ color:var(--good); }
+.scard .val.tone-fail{ color:var(--critical); }
+.scard .val.tone-blocked{ color:var(--serious); }
+.scard .val.tone-warning{ color:var(--warning); }
+.scard .val.tone-accent{ color:var(--accent-ink); }
+.scard .val.tone-neutral{ color:var(--ink); }
+.scb-val.tone-pass{ color:var(--good); }
+.scb-val.tone-fail{ color:var(--critical); }
+.scb-val.tone-blocked{ color:var(--serious); }
+.scb-val.tone-warning{ color:var(--warning); }
+.scb-val.tone-accent{ color:var(--accent-ink); }
+.scb-val.tone-neutral{ color:var(--ink-muted); }
+.finding.tone-fail{ background:var(--critical-wash); border:1px solid var(--critical); }
+.finding.tone-blocked{ background:var(--serious-wash); border:1px solid var(--serious); }
+.finding.tone-warning{ background:var(--warning-wash); border:1px solid var(--warning); }
+.finding.tone-accent{ background:var(--accent-wash); border:1px solid var(--accent); }
+.finding.tone-pass{ background:var(--good-wash); border:1px solid var(--good); }
+.finding.tone-neutral{ background:var(--surface-2); border:1px solid var(--line-strong); }
+.finding .fkv{ margin-top:4px; }
+.finding .fkv b{ color:var(--ink); }
+.notes-block{ font-size:13px; color:var(--ink-2); }
+.notes-block p{ margin:0 0 8px; overflow-wrap:anywhere; }
+.notes-block ul{ margin:0 0 8px; padding-left:18px; }
+.notes-block li{ margin-bottom:4px; overflow-wrap:anywhere; }
+.rr-attempt-label + .rr-title{ margin-top:0; }
+.rr-response-title{ margin-top:18px; }
+.pill.tone-pass{ background:var(--good-wash); color:var(--good); border-color:var(--good); }
+.pill.tone-fail{ background:var(--critical-wash); color:var(--critical); border-color:var(--critical); }
+.pill.tone-blocked{ background:var(--serious-wash); color:var(--serious); border-color:var(--serious); }
+.pill.tone-warning{ background:var(--warning-wash); color:var(--warning); border-color:var(--warning); }
+.pill.tone-accent{ background:var(--accent-wash); color:var(--accent-ink); border-color:var(--accent); }
+.pill.tone-neutral{ background:var(--surface-2); color:var(--ink-muted); border-color:var(--line-strong); }
+</style>
+</head><body><div class="wrap">
+<div class="header"><div class="header-main">
+<h1>Manual QA Report — Ancillaries / Air India</h1>
+</div><div><span class="pill tone-warning">PENDING REVIEW</span></div></div>
+<div class="meta-card dashboard-card">
+<div class="fields">
+<div class="field"><span class="k">Run Folder</span><span class="v"><span class="mono">run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia</span></span></div>
+<div class="field"><span class="k">Run Scope</span><span class="v">Feature / User Story — Ancillaries / Air India</span></div>
+<div class="field-row"><div class="field"><span class="k">Admin environment</span><span class="v"><span class="mono">http://192.168.1.213 (Staging)</span></span></div>
+<div class="field"><span class="k">Portal environment</span><span class="v"><span class="mono">http://192.168.1.213:9500 (Staging)</span></span></div></div>
+<div class="field"><span class="k">Execution window</span><span class="v">2026-09-28 19:00 UTC → 2026-10-03 00:07 UTC</span></div>
+<div class="field"><span class="k">Browser mode</span><span class="v">Headed (Playwright MCP) — required for this stage</span></div>
+</div>
+<div class="fields run-meta">
+<div class="field"><span class="k">Executable scope</span><span class="v">26 of 27 cases (Review = Approved)</span></div>
+<div class="field"><span class="k">Excluded</span><span class="v">1 — TC-ANC-026, reason: Pending Review</span></div>
+</div>
+</div>
+<h2 class="section-num">1. Executive Summary</h2>
+<div class="summary-layout">
+<div class="donut-block">
+<div class="donut" style="background:conic-gradient(var(--good) 0% 88.89%, var(--critical) 88.89% 92.59%, var(--accent) 92.59% 96.3%, var(--line-strong) 96.3% 100%)">
+<div class="donut-hole"><div class="donut-pct">92.3%</div><div class="donut-sub">pass rate (executable scope, 24/26)</div></div>
+</div>
+<div class="donut-legend">
+<div class="litem"><span class="swatch tone-pass"></span>Passed <span class="lcount">24 / 27</span></div>
+<div class="litem"><span class="swatch tone-fail"></span>Failed <span class="lcount">1 / 27</span></div>
+<div class="litem"><span class="swatch tone-blocked"></span>Blocked <span class="lcount">0 / 27</span></div>
+<div class="litem"><span class="swatch tone-warning"></span>Skipped <span class="lcount">0 / 27</span></div>
+<div class="litem"><span class="swatch tone-neutral"></span>Not Executed <span class="lcount">0 / 27</span></div>
+<div class="litem"><span class="swatch tone-accent"></span>Inconclusive <span class="lcount">1 / 27</span></div>
+<div class="litem"><span class="swatch tone-neutral"></span>Excluded <span class="lcount">1 / 27</span></div>
+</div>
+</div>
+<div class="stats-block">
+<div class="scard scard-total dashboard-card"><div class="val">27</div><div class="lbl">Suite Total</div></div>
+<div class="summary-cards">
+<div class="scard dashboard-card"><div class="val tone-pass">24</div><div class="lbl">Passed</div></div>
+<div class="scard dashboard-card"><div class="val tone-fail">1</div><div class="lbl">Failed</div></div>
+<div class="scard dashboard-card"><div class="val tone-blocked">0</div><div class="lbl">Blocked</div></div>
+<div class="scard dashboard-card"><div class="val tone-warning">0</div><div class="lbl">Skipped</div></div>
+<div class="scard dashboard-card"><div class="val tone-neutral">0</div><div class="lbl">Not Executed</div></div>
+<div class="scard dashboard-card"><div class="val tone-accent">1</div><div class="lbl">Inconclusive</div></div>
+<div class="scard dashboard-card"><div class="val tone-neutral">1</div><div class="lbl">Excluded</div></div>
+</div>
+<div class="scard scard-total dashboard-card"><div class="val">2026-09-28 → 2026-10-03</div><div class="lbl">Execution Window</div></div>
+</div>
+</div>
+<div class="tc-actions">
+<button type="button" id="tcExpandAll">Expand all</button>
+<button type="button" id="tcCollapseAll">Collapse all</button>
+</div>
+<details class="section-collapse tc-section" open>
+<summary>Test case results</summary>
+<div class="tc-toolbar dashboard-card">
+<input type="search" id="tcSearch" placeholder="Search by Test Case ID, title, PNR...">
+<select id="tcStatusFilter">
+<option value="">All statuses</option>
+<option value="Passed">Passed</option>
+<option value="Failed">Failed</option>
+<option value="Blocked">Blocked</option>
+<option value="Skipped">Skipped</option>
+<option value="Not Executed">Not Executed</option>
+<option value="Inconclusive">Inconclusive</option>
+<option value="Excluded">Excluded</option>
+</select>
+<select id="tcCategoryFilter">
+<option value="">All categories</option>
+<option value="flow">Six-checkpoint E2E</option>
+<option value="boundary">Boundary / Edge cases</option>
+<option value="business-rule">Business Rules (wallet, mid-flow edits)</option>
+<option value="integration">Supplier Retrieve-Endpoint Integration</option>
+<option value="usability">Exploratory / UX judgment</option>
+<option value="positive">Atomic / desk-reviewed (evidence reused)</option>
+</select>
+<button type="button" id="tcResetFilters">Reset</button>
+<span id="tcCount" class="tc-count"></span>
+</div>
+<div id="tcNoResults" class="tc-no-results js-hidden">No test cases match your search. Try a different keyword, or clear the search/filters above.</div>
+<details class="tc-category" data-cat="flow" open>
+<summary><span class="cat-icon">✈️</span><span class="cat-name">Six-checkpoint E2E</span><span class="cat-counts"><span class="cc tone-pass">4 passed</span><span class="cc tone-fail">0 failed</span><span class="cc tone-blocked">0 blocked</span><span class="cc tone-warning">0 skipped</span><span class="cc tone-neutral">0 not executed</span><span class="cc tone-accent">0 inconclusive</span><span class="cc tone-neutral">0 excluded</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-002</span> - One-way, with stop, ancillaries selected (Portal) — six-checkpoint E2E</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Booking:</b> PNR Z33F4Z · Booking Ref NDCEG-BR-F260928ABwtpA · 45,692 EGP</div>
+<div class="row"><b>Result:</b> Every checkpoint consistent; Infant exclusion and Meal-per-leg/Baggage-per-journey rules hold exactly</div>
+<div class="row"><b>Carried defects:</b> Defect A (see TC-ANC-022); Low-severity Bundle label bracket glitch (see Known Limitations)</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-002/ (12 files: screenshots, redacted retrieve JSON, DOM snapshots)</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Preconditions</div><div class="vtc-p">Portal user logged in as Agency AGN9808</div><div class="vtc-h">Test Data</div><div class="vtc-p">Route DEL-DXB (1 stop), one-way, 2 Adult/2 Child/2 Infant</div><div class="vtc-h">Steps</div><ol class="vtc-steps"><li>Search and select flight</li><li>Complete PAX Details and Ancillaries (Meal+Baggage+Bundle)</li><li>Complete payment</li><li>Compare Confirmation, Supplier Retrieve, My Bookings, Costing, Reports</li></ol><div class="vtc-h">Expected Result</div><div class="vtc-p">Every checkpoint shows consistent data for this booking; Infant exclusion and Meal-per-leg/Baggage-per-journey rules hold exactly</div><div class="vtc-h">Priority</div><div class="vtc-p">P1</div><div class="vtc-h">Tags</div><div class="vtc-p">E2E, Smoke, Regression</div></div></details></div>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-003</span> - Round-trip, non-stop, ancillaries selected (Portal) — six-checkpoint E2E</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Booking:</b> PNR P6MVJA · Booking Ref NDCEG-BR-F260930MsiBuW · 35,854 EGP (attempt 3 of record)</div>
+<div class="row"><b>Result:</b> Answers round-trip Baggage scoping: once per direction (2 independent slots), not once for the whole trip</div>
+<div class="row"><b>Carried defects:</b> Defect A — return-direction ancillaries missing from the retrieve itemization</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-003/ (24 files across 3 attempts)</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Preconditions</div><div class="vtc-p">Portal user logged in as Agency AGN9808</div><div class="vtc-h">Test Data</div><div class="vtc-p">Route BOM-COK (round-trip), non-stop, 2 Adult/2 Child/2 Infant</div><div class="vtc-h">Steps</div><ol class="vtc-steps"><li>Search and select round-trip flights</li><li>Complete PAX Details and Ancillaries, both legs</li><li>Complete payment</li><li>Compare every checkpoint for both legs</li></ol><div class="vtc-h">Expected Result</div><div class="vtc-p">Every checkpoint consistent; the Baggage round-trip scoping question is answered and recorded</div><div class="vtc-h">Priority</div><div class="vtc-p">P1</div><div class="vtc-h">Tags</div><div class="vtc-p">E2E, Regression</div></div></details></div>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-004</span> - One-way, non-stop, ancillaries selected (Admin) — six-checkpoint E2E</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Booking:</b> PNR USCWVR · Booking Ref NDCEG-BR-F260930PldcAl · 18,176 EGP</div>
+<div class="row"><b>Result:</b> All checkpoints reconcile including Markup (+100 EGP/pax), Service Charge, Discount; control case for Defect A — no repeated code, itemization complete and correct</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-004/ (17 files)</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Preconditions</div><div class="vtc-p">Admin user logged in; a Branch is selected</div><div class="vtc-h">Test Data</div><div class="vtc-p">Route BOM-COK, one-way, non-stop, 2 Adult/2 Child/2 Infant</div><div class="vtc-h">Steps</div><ol class="vtc-steps"><li>Booking-Mid Office, select Branch</li><li>Search and select flight</li><li>PAX Details, Bundle, Ancillaries</li><li>Complete payment</li><li>Compare Confirmation, Supplier Retrieve, Search Booking, Costing, 5 Reports</li></ol><div class="vtc-h">Expected Result</div><div class="vtc-p">Every checkpoint consistent; Infant exclusion and Meal-per-leg/Baggage-per-journey rules hold</div><div class="vtc-h">Priority</div><div class="vtc-p">P1</div><div class="vtc-h">Tags</div><div class="vtc-p">E2E, Smoke, Regression</div></div></details></div>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-005</span> - Round-trip, with stop, ancillaries selected (Admin) — six-checkpoint E2E</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Booking:</b> PNR MSK5XB · Booking Ref NDCEG-BR-F261001XcqALn · 51,656 EGP</div>
+<div class="row"><b>Result:</b> Confirms Baggage once-per-direction on round trips; Markup/Service/Discount all reconcile</div>
+<div class="row"><b>Carried defects:</b> Defect A — Baggage and Bundle codes also undercounted on the return direction</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-005/ (10 files)</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Preconditions</div><div class="vtc-p">Admin user logged in; a Branch is selected</div><div class="vtc-h">Test Data</div><div class="vtc-p">Route DEL-DXB (round-trip, 1 stop), 2 Adult/2 Child/2 Infant (fallback to 1/1/1 used)</div><div class="vtc-h">Steps</div><ol class="vtc-steps"><li>Booking-Mid Office, select Branch</li><li>Search round-trip 1-stop flights</li><li>PAX Details, Bundle, Ancillaries, both legs</li><li>Complete payment</li><li>Compare every checkpoint</li></ol><div class="vtc-h">Expected Result</div><div class="vtc-p">Every checkpoint consistent; Baggage round-trip scoping question answered</div><div class="vtc-h">Priority</div><div class="vtc-p">P1</div><div class="vtc-h">Tags</div><div class="vtc-p">E2E, Regression</div></div></details></div>
+</details>
+</div>
+</details>
+<details class="tc-category" data-cat="boundary" open>
+<summary><span class="cat-icon">🧭</span><span class="cat-name">Boundary / Edge cases</span><span class="cat-counts"><span class="cc tone-pass">3 passed</span><span class="cc tone-fail">0 failed</span><span class="cc tone-blocked">0 blocked</span><span class="cc tone-warning">0 skipped</span><span class="cc tone-neutral">0 not executed</span><span class="cc tone-accent">0 inconclusive</span><span class="cc tone-neutral">0 excluded</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-009</span> - Each Infant is assigned to a distinct Adult passenger</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Assigning a second Infant to an already-held Adult is blocked with an inline &#39;This adult already assigned!&#39; error</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-009/01_duplicate_infant_assignment_blocked.png</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Preconditions</div><div class="vtc-p">PAX Details step open for a 2 Adult + 2 Infant booking</div><div class="vtc-h">Test Data</div><div class="vtc-p">PNR S61IHQ — one-way DEL-DXB, 2 Adult + 2 Infant</div><div class="vtc-h">Steps</div><ol class="vtc-steps"><li>Enter 2 Adults</li><li>Assign Infant 1 to Adult 1</li><li>Attempt to assign Infant 2 to Adult 1 also</li></ol><div class="vtc-h">Expected Result</div><div class="vtc-p">Each Infant accepted against a distinct Adult; the system blocks a second Infant on an Adult already holding one</div><div class="vtc-h">Priority</div><div class="vtc-p">P2</div><div class="vtc-h">Tags</div><div class="vtc-p">Atomic, Boundary</div></div></details></div>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-034</span> - One-way, no ancillaries selected for any passenger (Admin) — six-checkpoint E2E</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Booking:</b> PNR H9ZK7E · 24,742 EGP</div>
+<div class="row"><b>Result:</b> Zero-ancillary boundary handled cleanly at every checkpoint; ANC-55 Markup confirmed unconditional on ancillary selection</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-034/ (7 files)</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Test Data</div><div class="vtc-p">Route DEL-DXB, one-way, 1 stop, 2A/2C/2I, zero ancillaries</div><div class="vtc-h">Expected Result</div><div class="vtc-p">Booking completes with no ancillary charge anywhere; every checkpoint agrees</div><div class="vtc-h">Priority</div><div class="vtc-p">P2</div><div class="vtc-h">Tags</div><div class="vtc-p">E2E, Regression, Boundary</div></div></details></div>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-035</span> - Round-trip, ancillaries selected for the onward leg only (Portal) — six-checkpoint E2E</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Booking:</b> PNR S13GWS · 35,281 EGP</div>
+<div class="row"><b>Result:</b> Confirms Baggage CAN be selected onward-only on a round trip, with zero carry-over to the return leg</div>
+<div class="row"><b>Carried defects:</b> Defect A — within-direction repeat also undercounted; corrupted paxTotalAncillaryAmount on this booking</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-035/ (8 files)</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Test Data</div><div class="vtc-p">Route DEL-DXB (round-trip, 1 stop), onward-only Meal+Baggage</div><div class="vtc-h">Expected Result</div><div class="vtc-p">The system accepts an asymmetric, onward-only ancillary selection, charges only for what was selected</div><div class="vtc-h">Priority</div><div class="vtc-p">P2</div><div class="vtc-h">Tags</div><div class="vtc-p">E2E, Regression, Boundary</div></div></details></div>
+</details>
+</div>
+</details>
+<details class="tc-category" data-cat="business-rule" open>
+<summary><span class="cat-icon">📐</span><span class="cat-name">Business Rules (wallet, mid-flow edits)</span><span class="cat-counts"><span class="cc tone-pass">4 passed</span><span class="cc tone-fail">0 failed</span><span class="cc tone-blocked">0 blocked</span><span class="cc tone-warning">0 skipped</span><span class="cc tone-neutral">0 not executed</span><span class="cc tone-accent">0 inconclusive</span><span class="cc tone-neutral">0 excluded</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-015</span> - Portal wallet balance unchanged during selection, deducted exact total at confirmation</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Balance unchanged throughout selection (1,056,791.9 EGP); exact 18,422 EGP deduction confirmed via the Total Due to NDC report</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-015/</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Priority</div><div class="vtc-p">P1</div><div class="vtc-h">Tags</div><div class="vtc-p">Atomic, Regression</div></div></details></div>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-016</span> - Admin&#39;s Top Up Balance reduced by the exact booking total</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Top Up Balance before 7,849,943.19 → after 7,831,767.19, exactly minus the 18,176 EGP total (TC-ANC-004 evidence)</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-016/</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Priority</div><div class="vtc-p">P1</div><div class="vtc-h">Tags</div><div class="vtc-p">Atomic, Regression</div></div></details></div>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-018</span> - A selected ancillary can be changed or removed before booking, per passenger</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Changed Passenger 1&#39;s Meal (+75 EGP) and removed Passenger 2&#39;s Baggage (-900 EGP); each isolated to its own passenger, fare updated by exactly its own delta each time</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-018/01_before_change.png; artifacts/TC-ANC-018/02_after_change_and_remove.png</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Priority</div><div class="vtc-p">P2</div><div class="vtc-h">Tags</div><div class="vtc-p">Atomic, Regression</div></div></details></div>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-019</span> - A selected ancillary cannot be changed or removed after booking (Portal)</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Zero change/cancel/remove control found anywhere on the confirmed booking&#39;s detail page (reused TC-ANC-035&#39;s booking, S13GWS)</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-019/</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Priority</div><div class="vtc-p">P1</div><div class="vtc-h">Tags</div><div class="vtc-p">Atomic, Regression</div></div></details></div>
+</details>
+</div>
+</details>
+<details class="tc-category" data-cat="integration" open>
+<summary><span class="cat-icon">🔌</span><span class="cat-name">Supplier Retrieve-Endpoint Integration</span><span class="cat-counts"><span class="cc tone-pass">1 passed</span><span class="cc tone-fail">1 failed</span><span class="cc tone-blocked">0 blocked</span><span class="cc tone-warning">0 skipped</span><span class="cc tone-neutral">0 not executed</span><span class="cc tone-accent">0 inconclusive</span><span class="cc tone-neutral">0 excluded</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-fail" data-status="Failed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-022</span> - Supplier retrieve-endpoint data matches the booked selections (both channels)</span><span class="badge tone-fail">Failed</span></summary>
+<div class="row"><b>Expected:</b> Passenger and ancillary codes/amounts match the retrieve response directly</div>
+<div class="row"><b>Actual:</b> Per-passenger itemization undercounts any ancillary code repeated for that passenger — confirmed on 5/5 bookings with a repeat, 0/2 false positives on control bookings with no repeat</div>
+<div class="row"><b>Defect:</b> Defect A — see Findings below for the full write-up</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">Failed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-022/; artifacts/TC-ANC-023/; TC-ANC-003/R3_07_supplier_retrieve_response.json; TC-ANC-005/06_supplier_retrieve_response.json; TC-ANC-035/06_supplier_retrieve_response.json</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Preconditions</div><div class="vtc-p">A completed booking exists with its Airline PNR known; Postman/API access to the supplier retrieve endpoint</div><div class="vtc-h">Expected Result</div><div class="vtc-p">Passenger and ancillary data match the retrieve response directly; fare amounts match only after ROE + Markup are applied</div><div class="vtc-h">Priority</div><div class="vtc-p">P1</div><div class="vtc-h">Tags</div><div class="vtc-p">Scenario, Regression</div></div></details></div>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-023</span> - Investigate unexplained aggregate-total discrepancy in retrieve-endpoint data</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Root cause identified: Defect A — repeated-code itemization undercount, reproduced 3/3 PNRs (YSTPMB, Y1ZVFF, Z33F4Z)</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-023/</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Priority</div><div class="vtc-p">P2</div><div class="vtc-h">Tags</div><div class="vtc-p">Atomic, Exploratory</div></div></details></div>
+</details>
+</div>
+</details>
+<details class="tc-category" data-cat="usability" open>
+<summary><span class="cat-icon">🧪</span><span class="cat-name">Exploratory / UX judgment</span><span class="cat-counts"><span class="cc tone-pass">0 passed</span><span class="cc tone-fail">0 failed</span><span class="cc tone-blocked">0 blocked</span><span class="cc tone-warning">0 skipped</span><span class="cc tone-neutral">0 not executed</span><span class="cc tone-accent">1 inconclusive</span><span class="cc tone-neutral">0 excluded</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-accent" data-status="Inconclusive">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-027</span> - Confirm whether Wallet History Report&#39;s Credit/Debit labeling is intentional</span><span class="badge tone-accent">Inconclusive</span></summary>
+<div class="row"><b>Observation:</b> Start/End Balance rows appear under Debit; the actual money-out transaction appears under Credit — inverted from standard convention, reproduced 2/2 Admin bookings</div>
+<div class="row"><b>Decision:</b> Explicitly deferred by the reviewer — case cannot resolve to Passed/Failed until a product decision is made</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-accent">Inconclusive</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-027/00_execution_log.md</div></details>
+<div class="view-tc-wrap"><details class="view-tc"><summary>View Test Case</summary><div class="view-tc-body"><div class="vtc-h">Priority</div><div class="vtc-p">P3</div><div class="vtc-h">Tags</div><div class="vtc-p">Atomic, Exploratory</div></div></details></div>
+</details>
+</div>
+</details>
+<details class="tc-category" data-cat="positive" open>
+<summary><span class="cat-icon">✅</span><span class="cat-name">Atomic / desk-reviewed (evidence reused)</span><span class="cat-counts"><span class="cc tone-pass">12 passed</span><span class="cc tone-fail">0 failed</span><span class="cc tone-blocked">0 blocked</span><span class="cc tone-warning">0 skipped</span><span class="cc tone-neutral">0 not executed</span><span class="cc tone-accent">0 inconclusive</span><span class="cc tone-neutral">1 excluded</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-001</span> - Verify Admin Branch/Supplier/Credential configuration for AirIndia</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Supplier IndiaAirLine / Credential IndiaAirLineStg confirmed active on Branch BRN297</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-001/01_branch_product_access_flight_tab.png</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-006</span> - Book mixed passengers (2 ADT, 2 CHD, 2 INF) on Portal — Infant excluded from ancillaries</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Recorded from TC-ANC-002 evidence — only Adult/Child cards offered, no Infant row anywhere</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-006/00_execution_log.md</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-007</span> - Book mixed passengers (2 ADT, 2 CHD, 2 INF) on Admin — Infant excluded from ancillaries</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Recorded from TC-ANC-004/005 evidence — Infant rows blank for Meal/Seat/Bundle, no Extra Baggage entry</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-007/00_execution_log.md</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-008</span> - Adult and Child both receive full ancillary options</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Recorded from TC-ANC-002/003/004/005 — both passenger types show selectable Meal/Baggage/Bundle</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-008/00_execution_log.md</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-010</span> - ROE currency conversion arithmetic is correct</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> TC-ANC-035: Taxes 31,180 INR × 0.5 = 15,590 EGP exact; Base 24,182 × 0.5 = 12,091 EGP exact (Portal, zero Markup)</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-010/00_execution_log.md</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-011</span> - Markup folds into Base Fare, never shown as a separate line item</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> No &#39;Markup&#39; row ever shown on any Fare Details/Fare Breakdown screen across 6 bookings</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-011/00_execution_log.md</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-012</span> - Total price arithmetic is correct on Admin</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> TC-ANC-005: Base 12,391 + Taxes 15,590 + Service 75 + Meal 750 + Baggage 21,000 + Bundle 2,000 − Discount 150 = 51,656 exact</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-012/00_execution_log.md</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-014</span> - Bundle coexists with individually selected Meal/Baggage without conflict</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Bundle + Meal + Baggage each priced separately and summed correctly, no conflict (TC-ANC-005)</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-014/00_execution_log.md</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-020</span> - Booking Confirmation reflects all selected ancillaries per passenger (Portal)</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Recorded from TC-ANC-002&#39;s confirmation checkpoint</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-020/00_execution_log.md</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-021</span> - Itinerary independently reflects the same ancillaries (Portal)</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Recorded from TC-ANC-002&#39;s My Bookings/Segment Ancillaries checkpoint</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-021/00_execution_log.md</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-024</span> - Portal Total Due to NDC and Sales reports reflect the booking correctly</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Confirmed on 3 independent Portal bookings (TC-ANC-002/003/035)</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-024/00_execution_log.md</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-025</span> - Admin&#39;s five reports reflect the booking correctly</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Result:</b> Confirmed on 3 independent Admin bookings (TC-ANC-004/005/034)</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-025/00_execution_log.md</div></details>
+</details>
+<details class="tc tone-neutral" data-status="Excluded">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ANC-026</span> - Statement report reflects the booking correctly (Portal and Admin)</span><span class="badge tone-neutral">Excluded</span></summary>
+<div class="row"><b>Reason:</b> Pending Review — held back since Stage 3 pending FINDING-012 (confirmed Statement-report defect on both channels)</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-neutral">Excluded</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">—</div></details>
+</details>
+</div>
+</details>
+</details>
+<details class="section-collapse" id="section-defect-register" open>
+<summary class="section-summary-flex">Defect Register<span class="section-count-badges"><span class="section-count-badge"><span class="scb-val tone-fail">1</span><span class="scb-lbl">Confirmed defects</span></span><span class="section-count-badge"><span class="scb-val tone-accent">1</span><span class="scb-lbl">Pending decision</span></span></span></summary>
+<div class="finding tone-fail"><div class="kind">Defect</div>
+The supplier retrieve endpoint&#39;s per-passenger ancillary itemization undercounts any ancillary code repeated for that passenger (two legs of one direction, or two directions of a round trip) — e.g. a Meal charged on 2 legs at 200 EGP/leg is itemized as only 400 INR instead of 800 INR. The booking-level aggregate total remains correct in every case observed, so no customer-facing amount is wrong; only a per-passenger breakdown consumer would be misled. Reproduced on 5 independent bookings (PNRs YSTPMB, Y1ZVFF, Z33F4Z, P6MVJA, MSK5XB, S13GWS); confirmed absent on 2 control bookings with no repeated code. <span class="mono">(TC-ANC-022, TC-ANC-023, TC-ANC-002, TC-ANC-003, TC-ANC-005, TC-ANC-035)</span>
+<div class="fkv"><b>Category:</b> <code>Data Integrity</code></div>
+<div class="fkv"><b>Layer:</b> <code>Integration</code></div>
+<div class="fkv"><b>Severity:</b> Medium</div>
+<div class="fkv"><b>Priority:</b> <code>P2</code></div>
+<div class="fkv"><b>Reproducibility:</b> <code>Always</code></div>
+<div class="fkv"><b>Suspected Component:</b> <code>NDC integration service Retrieve mapping — passengerAncillaries itemization step</code></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-023/TC-ANC-023_investigation.md; artifacts/TC-ANC-003/R3_07_supplier_retrieve_response.json; artifacts/TC-ANC-005/06_supplier_retrieve_response.json; artifacts/TC-ANC-035/06_supplier_retrieve_response.json</div></details>
+</div>
+<div class="finding tone-accent"><div class="kind">Pending decision</div>
+Wallet History Report shows Start/End Balance rows under the &#39;Debit&#39; column while the actual money-out booking transaction appears under &#39;Credit&#39; — the inverse of standard accounting convention. The figures themselves are correct in every booking checked; only the column placement is in question. The reviewer was asked directly and explicitly chose to defer the decision, so this case stays Inconclusive rather than being forced to Passed or Failed. <span class="mono">(TC-ANC-027)</span>
+<div class="fkv"><b>Reproducibility:</b> <code>Always (2/2 bookings)</code></div>
+<div class="fkv"><b>Confirmed defect?:</b> No — awaiting product decision</div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC-ANC-004/16_report_wallet_history.png</div></details>
+</div>
+</details>
+<details class="section-collapse" id="section-known-limitations" open>
+<summary>Known Limitations</summary>
+<div class="notes-block">
+<p>Statement report (TC-ANC-026) could not be verified this pass — a confirmed defect (FINDING-012) makes it return zero rows on both channels; it is held Excluded until fixed.</p>
+<p>A direct live re-read of the post-booking Portal wallet balance widget was not captured for TC-ANC-015 — a transient network dropout interrupted a second attempt; the Total Due to NDC report&#39;s exact-match figure was used as equivalent evidence instead.</p>
+<p>A cosmetic label glitch on the Bundle Services field (&#39;[Xtra Pack&#39;, a stray unmatched bracket) was observed once during TC-ANC-002 — Low severity, display-only, no effect on data or amounts.</p>
+</div>
+</details>
+<details class="section-collapse" id="section-recommendations" open>
+<summary>Recommendations</summary>
+<div class="notes-block">
+<ul>
+<li>Fix the NDC integration service&#39;s Retrieve mapping so a repeated ancillary code itemizes correctly per occurrence, then re-execute TC-ANC-022.</li>
+<li>Obtain the deferred product decision on Wallet History&#39;s Debit/Credit labeling, then re-execute TC-ANC-027 to a definite outcome.</li>
+<li>Fix FINDING-012 (Statement report), move TC-ANC-026&#39;s Review to Approved, then execute it.</li>
+<li>Low priority: fix the stray &#39;[&#39; in the Bundle Services label rendering.</li>
+</ul>
+</div>
+</details>
+</div><script>
+(function(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll('details.tc'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('details.section-collapse'));
+  var categories = Array.prototype.slice.call(document.querySelectorAll('details.tc-category'));
+  var search = document.getElementById('tcSearch');
+  var statusSel = document.getElementById('tcStatusFilter');
+  var categorySel = document.getElementById('tcCategoryFilter');
+  var countEl = document.getElementById('tcCount');
+  var noResultsEl = document.getElementById('tcNoResults');
+  var resetBtn = document.getElementById('tcResetFilters');
+  var expandBtn = document.getElementById('tcExpandAll');
+  var collapseBtn = document.getElementById('tcCollapseAll');
+
+  var hasToolbar = !!(search && statusSel && categorySel && countEl && noResultsEl);
+
+  function applyFilter(){
+    if (!hasToolbar) return;
+    var q = search.value.trim().toLowerCase();
+    var status = statusSel.value;
+    var category = categorySel.value;
+    var visible = 0;
+    cards.forEach(function(card){
+      var matchesStatus = !status || card.getAttribute('data-status') === status;
+      var matchesText = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
+      var matchesCategory = !category || card.closest('details.tc-category').getAttribute('data-cat') === category;
+      var show = matchesStatus && matchesText && matchesCategory;
+      card.classList.toggle('js-hidden', !show);
+      if (show) visible++;
+      if (show && q) card.open = true;
+    });
+    categories.forEach(function(cat){
+      var anyVisible = cat.querySelector('details.tc:not(.js-hidden)');
+      var matchesCategory = !category || cat.getAttribute('data-cat') === category;
+      cat.classList.toggle('cat-empty', !anyVisible || !matchesCategory);
+      if (anyVisible && matchesCategory && (q || status || category)) cat.open = true;
+    });
+    countEl.textContent = visible + ' / ' + cards.length + ' shown';
+    noResultsEl.classList.toggle('js-hidden', visible !== 0);
+  }
+
+  if (hasToolbar) {
+    search.addEventListener('input', applyFilter);
+    statusSel.addEventListener('change', applyFilter);
+    categorySel.addEventListener('change', applyFilter);
+  }
+  if (resetBtn) resetBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    search.value = '';
+    statusSel.value = '';
+    categorySel.value = '';
+    applyFilter();
+  });
+  if (expandBtn) expandBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    cards.forEach(function(c){ c.open = true; });
+    sections.forEach(function(s){ s.open = true; });
+    categories.forEach(function(c){ c.open = true; });
+  });
+  if (collapseBtn) collapseBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    cards.forEach(function(c){ c.open = false; });
+    sections.forEach(function(s){ s.open = false; });
+    categories.forEach(function(c){ c.open = false; });
+  });
+
+  categories.forEach(function(cat){
+    var catCards = Array.prototype.slice.call(cat.querySelectorAll('details.tc'));
+    var catExpandBtn = cat.querySelector('.tc-cat-expand');
+    var catCollapseBtn = cat.querySelector('.tc-cat-collapse');
+    if (catExpandBtn) catExpandBtn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      catCards.forEach(function(c){ c.open = true; });
+    });
+    if (catCollapseBtn) catCollapseBtn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      catCards.forEach(function(c){ c.open = false; });
+    });
+  });
+
+  applyFilter();
+
+  Array.prototype.slice.call(document.querySelectorAll('.hop')).forEach(function(hop){
+    var panel = hop.querySelector('.hop-reqres-panel');
+    var endpointSpan = hop.querySelector('.hop-endpoint');
+    var toggle = document.createElement('a');
+    toggle.href = '#';
+    toggle.className = 'hop-reqres-toggle';
+    toggle.textContent = 'View req & response';
+
+    if (panel) {
+      panel.classList.add('js-hidden');
+      toggle.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var hidden = panel.classList.toggle('js-hidden');
+        toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+      });
+      endpointSpan.parentNode.insertBefore(toggle, endpointSpan.nextSibling);
+      return;
+    }
+
+    var hds = Array.prototype.slice.call(hop.querySelectorAll('.hd'));
+    var reqEl = hds[0];
+    var resEl = hds[1];
+    if (!reqEl || !resEl) return;
+    reqEl.classList.add('hop-reqres', 'js-hidden');
+    resEl.classList.add('hop-reqres', 'js-hidden');
+    toggle.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var hidden = reqEl.classList.toggle('js-hidden');
+      resEl.classList.toggle('js-hidden', hidden);
+      toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+    });
+    endpointSpan.parentNode.insertBefore(toggle, endpointSpan.nextSibling);
+  });
+
+  Array.prototype.slice.call(document.querySelectorAll('.tc-reqres-anchor')).forEach(function(anchor){
+    var card = anchor.closest('details.tc');
+    var panel = card ? card.querySelector(':scope > .tc-reqres-panel') : null;
+    if (!panel) return;
+    panel.classList.add('js-hidden');
+    var toggle = document.createElement('a');
+    toggle.href = '#';
+    toggle.className = 'hop-reqres-toggle tc-reqres-toggle';
+    toggle.textContent = 'View req & response';
+    toggle.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var hidden = panel.classList.toggle('js-hidden');
+      toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+    });
+    anchor.parentNode.insertBefore(toggle, anchor.nextSibling);
+  });
+})();
+</script>
+</body></html>
