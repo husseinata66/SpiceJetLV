@@ -924,6 +924,29 @@ the delivery as-is, request a re-run of the Failed/Inconclusive cases once their
 resolved, or send feedback back to Test Design. This stage has no downstream skill — it is the Manual
 pipeline's terminal stage (`pipeline.md` §3.3).
 
+**Update 2026-10-03 (later): TC-ANC-036 added, executed, and accepted back into the suite —
+terminal deliverables regenerated.** User-directed ad-hoc verification: called the NDC integration
+service's own `Search`→`FareConfirm`→`AddPassenger`→`GetAncillary` chain directly (via the
+`NDC-INT-ANC` Postman collection the user added to
+`platform_core_data/supplier-features/ancillaries/` — **now gitignored, `*.postman_collection.json`,
+it carries hardcoded live API credentials as literal header values**), compared the raw ancillary
+catalog against an identical live Portal UI search. Result: 11/11 + 24/24 Meal codes and 10/10 Baggage
+codes matched exactly; Infant exclusion confirmed at the raw API layer itself. Proposed Passed, no
+discrepancy found. Formally added to `TestCases_Ancillaries_AirIndia.md` (rev 8, 28 cases),
+`TraceabilityMatrix.md` (rev 6), `CoverageReport.md` (rev 7) — adds evidence depth to ANC-22/23,
+ANC-42, ANC-49 without flipping any requirement's category. All four terminal deliverables
+(`ManualExecutionResults.md`, `ManualExecutionSummary.md`, `ManualTestResults.csv`,
+`ManualQAReport.md`+`.report.json`+`.html`) regenerated in the same pass: **25 Passed · 1 Failed · 1
+Inconclusive · 1 Excluded**, executable scope 25/27=92.6%, authorized coverage 27/28=96.4%.
+
+**Separately, a one-off retrieve-endpoint check was run for a real booking the user made themselves
+(PNR VT5HWB, e-ticket supplied directly)** — confirmed Defect A does **not** manifest when a
+passenger's two meals use *different* codes (VSDB + CFMR), strengthening the existing root-cause
+understanding (the undercount is keyed on repeated *same*-code occurrences, not merely "more than one
+ancillary"). **Per the user's explicit instruction ("ignore that case"), this was left as a
+local-only, uncommitted evidence pair** — `artifacts/TC-ANC-022/07_supplier_retrieve_VT5HWB_*.json`
+exist on disk but are intentionally not tracked by git and not folded into any formal result.
+
 **TC-ANC-034 (Admin) executed 2026-10-01 — proposed Passed.** PNR **H9ZK7E**,
 `BRN297NDCORD261001JQUISB`, 24,742 EGP, one-way DEL-DXB (1 stop), 2A/2C/2I returned 200 offers
 *directly* (no fallback needed, unlike TC-ANC-005's round-trip on the same route). Zero ancillaries
