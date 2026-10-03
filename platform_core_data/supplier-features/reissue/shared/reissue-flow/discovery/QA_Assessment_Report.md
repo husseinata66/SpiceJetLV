@@ -171,6 +171,12 @@ Stage 3 can write these cases but cannot fix their expected result:
   reissue refused on click with a named message. Observed: **hidden, no message** — reproduced with
   the prior run's exact setup, read as the lock holder, so the credential is not the cause. The
   behaviour changed after the prerequisite story passed. Affects AC-02, AC-05.
+  > **Settled 2026-10-01 — ProjectContext D-14 (user).** The observed behaviour is the intended one.
+  > The button is displayed only when six conditions all hold — org Auto Reissue checkbox on; the
+  > booking's credential selected in the org's credential picker; Status `Booked` **and** the status
+  > bar "Ticketed Document"; booked online; locked by the current user; reissue-capable GDS — and is
+  > hidden otherwise. This also **reverses CL-3 / `PO-24`** on the "Ticketed Document" bar, which is
+  > now part of the condition.
 - **DS-6 — Branch/Agency flag precedence.** The story's edge cases define a precedence neither the
   clarification nor the prerequisite run states, and the combination was never tested. Affects AC-03.
 
@@ -197,8 +203,7 @@ They are not dropped, and not silently written to the observed behaviour.
    expected result rather than a step, and each is cheap to answer.
 3. **Adopt the Reissue History `Ticket` column as the post-exchange ticketing check.** It is the
    cheapest available detector for the Critical mapping finding and needs no supplier call.
-4. **Settle DS-2 with the product owner.** It blocks the eligibility cases, which are the story's
-   entry point.
+4. ~~**Settle DS-2 with the product owner.**~~ **Done 2026-10-01 — D-14** (see §7).
 5. **Supply the negative-path test data** (OQ-7, OQ-8, OQ-10, OQ-11) or accept those ACs as Declared
    Gaps on the record.
 

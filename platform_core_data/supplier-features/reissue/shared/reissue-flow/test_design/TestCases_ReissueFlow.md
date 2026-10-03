@@ -5,10 +5,10 @@
 | Scope | Supplier Features → `reissue` → shared scope `reissue-flow` |
 | Scope family | `supplier-feature` · feature `reissue` · `sharedScope: reissue-flow` |
 | Produced by run | `run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature` |
-| Revision | 1 |
+| Revision | 2 (2026-10-01 — **D-14**, the Reissue button's six-condition display rule: §0.8 added; TC-RFLOW-001, 002, 003, 010, 011, 012, 013, 014, 015 revised. TC-RFLOW-012 leaves `Pending Confirmation` — DS-2 settled) |
 | Run Scope Type / Run Type | Feature (shared scope) / User Story |
 | Source User Story | `knowledge_base/requirements/user_stories/Reissue_Flow_From_Itinerary.md` |
-| Project Context | `supplier-features/reissue/shared/reissue-flow/context/ProjectContext.md` (Revision 6, **Pending Review**) |
+| Project Context | `supplier-features/reissue/shared/reissue-flow/context/ProjectContext.md` (Revision 8, **Pending Review**) |
 | Discovery | `.../discovery/QA_Assessment_Report.md` (**Pending Review**) |
 | Total Test Cases | 127 |
 | Generated | 2026-09-30 |
@@ -46,12 +46,12 @@ and has delivered its result (ProjectContext §1.3). Where a case asserts an amo
 
 | Value | Meaning | Count |
 |---|---|---|
-| `EXECUTED` | Observed in Stage 2 and behaving as the case expects | 27 |
+| `EXECUTED` | Observed in Stage 2 and behaving as the case expects | 28 |
 | `OBSERVED-DEFECT` | Observed and **not** behaving as the story requires — a finding is open. Expected to fail today | 13 |
 | `PARTIAL` | Observed on the positive path only; a named condition inside is unexercised | 17 |
 | `NOT EXECUTED` | Never run, but runnable with the data and access held today | 21 |
 | `NOT TESTABLE` | Never run and **no test data or access exists**. Declared Gap against the AC it covers | **45** |
-| `PENDING CONFIRMATION` | Steps are known; the **expected result** is not, pending a product decision | 4 |
+| `PENDING CONFIRMATION` | Steps are known; the **expected result** is not, pending a product decision | 3 |
 
 **Read the bottom two rows together before approving.** **45 of 127 cases — more than a third — cannot be run today** for want of test data or access, and they are not the trivial ones: they are the negative paths, the failure statuses, the insufficient wallet, the forced reprice, the non-Economy cabin, the real supplier penalty, and both DB assertions. **The feature’s positive path is well covered and its failure behaviour is almost entirely unverified.** Every one is a Declared Gap naming the open question that unblocks it; none is silently dropped.
 
@@ -89,6 +89,21 @@ Context figure should be corrected at review.
 Prerequisite configuration in force: Branch exchange fee **100**, Agency exchange fee **50**, per
 passenger (D-7, D-11). Sabre Staging configured on BRN265 and AGN9780 (D-5).
 
+### 0.8 What "a reissuable booking" means in this suite
+
+Wherever a case says **a reissuable booking**, all six conditions of **D-14** (ProjectContext §1.1,
+user, 2026-10-01) hold, and the Reissue button is therefore displayed:
+
+1. the **Auto Reissue checkbox** is on for the organisation that owns the booking (Agency or Branch);
+2. the **credential the PNR was booked on** is selected in that organisation's Auto Reissue credential picker;
+3. the booking **Status is `Booked` and the Itinerary status bar reads "Ticketed Document"**;
+4. the booking was made **online** (not offline / imported);
+5. **on Admin**, the booking is **locked by the current user** — the Portal has no lock, so on the Portal this condition does not apply *(user, 2026-10-01)*;
+6. the supplier is a **reissue-capable GDS** — `NDCsbr`, `Sabre`, `TravelportNdc`, `Galileo` (CL-2).
+
+If any one fails, **the button is not displayed** — there is no click-time refusal. A negative case
+breaks exactly one condition and holds the other five.
+
 ---
 
 ## 1. Prerequisites — configuration that gates the feature
@@ -99,7 +114,7 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 **Objective:** Verify the Branch-level Reissue flag is honoured when it is on.
 
-**Preconditions:** Branch BRN265 has the Reissue checkbox enabled and a Sabre Staging credential selected under Auto Reissue credentials. A `Booked`, online-booked Sabre booking exists on that Branch.
+**Preconditions:** Branch BRN265 has the Reissue checkbox enabled and the booking's Sabre Staging credential selected under Auto Reissue credentials. A reissuable booking (§0.8) exists on that Branch.
 
 **Test Data:** `NDCEG-BR-F260926PwYMR2`.
 
@@ -125,7 +140,7 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 **Objective:** Verify the negative side of the Branch flag.
 
-**Preconditions:** A Branch with the Reissue checkbox **unticked**, carrying a `Booked` online Sabre booking. Changing a shared Branch's flag is master-data mutation — obtain a run-scoped grant and revert afterwards, or use a Branch already configured off.
+**Preconditions:** A Branch with the Reissue checkbox **unticked**, carrying a booking that meets the other five D-14 conditions (§0.8). Changing a shared Branch's flag is master-data mutation — obtain a run-scoped grant and revert afterwards, or use a Branch already configured off.
 
 **Test Data:** To be supplied — a Branch with Reissue off (**OQ-7**).
 
@@ -151,7 +166,7 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 **Objective:** Verify the Agency-level flag independently of the Branch.
 
-**Preconditions:** An Agency with the Reissue checkbox unticked, under a Reissue-enabled Branch.
+**Preconditions:** An Agency with the Reissue checkbox unticked, under a Reissue-enabled Branch, carrying a booking that meets the other five D-14 conditions (§0.8).
 
 **Test Data:** To be supplied (**OQ-7**).
 
@@ -329,45 +344,48 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 ## 2. Eligibility — the Reissue entry point
 
-Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-1, CL-2, CL-3
+Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-2, CL-3 · **D-14** (the six-condition display rule, §0.8 — supersedes CL-1's click-time refusal)
 
 ### TC-RFLOW-010 — Auto Reissue is displayed in the Itinerary when every precondition holds
 
 **Objective:** Verify the positive eligibility path end to end at the entry point.
 
-**Preconditions:** All of: booking status `Booked`; booked online; booking **locked by the current user**; the owning organisation's Reissue flag on; the supplier a reissue-capable GDS.
+**Preconditions:** All six D-14 conditions (§0.8): the owning organisation's Auto Reissue checkbox on; the booking's credential selected in that organisation's Auto Reissue credential picker; Status `Booked` **and** the status bar reads "Ticketed Document"; booked online; on Admin, booking **locked by the current user** (the Portal has no lock); the supplier a reissue-capable GDS.
 
 **Test Data:** `NDCEG-BR-F260926PwYMR2` (Branch) and an AGN9780 Agency booking.
 
 **Steps:**
 
-1. Open Admin → Booking → Search Booking → Flight tab, search by Booking Reference, open the booking.
-2. Lock the booking as the current user.
-3. Open the Itinerary and read the available actions on the booked flight.
+1. Open the owning organisation's edit form; confirm Auto Reissue is ticked and the booking's credential is selected in the credential picker. Read only.
+2. Open Admin → Booking → Search Booking → Flight tab, search by Booking Reference, open the booking.
+3. Confirm Booking Information → Status reads `Booked` and the status bar reads "Ticketed Document".
+4. Lock the booking as the current user.
+5. Open the Itinerary and read the available actions on the booked flight.
+6. On the Portal, open the Agency booking's Itinerary (no lock exists there) and read the actions.
 
-**Expected Result:** The Reissue action is displayed and enabled. Selecting the flight starts the Eligibility phase.
+**Expected Result:** The Reissue action is displayed and enabled on Admin once locked, and on the Portal without any lock. Selecting the flight starts the Eligibility phase.
 
 **Priority:** P1
 
 **Tags:** Atomic, Positive, Smoke
 
-**Notes:** Covers AC-02, AC-04, story §2 AC-1, edge case 1.4. **Discovery: EXECUTED.** Observed run-007 on both Admin and Portal.
+**Notes:** Covers AC-02, AC-04, story §2 AC-1, edge case 1.4, D-14. **Discovery: EXECUTED.** Observed run-007 on both Admin and Portal. **Rev 2, 2026-10-01** — preconditions and steps state all six D-14 conditions; the credential-picker and "Ticketed Document" checks were added as steps 1 and 3. Step 6 added: the lock is **Admin-only**, the Portal has no lock (user, 2026-10-01).
 
 **Review:** Pending
 
 **Automation:** Pending
 
-### TC-RFLOW-011 — Reissue actions appear only while the booking is locked by the current user
+### TC-RFLOW-011 — On Admin, Reissue actions appear only while the booking is locked by the current user
 
-**Objective:** Verify the lock precondition from CL-3.
+**Objective:** Verify the Admin lock precondition from CL-3 / D-14 condition 5. Admin only — the Portal has no lock.
 
-**Preconditions:** A reissuable booking, unlocked.
+**Preconditions:** A booking that meets the other five D-14 conditions (§0.8), unlocked.
 
 **Test Data:** `NDCEG-BR-F260926PwYMR2`.
 
 **Steps:**
 
-1. Open the booking's Itinerary **without** locking it. Read the available actions.
+1. On Admin, open the booking's Itinerary **without** locking it. Read the available actions.
 2. Lock the booking as the current user. Re-read the actions.
 3. Release the lock at the end.
 
@@ -377,7 +395,7 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-1, CL-2, 
 
 **Tags:** Atomic, Positive, Negative, Security
 
-**Notes:** Covers CL-3. **Discovery: EXECUTED.** Confirmed run-007 and recorded as correct by design — the withdrawn finding on lock-gated controls established this is intended, not a defect.
+**Notes:** Covers CL-3, D-14 condition 5. **Discovery: EXECUTED.** Confirmed run-007 and recorded as correct by design — the withdrawn finding on lock-gated controls established this is intended, not a defect. **Rev 2, 2026-10-01** — scoped to Admin: the user confirmed the lock exists only on Admin; the Portal has no lock.
 
 **Review:** Pending
 
@@ -385,9 +403,9 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-1, CL-2, 
 
 ### TC-RFLOW-012 — A booking whose credential is not among the organisation's Auto Reissue credentials
 
-**Objective:** Verify the credential rule of CL-1 — the single most contested behaviour in this story.
+**Objective:** Verify the credential condition of D-14 — the Reissue button is not displayed when the booking's credential is not selected in the organisation's credential picker.
 
-**Preconditions:** An organisation whose Auto Reissue credential selection **excludes** the credential the booking was made on. Read as the lock holder.
+**Preconditions:** An organisation whose Auto Reissue credential selection **excludes** the credential the booking was made on; the other five D-14 conditions hold (§0.8). Read as the lock holder.
 
 **Test Data:** BRN265 with its Auto Reissue selection narrowed to a credential other than the booking's; booking on credential 313 or 315. Revert the selection afterwards.
 
@@ -396,16 +414,16 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-1, CL-2, 
 1. Note the booking's supplier credential.
 2. Set the organisation's Auto Reissue credential selection to exclude it.
 3. Lock the booking as the current user and open the Itinerary.
-4. Record whether the Reissue button is **shown**; if shown, click it and record the message.
-5. Restore the original credential selection.
+4. Read the Itinerary actions and record whether the Reissue button is displayed.
+5. Restore the original credential selection, and confirm the button is displayed again (control).
 
-**Expected Result:** **Pending Confirmation.** CL-1 states the button is **shown** and the reissue refused on click with *"No credential for this booking is assigned to your organisation"*. **Observed run-007: the button is hidden and no message is ever shown** — reproduced with the prior run's exact setup, read as the lock holder, so the credential in use is not the cause. The application's behaviour changed after the prerequisite story was delivered and passed. Written to the story per requirement precedence; fixed when the product owner rules.
+**Expected Result:** With the booking's credential **not** selected, the Reissue button is **not displayed** (`actionsDetails.canAutoReissue: false`), and no Reissue can be initiated. With the selection restored, the button is displayed.
 
 **Priority:** P1
 
 **Tags:** Atomic, Negative, Boundary, Security
 
-**Notes:** Covers AC-02, AC-05, CL-1. **Discovery: PENDING CONFIRMATION** — **DS-2**. Evidence `evidence/cl1-*` (16 files). This case cannot be approved with a fixed expected result until DS-2 is settled.
+**Notes:** Covers AC-02, AC-05, D-14 condition 2. **Discovery: EXECUTED** — observed run-007 exactly as expected: button hidden, `canAutoReissue: false` (`evidence/cl1-*`, 16 files). **Rev 2, 2026-10-01** — expected result fixed under **D-14**, which settles **DS-2**: Rev 1 was `Pending Confirmation` between CL-1's "shown, refused on click" and the observed "hidden". CL-1's click-time message is no longer a test target.
 
 **Review:** Pending
 
@@ -421,7 +439,7 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-1, CL-2, 
 
 **Steps:**
 
-1. Open a `Booked`, online booking on an unlisted supplier, locked as the current user.
+1. Open a booking on an unlisted supplier that meets the other five D-14 conditions (§0.8), locked as the current user.
 2. Read the Itinerary actions.
 3. Repeat on a booking made through a listed supplier as the control.
 
@@ -441,7 +459,7 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-1, CL-2, 
 
 **Objective:** Verify the online-booked restriction.
 
-**Preconditions:** An offline or imported booking in `Booked` status on a reissue-capable supplier.
+**Preconditions:** An offline or imported booking that meets the other five D-14 conditions (§0.8).
 
 **Test Data:** To be supplied (**OQ-7**).
 
@@ -462,26 +480,27 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-1, CL-2, 
 
 **Automation:** Pending
 
-### TC-RFLOW-015 — A booking not in Booked status does not offer Reissue
+### TC-RFLOW-015 — A booking that is not both Booked and "Ticketed Document" does not offer Reissue
 
-**Objective:** Verify the status precondition of CL-3, which corrects an earlier reading of the "Ticketed Document" bar.
+**Objective:** Verify the status condition of D-14: Status `Booked` **and** the status bar "Ticketed Document", both required.
 
-**Preconditions:** Bookings in statuses other than `Booked` — for example already `Reissued`, cancelled, or not yet ticketed.
+**Preconditions:** Bookings that meet the other five D-14 conditions (§0.8) but fail the status condition — status other than `Booked` (for example already `Reissued`, or cancelled), or `Booked` with a status bar other than "Ticketed Document" (for example not yet ticketed).
 
-**Test Data:** `NDCEG-BR-F2609294YODAr` (now `Reissued`) as the negative; `NDCEG-BR-F260926PwYMR2` as the control.
+**Test Data:** `NDCEG-BR-F2609294YODAr` (now `Reissued`) as a negative; a `Booked` booking whose bar is not "Ticketed Document" to be supplied (**OQ-7**); `NDCEG-BR-F260926PwYMR2` as the control.
 
 **Steps:**
 
-1. Open a booking whose status is `Reissued`, locked as the current user, and read the Itinerary actions.
-2. Repeat on a `Booked` booking as the control.
+1. Open a booking whose status is `Reissued`, locked as the current user. Record Booking Information → Status and the status bar, and read the Itinerary actions.
+2. Repeat on a `Booked` booking whose status bar does **not** read "Ticketed Document".
+3. Repeat on a booking with Status `Booked` **and** the bar "Ticketed Document" as the control.
 
-**Expected Result:** Reissue is offered only on `Booked`. The "Ticketed Document" bar label is **not** the condition. A booking already `Reissued` does not offer a further Reissue from the original.
+**Expected Result:** Reissue is displayed only when Status is `Booked` **and** the status bar reads "Ticketed Document" (step 3). It is not displayed in steps 1 and 2. A booking already `Reissued` does not offer a further Reissue from the original.
 
 **Priority:** P1
 
 **Tags:** Atomic, Negative, Boundary
 
-**Notes:** Covers AC-05, CL-3, edge case 7.7. **Discovery: PARTIAL** — the `Reissued` negative is observable on held data; other non-`Booked` statuses are not (**OQ-10**).
+**Notes:** Covers AC-05, CL-3 as amended by D-14 condition 3, edge case 7.7. **Discovery: PARTIAL** — the `Reissued` negative and the positive control are observable on held data; a `Booked`-but-not-"Ticketed Document" booking and other non-`Booked` statuses are not (**OQ-7**, **OQ-10**). **Rev 2, 2026-10-01** — expected result changed under **D-14**: Rev 1 asserted the "Ticketed Document" bar was **not** the condition (CL-3 / `PO-24`); it now is, alongside Status `Booked`. Step 2 added for the new half of the condition.
 
 **Review:** Pending
 

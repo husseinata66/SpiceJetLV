@@ -304,7 +304,7 @@ re-opened if the design changes.
 | Area | Why | Covered by |
 |---|---|---|
 | **AC-01 … AC-36 as business behaviour** | This scope checks the values are faithfully carried and correctly named, not that the rules behind them are right | `reissue-flow` |
-| The Itinerary `Reissue` button, eligibility **rules**, CL-1 credential refusal, DS-2 | UI **behaviour**, not a displayed-value mapping (§1.1.1) | `reissue-flow` |
+| The Itinerary `Reissue` button and its six-condition display rule (`reissue-flow` D-14, which settled DS-2 and replaced CL-1's credential refusal), eligibility **rules** | UI **behaviour**, not a displayed-value mapping (§1.1.1) | `reissue-flow` |
 | Journey / passenger **selection behaviour** | UI behaviour. The *resulting* selection payload sent to core **is** in scope (§2.1) | `reissue-flow` |
 | Screen navigation, validation messages, enable/disable states | UI behaviour | `reissue-flow` |
 | Reports, PNR Query, Itinerary history | Regression layer | `reissue-flow` |

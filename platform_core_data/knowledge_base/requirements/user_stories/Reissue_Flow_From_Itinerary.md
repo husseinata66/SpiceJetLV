@@ -782,15 +782,10 @@ transcribed verbatim.
 | 7 | Supplier response times out | The system must not assume failure or success without the applicable status/reconciliation mechanism. The transaction should remain traceable for investigation. |
 | 8 | Supplier response is received after transaction persistence | The system must update the existing persisted Reissue transaction rather than creating a duplicate transaction. |
 | 9 | Duplicate Exchange request is submitted | The system must prevent duplicate processing for the same Reissue transaction/offer. |
-| 10 | New Booking Reference is not returned after successful supplier processing | The system must not present the Reissue as fully completed until the booking reference can be confirmed/retrieved. The transaction must remain traceable. |
-| 11 | New Order ID is not returned | The system must not create an incomplete successful Reissue record. The transaction should be flagged for handling/reconciliation. |
-| 12 | Reissue History cannot be created | The system must not lose the relationship between the original and new booking. The operation should be treated as requiring persistence/reconciliation before being considered complete. |
-| 13 | Original offer status update fails | The new Reissue transaction must remain traceable, and the system must retry/reconcile the original offer status update rather than losing the relationship. |
-| 14 | Reissue price is persisted as total price instead of difference | The system must reject/correct the invalid persistence behavior. Reissue pricing must be stored according to the difference-based model. |
-| 15 | Change Fee exists | The fee must be stored as Service Charge. |
-| 16 | Change Fee does not exist | No incorrect Service Charge should be created. |
-| 17 | Sync action is requested for a Reissue offer | The Sync action must not be available for Reissue offers. |
-| 18 | Exchange is retried after a Booking Fail | The system must prevent duplicate booking attempts unless the business flow explicitly permits a retry and the previous transaction is safely handled. |
+| 10 | Change Fee exists | The fee must be stored as Service Charge. |
+| 11 | Change Fee does not exist | No incorrect Service Charge should be created. |
+| 12 | Sync action is requested for a Reissue offer | The Sync action must not be available for Reissue offers. |
+| 13 | Exchange is retried after a Booking Fail | The system must prevent duplicate booking attempts unless the business flow explicitly permits a retry and the previous transaction is safely handled. |
 
 ### 6. Booking Confirmation & E-ticket — Edge Cases
 

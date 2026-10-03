@@ -4,13 +4,14 @@
 |---|---|
 | Module | `agency` |
 | Produced by run | `run-004__2026-08-17_14-35-25__UserStory__US-4222-UpdateAgency` |
-| Revision | 4 |
+| Revision | 5 |
 | Project Context | `modules/agency/context/ProjectContext.md` (revision 4, Approved 2026-08-18) |
 | Discovery | `modules/agency/discovery/` (revision 4, Approved 2026-08-18) |
-| Total Test Cases | 94 (60 + 34 run-006) |
+| Total Test Cases | 97 (60 + 37 run-006) |
 | Generated | 2026-08-18 |
-| Status | **Approved** — Revision 4 (run-006) approved by Mohamed Soliman, 2026-09-25; Revision 3 below keeps its approval |
+| Status | **Approved** — Revision 4 (run-006) approved by Mohamed Soliman, 2026-09-25; Revision 3 below keeps its approval. **Revision 5 (2026-10-01, `PO-30`): Pending Review** |
 | Approved | 2026-08-18 — Ahmed Ayman, alongside the suite and Traceability Matrix |
+| Revision 5 | 2026-10-01 — `PO-30`, the `Reissue` button's six display conditions (Project Context §1.3). 10 Itinerary cases restated and reset to `Pending`; TC-AGENCY-095 … 097 added for the three conditions that had no case. Updated in place in the Revision 4 section below |
 | Revision 1–2 | run-001, 2026-08-01 — 53 cases. Approved 2026-08-02. |
 
 # Revision 4 — run-006, Auto Reissue (current)
@@ -30,9 +31,9 @@
 
 ## 2. Requirements Covered
 
-`PO-15` · `PO-16` · `PO-21` (via `branch`) · `PO-22` (superseded) · `PO-28` · `PO-29` · `PO-23` · `PO-24` · `PO-25` · `PO-26` · `PO-27` · spec `S-1`, `S-2`, `S-3`, `S-4`, `S-6`, `S-7`, `S-8`, `S-9` (via `branch`), `S-10`, §4, §5 · XC-01/XC-04 · ASM-021 · ASM-022 · RSK-013 · RSK-014 · Story AC groups *Agency CRUD*, *Admin Impact*, *Portal Impact*, *Permission Precedence*, *Regression & Validation*.
+`PO-15` · `PO-16` · `PO-21` (via `branch`) · `PO-22` (superseded) · `PO-28` (consolidated into `PO-30`) · **`PO-30`** · `PO-29` · `PO-23` · `PO-24` (first sentence superseded by `PO-30`) · `PO-25` · `PO-26` · `PO-27` · spec `S-1`, `S-2`, `S-3`, `S-4`, `S-6`, `S-7`, `S-8`, `S-9` (via `branch`), `S-10`, §4, §5 · XC-01/XC-04 · ASM-021 · ASM-022 · RSK-013 · RSK-014 · Story AC groups *Agency CRUD*, *Admin Impact*, *Portal Impact*, *Permission Precedence*, *Regression & Validation*.
 
-**Requirement coverage: 21 / 21 in-scope requirement rows Covered = 100%** (basis: `TraceabilityMatrix.md` §5.2). 2 Out-of-Scope, 0 Partially Covered, 0 Uncovered, 0 Unknown. **Covered is not the same as runnable:** 5 rows depend on the user (two bookings, and the go-ahead to make a supplier or credential inactive).
+**Requirement coverage: 22 / 22 in-scope requirement rows Covered = 100%** (basis: `TraceabilityMatrix.md` §5.2). 2 Out-of-Scope, 0 Partially Covered, 0 Uncovered, 0 Unknown. **Covered is not the same as runnable:** 6 rows depend on the user (bookings — including the three `PO-30` bookings not yet supplied — and the go-ahead to make a supplier or credential inactive).
 
 ## 3. Coverage Matrix
 
@@ -45,7 +46,7 @@ The full matrix is in `TraceabilityMatrix.md` §5.1 (one row per case) and §5.2
 | Save rules — UI | 065 |
 | Save rules — API | 066, 067, 068, 069, 070, 071, 072 |
 | Credential boundary / supplier ceiling / clean-up | 074, 075, 091, 092, 093 |
-| Admin Itinerary | 076, 077, 078, 082, 083, 084, 085 |
+| Admin Itinerary | 076, 077, 078, 082, 083, 084, 085, 095, 096, 097 |
 | Portal | 079, 080, 081, 094 |
 
 ## 4. Business Rules
@@ -57,9 +58,10 @@ The Project Context has no `BR-` IDs; its business rules are the `PO-n` decision
 | `PO-16` Agency and Branch independent; Agency limited to its Branch's credentials | TC-AGENCY-072, 074, 078 |
 | `PO-27` The Branch is the Agency's supplier ceiling | TC-AGENCY-091 (reverse: TC-BR-109) |
 | spec §4 An inactive credential is dropped on read; the checkbox stays on | TC-AGENCY-075, 092 (093 exploratory, supplier-level) |
-| `PO-28` Button needs the checkbox **and** a matching credential *(supersedes `PO-22`, 2026-09-27)* | TC-AGENCY-082 (negative); TC-AGENCY-076, 079, 081 (positive) |
+| ~~`PO-28` Button needs the checkbox **and** a matching credential~~ — consolidated into `PO-30` | see `PO-30` |
+| **`PO-30`** Button shown only when all six hold: checkbox on (1), PNR credential selected (2), Status Booked **and** "Ticketed Document" bar (3), booked online (4), locked by the current user on Admin (5; no lock on the Portal), reissue-capable GDS (6) *(2026-10-01; Pending Review)* | Shown: TC-AGENCY-076, 079, 081, 096 (after lock). Hidden: (1) 077, 078, 080, 083 · (2) 082 · (3) 084, 094 · (4) 095 · (5) 096 · (6) 097 |
 | `PO-23` "Required" on screen, API message on the API | TC-AGENCY-065, 066 |
-| `PO-24` Booked is the condition; Inactive while pending | TC-AGENCY-064, 084 |
+| `PO-24` Inactive while pending; edit-form Approve *(its "Booked, not the bar" sentence is superseded by `PO-30` (3))* | TC-AGENCY-064 |
 | `PO-25` Portal in scope, no lock, no Manual Reissue | TC-AGENCY-079, 080, 081 |
 | `PO-26` On-behalf bookings follow the Agency | TC-AGENCY-083 |
 | spec §5 (the three Itinerary conditions) | TC-AGENCY-076, 077 |
@@ -67,7 +69,7 @@ The Project Context has no `BR-` IDs; its business rules are the `PO-n` decision
 
 ## 5. Test Scenarios
 
-**34 cases:** 27 Atomic · 7 Scenario · 0 E2E. **Priority:** 11 P1 · 16 P2 · 7 P3. 5 assumption-based; 2 exploratory (085, 093).
+**37 cases:** 30 Atomic · 7 Scenario · 0 E2E. **Priority:** 11 P1 · 18 P2 · 8 P3. 5 assumption-based; 2 exploratory (085, 093).
 
 **Negative Test Generation (§7):**
 
@@ -96,7 +98,7 @@ The Project Context has no `BR-` IDs; its business rules are the `PO-n` decision
 
 ## 6. Manual Test Cases
 
-`modules/agency/test_design/TestCases_Agency.md` (+ `.xlsx`, generated). **94 cases** in the suite = 60 (US-4222, unchanged) + 34 (run-006). Counts agree across the suite header, the Case Index and `TraceabilityMatrix.md` (60 rows in §1 + 34 in §5.1).
+`modules/agency/test_design/TestCases_Agency.md` (+ `.xlsx`, generated). **97 cases** in the suite = 60 (US-4222, unchanged) + 37 (run-006, incl. 095 … 097 added 2026-10-01). Counts agree across the suite header, the Case Index and `TraceabilityMatrix.md` (60 rows in §1 + 37 in §5.1).
 
 ## 7. Assumptions
 
@@ -107,6 +109,9 @@ The Project Context has no `BR-` IDs; its business rules are the `PO-n` decision
 | TC-AGENCY-083 | `PO-26` on-behalf (user statement) | Booking `NDCEG-BR-F2609242aZ6EJ`, supplied 2026-09-25 |
 | TC-AGENCY-084 | ASM-022 | On-hold booking `NDCEG-BR-F251014N1oohh`, supplied 2026-09-25 (Portal side: TC-AGENCY-094) |
 | TC-AGENCY-085 | RSK-013 | Running the case and a reviewer decision |
+| TC-AGENCY-084 (second half) | `PO-30` (3): Booked but not "Ticketed Document" | A booking `{BOOKED_UNTICKETED_REF}` from the user — **not yet supplied** |
+| TC-AGENCY-095 | `PO-30` (4): imported / offline booking | A booking `{OFFLINE_REF}` from the user — **not yet supplied** |
+| TC-AGENCY-097 | `PO-30` (6): non-reissue supplier; cannot be isolated from (2) | A booking `{NONREISSUE_SUPPLIER_REF}` from the user — **not yet supplied** |
 
 ## 8. Coverage Gaps
 
@@ -115,29 +120,31 @@ The Project Context has no `BR-` IDs; its business rules are the `PO-n` decision
 | spec `S-5` inactive, spec §4 clean-up | Covered, needs setup | Making a credential or supplier inactive changes shared staging data (TC-AGENCY-092/093 set it up) | The user's go-ahead, and a credential/supplier that only the test records use |
 | The Reissue flow after the button | Out-of-Scope | Shared scope `reissue-flow` | Its own Stage 1 |
 | Role authorization | Out-of-Scope | Single account | A second role's login |
+| `PO-30` condition (5) on the Portal | **Closed 2026-10-01** | The user confirmed the lock exists only on Admin; the Portal has no lock (`PO-25`). TC-AGENCY-079 / 081 expect "shown" | — |
 
 **Finding coverage: 5 / 5 dispositioned = 100%** (all documented exceptions: FINDING-013, 014, 015, 016 and FINDING-017 from `branch`). **0 Uncovered Findings.**
 
 ## 9. Risks
 
-**High:** TC-AGENCY-072, 076, 077, 078, 079, 080, 083, 091 — the permission effect, precedence and supplier ceiling. **Also High: 092, 093** — they make a supplier or credential inactive on shared staging. **Medium:** real saves on AGN9780 (063, 064, 067, 073, 086), a permanent new record (087), preconditions set up by 092 (070, 075), user bookings needed (083, 084), and the unstated pending rule (085). Full register: `TraceabilityMatrix.md` §5.4.
+**High:** TC-AGENCY-072, 076, 077, 078, 079, 080, 083, 091 — the permission effect, precedence and supplier ceiling. **Also High: 092, 093** — they make a supplier or credential inactive on shared staging. **Medium:** real saves on AGN9780 (063, 064, 067, 073, 086), a permanent new record (087), preconditions set up by 092 (070, 075), user bookings needed (083, 084, 095, 097), the Admin lock condition (096), and the unstated pending rule (085). Full register: `TraceabilityMatrix.md` §5.4.
 
 ## 10. Recommendations
 
-1. **Run order:** 061 – 062 → 063 → 073 → 076/077 → 078 → 079/080/081 → 082 → API cases (capture `{AGENCY_SAVE_REQUEST}` during 063) → 064 → 085 → 086 → 088 → 089 → 090 → 091 → (with the user's go-ahead) 092, running 070 and 075 inside its inactive window → 093. It keeps AGN9780's state predictable and ends with AGN9780 off.
+1. **Run order:** 061 – 062 → 063 → 073 → 076/077 → 096 → 078 → 079/080/081 → 082 → API cases (capture `{AGENCY_SAVE_REQUEST}` during 063) → 064 → 085 → 086 → 088 → 089 → 090 → 091 → (with the user's go-ahead) 092, running 070 and 075 inside its inactive window → 093. It keeps AGN9780's state predictable and ends with AGN9780 off.
 2. **Bookings supplied 2026-09-25:** `NDCEG-BR-F2609242aZ6EJ` (on behalf, 083) and `NDCEG-BR-F251014N1oohh` (on hold, 084 and 094).
 3. **Decide TC-AGENCY-087 and 088** (each creates a permanent Agency) before execution, or reject them at review.
 4. **Exploratory charters:** TC-AGENCY-085 and 093. Record what is seen, and let the reviewer decide.
 5. **Decide TC-AGENCY-092/093** (make a supplier or credential inactive on shared staging) before execution.
+6. **`PO-30` (2026-10-01):** review the 10 restated cases and the 3 new ones; ask the user for `{OFFLINE_REF}`, `{NONREISSUE_SUPPLIER_REF}` and (optional) `{BOOKED_UNTICKETED_REF}`; and confirm whether the lock condition applies to the Portal.
 
 ## 11. Review & Automation
 
 | Column | Pending | Approved | Rejected |
 |---|---|---|---|
-| Review (34 new) | 0 | 34 | 0 |
-| Automation (34 new) | 34 | 0 | 0 |
+| Review (37 run-006) | 13 | 24 | 0 |
+| Automation (37 run-006) | 37 | 0 | 0 |
 
-**Eligible for Stage 4M now:** all 33 new cases (`Review = Approved`). **Eligible for 4A:** none. **Inconsistent pairs among new cases:** none. The 60 earlier cases keep their decisions (suite Case Index lifecycle roll-up).
+**Eligible for Stage 4M now:** 24 run-006 cases (`Review = Approved`); the 13 touched by `PO-30` (076 … 079, 081 … 085, 094, 095 … 097) wait for review. **Eligible for 4A:** none. **Inconsistent pairs among new cases:** none. The 60 earlier cases keep their decisions (suite Case Index lifecycle roll-up).
 
 ## 12. Inputs for Both Branches
 

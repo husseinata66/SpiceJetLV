@@ -388,9 +388,9 @@ This run took the **Manual Execution branch (`4M`)**, which gates on `Review` al
 | Produced by run | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
 | Project Context | Revision 9 (Approved 2026-09-24) + Stage 2 additions `PO-21` … `PO-26` (approved 2026-09-24) |
 | Discovery | `modules/branch/discovery/` run-006 section — **Approved** 2026-09-24 |
-| New test cases | 30 — TC-BR-083 … 112 (suite total 112; 109 … 112 added 2026-09-25 at the user's request) |
+| New test cases | 32 — TC-BR-083 … 114 (suite total 114; 109 … 112 added 2026-09-25 at the user's request; 113, 114 added 2026-10-01 for `PO-30`) |
 | Pipeline branch | **Manual (4M)**, chosen by the user 2026-09-24 |
-| Status | **Approved** — Mohamed Soliman, Stage 3 Human Review gate, 2026-09-25 |
+| Status | **2026-10-01 `PO-30` update — Pending Review** (TC-BR-101 … 104, 112 revised; 113, 114 added). Otherwise **Approved** — Mohamed Soliman, Stage 3 Human Review gate, 2026-09-25 |
 
 ## 1. Run Scope
 
@@ -398,9 +398,9 @@ This run took the **Manual Execution branch (`4M`)**, which gates on `Review` al
 
 ## 2. Requirements Covered
 
-`PO-15` · `PO-16` · `PO-21` · `PO-22` (superseded) · `PO-28` · `PO-29` · `PO-23` · `PO-26` · `PO-27` · spec `S-2` … `S-10` (Branch UI and Branch API), §3, §5 · XC-01/XC-03/XC-04 · RISK-BR-10 · RISK-BR-12 · Story AC groups *Branch CRUD*, *Admin Impact*, *Permission Precedence*, *Regression & Validation*.
+`PO-15` · `PO-16` · `PO-21` · `PO-22` (superseded) · `PO-24` (first sentence superseded) · `PO-28` · `PO-29` · `PO-30` · `PO-23` · `PO-26` · `PO-27` · spec `S-2` … `S-10` (Branch UI and Branch API), §3, §5 · XC-01/XC-03/XC-04 · RISK-BR-10 · RISK-BR-12 · Story AC groups *Branch CRUD*, *Admin Impact*, *Permission Precedence*, *Regression & Validation*.
 
-**Requirement coverage: 14 / 14 in-scope requirement rows Covered = 100%** (basis: `TraceabilityMatrix.md` §5.2). 1 Out-of-Scope, 0 Partially Covered, 0 Uncovered, 0 Unknown. The clean-up rows need the user's go-ahead to make a supplier or credential inactive.
+**Requirement coverage: 14 / 15 in-scope requirement rows Covered = 93%; 1 Partially Covered (`PO-30`, added 2026-10-01)** (basis: `TraceabilityMatrix.md` §5.2). 1 Out-of-Scope, 0 Uncovered, 0 Unknown. `PO-30` is partial because condition (6) has only indirect, picker-level cases, condition (4) waits for an offline booking from the user, and condition (3)'s bar half is not isolated. The clean-up rows need the user's go-ahead to make a supplier or credential inactive.
 
 ## 3. Coverage Matrix
 
@@ -412,7 +412,7 @@ This run took the **Manual Execution branch (`4M`)**, which gates on `Review` al
 | Save rules — UI | 092, 093 |
 | Save rules — Branch API | 094, 095, 096, 097, 098, 099 |
 | Independence from Agencies | 100, 104 |
-| Branch-owned booking Itinerary | 101, 102, 103, 112 |
+| Branch-owned booking Itinerary (`PO-30` six conditions) | 101, 102, 103, 104, 112, 113, 114 |
 | Read-time clean-up / inactive credential or supplier | 105, 110, 111 |
 | Supplier ceiling (`PO-27`) | 109 |
 | Portal visibility (`PO-26`) | 108 |
@@ -425,14 +425,15 @@ Full rows: `TraceabilityMatrix.md` §5.1.
 |---|---|
 | `PO-16` Branch and Agency independent | TC-BR-100, 104 |
 | `PO-21` Only NDCsbr, Sabre, TravelportNdc, Galileo; no LCC, no Amadeus | TC-BR-085, 086, 087, 088 |
-| `PO-28` Button needs the checkbox **and** a matching credential *(supersedes `PO-22`, 2026-09-27)* | TC-BR-103 (negative); TC-BR-101, 104 (positive) |
+| `PO-28` Button needs the checkbox **and** a matching credential *(supersedes `PO-22`, 2026-09-27; now `PO-30` condition 2)* | TC-BR-103 (negative); TC-BR-101, 104 (positive) |
+| `PO-30` Button only when all six hold — checkbox on; credential in the selection; Booked **and** "Ticketed Document" bar; online; locked by the current user (Admin only); reissue-capable GDS *(2026-10-01; supersedes `PO-24`'s first sentence)* | Shown: TC-BR-101, 104. Hidden, one condition unmet: 102 (1), 103 (2), 112 (3), 114 (4), 113 (5); (6) indirect via 085, 087 |
 | `PO-23` "Required" on screen, API message on the API | TC-BR-092, 094 |
 | `PO-26` Branch-owned bookings follow the Branch; the Agency Portal can't see them | TC-BR-101, 102, 108 |
 | `PO-27` A Branch can have suppliers its Agency doesn't | TC-BR-109 (reverse: TC-AGENCY-091) |
 
 ## 5. Test Scenarios
 
-**30 cases:** 24 Atomic · 6 Scenario · 0 E2E. **Priority:** 8 P1 · 15 P2 · 7 P3. 4 assumption-based; 1 exploratory (111).
+**32 cases:** 26 Atomic · 6 Scenario · 0 E2E. **Priority:** 8 P1 · 17 P2 · 7 P3. 4 assumption-based; 1 exploratory (111).
 
 | §7 Category | Result |
 |---|---|
@@ -456,7 +457,7 @@ Full rows: `TraceabilityMatrix.md` §5.1.
 
 ## 6. Manual Test Cases
 
-`modules/branch/test_design/TestCases_Branch.md` (+ `.xlsx`, generated). **112 cases** = 82 earlier + 30 run-006. The suite and the Case Index agree. **`TraceabilityMatrix.md` holds 111 rows: TC-BR-082 (added 2026-08-10) never got a row.** That gap predates run-006 and is listed in §8.
+`modules/branch/test_design/TestCases_Branch.md` (+ `.xlsx`, generated). **114 cases** = 82 earlier + 32 run-006 (113, 114 added 2026-10-01). The suite and the Case Index agree. **`TraceabilityMatrix.md` holds 113 rows: TC-BR-082 (added 2026-08-10) never got a row.** That gap predates run-006 and is listed in §8.
 
 ## 7. Assumptions
 
@@ -475,6 +476,9 @@ Full rows: `TraceabilityMatrix.md` §5.1.
 | Branch Portal impact | Out-of-Scope | The Portal shows Agency bookings only (`PO-26`) | — |
 | TC-BR-082 has no matrix row | Traceability gap (pre-existing) | Added 2026-08-10 without a row | Add one row in `TraceabilityMatrix.md` §1 |
 | TC-BR-107 | Needs the user's go-ahead | Creating a Branch is allowed after asking the user (2026-09-24) | Ask the user before execution |
+| `PO-30` (4) online — TC-BR-114 | Blocked until a fixture exists | No offline / imported Branch booking is known; the platform never books or imports (`PO-19`) | The user supplies `{OFFLINE_REF}` |
+| `PO-30` (6) reissue-capable GDS | Partially Covered (indirect) | No Branch booking on an LCC or Amadeus is known; TC-BR-085/087 show such a credential can't be selected, so (2) fails too | A Branch booking on an LCC or Amadeus, supplied by the user |
+| `PO-30` (3) bar half | Not isolated | TC-BR-112's booking fails both Booked and the bar | A Booked booking whose bar is not "Ticketed Document", if one exists |
 
 **Finding coverage: 1 / 1 dispositioned = 100%** (FINDING-017, documented exception). **0 Uncovered Findings.**
 
@@ -493,10 +497,10 @@ Full rows: `TraceabilityMatrix.md` §5.1.
 
 | Column | Pending | Approved | Rejected |
 |---|---|---|---|
-| Review (30 new) | 0 | 30 | 0 |
-| Automation (30 new) | 30 | 0 | 0 |
+| Review (32 new) | 7 | 25 | 0 |
+| Automation (32 new) | 32 | 0 | 0 |
 
-All 29 new cases are eligible for Stage 4M. None for 4A (Automation Pending). No inconsistent pairs among the new cases.
+**2026-10-01:** the 7 `PO-30` cases (101 … 104, 112, 113, 114) are `Review: Pending` until the user approves them. Before that, all 29 new cases were eligible for Stage 4M. None for 4A (Automation Pending). No inconsistent pairs among the new cases.
 
 ## 12. Inputs for Both Branches
 

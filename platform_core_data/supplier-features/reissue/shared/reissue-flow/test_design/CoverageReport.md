@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Scope | `reissue-flow` (business feature) |
-| Suite | `TestCases_ReissueFlow.md` Revision 1 |
+| Suite | `TestCases_ReissueFlow.md` Revision 2 (2026-10-01, D-14) |
 | Total cases | 127 |
 | Generated | 2026-09-30 |
 | Status | **Pending Review** |
@@ -12,14 +12,14 @@
 
 | State | Count | Share |
 |---|---|---|
-| **Executed in Discovery and behaving** | 27 | 21% |
+| **Executed in Discovery and behaving** | 28 | 22% |
 | **Observed and failing** — a finding is open; the case states the requirement | 13 | 10% |
 | **Partially executed** — positive path only | 17 | 13% |
 | **Not executed** — runnable today with held data and access | 21 | 17% |
 | **Not testable** — no data or access exists; Declared Gap | **45** | **35%** |
-| **Pending Confirmation** — steps known, expected result unruled | 4 | 3% |
+| **Pending Confirmation** — steps known, expected result unruled | 3 | 2% |
 
-**57 of 127 cases can be run today** without anything new (executed, observed, partial, not-executed).
+**58 of 127 cases can be run today** without anything new (executed, observed, partial, not-executed).
 **45 cannot be run at all.** **4 can be run but not judged.**
 
 ## 2. The headline a reviewer needs
@@ -49,13 +49,14 @@ All **36** Overall ACs are covered by at least one case. Verifiability is the ho
 | | Count |
 |---|---|
 | Fully verifiable today | 12 |
-| Partially verifiable | 16 |
-| Not verifiable | 7 |
+| Partially verifiable | 18 |
+| Not verifiable | 5 |
 | Moved to `reissue-mapping` | 1 (AC-23) |
 
-**The seven not verifiable:** AC-09 (online-only, needs an offline booking) · AC-22 (price-change
-popup) · AC-26 and AC-30 (both DB) · plus AC-02 and AC-05 blocked on **DS-2**, and AC-32's design
-conformance blocked on **OQ-13** — the latter unfalsifiable by construction, since no design exists.
+**The five not verifiable:** AC-09 (online-only, needs an offline booking) · AC-22 (price-change
+popup) · AC-26 and AC-30 (both DB) · and AC-32's design conformance blocked on **OQ-13** — the latter
+unfalsifiable by construction, since no design exists. **AC-02 and AC-05 moved to Partial on
+2026-10-01:** D-14 settled DS-2, so their expected results are fixed; their negatives still need OQ-7.
 
 ## 4. Edge-case coverage
 
@@ -102,8 +103,8 @@ The P1 share is high (65%) because the story's ACs are themselves nearly all man
 
 ## 7. What to do first
 
-1. **Answer DS-2.** It blocks the feature's entry point — AC-02 and AC-05 — and it is a product
-   decision, not a test-data problem. One answer unblocks the eligibility cases.
+1. ~~**Answer DS-2.**~~ **Done 2026-10-01 — D-14**: the button is hidden when any of six conditions
+   fails. The eligibility cases now carry fixed expected results (§0.8 of the suite).
 2. **Supply the OQ-7 test data.** Eleven cases, and it is the cheapest large unblock: an offline
    booking, an unlisted-supplier booking, a Reissue-disabled organisation, and a mixed-eligibility party.
 3. **Decide whether fault injection is possible (OQ-10).** Twenty-one cases — the whole failure

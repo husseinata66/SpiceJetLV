@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Scope | `reissue-flow` (shared scope under feature `reissue`) |
-| Suite | `TestCases_ReissueFlow.md` Revision 1 |
+| Suite | `TestCases_ReissueFlow.md` Revision 2 (2026-10-01, D-14) |
 | Produced by run | `run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature` |
 | Generated | 2026-09-30 |
 | Status | **Pending Review** |
@@ -17,10 +17,10 @@ verifiability** — the Verifiable column is the honest half.
 | AC | Requirement (short) | Test cases | Verifiable today |
 |---|---|---|---|
 | **AC-01** | Configuration controlled through Branch and Agency CRUD | TC-RFLOW-001, 002, 003, 004 | **Partial** — the positive side only; all three negatives need data (OQ-7) |
-| **AC-02** | Auto Reissue displayed per the configured flag | TC-RFLOW-010, 012 | **Blocked on DS-2** — hidden vs shown-and-refused unruled |
+| **AC-02** | Auto Reissue displayed per the configured flag | TC-RFLOW-001, 002, 003, 010, 012 | **Partial** — DS-2 settled by D-14; the positive side and the credential negative are verified, the disabled-org negatives need OQ-7 |
 | **AC-03** | Exchange Fees applied only when configured | TC-RFLOW-005, 006, 048 | **Partial** — configured side yes; unconfigured needs OQ-8 |
 | **AC-04** | User can select the applicable flight from Itinerary | TC-RFLOW-010 | Yes |
-| **AC-05** | System validates Auto Reissue applicability | TC-RFLOW-012, 013, 015, 016 | **Partial** — DS-2 and OQ-7 |
+| **AC-05** | System validates Auto Reissue applicability | TC-RFLOW-011, 012, 013, 014, 015, 016 | **Partial** — OQ-7 (DS-2 settled by D-14) |
 | **AC-06** | Journey selection follows eligibility | TC-RFLOW-025, 027 | Partial |
 | **AC-07** | Passenger selection follows eligibility | TC-RFLOW-022, 023, 024, 028 | Partial — mixed-eligibility party needs OQ-7 |
 | **AC-08** | All required passengers selected by default, Not Split | TC-RFLOW-020, 021 | Yes |
@@ -77,10 +77,11 @@ correct at review.)*
 
 | Item | Statement | Case | State |
 |---|---|---|---|
-| **CL-1** | Credential not in the org's selection refuses the reissue with a named message | TC-RFLOW-012 | **DS-2 open** — observed behaviour contradicts it |
+| ~~**CL-1**~~ | ~~Credential not in the org's selection refuses the reissue with a named message~~ — superseded by D-14 | — | Withdrawn |
 | **CL-2** | Supplier must be a GDS on the hard-coded list | TC-RFLOW-013 | Positive verified; negative needs OQ-7 |
-| **CL-3** | Status `Booked`; booking locked by the current user | TC-RFLOW-011, 015 | Verified |
-| **DS-2** | Button hidden vs shown-and-refused | TC-RFLOW-012 | **Pending Confirmation** |
+| **CL-3** *(amended by D-14)* | Status `Booked` **and** "Ticketed Document" bar; booking locked by the current user (Admin only — no lock on the Portal) | TC-RFLOW-011, 015 | Lock verified; the `Booked`-but-not-"Ticketed Document" negative needs OQ-7 |
+| **D-14** | Reissue button displayed only when all six hold: org checkbox on · booking's credential in the picker · `Booked` + "Ticketed Document" · online · locked by current user · reissue-capable GDS | TC-RFLOW-010 (all six, positive); 002, 003 (checkbox); 012 (credential); 015 (status); 014 (online); 011 (lock); 013 (supplier) | Positive and credential/lock verified; checkbox, online, supplier and "Ticketed Document" negatives need OQ-7 |
+| **DS-2** | Button hidden vs shown-and-refused | TC-RFLOW-012 | **Settled — D-14**: hidden |
 | **DS-4** | "Banque Misr" vs "Banque Masr" | TC-RFLOW-058 | Expected result written against the application's own label |
 | **DS-5** | AC-28 vs Sync being out of scope | TC-RFLOW-090 | Resolved — absence asserted, Sync never exercised |
 | **DS-6** | Branch/Agency flag precedence | TC-RFLOW-004 | **Pending Confirmation** |
@@ -106,7 +107,7 @@ failure; none may ever be raised as a defect.
 
 | # | Question | Blocks |
 |---|---|---|
-| **OQ-7** | Negative-path test data — offline booking, unlisted supplier, disabled org, mixed-eligibility party, non-Economy cabin, multiply-reissued booking | TC-RFLOW-002, 003, 004, 013, 014, 016, 019, 024, 026, 040, 104 |
+| **OQ-7** | Negative-path test data — offline booking, unlisted supplier, disabled org, mixed-eligibility party, non-Economy cabin, multiply-reissued booking | TC-RFLOW-002, 003, 004, 013, 014, 015, 016, 019, 024, 026, 040, 104 |
 | **OQ-8** | Unconfigured / invalid Exchange Fees | TC-RFLOW-006, 007, 008, 089 |
 | **OQ-9** | Read-only DB access | TC-RFLOW-077, 078, 080, 084, 086, 087 |
 | **OQ-10** | Failure-path statuses and fault injection | TC-RFLOW-017, 035, 036, 044, 061, 074, 075, 076, 078–085, 093, 094, 095, 096, 106, 108, 122 |
@@ -117,7 +118,7 @@ failure; none may ever be raised as a defect.
 | **OQ-F2** | Is counting a reissue as a second full sale intended? | TC-RFLOW-124 |
 | **OQ-F3** | Must Reissue History link backwards? | TC-RFLOW-105, 115 |
 | **OQ-F4** | What should the reissue columns be labelled? | TC-RFLOW-060 |
-| **DS-2** | Hidden button, or shown-and-refused? | TC-RFLOW-012 |
+| ~~**DS-2**~~ | ~~Hidden button, or shown-and-refused?~~ — answered by D-14 (hidden), 2026-10-01 | TC-RFLOW-012 |
 | **DS-6** | Branch/Agency flag precedence | TC-RFLOW-004 |
 
 ## 6. Findings — context only, no regression cases

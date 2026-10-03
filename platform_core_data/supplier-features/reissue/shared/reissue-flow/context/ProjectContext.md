@@ -13,11 +13,11 @@
 | Run Scope Type | User Story |
 | Run Type | User Story (Supplier Feature · shared scope) |
 | Target Environment | Admin `http://192.168.1.60` · Portal `http://192.168.1.60:9500` |
-| Produced by run | Rev 1–3: `run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary`. **run-007 was retargeted to `reissue-mapping` on 2026-09-27**, so this scope still has **no run bound to it**. One must be created before Stage 3 writes — see §2.2 |
-| Revision | **6** (2026-09-30 — **the mapping gate is substantively satisfied**: `reissue-mapping` finished Stage 2 and Stage 3 and its result is handed over in §1.3. Discovery status for *this* scope recorded in §2.1, including what was never explored. Full history in §10.) |
+| Produced by run | Rev 1–3: `run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary`. **run-007 was retargeted to `reissue-mapping` on 2026-09-27**. Rev 6 onward: `run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature`, **bound to this scope** (`scopeFamily: supplier-feature`, `feature: reissue`, `sharedScope: reissue-flow`) with the §1 layers frozen on it — see §2.2 |
+| Revision | **8** (2026-10-01 — **D-14: the Reissue button's display rule**, six conditions, all required; settles **DS-2** (hidden, not refused on click) and makes the "Ticketed Document" bar part of the condition. Rev 7, same day: status brought up to date with run-009. Full history in §10.) |
 | Target ref at write | `0000c1e9f51c4c17774a1a842608cd25d9ec2222` |
 | Generated | 2026-09-27 |
-| Status | **Rev 6 — Pending Review.** Rev 1/2 **Approved** — Mohamed Soliman, 2026-09-26, but against a User Story carrying **no** Acceptance Criteria and before the scope split. Rev 3 added the ACs; Rev 4 narrowed the scope to the business feature; Rev 5 recorded the shared UI layer; Rev 6 records the mapping handover and this scope's Discovery status |
+| Status | **Rev 8 — Pending Review.** Rev 1/2 **Approved** — Mohamed Soliman, 2026-09-26, but against a User Story carrying **no** Acceptance Criteria and before the scope split. Rev 3 added the ACs; Rev 4 narrowed the scope to the business feature; Rev 5 recorded the shared UI layer; Rev 6 recorded the mapping handover and this scope's Discovery status; Rev 7 brought that status up to date with run-009; Rev 8 records D-14, the Reissue button's display rule |
 
 ## 1. Scope Summary
 
@@ -41,7 +41,7 @@ Prerequisite → Eligibility → Search/Re-shop → Flight Results → Review & 
 Run Scope Type **User Story**. The scope is the **shared scope** `reissue-flow` (Supplier XOR Shared Scope, `ndc_execution_rules.md` §A5). The flow is executed with **Sabre (Sabre Staging)** as test data (`D-3`). Findings that only hold for Sabre are marked as supplier-specific; they are not generalised to the shared scope.
 
 Testing layers **after the 2026-09-27 split**. These are frozen on the run that carries this scope
-(§A3/§A4); since no run is bound yet, they are the intake position for the run that will be:
+(§A3/§A4) — `run-009`, whose `testingLayerScope` matches this table:
 
 | Layer | Status | Reason |
 |---|---|---|
@@ -61,7 +61,7 @@ Testing layers **after the 2026-09-27 split**. These are frozen on the run that 
 |---|---|---|
 | **D-1** | **The platform tests up to Review & Pay. The user does Pay / Exchange by hand** and supplies the new booking reference. | No stage clicks Pay, Exchange or Confirm. Post-exchange ACs are verified read-only on the booking the user produces. |
 | **D-2** | Layers: UI, E2E, Regression, API, Contract, Integration. | As §1's table. **Superseded by the 2026-09-27 split:** API, Contract and Integration moved to `reissue-mapping`; this scope keeps UI, E2E, Regression. |
-| **D-3** | Supplier for execution: **Sabre (Sabre Staging)**. | Test bookings are made on a Sabre Staging credential. That credential has to be selected in the owning organisation's Auto Reissue credentials (CL-1); the user has done this (D-5). |
+| **D-3** | Supplier for execution: **Sabre (Sabre Staging)**. | Test bookings are made on a Sabre Staging credential. That credential has to be selected in the owning organisation's Auto Reissue credentials (D-14); the user has done this (D-5). |
 | **D-5** | **Sabre Staging is already configured** by the user on BRN265 and AGN9780 (Sabre tab and Auto Reissue). The platform verifies it read-only. | OQ-1 closed; replaces the "not configured" note in §5.1. |
 | **D-6** | **Exploration bookings already supplied:**<br>• `NDCEG-BR-F260924EAzzYT`: AGN9780, Sabre Staging, BOOKED (Agency);<br>• `NDCEG-BR-F260916ENYOeQ`: Branch booking.<br>More are asked for only when needed. | OQ-2 closed. Admin lookup: `/booking/search-booking` → Flight tab → Booking Reference → Search. |
 | **D-7** | **Exchange fee already configured:** Branch **100**, Agency **50**. | OQ-4 closed. Expected change fee on an Agency booking = 50, on a Branch booking = 100 (Service Charge). Which one applies to an on-behalf booking: To Be Discovered. |
@@ -72,6 +72,7 @@ Testing layers **after the 2026-09-27 split**. These are frozen on the run that 
 | **D-12** | **"FARE HELD" on Review & Pay is app-side only**, not a supplier hold (user, 2026-09-26). | RSK-R2 closed for reaching Review & Pay. |
 | **D-13** | Extra Branch booking supplied: `NDCEG-BR-F260926PwYMR2` (order `BRN265NDCORD2609269C3COS`). `NDCEG-BR-F260916ENYOeQ` is **not reissuable** ("the airline will not reissue this ticket"). | Branch path uses the new booking; the old one is the airline-refusal case. |
 | **D-4** | Exchange Fees Rule Engine CRUD is **only a prerequisite**. | Its CRUD is not tested. A fee rule is configured (or found) only to test how the fee is applied: breakdown, Service Charge. |
+| **D-14** | **The Itinerary `Reissue` button is displayed only when all six conditions hold** (user, 2026-10-01):<br>1. the **Auto Reissue checkbox** is on for the organisation that owns the booking (Agency or Branch);<br>2. the **credential the PNR was booked on** is among that organisation's selected **Auto Reissue credentials** in the credential picker;<br>3. the booking **Status is `Booked` and the Itinerary status bar reads "Ticketed Document"** — both;<br>4. the booking was made **online** (not offline / imported);<br>5. **on Admin**, the booking is **locked by the current user** — the Portal has no lock, so this condition does not apply there *(user, 2026-10-01)*;<br>6. the supplier is a **reissue-capable GDS** (CL-2).<br>If any one fails, **the button is not displayed**. | **Settles DS-2:** a credential outside the picker hides the button; there is no click-time refusal to test (agrees with `agency`/`branch` `PO-28` and the run-007 observation). **Amends CL-3 / `PO-24`:** the "Ticketed Document" bar **is** part of the condition, alongside Status `Booked`. Recorded in the module contexts as `PO-30`. Every *button-shown* case states all six as preconditions. |
 
 ## 1.2 The mapping gate
 
@@ -159,8 +160,8 @@ success until every passenger holds a live document.* Today it verifies nothing.
 
 | # | Area / Screen / Flow | Why in scope | Source |
 |---|---|---|---|
-| 1 | **Prerequisite:** the Branch/Agency Auto Reissue checkbox and credentials; an Exchange Fees rule | Controls whether the button is shown (CL-1) and which fee applies. Used as setup only; already tested by run-006 | Story BR 1, 3; D-4; run-006 |
-| 2 | **Eligibility:** the Itinerary `Reissue` button (Admin + Portal) | Shown only when all of these hold (CL-1, CL-3):<br>• status `Booked`;<br>• booked online;<br>• booking locked by the current user;<br>• org flag on;<br>• supplier a reissue-capable GDS (CL-2).<br>The reissue is refused when the booking's credential is not among the org's selected credentials (CL-1 message). | Story BR 1, 2, 5; CL-1 … CL-3 |
+| 1 | **Prerequisite:** the Branch/Agency Auto Reissue checkbox and credentials; an Exchange Fees rule | Controls whether the button is shown (D-14) and which fee applies. Used as setup only; already tested by run-006 | Story BR 1, 3; D-4; run-006 |
+| 2 | **Eligibility:** the Itinerary `Reissue` button (Admin + Portal) | Shown only when all of these hold (**D-14**):<br>• the owning org's Auto Reissue checkbox on;<br>• the booking's credential selected in the org's Auto Reissue credential picker;<br>• status `Booked` **and** the status bar reads "Ticketed Document";<br>• booked online;<br>• on Admin only, booking locked by the current user (the Portal has no lock);<br>• supplier a reissue-capable GDS (CL-2).<br>If any fails, the button is **not displayed** — there is no click-time refusal (D-14 supersedes CL-1's message). | Story BR 1, 2, 5; CL-1 … CL-3; D-14 |
 | 3 | **Journey / passenger selection** | Only eligible journeys and passengers can be selected | Story BR 4 |
 | 4 | **Search / Re-shop** | Edit the selected journey's search criteria in the flight widget | Story BR 6 |
 | 5 | **Flight Results** | Show the **fare difference**, not the total price. No negative fare or difference. Breakdown per passenger type | Story BR 7, 8, 9 |
@@ -173,11 +174,12 @@ success until every passenger holds a live document.* Today it verifies nothing.
 
 ## 2.1 Discovery status for this scope — read before Stage 3
 
-**There is no `QA_Assessment_Report.md` for `reissue-flow`.** Stage 2 ran against this scope from
-2026-09-26 to 2026-09-27 and produced **85 evidence files** and one finding, and was then retargeted to
-`reissue-mapping` by the scope split before its report was written. The registry therefore reads
-`discovery: Not Started` for this scope, which understates what exists and overstates what is
-finished. Both halves of that matter.
+**This scope's Discovery report now exists:** `discovery/QA_Assessment_Report.md`, written by
+`run-009` on 2026-09-30, **Pending Review**. Stage 2 first ran against this scope from 2026-09-26 to
+2026-09-27 and produced **85 evidence files** and one finding (FINDING-R01), and was then retargeted to
+`reissue-mapping` by the scope split before its report was written. run-009 wrote that report from the
+evidence below, added a targeted sweep of Reports and PNR Query (§2.1.1), and raised three new
+proposed findings (F01 … F03). The registry now reads `discovery: Pending Review`.
 
 **What was actually explored here** — `discovery/evidence/`:
 
@@ -190,6 +192,7 @@ finished. Both halves of that matter.
 | Portal end-to-end flow | `p-*`, `p2-*` — widget, selection, results, review, itinerary, error | §3, §4, §7 |
 | Itinerary time rendering across zones | `tz-*` | §7; FINDING-R01 |
 | Supplier and core chain | `sabre-*`, `core-*`, `cmp-*` | handed to `reissue-mapping` |
+| Reports (all fourteen) and PNR Query — run-009 sweep, 2026-09-30 | `r009-*` | §7 Regression; AC-34, AC-35, AC-36 |
 
 **What the mapping scope's ten scenarios additionally exercised**, end to end and with **human-clicked
 exchanges completed**: one-way, round-trip and multi-city; parties up to six passengers; two
@@ -197,35 +200,34 @@ currencies and two exchange rates; the rule engine through an exchange; confirma
 itinerary on the resulting bookings. That evidence is business evidence even though it was gathered
 under a mapping lens, and Stage 3 may cite it.
 
-### 2.1.1 Never explored — three named gaps
+### 2.1.1 Never explored — three named gaps, two since closed
 
-These are **not** covered by either scope's evidence. Cases for them are still designed, from the
-Acceptance Criteria, but their expected results are written **without an observed screen** and must be
-marked as such:
+Rev 6 named three areas neither scope's evidence covered. run-009 closed the first two on 2026-09-30;
+the third remains open. Cases for an open gap are still designed from the Acceptance Criteria, but
+their expected results are written **without an observed screen** and must be marked as such:
 
-| Gap | ACs affected | Consequence for Stage 3 |
+| Gap | ACs affected | Status / consequence for Stage 3 |
 |---|---|---|
-| **Reports** — no report was ever opened. D-8 put *all* reports in Regression scope; none was looked at | **AC-35**, AC-36, AC-31 | Case steps cannot name real report titles, columns or filters. Designed from the AC text, flagged `Expected result unverified — screen never observed` |
-| **PNR Query** — appears only as a navigation item in captured page state, never opened | **AC-34**, AC-36 | As above |
-| **The Price Changed popup** — never observed; a supplier reprice cannot be forced | **AC-22** | Designed as an opportunistic case; carries **OQ-12** |
+| **Reports** — D-8 put *all* reports in Regression scope | **AC-35**, AC-36, AC-31 | **Closed by run-009.** All fourteen reports opened; filter structures captured as AC-36's baseline. No report can identify a reissue (RPT-1) and Sales Report counts a reissue as a second full sale (RPT-2) — both raised as product questions, not defects. Discovery report §3 |
+| **PNR Query** | **AC-34**, AC-36 | **Closed by run-009.** Both bookings shown stacked, original `Reissued`, new `Booked` — AC-34's expected result is observed. PNR Query has no Sync action on any booking, so AC-28's negative check belongs on the Itinerary. Discovery report §3.5 |
+| **The Price Changed popup** — never observed; a supplier reprice cannot be forced | **AC-22** | **Still open.** Designed as an opportunistic case; carries **OQ-12** |
 
-### 2.1.2 Two open discrepancies that block an expected result
+### 2.1.2 Two discrepancies that blocked an expected result — one settled, one open
 
-Stage 3 can write the **steps** for these cases but not their **expected result**, because what the
-application is *supposed* to do was never settled:
+Stage 3 could write the **steps** for these cases but not their **expected result**, because what the
+application is *supposed* to do had not been settled:
 
-- **DS-2 — hidden button, or shown-and-refused?** The story's clarification CL-1 says the Reissue
-  button is shown and the reissue is refused on click with a named message. Observed on 2026-09-26:
-  the button is **hidden** and no message is ever shown — reproduced with the exact prior run's setup,
-  read as the lock holder, so the credential is not the cause. The application's behaviour changed
-  after the prerequisite story was delivered and passed. The user could not say which is intended.
-  **Affects AC-02, AC-05 and Eligibility edge cases.**
+- **DS-2 — hidden button, or shown-and-refused? — Settled by D-14 (2026-10-01).** The story's
+  clarification CL-1 said the Reissue button is shown and the reissue refused on click with a named
+  message; observed on 2026-09-26, the button is **hidden** and no message is ever shown. **D-14 rules
+  the observed behaviour correct:** a booking whose credential is not in the org's picker gets no
+  button. **AC-02, AC-05 and the Eligibility edge cases now have a fixed expected result.**
 - **DS-6 — Branch/Agency flag precedence.** The story's own edge cases define a precedence
   ("Branch enabled but Agency disabled → unavailable for that Agency") that neither the clarification
   nor the prerequisite run states, and the combination was never tested. **Affects AC-03 and §1 ACs.**
 
 Under the run's requirement-precedence rule the story remains the authority until contradicted by
-evidence — so these cases are written to the story, and carry `Expected result: Pending Confirmation`
+evidence — so DS-6's cases are written to the story, and carry `Expected result: Pending Confirmation`
 until a product decision lands. They are **not** dropped and **not** silently written to the observed
 behaviour.
 
@@ -234,9 +236,13 @@ behaviour.
 | Prerequisite | Status |
 |---|---|
 | Approved Project Context | **This document, Pending Review.** Same posture the mapping suite was authored under, and recorded rather than assumed |
-| Approved Discovery | **Absent for this scope** — §2.1. Either a Discovery report is written from the evidence above, or the gate is waived on the record |
+| Approved Discovery | **Written, Pending Review** — `discovery/QA_Assessment_Report.md` (run-009, 2026-09-30), §2.1 |
 | Approved upstream mapping | Substantively delivered, **Pending Review** — §1.3 |
-| **A run bound to this scope** | **Missing.** `run-007` belongs to `reissue-mapping`. A run must be created with `scopeFamily: supplier-feature`, `feature: reissue`, `sharedScope: reissue-flow`, and the testing layers of §1 frozen on it — UI, E2E, Regression in scope; API/Contract/Integration moved out; DB deferred; Security and Performance out |
+| A run bound to this scope | **Satisfied.** `run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature`, created with `scopeFamily: supplier-feature`, `feature: reissue`, `sharedScope: reissue-flow`, and the testing layers of §1 frozen on it — UI, E2E, Regression in scope; API/Contract/Integration moved out; DB deferred; Security and Performance out |
+
+Stage 3 has since written on this basis: `test_design/TestCases_ReissueFlow.md` Revision 1, 127 cases,
+**Pending Review**. Every case is traceable to an artifact above that is itself Pending Review, so a
+change to any of them at review is re-traced into the suite.
 
 ## 3. Out of Scope for This Module
 
@@ -257,7 +263,7 @@ behaviour.
 
 | Related module | Interaction | Verified by |
 |---|---|---|
-| `agency`, `branch` | Their Auto Reissue flag and credentials decide whether the button is shown and whether the reissue is refused | run-006 (flag/button). This run covers the refusal at the moment of Reissue (CL-1) |
+| `agency`, `branch` | Their Auto Reissue flag and selected credentials decide whether the button is shown (D-14; `PO-28`, `PO-30` there) | run-006 / run-008 (flag/button). This run covers the full six-condition rule at the entry point |
 | Rule Engine (Exchange Fees, Service Charge) | Fee rule → change fee in the breakdown → stored as a Service Charge | This run (effect only) |
 | Booking Mid Office / Itinerary | Entry point. Source and new booking; lock (CL-3) | This run |
 | Reports, PNR Query | Must keep existing behaviour for the original and new booking | This run (Regression) |
@@ -306,10 +312,10 @@ behaviour.
 
 | ID | Type | Statement (meaning preserved) | Affected | Source |
 |---|---|---|---|---|
-| ASM-R1 | Assumption | The `Reissue` button follows `actionsDetails.canAutoReissue`. The credential check (CL-1) runs only when Reissue is clicked | Eligibility | CL-1; PO-22; run-006 snapshot |
+| ASM-R1 | Assumption | The `Reissue` button follows `actionsDetails.canAutoReissue`. ~~The credential check (CL-1) runs only when Reissue is clicked~~ — **superseded by D-14**: the credential is checked before the button is rendered | Eligibility | CL-1; ~~PO-22~~; D-14; run-006 snapshot |
 | ASM-R2 | Assumption | The exchange uses the same Init/Persist → Call Supplier → Update cycle as Pay & Book, so its states are observable in the Itinerary afterwards | Exchange outcome | Story BR 12; PRD BMO-10 |
 | ASM-R3 | Requirement (D-9) | A negative fare difference must never appear. Seeing one is a defect, and the user is alerted immediately | Results | Story BR 8 |
-| RSK-R1 | Risk | FINDING-017 (run-006): Reissue was still shown for a Branch booking whose credential (315) was not selected. The refusal may therefore only surface at click time | Eligibility | run-006 FINDING-017 |
+| RSK-R1 | Risk | FINDING-017 (run-006): Reissue was still shown for a Branch booking whose credential (315) was not selected. ~~The refusal may therefore only surface at click time~~ — **Closed by D-14**: hidden is the required behaviour, and run-007 observed it | Eligibility | run-006 FINDING-017; D-14 |
 | RSK-R2 | Risk | Reaching Review & Pay may already hold or persist something at the supplier (Init/Persist) | Safety | Story BR 12; OQ-3 |
 | RSK-R3 | Risk | INV-1/INV-2 (run-006): a Branch save during an inactive-credential window can silently remove a supplier. Reissue prerequisites may drift between runs | Prerequisite | run-006 investigation |
 | RSK-R4 | Risk | Without DB access, "relationship to original" and "Service Charge stored" depend on UI/API/Reports exposing them | Exchange outcome | run.json |
@@ -319,9 +325,9 @@ behaviour.
 | Context Item | Section here | Source |
 |---|---|---|
 | Flow and business rules 1–17 | §2 | `Reissue_Flow_From_Itinerary.md` Description + Business Requirement |
-| Credential refusal message | §2 row 2 | CL-1 |
+| Reissue button display rule (six conditions) | §1.1, §2 row 2 | D-14 (supersedes CL-1's click-time refusal) |
 | Reissue-capable suppliers | §2 row 2, §3 | CL-2 |
-| `Booked` status + lock precondition | §2 row 2, §5 | CL-3 |
+| `Booked` + "Ticketed Document" status, lock precondition | §2 row 2, §5 | CL-3 as amended by D-14 |
 | Manual Pay/Exchange, layers, supplier, fees | §1.1 | Intake 2026-09-26 (D-1 … D-4) |
 | Pay & Book cycle, retrieval | §2 row 8 | PRD §7.8 BMO-10, BMO-14 |
 | Service Charge | §2 row 8 | PRD §7.7 RUL-01 |
@@ -346,7 +352,7 @@ business-feature surface.
 | AC | Requirement (short) | Covered by | Layer | Verifiable in run-007 |
 |---|---|---|---|---|
 | AC-01 | Reissue configuration controlled through Branch and Agency CRUD | §2 row 1; §3 | UI | **Yes** — read-only prerequisite check. The CRUD itself was delivered by run-006 |
-| AC-02 | Auto Reissue displayed in Itinerary per the configured flag | §2 row 2 | UI / API | **Yes** — but the *expected result* is blocked by **DS-2** (hidden vs. refused-on-click) |
+| AC-02 | Auto Reissue displayed in Itinerary per the configured flag | §2 row 2 | UI / API | **Yes** — expected result fixed by **D-14** (DS-2 settled: hidden when any condition fails) |
 | AC-03 | Exchange Fees applied only when configured | §2 rows 5, 6 | UI | **Partial** — the positive side holds (D-7). The unconfigured negative needs the fee rule removed on a shared org → **OQ-8** |
 | AC-04 | User can select the applicable flight from Itinerary | §2 rows 2, 3 | UI | Yes |
 | AC-05 | System validates Auto Reissue applicability | §2 row 2 | UI / API | Yes — `actionsDetails.canAutoReissue` plus core-service eligibility (ASM-R1) |
@@ -434,12 +440,12 @@ under the current scope.
 | # | Discrepancy | Handling |
 |---|---|---|
 | DS-1 | The story's flow includes Pay / Exchange; D-1 hands them to the user | Not a conflict in requirements: those ACs stay in scope, verified after the user's manual step (A6: the story remains the authority on expected behaviour) |
-| DS-2 | **CL-1 against observed behaviour (Stage 2, 2026-09-26).** CL-1 says the button is shown and the reissue is refused on click with "No credential for this booking is assigned to your organisation". **Observed:** with BRN265's selection set to [277 GalileoLive] only, the Branch booking on 315 got `canAutoReissue: false` and **the Reissue button was hidden**; no message is ever shown. This also differs from run-006 FINDING-017, where the button was still shown. **Repeated 18:47–18:53 with the exact run-006 setup (BRN265 selection [313] only), read as the lock holder: still hidden.** So the credential used is not the cause: the app behaviour changed after run-006 (TC-BR-103 / TC-AGENCY-082 passed on 2026-09-25 against `PO-22`). The user could not say which behaviour is intended (2026-09-26); to be confirmed with the product owner/developer. Evidence: `discovery/evidence/cl1-*`. | **Pending Confirmation**: which behaviour is intended decides the Stage 3 expected result |
+| DS-2 | **CL-1 against observed behaviour (Stage 2, 2026-09-26).** CL-1 says the button is shown and the reissue is refused on click with "No credential for this booking is assigned to your organisation". **Observed:** with BRN265's selection set to [277 GalileoLive] only, the Branch booking on 315 got `canAutoReissue: false` and **the Reissue button was hidden**; no message is ever shown. This also differs from run-006 FINDING-017, where the button was still shown. **Repeated 18:47–18:53 with the exact run-006 setup (BRN265 selection [313] only), read as the lock holder: still hidden.** So the credential used is not the cause: the app behaviour changed after run-006 (TC-BR-103 / TC-AGENCY-082 passed on 2026-09-25 against `PO-22`). The user could not say which behaviour is intended (2026-09-26); to be confirmed with the product owner/developer. Evidence: `discovery/evidence/cl1-*`. | **Settled — D-14 (user, 2026-10-01).** The observed behaviour is the intended one: the button is **not displayed** when the booking's credential is not in the org's picker. CL-1's click-time refusal is not a test target. Agrees with `PO-28` in `agency`/`branch` (2026-09-27) |
 
 | DS-3 | **AC-26 / AC-30 and story §5.5 require DB verification; the DB layer is `Deferred`** (`run.json`, intake 2026-09-26 — no read-only access supplied). AC-30 is a schema assertion (`IS_AUTO_REISSUE` on `TT_FLIGHT_BOOK`) with no UI surface at all; AC-26 (difference-based storage) can be inferred from the displayed amounts but not proved. | Not a requirements conflict — a **scope constraint**. Both ACs stay in the suite and are recorded as **Declared Gaps** on the run manifest and in the Final QA Report. Lifting them requires read-only DB access and a `run_manager/cli.js scope-change` (**OQ-9**); the layer scope is frozen and is never edited by hand. |
 | DS-4 | **"Banque Misr" (story §4.6) against "Banque Masr" (AC-21, §4.10, edge case 4.4).** The same payment method, two spellings, both in the supplied text. | Transcription-level, not behavioural. Both are kept verbatim in the story. Stage 3 writes the expected result against **the application's own label**, captured in Stage 2. |
 | DS-5 | **AC-28 ("Reissue offers cannot perform Sync") against §3, which lists Sync PNR as Out of Scope.** | Not a conflict once separated: Sync PNR **as a feature** stays out of scope, while AC-28's **negative check** — that Sync is absent/disabled on a reissue offer — is **in scope**, carried on §2 row 8. Nothing is Sync-tested; only its absence is asserted. |
-| DS-6 | **Story §1 edge cases 1–4 define a Branch/Agency flag precedence** ("Branch enabled but Agency disabled → the feature is unavailable for that Agency") that **neither CL-1 nor run-006 states**. CL-1 says only that the org checkbox controls whether the button is shown; run-006 tested each flag on its own org, never the combination. | **Pending Confirmation.** Under §A6 the story remains the authority on expected behaviour until contradicted by evidence, so AC-03/§1 AC-3 are written to the edge-case precedence. Stage 2 verifies the actual precedence on BRN265/AGN9780 before Stage 3 fixes the expected result. Interacts with **DS-2**, which is already open on the same button. |
+| DS-6 | **Story §1 edge cases 1–4 define a Branch/Agency flag precedence** ("Branch enabled but Agency disabled → the feature is unavailable for that Agency") that **neither CL-1 nor run-006 states**. CL-1 says only that the org checkbox controls whether the button is shown; run-006 tested each flag on its own org, never the combination. | **Pending Confirmation.** Under §A6 the story remains the authority on expected behaviour until contradicted by evidence, so AC-03/§1 AC-3 are written to the edge-case precedence. Stage 2 verifies the actual precedence on BRN265/AGN9780 before Stage 3 fixes the expected result. Interacts with **DS-2** on the same button — settled by D-14, which fixes *each* org's flag as a condition but does not rule on the cross-org combination. |
 
 ---
 
@@ -450,6 +456,8 @@ under the current scope.
 
 | Rev | Date | Change |
 |---|---|---|
+| **8** | 2026-10-01 | **D-14 — the Reissue button's display rule** (user): six conditions, all required — org checkbox on; the booking's credential in the org's picker; Status `Booked` **and** "Ticketed Document" bar; online; locked by the current user (**Admin only** — the Portal has no lock); reissue-capable GDS. **DS-2 settled** (hidden, not refused on click). **CL-3 / `PO-24` amended**: the "Ticketed Document" bar is now part of the condition. §1.1, §2 row 2, §2.1.2, §3.1, §6 ASM-R1 and RSK-R1, §7, §7.1 AC-02, §9 DS-2/DS-6 updated. Mirrored in `agency`/`branch` as `PO-30`. |
+| **7** | 2026-10-01 | **Status only — no decision, scope, layer or AC mapping changed.** Rev 6 was written just before run-009 picked this scope up, so three of its statements went stale the same day. Header, §1 and §2.2: run-009 is now the run **bound to this scope**. §2.1 and §2.2: this scope's **Discovery report exists** (run-009, Pending Review), with three new proposed findings F01 … F03. §2.1.1: **Reports and PNR Query were explored** by run-009's sweep; only the Price Changed popup remains unobserved. §2.2 notes Stage 3 has been written (127 cases, Pending Review). |
 | **6** | 2026-09-30 | **The mapping handover is recorded** (§1.3): both hops returned zero value mismatches, so a business failure from here is a business failure. Eight settled facts a case may now assert, the confirmed behaviours that must never be raised as defects, and the one caveat that must not be lost — AC-15 holds by a **scope decision**, not by evidence. §1.3.1 maps the fourteen live mapping findings onto the screens and ACs where a user meets them, without re-raising them here. **§2.1 records this scope's own Discovery status honestly**: 85 evidence files and one finding exist, no report was ever written, and the registry's `Not Started` both understates and overstates it. §2.1.1 names the three areas never explored — **Reports, PNR Query and the Price Changed popup**. §2.1.2 names the two discrepancies that block an expected result rather than a step — **DS-2** (hidden button vs shown-and-refused) and **DS-6** (flag precedence). §2.2 lists what Stage 3 still needs, including **a run bound to this scope**, which does not exist. §1.2 restated: the gate is substantively satisfied, formally open. |
 | **5** | 2026-09-27 | UI recorded as **shared** with `reissue-mapping`, which owns value provenance on the same screens. |
 | **4** | 2026-09-27 | **The scope split.** Layers narrowed to UI / E2E / Regression; API, Contract and Integration obligations moved to `reissue-mapping`. |

@@ -4,17 +4,18 @@
 |---|---|
 | Module | `agency` |
 | Produced by run | `run-004__2026-08-17_14-35-25__UserStory__US-4222-UpdateAgency` · `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` (TC-AGENCY-061 … 093) |
-| Revision | 4 |
+| Revision | 5 |
 | Run Scope Type / Run Type | User Story / User Story |
-| Project Context | `modules/agency/context/ProjectContext.md` (revision 5, Approved 2026-09-24; Stage 2 additions `PO-21` … `PO-26` approved 2026-09-24) |
-| Total Test Cases | 94 |
-| Generated | 2026-08-18 · Revision 4: 2026-09-24 |
-| Status | **Approved** — Mohamed Soliman, Stage 3 Human Review gate, 2026-09-25: TC-AGENCY-061 … 093 approved (33); TC-AGENCY-094 approved 2026-09-25. TC-AGENCY-001 … 060 keep their recorded decisions |
+| Project Context | `modules/agency/context/ProjectContext.md` (revision 5, Approved 2026-09-24; Stage 2 additions `PO-21` … `PO-26` approved 2026-09-24; `PO-30` added 2026-10-01, Pending Review) |
+| Total Test Cases | 97 |
+| Generated | 2026-08-18 · Revision 4: 2026-09-24 · Revision 5: 2026-10-01 |
+| Status | **Approved** — Mohamed Soliman, Stage 3 Human Review gate, 2026-09-25: TC-AGENCY-061 … 093 approved (33); TC-AGENCY-094 approved 2026-09-25. TC-AGENCY-001 … 060 keep their recorded decisions. **Revision 5 (2026-10-01): TC-AGENCY-076 … 079, 081 … 085, 094 reset to `Pending`; TC-AGENCY-095 … 097 added `Pending`** |
 | Approved | 2026-08-18 — Ahmed Ayman, Stage 3 Human Review gate, after per-case review of all 60 cases (33 Approved / 27 Rejected / 0 Pending) |
 | Revision 1 | run-001, 2026-08-01 — 53 cases. Approved 2026-08-02 after per-case review (37 Approved / 16 Rejected). |
 | Revision 2 | run-001, 2026-08-01 — in-place corrections to TC-AGENCY-005 / 007 and the addition of TC-AGENCY-053. |
 | Revision 3 | **run-004, 2026-08-18** — re-traced against run-004 Discovery and Project Context revision 4. See §0. |
 | Revision 4 | **run-006, 2026-09-24** — adds 33 Auto Reissue cases (TC-AGENCY-061 … 093; 088 … 093 added 2026-09-25). See §0.2. |
+| Revision 5 | **2026-10-01** — applies `PO-30`, the `Reissue` button's six display conditions: 10 Itinerary cases restated, 3 added (TC-AGENCY-095 … 097). See §0.4. |
 
 ## 0. What Revision 3 changed
 
@@ -127,6 +128,9 @@ kept only in the git-ignored `credentials.json` and never written into a case.
 | `NDCEG-BR-F260916ENYOeQ` | Booking made by the user under BRN265 itself (order `BRN265NDCORD2609169XJ1LC`), Sabre, credential 315, Status Booked | Unchanged — read only |
 | `{ONBEHALF_REF}` = `NDCEG-BR-F2609242aZ6EJ` | Supplied by the user 2026-09-25: **Booked from Admin on behalf of an Agency**. Before TC-AGENCY-083, read the itinerary's agency and confirm it is AGN9780 | Unchanged — read only |
 | `{NOTBOOKED_REF}` = `NDCEG-BR-F251014N1oohh` | Supplied by the user 2026-09-25: an **Agency** booking **On Hold**. Used by TC-AGENCY-084 (Admin) and TC-AGENCY-094 (Portal) | Unchanged — read only |
+| `{BOOKED_UNTICKETED_REF}` | *Optional, added 2026-10-01 (`PO-30`):* an Agency booking with Status **Booked** whose status bar does **not** read "Ticketed Document". Used by TC-AGENCY-084. **Not yet supplied** | Unchanged — read only |
+| `{OFFLINE_REF}` | *Added 2026-10-01 (`PO-30`):* an Agency booking that was **imported** or made **offline**, on Sabre Staging (315), Booked + "Ticketed Document". Used by TC-AGENCY-095. **Not yet supplied** | Unchanged — read only |
+| `{NONREISSUE_SUPPLIER_REF}` | *Added 2026-10-01 (`PO-30`):* an online Agency booking on a supplier that does not support reissue (Amadeus or an LCC), Booked + "Ticketed Document". Used by TC-AGENCY-097. **Not yet supplied** | Unchanged — read only |
 | `NDCEG-BR-F251103CdegUo` | Supplied by the user 2026-09-25: a **Branch** booking **On Hold**. Used by TC-BR-112 | Unchanged — read only |
 | `{CRED}` = **NDCSabre staging** (id 313) · `{SUP}` = **NDCsbr** | Chosen by the user 2026-09-25 for TC-AGENCY-092/093 and TC-BR-110/111. Grant `AUTH-MASTER-SUPPLIER-UPDATE-Shared` (status only; restore to Active). **313 is also BRN265's restore credential**, so restore it before any BRN265 booking check. TC-AGENCY-092 needs 313 chosen in AGN9780's NDCsbr PCC tab first; record AGN9780's Product Access before changing it, and restore it after | Active |
 | New Agencies (TC-AGENCY-087, 088) | **The user agreed on 2026-09-25** to create them under BRN265 (`AUTH-AGENCY-CREATE-SelfCreated`). Record each new code right after approval | Stay on STG (can't be deleted) |
@@ -140,8 +144,22 @@ request returns 401, capture it again.
 **Rules for every case:**
 - Never click **Reissue**, **Release PNR** or **Void / Cancel**, on Admin or the Portal.
 - Admin booking checks need the booking lock (Created By card). The Portal needs no lock (`PO-25`).
+- **The button's display rule is `PO-30`** (2026-10-01) — six conditions, all required: (1) Auto Reissue on for the organization that owns the booking; (2) the PNR's booking credential in its selected Auto Reissue credentials; (3) Status **Booked** **and** the "Ticketed Document" status bar; (4) booked online, not offline / imported; (5) locked by you (Admin — the Portal needs none, `PO-25`); (6) a reissue-capable GDS (`NDCsbr`, `Sabre`, `TravelportNdc`, `Galileo`). A *button-shown* case needs all six; a *button-hidden* case leaves exactly one unmet.
 - BRN265 and AGN9780 were also changed by hand during Discovery. **Read the Auto Reissue value just
   before each booking check**, in the same session.
+
+## 0.4 What Revision 5 changed (2026-10-01 — `PO-30`)
+
+The user (Mohamed Soliman) restated the `Reissue` button's display rule on 2026-10-01 as **six conditions, all required** — recorded as `PO-30` in the Project Context §1.3 (`Pending Review`). It consolidates `PO-28` and supersedes the first sentence of `PO-24`: the "Ticketed Document" status bar **is** part of the condition, alongside Status `Booked`.
+
+| # | Change | Cases |
+|---|---|---|
+| 1 | The `PO-24` status note (*"Booked is the condition, not the 'Ticketed Document' bar"*) rewritten to Status Booked **and** the "Ticketed Document" bar | TC-AGENCY-076, 077, 078, 082, 083, 084, 085 |
+| 2 | Preconditions restated so every *button-shown* case meets all six conditions, and every *button-hidden* case leaves exactly one unmet | TC-AGENCY-076, 077, 078, 079, 081, 082, 083, 085 |
+| 3 | The status cases re-aimed at the combined condition (3); TC-AGENCY-084 gains an optional Booked-but-not-"Ticketed Document" booking | TC-AGENCY-084, 094 |
+| 4 | Three conditions had no case and gain one: online (4), lock on Admin (5), reissue-capable supplier (6) | TC-AGENCY-095, 096, 097 *(new)* |
+
+**No expected result was inverted.** Every changed case is reset to `Review: Pending` and says why in its Notes. **Condition (5) is Admin-only — confirmed by the user, 2026-10-01:** the Portal has no lock (`PO-25`), so TC-AGENCY-079 and 081 expect "shown" on the Portal without one.
 
 ## Case Index
 
@@ -222,16 +240,16 @@ request returns 401, capture it again.
 | TC-AGENCY-073 | Turning Auto Reissue off keeps the saved credentials | Scenario | P1 | Scenario, Positive, Regression | Approved | Pending |
 | TC-AGENCY-074 | Agency picker offers only credentials the Agency itself holds | Atomic | P2 | Atomic, Integration, Business-Rule | Approved | Pending |
 | TC-AGENCY-075 | Reading the Agency drops a credential that became invalid | Atomic | P3 | Atomic, Assumption-based | Approved | Pending |
-| TC-AGENCY-076 | Admin shows Reissue for an Agency booking when Auto Reissue is on | Atomic | P1 | Atomic, Positive, Smoke | Approved | Pending |
-| TC-AGENCY-077 | Admin hides Reissue for an Agency booking when Auto Reissue is off | Atomic | P1 | Atomic, Negative, Smoke | Approved | Pending |
-| TC-AGENCY-078 | Branch Auto Reissue on does not enable an Agency booking | Atomic | P1 | Atomic, Integration | Approved | Pending |
-| TC-AGENCY-079 | Portal shows Reissue when the Agency has Auto Reissue on | Atomic | P1 | Atomic, Positive, Smoke | Approved | Pending |
+| TC-AGENCY-076 | Admin shows Reissue for an Agency booking when Auto Reissue is on | Atomic | P1 | Atomic, Positive, Smoke | Pending | Pending |
+| TC-AGENCY-077 | Admin hides Reissue for an Agency booking when Auto Reissue is off | Atomic | P1 | Atomic, Negative, Smoke | Pending | Pending |
+| TC-AGENCY-078 | Branch Auto Reissue on does not enable an Agency booking | Atomic | P1 | Atomic, Integration | Pending | Pending |
+| TC-AGENCY-079 | Portal shows Reissue when the Agency has Auto Reissue on | Atomic | P1 | Atomic, Positive, Smoke | Pending | Pending |
 | TC-AGENCY-080 | Portal hides Reissue when the Agency has Auto Reissue off | Atomic | P1 | Atomic, Negative, Smoke | Approved | Pending |
-| TC-AGENCY-081 | Portal shows Reissue without a lock | Atomic | P3 | Atomic, Regression | Approved | Pending |
-| TC-AGENCY-082 | Reissue is hidden when the booking's credential is not selected | Atomic | P1 | Atomic, Negative, Business-Rule | Approved | Pending |
-| TC-AGENCY-083 | A booking made on behalf of the Agency follows the Agency's checkbox | Atomic | P2 | Atomic, Integration, Assumption-based | Approved | Pending |
-| TC-AGENCY-084 | A booking not in Booked status does not show Reissue | Atomic | P3 | Atomic, Negative, Assumption-based | Approved | Pending |
-| TC-AGENCY-085 | Which value the Itinerary uses while an Auto Reissue change is pending | Atomic | P3 | Atomic, Exploratory, Assumption-based | Approved | Pending |
+| TC-AGENCY-081 | Portal shows Reissue without a lock | Atomic | P3 | Atomic, Regression | Pending | Pending |
+| TC-AGENCY-082 | Reissue is hidden when the booking's credential is not selected | Atomic | P1 | Atomic, Negative, Business-Rule | Pending | Pending |
+| TC-AGENCY-083 | A booking made on behalf of the Agency follows the Agency's checkbox | Atomic | P2 | Atomic, Integration, Assumption-based | Pending | Pending |
+| TC-AGENCY-084 | A booking not both Booked and "Ticketed Document" does not show Reissue | Atomic | P3 | Atomic, Negative, Assumption-based | Pending | Pending |
+| TC-AGENCY-085 | Which value the Itinerary uses while an Auto Reissue change is pending | Atomic | P3 | Atomic, Exploratory, Assumption-based | Pending | Pending |
 | TC-AGENCY-086 | Updating an Agency without touching Auto Reissue still works | Atomic | P2 | Atomic, Regression, Smoke | Approved | Pending |
 | TC-AGENCY-087 | Create an Agency with Auto Reissue on | Scenario | P3 | Scenario, Positive | Approved | Pending |
 | TC-AGENCY-088 | Create an Agency with Auto Reissue off | Scenario | P2 | Scenario, Positive | Approved | Pending |
@@ -240,11 +258,14 @@ request returns 401, capture it again.
 | TC-AGENCY-091 | An Agency can only have suppliers its Branch has | Atomic | P1 | Atomic, Integration, Permissions | Approved | Pending |
 | TC-AGENCY-092 | An inactive credential leaves the Agency's Auto Reissue picker | Scenario | P1 | Scenario, Negative, Integration | Approved | Pending |
 | TC-AGENCY-093 | What the Agency's Auto Reissue picker shows when the supplier is made inactive | Scenario | P2 | Scenario, Exploratory, Integration | Approved | Pending |
-| TC-AGENCY-094 | Portal hides Reissue for an Agency booking on hold | Atomic | P2 | Atomic, Negative | Approved | Pending |
+| TC-AGENCY-094 | Portal hides Reissue for an Agency booking on hold | Atomic | P2 | Atomic, Negative | Pending | Pending |
+| TC-AGENCY-095 | Admin hides Reissue for an imported (offline) Agency booking | Atomic | P2 | Atomic, Negative, Business-Rule | Pending | Pending |
+| TC-AGENCY-096 | Admin shows Reissue only after the booking is locked | Atomic | P2 | Atomic, Negative, Business-Rule | Pending | Pending |
+| TC-AGENCY-097 | Admin hides Reissue for an Agency booking on a supplier that does not support reissue | Atomic | P3 | Atomic, Negative, Business-Rule | Pending | Pending |
 
-**Tier breakdown:** 81 Atomic · 12 Scenario · 1 E2E
+**Tier breakdown:** 84 Atomic · 12 Scenario · 1 E2E
 
-**Lifecycle breakdown:** Review — 0 Pending · 64 Approved · 30 Rejected · Automation — 35 Pending · 15 Approved · 44 Rejected
+**Lifecycle breakdown:** Review — 13 Pending · 54 Approved · 30 Rejected · Automation — 38 Pending · 15 Approved · 44 Rejected
 11 Approved · 37 Rejected
 
 **Eligibility right now:** 11 cases are eligible for Stage `4M` (`Review = Approved`); **3** are
@@ -2301,7 +2322,7 @@ resolution in the Coverage Report §11.
 
 **Objective:** Verify that the Admin Itinerary shows Reissue when the booking's Agency has Auto Reissue on.
 
-**Preconditions:** AGN9780 has Auto Reissue on (Approved) **with Sabre Staging (315) — the booking's credential — in the selection (`PO-28`)**. Booking `NDCEG-BR-F260924EAzzYT` (AGN9780, Sabre, credential 315, Status Booked) is not locked by another user.
+**Preconditions:** **All six `PO-30` conditions hold.** AGN9780 has Auto Reissue on (Approved) **with Sabre Staging (315) — the booking's credential — in the selection**. Booking `NDCEG-BR-F260924EAzzYT` (AGN9780, Sabre — a reissue-capable GDS — credential 315) reads Status **Booked** in Booking Information **and** "Ticketed Document" in the status bar, and was made **online** by the user (not offline / imported). It is not locked by another user; step 5 locks it to you.
 
 **Steps:**
 
@@ -2318,9 +2339,9 @@ resolution in the Coverage Report §11.
 
 **Tags:** Atomic, Positive, Smoke
 
-**Notes:** Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
+**Notes:** **Rev 2, 2026-10-01** — preconditions restated against the six `PO-30` conditions (adds the "Ticketed Document" bar, online booking, reissue-capable GDS and the lock). Expected result unchanged. Never click **Reissue**, **Release PNR** or **Void / Cancel**. The status condition is Status **Booked** in Booking Information **and** the "Ticketed Document" status bar — both (`PO-30`, which supersedes `PO-24`'s first sentence).
 
-**Review:** Approved
+**Review:** Pending
 
 **Automation:** Pending
 
@@ -2328,7 +2349,7 @@ resolution in the Coverage Report §11.
 
 **Objective:** Verify that the Admin Itinerary hides Reissue when the booking's Agency has Auto Reissue off.
 
-**Preconditions:** AGN9780 has Auto Reissue off (Approved). Booking `NDCEG-BR-F260924EAzzYT` is not locked by another user.
+**Preconditions:** AGN9780 has Auto Reissue off (Approved), with Sabre Staging (315) still in its saved selection. Booking `NDCEG-BR-F260924EAzzYT` (AGN9780, Sabre — a reissue-capable GDS — credential 315) reads Status **Booked** in Booking Information **and** "Ticketed Document" in the status bar, and was made **online** by the user (not offline / imported). It is not locked by another user; step 5 locks it to you. **Only `PO-30` condition (1) — the checkbox — is unmet.**
 
 **Steps:**
 
@@ -2345,9 +2366,9 @@ resolution in the Coverage Report §11.
 
 **Tags:** Atomic, Negative, Smoke
 
-**Notes:** **Rev 2, 2026-09-27** — the clause *"Manual Reissue is still shown"* was removed: Manual Reissue is out of scope for this story (`PO-29`). Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
+**Notes:** **Rev 3, 2026-10-01** — preconditions restated so the checkbox is the only `PO-30` condition left unmet; the status note now requires the "Ticketed Document" bar too. Expected result unchanged. **Rev 2, 2026-09-27** — the clause *"Manual Reissue is still shown"* was removed: Manual Reissue is out of scope for this story (`PO-29`). Never click **Reissue**, **Release PNR** or **Void / Cancel**. The status condition is Status **Booked** in Booking Information **and** the "Ticketed Document" status bar — both (`PO-30`, which supersedes `PO-24`'s first sentence).
 
-**Review:** Approved
+**Review:** Pending
 
 **Automation:** Pending
 
@@ -2355,7 +2376,7 @@ resolution in the Coverage Report §11.
 
 **Objective:** Verify that a Branch with Auto Reissue on does not show Reissue on its Agency's booking when the Agency is off.
 
-**Preconditions:** BRN265 has Auto Reissue on. AGN9780 has Auto Reissue off. Both Approved.
+**Preconditions:** BRN265 has Auto Reissue on. AGN9780 has Auto Reissue off. Both Approved. Booking `NDCEG-BR-F260924EAzzYT` (AGN9780, Sabre — a reissue-capable GDS — credential 315) reads Status **Booked** in Booking Information **and** "Ticketed Document" in the status bar, and was made **online** by the user (not offline / imported). Step 5 locks it to you, so only AGN9780's checkbox (`PO-30` condition 1) is unmet.
 
 **Steps:**
 
@@ -2372,9 +2393,9 @@ resolution in the Coverage Report §11.
 
 **Tags:** Atomic, Integration
 
-**Notes:** Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
+**Notes:** **Rev 2, 2026-10-01** — preconditions restated against `PO-30`; the status note now requires the "Ticketed Document" bar too. Expected result unchanged. Never click **Reissue**, **Release PNR** or **Void / Cancel**. The status condition is Status **Booked** in Booking Information **and** the "Ticketed Document" status bar — both (`PO-30`, which supersedes `PO-24`'s first sentence).
 
-**Review:** Approved
+**Review:** Pending
 
 **Automation:** Pending
 
@@ -2382,7 +2403,7 @@ resolution in the Coverage Report §11.
 
 **Objective:** Verify that the Portal shows Reissue on the Agency's booking when Auto Reissue is on.
 
-**Preconditions:** AGN9780 has Auto Reissue on (Approved) **with Sabre Staging (315) — the booking's credential — in the selection (`PO-28`)**. The AGN9780 Portal login is available.
+**Preconditions:** **Every `PO-30` condition except the lock holds** — the Portal has no lock and needs none (`PO-25`). AGN9780 has Auto Reissue on (Approved) **with Sabre Staging (315) — the booking's credential — in the selection**. Booking `NDCEG-BR-F260924EAzzYT` (AGN9780, Sabre — a reissue-capable GDS — credential 315) reads Status **Booked** in Booking Information **and** "Ticketed Document" in the status bar, and was made **online** by the user (not offline / imported). The AGN9780 Portal login is available.
 
 **Steps:**
 
@@ -2397,9 +2418,9 @@ resolution in the Coverage Report §11.
 
 **Tags:** Atomic, Positive, Smoke
 
-**Notes:** No lock is needed on the Portal (`PO-25`). Never click Reissue.
+**Notes:** **Rev 2, 2026-10-01** — preconditions restated against `PO-30` (adds the "Ticketed Document" bar, online booking and reissue-capable GDS). Expected result unchanged **only while `PO-25` stands**: `PO-30` condition (5) — locked by the current user — is **Admin-only** (confirmed by the user, 2026-10-01): the Portal has no lock (`PO-25`). Never click Reissue.
 
-**Review:** Approved
+**Review:** Pending
 
 **Automation:** Pending
 
@@ -2430,7 +2451,7 @@ resolution in the Coverage Report §11.
 
 **Objective:** Verify that the Portal booking shows Reissue with no lock control on the Created By card.
 
-**Preconditions:** AGN9780 has Auto Reissue on (Approved) **with Sabre Staging (315) — the booking's credential — in the selection (`PO-28`)**, so the button is expected to render.
+**Preconditions:** **Every `PO-30` condition except the lock holds** — the Portal has no lock and needs none (`PO-25`). AGN9780 has Auto Reissue on (Approved) **with Sabre Staging (315) — the booking's credential — in the selection**. Booking `NDCEG-BR-F260924EAzzYT` (AGN9780, Sabre — a reissue-capable GDS — credential 315) reads Status **Booked** in Booking Information **and** "Ticketed Document" in the status bar, and was made **online** by the user (not offline / imported). So the button is expected to render.
 
 **Steps:**
 
@@ -2445,17 +2466,17 @@ resolution in the Coverage Report §11.
 
 **Tags:** Atomic, Regression
 
-**Notes:** Confirmed intended by the user on 2026-09-24 (FINDING-016, `PO-25`).
+**Notes:** **Rev 2, 2026-10-01** — preconditions restated against `PO-30` (adds the "Ticketed Document" bar, online booking and reissue-capable GDS). Expected result unchanged **only while `PO-25` stands**: `PO-30` condition (5) — locked by the current user — is read as Admin-only; if the reviewer applies it to the Portal, this case's expected result becomes "not shown". Confirmed intended by the user on 2026-09-24 (FINDING-016, `PO-25`).
 
-**Review:** Approved
+**Review:** Pending
 
 **Automation:** Pending
 
 ### TC-AGENCY-082 — Reissue is hidden when the booking's credential is not selected
 
-**Objective:** Verify that the Reissue button requires **both** the checkbox on **and** a selected credential matching the credential the PNR was booked on (`PO-28`).
+**Objective:** Verify that the Reissue button requires **both** the checkbox on **and** a selected credential matching the credential the PNR was booked on (`PO-28`, now `PO-30` condition 2).
 
-**Preconditions:** AGN9780 has Auto Reissue on (Approved), with a selected credential that is **not** the booking's credential — selection is **NDCSabre staging (313)** only, while booking `NDCEG-BR-F260924EAzzYT` is on **Sabre Staging (315)**.
+**Preconditions:** AGN9780 has Auto Reissue on (Approved), with a selected credential that is **not** the booking's credential — selection is **NDCSabre staging (313)** only, while booking `NDCEG-BR-F260924EAzzYT` is on **Sabre Staging (315)**. Every other `PO-30` condition holds: the booking reads Status **Booked** and "Ticketed Document" in the status bar, was made online, is on Sabre (a reissue-capable GDS), and step 5 locks it to you. **Only the credential is unmet.**
 
 **Steps:**
 
@@ -2472,9 +2493,9 @@ resolution in the Coverage Report §11.
 
 **Tags:** Atomic, Negative, Business-Rule
 
-**Notes:** **Rev 2, 2026-09-27 — expected result inverted under `PO-28`** (product owner: the button needs the checkbox **and** a selected credential matching the PNR's booking credential). Rev 1 expected "shown" under the now-superseded `PO-22`. Restore AGN9780's selection to include 315 afterwards. Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
+**Notes:** **Rev 3, 2026-10-01** — preconditions restated so the credential is the only `PO-30` condition left unmet; the status note now requires the "Ticketed Document" bar too. Expected result unchanged. **Rev 2, 2026-09-27 — expected result inverted under `PO-28`** (product owner: the button needs the checkbox **and** a selected credential matching the PNR's booking credential). Rev 1 expected "shown" under the now-superseded `PO-22`. Restore AGN9780's selection to include 315 afterwards. Never click **Reissue**, **Release PNR** or **Void / Cancel**. The status condition is Status **Booked** in Booking Information **and** the "Ticketed Document" status bar — both (`PO-30`, which supersedes `PO-24`'s first sentence).
 
-**Review:** Approved
+**Review:** Pending
 
 **Automation:** Pending
 
@@ -2482,7 +2503,7 @@ resolution in the Coverage Report §11.
 
 **Objective:** Verify that a booking made on behalf of an Agency hides Reissue when that Agency is off, even if the Branch is on.
 
-**Preconditions:** A Booked booking made by Admin or the Branch **on behalf of AGN9780**, supplied by the user (`{ONBEHALF_REF}`). BRN265 on, AGN9780 off, both Approved.
+**Preconditions:** A booking made **online** by Admin or the Branch **on behalf of AGN9780**, supplied by the user (`{ONBEHALF_REF}`), reading Status **Booked** and "Ticketed Document" in the status bar, on a reissue-capable GDS, with its credential in AGN9780's saved selection. BRN265 on, AGN9780 off, both Approved. Step 5 locks it to you, so only AGN9780's checkbox (`PO-30` condition 1) is unmet.
 
 **Steps:**
 
@@ -2499,17 +2520,17 @@ resolution in the Coverage Report §11.
 
 **Tags:** Atomic, Integration, Assumption-based
 
-**Notes:** The platform never books; the user supplies `{ONBEHALF_REF}`. Without it, record **Blocked — Awaiting User Booking**. Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
+**Notes:** **Rev 2, 2026-10-01** — preconditions restated against `PO-30`; the status note now requires the "Ticketed Document" bar too. Expected result unchanged. The platform never books; the user supplies `{ONBEHALF_REF}`. Without it, record **Blocked — Awaiting User Booking**. Never click **Reissue**, **Release PNR** or **Void / Cancel**. The status condition is Status **Booked** in Booking Information **and** the "Ticketed Document" status bar — both (`PO-30`, which supersedes `PO-24`'s first sentence).
 
-**Review:** Approved
+**Review:** Pending
 
 **Automation:** Pending
 
-### TC-AGENCY-084 — A booking not in Booked status does not show Reissue
+### TC-AGENCY-084 — A booking not both Booked and "Ticketed Document" does not show Reissue
 
-**Objective:** Verify that Reissue is hidden for an Agency booking whose status is not Booked.
+**Objective:** Verify that Reissue is hidden for an Agency booking that does not read **both** Status **Booked** and "Ticketed Document" in the status bar (`PO-30` condition 3).
 
-**Preconditions:** A booking under AGN9780 in a status other than Booked (e.g. Cancelled), supplied by the user (`{NOTBOOKED_REF}`). AGN9780 on (Approved) **with that booking's credential in the selection (`PO-28`)**, so status is the only condition left unmet.
+**Preconditions:** A booking under AGN9780 that is **not** Status Booked (the On Hold `{NOTBOOKED_REF}` fixture), supplied by the user. *Optional second booking:* `{BOOKED_UNTICKETED_REF}` — Status **Booked** but the status bar does **not** read "Ticketed Document" — if the user can supply one. AGN9780 on (Approved) **with each booking's credential in the selection**. Each booking was made online on a reissue-capable GDS, and step 5 locks it to you, so condition (3) is the only `PO-30` condition left unmet.
 
 **Steps:**
 
@@ -2518,17 +2539,18 @@ resolution in the Coverage Report §11.
 3. Enter Booking Reference `{NOTBOOKED_REF}` and click **Search**.
 4. Open the booking from the result row.
 5. Click the lock icon on the **Created By** card.
-6. Click **View Passenger Details**.
+6. Click **View Passenger Details**, and record the Booking Information Status and the status-bar label.
+7. If `{BOOKED_UNTICKETED_REF}` was supplied, repeat steps 3–6 for it.
 
-**Expected Result:** The **Reissue** button is not shown.
+**Expected Result:** The **Reissue** button is not shown for either booking.
 
 **Priority:** P3
 
 **Tags:** Atomic, Negative, Assumption-based
 
-**Notes:** Without `{NOTBOOKED_REF}`, record **Blocked — Awaiting User Booking**. Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
+**Notes:** **Rev 2, 2026-10-01** — re-aimed at the combined `PO-30` condition (3): Status Booked **and** the "Ticketed Document" bar. Adds the optional Booked-but-not-"Ticketed Document" booking, the half `PO-30` makes new; without it, record that half **Blocked — Awaiting User Booking**. Expected result for `{NOTBOOKED_REF}` unchanged. Without `{NOTBOOKED_REF}`, record **Blocked — Awaiting User Booking**. Never click **Reissue**, **Release PNR** or **Void / Cancel**. The status condition is Status **Booked** in Booking Information **and** the "Ticketed Document" status bar — both (`PO-30`, which supersedes `PO-24`'s first sentence).
 
-**Review:** Approved
+**Review:** Pending
 
 **Automation:** Pending
 
@@ -2536,7 +2558,7 @@ resolution in the Coverage Report §11.
 
 **Objective:** Find out whether the Itinerary follows the approved or the pending Auto Reissue value.
 
-**Preconditions:** AGN9780 is Approved with Auto Reissue off.
+**Preconditions:** AGN9780 is Approved with Auto Reissue off. Booking `NDCEG-BR-F260924EAzzYT` (AGN9780, Sabre — a reissue-capable GDS — credential 315) reads Status **Booked** in Booking Information **and** "Ticketed Document" in the status bar, and was made **online** by the user (not offline / imported). Step 1 selects its credential and step 7 locks it to you, so only the pending/approved state is under test.
 
 **Steps:**
 
@@ -2557,9 +2579,9 @@ resolution in the Coverage Report §11.
 
 **Tags:** Atomic, Exploratory, Assumption-based
 
-**Notes:** Exploratory: no fixed pass/fail. Opens RSK-013. Never click **Reissue**, **Release PNR** or **Void / Cancel**. Status **Booked** in Booking Information is the condition, not the "Ticketed Document" bar (`PO-24`).
+**Notes:** **Rev 2, 2026-10-01** — preconditions restated against `PO-30`; the status note now requires the "Ticketed Document" bar too. Still exploratory. Exploratory: no fixed pass/fail. Opens RSK-013. Never click **Reissue**, **Release PNR** or **Void / Cancel**. The status condition is Status **Booked** in Booking Information **and** the "Ticketed Document" status bar — both (`PO-30`, which supersedes `PO-24`'s first sentence).
 
-**Review:** Approved
+**Review:** Pending
 
 **Automation:** Pending
 
@@ -2788,16 +2810,16 @@ resolution in the Coverage Report §11.
 
 ### TC-AGENCY-094 — Portal hides Reissue for an Agency booking on hold
 
-**Objective:** Verify that the Portal does not show Reissue for an Agency booking whose status is On Hold.
+**Objective:** Verify that the Portal does not show Reissue for an Agency booking whose status is On Hold — not Status **Booked** with the "Ticketed Document" bar (`PO-30` condition 3).
 
-**Preconditions:** AGN9780 has Auto Reissue on (Approved) **with that booking's credential in the selection (`PO-28`)**, so status is the only condition left unmet. Booking `NDCEG-BR-F251014N1oohh` (AGN9780, On Hold). The AGN9780 Portal login is available.
+**Preconditions:** AGN9780 has Auto Reissue on (Approved) **with that booking's credential in the selection**. Booking `NDCEG-BR-F251014N1oohh` (AGN9780, On Hold), made online on a reissue-capable GDS. The Portal needs no lock (`PO-25`), so condition (3) is the only `PO-30` condition left unmet. The AGN9780 Portal login is available.
 
 **Steps:**
 
 1. Log in to the Portal (`http://192.168.1.60:9500`) with agency code `AGN9780`.
 2. Open **My Booking** and click **Search**.
 3. Click the **Order Id** of booking `NDCEG-BR-F251014N1oohh`.
-4. Click **View Passenger Details**.
+4. Click **View Passenger Details**, and record the status-bar label.
 
 **Expected Result:** The **Reissue** button is not shown.
 
@@ -2805,8 +2827,91 @@ resolution in the Coverage Report §11.
 
 **Tags:** Atomic, Negative
 
-**Notes:** Added 2026-09-25 at the user's request ("check the appearance of the button in Admin and Portal"). The Admin side is TC-AGENCY-084. Only Status **Booked** shows Reissue (spec §5, `PO-24`). Never click **Reissue**, **Release PNR** or **Void / Cancel**.
+**Notes:** **Rev 2, 2026-10-01** — re-aimed at the combined `PO-30` condition (3). Expected result unchanged. Added 2026-09-25 at the user's request ("check the appearance of the button in Admin and Portal"). The Admin side is TC-AGENCY-084. Only Status **Booked** together with the "Ticketed Document" status bar shows Reissue (spec §5, `PO-30`). Never click **Reissue**, **Release PNR** or **Void / Cancel**.
 
-**Review:** Approved
+**Review:** Pending
+
+**Automation:** Pending
+
+### TC-AGENCY-095 — Admin hides Reissue for an imported (offline) Agency booking
+
+**Objective:** Verify that the Admin Itinerary hides Reissue for an Agency booking that was not made online, when every other condition holds (`PO-30` condition 4).
+
+**Preconditions:** A booking under AGN9780 that was **imported** (Import PNR) or made **offline**, supplied by the user (`{OFFLINE_REF}`). It is on Sabre Staging (315) and reads Status **Booked** and "Ticketed Document" in the status bar. AGN9780 has Auto Reissue on (Approved) with 315 in the selection. The booking is not locked by another user; step 5 locks it to you, so only condition (4) is unmet.
+
+**Steps:**
+
+1. Open **Booking-Mid Office → Search Booking** (`/booking/search-booking`).
+2. Click the **Flight** tab.
+3. Enter Booking Reference `{OFFLINE_REF}` and click **Search**.
+4. Open the booking from the result row.
+5. Click the lock icon on the **Created By** card.
+6. Click **View Passenger Details**.
+
+**Expected Result:** The **Reissue** button is not shown.
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative, Business-Rule
+
+**Notes:** Added 2026-10-01 — `PO-30` condition (4) had no case. The platform never books or imports (`PO-19`); without `{OFFLINE_REF}`, record **Blocked — Awaiting User Booking**. Record how the Itinerary shows the booking's source, if it does. Restore AGN9780 to off afterwards. Never click **Reissue**, **Release PNR** or **Void / Cancel**.
+
+**Review:** Pending
+
+**Automation:** Pending
+
+### TC-AGENCY-096 — Admin shows Reissue only after the booking is locked
+
+**Objective:** Verify that the Admin Itinerary hides Reissue until the current user locks the booking (`PO-30` condition 5).
+
+**Preconditions:** AGN9780 has Auto Reissue on (Approved) **with Sabre Staging (315) — the booking's credential — in the selection**. Booking `NDCEG-BR-F260924EAzzYT` (AGN9780, Sabre — a reissue-capable GDS — credential 315) reads Status **Booked** in Booking Information **and** "Ticketed Document" in the status bar, and was made **online** by the user (not offline / imported). It is **not locked by anyone** at the start, so only condition (5) is unmet until step 7.
+
+**Steps:**
+
+1. Open **Booking-Mid Office → Search Booking** (`/booking/search-booking`).
+2. Click the **Flight** tab.
+3. Enter Booking Reference `NDCEG-BR-F260924EAzzYT` and click **Search**.
+4. Open the booking from the result row. Do **not** click the lock icon.
+5. Click **View Passenger Details**.
+6. Record whether **Reissue** is shown.
+7. Click the lock icon on the **Created By** card.
+8. Click **View Passenger Details**.
+
+**Expected Result:** At step 6 the **Reissue** button is not shown. After step 8 it is shown.
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative, Business-Rule
+
+**Notes:** Added 2026-10-01 — `PO-30` condition (5) had no Admin case. Admin only: the Portal has no lock and needs none (`PO-25`). If the booking is already locked by another user, record **Blocked** and don't take the lock over. Restore AGN9780 to off afterwards. Never click **Reissue**, **Release PNR** or **Void / Cancel**.
+
+**Review:** Pending
+
+**Automation:** Pending
+
+### TC-AGENCY-097 — Admin hides Reissue for an Agency booking on a supplier that does not support reissue
+
+**Objective:** Verify that the Admin Itinerary hides Reissue for an Agency booking whose supplier is not a reissue-capable GDS (`PO-30` condition 6).
+
+**Preconditions:** A booking under AGN9780 on a supplier **not** on the reissue list (`NDCsbr`, `Sabre`, `TravelportNdc`, `Galileo`) — e.g. Amadeus or an LCC — supplied by the user (`{NONREISSUE_SUPPLIER_REF}`). It was made online and reads Status **Booked** and "Ticketed Document" in the status bar. AGN9780 has Auto Reissue on (Approved). The booking is not locked by another user; step 5 locks it to you.
+
+**Steps:**
+
+1. Open **Booking-Mid Office → Search Booking** (`/booking/search-booking`).
+2. Click the **Flight** tab.
+3. Enter Booking Reference `{NONREISSUE_SUPPLIER_REF}` and click **Search**.
+4. Open the booking from the result row.
+5. Click the lock icon on the **Created By** card.
+6. Click **View Passenger Details**.
+
+**Expected Result:** The **Reissue** button is not shown.
+
+**Priority:** P3
+
+**Tags:** Atomic, Negative, Business-Rule
+
+**Notes:** Added 2026-10-01 — `PO-30` condition (6) had no button case. **Condition (6) cannot be isolated from condition (2) here:** the picker never offers an Amadeus or LCC credential (`PO-21`; TC-BR-085, TC-BR-087), so this booking's credential can't be in AGN9780's selection. The case asserts the outcome both require. The platform never books (`PO-19`); without `{NONREISSUE_SUPPLIER_REF}`, record **Blocked — Awaiting User Booking**. If AGN9780 has no such supplier, ask the user — never change Product Access without asking. Restore AGN9780 to off afterwards. Never click **Reissue**, **Release PNR** or **Void / Cancel**.
+
+**Review:** Pending
 
 **Automation:** Pending
