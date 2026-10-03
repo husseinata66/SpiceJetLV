@@ -865,8 +865,30 @@ time the undercount also corrupted the per-passenger `paxTotalAncillaryAmount` f
 itemized list; the booking-level aggregate stayed correct. No Markup on Base fare (Portal booking,
 consistent with TC-ANC-003). Log: `TC-ANC-035/00_execution_log.md`.
 
-**Next: the remaining Atomic/Scenario cases** (per the test suite's own Notes on evidence reuse),
-then the terminal Stage 4M deliverables once every `Approved` case has a result.
+**Update 2026-10-03: all 20 remaining Approved Atomic/Scenario cases executed.** 16 were desk-review
+reuses of already-captured E2E evidence (TC-ANC-001, 006, 007, 008, 010, 011, 012, 014, 016, 019, 020,
+021, 022, 023, 024, 025 — all proposed Passed; TC-ANC-023's prior investigation formalized with an
+explicit disposition). The remaining 4 needed one new live Portal booking (one-way DEL-DXB, 2 Adult +
+2 Infant, PNR **S61IHQ**, Booking Ref `NDCEG-BR-F261002w2b5LM`, 18,422 EGP):
+- **TC-ANC-009** (Passed): deliberately attempted assigning a second Infant to an already-assigned
+  Adult — the UI does **not** pre-filter the "Assigned to" dropdown, but blocks the save with an
+  inline **"This adult already assigned!"** error, confirming real enforcement (not just convention).
+- **TC-ANC-018** (Passed): changed Passenger 1's Meal (125→200 EGP) and removed Passenger 2's Baggage
+  (−900 EGP) mid-flow before booking; each edit updated the Net Payable by exactly its own delta with
+  zero cross-passenger effect.
+- **TC-ANC-015** (Passed): wallet balance confirmed unchanged throughout selection (1,056,791.9 EGP,
+  read repeatedly); post-booking deduction confirmed exactly 18,422 EGP via the Total Due to NDC
+  report (a direct re-read of the post-booking balance widget itself was skipped after a second
+  attempt hit the known transient `192.168.1.213` network dropout — not worth a third live booking).
+- **TC-ANC-027** (Inconclusive, by explicit user choice): the Wallet History Debit/Credit labeling
+  observation is solid (3/3 Admin bookings) but the required product/business decision was deferred
+  — re-open once that call is made.
+
+**Status: 26 of 27 cases now have a recorded result — only TC-ANC-026 remains Excluded/Pending**
+(Statement report defect, FINDING-012, still open). **Next: the terminal Stage 4M deliverables**
+(`ManualExecutionResults.md`, `ManualExecutionSummary.md`, `ManualTestResults.csv`, `ManualQAReport.md`
++ `.report.json` + `.html`) — per the skill spec, a single finished-state write now that every
+`Approved` case has a result (TC-ANC-026 stays `Excluded`, reported but not executed).
 
 **TC-ANC-034 (Admin) executed 2026-10-01 — proposed Passed.** PNR **H9ZK7E**,
 `BRN297NDCORD261001JQUISB`, 24,742 EGP, one-way DEL-DXB (1 stop), 2A/2C/2I returned 200 offers
