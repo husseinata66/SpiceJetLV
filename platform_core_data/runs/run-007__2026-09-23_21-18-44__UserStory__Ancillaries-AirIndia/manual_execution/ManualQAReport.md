@@ -11,7 +11,7 @@
 | Run Scope Type / Run Type | Feature / User Story |
 | Modules in scope | `ancillaries/air-india` (Supplier Feature: Ancillaries, Supplier: Air India) |
 | Target environment | Staging — Admin `http://192.168.1.213` / Portal `http://192.168.1.213:9500` |
-| Execution window | 2026-09-28 19:00 UTC → 2026-10-03 00:07 UTC |
+| Execution window | 2026-09-28 19:00 UTC → 2026-10-03 03:10 UTC |
 | Browser mode | Headed (normal for this stage, §11.1) |
 | Executed by | Ahmed Alhussieny (Claude Code, Playwright MCP) |
 
@@ -26,9 +26,11 @@ booking lookup, the cost breakdown, the wallet, and the financial reports.
 **Bottom line: the feature works correctly for real customers.** Six real bookings were made across
 every combination of route, trip type, and channel the business asked for, and in every one of them
 the amount a passenger actually pays matches exactly what they see on screen, in their booking
-details, and in every financial report checked. Of 27 designed checks, 26 were allowed to run this
-pass (one — the Statement report — is being held back until a known defect in it is fixed, see
-below) and 24 passed cleanly.
+details, and in every financial report checked. A further check, added mid-delivery, called the
+airline's own backend directly (bypassing the app entirely) and confirmed the meal and baggage options
+customers see — and their prices — are retrieved correctly, with nothing lost or altered on the way to
+the screen. Of 28 designed checks, 27 were allowed to run this pass (one — the Statement report — is
+being held back until a known defect in it is fixed, see below) and 25 passed cleanly.
 
 **One real but contained defect was found and needs a fix:** the airline's own backend sometimes
 under-reports how a single passenger's meal/baggage charge breaks down when that same item was
@@ -46,23 +48,23 @@ untested case can be executed.
 
 | Status | Count | % of scope |
 |---|---|---|
-| Passed | 24 | 92.3% |
-| Failed | 1 | 3.8% |
+| Passed | 25 | 92.6% |
+| Failed | 1 | 3.7% |
 | Blocked | 0 | 0% |
 | Skipped | 0 | 0% |
 | Not Executed | 0 | 0% |
-| Inconclusive | 1 | 3.8% |
-| **Executable scope** (`Review = Approved`) | **26** | **100%** |
+| Inconclusive | 1 | 3.7% |
+| **Executable scope** (`Review = Approved`) | **27** | **100%** |
 
 Not authorized to run this pass — reported, not dropped:
 
 | Excluded | Count | % of suite |
 |---|---|---|
-| Pending Review | 1 | 3.7% |
+| Pending Review | 1 | 3.6% |
 | Rejected at Review | 0 | 0% |
-| **Suite total** | **27** | **100%** |
+| **Suite total** | **28** | **100%** |
 
-**Authorized Coverage:** 96.3% of the designed suite (26 of 27) was approved for execution in this pass.
+**Authorized Coverage:** 96.4% of the designed suite (27 of 28) was approved for execution in this pass.
 
 ## 4. Requirement Coverage
 
@@ -78,7 +80,7 @@ Not authorized to run this pass — reported, not dropped:
 | ANC-10…13 | Application model (level recorded per capability) | TC-ANC-002, TC-ANC-004 | Verified | Both covering cases Passed |
 | ANC-14…18 | Admin precondition (Branch/Supplier/Credential) | TC-ANC-001 | Verified | — |
 | ANC-19…21 | Portal/Admin search, selection, PAX Details | TC-ANC-002, 003, 004, 005, 034, 035 | Verified | All six E2E cases Passed |
-| ANC-22, 23 | Ancillaries verification against intake | TC-ANC-006, TC-ANC-008 | Verified | Both Passed |
+| ANC-22, 23 | Ancillaries verification against intake | TC-ANC-006, TC-ANC-008, TC-ANC-036 | Verified | All Passed; TC-ANC-036 additionally confirms the raw supplier ancillary catalog matches the UI exactly |
 | ANC-24 | Select applicable ancillaries, continue booking | TC-ANC-002, 003, 004, 005 | Verified | All Passed |
 | ANC-25 | Ancillary info preserved through booking and downstream | TC-ANC-020, TC-ANC-021, TC-ANC-022 | Partially verified | TC-ANC-020/021 Passed (Confirmation, Itinerary); TC-ANC-022 **Failed** — the supplier retrieve endpoint does not preserve a repeated ancillary code's full itemization per passenger (Defect A) |
 | ANC-26 | Two-application execution, independent environments | — | Out-of-Scope | Infrastructure fact, already confirmed at Discovery |
@@ -86,14 +88,14 @@ Not authorized to run this pass — reported, not dropped:
 | ANC-31…33 | Six-checkpoint validation model | TC-ANC-002, 003, 004, 005, 020, 021, 022, 034, 035 | Partially verified | Every checkpoint Passed except the supplier-retrieve checkpoint specifically (TC-ANC-022 Failed, Defect A) |
 | ANC-34…36 | Pricing capture (base, ancillary, total) | TC-ANC-010, TC-ANC-012 | Verified | Both Passed |
 | ANC-37…41 | Discovery obligations | — | Out-of-Scope | Discovery-process rules, not Test Design targets |
-| ANC-42 | ROE currency conversion | TC-ANC-010 | Verified | Passed |
+| ANC-42 | ROE currency conversion | TC-ANC-010, TC-ANC-036 | Verified | Both Passed; TC-ANC-036 reconciles ROE 0.5 exactly across 45 distinct ancillary codes |
 | ANC-43 | Taxes/fees per offer | TC-ANC-012 | Verified | Passed |
 | ANC-44 | Rule engine — markup/discount/service-fee | TC-ANC-002, 003, 004, 005, 011, 012, 035 | Verified | All Passed |
 | ANC-45 | Ancillary/Bundle amounts added to total | TC-ANC-012, TC-ANC-014 | Verified | Both Passed |
 | ANC-46 | Wallet/payment timing | TC-ANC-015, TC-ANC-016 | Verified | Both Passed |
 | ANC-47 | Before-booking change/removal, per passenger | TC-ANC-018 | Verified | Passed |
 | ANC-48 | Application Level defaults (Meal/Segment, Baggage/Journey) | TC-ANC-002, 003, 004, 005, 035 | Verified | All Passed; round-trip Baggage scoping question resolved (once per direction) |
-| ANC-49 | Eligibility default (Adult/Child only) | TC-ANC-002, 003, 004, 005, 006, 007, 008, 009, 034 | Verified | All Passed |
+| ANC-49 | Eligibility default (Adult/Child only) | TC-ANC-002, 003, 004, 005, 006, 007, 008, 009, 034, 036 | Verified | All Passed; TC-ANC-036 additionally confirms Infant exclusion at the raw supplier API layer, not only the UI |
 | ANC-50 | Bundle coexistence | TC-ANC-014 | Verified | Passed |
 | ANC-51 | Environment architecture | — | Out-of-Scope | Infrastructure fact |
 | ANC-52 | Post-booking immutability | TC-ANC-002, 003, 004, 005, 019, 034, 035 | Verified | All Passed |
@@ -106,7 +108,9 @@ Not authorized to run this pass — reported, not dropped:
 | — | Multi-city not supported for AirIndia | — | Not verified | No test case in Ancillaries scope — recommend a general-booking Feature pick this up |
 
 **Requirements verified:** 21 / 26 (80.8%) — of the 26 testable-in-scope requirement groups (Out-of-Scope
-groups excluded from this denominator, consistent with `CoverageReport.md`'s own methodology).
+groups excluded from this denominator, consistent with `CoverageReport.md`'s own methodology). TC-ANC-036
+added evidence depth to three already-Verified/Partially-verified groups (ANC-22/23, ANC-42, ANC-49)
+without flipping any group's category, so this figure is unchanged.
 
 ## 5. Defect Register
 

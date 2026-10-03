@@ -4,7 +4,7 @@
 |---|---|
 | Module | `ancillaries/air-india` |
 | Produced by run | `run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia` |
-| Revision | 6 |
+| Revision | 7 |
 | Generated | 2026-09-28 |
 | Status | Approved |
 | Approved by | Ahmed Alhussieny |
@@ -37,7 +37,7 @@ testing methodology for both Admin and Portal.
 | ANC-43 | Taxes/fees per offer | TC-ANC-012 |
 | ANC-45 | Ancillary/Bundle amounts added to total | TC-ANC-012, TC-ANC-014 |
 | ANC-46 | Wallet/payment timing | TC-ANC-015, TC-ANC-016 |
-| ANC-49 | Eligibility default (Adult/Child only) | TC-ANC-002, TC-ANC-003, TC-ANC-004, TC-ANC-005, TC-ANC-006, TC-ANC-007, TC-ANC-008, TC-ANC-009, TC-ANC-034 |
+| ANC-49 | Eligibility default (Adult/Child only) | TC-ANC-002, TC-ANC-003, TC-ANC-004, TC-ANC-005, TC-ANC-006, TC-ANC-007, TC-ANC-008, TC-ANC-009, TC-ANC-034, TC-ANC-036 |
 | ANC-50 | Bundle coexistence | TC-ANC-014 |
 | ANC-52 | Post-booking immutability | TC-ANC-002, TC-ANC-003, TC-ANC-004, TC-ANC-005, TC-ANC-019, TC-ANC-034, TC-ANC-035 |
 | ANC-53 | Downstream reflection (confirmation, itinerary, reports) | TC-ANC-002, TC-ANC-003, TC-ANC-004, TC-ANC-005, TC-ANC-020, TC-ANC-021, TC-ANC-024, TC-ANC-025, TC-ANC-026, TC-ANC-034, TC-ANC-035 |
@@ -58,6 +58,15 @@ flipped category, only depth of evidence per requirement increased)
 
 **Revision 3 note (2026-09-28):** TC-ANC-002/003/004/005 restructured in place from route/stop-sweep Scenario cases into 4 of 6 user-specified single-combo E2E cases, each now walking a six-checkpoint chain (ancillary-selection rules → Confirmation → supplier retrieve endpoint → Search Booking Ancillaries → Search Booking Costing → channel-appropriate Reports) instead of asserting only "reaches Confirmed status." TC-ANC-034 (no ancillaries selected, Admin) and TC-ANC-035 (onward-leg-only ancillaries, Portal) added for the 2 combos with no prior test case. This is the Option 2 approach the user chose over writing 6 wholly new cases, to avoid duplicating coverage of routes/checkpoints already exercised.
 
+**Revision 7 note (2026-10-03):** TC-ANC-036 added — a user-directed ad-hoc verification, executed
+during Stage 4M, proposed back into the suite. Calls the NDC integration service's `Search` →
+`FareConfirm` → `AddPassenger` → `GetAncillary` chain directly and compares the raw ancillary catalog
+against the Portal UI's Ancillaries step for an identical search. Adds evidence depth to ANC-22/23
+(ancillary data verification against intake), ANC-42 (ROE conversion, Partially Covered gate
+unchanged — still blocked on Discovery Finding filing, not on test execution), and ANC-49 (Infant
+eligibility, now confirmed at the raw API layer as well as the UI). No requirement flipped category.
+Total Test Cases 27→28 (4 Scenario, up from 3).
+
 ## 3. Coverage Matrix
 
 <!-- Consolidates TraceabilityMatrix.md §2 — see that file for the full per-requirement breakdown. -->
@@ -68,18 +77,18 @@ flipped category, only depth of evidence per requirement increased)
 | ANC-10…13 | TC-ANC-002, TC-ANC-004 | Partially Covered |
 | ANC-14…18 | TC-ANC-001 | Covered |
 | ANC-19…21 | TC-ANC-002…005, TC-ANC-034, TC-ANC-035 | Partially Covered |
-| ANC-22, ANC-23 | TC-ANC-006, TC-ANC-008 | Partially Covered |
+| ANC-22, ANC-23 | TC-ANC-006, TC-ANC-008, TC-ANC-036 | Partially Covered |
 | ANC-24, ANC-25 | TC-ANC-002…005, TC-ANC-020…022 | Covered |
 | ANC-26 | — | Out-of-Scope |
 | ANC-27…30 | TC-ANC-006, TC-ANC-008, TC-ANC-014 | Partially Covered |
 | ANC-31…36 | TC-ANC-002…005, TC-ANC-010, TC-ANC-012, TC-ANC-020…022, TC-ANC-034, TC-ANC-035 | Covered |
 | ANC-37…41 | — | Out-of-Scope |
-| ANC-42 | TC-ANC-010 | Partially Covered |
+| ANC-42 | TC-ANC-010, TC-ANC-036 | Partially Covered |
 | ANC-43…46 | TC-ANC-012, TC-ANC-015, TC-ANC-016 | Covered |
 | ANC-44 | TC-ANC-002…005, TC-ANC-011, TC-ANC-012, TC-ANC-035 | Partially Covered |
 | ANC-47 | TC-ANC-018 | Partially Covered |
 | ANC-48 | TC-ANC-002…005, TC-ANC-035 | Partially Covered — round-trip Baggage scoping is an open question TC-ANC-003/005 are designed to resolve |
-| ANC-49, ANC-50 | TC-ANC-002…009, TC-ANC-014, TC-ANC-034 | Covered |
+| ANC-49, ANC-50 | TC-ANC-002…009, TC-ANC-014, TC-ANC-034, TC-ANC-036 | Covered |
 | ANC-51 | — | Out-of-Scope |
 | ANC-52, ANC-53 | TC-ANC-002…005, TC-ANC-019…021, TC-ANC-024…026, TC-ANC-034, TC-ANC-035 | Covered |
 | ANC-54…58 | TC-ANC-004, TC-ANC-005, TC-ANC-007, TC-ANC-016, TC-ANC-025…027, TC-ANC-034 | Partially Covered |
@@ -91,14 +100,14 @@ flipped category, only depth of evidence per requirement increased)
 
 | Business Rule ID | Rule | Test Case ID(s) | Status |
 |---|---|---|---|
-| ANC-42 (BUS) | ROE currency conversion | TC-ANC-010 | Partially Covered |
+| ANC-42 (BUS) | ROE currency conversion | TC-ANC-010, TC-ANC-036 | Partially Covered |
 | ANC-43 (BUS) | Taxes/fees per offer | TC-ANC-012 | Covered |
 | ANC-44 (BUS) | Rule engine — markup/discount/service-fee | TC-ANC-002…005, TC-ANC-011, TC-ANC-012, TC-ANC-035 | Partially Covered |
 | ANC-45 (BUS) | Ancillary/Bundle amounts added to total | TC-ANC-012, TC-ANC-014, TC-ANC-034 | Covered |
 | ANC-46 (BUS) | Wallet/payment timing | TC-ANC-015, TC-ANC-016 | Covered |
 | ANC-47 (BUS) | Before-booking change/removal, per passenger | TC-ANC-018 | Partially Covered |
 | ANC-48 (BUS) | Application Level defaults | TC-ANC-002…005, TC-ANC-035 | Partially Covered — round-trip Baggage scoping is an open question |
-| ANC-49 (BUS) | Eligibility default | TC-ANC-002…009, TC-ANC-034 | Covered |
+| ANC-49 (BUS) | Eligibility default | TC-ANC-002…009, TC-ANC-034, TC-ANC-036 | Covered |
 | ANC-50 (BUS) | Bundle coexistence | TC-ANC-014 | Covered |
 | ANC-52, ANC-53 (BUS) | Post-booking immutability; downstream reflection | TC-ANC-002…005, TC-ANC-019…021, TC-ANC-024…026, TC-ANC-034, TC-ANC-035 | Covered |
 | ANC-55, ANC-56, ANC-57 (BUS) | Shared rule engine/Markup; 3-part wallet; Admin reports | TC-ANC-004, TC-ANC-005, TC-ANC-011, TC-ANC-016, TC-ANC-025…027, TC-ANC-034 | Partially Covered |
@@ -211,18 +220,23 @@ flipped category, only depth of evidence per requirement increased)
 
 | Column | Pending | Approved | Rejected |
 |---|---|---|---|
-| **Review** | 1 | 26 | 0 |
-| **Automation** | 27 | 0 | 0 |
+| **Review** | 1 | 27 | 0 |
+| **Automation** | 28 | 0 | 0 |
 
 | Decision | Count | Test Case IDs |
 |---|---|---|
-| `Review = Approved` — executable by Stage `4M` | 26 | TC-ANC-001 … TC-ANC-025, TC-ANC-027, TC-ANC-034, TC-ANC-035 (TC-ANC-013, 017, 028, 029, 030, 031, 032, 033 removed 2026-09-28 — not part of this suite) |
+| `Review = Approved` — executable by Stage `4M` | 27 | TC-ANC-001 … TC-ANC-025, TC-ANC-027, TC-ANC-034, TC-ANC-035, TC-ANC-036 (TC-ANC-013, 017, 028, 029, 030, 031, 032, 033 removed 2026-09-28 — not part of this suite) |
 | `Review = Rejected` — excluded, reason `Rejected at Review` | 0 | — |
 | `Review = Pending` — excluded, reason `Pending Review` | 1 | TC-ANC-026 — held Pending on the user's explicit instruction, FINDING-012's Statement defect confirmed still open 2026-09-28 |
 | `Review = Approved AND Automation = Approved` — in scope for Stage `4A` | 0 | — |
 | `Review = Approved AND Automation = Rejected` — manual by decision | 0 | — |
 
 **Reviewer approval note (2026-09-28):** 26 of 27 cases' `Review` column set to `Approved` by Ahmed Alhussieny, following the Stage 3 artifact-level approval. TC-ANC-026 was initially bulk-approved in error and corrected back to `Pending` the same day — its Statement report defect (FINDING-012) is confirmed still open, so it stays outside Stage 4M's executable scope until fixed. `Automation` intentionally left `Pending` on all 27 — this is a manual-execution-only pipeline (`PROJECT_STATE.md` §1), and per Execution Rule 22 of `manual-execution-skill`, the `Automation` column is never read by Stage `4M` anyway.
+
+**Revision 7 note (2026-10-03):** TC-ANC-036 added directly with `Review = Approved` — a user-directed
+ad-hoc verification, already executed with a proposed Passed result (`manual_execution/artifacts/TC-ANC-036/00_execution_log.md`)
+before being formally accepted back into the suite, so there was no separate pre-execution review gate
+to apply. `Automation` left `Pending`, same reasoning as every other case in this suite.
 
 **Inconsistent pairs:** None.
 

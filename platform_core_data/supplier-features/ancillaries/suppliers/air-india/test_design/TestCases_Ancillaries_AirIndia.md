@@ -4,14 +4,22 @@
 |---|---|
 | Module | `ancillaries/air-india` (Supplier Feature scope) |
 | Produced by run | `run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia` |
-| Revision | 7 |
+| Revision | 8 |
 | Run Scope Type / Run Type | Feature / User Story |
 | Project Context | `platform_core_data/supplier-features/ancillaries/suppliers/air-india/context/ProjectContext.md` (rev 3, Approved) + shared baseline rev 4, Approved |
-| Total Test Cases | 27 |
+| Total Test Cases | 28 |
 | Generated | 2026-09-28 |
 | Status | Approved |
 | Approved by | Ahmed Alhussieny |
 | Approved on | 2026-09-28 |
+
+**Revision 8 (2026-10-03):** added **TC-ANC-036** — proposed during Stage 4M execution (user-directed
+ad-hoc verification), reviewed and accepted back into the suite. Verifies the supplier/integration
+service's `GetAncillary` endpoint data (Meal/Baggage codes, descriptions, prices, per-passenger-type
+eligibility) matches exactly what the Portal UI's Ancillaries step displays, by calling
+Search→FareConfirm→AddPassenger→GetAncillary directly against the NDC integration service and
+comparing against an identical live UI search. Already executed this run — see
+`manual_execution/artifacts/TC-ANC-036/00_execution_log.md`, proposed Passed.
 
 ## Case Index
 
@@ -44,10 +52,11 @@
 | TC-ANC-027 | Confirm whether Wallet History Report's Credit/Debit labeling is intentional | Atomic | P3 | Exploratory | Approved | Pending |
 | TC-ANC-034 | One-way, no ancillaries selected for any passenger (Admin) — six-checkpoint E2E | E2E | P2 | Regression, Boundary | Approved | Pending |
 | TC-ANC-035 | Round-trip, ancillaries selected for the onward leg only (Portal) — six-checkpoint E2E | E2E | P2 | Regression, Boundary | Approved | Pending |
+| TC-ANC-036 | Supplier GetAncillary endpoint data matches the Portal UI's Ancillaries step exactly | Scenario | P2 | Regression, Integration | Approved | Pending |
 
-**Tier breakdown:** 18 Atomic · 3 Scenario · 6 E2E
+**Tier breakdown:** 18 Atomic · 4 Scenario · 6 E2E
 
-**Lifecycle breakdown:** Review — 1 Pending · 26 Approved · 0 Rejected · Automation — 27 Pending · 0 Approved · 0 Rejected
+**Lifecycle breakdown:** Review — 1 Pending · 27 Approved · 0 Rejected · Automation — 28 Pending · 0 Approved · 0 Rejected
 
 **Out of Ancillaries scope (removed 2026-09-28, belongs to general booking scope):** TC-ANC-013, TC-ANC-017, TC-ANC-028, TC-ANC-029, TC-ANC-030, TC-ANC-031, TC-ANC-032, TC-ANC-033. See `CoverageReport.md` §8 for the disposition of the Findings/requirements these previously covered.
 
@@ -924,6 +933,44 @@
 **Tags:** E2E, Regression, Boundary
 
 **Notes:** Whether Baggage — a Per-Journey capability per ANC-48/FINDING-002 — can be selected "onward only" on a round trip at all, or is inherently whole-journey and therefore not expressible as asymmetric, has never been established in Discovery. If the UI does not allow an onward-only Baggage selection, record that as the actual (and itself informative) behavior rather than treating the test as failed.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+---
+
+### TC-ANC-036 — Supplier GetAncillary endpoint data matches the Portal UI's Ancillaries step exactly
+
+**Objective:** Verify that the Meal/Baggage ancillary data the Portal UI displays during booking — codes, descriptions, prices, and per-passenger-type eligibility — is retrieved correctly from the supplier/integration service, with no corruption, omission, or mismatch introduced between the API and the screen.
+
+**Preconditions:** Direct HTTP access to the NDC integration service's `Search`/`FareConfirm`/`AddPassenger`/`GetAncillary` endpoints is available (same credential family as the already-used `Retrieve` endpoint). Portal user is logged in as Agency `AGN9808`.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Route | DEL-DXB (transit) |
+| Trip type | One-way |
+| Passengers | 1 Adult, 1 Child, 1 Infant |
+| Date | Any future date both the raw API and the Portal UI can search identically |
+
+**Steps:**
+
+1. Call the NDC integration service directly, in sequence: `Search` (with the route/date/passenger criteria above) → `FareConfirm` (using the returned `responseId`/`offerId`) → `AddPassenger` (using the returned `fareConfirmResponseId`/`selectedOfferId`) → `GetAncillary` (using the returned `responseId`/`offerId`).
+2. Record the full per-segment and per-journey ancillary catalog `GetAncillary` returns: every code, description, price, and which passenger types it is offered to.
+3. Separately, search the identical route/date/passenger criteria live on the Portal UI. Match the resulting offer against the raw API's offer by flight number(s) and price (after ROE 0.5 conversion, and Markup if the channel under test carries one).
+4. Navigate through PAX Details → Bundles → Ancillaries on the matched offer.
+5. Compare every Meal dropdown (per leg) and the Baggage dropdown against the raw `GetAncillary` catalog from step 2 — code, description, and price must match exactly after ROE conversion.
+6. Confirm the Infant passenger is excluded from ancillary eligibility both in the raw API response (`passengersAncillariesAvailabilty` should contain only Adult/Child pax keys) and on the UI (no ancillary card rendered for the Infant).
+
+**Expected Result:** Every ancillary data point the UI displays — for every eligible passenger type, every flight leg, and the baggage journey — matches the supplier/integration service's own `GetAncillary` response exactly, once ROE (and Markup, if applicable to the channel) is applied. The Infant exclusion holds at both the raw API layer and the UI layer.
+
+**Priority:** P2
+
+**Tags:** Scenario, Regression, Integration
+
+**Notes:** This case reuses the same NDC integration service credential already established for the `Retrieve` endpoint (TC-ANC-022/023) — no new credential or access request needed. Added 2026-10-03 after a live execution (`TC-ANC-036/00_execution_log.md`) found 11/11, 24/24, and 10/10 exact matches across both Meal legs and Baggage, with zero discrepancies; a secondary observation (the raw catalog's 8 "Other"-category SSRs — wheelchair assistance, unaccompanied minor, fare lock, express services — are correctly never surfaced in the Meal/Baggage dropdowns, consistent with this project's established Meal/Baggage/Bundle-only scope) is carried as a non-defect note, not a gap.
 
 **Review:** Approved
 

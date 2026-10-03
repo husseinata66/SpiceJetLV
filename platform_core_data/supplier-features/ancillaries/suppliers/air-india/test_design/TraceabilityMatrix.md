@@ -4,10 +4,10 @@
 |---|---|
 | Module | `ancillaries/air-india` |
 | Produced by run | `run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia` |
-| Revision | 5 |
+| Revision | 6 |
 | Project Context | `suppliers/air-india/context/ProjectContext.md` (rev 3) + shared baseline (rev 4) |
 | Run Scope Type / Run Type | Feature / User Story |
-| Test Cases Traced | 27 |
+| Test Cases Traced | 28 |
 | Generated | 2026-09-28 |
 
 ## 1. Matrix
@@ -41,6 +41,7 @@
 | TC-ANC-027 | ANC-57 | QA_Assessment_Report.md §14 (FINDING-017) | FINDING-017 | FINDING-017/admin_wallet_history_report_labeling.png | N/A | Feature — Ancillaries/AirIndia | Low | UX/labeling clarity only, figures are correct | Covered |
 | TC-ANC-034 | ANC-45, ANC-49, ANC-53, ANC-57 | Not independently verified in Discovery — this exact zero-ancillary combination was never exercised | N/A | N/A | N/A | Feature — Ancillaries/AirIndia | Medium | Confirms the "no ancillary" boundary is handled cleanly at every checkpoint, not just the happy path | Unknown / Unassessed |
 | TC-ANC-035 | ANC-40, ANC-44, ANC-45, ANC-48, ANC-53 | Not independently verified in Discovery — this asymmetric per-leg ancillary selection was never exercised | N/A | N/A | N/A | Feature — Ancillaries/AirIndia | Medium | Confirms partial/asymmetric ancillary selection on a round trip is priced and persisted correctly; also resolves whether Baggage can be scoped per-direction at all | Unknown / Unassessed |
+| TC-ANC-036 | ANC-22, ANC-23, ANC-42, ANC-49 | Not independently verified in Discovery — the raw NDC integration service `GetAncillary` endpoint was never directly called before this run; only the booking-side `Retrieve` endpoint had been (TC-ANC-022/023) | N/A | `TC-ANC-036/00_execution_log.md` (11/11, 24/24, 10/10 exact matches; Infant exclusion confirmed at the raw API layer) | N/A | Feature — Ancillaries/AirIndia | Medium | A mismatch between the raw ancillary catalog and what the UI displays would mean customers are shown incorrect options or prices before they ever select anything — added and executed 2026-10-03, user-directed ad-hoc verification accepted back into the suite | Covered |
 
 **Removed 2026-09-28 (out of Ancillaries scope, belongs to general booking scope):** TC-ANC-013, TC-ANC-017, TC-ANC-028, TC-ANC-029, TC-ANC-030, TC-ANC-031, TC-ANC-032, TC-ANC-033. See §3 for how FINDING-003/FINDING-014/FINDING-013/FINDING-015 are now dispositioned, and §2 below for updated Requirement coverage.
 
@@ -54,7 +55,7 @@
 | ANC-10 … ANC-13 | Application model (level recorded per capability) | TC-ANC-002, TC-ANC-004 (implicitly, via Meal/Baggage selection steps) | Partially Covered |
 | ANC-14 … ANC-18 | Admin precondition (Branch/Supplier/Credential) | TC-ANC-001 | Covered |
 | ANC-19 … ANC-21 | Portal search, selection, PAX Details | TC-ANC-002, TC-ANC-003, TC-ANC-004, TC-ANC-005, TC-ANC-034, TC-ANC-035 | Partially Covered — negative/boundary/Unicode validation of this flow now out of Ancillaries scope (moved to general booking scope, TC-ANC-028/029/030 removed) |
-| ANC-22, ANC-23 | Ancillaries verification against intake / interact only with supported capabilities | TC-ANC-006, TC-ANC-008 | Partially Covered — no dedicated negative case for an unsupported capability (Seat) |
+| ANC-22, ANC-23 | Ancillaries verification against intake / interact only with supported capabilities | TC-ANC-006, TC-ANC-008, TC-ANC-036 | Partially Covered — no dedicated negative case for an unsupported capability (Seat); TC-ANC-036 additionally confirms the UI's ancillary catalog matches the raw supplier data exactly |
 | ANC-24 | Select applicable ancillaries, continue booking | TC-ANC-002, TC-ANC-003, TC-ANC-004, TC-ANC-005 | Covered |
 | ANC-25 | Ancillary info preserved through booking and downstream | TC-ANC-020, TC-ANC-021, TC-ANC-022 | Covered |
 | ANC-26 | Two-application execution, independent environments | — | Out-of-Scope — infrastructure/environment fact, already confirmed at Discovery, not independently re-tested by a functional case |
@@ -62,14 +63,14 @@
 | ANC-31 … ANC-33 | Six-checkpoint validation model | TC-ANC-002, TC-ANC-003, TC-ANC-004, TC-ANC-005, TC-ANC-020, TC-ANC-021, TC-ANC-022, TC-ANC-034, TC-ANC-035 | Covered — now walked explicitly and directly by 6 dedicated E2E cases, not just inferred from separate atomic checks |
 | ANC-34 … ANC-36 | Pricing capture (base, ancillary, total) | TC-ANC-010, TC-ANC-012 | Covered |
 | ANC-37 … ANC-41 | Discovery obligations (per-Supplier establishment tasks) | — | Out-of-Scope — Discovery-process rules, not Test Design targets |
-| ANC-42 | ROE currency conversion | TC-ANC-010 | Partially Covered — no dedicated Discovery Reference for this run's own re-verification |
+| ANC-42 | ROE currency conversion | TC-ANC-010, TC-ANC-036 | Partially Covered — no dedicated Discovery Reference for this run's own re-verification (unchanged gate, per CoverageReport.md); TC-ANC-036 adds further evidence depth (45 distinct ancillary codes reconciled exactly against the raw supplier catalog) without resolving the Discovery-Finding-filing gate itself |
 | ANC-43 | Taxes/fees per offer | TC-ANC-012 | Covered |
 | ANC-44 | Rule engine — markup/discount/service-fee | TC-ANC-002, TC-ANC-003, TC-ANC-004, TC-ANC-005, TC-ANC-011, TC-ANC-012, TC-ANC-035 | Partially Covered — Service Charge/Discount question (FINDING-003/014) now a Documented Exception, out of Ancillaries scope |
 | ANC-45 | Ancillary/Bundle amounts added to total | TC-ANC-012, TC-ANC-014 | Covered |
 | ANC-46 | Wallet/payment timing | TC-ANC-015, TC-ANC-016 | Covered |
 | ANC-47 | Before-booking change/removal, per passenger | TC-ANC-018 | Partially Covered |
 | ANC-48 | Application Level defaults (Meal/Segment, Baggage/Journey) | TC-ANC-002, TC-ANC-003, TC-ANC-004, TC-ANC-005, TC-ANC-035 | Partially Covered — round-trip Baggage scoping (once total vs. once per direction) is an open question TC-ANC-003/005 are designed to resolve, not yet executed |
-| ANC-49 | Eligibility default (Adult/Child only) | TC-ANC-002, TC-ANC-003, TC-ANC-004, TC-ANC-005, TC-ANC-006, TC-ANC-007, TC-ANC-008, TC-ANC-009, TC-ANC-034 | Covered |
+| ANC-49 | Eligibility default (Adult/Child only) | TC-ANC-002, TC-ANC-003, TC-ANC-004, TC-ANC-005, TC-ANC-006, TC-ANC-007, TC-ANC-008, TC-ANC-009, TC-ANC-034, TC-ANC-036 | Covered — TC-ANC-036 additionally confirms Infant exclusion originates at the raw supplier/integration API layer, not only as a UI-side filter |
 | ANC-50 | Bundle coexistence | TC-ANC-014 | Covered |
 | ANC-51 | Environment architecture (same tenant, two URLs) | — | Out-of-Scope — infrastructure fact |
 | ANC-52 | Post-booking immutability | TC-ANC-002, TC-ANC-003, TC-ANC-004, TC-ANC-005, TC-ANC-019, TC-ANC-034, TC-ANC-035 | Covered |
@@ -110,5 +111,5 @@
 | Risk Level | Test Case ID(s) | Statement | Source |
 |---|---|---|---|
 | High | TC-ANC-002, TC-ANC-003, TC-ANC-004, TC-ANC-005, TC-ANC-010, TC-ANC-012, TC-ANC-015, TC-ANC-016, TC-ANC-019, TC-ANC-020, TC-ANC-021, TC-ANC-022 | Core booking, pricing, wallet, and persistence integrity — a defect here is directly financial or contractual | FINDING-007, FINDING-008, FINDING-009, FINDING-010, FINDING-015, and the newly-untested BOM-COK route / retrieve-endpoint methodology |
-| Medium | TC-ANC-006, TC-ANC-007, TC-ANC-009, TC-ANC-018, TC-ANC-023, TC-ANC-024, TC-ANC-025, TC-ANC-026, TC-ANC-034, TC-ANC-035 | Eligibility, reporting, and open configuration questions — real but bounded impact | FINDING-006, FINDING-012, FINDING-015, FINDING-016, and the unattributed 800 INR retrieve-endpoint gap |
+| Medium | TC-ANC-006, TC-ANC-007, TC-ANC-009, TC-ANC-018, TC-ANC-023, TC-ANC-024, TC-ANC-025, TC-ANC-026, TC-ANC-034, TC-ANC-035, TC-ANC-036 | Eligibility, reporting, and open configuration questions — real but bounded impact | FINDING-006, FINDING-012, FINDING-015, FINDING-016, and the unattributed 800 INR retrieve-endpoint gap |
 | Low | TC-ANC-001, TC-ANC-008, TC-ANC-011, TC-ANC-014, TC-ANC-027 | Already-confirmed behavior, UX-only, or standard form validation | FINDING-001, FINDING-004, FINDING-005, FINDING-011 (indirectly), FINDING-017 |

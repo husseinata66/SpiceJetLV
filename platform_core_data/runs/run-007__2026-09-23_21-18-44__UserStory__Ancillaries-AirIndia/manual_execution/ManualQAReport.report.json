@@ -20,20 +20,20 @@
         { "label": "Admin environment", "value": "http://192.168.1.213 (Staging)", "mono": true },
         { "label": "Portal environment", "value": "http://192.168.1.213:9500 (Staging)", "mono": true }
       ],
-      { "label": "Execution window", "value": "2026-09-28 19:00 UTC → 2026-10-03 00:07 UTC" },
+      { "label": "Execution window", "value": "2026-09-28 19:00 UTC → 2026-10-03 03:10 UTC" },
       { "label": "Browser mode", "value": "Headed (Playwright MCP) — required for this stage" }
     ],
     "runFields": [
-      { "label": "Executable scope", "value": "26 of 27 cases (Review = Approved)" },
+      { "label": "Executable scope", "value": "27 of 28 cases (Review = Approved)" },
       { "label": "Excluded", "value": "1 — TC-ANC-026, reason: Pending Review" }
     ]
   },
   "summary": {
-    "total": 27,
+    "total": 28,
     "totalLabel": "Suite Total",
     "duration": "2026-09-28 → 2026-10-03",
     "durationLabel": "Execution Window",
-    "donut": { "focus": "Passed", "percent": 92.3, "label": "pass rate (executable scope, 24/26)" }
+    "donut": { "focus": "Passed", "percent": 92.6, "label": "pass rate (executable scope, 25/27)" }
   },
   "testCases": {
     "title": "Test case results",
@@ -260,6 +260,24 @@
             ],
             "evidence": "artifacts/TC-ANC-023/",
             "detail": { "priority": "P2", "tags": [ "Atomic", "Exploratory" ] }
+          },
+          {
+            "id": "TC-ANC-036",
+            "title": "Supplier GetAncillary endpoint data matches the Portal UI's Ancillaries step exactly",
+            "status": "Passed",
+            "rows": [
+              { "label": "Method", "value": "Called Search→FareConfirm→AddPassenger→GetAncillary directly against the NDC integration service, then searched identical criteria live on the Portal UI" },
+              { "label": "Result", "value": "11/11 (Leg 1) + 24/24 (Leg 2) Meal codes and 10/10 Baggage codes matched exactly (code, description, ROE-0.5 price); Infant excluded from ancillary eligibility at the raw API layer itself" },
+              { "label": "Added", "value": "Added mid-delivery, user-directed ad-hoc verification — accepted back into the suite 2026-10-03" }
+            ],
+            "evidence": "artifacts/TC-ANC-036/ (4 redacted API request/response pairs, 1 screenshot)",
+            "detail": {
+              "preconditions": "Direct HTTP access to the NDC integration service's Search/FareConfirm/AddPassenger/GetAncillary endpoints; Portal user logged in",
+              "testData": "DEL-DXB, one-way, 1 Adult + 1 Child + 1 Infant",
+              "expected": "Every ancillary data point the UI displays matches the raw GetAncillary response exactly after ROE conversion; Infant exclusion holds at both layers",
+              "priority": "P2",
+              "tags": [ "Scenario", "Regression", "Integration" ]
+            }
           }
         ]
       },

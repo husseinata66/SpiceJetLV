@@ -11,8 +11,8 @@
 | Target URL | `http://192.168.1.213` (Admin) / `http://192.168.1.213:9500` (Portal) |
 | Role(s) used | Admin (Branch BRN297, `NDC2_Ahmed Alhussieny`) · Portal Agency `AGN9808` |
 | Started | 2026-09-28, ~19:00 UTC (TC-ANC-002, first booking) |
-| Ended | 2026-10-03, ~00:07 UTC (TC-ANC-015, last live checkpoint) |
-| Test Suites executed | `platform_core_data/supplier-features/ancillaries/suppliers/air-india/test_design/TestCases_Ancillaries_AirIndia.md` (rev 7, Approved), `TraceabilityMatrix.md` (rev 5), `CoverageReport.md` |
+| Ended | 2026-10-03, ~03:10 UTC (TC-ANC-036, last live checkpoint) |
+| Test Suites executed | `platform_core_data/supplier-features/ancillaries/suppliers/air-india/test_design/TestCases_Ancillaries_AirIndia.md` (rev 8, Approved), `TraceabilityMatrix.md` (rev 6), `CoverageReport.md` (rev 7) |
 | Browser mode | Headed (Playwright MCP, `.mcp.json` without `--headless`) throughout — this stage's required mode (§11.1), confirmed with the user at the start of this run |
 | Execution Safety policy | `ndc-admin-portal-stg`, `policyVersion: 2`, `policyHash: sha256:28fd9c73b561997058e000dcd32079d5` — `BOOK`/`PAYMENT`/`UPDATE`/`WALLET_CHARGE` on `SelfCreated` bookings → `Allowed`, approved by Ahmed Alhussieny 2026-09-28 (`metadata/SafetyAuthorizations.json`) |
 
@@ -20,18 +20,24 @@
 
 | Status | Count |
 |---|---|
-| Passed | 24 |
+| Passed | 25 |
 | Failed | 1 |
 | Blocked | 0 |
 | Skipped | 0 |
 | Not Executed | 0 |
 | Inconclusive | 1 |
-| **Executable scope** (`Review = Approved`) | **26** |
+| **Executable scope** (`Review = Approved`) | **27** |
 | Excluded — Pending Review | 1 |
 | Excluded — Rejected at Review | 0 |
-| **Suite total** | **27** |
+| **Suite total** | **28** |
 
-Pass rate (of executable scope): 24/26 = **92.3%**. Authorized coverage: 26/27 = **96.3%**.
+Pass rate (of executable scope): 25/27 = **92.6%**. Authorized coverage: 27/28 = **96.4%**.
+
+**Revision note (2026-10-03):** TC-ANC-036 was added mid-delivery — a user-directed ad-hoc
+verification (supplier `GetAncillary` endpoint data vs. the Portal UI's Ancillaries step), executed,
+Passed, and formally accepted back into the Test Suite (now rev 8), Traceability Matrix (rev 6), and
+Coverage Report (rev 7). All four terminal deliverables were regenerated together in this same pass so
+all three renderings still agree.
 
 ## 3. Per-Test Results
 
@@ -64,6 +70,7 @@ Pass rate (of executable scope): 24/26 = **92.3%**. Authorized coverage: 26/27 =
 | TC-ANC-027 | ancillaries/air-india | **Inconclusive** | 2026-10-03 | See §3.1 — the required product/business decision on Wallet History's Debit/Credit labeling was explicitly deferred by the reviewer; the underlying observation is solid but the case's own Expected Result (a recorded product decision) was not reached | `artifacts/TC-ANC-027/` |
 | TC-ANC-034 | ancillaries/air-india | Passed | 2026-10-01 | — | `artifacts/TC-ANC-034/` |
 | TC-ANC-035 | ancillaries/air-india | Passed | 2026-10-01 ~15:51–16:11 UTC | — | `artifacts/TC-ANC-035/` |
+| TC-ANC-036 | ancillaries/air-india | Passed | 2026-10-03 ~03:00–03:10 UTC | — | `artifacts/TC-ANC-036/` |
 
 ### 3.1 Defect Detail — Failed / Inconclusive cases
 
@@ -259,5 +266,6 @@ Pass rate (of executable scope): 24/26 = **92.3%**. Authorized coverage: 26/27 =
 | TC-ANC-027 | Screenshot reference, execution log | `artifacts/TC-ANC-027/00_execution_log.md` (cites `TC-ANC-004/16_report_wallet_history.png`) | Yes | — |
 | TC-ANC-034 | Screenshots, JSON (request/response, redacted), reconciliation doc, execution log | `artifacts/TC-ANC-034/` (7 files) | Yes | Video not captured |
 | TC-ANC-035 | Screenshots, JSON (request/response, redacted), reconciliation doc, execution log | `artifacts/TC-ANC-035/` (8 files) | Yes | Video not captured |
+| TC-ANC-036 | JSON (4 raw API request/response pairs, redacted), screenshot, execution log | `artifacts/TC-ANC-036/` (9 files) | Yes | Video not captured |
 
 **Evidence root:** `platform_core_data/runs/run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia/manual_execution/artifacts/`

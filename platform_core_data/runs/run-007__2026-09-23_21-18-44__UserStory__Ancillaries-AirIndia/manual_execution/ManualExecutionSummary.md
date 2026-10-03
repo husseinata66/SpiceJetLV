@@ -10,27 +10,30 @@
 
 ## 2. Execution Summary
 
-This run executed the approved 27-case Manual Test Suite for Ancillaries/AirIndia (18 Atomic, 3
+This run executed the approved 28-case Manual Test Suite for Ancillaries/AirIndia (18 Atomic, 4
 Scenario, 6 E2E) against Staging, on both the Admin (`ANCILLARIES_STG`) and Portal (`STG_PORTAL`)
 channels, headed, between 2026-09-28 and 2026-10-03. All 6 E2E cases produced real, confirmed
 bookings (PNRs Z33F4Z, P6MVJA, USCWVR, MSK5XB, H9ZK7E, S13GWS) and every atomic/scenario case either
 exercised the live application directly or was recorded from evidence already captured by one of
-those bookings, per the test suite's own Notes field on reuse. Of the 27 cases in the suite, 26 were
-authorized to execute (`Review = Approved`); one, TC-ANC-026 (Statement report), remains `Excluded`
-with reason `Pending Review` — held back since Stage 3, pending the fix of FINDING-012 (a confirmed
-Statement-report defect on both channels), per explicit instruction not to execute against a
-known-broken report.
+those bookings, per the test suite's own Notes field on reuse. A 28th case, TC-ANC-036, was added
+mid-delivery at the user's direction — a raw NDC integration service API chain
+(Search→FareConfirm→AddPassenger→GetAncillary) compared against the Portal UI's Ancillaries step for
+an identical search, confirming the application's ancillary catalog data is retrieved and displayed
+correctly. Of the 28 cases in the suite, 27 were authorized to execute (`Review = Approved`); one,
+TC-ANC-026 (Statement report), remains `Excluded` with reason `Pending Review` — held back since
+Stage 3, pending the fix of FINDING-012 (a confirmed Statement-report defect on both channels), per
+explicit instruction not to execute against a known-broken report.
 
-Of the 26 executed cases, 24 Passed, 1 Failed (TC-ANC-022 — the supplier retrieve endpoint's
+Of the 27 executed cases, 25 Passed, 1 Failed (TC-ANC-022 — the supplier retrieve endpoint's
 per-passenger ancillary itemization undercounts any ancillary code repeated for a passenger, a
 confirmed, reproducible defect carried as "Defect A" and reconfirmed across five independent
 bookings), and 1 is Inconclusive (TC-ANC-027 — a real, reproducible Wallet History
 labeling observation whose required product decision was explicitly deferred by the reviewer). No
 case was Blocked, Skipped, or Not Executed.
 
-**Headline figures:** 24 Passed · 1 Failed · 0 Blocked · 0 Skipped · 0 Not Executed · 1 Inconclusive · 1 Excluded
+**Headline figures:** 25 Passed · 1 Failed · 0 Blocked · 0 Skipped · 0 Not Executed · 1 Inconclusive · 1 Excluded
 
-**Scope:** 26 of 27 cases were authorized to execute (`Review = Approved`). Every figure above is
+**Scope:** 27 of 28 cases were authorized to execute (`Review = Approved`). Every figure above is
 against that executable scope; the excluded remainder (TC-ANC-026) is broken down in the QA Report.
 
 ## 5. Delivery Artifacts
@@ -43,7 +46,7 @@ against that executable scope; the excluded remainder (TC-ANC-026) is broken dow
 | Evidence | `manual_execution/artifacts/` | Yes |
 
 **All three renderings agree on every status:** Yes — the Results (§3), the CSV, and the QA Report's
-Outcome Figures (§3) were derived from the same 27-row result set in this one pass; no status was
+Outcome Figures (§3) were derived from the same 28-row result set in this one pass; no status was
 corrected after any of the three was written.
 
 **Scripts produced:** none. Every form fill and navigation this run performed used the Playwright MCP
@@ -68,7 +71,7 @@ under the agent's temp scratchpad directory, never committed to this run's artif
 |---|---|---|---|
 | REC-4M-001 | Fix the NDC integration service's Retrieve response mapping so `passengerAncillaries` itemizes one line per occurrence of a repeated ancillary code (or one line at the correct per-passenger total), then re-execute TC-ANC-022 | TC-ANC-022 | Defect A is confirmed, reproducible, and currently the only Failed case in this run; the fix is narrowly scoped to one mapping step |
 | REC-4M-002 | Obtain the deferred product decision on Wallet History's Debit/Credit column labeling, then re-execute TC-ANC-027 to a definite Passed/Failed outcome | TC-ANC-027 | The observation itself needs no further verification; only the decision is outstanding |
-| REC-4M-003 | Fix FINDING-012 (Statement report returns zero rows on both channels), then move TC-ANC-026's `Review` to `Approved` and execute it | TC-ANC-026 | This is the only case never authorized to run this pass; it is the direct reason this run's authorized coverage is 96.3% rather than 100% |
+| REC-4M-003 | Fix FINDING-012 (Statement report returns zero rows on both channels), then move TC-ANC-026's `Review` to `Approved` and execute it | TC-ANC-026 | This is the only case never authorized to run this pass; it is the direct reason this run's authorized coverage is 96.4% rather than 100% |
 | REC-4M-004 | Re-verify FINDING-013/015/016/017 (Admin wallet/pricing/reports observations) via Direct Observation evidence specifically, closing the Discovery evidence-tier cap | TC-ANC-004, TC-ANC-005, TC-ANC-007, TC-ANC-025, TC-ANC-027 | Not blocking — this run's own live execution already reconfirmed the same figures directly; this closes a Discovery bookkeeping gap, not an open functional question |
 
 ## 8. Delivery Completeness
@@ -78,10 +81,10 @@ under the agent's temp scratchpad directory, never committed to this run's artif
 
 | Delivery requirement | Verified by |
 |---|---|
-| Every test case in scope has a recorded outcome | Yes — all 27 cases have a row in Results §3 and the CSV, including the one Excluded case |
+| Every test case in scope has a recorded outcome | Yes — all 28 cases have a row in Results §3 and the CSV, including the one Excluded case |
 | Every Failed/Inconclusive case meets the Defect Documentation Standard in full | Yes — TC-ANC-022 and TC-ANC-027 both carry the full 15-section write-up in Results §3.1 |
 | Every result's evidence is captured, or its absence stated with a reason | Yes — Results §4 names every gap and its reason (video unsupported by this MCP setup; a wallet-balance re-read interrupted by a transient network dropout) |
-| The CSV has one row per test case in scope, statuses unabbreviated | Yes — 27 rows, the full seven-state vocabulary, including TC-ANC-026's `Excluded` row |
+| The CSV has one row per test case in scope, statuses unabbreviated | Yes — 28 rows, the full seven-state vocabulary, including TC-ANC-026's `Excluded` row |
 | The QA Report's coverage is computed from the Traceability Matrix, with uncovered requirements shown as *not verified* | Yes — see `ManualQAReport.md` §4 |
 | **All three renderings agree on every test case's status** | Yes |
 | No script of any kind was produced as an artifact | Yes — confirmed in §5 above |
