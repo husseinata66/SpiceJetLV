@@ -1,0 +1,74 @@
+{
+ "note": "First attempt at TC-BR-093 was invalid: the Remarks box on the Branch edit form is pre-filled with the previous remark, so it was never empty. Record restored, then the case re-executed with the Remarks box explicitly cleared.",
+ "stateBeforeRestore": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 313
+   },
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 0
+ },
+ "restoreNet": [
+  {
+   "m": "PATCH",
+   "u": "/odeysysadmin/Master2/Branch/approveOrReject",
+   "s": 200,
+   "body": "{\"statusMessage\":\"Branch Approved Successfully!!\",\"success\":true}"
+  }
+ ],
+ "stateAfterRestore": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 313
+   },
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1
+ },
+ "step1_form": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "NDCSabre staging, Sabre Staging",
+  "credentialsSectionInText": true
+ },
+ "step1_remarkPrefill": "run-010 restore after invalid TC-BR-093 attempt",
+ "step2_afterToggle": {
+  "checkboxPresent": true,
+  "checked": false,
+  "credentialsControlPresent": false,
+  "credentialsLabel": null,
+  "credentialsSectionInText": false
+ },
+ "step3_remarkValue": "",
+ "step4_net": [],
+ "step4_url": "http://192.168.1.60/admin/branch/edit/BRN265",
+ "step4_messages": {
+  "toasts": [],
+  "errors": [
+   "Required"
+  ],
+  "dialog": null
+ },
+ "step4_remarkArea": "Remarks * Required",
+ "state": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 313
+   },
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1
+ },
+ "gridRow": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Approved |"
+}

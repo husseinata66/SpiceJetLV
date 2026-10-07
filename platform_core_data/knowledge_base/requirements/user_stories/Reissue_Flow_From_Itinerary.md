@@ -5,6 +5,7 @@
 **Type:** User Story
 **Recorded:** 2026-09-23
 **Amended:** 2026-09-27 — the **Acceptance Criteria** and **Edge Cases & Expected Handling** sections were supplied by the user (Mohamed Soliman) and added; they were missing from the 2026-09-23 transcription. The Description, Business Requirement and Clarifications sections are unchanged.
+**Amended:** 2026-10-04 — **`AC-37` and `§4.9 Terms & Conditions` added** on the user's instruction, after the End-to-End Workflow documents (`specifications/Reissue_Feature_EndToEnd_Workflow.md`) described a **T&C acceptance gate before `Confirm & Charge`** that this story never mentioned, and the user confirmed the control exists on screen (2026-10-04). **This is the first content added to this story that was not supplied as part of the original requirement** — it is marked as such everywhere it appears, and the Overall AC count moves 36 → 37. Recorded as `DS-7` on the `reissue-flow` Project Context.
 **Status:** Requirements input — consumed by Stage 1 (Project Context Rev 2, approved 2026-09-26) **without** the Acceptance Criteria below. Stage 1 must be revised against them before Stage 3.
 **Scope binding:** Supplier Feature `reissue` · shared scope `reissue-flow` (`platform_core_data/supplier-features/reissue/shared/reissue-flow/`)
 **Prerequisite story:** [`Auto_Reissue_Checkbox_Branch_Agency.md`](Auto_Reissue_Checkbox_Branch_Agency.md)
@@ -391,7 +392,25 @@ If the price difference changes from the supplier side:
 
 The user must be informed that the selected offer price has changed before continuing.
 
-#### 4.9 Acceptance Criteria
+#### 4.9 Terms & Conditions
+
+> **Added 2026-10-04, not part of the 2026-09-27 supply.** Source: the End-to-End Workflow documents
+> (`specifications/Reissue_Feature_EndToEnd_Workflow.md`), both diagram forms of which show
+> `… → Accept T&C → Confirm & Charge`; the user confirmed on 2026-10-04 that the control exists on
+> screen. Everything above this subsection is the requirement as supplied; this subsection is not.
+
+Terms & Conditions must be presented on the Review & Pay screen before the payment action.
+
+- The user must **accept** the Terms & Conditions before `Confirm & Charge` can proceed.
+- The control must **not** be pre-accepted; acceptance is a deliberate user action.
+- Acceptance applies to the offer and amount on screen when it was given, and must not carry over to a
+  different offer or a changed price.
+- The Terms & Conditions content must be reachable and readable from the control.
+
+Terms & Conditions are also displayed on the Booking Confirmation, as information on a completed
+transaction rather than as an acceptance control.
+
+#### 4.10 Acceptance Criteria
 
 - **AC-1:** Review Page displays all new flight data.
 - **AC-2:** Review Page displays the old price.
@@ -402,8 +421,9 @@ The user must be informed that the selected offer price has changed before conti
 - **AC-7:** User can select Banque Masr as a payment method.
 - **AC-8:** Fare breakdown is displayed per passenger type.
 - **AC-9:** If supplier-side price difference changes and the offer supports Reprice, the Price Changed popup is displayed.
+- **AC-10:** *(added 2026-10-04 — see §4.9)* Terms & Conditions are displayed on Review & Pay and **must be accepted before `Confirm & Charge` can proceed**.
 
-#### 4.10 Field / Control Validations
+#### 4.11 Field / Control Validations
 
 **Old Price** — Must represent the price of the flight being reissued.
 
@@ -421,6 +441,10 @@ amounts.
 
 **Price Change** — Supplier-side price changes must trigger the Price Changed popup when Reprice is
 supported.
+
+**Terms & Conditions** *(added 2026-10-04)* — Must be displayed before the payment action and must
+not be pre-accepted. `Confirm & Charge` must be refused or unavailable until acceptance is given.
+Acceptance must not persist across a different offer or a changed amount.
 ---
 
 ### 5. Exchange
@@ -686,6 +710,7 @@ Report, and all related reports.
 - **AC-34:** PNR Query displays the ticketed Reissue in the History section.
 - **AC-35:** Wallet Report, Finance Report, and all related reports are included in the affected-area review.
 - **AC-36:** Existing Reports and PNR Query behavior remains unchanged except for the explicitly defined Reissue additions.
+- **AC-37:** *(added 2026-10-04, not part of the 2026-09-27 supply — see §4.9)* Terms & Conditions are displayed on Review & Pay and **must be accepted before `Confirm & Charge` can proceed**; they are displayed again on the Booking Confirmation as information.
 
 ---
 

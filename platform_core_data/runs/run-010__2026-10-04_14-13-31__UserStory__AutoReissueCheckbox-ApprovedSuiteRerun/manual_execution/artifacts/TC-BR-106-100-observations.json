@@ -1,0 +1,163 @@
+{
+ "TC-BR-106": {
+  "recordedBefore": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    },
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1
+  },
+  "formBefore": {
+   "checkboxPresent": true,
+   "checked": true,
+   "credentialsControlPresent": true,
+   "credentialsLabel": "NDCSabre staging, Sabre Staging",
+   "credentialsSectionInText": true
+  },
+  "step3_net": [
+   {
+    "m": "PUT",
+    "u": "/odeysysadmin/Master2/Branch/10950",
+    "s": 204,
+    "body": ""
+   }
+  ],
+  "step3_url": "http://192.168.1.60/admin/branch",
+  "capturedBranchRequest": true,
+  "step4_approveNet": [
+   {
+    "m": "PATCH",
+    "u": "/odeysysadmin/Master2/Branch/approveOrReject",
+    "s": 200,
+    "body": "{\"statusMessage\":\"Branch Approved Successfully!!\",\"success\":true}"
+   }
+  ],
+  "step4_gridRow": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Approved |",
+  "step5_formAfter": {
+   "checkboxPresent": true,
+   "checked": true,
+   "credentialsControlPresent": true,
+   "credentialsLabel": "NDCSabre staging, Sabre Staging",
+   "credentialsSectionInText": true
+  },
+  "stateAfter": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    },
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1
+  }
+ },
+ "setup_BR100": {
+  "branch": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    },
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1
+  },
+  "agency": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  }
+ },
+ "TC-BR-100": {
+  "before": {
+   "branch": {
+    "autoReissueEnabled": false,
+    "reissueCredentials": [
+     {
+      "credentialId": 313
+     },
+     {
+      "credentialId": 315
+     }
+    ],
+    "approvalStatus": 1
+   },
+   "agency": {
+    "autoReissueEnabled": false,
+    "reissueCredentials": [
+     {
+      "credentialId": 315
+     }
+    ],
+    "approvalStatus": 1,
+    "status": 1
+   }
+  },
+  "step1_branchForm": {
+   "checkboxPresent": true,
+   "checked": true,
+   "credentialsControlPresent": true,
+   "credentialsLabel": "NDCSabre staging, Sabre Staging",
+   "credentialsSectionInText": true
+  },
+  "step1_net": [
+   {
+    "m": "PUT",
+    "u": "/odeysysadmin/Master2/Branch/10950",
+    "s": 204,
+    "body": ""
+   }
+  ],
+  "step1_approveNet": [
+   {
+    "m": "PATCH",
+    "u": "/odeysysadmin/Master2/Branch/approveOrReject",
+    "s": 200,
+    "body": "{\"statusMessage\":\"Branch Approved Successfully!!\",\"success\":true}"
+   }
+  ],
+  "branchAfter": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    },
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1
+  },
+  "step3_agencyForm": {
+   "checkboxPresent": true,
+   "checked": false,
+   "credentialsControlPresent": false,
+   "credentialsLabel": null,
+   "credentialsSectionInText": false
+  },
+  "agencyAfter": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  }
+ }
+}

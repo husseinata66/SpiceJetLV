@@ -1,0 +1,1600 @@
+{
+ "title": "Manual QA Report — Auto Reissue checkbox",
+ "documentTitle": "Manual QA Report — Auto Reissue checkbox (run-010)",
+ "statusPill": "Pending Review",
+ "statusPillTone": "warning",
+ "statuses": [
+  {
+   "key": "Passed",
+   "label": "Passed",
+   "tone": "pass"
+  },
+  {
+   "key": "Failed",
+   "label": "Failed",
+   "tone": "fail"
+  },
+  {
+   "key": "Blocked",
+   "label": "Blocked",
+   "tone": "blocked"
+  },
+  {
+   "key": "Skipped",
+   "label": "Skipped",
+   "tone": "warning"
+  },
+  {
+   "key": "Not Executed",
+   "label": "Not Executed",
+   "tone": "neutral"
+  },
+  {
+   "key": "Inconclusive",
+   "label": "Inconclusive",
+   "tone": "accent"
+  },
+  {
+   "key": "Excluded",
+   "label": "Excluded",
+   "tone": "neutral"
+  }
+ ],
+ "meta": {
+  "fields": [
+   [
+    {
+     "label": "Run folder",
+     "value": "run-010__2026-10-04_14-13-31__UserStory__AutoReissueCheckbox-ApprovedSuiteRerun",
+     "mono": true
+    },
+    {
+     "label": "Scope rationale",
+     "value": "run-008 REC-008-5 — re-run the auto-reissue cases outside run-008’s own scope"
+    }
+   ],
+   [
+    {
+     "label": "Scope / Type",
+     "value": "User Story — Auto Reissue checkbox (Branch & Agency)"
+    },
+    {
+     "label": "Modules",
+     "value": "agency, branch"
+    }
+   ],
+   [
+    {
+     "label": "Admin",
+     "value": "http://192.168.1.60",
+     "mono": true
+    },
+    {
+     "label": "Portal",
+     "value": "http://192.168.1.60:9500",
+     "mono": true
+    }
+   ]
+  ],
+  "runFields": [
+   [
+    {
+     "label": "Execution ID",
+     "value": "run-010-4M-2026-10-04",
+     "mono": true
+    },
+    {
+     "label": "Display mode",
+     "value": "Headed — chosen by the user before the run"
+    }
+   ],
+   [
+    {
+     "label": "Executed",
+     "value": "2026-10-04, 14:13 – 17:05 local"
+    },
+    {
+     "label": "Mechanism",
+     "value": "Browser Driver (Chrome, headed) plus the application’s own save API"
+    }
+   ]
+  ]
+ },
+ "summary": {
+  "title": "Executive Summary",
+  "total": 69,
+  "totalLabel": "Suite Total (49 authorized in this run)",
+  "duration": "2h 52m",
+  "durationLabel": "Execution Duration",
+  "donut": {
+   "focus": "Passed",
+   "percent": 91.8,
+   "label": "pass rate (executable scope, 45/49)"
+  }
+ },
+ "testCases": {
+  "title": "Test case results (49 executed, 20 excluded)",
+  "searchPlaceholder": "Search by ID, title, module, outcome...",
+  "open": true,
+  "categories": [
+   {
+    "key": "form",
+    "name": "The checkbox and its credential picker",
+    "icon": "☑️",
+    "open": false,
+    "cases": [
+     {
+      "id": "TC-AGENCY-061",
+      "title": "Auto Reissue is unchecked by default on Add Agency",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 \"Auto Reissue checkbox on Create/Update Agency\" / `PO-15` / spec §1"
+       },
+       {
+        "label": "Outcome",
+        "value": "Auto Reissue appears under Agency Features, unchecked. Auto Reissue Credentials is not rendered."
+       }
+      ],
+      "evidence": "TC-AGENCY-061-add-form-default.png, TC-AGENCY-061-062-observations.json"
+     },
+     {
+      "id": "TC-AGENCY-062",
+      "title": "Ticking Auto Reissue shows the credentials picker",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 \"Reissue-credential selection (UI)\" / ASM-019"
+       },
+       {
+        "label": "Outcome",
+        "value": "Ticking shows Auto Reissue Credentials; unticking hides it again."
+       }
+      ],
+      "evidence": "TC-AGENCY-062-ticked.png, TC-AGENCY-062-unticked.png, TC-AGENCY-061-062-observations.json"
+     },
+     {
+      "id": "TC-AGENCY-074",
+      "title": "Agency picker offers only credentials the Agency itself holds",
+      "status": "Blocked",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "`PO-21` (picker lists the organisation's own chosen credentials) / `PO-16`, `PO-27` (Agency credentials are a subset of the Branch's)"
+       },
+       {
+        "label": "Outcome",
+        "value": "The precondition needs a credential BRN265 holds and AGN9780 does not. Re-run as a controlled detach / re-attach proved that state cannot be constructed: with NDCsbr detached, neither organisation holds it; attaching it to the Branch alone gives it to the Agency in the same action. Every picker option was a credential present in the Agency’s own PCC tabs, so the first half of the Expected Result held; the second half has no input to test on this application."
+       }
+      ],
+      "evidence": "rerun-TC-BR-109-TC-AGENCY-074.json, rerun-TC-BR-109-phase1-detached.png, TC-AGENCY-074-picker.png, TC-074-109-091-BR089-observations.json, AGN9780-after-branch-ndcsbr.json"
+     },
+     {
+      "id": "TC-BR-083",
+      "title": "Auto Reissue is unchecked by default on Add Branch",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 REV 9 \"Auto Reissue checkbox on Create Branch and Update Branch\" / `PO-15`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Auto Reissue appears beside Import PNR, unchecked; Auto Reissue Credentials is not rendered."
+       }
+      ],
+      "evidence": "TC-BR-083-add-branch-default.png, TC-BR-083-084-observations.json"
+     },
+     {
+      "id": "TC-BR-084",
+      "title": "Picker is empty on a new Branch with no supplier",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 REV 9 \"Reissue-credential selection (UI)\" / ASM-BR-4"
+       },
+       {
+        "label": "Outcome",
+        "value": "With no supplier ticked, the Auto Reissue picker showed \"No results found\"."
+       }
+      ],
+      "evidence": "TC-BR-084-ticked-no-supplier.png, TC-BR-084-picker-open.png, TC-BR-083-084-observations.json"
+     },
+     {
+      "id": "TC-BR-085",
+      "title": "An LCC credential is not offered for Auto Reissue",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "`PO-21`"
+       },
+       {
+        "label": "Outcome",
+        "value": "AirArabiaEgypt credential chosen in its Product Access row; the Auto Reissue picker showed \"No results found\"."
+       }
+      ],
+      "evidence": "TC-BR-085-picker.png, TC-BR-085-088-observations.json"
+     },
+     {
+      "id": "TC-BR-086",
+      "title": "A Galileo PCC credential is offered for Auto Reissue",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "`PO-21`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Galileo ticked with GalileoLive in its PCC tab; GalileoLive was offered."
+       }
+      ],
+      "evidence": "TC-BR-086-picker.png, TC-BR-085-088-observations.json"
+     },
+     {
+      "id": "TC-BR-087",
+      "title": "An Amadeus PCC credential is not offered for Auto Reissue",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "`PO-21` / spec `S-9`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Amadeus ticked with Amadeus Live in its PCC tab; the picker showed \"No results found\"."
+       }
+      ],
+      "evidence": "TC-BR-087-picker.png, TC-BR-085-088-observations.json"
+     },
+     {
+      "id": "TC-BR-088",
+      "title": "A TravelportNdc PCC credential is offered for Auto Reissue",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "`PO-21`"
+       },
+       {
+        "label": "Outcome",
+        "value": "TravelportNdc ticked with TravelPortProd in its PCC tab; TravelPortProd was offered."
+       }
+      ],
+      "evidence": "TC-BR-088-picker.png, TC-BR-085-088-observations.json"
+     },
+     {
+      "id": "TC-BR-091",
+      "title": "Turning Branch Auto Reissue off keeps the saved credentials",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 REV 9 \"Off keeps saved credentials\" / spec `S-7`"
+       },
+       {
+        "label": "Outcome",
+        "value": "With Auto Reissue off and NDCSabre staging previously saved, ticking it pre-selected NDCSabre staging."
+       }
+      ],
+      "evidence": "TC-BR-091-picker.png, TC-BR-091-092-093-observations.json"
+     }
+    ]
+   },
+   {
+    "key": "save",
+    "name": "Saving, reading back and approval",
+    "icon": "💾",
+    "open": false,
+    "cases": [
+     {
+      "id": "TC-AGENCY-063",
+      "title": "Turn Auto Reissue on for an Agency and save",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 \"Saved value is retrieved when the Agency is edited\" / spec `S-10`, §4"
+       },
+       {
+        "label": "Outcome",
+        "value": "Ticked Auto Reissue, selected the first option (Sabre Staging), Approve saved (PUT 204). Reopened ticked with Sabre Staging; row stayed Active / Approved."
+       }
+      ],
+      "evidence": "TC-AGENCY-063-before-approve.png, TC-AGENCY-063-reopened.png, TC-AGENCY-063-observation.json"
+     },
+     {
+      "id": "TC-AGENCY-064",
+      "title": "Auto Reissue change waits for approval after Send For Approval",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 \"Maker–checker on the new field\" / XC-01, XC-04 / `PO-24`"
+       },
+       {
+        "label": "Outcome",
+        "value": "After Send For Approval the row read Inactive / Pending for approval; after approving from the grid it read Active / Approved; reopened ticked with Sabre Staging."
+       }
+      ],
+      "evidence": "TC-AGENCY-064-grid-pending.png, TC-AGENCY-064-approve-dialog.png, TC-AGENCY-064-grid-approved.png, TC-AGENCY-064-reopened.png, TC-AGENCY-064-observation.json"
+     },
+     {
+      "id": "TC-AGENCY-065",
+      "title": "Auto Reissue on with no credential shows \"Required\"",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-2` / `PO-23`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Required appeared under Auto Reissue Credentials, no save request was sent, and AGN9780 stayed Approved with Auto Reissue off."
+       }
+      ],
+      "evidence": "TC-AGENCY-065-required.png, TC-AGENCY-073-089-065-observations.json"
+     },
+     {
+      "id": "TC-AGENCY-073",
+      "title": "Turning Auto Reissue off keeps the saved credentials",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-7`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Unticked and approved; reopened unticked; ticking again pre-selected the saved credential Sabre Staging."
+       }
+      ],
+      "evidence": "TC-AGENCY-073-step1-ar-on.png, TC-AGENCY-073-step4-reopened-off.png, TC-AGENCY-073-step6-picker.png, TC-AGENCY-073-089-065-observations.json"
+     },
+     {
+      "id": "TC-AGENCY-086",
+      "title": "Updating an Agency without touching Auto Reissue still works",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 \"Regression — existing Agency CRUD is unaffected\" / RSK-014"
+       },
+       {
+        "label": "Outcome",
+        "value": "Remark-only update saved and approved (PUT 204); Auto Reissue and its credentials were unchanged."
+       }
+      ],
+      "evidence": "TC-AGENCY-086-after-save.png, TC-AGENCY-063-086-observations.json"
+     },
+     {
+      "id": "TC-AGENCY-089",
+      "title": "Edit an Agency with Auto Reissue off",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-1` / PC §2 \"Saved value is retrieved when the Agency is edited\""
+       },
+       {
+        "label": "Outcome",
+        "value": "Saved with Auto Reissue unticked, no Required message, still unticked on reopen, row Active / Approved."
+       }
+      ],
+      "evidence": "TC-AGENCY-089-after-save.png, TC-AGENCY-073-089-065-observations.json"
+     },
+     {
+      "id": "TC-AGENCY-090",
+      "title": "Edit an Agency with Auto Reissue on",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 \"Saved value is retrieved when the Agency is edited\" / spec §4"
+       },
+       {
+        "label": "Outcome",
+        "value": "Remark-only edit with Auto Reissue on saved (PUT 204); still ticked with Sabre Staging on reopen."
+       }
+      ],
+      "evidence": "TC-AGENCY-090-before-approve.png, TC-AGENCY-090-after-approve.png, TC-AGENCY-090-observation.json"
+     },
+     {
+      "id": "TC-BR-089",
+      "title": "Turn Auto Reissue on for a Branch and save",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 REV 9 \"Saved value retrieved on edit and on GET\" / spec `S-10`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Ticked Auto Reissue, selected NDCSabre staging, Send For Approval then approved from the grid; reopened ticked with NDCSabre staging; saved credential 313."
+       }
+      ],
+      "evidence": "TC-BR-089-before-send.png, TC-BR-089-reopened.png, TC-074-109-091-BR089-observations.json"
+     },
+     {
+      "id": "TC-BR-090",
+      "title": "Branch Auto Reissue change waits for approval",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 REV 9 \"Maker–checker on the new field\" / XC-01, XC-03, XC-04"
+       },
+       {
+        "label": "Outcome",
+        "value": "After Send For Approval the row read Pending for approval; after approving it read Approved; reopened unticked."
+       }
+      ],
+      "evidence": "TC-BR-090-before-send.png, TC-BR-090-grid-pending.png, TC-BR-090-grid-approved.png, TC-BR-090-reopened.png, TC-BR-090-observation.json"
+     },
+     {
+      "id": "TC-BR-092",
+      "title": "Branch Auto Reissue on with no credential shows \"Required\"",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-2` / `PO-23`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Required appeared under Auto Reissue Credentials, no save request was sent, BRN265 unchanged and Approved."
+       }
+      ],
+      "evidence": "TC-BR-092-required.png, TC-BR-091-092-093-observations.json"
+     },
+     {
+      "id": "TC-BR-093",
+      "title": "Branch update without a remark is refused",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "RISK-BR-10 / US 8606 \"mandatory Remarks\""
+       },
+       {
+        "label": "Outcome",
+        "value": "With the Remarks box explicitly cleared, Send For Approval was refused with Required under Remarks; no save request was sent; BRN265 unchanged."
+       }
+      ],
+      "evidence": "TC-BR-093-remark-cleared.png, TC-BR-093-result.png, TC-BR-093-observation.json"
+     },
+     {
+      "id": "TC-BR-106",
+      "title": "Updating a Branch without touching Auto Reissue still works",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 REV 9 \"Regression smoke\" / RISK-BR-12"
+       },
+       {
+        "label": "Outcome",
+        "value": "Remark-only update saved and approved; Auto Reissue and its credentials unchanged."
+       }
+      ],
+      "evidence": "TC-BR-106-reopened.png, TC-BR-106-100-observations.json"
+     }
+    ]
+   },
+   {
+    "key": "api",
+    "name": "What the save API refuses",
+    "icon": "🛡️",
+    "open": false,
+    "cases": [
+     {
+      "id": "TC-AGENCY-066",
+      "title": "API rejects Auto Reissue on with an empty credential list",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-2` / `PO-23` / `PO-17`"
+       },
+       {
+        "label": "Outcome",
+        "value": "400 \"Select at least one eligible credential\". AGN9780 unchanged."
+       }
+      ],
+      "evidence": "TC-AGENCY-api-observations.json, AGENCY_SAVE_REQUEST.json"
+     },
+     {
+      "id": "TC-AGENCY-067",
+      "title": "API keeps the saved credentials when Auto Reissue is sent off with others",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-3` / `PO-17`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Sent autoReissueEnabled false with credential 313; response 204; the read-back returned false with the stored [315], not 313."
+       }
+      ],
+      "evidence": "TC-AGENCY-067-after.png, TC-AGENCY-api-observations.json"
+     },
+     {
+      "id": "TC-AGENCY-068",
+      "title": "API rejects a credential without an ID",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-4` / `PO-17`"
+       },
+       {
+        "label": "Outcome",
+        "value": "400 \"Every auto-reissue credential must have an ID\". AGN9780 unchanged."
+       }
+      ],
+      "evidence": "TC-AGENCY-api-observations.json"
+     },
+     {
+      "id": "TC-AGENCY-069",
+      "title": "API rejects an unknown credential ID",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-5` (unknown) / `PO-17`"
+       },
+       {
+        "label": "Outcome",
+        "value": "400 \"Every auto-reissue credential must exist and be active\". AGN9780 unchanged."
+       }
+      ],
+      "evidence": "TC-AGENCY-api-observations.json"
+     },
+     {
+      "id": "TC-AGENCY-070",
+      "title": "API rejects an inactive credential",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-5` (inactive) / RSK-012"
+       },
+       {
+        "label": "Outcome",
+        "value": "Run inside the inactive window for credential NDCSabre staging (313): 400 \"Every auto-reissue credential must exist and be active\". AGN9780 unchanged."
+       }
+      ],
+      "evidence": "stageB-observations.json, stageB-credential-inactive.png"
+     },
+     {
+      "id": "TC-AGENCY-071",
+      "title": "API rejects duplicate credential IDs",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-6` / `PO-17`"
+       },
+       {
+        "label": "Outcome",
+        "value": "400 \"Auto-reissue credentials must not contain duplicates\". AGN9780 unchanged."
+       }
+      ],
+      "evidence": "TC-AGENCY-api-observations.json"
+     },
+     {
+      "id": "TC-AGENCY-072",
+      "title": "API rejects a credential not assigned to the Agency",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-8` / `PO-16` / ASM-021"
+       },
+       {
+        "label": "Outcome",
+        "value": "Sent credential 287 (Galileo, not held by AGN9780): 400 \"Each auto-reissue credential must be mapped to this organization\". AGN9780 unchanged."
+       }
+      ],
+      "evidence": "TC-AGENCY-api-observations.json"
+     },
+     {
+      "id": "TC-BR-094",
+      "title": "Branch API rejects Auto Reissue on with an empty credential list",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-2` / `PO-23` / `PO-17`"
+       },
+       {
+        "label": "Outcome",
+        "value": "400 \"Select at least one eligible credential\". BRN265 unchanged."
+       }
+      ],
+      "evidence": "TC-BR-api-observations.json, BRANCH_SAVE_REQUEST.json"
+     },
+     {
+      "id": "TC-BR-095",
+      "title": "Branch API keeps saved credentials when sent off with others",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-3` / `PO-17`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Sent autoReissueEnabled false with credential 315; response 204; after approval the read-back returned false with the stored [313], not 315."
+       }
+      ],
+      "evidence": "TC-BR-095-after.png, TC-BR-api-observations.json"
+     },
+     {
+      "id": "TC-BR-096",
+      "title": "Branch API rejects a credential without an ID",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-4` / `PO-17`"
+       },
+       {
+        "label": "Outcome",
+        "value": "400 \"Every auto-reissue credential must have an ID\". BRN265 unchanged."
+       }
+      ],
+      "evidence": "TC-BR-api-observations.json"
+     },
+     {
+      "id": "TC-BR-097",
+      "title": "Branch API rejects an unknown credential ID",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-5` (unknown) / `PO-17`"
+       },
+       {
+        "label": "Outcome",
+        "value": "400 \"Every auto-reissue credential must exist and be active\". BRN265 unchanged."
+       }
+      ],
+      "evidence": "TC-BR-api-observations.json"
+     },
+     {
+      "id": "TC-BR-098",
+      "title": "Branch API rejects duplicate credential IDs",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-6` / `PO-17`"
+       },
+       {
+        "label": "Outcome",
+        "value": "400 \"Auto-reissue credentials must not contain duplicates\". BRN265 unchanged."
+       }
+      ],
+      "evidence": "TC-BR-api-observations.json"
+     },
+     {
+      "id": "TC-BR-099",
+      "title": "Branch API rejects a credential not assigned to the Branch",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-8` / `PO-17`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Sent credential 287: 400 \"Each auto-reissue credential must be mapped to this organization\". BRN265 unchanged."
+       }
+      ],
+      "evidence": "TC-BR-api-observations.json"
+     }
+    ]
+   },
+   {
+    "key": "create",
+    "name": "Creating an organisation",
+    "icon": "➕",
+    "open": false,
+    "cases": [
+     {
+      "id": "TC-AGENCY-087",
+      "title": "Create an Agency with Auto Reissue on",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 \"Auto Reissue checkbox on Create/Update Agency\" / `PO-19`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Created AGN10041 \"RUN010_AR_Agency\" under BRN265 with Auto Reissue on and Sabre Staging; approved from the grid; reopened ticked with Sabre Staging."
+       }
+      ],
+      "evidence": "TC-AGENCY-087-before-send.png, TC-AGENCY-087-after-send.png, TC-AGENCY-087-reopened.png, TC-AGENCY-087-observation.json"
+     },
+     {
+      "id": "TC-AGENCY-088",
+      "title": "Create an Agency with Auto Reissue off",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec `S-1` / PC §2 \"Auto Reissue checkbox on Create/Update Agency\""
+       },
+       {
+        "label": "Outcome",
+        "value": "Created AGN10042 \"RUN010_AR_Off_Agency\"; approved; reopened with Auto Reissue unticked and no credentials control."
+       }
+      ],
+      "evidence": "TC-AGENCY-088-reopened.png, TC-AGENCY-088-observation.json"
+     },
+     {
+      "id": "TC-BR-107",
+      "title": "Create a Branch with Auto Reissue on",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 REV 9 \"Auto Reissue checkbox on Create Branch\" / `PO-19`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Executed twice. Both times the Branch was created (POST 204) and approved — BRN514, then BRN515 on a clean re-run with the cascading location fields completed first — and both reopened with Auto Reissue unticked and no Product Access supplier. On the re-run the form was read directly in the DOM immediately before submitting and showed Auto Reissue on, Auto Reissue Credentials GalileoLive, Galileo ticked, Branch Name RUN010_AR_Branch."
+       }
+      ],
+      "evidence": "rerun-TC-BR-107-before-send.png, rerun-TC-BR-107-after-send.png, rerun-TC-BR-107-reopened.png, rerun-TC-BR-107.json, rerun-TC-BR-107-BRN515-readback.json, TC-BR-107-before-send.png, TC-BR-107-reopened.png, TC-BR-107-observation.json"
+     }
+    ]
+   },
+   {
+    "key": "boundary",
+    "name": "The Branch / Agency boundary",
+    "icon": "🏛️",
+    "open": true,
+    "cases": [
+     {
+      "id": "TC-AGENCY-091",
+      "title": "An Agency can only have suppliers its Branch has",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "`PO-27` / `PO-16` / ASM-003"
+       },
+       {
+        "label": "Outcome",
+        "value": "Every supplier listed for AGN9780 (Sabre, and later NDCsbr) is one BRN265 holds; no other supplier is offered."
+       }
+      ],
+      "evidence": "TC-074-109-091-BR089-observations.json"
+     },
+     {
+      "id": "TC-BR-100",
+      "title": "Branch Auto Reissue does not change its Agencies’ checkbox",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 REV 9 \"Independence from Agencies\" / `PO-16` / spec §3"
+       },
+       {
+        "label": "Outcome",
+        "value": "With both organisations off, BRN265 was turned on and approved; AGN9780 stayed unticked on the form and false in its record."
+       }
+      ],
+      "evidence": "TC-BR-100-agency-unchanged.png, TC-BR-106-100-observations.json"
+     },
+     {
+      "id": "TC-BR-108",
+      "title": "Agency Portal does not list its Branch’s own bookings",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "`PO-26`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Searching the Portal My Bookings by Booking Reference NDCEG-BR-F260916ENYOeQ, inside a date range that covers it, returned no row."
+       }
+      ],
+      "evidence": "TC-BR-108-my-bookings.png, TC-BR-108-filtered-by-reference.png, TC-AGENCY-080-TC-BR-108-observations.json"
+     },
+     {
+      "id": "TC-BR-109",
+      "title": "A Branch can have a supplier its Agency doesn’t have",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "`PO-27`"
+       },
+       {
+        "label": "Outcome",
+        "value": "Observed twice. First: adding supplier NDCsbr with credential NDCSabre staging to BRN265 made AGN9780’s saved record return that supplier as checked with credential 313, with no edit to the Agency. Re-run as a controlled detach / re-attach: detaching it from BRN265 removed it from the Agency, and re-attaching it to the Branch alone put it back as checked with credential 313 and added NDCSabre staging to the Agency’s picker. The Expected Result is that the Agency lists it as not assigned."
+       }
+      ],
+      "evidence": "rerun-TC-BR-109-phase1-detached.png, rerun-TC-BR-109-phase2-reattached.png, rerun-TC-BR-109-TC-AGENCY-074.json, TC-BR-109-branch-product-access.png, TC-074-109-091-BR089-observations.json, AGN9780-after-branch-ndcsbr.json, baseline-AGN9780.json"
+     }
+    ]
+   },
+   {
+    "key": "inactive",
+    "name": "When a credential or supplier goes inactive",
+    "icon": "⏻",
+    "open": true,
+    "cases": [
+     {
+      "id": "TC-AGENCY-075",
+      "title": "Reading the Agency drops a credential that became invalid",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec §4 (read-time clean-up) / RSK-012"
+       },
+       {
+        "label": "Outcome",
+        "value": "Inside the inactive window the Agency read back with Auto Reissue still ticked and the invalid credential gone from the saved selection (reissueCredentials [])."
+       }
+      ],
+      "evidence": "TC-AGENCY-092-agency-during-inactive.png, stageB-observations.json"
+     },
+     {
+      "id": "TC-AGENCY-092",
+      "title": "An inactive credential leaves the Agency’s Auto Reissue picker",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec §4 (read-time clean-up) / spec `S-5` / RSK-012"
+       },
+       {
+        "label": "Outcome",
+        "value": "Executed twice, in two separate inactive windows, with the same result both times. Step 4 held: the saved selection dropped the inactive credential and Auto Reissue stayed ticked. Step 5 did not: the Agency picker still offered NDCSabre staging while it was Inactive, while the Branch picker hid it in the same window."
+       }
+      ],
+      "evidence": "rerun-TC-AGENCY-092-agency-picker.png, rerun-TC-AGENCY-092-credential-inactive.png, rerun-TC-AGENCY-092.json, TC-AGENCY-092-agency-during-inactive.png, stageB-credential-inactive.png, stageB-observations.json"
+     },
+     {
+      "id": "TC-AGENCY-093",
+      "title": "What the Agency’s Auto Reissue picker shows when the supplier is made inactive",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec §4 / RSK-012 (supplier-level case not stated)"
+       },
+       {
+        "label": "Outcome",
+        "value": "Exploratory: behaviour recorded. With supplier NDCsbr Inactive, AGN9780 kept Auto Reissue ticked, dropped the credential from the saved selection, still listed NDCsbr as assigned in Product Access, and still offered NDCSabre staging in the picker."
+       }
+      ],
+      "evidence": "TC-AGENCY-093-during-inactive-supplier.png, stageC-observations.json"
+     },
+     {
+      "id": "TC-BR-105",
+      "title": "Reading the Branch drops a credential that became invalid",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "PC §2 REV 9 \"read-time clean-up\" / spec §4 / RISK-BR-11"
+       },
+       {
+        "label": "Outcome",
+        "value": "Inside the inactive window the Branch read back with Auto Reissue still ticked and the invalid credential gone from the saved selection."
+       }
+      ],
+      "evidence": "rerun-TC-BR-110-branch-picker.png, rerun-TC-AGENCY-092.json, TC-BR-110-branch-during-inactive.png, stageB-observations.json"
+     },
+     {
+      "id": "TC-BR-110",
+      "title": "An inactive credential leaves the Branch’s Auto Reissue picker",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec §4 / RISK-BR-11"
+       },
+       {
+        "label": "Outcome",
+        "value": "With NDCSabre staging Inactive, the Branch dropped it from the saved selection, kept Auto Reissue ticked, and no longer offered it in the picker. Confirmed again in the second inactive window."
+       }
+      ],
+      "evidence": "rerun-TC-BR-110-branch-picker.png, rerun-TC-AGENCY-092.json, TC-BR-110-branch-during-inactive.png, stageB-observations.json"
+     },
+     {
+      "id": "TC-BR-111",
+      "title": "What the Branch’s Auto Reissue picker shows when the supplier is made inactive",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Requirement",
+        "value": "spec §4 / RISK-BR-11 (supplier-level case not stated)"
+       },
+       {
+        "label": "Outcome",
+        "value": "Exploratory: behaviour recorded. With supplier NDCsbr Inactive, BRN265 kept Auto Reissue ticked, dropped the credential from the saved selection, still listed NDCsbr as assigned, and still offered NDCSabre staging in the picker."
+       }
+      ],
+      "evidence": "TC-BR-111-during-inactive-supplier.png, stageC-observations.json"
+     }
+    ]
+   },
+   {
+    "key": "portal",
+    "name": "What the Portal shows",
+    "icon": "🌐",
+    "open": false,
+    "cases": [
+     {
+      "id": "TC-AGENCY-080",
+      "title": "Portal hides Reissue when the Agency has Auto Reissue off",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Requirement",
+        "value": "`PO-25` / spec §5"
+       },
+       {
+        "label": "Outcome",
+        "value": "With AGN9780 Auto Reissue off, the Portal booking NDCEG-BR-F260924EAzzYT opened and View Passenger Details showed no Reissue button."
+       }
+      ],
+      "evidence": "TC-AGENCY-080-search.png, TC-AGENCY-080-booking-detail.png, TC-AGENCY-080-passenger-details.png, TC-AGENCY-080-TC-BR-108-observations.json"
+     }
+    ]
+   },
+   {
+    "key": "excluded",
+    "name": "Never authorized to run (Review = Pending)",
+    "icon": "🚫",
+    "open": false,
+    "cases": [
+     {
+      "id": "TC-AGENCY-076",
+      "title": "Admin shows Reissue for an Agency booking when Auto Reissue is on",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-AGENCY-077",
+      "title": "Admin hides Reissue for an Agency booking when Auto Reissue is off",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-AGENCY-078",
+      "title": "Branch Auto Reissue on does not enable an Agency booking",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-AGENCY-079",
+      "title": "Portal shows Reissue when the Agency has Auto Reissue on",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-AGENCY-081",
+      "title": "Portal shows Reissue without a lock",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-AGENCY-082",
+      "title": "Reissue is hidden when the booking’s credential is not selected",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-AGENCY-083",
+      "title": "A booking made on behalf of the Agency follows the Agency’s checkbox",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-AGENCY-084",
+      "title": "A booking not both Booked and \"Ticketed Document\" does not show Reissue",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-AGENCY-085",
+      "title": "Which value the Itinerary uses while an Auto Reissue change is pending",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-AGENCY-094",
+      "title": "Portal hides Reissue for an Agency booking on hold",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-AGENCY-095",
+      "title": "Admin hides Reissue for an imported (offline) Agency booking",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-AGENCY-096",
+      "title": "Admin shows Reissue only after the booking is locked",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-AGENCY-097",
+      "title": "Admin hides Reissue for an Agency booking on a supplier that does not support reissue",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "agency"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-BR-101",
+      "title": "Admin shows Reissue for a Branch booking when Branch Auto Reissue is on",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-BR-102",
+      "title": "Admin hides Reissue for a Branch booking when Branch Auto Reissue is off",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-BR-103",
+      "title": "Reissue is hidden on a Branch booking whose credential is not selected",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-BR-104",
+      "title": "Agency Auto Reissue off does not hide Reissue on a Branch booking",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-BR-112",
+      "title": "Admin hides Reissue for a Branch booking on hold",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-BR-113",
+      "title": "Admin hides Reissue for a Branch booking not locked by the current user",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     },
+     {
+      "id": "TC-BR-114",
+      "title": "Admin hides Reissue for an offline (imported) Branch booking",
+      "status": "Excluded",
+      "rows": [
+       {
+        "label": "Module",
+        "value": "branch"
+       },
+       {
+        "label": "Reason",
+        "value": "Pending Review — reset by Stage 3 Revision 5 (PO-30, 2026-10-01) and not yet re-approved"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "sections": [
+  {
+   "type": "findings",
+   "title": "Defect Register",
+   "items": [
+    {
+     "kind": "TC-BR-109 — A Branch assigns its suppliers to its Agencies instead of permitting them",
+     "tone": "fail",
+     "ref": "Severity High · P1 · Business Rule · Backend",
+     "body": "Supplier NDCsbr with credential NDCSabre staging (313) was added to Branch BRN265. With no edit to Agency AGN9780, the Agency’s stored record returned that supplier as assigned, with credential 313 selected in its PCC tab; before the Branch change the same record held Sabre alone. A supplier and a GDS credential therefore reach an Agency without anyone deciding the Agency should have them, and the Agency’s Auto Reissue picker then offers a credential nobody chose for it. Re-executed as a controlled detach / re-attach: detaching the supplier from the Branch removed it from the Agency, and re-attaching it to the Branch alone put it back with its credential — so the Agency’s supplier set simply tracks its Branch’s, in both directions. PO-27 makes the Branch a ceiling, not a source of assignment. Full write-up: ManualExecutionResults.md §3.1."
+    },
+    {
+     "kind": "TC-AGENCY-092 — An inactive credential is still offered in the Agency picker",
+     "tone": "warning",
+     "ref": "Severity Low · P3 · documentation gap, not an application defect",
+     "body": "With credential NDCSabre staging Inactive, the Agency’s saved selection correctly dropped it and Auto Reissue stayed ticked, but the picker still offered it. The Branch screen, in the same window, correctly hid it. run-006 found the same behaviour and the user decided on 2026-09-26 that it is intended, because the API refuses the save — but that decision was never written into the case, so the approved Expected Result still says “not offered” and this execution must record a failure. Reproduced in a second, independent inactive window with the same result. The fix belongs in Stage 3. Full write-up: ManualExecutionResults.md §3.1."
+    },
+    {
+     "kind": "TC-BR-107 — A created Branch does not keep the Auto Reissue setting it was created with",
+     "tone": "fail",
+     "ref": "Severity High · P1 · Data Integrity · Reproducibility Always",
+     "body": "Executed twice. Branch BRN514, then BRN515 on a re-run that completed the cascading location fields first, were each created (POST 204) and approved, and each reopened with Auto Reissue unticked and no Product Access supplier. On the re-run the live form was read from the DOM immediately before submitting and showed Auto Reissue on, Auto Reissue Credentials GalileoLive, and Galileo ticked — which removes the form-model reset that left the first attempt Inconclusive. A Branch created with Auto Reissue on silently does not have it, and is approved in that wrong state. Editing a Branch afterwards saves correctly, so the fault is confined to the create path. Full write-up: ManualExecutionResults.md §3.1."
+    }
+   ]
+  },
+  {
+   "type": "cleanup",
+   "title": "Data touched, and what was put back",
+   "items": [
+    {
+     "label": "Auto Reissue and credential selection",
+     "ref": "AGN9780",
+     "body": "Toggled repeatedly; selection moved between Sabre Staging (315) and NDCSabre staging (313). Restored: Auto Reissue off, Approved."
+    },
+    {
+     "label": "Auto Reissue, selection and Product Access",
+     "ref": "BRN265",
+     "body": "Toggled repeatedly; supplier NDCsbr with credential 313 attached. Restored: Auto Reissue on with NDCSabre staging (313), Approved. NDCsbr left attached on purpose (run-008 REC-008-4)."
+    },
+    {
+     "label": "Supplier status (shared master data)",
+     "ref": "NDCsbr",
+     "body": "Set Inactive twice — once for about 7 minutes through a failed restore step, once for about 4 minutes as designed. Verified Active at the end."
+    },
+    {
+     "label": "Credential status (shared master data)",
+     "ref": "NDCSabre staging (313)",
+     "body": "Set Inactive for about 4 minutes. Verified Active at the end."
+    },
+    {
+     "label": "Agency created (permanent)",
+     "ref": "AGN10041 “RUN010_AR_Agency”",
+     "body": "Created and approved with Auto Reissue on. Staging records cannot be deleted."
+    },
+    {
+     "label": "Agency created (permanent)",
+     "ref": "AGN10042 “RUN010_AR_Off_Agency”",
+     "body": "Created and approved with Auto Reissue off. Staging records cannot be deleted."
+    },
+    {
+     "label": "Branch created (permanent)",
+     "ref": "BRN514",
+     "body": "Created and approved, but saved as “Run Ten” rather than RUN010_AR_Branch — a late field pass in the execution overwrote the name."
+    },
+    {
+     "label": "Never done",
+     "ref": "all cases",
+     "body": "No booking, payment, ticketing or exchange. Reissue, Manual Reissue, Release PNR and Void / Cancel were never clicked."
+    }
+   ]
+  },
+  {
+   "type": "notes",
+   "title": "Requirement Coverage",
+   "blocks": [
+    "Coverage is computed from the approved Requirement Traceability Matrices (agency §5, branch §5). Every requirement named below appears there.",
+    {
+     "kind": "ul",
+     "items": [
+      "VERIFIED — checkbox present and default off (PO-15); the picker appears only while ticked (ASM-019); eligible-supplier rules (PO-21, S-9): Galileo and TravelportNdc offered, Amadeus and an LCC not; save and read back, on and off (S-10, S-1, spec §4); off keeps the saved credentials (S-7); maker–checker on the new field (XC-01, XC-04, PO-24); every API save rule (S-2 to S-8); read-time clean-up of an invalid credential (spec §4); a Branch change does not alter its Agencies’ checkbox; the Portal hides Reissue when the Agency’s checkbox is off (PO-25); an Agency Portal cannot see its Branch’s own bookings (PO-26).",
+      "NOT VERIFIED — PO-27, the Branch / Agency supplier boundary: TC-BR-109 contradicts it, and TC-AGENCY-074 could not be set up because of the same behaviour. Creating a Branch with Auto Reissue on (TC-BR-107) is unresolved.",
+      "OUT OF THIS RUN’S REACH — the whole PO-30 Reissue-button display rule. All 20 of its cases carry Review: Pending and were never authorized to run; three of them (TC-AGENCY-095, 096, 097) have never been executed by any run."
+     ]
+    }
+   ]
+  },
+  {
+   "type": "notes",
+   "title": "Assumptions resolved",
+   "blocks": [
+    {
+     "kind": "ul",
+     "items": [
+      "CONFIRMED — TC-AGENCY-070 and TC-BR-105: an inactive credential is refused by the API and dropped from the saved selection on read, both confirmed inside the inactive window. TC-BR-088: a TravelportNdc credential does exist on this environment and is offered.",
+      "REFUTED — TC-BR-109’s assumption that a Branch can hold a supplier its Agency does not.",
+      "UNVERIFIED — TC-AGENCY-074’s assumption that a branch-only credential can exist at all; TC-BR-107’s create behaviour.",
+      "RECORDED FOR A DECISION — TC-AGENCY-093 and TC-BR-111 (exploratory): with the supplier Inactive, both organisations keep Auto Reissue ticked, drop the credential from the saved selection, still list the supplier as assigned, and still offer its credential in the picker. The specification covers an inactive credential, not an inactive supplier."
+     ]
+    }
+   ]
+  },
+  {
+   "type": "notes",
+   "title": "Known limitations",
+   "blocks": [
+    {
+     "kind": "ul",
+     "items": [
+      "20 cases never ran. Stage 3 Revision 5 reset the Reissue-button cases to Review: Pending on 2026-10-01; Stage 4M executes only approved cases, so they are Excluded and kept out of the pass rate.",
+      "The opening count was wrong by one. The run was opened against 48 approved cases; the true figure is 49. TC-AGENCY-080 was found before the delivery closed, executed, and passed.",
+      "A shared supplier was inactive longer than intended. NDCsbr was left Inactive for about 7 minutes when the first attempt’s restore step failed, affecting every organisation that uses it. It was found, restored, and the window re-run cleanly.",
+      "Not captured: video and console logs. Screenshots, API status codes, response bodies and structured observations were captured."
+     ]
+    }
+   ]
+  },
+  {
+   "type": "notes",
+   "title": "Recommendations",
+   "blocks": [
+    {
+     "kind": "ul",
+     "items": [
+      "REC-010-1 — Decide on TC-BR-109: either the Branch stops assigning its suppliers to its Agencies, or PO-27 is restated to say that it does and the Agency cases are rewritten against that.",
+      "REC-010-2 — Amend TC-AGENCY-092’s Expected Result to match the decision already taken in run-006, or reopen that decision. Until then the case fails on every run.",
+      "REC-010-3 — Re-run TC-BR-107 with the location fields completed before Product Access and Auto Reissue.",
+      "REC-010-4 — Answer the exploratory question: should an inactive supplier’s credential disappear from the picker, as an inactive credential does on the Branch screen?",
+      "REC-010-5 — Re-approve the 20 Reissue-button cases in Stage 3 so the PO-30 display rule can actually be tested.",
+      "REC-010-6 — Keep supplier NDCsbr and credential 313 attached to BRN265 permanently, as run-008’s REC-008-4 already recommended."
+     ]
+    }
+   ]
+  }
+ ]
+}

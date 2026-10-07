@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "activeRun": {
-    "folderName": "run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature",
-    "index": 9,
+    "folderName": "run-011__2026-10-04_17-23-43__UserStory__ReissueFlowManualExecution",
+    "index": 11,
     "scope": "UserStory",
-    "target": "ReissueFlowBusinessFeature",
+    "target": "ReissueFlowManualExecution",
     "status": "Preparing",
     "title": null,
-    "startedTime": "2026-09-30T14:25:03.708Z",
+    "startedTime": "2026-10-04T14:23:43.472Z",
     "stagesPresent": [],
-    "path": "platform_core_data/runs/run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature"
+    "path": "platform_core_data/runs/run-011__2026-10-04_17-23-43__UserStory__ReissueFlowManualExecution"
   },
-  "switchedAt": "2026-09-30T14:25:03.708Z",
+  "switchedAt": "2026-10-04T14:23:43.472Z",
   "setBy": "Run Manager",
-  "previousRun": "run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary"
+  "previousRun": "run-010__2026-10-04_14-13-31__UserStory__AutoReissueCheckbox-ApprovedSuiteRerun"
 }

@@ -1,0 +1,146 @@
+{
+ "setup_BR091": {
+  "sendNet": [
+   {
+    "m": "PUT",
+    "u": "/odeysysadmin/Master2/Branch/10950",
+    "s": 204,
+    "body": ""
+   }
+  ],
+  "approveNet": [
+   {
+    "m": "PATCH",
+    "u": "/odeysysadmin/Master2/Branch/approveOrReject",
+    "s": 200,
+    "body": "{\"statusMessage\":\"Branch Approved Successfully!!\",\"success\":true}"
+   }
+  ],
+  "state": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ],
+   "approvalStatus": 1
+  }
+ },
+ "TC-BR-091": {
+  "step1_form": {
+   "checkboxPresent": true,
+   "checked": false,
+   "credentialsControlPresent": false,
+   "credentialsLabel": null,
+   "credentialsSectionInText": false
+  },
+  "step2_afterTick": {
+   "checkboxPresent": true,
+   "checked": true,
+   "credentialsControlPresent": true,
+   "credentialsLabel": "NDCSabre staging",
+   "credentialsSectionInText": true
+  },
+  "step3_picker": [
+   {
+    "t": "Sabre Staging",
+    "sel": false
+   },
+   {
+    "t": "NDCSabre staging",
+    "sel": true
+   }
+  ],
+  "state": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ],
+   "approvalStatus": 1
+  }
+ },
+ "TC-BR-092": {
+  "step1_form": {
+   "checkboxPresent": true,
+   "checked": false,
+   "credentialsControlPresent": false,
+   "credentialsLabel": null,
+   "credentialsSectionInText": false
+  },
+  "step3_cleared": [
+   "NDCSabre staging"
+  ],
+  "step3_form": {
+   "checkboxPresent": true,
+   "checked": true,
+   "credentialsControlPresent": true,
+   "credentialsLabel": "Select",
+   "credentialsSectionInText": true
+  },
+  "net": [],
+  "url": "http://192.168.1.60/admin/branch/edit/BRN265",
+  "messages": {
+   "toasts": [],
+   "errors": [
+    "Required"
+   ],
+   "dialog": null
+  },
+  "requiredUnderPicker": "Auto Reissue Credentials Select Required",
+  "state": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ],
+   "approvalStatus": 1
+  }
+ },
+ "TC-BR-093": {
+  "step1_form": {
+   "checkboxPresent": true,
+   "checked": false,
+   "credentialsControlPresent": false,
+   "credentialsLabel": null,
+   "credentialsSectionInText": false
+  },
+  "step2_afterToggle": {
+   "checkboxPresent": true,
+   "checked": true,
+   "credentialsControlPresent": true,
+   "credentialsLabel": "NDCSabre staging",
+   "credentialsSectionInText": true
+  },
+  "remarkLeftEmpty": true,
+  "net": [
+   {
+    "m": "PUT",
+    "u": "/odeysysadmin/Master2/Branch/10950",
+    "s": 204,
+    "body": ""
+   }
+  ],
+  "url": "http://192.168.1.60/admin/branch",
+  "messages": {
+   "toasts": [],
+   "errors": [],
+   "dialog": null
+  },
+  "remarkArea": null,
+  "state": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    },
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 0
+  }
+ }
+}

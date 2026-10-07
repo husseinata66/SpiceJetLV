@@ -1,0 +1,25 @@
+{
+ "purpose": "run-010 setup (Stage A): AGN9780 and BRN265 both Auto Reissue on with only NDCSabre staging (313) selected -- the precondition of TC-AGENCY-092 and TC-BR-110.",
+ "agencyLabel": "NDCSabre staging",
+ "agencyUrl": "http://192.168.1.60/admin/agency",
+ "agency": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 313
+   }
+  ],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "branchLabel": "NDCSabre staging",
+ "branch": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 313
+   }
+  ],
+  "approvalStatus": 1
+ }
+}

@@ -1,0 +1,132 @@
+{
+ "setup_stateBefore": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "setup_net": [
+  {
+   "m": "PUT",
+   "u": "/odeysysadmin/Admin2/agency/10961",
+   "s": 204,
+   "body": ""
+  }
+ ],
+ "setup_stateAfter": {
+  "autoReissueEnabled": false,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "step1_form": {
+  "checkboxPresent": true,
+  "checked": false,
+  "credentialsControlPresent": false,
+  "credentialsLabel": null,
+  "credentialsSectionInText": false
+ },
+ "step2_options": [
+  {
+   "t": "Sabre Staging",
+   "sel": true
+  }
+ ],
+ "step2_form": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "Sabre Staging",
+  "credentialsSectionInText": true
+ },
+ "step4_net": [
+  {
+   "m": "PUT",
+   "u": "/odeysysadmin/Admin2/agency/10961",
+   "s": 204,
+   "body": ""
+  }
+ ],
+ "step4_url": "http://192.168.1.60/admin/agency",
+ "step4_messages": {
+  "toasts": [],
+  "errors": [],
+  "dialog": null
+ },
+ "step5_gridRow": "AGN9780 | NDC2_Mohamed Soliman | Egypt | Badr | Inactive | Pending for approval | NDC2_Mohamed Soliman |",
+ "step5_state": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 0,
+  "status": 0
+ },
+ "rowActions": [
+  {
+   "tag": "I",
+   "cls": "pi pi-pencil",
+   "title": ""
+  },
+  {
+   "tag": "I",
+   "cls": "pi pi-thumbs-up",
+   "title": ""
+  },
+  {
+   "tag": "I",
+   "cls": "pi pi-thumbs-down",
+   "title": ""
+  }
+ ],
+ "step6_approved": false,
+ "step6_net": [
+  {
+   "m": "PATCH",
+   "u": "/odeysysadmin/Admin2/agency/approveOrReject",
+   "s": 200,
+   "body": "{\"statusMessage\":\"Agency Approved Successfully!!\",\"success\":true}"
+  }
+ ],
+ "step6_messages": {
+  "toasts": [],
+  "errors": [],
+  "dialog": null
+ },
+ "step6_gridRow": "AGN9780 | NDC2_Mohamed Soliman | Egypt | Badr | Active | Approved | NDC2_Mohamed Soliman |",
+ "step6_state": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "step7_reopened": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "Sabre Staging",
+  "credentialsSectionInText": true
+ },
+ "step6_dialog": {
+  "text": "NDC2_Mohamed Soliman Remarks * Cancel Submit",
+  "buttons": [
+   "Cancel",
+   "Submit"
+  ],
+  "hasTextField": true
+ }
+}

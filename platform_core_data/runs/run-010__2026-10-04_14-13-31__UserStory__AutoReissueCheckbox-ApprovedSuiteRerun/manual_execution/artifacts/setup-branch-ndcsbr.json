@@ -1,0 +1,51 @@
+{
+ "purpose": "run-010 setup: attach supplier NDCsbr with credential NDCSabre staging to BRN265.",
+ "tick": "clicked:false",
+ "checked": true,
+ "rowFilled": [
+  "id-supplier-157"
+ ],
+ "credOptions": [
+  {
+   "t": "NDCSabre staging",
+   "sel": false
+  }
+ ],
+ "credentialChosen": "NDCSabre staging",
+ "sendNet": [
+  {
+   "m": "PUT",
+   "u": "/odeysysadmin/Master2/Branch/10950",
+   "s": 204,
+   "body": ""
+  }
+ ],
+ "url": "http://192.168.1.60/admin/branch",
+ "flagged": [],
+ "approveNet": [
+  {
+   "m": "PATCH",
+   "u": "/odeysysadmin/Master2/Branch/approveOrReject",
+   "s": 200,
+   "body": "{\"statusMessage\":\"Branch Approved Successfully!!\",\"success\":true}"
+  }
+ ],
+ "after": {
+  "autoReissueEnabled": false,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1
+ },
+ "gridRow": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Approved |",
+ "ndcsbrCheckedAfter": true,
+ "arAfter": {
+  "checkboxPresent": true,
+  "checked": false,
+  "credentialsControlPresent": false,
+  "credentialsLabel": null,
+  "credentialsSectionInText": false
+ }
+}

@@ -1,0 +1,155 @@
+{
+ "TC-AGENCY-073": {
+  "steps": [],
+  "stateBefore": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  },
+  "step1_form": {
+   "checkboxPresent": true,
+   "checked": true,
+   "credentialsControlPresent": true,
+   "credentialsLabel": "Sabre Staging",
+   "credentialsSectionInText": true
+  },
+  "savedCredential": "Sabre Staging",
+  "step2_afterUntick": {
+   "checkboxPresent": true,
+   "checked": false,
+   "credentialsControlPresent": false,
+   "credentialsLabel": null,
+   "credentialsSectionInText": false
+  },
+  "step3_net": [
+   {
+    "m": "PUT",
+    "u": "/odeysysadmin/Admin2/agency/10961",
+    "s": 204,
+    "body": ""
+   }
+  ],
+  "step3_url": "http://192.168.1.60/admin/agency",
+  "step4_reopened": {
+   "checkboxPresent": true,
+   "checked": false,
+   "credentialsControlPresent": false,
+   "credentialsLabel": null,
+   "credentialsSectionInText": false
+  },
+  "step5_afterTick": {
+   "checkboxPresent": true,
+   "checked": true,
+   "credentialsControlPresent": true,
+   "credentialsLabel": "Sabre Staging",
+   "credentialsSectionInText": true
+  },
+  "step6_pickerOptions": [
+   {
+    "t": "Sabre Staging",
+    "sel": true
+   }
+  ],
+  "stateAfter": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  }
+ },
+ "TC-AGENCY-089": {
+  "step1_form": {
+   "checkboxPresent": true,
+   "checked": false,
+   "credentialsControlPresent": false,
+   "credentialsLabel": null,
+   "credentialsSectionInText": false
+  },
+  "messages": {
+   "toasts": [],
+   "errors": [],
+   "dialog": null
+  },
+  "net": [
+   {
+    "m": "PUT",
+    "u": "/odeysysadmin/Admin2/agency/10961",
+    "s": 204,
+    "body": ""
+   }
+  ],
+  "url": "http://192.168.1.60/admin/agency",
+  "step5_reopened": {
+   "checkboxPresent": true,
+   "checked": false,
+   "credentialsControlPresent": false,
+   "credentialsLabel": null,
+   "credentialsSectionInText": false
+  },
+  "state": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  }
+ },
+ "TC-AGENCY-065": {
+  "step1_form": {
+   "checkboxPresent": true,
+   "checked": false,
+   "credentialsControlPresent": false,
+   "credentialsLabel": null,
+   "credentialsSectionInText": false
+  },
+  "step2_afterTick": {
+   "checkboxPresent": true,
+   "checked": true,
+   "credentialsControlPresent": true,
+   "credentialsLabel": "Sabre Staging",
+   "credentialsSectionInText": true
+  },
+  "step3_cleared": [
+   "Sabre Staging"
+  ],
+  "step3_form": {
+   "checkboxPresent": true,
+   "checked": true,
+   "credentialsControlPresent": true,
+   "credentialsLabel": "Select",
+   "credentialsSectionInText": true
+  },
+  "messages": {
+   "toasts": [],
+   "errors": [
+    "Required"
+   ],
+   "dialog": null
+  },
+  "net": [],
+  "url": "http://192.168.1.60/admin/agency/edit/10961",
+  "requiredUnderPicker": "Auto Reissue Credentials Select Required",
+  "state": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  }
+ }
+}

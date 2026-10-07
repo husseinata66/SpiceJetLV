@@ -1,0 +1,34 @@
+{
+ "purpose": "run-010 final restore: BRN265 Auto Reissue on with NDCSabre staging (313) and Approved; AGN9780 Auto Reissue off and Approved.",
+ "before": {
+  "agency": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [],
+   "approvalStatus": 1,
+   "status": 1
+  },
+  "branch": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [],
+   "approvalStatus": 1
+  }
+ },
+ "branchLabel": "NDCSabre staging",
+ "branchAfter": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 313
+   }
+  ],
+  "approvalStatus": 1
+ },
+ "agencyAfter": {
+  "autoReissueEnabled": false,
+  "reissueCredentials": [],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "agencyRow": "AGN9780 | NDC2_Mohamed Soliman | Egypt | Badr | Active | Approved | NDC2_Mohamed Soliman |",
+ "branchRow": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Approved |"
+}

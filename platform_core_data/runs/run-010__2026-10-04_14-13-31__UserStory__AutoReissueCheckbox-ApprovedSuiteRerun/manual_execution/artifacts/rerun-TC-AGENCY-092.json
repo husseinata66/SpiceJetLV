@@ -1,0 +1,76 @@
+{
+ "purpose": "run-010 re-execution of TC-AGENCY-092 (and the same window re-checks TC-BR-110), second occurrence.",
+ "setup_agencyLabel": "NDCSabre staging",
+ "setup_agency": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 313
+   }
+  ],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "setup_branchLabel": "NDCSabre staging",
+ "setup_branch": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 313
+   }
+  ],
+  "approvalStatus": 1
+ },
+ "toggle": {
+  "before": "NDCSabre staging | NDCsbr | Active |",
+  "after": "NDCSabre staging | NDCsbr | Inactive |"
+ },
+ "windowOpenedAt": "2026-10-04T14:04:22.857Z",
+ "agencyForm": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "Select",
+  "credentialsSectionInText": true
+ },
+ "agencyPicker": [
+  {
+   "t": "Sabre Staging",
+   "sel": false
+  },
+  {
+   "t": "NDCSabre staging",
+   "sel": false
+  }
+ ],
+ "agencyState": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "branchForm": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "Select",
+  "credentialsSectionInText": true
+ },
+ "branchPicker": [
+  {
+   "t": "Sabre Staging",
+   "sel": false
+  }
+ ],
+ "branchState": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [],
+  "approvalStatus": 1
+ },
+ "restore": {
+  "before": "NDCSabre staging | NDCsbr | Inactive |",
+  "after": "NDCSabre staging | NDCsbr | Active |"
+ },
+ "restoredRow": "NDCSabre staging | NDCsbr | Active |",
+ "windowClosedAt": "2026-10-04T14:05:22.029Z"
+}

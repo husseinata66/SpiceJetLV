@@ -1,0 +1,169 @@
+{
+ "stateBefore": {
+  "autoReissueEnabled": false,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "capturedBase": true,
+ "baseFields": {
+  "autoReissueEnabled": false,
+  "reissueCredentials": []
+ },
+ "stateAfterCapture": {
+  "autoReissueEnabled": false,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "TC-AGENCY-066": {
+  "response": {
+   "status": 400,
+   "text": "{\"code\":400,\"message\":\"Select at least one eligible credential\",\"requestId\":\"40fe00fd-7589-43c7-9c55-91c349346d28\"}",
+   "json": {
+    "code": 400,
+    "message": "Select at least one eligible credential",
+    "requestId": "40fe00fd-7589-43c7-9c55-91c349346d28"
+   }
+  },
+  "agencyAfter": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  },
+  "gridRow": "AGN9780 | NDC2_Mohamed Soliman | Egypt | Badr | Active | Approved | NDC2_Mohamed Soliman |"
+ },
+ "TC-AGENCY-068": {
+  "response": {
+   "status": 400,
+   "text": "{\"code\":400,\"message\":\"Every auto-reissue credential must have an ID\",\"requestId\":\"883c9f94-2a7e-4bd3-8b7f-3c364a01cd80\"}",
+   "json": {
+    "code": 400,
+    "message": "Every auto-reissue credential must have an ID",
+    "requestId": "883c9f94-2a7e-4bd3-8b7f-3c364a01cd80"
+   }
+  },
+  "agencyAfter": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  },
+  "gridRow": "AGN9780 | NDC2_Mohamed Soliman | Egypt | Badr | Active | Approved | NDC2_Mohamed Soliman |"
+ },
+ "TC-AGENCY-069": {
+  "response": {
+   "status": 400,
+   "text": "{\"code\":400,\"message\":\"Every auto-reissue credential must exist and be active\",\"requestId\":\"66fd2239-6185-4014-8adc-3312b779b193\"}",
+   "json": {
+    "code": 400,
+    "message": "Every auto-reissue credential must exist and be active",
+    "requestId": "66fd2239-6185-4014-8adc-3312b779b193"
+   }
+  },
+  "agencyAfter": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  },
+  "gridRow": "AGN9780 | NDC2_Mohamed Soliman | Egypt | Badr | Active | Approved | NDC2_Mohamed Soliman |"
+ },
+ "TC-AGENCY-071": {
+  "response": {
+   "status": 400,
+   "text": "{\"code\":400,\"message\":\"Auto-reissue credentials must not contain duplicates\",\"requestId\":\"f6007fb5-db4c-408c-8bae-67cfc03a58d4\"}",
+   "json": {
+    "code": 400,
+    "message": "Auto-reissue credentials must not contain duplicates",
+    "requestId": "f6007fb5-db4c-408c-8bae-67cfc03a58d4"
+   }
+  },
+  "agencyAfter": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  },
+  "gridRow": "AGN9780 | NDC2_Mohamed Soliman | Egypt | Badr | Active | Approved | NDC2_Mohamed Soliman |"
+ },
+ "TC-AGENCY-072": {
+  "response": {
+   "status": 400,
+   "text": "{\"code\":400,\"message\":\"Each auto-reissue credential must be mapped to this organization\",\"requestId\":\"dd810335-daf8-4a0f-8166-438ae50185ed\"}",
+   "json": {
+    "code": 400,
+    "message": "Each auto-reissue credential must be mapped to this organization",
+    "requestId": "dd810335-daf8-4a0f-8166-438ae50185ed"
+   }
+  },
+  "agencyAfter": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  },
+  "gridRow": "AGN9780 | NDC2_Mohamed Soliman | Egypt | Badr | Active | Approved | NDC2_Mohamed Soliman |"
+ },
+ "TC-AGENCY-067": {
+  "storedBefore": [
+   315
+  ],
+  "sent": 313,
+  "response": {
+   "status": 204,
+   "text": "",
+   "json": null
+  },
+  "stateAfterSend": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  },
+  "rowAfterSend": "AGN9780 | NDC2_Mohamed Soliman | Egypt | Badr | Active | Approved | NDC2_Mohamed Soliman |",
+  "stateAfterApprove": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1,
+   "status": 1
+  }
+ }
+}

@@ -1,0 +1,106 @@
+{
+ "name": "NDC2_Mohamed Soliman",
+ "code": "AGN9780",
+ "branchId": 10950,
+ "branchName": "NDC2_Mohamed Soliman",
+ "branchCode": "BRN265",
+ "countryId": 67,
+ "countryName": "Egypt",
+ "cityId": 9401,
+ "cityName": "Badr",
+ "stateId": 1035,
+ "stateName": "Cairo",
+ "iata": false,
+ "iataNumber": "",
+ "postOffice": "00",
+ "companyUrl": null,
+ "faxNumber": null,
+ "phoneNumber": "+20-1147647823",
+ "address1": "Egypt Cairo",
+ "address2": null,
+ "agencyOwner": {
+  "contactPerson": "Mohamed Soliman",
+  "email": "mohamed.soliman@tildetech.ae",
+  "phoneNumber": "+20-1147647823"
+ },
+ "searchResultLimitIsEnabled": true,
+ "nativeCommandEnabled": false,
+ "autoReissueEnabled": true,
+ "reissueCredentials": [
+  {
+   "credentialId": 315
+  }
+ ],
+ "documents": [
+  {
+   "path": "/fstore/org/NDC2_Mohamed Soliman/2026/09/NDC2_Mohamed Soliman/New Microsoft Word Document.docx",
+   "startDate": "2025-03-30 00:00:00.0",
+   "endDate": "2028-12-30 00:00:00.0"
+  }
+ ],
+ "logo": {
+  "path": "/fstore/org/NDC2_Mohamed Soliman/2026/09/NDC2_Mohamed Soliman/white-empty-canvas_1194-7555.jpg"
+ },
+ "travelContacts": [
+  {
+   "name": "Mohamed Soliman",
+   "email": "mohamed.soliman@tildetech.ae",
+   "phoneNumber": "+20-1147647823"
+  }
+ ],
+ "bankAccounts": [],
+ "paymentSetting": {
+  "invoiceGeneration": 0,
+  "creditLimit": 9999999,
+  "topUpLimit": 9999999999,
+  "targetDates": [],
+  "creditTerm": 100,
+  "reachingPercentage": null,
+  "warningPrompt": null,
+  "outstandingThreshold": 5,
+  "creditAgency": false,
+  "paymentOptionIds": [
+   1,
+   2,
+   14
+  ]
+ },
+ "productIds": [
+  1
+ ],
+ "suppliers": [
+  {
+   "supplierId": 131,
+   "supplierName": "Sabre",
+   "supplierType": "GDS",
+   "description": "tt",
+   "supplierStatus": 1,
+   "credentialIds": [
+    315
+   ],
+   "credentialList": [
+    {
+     "credentialId": 315,
+     "credentialName": "Sabre Staging",
+     "credentialStatus": 1,
+     "credentialType": "S",
+     "managerName": "nagy",
+     "description": "tt",
+     "availableInBranch": false,
+     "autoReissueAllowed": true
+    }
+   ],
+   "availableInBranch": false,
+   "checked": true
+  }
+ ],
+ "importPNROption": true,
+ "transferPnrOption": true,
+ "status": 1,
+ "approvalStatus": 1,
+ "agencyLegalType": 0,
+ "remarks": "run-007 CL-1 check: restore AGN9780 Auto Reissue selection to [315]",
+ "registrationRequestStatus": null,
+ "agencyCategory": "",
+ "blueScreenCredentials": []
+}

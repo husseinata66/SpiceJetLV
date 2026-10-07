@@ -1,0 +1,65 @@
+{
+ "window": "supplier NDCsbr Inactive (TC-AGENCY-093, TC-BR-111)",
+ "before": "NDCsbr | GDS | Active | Approved |",
+ "toggleClicked": "clicked",
+ "afterToggle": "NDCsbr | GDS | Inactive | Approved |",
+ "windowOpenedAt": "2026-10-04T12:32:27.575Z",
+ "agencyForm": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "Select",
+  "credentialsSectionInText": true
+ },
+ "agencyPicker": [
+  {
+   "t": "Sabre Staging",
+   "sel": false
+  },
+  {
+   "t": "NDCSabre staging",
+   "sel": false
+  }
+ ],
+ "agencyProductAccess": [
+  {
+   "supplier": "Sabre",
+   "checked": true
+  },
+  {
+   "supplier": "NDCsbr",
+   "checked": true
+  }
+ ],
+ "agencyState": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "branchForm": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "Select",
+  "credentialsSectionInText": true
+ },
+ "branchPicker": [
+  {
+   "t": "Sabre Staging",
+   "sel": false
+  },
+  {
+   "t": "NDCSabre staging",
+   "sel": false
+  }
+ ],
+ "branchNDCsbrChecked": true,
+ "branchState": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [],
+  "approvalStatus": 1
+ },
+ "restored": "NDCsbr | GDS | Active | Approved |",
+ "windowClosedAt": "2026-10-04T12:33:16.143Z"
+}

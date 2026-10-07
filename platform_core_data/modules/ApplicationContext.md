@@ -5,7 +5,7 @@
 | Scope | **The whole application**, as the relationships *between* modules. Not a summary of them |
 | Created | 2026-08-18, by operator directive during run-004 |
 | Revision | 4 |
-| Status | **`Pending Review`** — run-006 Stage 4M appended §3.1 (2026-09-25). Not final until a human approves it |
+| Status | **`Pending Review`** — run-010 Stage 4M appended §3.2 (2026-10-04); run-006 Stage 4M appended §3.1 (2026-09-25). Not final until a human approves it |
 | What the run-006 refresh changed | **Header only.** §1's module map is unchanged: `agency` and `branch` stay Active with the same stages on disk, and run-006 proposes no module. §2 is unchanged: run-006's Agency↔Branch Auto Reissue relationship (checkbox independent, reissue credentials bounded by the Branch — `agency` `PO-16`) is **asserted at intake, not yet proven**, so it is not promoted into the graph. It is recorded in both modules' §3.1 until a run observes it. §6 is unchanged, by reference |
 | Lifecycle | Refreshed to `Draft` by **Stage 1** at run start · appended to by any stage that **proves** a cross-module fact · presented for approval by the branch's **terminal stage** (`6A` Reporting, or `4M` Manual Execution) · **final only once a human approves it** — see `module_architecture.md` §6.7.1 |
 | Modules approved so far | `branch` (Active) · `agency` (Active) · `import-booked-pnr` (Active, with Feature `new-layer-contract`) — 16 more `Proposed` |
@@ -149,6 +149,21 @@ Facts observed live on `http://192.168.1.60`, each with its evidence in `runs/ru
 | **Supplier "Deactivate" acts on one click with no confirmation**, for every organisation using the supplier | master-supplier · all orgs | `artifacts/incident-NDCsbr-accidental-deactivation.json` |
 
 **Diff since the last approved revision (3):** the header status and this §3.1. §1, §2, §4–§10 are unchanged.
+
+### 3.2 Confirmed and extended by run-010 (2026-10-04, Stage 4M) — pending approval
+
+Facts observed live on `http://192.168.1.60`, each with its evidence in `runs/run-010…/manual_execution/`. No new rule ID is minted here; `knowledge/INDEX.md` is unchanged until approval.
+
+| Fact | Binds | Evidence |
+|---|---|---|
+| **Confirmed, and now failing an approved case.** A supplier added to a Branch is added to its existing Agencies automatically — ticked, with the Branch's PCC credential — with no edit on the Agency. run-006 recorded this as propagation; run-010 shows it **contradicts `PO-27`**, which makes the Branch a ceiling rather than a source of assignment. `TC-BR-109` Failed on it, and `TC-AGENCY-074` is Blocked because the branch-only state it needs cannot exist | branch · agency | `artifacts/baseline-AGN9780.json` (before), `artifacts/AGN9780-after-branch-ndcsbr.json` (after), `ManualExecutionResults.md` §3.1 |
+| **Corrected.** run-006 §3.1 recorded that the Agency's Auto Reissue picker offers only the Agency's own PCC credentials, a subset of its Branch's. That still holds as stated, but it is now vacuous: because the Agency inherits every Branch supplier automatically, the two sets cannot differ on this application | branch · agency | `TC-AGENCY-074` (Blocked), `TC-AGENCY-091` (Passed) |
+| **New — the two screens disagree about the same credential.** With a supplier credential set Inactive, the **Branch** picker hides it and the **Agency** picker still offers it, at the same moment, for the same credential. The saved selection drops it on both. The API refuses either way | master-supplier · branch · agency | `TC-AGENCY-092` (Failed), `TC-BR-110` (Passed), `artifacts/stageB-observations.json` |
+| **Confirmed.** An inactive Supplier does not remove its credential from Auto Reissue selections — the credential stays offered on **both** Branch and Agency, and the supplier stays listed as assigned. Still awaiting a product decision | master-supplier · branch · agency | `TC-AGENCY-093`, `TC-BR-111`, `artifacts/stageC-observations.json` |
+| **Confirmed.** Supplier and credential status changes take effect on one click with no confirmation step, for every organisation using them. run-010 left supplier NDCsbr Inactive for about 7 minutes through a failed restore step before catching it | master-supplier · all orgs | `artifacts/restore-ndcsbr.json`, `ManualExecutionSummary.md` §6 |
+| **New — the Portal boundary holds.** An Agency's Portal login cannot see a booking owned by its parent Branch, searched directly by Booking Reference inside a date range that covers it (`PO-26`) | agency · branch · portal | `TC-BR-108`, `artifacts/TC-BR-108-filtered-by-reference.png` |
+
+**Diff since §3.1:** this subsection and the header status. §1, §2, §4–§10 are unchanged — run-010 proposes no module and moves no end-to-end journey's coverage.
 
 ---
 

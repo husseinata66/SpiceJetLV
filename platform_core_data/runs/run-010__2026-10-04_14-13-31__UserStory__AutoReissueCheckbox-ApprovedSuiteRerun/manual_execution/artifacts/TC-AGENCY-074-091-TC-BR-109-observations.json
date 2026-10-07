@@ -1,0 +1,566 @@
+{
+ "agency": {
+  "productAccess": [
+   {
+    "cells": [
+     "",
+     "Sabre",
+     "",
+     "Flight",
+     ""
+    ],
+    "checked": true
+   }
+  ],
+  "autoReissuePicker": [
+   "Sabre Staging"
+  ]
+ },
+ "branch": {
+  "productAccess": [
+   {
+    "cells": [
+     "",
+     "Sabre",
+     "",
+     "Flight",
+     ""
+    ],
+    "checked": true
+   },
+   {
+    "cells": [
+     "",
+     "AirArabiaEgypt",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "AirArbia",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "AirArbiaUAE",
+     "",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "AirBlue",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "AirBlueKSA",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "AirCairo",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "AirSMCairo",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "AirSMCairoKSA",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "AirSMCairoUAE",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "AirSMCairoUSA",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "Amadeus",
+     "",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "AmdNDC",
+     "",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "AmdNDCaaaa",
+     "",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "BlueAirline",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "DOT",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "E",
+     "",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "EgyptAirEgy",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "EgyptAirUAE",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "ElJazeeraV4",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "EmiratesNdc",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "Ethiopia",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "FlyAdealNDC",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "FlyDubai",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "FlyDubaiUAE",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "FlyDubi",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "FlyJinnah",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "FlyNas",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "FlyNasKSA",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "Galileo",
+     "",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "GDI",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "GulfAirEgy",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "IndgoNDC",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "IndiaAirLine",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "Indigo",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "JazeeraAirways",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "JazeeraAirwaysEG",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "JazeeraAirwaysKWI",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "NDCGal",
+     "",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "NDCsbr",
+     "",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "NDCWT",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "OmanAirNdc",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "RiyadhAirEGY",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "RiyadhAirKSA",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "RiyadhAirUAE",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "SalamAir",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "SereneAir",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "ShuraTech",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "ShuraTechGLC",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "Spicejet",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "THO",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "TravelFusion",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "TravelportNdc",
+     "",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   },
+   {
+    "cells": [
+     "",
+     "TurkishAirlines",
+     "Select",
+     "Flight",
+     ""
+    ],
+    "checked": false
+   }
+  ],
+  "autoReissuePicker": [
+   "Sabre Staging"
+  ]
+ }
+}

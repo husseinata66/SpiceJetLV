@@ -5,14 +5,20 @@
 | Scope | Supplier Features → `reissue` → shared scope `reissue-flow` |
 | Scope family | `supplier-feature` · feature `reissue` · `sharedScope: reissue-flow` |
 | Produced by run | `run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature` |
+| Revision | 8 (2026-10-04 — **Stage 3 Human Review gate held.** Mohamed Soliman approved the suite; all 148 cases move `Review: Pending` → `Review: Approved` and the workbook is re-exported. `Automation` stays `Pending` throughout. The header's Project Context reference is corrected to **Revision 13, Approved**, and §0.6's edge-case correction is marked as applied. **No case content, count or numbering changed**) |
+| Revision | 7 (2026-10-04 — **the twenty-one cases added today are collected into §13, "Newly added test cases"**, out of §§4/5/6/9 and into one titled section, grouped 13.1–13.6 by subject and kept in numeric order. **TC-RFLOW-001…127 are untouched and nothing was renumbered.** The story gained **`AC-37`** (T&C gate) the same day, so the five T&C cases now cite an AC instead of none) |
+| Revision | 6 (2026-10-04 — **nine cases added from DS-7**, the End-to-End Workflow documents, after the user confirmed the controls exist on screen: TC-RFLOW-140, 141 the **"Due Now"** label and its composition; 142–145 and 148 **Terms & Conditions**, including the acceptance gate before `Confirm & Charge`; 146, 147 the wallet **top-up** recovery. §0.12 added) |
+| Revision | 5 (2026-10-04 — **OQ-3, 7, 8, 9, 10, 11 and 13 answered** by the user; §0.11 records each with what it does and does not unblock. TC-RFLOW-002 and 003 reclassified **NOT TESTABLE → NOT EXECUTED** on `PO-25`: no Reissue-disabled booking is needed, the organisation's own checkbox is toggled. Not Testable 47 → 45) |
+| Revision | 4 (2026-10-04 — **DS-6 settled** by `PO-16`: no precedence between the Branch and Agency flags; TC-RFLOW-004 gains a fixed expected result and leaves `Pending Confirmation`. **OQ-12 closed as D-15**: a supplier reprice cannot be forced, so AC-22 is formally accepted as untested; the six cases are unchanged and stay Declared Gaps) |
+| Revision | 3 (2026-10-04 — **twelve cases added at review, on the user's instruction**: TC-RFLOW-128 to 132, inactive airports in the flight widget (§4); TC-RFLOW-133 to 139, the 15-minute FARE HELD countdown on Review & Pay (§6). §0.9 added. No existing case altered) |
 | Revision | 2 (2026-10-01 — **D-14**, the Reissue button's six-condition display rule: §0.8 added; TC-RFLOW-001, 002, 003, 010, 011, 012, 013, 014, 015 revised. TC-RFLOW-012 leaves `Pending Confirmation` — DS-2 settled) |
 | Run Scope Type / Run Type | Feature (shared scope) / User Story |
 | Source User Story | `knowledge_base/requirements/user_stories/Reissue_Flow_From_Itinerary.md` |
-| Project Context | `supplier-features/reissue/shared/reissue-flow/context/ProjectContext.md` (Revision 8, **Pending Review**) |
+| Project Context | `supplier-features/reissue/shared/reissue-flow/context/ProjectContext.md` (Revision 13, **Approved** 2026-10-04) |
 | Discovery | `.../discovery/QA_Assessment_Report.md` (**Pending Review**) |
-| Total Test Cases | 127 |
+| Total Test Cases | 148 |
 | Generated | 2026-09-30 |
-| Status | **Pending Review** — Stage 3 Human Review gate not yet held |
+| Status | **Approved** — Mohamed Soliman, 2026-10-04 (Stage 3 Human Review gate held). Discovery (`QA_Assessment_Report.md`) and the upstream `reissue-mapping` artifacts remain **Pending Review** |
 
 ## 0. What this suite covers, and what it deliberately does not
 
@@ -48,12 +54,12 @@ and has delivered its result (ProjectContext §1.3). Where a case asserts an amo
 |---|---|---|
 | `EXECUTED` | Observed in Stage 2 and behaving as the case expects | 28 |
 | `OBSERVED-DEFECT` | Observed and **not** behaving as the story requires — a finding is open. Expected to fail today | 13 |
-| `PARTIAL` | Observed on the positive path only; a named condition inside is unexercised | 17 |
-| `NOT EXECUTED` | Never run, but runnable with the data and access held today | 21 |
-| `NOT TESTABLE` | Never run and **no test data or access exists**. Declared Gap against the AC it covers | **45** |
-| `PENDING CONFIRMATION` | Steps are known; the **expected result** is not, pending a product decision | 3 |
+| `PARTIAL` | Observed on the positive path only; a named condition inside is unexercised | 18 |
+| `NOT EXECUTED` | Never run, but runnable with the data and access held today | 40 |
+| `NOT TESTABLE` | Never run and **no test data or access exists**. Declared Gap against the AC it covers | **47** |
+| `PENDING CONFIRMATION` | Steps are known; the **expected result** is not, pending a product decision | 2 |
 
-**Read the bottom two rows together before approving.** **45 of 127 cases — more than a third — cannot be run today** for want of test data or access, and they are not the trivial ones: they are the negative paths, the failure statuses, the insufficient wallet, the forced reprice, the non-Economy cabin, the real supplier penalty, and both DB assertions. **The feature’s positive path is well covered and its failure behaviour is almost entirely unverified.** Every one is a Declared Gap naming the open question that unblocks it; none is silently dropped.
+**Read the bottom two rows together before approving.** **47 of 148 cases — more than a third — cannot be run today** for want of test data or access, and they are not the trivial ones: they are the negative paths, the failure statuses, the insufficient wallet, the forced reprice, the non-Economy cabin, the real supplier penalty, and both DB assertions. **The feature’s positive path is well covered and its failure behaviour is almost entirely unverified.** Every one is a Declared Gap naming the open question that unblocks it; none is silently dropped.
 
 ### 0.4 Execution safety — absolute
 
@@ -66,16 +72,19 @@ performs the payment** after the agent reports the exact flight and amount (D-1,
 
 ### 0.5 Lifecycle
 
-**Every case carries `Review: Pending` and `Automation: Pending`.** Stage 3 always writes `Pending`;
-only a human reviewer may change either. Stage 4M consumes a case only when `Review = Approved`;
-Stage 4A only when `Review = Approved` **and** `Automation = Approved`. Generating this suite has
-approved nothing.
+Stage 3 always writes `Pending`; only a human reviewer may change either. Stage 4M consumes a case
+only when `Review = Approved`; Stage 4A only when `Review = Approved` **and**
+`Automation = Approved`. Generating this suite approved nothing.
+
+**The Stage 3 review gate was held on 2026-10-04** (Mohamed Soliman): all 148 cases now carry
+`Review: Approved`, so the suite is available to **Stage 4M**. **`Automation` stays `Pending` on
+every case** — automation was not approved and Stage 4A remains closed.
 
 ### 0.6 A count correction
 
-ProjectContext §7.2 records **100** edge cases. The story's own groups are
-8 · 14 · 18 · 15 · 18 · 8 · 9 · 9 · 9, which sum to **108**. This suite covers 108; the Project
-Context figure should be corrected at review.
+ProjectContext §7.2 recorded **100** edge cases. The story's own groups are
+8 · 14 · 18 · 15 · 18 · 8 · 9 · 9 · 9, which sum to **108**. This suite covers 108. **Corrected in the
+Project Context at the 2026-10-04 review** — §7.2 now reads 108 and carries the correction note.
 
 ### 0.7 Standing test data
 
@@ -103,6 +112,150 @@ user, 2026-10-01) hold, and the Reissue button is therefore displayed:
 
 If any one fails, **the button is not displayed** — there is no click-time refusal. A negative case
 breaks exactly one condition and holds the other five.
+
+### 0.9 Twelve cases added at review — 2026-10-04
+
+**The user reviewed the 127 cases and asked for two areas to be covered that the suite did not
+reach.** Neither is in the story's Acceptance Criteria; both were requested on their merits at the
+Stage 3 review gate.
+
+| Added | Where | Covers | Why it was not there before |
+|---|---|---|---|
+| TC-RFLOW-128 … 132 | **§13.1** *(originally §4)* | An **inactive airport** — one switched off by the admin active/inactive flag — is not offered, not accepted, and not searchable in the Reissue widget, and returns when reactivated | The story never mentions airport status; §4 validated only the Origin/Destination **combination** (TC-RFLOW-039), never either airport's status |
+| TC-RFLOW-133 … 139 | **§13.2** *(originally §6)* | The **15-minute FARE HELD countdown** — that it starts at 15 minutes, runs, cannot be reset by a refresh, makes the offer unavailable at zero, recovers cleanly, respects the supplier's own validity, and is enforced on submission | `reissue-mapping` covers the countdown as a displayed **value** (`TC-RMAPF-031`, `TC-RMAPX-060`); nothing covered what it **does** |
+
+**The expiry rule is the user's, recorded here as the authority for TC-RFLOW-135.** At zero, **the
+offer is no longer available** (user, 2026-10-04). The screen's exact presentation at that moment —
+the wording, and whether the user is returned to Search automatically — was not specified; those
+cases assert the substance and ask the executor to record what the screen actually does.
+
+**The new IDs continue from 127, and since 2026-10-04 the cases live in §13, "Newly added test
+cases".** They are deliberately not renumbered into sequence: TC-RFLOW-001 to 127 are already traced
+in the Traceability Matrix, quoted in findings, and reviewed. Renumbering would break every one of
+those references to buy nothing but a tidier list.
+
+**Nine of the twelve are runnable today; three are not.** TC-RFLOW-128 to 132 need administration
+access to the airport active/inactive flag in the test environment — if that access is not held, all
+five become Declared Gaps rather than NOT EXECUTED. TC-RFLOW-138 and 139 are Declared Gaps as
+written.
+
+### 0.10 Two open questions answered — 2026-10-04
+
+**Both were put to the user at review. One was never actually open; the other is now a recorded
+acceptance rather than a chase.**
+
+**DS-6 — Branch/Agency flag precedence. Settled: there is no precedence.** Each organisation's own
+Auto Reissue flag applies to that organisation, and the Itinerary uses the flag of **the organisation
+that created the booking**. A Branch's flag never overrides its Agencies', and the reverse.
+
+This was already decided. **`PO-16`** records it in both the `agency` and `branch` Project Contexts,
+in one wording, and says in terms that it *answers the story's Permission Precedence AC*. Its
+product-owner standing was confirmed at the Stage 1 gate on **2026-09-24**. The specification backs it
+independently: `Auto_Reissue_Checkbox_Documentation.md` §5 makes `canAutoReissue` true only when *"the
+organization **that created the booking** has auto-reissue allowed"* — one organisation, not both —
+and §3 closes with *"enabling on branch does not enable for all agencies under this branch."*
+
+**It agrees with D-14, which already said "the organisation that owns the booking", singular.** The
+two were never in conflict; this scope simply never picked up its sibling modules' answer.
+**TC-RFLOW-004 now carries a fixed expected result** and leaves `Pending Confirmation`; it still needs
+the **OQ-7** data to run.
+
+**OQ-12 — forcing a supplier reprice. Closed as D-15: it cannot be done.** The user confirmed on
+2026-10-04 that a price change is **supplier behaviour the platform does not control**. No stub or
+fault-injection path exists.
+
+**Nothing in the suite changes — the six cases were already Not Testable.** What changes is their
+standing: TC-RFLOW-050, 064, 065, 066, 067 and 068 are no longer waiting on an answer, they are
+**accepted as untested**. The honest statement that goes with that, and which belongs in the Final QA
+Report: **AC-22 and edge cases 3.14 and 4.6–4.8 are unverified, and if the Price Changed popup is
+broken this suite will not find out.** It has never been observed once, in any run.
+
+**The standing instruction that comes with the acceptance:** if the popup ever appears during any
+execution, the executor captures evidence immediately — screenshot, the before and after amounts, and
+which offer. Several runs reach Review & Pay; a supplier will eventually move a price, and that
+unplanned sighting is the only way this behaviour will ever be specified.
+
+### 0.11 Seven open questions answered — 2026-10-04
+
+**The user answered OQ-3, OQ-7, OQ-8, OQ-9, OQ-10, OQ-11 and OQ-13 in one pass.** Six are
+commitments to supply something; one is permission. **Nothing below is re-marked yet except where it
+needs nothing to arrive** — a case moves out of Declared Gap when the data is actually in hand, not
+when it is promised.
+
+| # | Answer | What it unblocks | State today |
+|---|---|---|---|
+| **OQ-3** | **The platform may run the whole Reissue flow and must stop before payment; the user pays by hand.** Confirms D-1 | Execution itself | **Needs an artifact.** run-009 has **no `SafetyAuthorizations.md`**; D-10's grant named run-007 and two bookings. The grant must be rewritten against run-009's bookings before anything executes |
+| **OQ-7** | Negative-path bookings **will be supplied** | 9 cases *(12 less the three below)* | Committed, **not yet delivered**. Cases stay Declared Gaps until the references arrive |
+| **OQ-8** | An unconfigured-fee scenario **will be supplied** | TC-RFLOW-006, 007, 008, 089 | Committed, not yet delivered |
+| **OQ-9** | **Database credentials will be supplied** | TC-RFLOW-077, 078, 080, 084, 086, 087 | Committed. **Two conditions before use** — see below |
+| **OQ-10** | A reprice cannot be forced, **but real bookings that already failed will be supplied** | Part of 21 cases | Committed. **Changes what is testable, not everything** — see below |
+| **OQ-11** | A low-balance wallet **will be supplied** | TC-RFLOW-056, 057 | Committed, not yet delivered |
+| **OQ-13** | A **screenshot of the current application** will be supplied | TC-RFLOW-092 | **Does not close the AC** — see below |
+
+**OQ-9 — two conditions before the DB cases can run.** First, **the credentials never enter this
+repository** — not an artifact, not a report, not a test-data file; they belong in the git-ignored
+`credentials.json`. Second, **the DB layer is `Deferred` and frozen on `run.json`**, and lifting it is
+not a hand-edit: it requires `run_manager/cli.js scope-change --approved-by "..." --reason "..."`,
+which appends to `scopeHistory`. Access is used **read-only** regardless of what the credentials
+permit.
+
+**OQ-10 — real failed bookings close some of the 21, not all.** The two halves are different:
+
+- **Cases asserting the *outcome* of a failure** — the status is `Booking Fail` or `Not Booked`, the
+  original booking is left usable and not marked `Reissued`, the error explains itself, the money was
+  not taken — are **verifiable read-only against a supplied failed booking.** These genuinely open up.
+- **Cases asserting *behaviour during* the failure** — a retry is offered after a timeout, a duplicate
+  submission is not processed twice, a late supplier response updates the existing transaction — still
+  **cannot be reproduced**, because the failure cannot be caused on demand. A failed booking shows the
+  end state, not the sequence that produced it.
+
+The split is made case by case **when the booking references arrive**, not guessed now.
+
+**OQ-13 — a screenshot of the current build is not an oracle for AC-32.** Asserting that the
+application matches a picture of itself cannot fail. The screenshot is recorded as a **visual-regression
+baseline** — genuinely useful for detecting an unintended future change — and TC-RFLOW-092 is written
+against it on that basis. But **AC-32's design-conformance half stays unverifiable**, and that is a
+Declared Gap, not a closed question. Closing it needs either the design that was agreed before the
+build, or a written statement of what the Reissue confirmation must show. **If no design was ever
+produced, the honest outcome is to withdraw that clause of AC-32 rather than carry a test that can
+only pass.**
+
+**Three cases were reclassified on their own merits, needing nothing supplied.** TC-RFLOW-002, 003 and
+004 were marked Not Testable for want of a Reissue-disabled organisation. No such booking is needed —
+the organisation's own checkbox is toggled on a booking already held, which is what run-006 did
+(`PO-25`). They move to **NOT EXECUTED**; Not Testable falls from 47 to 45.
+
+### 0.12 Nine cases added from the End-to-End Workflow documents — 2026-10-04
+
+**The user supplied three workflow documents on 2026-10-04** — a prose `.docx`, the same flow drawn in
+a diagram `.docx`, and that flowchart rendered as an image-only `.pdf`. They are registered as
+reference in `knowledge_base/requirements/specifications/Reissue_Feature_EndToEnd_Workflow.md` and
+cited from the Project Context. **They are not authority; the User Story is.** They agree with it
+almost everywhere.
+
+**Three controls they describe are absent from the story — raised as `DS-7`, and the user confirmed on
+2026-10-04 that all three exist on screen.** That confirmation is what turned them into cases: a
+workflow document alone would not have.
+
+| Added | Control | Why it was not covered |
+|---|---|---|
+| TC-RFLOW-142 … 145 (**§13.4**) and **148** (**§13.6**) | **Terms & Conditions**, including **acceptance as a required gate before `Confirm & Charge`** | *"T&C"* and *"Terms"* appeared **nowhere** in `Reissue_Flow_From_Itinerary.md`, and nothing in the first 139 cases touched them. **The story gained `AC-37` on 2026-10-04 as a result** |
+| TC-RFLOW-140, 141 (**§13.3**) | The payable amount is labelled **"Due Now"**, and equals **fare difference + supplier penalty + WT change fee** | TC-RFLOW-041 asserts the *value* is a difference and TC-RFLOW-053 asserts its *position*. Neither asserts the **label**, and nothing asserted the **arithmetic between "Due Now" and the breakdown beneath it** |
+| TC-RFLOW-146, 147 (**§13.5**) | An insufficient wallet **offers a top-up and returns to the flow** | AC-20 requires the balance be checked and payment blocked, and stops there. TC-RFLOW-056 asserts the block; nothing covered the recovery |
+
+**TC-RFLOW-143 is the one that matters.** Both diagram forms place `Accept T&C` directly before
+`Confirm & Charge`, making it a **mandatory gate on the money path**. If payment proceeds without
+acceptance, the gate does not exist. The case establishes the refusal and **stops** — it never
+completes a payment (§0.4, D-1).
+
+**Two are Declared Gaps on delivery, not on principle.** TC-RFLOW-146 and 147 need the low-balance
+wallet of **D-22** (was OQ-11), committed by the user but not yet supplied. The top-up itself is a
+financial action and is **human-performed**; the platform verifies read-only.
+
+**Two deliberate restraints.** TC-RFLOW-144 asserts the terms **open and are readable**, not their
+wording — no approved text exists, and asserting content against nothing is the problem TC-RFLOW-092
+already has (**D-23**). TC-RFLOW-148 asserts the terms are **present** on the confirmation, not its
+layout, for the same reason.
 
 ---
 
@@ -132,7 +285,7 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 **Notes:** Covers AC-01, AC-02 (story §1 AC-1), edge case 1.4. **Discovery: EXECUTED.** Observed run-007 (`evidence/d1-BRN265-edit.png`, `d1-config-and-reissue-entry.json`).
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -142,7 +295,7 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 **Preconditions:** A Branch with the Reissue checkbox **unticked**, carrying a booking that meets the other five D-14 conditions (§0.8). Changing a shared Branch's flag is master-data mutation — obtain a run-scoped grant and revert afterwards, or use a Branch already configured off.
 
-**Test Data:** To be supplied — a Branch with Reissue off (**OQ-7**).
+**Test Data:** **No new booking is needed.** Take a booking already held on the organisation and switch that organisation's Auto Reissue checkbox **off** — run-006 did exactly this on AGN9780 (Agency side; the Branch side is the same technique on BRN265) and watched the button follow (`PO-25`: OFF hidden / ON shown / OFF hidden). Revert the checkbox afterwards.
 
 **Steps:**
 
@@ -156,9 +309,9 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 **Tags:** Atomic, Negative, Configuration
 
-**Notes:** Covers AC-01, AC-02, edge case 1.1. **Discovery: NOT TESTABLE.** Needs a Reissue-disabled Branch with a suitable booking — **OQ-7**. Declared Gap.
+**Notes:** Covers AC-01, AC-02, edge case 1.1. **Discovery: NOT EXECUTED — reclassified 2026-10-04.** It was marked Not Testable for want of *"a Reissue-disabled Branch with a suitable booking"*, but no such booking is needed: the organisation's own checkbox is toggled on a booking already held, the technique `PO-25` records run-006 using. **The only precondition is authorisation** — switching a user-supplied organisation's checkbox is a configuration mutation, so it needs a run-scoped go-ahead and a revert, exactly as run-006 had. No longer blocked on **OQ-7**.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -168,7 +321,7 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 **Preconditions:** An Agency with the Reissue checkbox unticked, under a Reissue-enabled Branch, carrying a booking that meets the other five D-14 conditions (§0.8).
 
-**Test Data:** To be supplied (**OQ-7**).
+**Test Data:** **No new booking is needed.** Take a booking already held on the organisation and switch that organisation's Auto Reissue checkbox **off** — run-006 did exactly this on AGN9780 and watched the button follow (`PO-25`: OFF hidden / ON shown / OFF hidden). Revert the checkbox afterwards.
 
 **Steps:**
 
@@ -182,34 +335,34 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 **Tags:** Atomic, Negative, Configuration
 
-**Notes:** Covers AC-01, edge case 1.2. **Discovery: NOT TESTABLE** — **OQ-7**. Declared Gap.
+**Notes:** Covers AC-01, edge case 1.2. **Discovery: NOT EXECUTED — reclassified 2026-10-04.** `PO-25` records run-006 observing precisely this on AGN9780's booking, Portal side: the button followed the Agency checkbox OFF / ON / OFF. No new booking is required and **OQ-7** does not block it; a run-scoped grant to toggle the checkbox, and a revert, do apply.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
 ### TC-RFLOW-004 — Branch enabled, Agency disabled: the feature is unavailable to the Agency
 
-**Objective:** Verify the precedence the story states between the two flags.
+**Objective:** Verify that the flag of the organisation **that created the booking** governs, and that its parent's flag does not override it.
 
-**Preconditions:** Branch Reissue **on**, Agency Reissue **off**, both on the same booking's ownership chain.
+**Preconditions:** Branch Reissue **on**, Agency Reissue **off**, both on the same booking's ownership chain. The booking was created by the **Agency**. The other five D-14 conditions hold (§0.8).
 
-**Test Data:** To be supplied (**OQ-7**).
+**Test Data:** To be supplied (**OQ-7**) — a booking created by an Agency whose own Reissue flag is off, under a Branch whose flag is on.
 
 **Steps:**
 
 1. Set or find the Branch flag on and the Agency flag off.
-2. Open the Agency's booking and attempt to initiate Reissue.
+2. Open the Agency's booking in the Itinerary and read whether the `Reissue` button is displayed.
 
-**Expected Result:** **Pending Confirmation.** The story's edge case 1.3 requires the feature be treated as unavailable for that Agency and initiation prevented. **Neither CL-1 nor the prerequisite run states this precedence, and the combination has never been tested** — see DS-6. Written to the story per the requirement-precedence rule; the expected result is fixed only when the product owner rules.
+**Expected Result:** **The `Reissue` button is not displayed.** The Agency created the booking and its own Auto Reissue flag is off, so D-14 condition 1 fails and the button is hidden — there is no click-time refusal. The Branch's flag being on does **not** make the feature available to the Agency.
 
 **Priority:** P1
 
 **Tags:** Atomic, Negative, Configuration, Boundary
 
-**Notes:** Covers AC-01, edge case 1.3. **Discovery: PENDING CONFIRMATION** — DS-6 open, and **OQ-7** for the data. Declared Gap on both counts.
+**Notes:** Covers AC-01, edge case 1.3. **Expected result fixed 2026-10-04 — DS-6 settled by `PO-16`** (agency/branch ProjectContext; product-owner standing confirmed 2026-09-24) and by specification §5, which makes `canAutoReissue` true only when *the organisation that created the booking* has auto-reissue allowed. There is **no precedence between the two flags** — each organisation's own value applies to itself. **Discovery: NOT EXECUTED** — the combination has still never been run; it needs the **OQ-7** data. Declared Gap on the data only, no longer on the expected result.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -235,7 +388,7 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 **Notes:** Covers AC-03, story §1 AC-4, edge cases 1.5 and 3.12. **Discovery: EXECUTED.** Observed run-007: Agency 50 × 3 = 150, Branch 100 × 4 = 400.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -260,7 +413,7 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 **Notes:** Covers AC-03, story §1 AC-5, story §3 AC-9, edge cases 1.6 and 3.13. **Discovery: NOT TESTABLE** — **OQ-8**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -286,7 +439,7 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 **Notes:** Covers edge case 1.7. **Discovery: NOT TESTABLE** — **OQ-8**. Declared Gap. Note the story defers the mechanism to "the Rule Engine validation mechanism", so the case asserts the outcome, not the route to it.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -312,7 +465,7 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 **Notes:** Covers edge case 1.8. **Discovery: NOT TESTABLE** — needs a mid-flow configuration change with approval, **OQ-7**/**OQ-8**. Declared Gap. The Exchange itself is performed by the human (D-1).
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -336,7 +489,7 @@ Story §1 · AC-01, AC-03 · edge cases 1.1–1.8
 
 **Notes:** Covers D-4. **Discovery: EXECUTED** — scope decision, recorded at intake 2026-09-26. Kept as a case so the exclusion is visible in the suite rather than only in the context.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -371,7 +524,7 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-2, CL-3 �
 
 **Notes:** Covers AC-02, AC-04, story §2 AC-1, edge case 1.4, D-14. **Discovery: EXECUTED.** Observed run-007 on both Admin and Portal. **Rev 2, 2026-10-01** — preconditions and steps state all six D-14 conditions; the credential-picker and "Ticketed Document" checks were added as steps 1 and 3. Step 6 added: the lock is **Admin-only**, the Portal has no lock (user, 2026-10-01).
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -397,7 +550,7 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-2, CL-3 �
 
 **Notes:** Covers CL-3, D-14 condition 5. **Discovery: EXECUTED.** Confirmed run-007 and recorded as correct by design — the withdrawn finding on lock-gated controls established this is intended, not a defect. **Rev 2, 2026-10-01** — scoped to Admin: the user confirmed the lock exists only on Admin; the Portal has no lock.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -425,7 +578,7 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-2, CL-3 �
 
 **Notes:** Covers AC-02, AC-05, D-14 condition 2. **Discovery: EXECUTED** — observed run-007 exactly as expected: button hidden, `canAutoReissue: false` (`evidence/cl1-*`, 16 files). **Rev 2, 2026-10-01** — expected result fixed under **D-14**, which settles **DS-2**: Rev 1 was `Pending Confirmation` between CL-1's "shown, refused on click" and the observed "hidden". CL-1's click-time message is no longer a test target.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -451,7 +604,7 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-2, CL-3 �
 
 **Notes:** Covers AC-05, CL-2. **Discovery: PARTIAL** — the positive side holds on Sabre; the negative needs an unlisted-supplier booking, **OQ-7**. Declared Gap on the negative half.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -476,7 +629,7 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-2, CL-3 �
 
 **Notes:** Covers AC-09, story §2 AC-7 and AC-8, edge case 2.2. **Discovery: NOT TESTABLE** — **OQ-7**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -502,7 +655,7 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-2, CL-3 �
 
 **Notes:** Covers AC-05, CL-3 as amended by D-14 condition 3, edge case 7.7. **Discovery: PARTIAL** — the `Reissued` negative and the positive control are observable on held data; a `Booked`-but-not-"Ticketed Document" booking and other non-`Booked` statuses are not (**OQ-7**, **OQ-10**). **Rev 2, 2026-10-01** — expected result changed under **D-14**: Rev 1 asserted the "Ticketed Document" bar was **not** the condition (CL-3 / `PO-24`); it now is, alongside Status `Booked`. Step 2 added for the new half of the condition.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -528,7 +681,7 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-2, CL-3 �
 
 **Notes:** Covers edge case 2.1, story §2 AC-2. **Discovery: NOT TESTABLE** — the one known non-reissuable booking is barred by C-5; a replacement is needed (**OQ-7**). Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -555,7 +708,7 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-2, CL-3 �
 
 **Notes:** Covers edge cases 2.12 and 2.11. **Discovery: NOT TESTABLE** — needs fault injection, **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -581,7 +734,7 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-2, CL-3 �
 
 **Notes:** Covers edge case 2.13. **Discovery: NOT EXECUTED** — runnable on held data; needs a defined staleness window, which discovery did not establish.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -606,7 +759,7 @@ Story §2 · AC-02, AC-04, AC-05, AC-09 · edge cases 2.1–2.14 · CL-2, CL-3 �
 
 **Notes:** Covers edge case 2.14. **Discovery: NOT TESTABLE** — **OQ-7**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -637,7 +790,7 @@ Story §2 · AC-06, AC-07, AC-08 · edge cases 2.3–2.11
 
 **Notes:** Covers AC-08, story §2 AC-5, edge case 2.7. **Discovery: EXECUTED.** Observed run-007 (`evidence/d3-*selection.png`).
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -663,7 +816,7 @@ Story §2 · AC-06, AC-07, AC-08 · edge cases 2.3–2.11
 
 **Notes:** Covers AC-08, story §2 AC-6, edge case 2.8. **Discovery: PARTIAL** — the default state was observed; the attempt to force a split was not.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -689,7 +842,7 @@ Story §2 · AC-06, AC-07, AC-08 · edge cases 2.3–2.11
 
 **Notes:** Covers AC-07, edge case 2.9. **Discovery: PARTIAL** — the no-selection error was observed (`evidence/d3-branch-noselection.png`); removal of a *required* passenger specifically was not isolated.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -714,7 +867,7 @@ Story §2 · AC-06, AC-07, AC-08 · edge cases 2.3–2.11
 
 **Notes:** Covers AC-07, story §2 field-level validation. **Discovery: EXECUTED** — observed run-007 on both Branch and Agency paths (`evidence/d3-branch-noselection.png`, `d3-branch-error-0.png`).
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -739,7 +892,7 @@ Story §2 · AC-06, AC-07, AC-08 · edge cases 2.3–2.11
 
 **Notes:** Covers AC-07, edge case 2.10. **Discovery: NOT TESTABLE** — needs a mixed-eligibility party, **OQ-7**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -765,7 +918,7 @@ Story §2 · AC-06, AC-07, AC-08 · edge cases 2.3–2.11
 
 **Notes:** Covers AC-06, story §2 AC-3, edge cases 2.3 and 2.7. **Discovery: PARTIAL** — multi-journey bookings were exercised in run-007 scenarios 8 and 9; the refusal of a non-permitted journey selection was not isolated.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -790,7 +943,7 @@ Story §2 · AC-06, AC-07, AC-08 · edge cases 2.3–2.11
 
 **Notes:** Covers edge case 2.4. **Discovery: NOT TESTABLE** — cannot be forced; depends on what eligibility returns, **OQ-7**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -815,7 +968,7 @@ Story §2 · AC-06, AC-07, AC-08 · edge cases 2.3–2.11
 
 **Notes:** Covers edge case 2.5, AC-06. **Discovery: PARTIAL** — single-journey selection observed; the permutations were not swept.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -840,7 +993,7 @@ Story §2 · AC-06, AC-07, AC-08 · edge cases 2.3–2.11
 
 **Notes:** Covers AC-07, edge case 2.6. **Discovery: EXECUTED.** Observed run-007; infants confirmed included in the fee count (D-11).
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -849,6 +1002,8 @@ Story §2 · AC-06, AC-07, AC-08 · edge cases 2.3–2.11
 ## 4. Search / Re-shop — the flight widget
 
 Story §3 · AC-10, AC-11, AC-12, AC-13 · edge cases 3.1–3.6, 3.15–3.18
+
+> **Inactive airports in this widget are covered in §13.1** — TC-RFLOW-128 to 132, added 2026-10-04.
 
 ### TC-RFLOW-029 — The selected journey opens in the flight widget
 
@@ -871,7 +1026,7 @@ Story §3 · AC-10, AC-11, AC-12, AC-13 · edge cases 3.1–3.6, 3.15–3.18
 
 **Notes:** Covers AC-10, story §3 AC-1. **Discovery: EXECUTED.** Observed run-007 on Admin and Portal (`evidence/d2-widget.png`, `p-widget.png`).
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -897,7 +1052,7 @@ Story §3 · AC-10, AC-11, AC-12, AC-13 · edge cases 3.1–3.6, 3.15–3.18
 
 **Notes:** Covers AC-10, AC-11, story §3 AC-2. **Discovery: PARTIAL** — date and route edits were exercised (scenario 2, CAI→RUH); **cabin class was never varied**, Declared Gap, **OQ-7**.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -923,7 +1078,7 @@ Story §3 · AC-10, AC-11, AC-12, AC-13 · edge cases 3.1–3.6, 3.15–3.18
 
 **Notes:** Covers AC-12, story §3 AC-3, edge case 3.1. **Discovery: NOT EXECUTED** — the datepicker state was captured (`reissue-mapping/discovery/evidence/s1-datepicker-state.png`) but the old-date restriction was not asserted. Runnable on held data.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -948,7 +1103,7 @@ Story §3 · AC-10, AC-11, AC-12, AC-13 · edge cases 3.1–3.6, 3.15–3.18
 
 **Notes:** Covers edge case 3.2. **Discovery: EXECUTED.** Every run-007 scenario exercised this.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -973,7 +1128,7 @@ Story §3 · AC-10, AC-11, AC-12, AC-13 · edge cases 3.1–3.6, 3.15–3.18
 
 **Notes:** Covers AC-13, story §3 AC-4, edge case 3.3. **Discovery: NOT EXECUTED** — a round-trip booking is now held (scenario 8), so this is runnable; the conversion attempt was never made.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -999,7 +1154,7 @@ Story §3 · AC-10, AC-11, AC-12, AC-13 · edge cases 3.1–3.6, 3.15–3.18
 
 **Notes:** Covers edge case 3.4. **Discovery: OBSERVED-DEFECT.** Run-007 observed a filtered result set reported to the agent as an empty market — the message appears when offers existed but were filtered. A finding is open; **this case asserts the story's requirement, not the defect**, and is expected to fail until the filtered/empty distinction is made.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1026,7 +1181,7 @@ Story §3 · AC-10, AC-11, AC-12, AC-13 · edge cases 3.1–3.6, 3.15–3.18
 
 **Notes:** Covers edge case 3.5. **Discovery: PARTIAL** — a search timeout was captured in run-007 (`evidence/d3-branch2-search-timeout.png`), but context preservation after it was not asserted.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1051,7 +1206,7 @@ Story §3 · AC-10, AC-11, AC-12, AC-13 · edge cases 3.1–3.6, 3.15–3.18
 
 **Notes:** Covers edge case 3.6. **Discovery: PARTIAL** — a timeout was observed; the notification and retry affordance were not assessed against the requirement.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1077,7 +1232,7 @@ Story §3 · AC-10, AC-11, AC-12, AC-13 · edge cases 3.1–3.6, 3.15–3.18
 
 **Notes:** Covers edge case 3.15. **Discovery: NOT EXECUTED** — runnable but timing-dependent; no controlled way to expire an offer was established.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1103,7 +1258,7 @@ Story §3 · AC-10, AC-11, AC-12, AC-13 · edge cases 3.1–3.6, 3.15–3.18
 
 **Notes:** Covers edge case 3.16. **Discovery: NOT EXECUTED** — runnable on held data.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1128,7 +1283,7 @@ Story §3 · AC-10, AC-11, AC-12, AC-13 · edge cases 3.1–3.6, 3.15–3.18
 
 **Notes:** Covers edge case 3.17. **Discovery: NOT EXECUTED** — runnable on held data.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1153,7 +1308,7 @@ Story §3 · AC-10, AC-11, AC-12, AC-13 · edge cases 3.1–3.6, 3.15–3.18
 
 **Notes:** Covers edge case 3.18, AC-11. **Discovery: NOT TESTABLE** — every run-007 scenario was Economy; no non-Economy cabin was ever exercised. Declared Gap, **OQ-7**.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1185,7 +1340,7 @@ Story §3 · AC-14, AC-15, AC-16, AC-17 · edge cases 3.7–3.14
 
 **Notes:** Covers AC-14, story §3 AC-5. **Discovery: EXECUTED.** Verified across 17 offers × 2 bookings in run-007 and re-verified in later scenarios. The mapping scope has confirmed the values carry faithfully (ProjectContext §1.3), so this case asserts the business rule alone.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1211,7 +1366,7 @@ Story §3 · AC-14, AC-15, AC-16, AC-17 · edge cases 3.7–3.14
 
 **Notes:** Covers AC-15, story §3 AC-6, edge case 3.7. **Discovery: PARTIAL.** No negative was ever observed — but this holds **by a scope decision, not by evidence**: the core service does not provide a cheaper re-shop, so the Refund path was never exercised at any layer (OQ-M4, closed as out of scope). Sabre's own specification makes `Refund` a typed state with negative examples. **A pass here is a non-observation, never proof.** The sibling scope asserts the same invariant mechanically in TC-RMAP-056/057.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1236,7 +1391,7 @@ Story §3 · AC-14, AC-15, AC-16, AC-17 · edge cases 3.7–3.14
 
 **Notes:** Covers edge case 3.8. **Discovery: NOT EXECUTED** — add-collect only has been observed. May be reachable in the widget without new data; attempt before declaring a gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1261,7 +1416,7 @@ Story §3 · AC-14, AC-15, AC-16, AC-17 · edge cases 3.7–3.14
 
 **Notes:** Covers edge case 3.9. **Discovery: NOT TESTABLE** — needs a malformed supplier response, **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1287,7 +1442,7 @@ Story §3 · AC-14, AC-15, AC-16, AC-17 · edge cases 3.7–3.14
 
 **Notes:** Covers AC-16, story §3 AC-7, edge case 3.10. **Discovery: EXECUTED.** Types and counts confirmed present in run-007; the mapping scope confirmed the per-type figures are per passenger rather than per group.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1313,7 +1468,7 @@ Story §3 · AC-14, AC-15, AC-16, AC-17 · edge cases 3.7–3.14
 
 **Notes:** Covers AC-17, story §3 AC-8, edge case 3.11. **Discovery: OBSERVED-DEFECT.** Run-007 found the supplier penalty merged into `totalTax` and presented to the customer as "Taxes" on the confirmation. A finding is open. **This case asserts the story's requirement and is expected to fail until the components are separated** — it is the specification, not the regression test.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1338,7 +1493,7 @@ Story §3 · AC-14, AC-15, AC-16, AC-17 · edge cases 3.7–3.14
 
 **Notes:** Covers AC-17, edge case 3.11. **Discovery: NOT TESTABLE** — the penalty has only ever been evidenced at zero, at supplier, core and screen alike. A zero proves nothing about how a real penalty is presented. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1363,7 +1518,7 @@ Story §3 · AC-14, AC-15, AC-16, AC-17 · edge cases 3.7–3.14
 
 **Notes:** Covers AC-03, AC-17, story §3 AC-9, edge cases 3.12 and 3.13. **Discovery: PARTIAL** — the configured side is verified; the unconfigured side is blocked on **OQ-8**. Declared Gap on the negative half.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1388,7 +1543,7 @@ Story §3 · AC-14, AC-15, AC-16, AC-17 · edge cases 3.7–3.14
 
 **Notes:** Covers AC-14 context, story §3 AC-10. **Discovery: NOT EXECUTED** — a side-by-side comparison against normal flight search was never made. Runnable on held data. *(This asserts the story's "behaves as normal" requirement; it is not a defect-regression case.)*
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1411,9 +1566,9 @@ Story §3 · AC-14, AC-15, AC-16, AC-17 · edge cases 3.7–3.14
 
 **Tags:** Atomic, Timing, Boundary
 
-**Notes:** Covers AC-22, edge case 3.14. **Discovery: NOT TESTABLE** — a supplier reprice cannot be forced, **OQ-12**. Declared Gap. Observed opportunistically only.
+**Notes:** Covers AC-22, edge case 3.14. **Discovery: NOT TESTABLE** — a supplier reprice cannot be forced, **OQ-12**. Declared Gap. Observed opportunistically only. **OQ-12 closed as D-15 (user, 2026-10-04): a supplier reprice cannot be forced — it is supplier behaviour the platform does not control.** This case is therefore **accepted as untested**, not awaiting an answer. **If the Price Changed popup ever appears during any execution, capture evidence on the spot** — screenshot, the before and after amounts, and the offer — it is the only route to ever specifying this behaviour.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1425,6 +1580,8 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 > **Every case in this section stops at the Review & Pay screen.** Nothing here clicks Pay, Exchange
 > or Confirm & charge. Where a case needs the payment to proceed, a human performs it (D-1).
+
+> **The 15-minute FARE HELD countdown is covered in §13.2** — TC-RFLOW-133 to 139, added 2026-10-04.
 
 ### TC-RFLOW-051 — Review & Pay displays the new flight's data
 
@@ -1448,7 +1605,7 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Notes:** Covers AC-18, story §4 AC-1. **Discovery: EXECUTED.** Observed run-007 on Admin and Portal (`evidence/d3-review-0.png`, `p-review.png`).
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1474,7 +1631,7 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Notes:** Covers AC-18, story §4 AC-2. **Discovery: OBSERVED-DEFECT.** Run-007 found the "currently ticketed" total rendered rounded rather than exact — two distinct faults under one label, a binding fault in EGP and a conversion fault in AED. A finding is open. **This case asserts that the old price is displayed and correct; it is expected to fail on the rounding until fixed.**
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1500,7 +1657,7 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Notes:** Covers AC-19, story §4 AC-3. **Discovery: EXECUTED.** Position and arithmetic both observed in run-007; the mapping scope confirmed amount payable = core total at rate plus the app-origin change fee.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1525,7 +1682,7 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Notes:** Covers AC-20, story §4 AC-4. **Discovery: EXECUTED** for display. A separate finding is open on the Portal rendering three decimals on the dashboard and two on Review & Pay — a formatting defect, not a composition one.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1551,7 +1708,7 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Notes:** Covers AC-20, edge case 4.1. **Discovery: EXECUTED.** Every run-007 scenario ran with a sufficient balance.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1577,7 +1734,7 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Notes:** Covers AC-20, story §4 AC-5, edge case 4.2. **Discovery: NOT TESTABLE** — **OQ-11**. Declared Gap. The wallet check is asserted only on its positive side today.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1603,7 +1760,7 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Notes:** Covers edge cases 4.3 and 4.10. **Discovery: NOT TESTABLE** — **OQ-11**. Declared Gap. The payment itself is performed by the human (D-1).
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1628,7 +1785,7 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Notes:** Covers AC-21, story §4 AC-6 and AC-7. **Discovery: PARTIAL** — the methods are observable on Review & Pay; **completing** a payment is Forbidden for the platform (D-1), so only selection is asserted.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1653,7 +1810,7 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Notes:** Covers edge case 4.5. **Discovery: NOT EXECUTED** — runnable on held data; depends on whether a method is preselected by default.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1680,7 +1837,7 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Notes:** Covers AC-16, story §4 AC-8, story §4.7. **Discovery: EXECUTED** for structure. Note the separate labelling question raised in Discovery: on a reissued booking these columns carry the **difference** under labels that read as fare — a product ruling is pending (**OQ-F4**).
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1705,7 +1862,7 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Notes:** Covers edge case 4.13. **Discovery: NOT TESTABLE** — **OQ-10**. Declared Gap. Note a related finding is open on the confirmation screen, where the total exceeds its own itemisation by the supplier penalty.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1731,7 +1888,7 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Notes:** Covers AC-15, edge case 4.14. **Discovery: PARTIAL** — as TC-RFLOW-042: never observed, but holding by scope decision rather than by evidence. A non-observation, not proof.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1756,7 +1913,7 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Notes:** Covers edge case 4.15. **Discovery: NOT EXECUTED** — depends on obtaining a zero-difference offer, as TC-RFLOW-043.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1779,9 +1936,9 @@ Story §4 · AC-18, AC-19, AC-20, AC-21 · edge cases 4.1–4.6, 4.10–4.15
 
 **Tags:** E2E, Negative, Timing
 
-**Notes:** Covers edge case 4.6. **Discovery: NOT TESTABLE** — **OQ-12**. Declared Gap. Relevant context: run-007 confirmed "FARE HELD" on Review & Pay is app-side only, not a supplier hold (D-12), so the price can move underneath it.
+**Notes:** Covers edge case 4.6. **Discovery: NOT TESTABLE** — **OQ-12**. Declared Gap. Relevant context: run-007 confirmed "FARE HELD" on Review & Pay is app-side only, not a supplier hold (D-12), so the price can move underneath it. **OQ-12 closed as D-15 (user, 2026-10-04): a supplier reprice cannot be forced — it is supplier behaviour the platform does not control.** This case is therefore **accepted as untested**, not awaiting an answer. **If the Price Changed popup ever appears during any execution, capture evidence on the spot** — screenshot, the before and after amounts, and the offer — it is the only route to ever specifying this behaviour.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1811,9 +1968,9 @@ Story §4.8 · AC-22 · edge cases 4.7, 4.8, 4.9
 
 **Tags:** Atomic, Positive, Timing
 
-**Notes:** Covers AC-22, story §4 AC-9, edge case 4.7. **Discovery: NOT TESTABLE** — a reprice cannot be forced; observed opportunistically only, and never seen. **OQ-12**. Declared Gap.
+**Notes:** Covers AC-22, story §4 AC-9, edge case 4.7. **Discovery: NOT TESTABLE** — a reprice cannot be forced; observed opportunistically only, and never seen. **OQ-12**. Declared Gap. **OQ-12 closed as D-15 (user, 2026-10-04): a supplier reprice cannot be forced — it is supplier behaviour the platform does not control.** This case is therefore **accepted as untested**, not awaiting an answer. **If the Price Changed popup ever appears during any execution, capture evidence on the spot** — screenshot, the before and after amounts, and the offer — it is the only route to ever specifying this behaviour.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1836,9 +1993,9 @@ Story §4.8 · AC-22 · edge cases 4.7, 4.8, 4.9
 
 **Tags:** Atomic, Positive, Validation
 
-**Notes:** Covers AC-22, edge case 4.7. **Discovery: NOT TESTABLE** — **OQ-12**. Declared Gap.
+**Notes:** Covers AC-22, edge case 4.7. **Discovery: NOT TESTABLE** — **OQ-12**. Declared Gap. **OQ-12 closed as D-15 (user, 2026-10-04): a supplier reprice cannot be forced — it is supplier behaviour the platform does not control.** This case is therefore **accepted as untested**, not awaiting an answer. **If the Price Changed popup ever appears during any execution, capture evidence on the spot** — screenshot, the before and after amounts, and the offer — it is the only route to ever specifying this behaviour.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1861,9 +2018,9 @@ Story §4.8 · AC-22 · edge cases 4.7, 4.8, 4.9
 
 **Tags:** Atomic, Negative
 
-**Notes:** Covers edge case 4.9. **Discovery: NOT TESTABLE** — **OQ-12**. Declared Gap.
+**Notes:** Covers edge case 4.9. **Discovery: NOT TESTABLE** — **OQ-12**. Declared Gap. **OQ-12 closed as D-15 (user, 2026-10-04): a supplier reprice cannot be forced — it is supplier behaviour the platform does not control.** This case is therefore **accepted as untested**, not awaiting an answer. **If the Price Changed popup ever appears during any execution, capture evidence on the spot** — screenshot, the before and after amounts, and the offer — it is the only route to ever specifying this behaviour.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1887,9 +2044,9 @@ Story §4.8 · AC-22 · edge cases 4.7, 4.8, 4.9
 
 **Tags:** Atomic, Negative, Boundary
 
-**Notes:** Covers edge case 4.8. **Discovery: NOT TESTABLE** — **OQ-12**, and requires an offer known not to support Reprice. Declared Gap.
+**Notes:** Covers edge case 4.8. **Discovery: NOT TESTABLE** — **OQ-12**, and requires an offer known not to support Reprice. Declared Gap. **OQ-12 closed as D-15 (user, 2026-10-04): a supplier reprice cannot be forced — it is supplier behaviour the platform does not control.** This case is therefore **accepted as untested**, not awaiting an answer. **If the Price Changed popup ever appears during any execution, capture evidence on the spot** — screenshot, the before and after amounts, and the offer — it is the only route to ever specifying this behaviour.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1925,7 +2082,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers AC-24, story §5 AC-2, edge case 5.3. **Discovery: EXECUTED.** Observed on every completed run-007 exchange.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1951,7 +2108,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers AC-24, story §5 AC-3. **Discovery: EXECUTED.** Observed run-007.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -1976,7 +2133,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers AC-29, story §5 AC-8, edge cases 5.3 and 7.4. **Discovery: EXECUTED.** Confirmed on both held reissued bookings.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2003,7 +2160,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers AC-24, AC-25, story §5 AC-3, edge case 5.3. **Discovery: OBSERVED-DEFECT.** Two findings are open here — one where a passenger received no replacement document at all, one where all ticket numbers are blank on the record. Discovery established that the Reissue History `Ticket` column reads `N/A` on the broken booking and carries a real number on the clean one, making step 3 a cheap detector. **This case states the requirement the product does not yet meet.**
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2027,7 +2184,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers AC-25, story §5 AC-4. **Discovery: EXECUTED.** Observed run-007.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2052,7 +2209,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers AC-25, edge cases 5.4 and 7.5. **Discovery: NOT TESTABLE** — needs a stub or fault injection, **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2077,7 +2234,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers AC-25, edge case 5.5. **Discovery: NOT TESTABLE** — **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2102,7 +2259,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers AC-25, edge case 5.6. **Discovery: OBSERVED-DEFECT.** Run-007 observed a 409 *"the request could not be completed"* carrying no code, no cause and no next step. A finding is open and its causation is blocked on log access. **This case asserts the requirement.**
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2127,7 +2284,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers story §5 AC-1, edge case 5.1. **Discovery: NOT TESTABLE** — the cycle cannot be instrumented without DB or service logs (**OQ-9**). Note AC-23, the overall-AC form of this requirement, was **moved to `reissue-mapping`** as an Integration obligation with no business surface; this case retains the per-section obligation and is a Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2152,7 +2309,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers edge case 5.2. **Discovery: NOT TESTABLE** — **OQ-10**, and confirming "no supplier call" needs log access (**OQ-9**). Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2178,7 +2335,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers edge cases 5.9 and 5.18. **Discovery: NOT TESTABLE** — a deliberate duplicate submission risks a real second exchange on a shared environment and was not attempted. Needs an explicit grant. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2203,7 +2360,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers edge case 5.8. **Discovery: NOT TESTABLE** — **OQ-10**, **OQ-9**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2228,7 +2385,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers edge case 5.7. **Discovery: NOT TESTABLE** — **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2253,7 +2410,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers edge case 5.10. **Discovery: NOT TESTABLE** — **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2278,7 +2435,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers edge case 5.11. **Discovery: NOT TESTABLE** — **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2303,7 +2460,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers edge case 5.12. **Discovery: NOT TESTABLE** — **OQ-10**, **OQ-9**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2328,7 +2485,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers edge case 5.13. **Discovery: NOT TESTABLE** — **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2353,7 +2510,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers AC-26, story §5 AC-5, edge case 5.14. **Discovery: NOT TESTABLE** — DB is `Deferred`, no read-only access supplied (**OQ-9**, **DS-3**). **Declared Gap on the run manifest and in the Final QA Report.** The amount can be inferred from the displayed figures but not proved.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2378,7 +2535,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers AC-30, story §5 AC-9. **Discovery: NOT TESTABLE** — a schema assertion with **no UI surface at all**; DB `Deferred` (**OQ-9**, **DS-3**). Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2403,7 +2560,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers AC-31, story §5 AC-10, edge cases 5.15 and 9.3. **Discovery: OBSERVED-DEFECT.** A finding is open: the change fee disappears from its own field and its value reappears in `serviceCharges` — the right value filed under the wrong heading. **The story requires it stored as a Service Charge, so this case and that finding are subtly different claims**; a product ruling on which field is authoritative would settle it. Confirming at the offer level also needs the fee and the service charge set to different values, which they are not today.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2428,7 +2585,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers edge case 5.16. **Discovery: NOT TESTABLE** — **OQ-8**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2454,7 +2611,7 @@ Story §5 · AC-24 … AC-31 · edge cases 5.1–5.18
 
 **Notes:** Covers AC-28, story §5 AC-7, edge case 5.17, DS-5. **Discovery: NOT EXECUTED.** Discovery established this **cannot** be tested on PNR Query — that screen offers Void, Manual Reissue and Refund and **no Sync action at all**, on reissued and ordinary bookings alike, so absence there proves nothing. The case is therefore anchored on the Itinerary, where Sync exists. Runnable on held data.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2486,7 +2643,7 @@ Story §6 · AC-32 · edge cases 6.1–6.8
 
 **Notes:** Covers AC-32, story §6 AC-1 and AC-3, edge case 6.1. **Discovery: OBSERVED-DEFECT** on the ticket information — findings are open on blank ticket numbers and on the fare details not summing. The booking identity itself was correct. **This case asserts the story's requirement.**
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2512,7 +2669,7 @@ Story §6 · AC-32 · edge cases 6.1–6.8
 
 **Notes:** Covers AC-32, story §6 AC-2. **Discovery: PENDING CONFIRMATION** — **OQ-13**. Declared Gap. Note the platform-wide oracle decision: with no design, the implemented UI is the source of truth, which makes design conformance unfalsifiable here by construction.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2537,7 +2694,7 @@ Story §6 · AC-32 · edge cases 6.1–6.8
 
 **Notes:** Covers edge case 6.2. **Discovery: NOT TESTABLE** — **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2562,7 +2719,7 @@ Story §6 · AC-32 · edge cases 6.1–6.8
 
 **Notes:** Covers edge case 6.3. **Discovery: NOT TESTABLE** — **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2587,7 +2744,7 @@ Story §6 · AC-32 · edge cases 6.1–6.8
 
 **Notes:** Covers edge case 6.4. **Discovery: OBSERVED-DEFECT** in substance — the known blank-ticket-number behaviour is exactly this state rendered as though complete. A finding is open. **This case states the requirement.**
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2612,7 +2769,7 @@ Story §6 · AC-32 · edge cases 6.1–6.8
 
 **Notes:** Covers edge case 6.5. **Discovery: NOT TESTABLE** — **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2637,7 +2794,7 @@ Story §6 · AC-32 · edge cases 6.1–6.8
 
 **Notes:** Covers edge case 6.6. **Discovery: NOT EXECUTED** as a deliberate identity check, though no mismatch was seen incidentally. Runnable on held data.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2662,7 +2819,7 @@ Story §6 · AC-32 · edge cases 6.1–6.8
 
 **Notes:** Covers edge case 6.7. **Discovery: NOT EXECUTED** — runnable on an already-completed reissue with no risk, since refreshing does not initiate a charge.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2687,7 +2844,7 @@ Story §6 · AC-32 · edge cases 6.1–6.8
 
 **Notes:** Covers edge case 6.8, and overlaps TC-RFLOW-015. **Discovery: PARTIAL** — the Reissued status was confirmed; navigation from the confirmation specifically was not traced.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2718,7 +2875,7 @@ Story §7 · AC-33 · edge cases 7.1–7.9
 
 **Notes:** Covers AC-33, story §7 AC-1. **Discovery: NOT EXECUTED** on the Itinerary specifically — the equivalent component was captured on PNR Query, where it carries Date · Action · Lead Pax · From · To · Ticket · Booking Ref · Amount. The Itinerary component was never opened. Runnable on held data.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2743,7 +2900,7 @@ Story §7 · AC-33 · edge cases 7.1–7.9
 
 **Notes:** Covers AC-33, story §7 AC-2, §7.5. **Discovery: NOT EXECUTED** on the Itinerary. Runnable on held data.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2768,7 +2925,7 @@ Story §7 · AC-33 · edge cases 7.1–7.9
 
 **Notes:** Covers edge case 7.1. **Discovery: NOT EXECUTED** on the Itinerary. The PNR Query equivalent shows *"No data has been found!"*, so an empty state exists in that family of components. Runnable on held data.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2793,7 +2950,7 @@ Story §7 · AC-33 · edge cases 7.1–7.9
 
 **Notes:** Covers edge case 7.2. **Discovery: OBSERVED-DEFECT.** A finding is open where Reissue History reads "2 Reissues" after a single exchange — the component counting rows rather than reissues. On PNR Query the clean booking correctly showed two rows, one `Original booking` and one `Reissue`. **This case asserts the correct count.**
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2818,7 +2975,7 @@ Story §7 · AC-33 · edge cases 7.1–7.9
 
 **Notes:** Covers edge case 7.3. **Discovery: NOT TESTABLE** — no multiply-reissued booking exists, and producing one requires a second human-performed exchange. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2843,7 +3000,7 @@ Story §7 · AC-33 · edge cases 7.1–7.9
 
 **Notes:** Covers AC-27, AC-33, story §7 AC-3, edge case 7.9. **Discovery: PARTIAL, and an open question.** On PNR Query the history is populated **only on the original**; the reissued booking's own history reads *"No data has been found!"* — there is no path back. Whether the backward link is required is **OQ-F3**, unruled. Step 2's expected result is Pending Confirmation.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2868,7 +3025,7 @@ Story §7 · AC-33 · edge cases 7.1–7.9
 
 **Notes:** Covers edge cases 7.5 and 7.6. **Discovery: NOT TESTABLE** — **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2893,7 +3050,7 @@ Story §7 · AC-33 · edge cases 7.1–7.9
 
 **Notes:** Covers edge case 7.7, overlaps TC-RFLOW-015. **Discovery: NOT EXECUTED** — runnable on held data with no risk, since the assertion is that the flow cannot start.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2918,7 +3075,7 @@ Story §7 · AC-33 · edge cases 7.1–7.9
 
 **Notes:** Covers edge case 7.8. **Discovery: NOT TESTABLE** — needs controlled failure, **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2945,7 +3102,7 @@ Story §7 · AC-33 · edge cases 7.1–7.9
 
 **Notes:** Covers story §7 general correctness and **FINDING-R01**, which is open in this scope: the Itinerary renders departures two hours later than the supplier's own PNR, while supplier and core agree and the reissue results grid and confirmation render the same values correctly. **Discovery: OBSERVED-DEFECT.** The cross-zone step has never been run, which is what would demonstrate the mechanism. *(This case asserts the correct behaviour; the cross-zone step is the unrun half.)*
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -2976,7 +3133,7 @@ Story §8 · AC-34, AC-36 · edge cases 8.1–8.9
 
 **Notes:** Covers AC-34, story §8 AC-1. **Discovery: EXECUTED** (run-009). Columns captured in `evidence/r009-pnrquery-observations.md`.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3001,7 +3158,7 @@ Story §8 · AC-34, AC-36 · edge cases 8.1–8.9
 
 **Notes:** Covers AC-34, story §8 AC-2 and AC-3, edge case 8.2. **Discovery: EXECUTED** (run-009). Observed exactly: two rows, `Original booking` and `Reissue`, with references, tickets and amounts.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3026,7 +3183,7 @@ Story §8 · AC-34, AC-36 · edge cases 8.1–8.9
 
 **Notes:** Covers edge case 8.1. **Discovery: EXECUTED** (run-009) — the reissued booking's own history section shows *"No data has been found!"*, confirming the empty state renders.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3052,7 +3209,7 @@ Story §8 · AC-34, AC-36 · edge cases 8.1–8.9
 
 **Notes:** Covers edge case 8.4, story §8.6. **Discovery: OBSERVED-DEFECT.** Run-009 found the row **is** displayed with `Ticket: N/A` rather than withheld or flagged — and the same booking's passenger list shows `N/A` for all six where the supplier holds live tickets for five. Findings are open. **This case states the story's requirement**, and the `Ticket` column is the signal that makes it checkable.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3077,7 +3234,7 @@ Story §8 · AC-34, AC-36 · edge cases 8.1–8.9
 
 **Notes:** Covers edge case 8.5, AC-29. **Discovery: EXECUTED** (run-009). Both bookings return stacked, original marked `Reissued` and new marked `Booked`.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3102,7 +3259,7 @@ Story §8 · AC-34, AC-36 · edge cases 8.1–8.9
 
 **Notes:** Covers edge case 8.6, AC-27. **Discovery: PENDING CONFIRMATION** — **OQ-F3**, raised by run-009. The finding on the missing backward link is open.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3127,7 +3284,7 @@ Story §8 · AC-34, AC-36 · edge cases 8.1–8.9
 
 **Notes:** Covers edge case 8.8. **Discovery: NOT EXECUTED** — the held bookings were queried well after their exchanges. Runnable on the next exchange.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3152,7 +3309,7 @@ Story §8 · AC-34, AC-36 · edge cases 8.1–8.9
 
 **Notes:** Covers edge case 8.7. **Discovery: NOT EXECUTED** as a deliberate cross-check, though no contamination was seen incidentally. Runnable on held data.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3178,7 +3335,7 @@ Story §8 · AC-34, AC-36 · edge cases 8.1–8.9
 
 **Notes:** Covers AC-36, story §8 AC-4 and §8.9, edge case 8.9. **Discovery: EXECUTED** (run-009) — the full structure is captured in `evidence/r009-pnrquery-observations.md` as the baseline. *(This asserts the story's "unchanged" requirement against a captured baseline; it is not a defect-regression case.)*
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3213,7 +3370,7 @@ Story §9 · AC-35, AC-36 · edge cases 9.1–9.9
 
 **Notes:** Covers AC-35, edge case 9.1. **Discovery: OBSERVED-DEFECT.** A finding is open: the wallet is debited the rounded figure, not the agreed one — 3,977.00 against an agreed 3,976.88, always in the agency's disfavour. **This case asserts the requirement.** Neither wallet report was run against the test bookings in discovery.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3239,7 +3396,7 @@ Story §9 · AC-35, AC-36 · edge cases 9.1–9.9
 
 **Notes:** Covers AC-31, AC-35, edge case 9.3. **Discovery: NOT EXECUTED** — Finance and Statement reports were opened and their filters captured but never run against the test bookings. Blocked from a clean read until the fee and the service charge differ (see TC-RFLOW-088).
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3264,7 +3421,7 @@ Story §9 · AC-35, AC-36 · edge cases 9.1–9.9
 
 **Notes:** Covers AC-21, AC-35, edge case 9.2. **Discovery: NOT TESTABLE** — no Banque Masr Reissue payment exists and the platform may not make one. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3289,7 +3446,7 @@ Story §9 · AC-35, AC-36 · edge cases 9.1–9.9
 
 **Notes:** Covers edge cases 9.4 and 9.5. **Discovery: NOT TESTABLE** — **OQ-10**. Declared Gap.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3314,7 +3471,7 @@ Story §9 · AC-35, AC-36 · edge cases 9.1–9.9
 
 **Notes:** Covers AC-29, AC-35, edge case 9.6. **Discovery: NOT EXECUTED** — these reports were opened but not run against the test bookings.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3340,7 +3497,7 @@ Story §9 · AC-35, AC-36 · edge cases 9.1–9.9
 
 **Notes:** Covers AC-26 context, AC-35, edge case 9.7. **Discovery: OBSERVED-DEFECT / OPEN QUESTION.** Run-009 found Sales Report carries the original and the reissue as adjacent, indistinguishable rows at their full amounts — 348,235.19 and 410,755.19 — totalling 758,990.38 for one journey sold once and changed once. Whether gross-value counting is intended is **OQ-F2**, unruled. The expected result is fixed when that question is answered.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3365,7 +3522,7 @@ Story §9 · AC-35, AC-36 · edge cases 9.1–9.9
 
 **Notes:** Covers edge case 9.8, AC-27. **Discovery: PARTIAL.** Traceable in principle — Total Due is the only report filterable by Booking Reference; the rest require going via the invoice number. No report carries a Reissue indicator (**OQ-F1**).
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3391,7 +3548,7 @@ Story §9 · AC-35, AC-36 · edge cases 9.1–9.9
 
 **Notes:** Covers AC-35, edge case 9.9. **Discovery: PARTIAL** — only Sales Report was run end to end; the other thirteen were opened and their filters captured. This case is the systematic sweep discovery deliberately left to execution.
 
-**Review:** Pending
+**Review:** Approved
 
 **Automation:** Pending
 
@@ -3416,6 +3573,658 @@ Story §9 · AC-35, AC-36 · edge cases 9.1–9.9
 
 **Notes:** Covers AC-36. **Discovery: EXECUTED** for structure (run-009) — all fourteen loaded and their filters were captured as the baseline in `evidence/r009-reports-sweep.md`. *(This asserts the story's "unchanged" requirement against that baseline; it is not a defect-regression case.)*
 
-**Review:** Pending
+**Review:** Approved
+
+**Automation:** Pending
+
+---
+
+## 13. Newly added test cases — 2026-10-04
+
+**Twenty-one cases added after the suite's first writing, kept together here rather than folded into
+the sections above.** The original **TC-RFLOW-001 … 127** are unchanged and stay where they were: they
+are traced in the Traceability Matrix, quoted in findings, and already reviewed. **Nothing was
+renumbered.**
+
+**None of these covered an Acceptance Criterion that existed when the suite was written.** Each names
+its own authority in its Notes — a user instruction at review, a user-confirmed control, or a decision
+recorded on the Project Context.
+
+| § | Group | Cases | Authority |
+|---|---|---|---|
+| 13.1 | Inactive airports in the flight widget | TC-RFLOW-128 … 132 | User instruction at review, 2026-10-04 |
+| 13.2 | The 15-minute FARE HELD countdown | TC-RFLOW-133 … 139 | User instruction at review; expiry rule confirmed by the user |
+| 13.3 | The **"Due Now"** label and its composition | TC-RFLOW-140, 141 | `DS-7` — workflow documents, control confirmed by the user |
+| 13.4 | Terms & Conditions on Review & Pay | TC-RFLOW-142 … 145 | `DS-7`; now also **`AC-37`**, added to the story 2026-10-04 |
+| 13.5 | Wallet top-up recovery | TC-RFLOW-146, 147 | `DS-7` — control confirmed by the user |
+| 13.6 | Terms & Conditions on the Booking Confirmation | TC-RFLOW-148 | `DS-7`; **`AC-37`** |
+
+**`TC-RFLOW-143` is the one to read first.** It is the only case in this suite sitting directly on the
+payment path that had neither coverage nor an Acceptance Criterion behind it until 2026-10-04.
+
+**Runnability at a glance.** Sixteen of the twenty-one are runnable; five are Declared Gaps —
+TC-RFLOW-138 and 139 (no offer with a sub-15-minute supplier validity; a payment timed to the second),
+and TC-RFLOW-146 and 147 (awaiting **D-22**'s low-balance wallet). TC-RFLOW-128 … 132 are counted as
+runnable **only if** administration access to the airport status flag is held (**OQ-A1**).
+
+### 13.1 Inactive airports in the flight widget
+
+**Airports carry an admin-configured active/inactive flag.** The Reissue flight widget is a consumer
+of that reference data like any other search widget: an airport switched off in administration must
+not be offered, accepted or searched here. **Beyond the story's Acceptance Criteria** — the story is
+silent on airport status — and requested by the user at review on 2026-10-04. They cover the widget
+only; the administration screen that sets the flag is a prerequisite, not part of this scope.
+
+**All five are counted as runnable on the assumption that administration access to the airport status
+flag is held in the test environment** (**OQ-A1**). If it is not, all five become Declared Gaps.
+
+### TC-RFLOW-128 — An inactive airport is not offered in the widget's Origin field
+
+**Objective:** Verify the Origin autocomplete excludes airports whose administration status is Inactive.
+
+**Preconditions:** The Reissue flight widget open on a reissuable booking (§0.8). A known airport is set to **Inactive** in administration before the widget is opened.
+
+**Test Data:** One airport set Inactive in administration, identified by IATA code and by city name. One active control airport, to prove the field itself is working.
+
+**Steps:**
+
+1. Set the chosen airport to Inactive in administration. Record its code and name.
+2. Open a reissuable booking, initiate Auto Reissue and continue to Search/Re-shop.
+3. In the widget's **Origin** field, type the inactive airport's IATA code. Read the suggestion list.
+4. Clear the field and type the inactive airport's **city or airport name**. Read the suggestion list.
+5. Type the active control airport's code and confirm it is offered.
+
+**Expected Result:** The inactive airport is **absent** from the Origin suggestion list by code and by name. The list is not empty and not broken — the active control airport is offered normally. No error is shown; the inactive airport simply does not exist as far as the widget is concerned.
+
+**Priority:** P1
+
+**Tags:** Atomic, Negative, Validation, Reference-Data
+
+**Notes:** Added at review 2026-10-04 (user); covers no story AC — the story does not mention airport status. **Discovery: NOT EXECUTED** — the widget's autocomplete was exercised in run-007 but never against an inactive airport. Runnable once an airport can be deactivated in the test environment; if administration access to the airport status flag is not held, this becomes a Declared Gap.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-129 — An inactive airport is not offered in the widget's Destination field
+
+**Objective:** Verify the Destination autocomplete applies the same exclusion as Origin.
+
+**Preconditions:** As TC-RFLOW-128. The same airport is Inactive.
+
+**Test Data:** The same inactive airport and active control airport as TC-RFLOW-128.
+
+**Steps:**
+
+1. With the widget open, type the inactive airport's IATA code into the **Destination** field. Read the suggestion list.
+2. Clear the field and type its city or airport name. Read the suggestion list.
+3. Type the active control airport's code into Destination and confirm it is offered.
+
+**Expected Result:** The inactive airport is absent from the Destination suggestion list by code and by name. The active control airport is offered normally. Origin and Destination apply the same rule — the exclusion is not implemented on one field only.
+
+**Priority:** P1
+
+**Tags:** Atomic, Negative, Validation, Reference-Data
+
+**Notes:** Added at review 2026-10-04 (user). Deliberately separate from TC-RFLOW-128: a one-sided implementation is a realistic defect and a combined case would hide which field failed. **Discovery: NOT EXECUTED** — runnable under the same conditions as TC-RFLOW-128.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-130 — An airport deactivated while the widget is open is not accepted on submission
+
+**Objective:** Verify airport status is enforced at search time, not only when the suggestion list was first loaded.
+
+**Preconditions:** The widget open with an **active** airport selected as Origin or Destination. Administration access to change that airport's status in a second session.
+
+**Test Data:** An airport that is Active when the widget opens and is set Inactive before the search is submitted.
+
+**Steps:**
+
+1. Open the widget and select the airport while it is still Active.
+2. Without reloading the widget, set that airport to **Inactive** in administration.
+3. Return to the widget and submit the search.
+
+**Expected Result:** The search is **not** performed against the now-inactive airport. The attempt is refused with a clear message naming the problem, and the user can correct the criteria. No Reissue transaction is created, and no results are returned for an airport that is no longer active.
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative, Validation, Reference-Data, Race
+
+**Notes:** Added at review 2026-10-04 (user). The analogue of TC-RFLOW-018 (stale eligibility revalidated before Search) and TC-RFLOW-057 (wallet balance revalidated before payment) — a list cached when the widget opened is not authority at submission. **Discovery: NOT EXECUTED** — requires administration access concurrent with an open widget.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-131 — An inactive airport cannot be forced into the widget by a pasted code
+
+**Objective:** Verify the exclusion is enforced on submission, not only by hiding the entry in the suggestion list.
+
+**Preconditions:** The widget open. One airport Inactive in administration.
+
+**Test Data:** The inactive airport's IATA code, pasted rather than selected from the list.
+
+**Steps:**
+
+1. Paste the inactive airport's exact IATA code into Origin rather than choosing it from the suggestion list, and attempt to submit.
+2. Where the widget accepts a free-typed code without a list selection, attempt the search.
+3. Observe the search request and its response.
+
+**Expected Result:** The search is refused. An inactive airport is rejected on submission regardless of how it entered the field — hiding it from the suggestion list is not the only control. The refusal is a clear message, never a silent empty result set that reads as "no flights available".
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative, Validation, Reference-Data
+
+**Notes:** Added at review 2026-10-04 (user). The distinction matters for the executor: an empty result set and a refusal look alike on screen but are different defects — TC-RFLOW-034 owns the genuine "no flights available" message. **Discovery: NOT EXECUTED.**
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-132 — Reactivating an airport restores it to the widget
+
+**Objective:** Verify the exclusion follows the airport's current flag rather than dropping it permanently.
+
+**Preconditions:** The airport used in TC-RFLOW-128 is currently Inactive and confirmed absent from the widget.
+
+**Test Data:** The same airport, set back to **Active**.
+
+**Steps:**
+
+1. Confirm the airport is absent from the widget's Origin and Destination suggestions.
+2. Set the airport back to **Active** in administration.
+3. Open the Reissue flight widget afresh and type the airport's code into Origin, then Destination.
+4. Select it and run a valid search.
+
+**Expected Result:** The airport is offered again in both fields, and a search using it is accepted and returns results normally. The widget reflects the airport's **current** status; deactivation is reversible and leaves no residue.
+
+**Priority:** P3
+
+**Tags:** Atomic, Positive, Reference-Data
+
+**Notes:** Added at review 2026-10-04 (user). Also the teardown for TC-RFLOW-128 to TC-RFLOW-131 — run it last so the environment is left as it was found. **Discovery: NOT EXECUTED.**
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### 13.2 The 15-minute FARE HELD countdown
+
+**Review & Pay displays a FARE HELD countdown that starts at 15 minutes.** The rule confirmed at
+review is that **when it reaches zero the offer is no longer available** (user, 2026-10-04). The story
+carries no Acceptance Criterion for it; `reissue-mapping` covers the countdown only as a displayed
+**value** whose provenance is undeclared (`TC-RMAPF-031`, `TC-RMAPX-060`, concern `CN-21`). These
+seven cover its **behaviour**, which nothing covered before.
+
+**Read `CN-21` before executing.** The app's hold token and the supplier's own offer validity are two
+separate clocks — Sabre quoted `validUntil` of 20 minutes on one observed scenario against the app's
+15 — and TC-RFLOW-138 is the case that exercises the gap between them.
+
+### TC-RFLOW-133 — Review & Pay displays a FARE HELD countdown starting at 15 minutes
+
+**Objective:** Verify the countdown is present on Review & Pay and begins at 15 minutes.
+
+**Preconditions:** A reissuable booking (§0.8) carried through Eligibility, Search and offer selection to Review & Pay.
+
+**Test Data:** The clean reissue booking (§0.7).
+
+**Steps:**
+
+1. Select an offer and open Review & Pay. Note the wall-clock time at which the screen renders.
+2. Read the FARE HELD countdown's initial value immediately on render.
+
+**Expected Result:** A FARE HELD countdown is displayed on Review & Pay and its initial value is **15 minutes** (allowing for the seconds elapsed between the hold being issued and the screen rendering). It is legible and identifiable as the fare hold, not mistakable for another duration on the screen.
+
+**Priority:** P1
+
+**Tags:** Atomic, Positive, Smoke
+
+**Notes:** Added at review 2026-10-04 (user); covers no story AC. **Discovery: PARTIAL** — the countdown itself was observed in run-007 (`reissue-mapping` inventory V12, hold token `flight-token` JWT `exp`), but its starting value was never asserted against 15 minutes.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-134 — The countdown decrements continuously and stays visible for the whole of Review & Pay
+
+**Objective:** Verify the countdown is a live clock, not a static label, and does not disappear while the screen is in use.
+
+**Preconditions:** Review & Pay open with the countdown showing.
+
+**Test Data:** The clean reissue booking (§0.7).
+
+**Steps:**
+
+1. Read the countdown, wait 60 seconds without interacting, and read it again.
+2. Scroll the screen, expand and collapse the fare breakdown, and select a payment method. Read the countdown after each.
+3. Remain on the screen and confirm the countdown continues to decrement toward zero.
+
+**Expected Result:** The countdown decrements in real time — roughly one minute lost per minute elapsed — and remains visible and correct through scrolling, breakdown expansion and payment-method selection. Interacting with the screen neither hides it nor restarts it.
+
+**Priority:** P2
+
+**Tags:** Atomic, Positive
+
+**Notes:** Added at review 2026-10-04 (user). A countdown that silently stops is worse than none: the executor must confirm it tracks real elapsed time, not that it merely rendered once. **Discovery: NOT EXECUTED** — runnable on held data.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-135 — An expired countdown makes the offer unavailable and payment is refused
+
+**Objective:** Verify the confirmed rule — at zero, the offer is no longer available.
+
+**Preconditions:** Review & Pay open. **Read §0.4 before executing: this case never clicks Pay to completion.** The attempt is made only to confirm it is refused; if the screen's behaviour at expiry is to disable or remove the control, no click occurs at all.
+
+**Test Data:** The clean reissue booking (§0.7). Approximately 15 minutes of elapsed time on the screen.
+
+**Steps:**
+
+1. Reach Review & Pay with a selected offer and note the countdown.
+2. Remain on the screen without paying until the countdown reaches **00:00**.
+3. Read what the screen does at zero — the countdown's final state, any message, and the state of the payment controls.
+4. If the payment control is still enabled, attempt to continue and read the response. Stop at the refusal; do not complete a payment.
+
+**Expected Result:** At zero the offer is **no longer available**. The screen says so clearly, and payment against the expired offer cannot proceed — whether by the control being disabled, by the attempt being refused, or by the user being returned to Search. No charge is taken, no Reissue transaction is created against the expired offer, and the booking is left exactly as it was.
+
+**Priority:** P1
+
+**Tags:** Atomic, Negative, Validation
+
+**Notes:** Added at review 2026-10-04 (user). The expiry rule was confirmed by the user on 2026-10-04 — **the offer will not be available**. The precise presentation at zero (message wording, whether the user is returned to Search automatically) was not specified; the executor records what the screen actually does and the case passes on the substance, not the wording. **Discovery: NOT EXECUTED** — never held to expiry in run-007.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-136 — Reloading or re-opening Review & Pay does not restart the 15 minutes
+
+**Objective:** Verify the hold belongs to the offer, not to the page, so a refresh cannot extend it.
+
+**Preconditions:** Review & Pay open with the countdown part-way down — roughly 5 minutes elapsed.
+
+**Test Data:** The clean reissue booking (§0.7).
+
+**Steps:**
+
+1. Reach Review & Pay and let the countdown run down by about 5 minutes. Note the value.
+2. Refresh the browser on Review & Pay. Read the countdown.
+3. Navigate back to the flight results and re-open the **same** offer. Read the countdown.
+
+**Expected Result:** After a refresh, and after re-opening the same offer, the countdown continues from where the real elapsed time puts it — it does **not** return to 15 minutes. The fare hold cannot be extended by reloading. If re-selecting the offer legitimately issues a **new** hold, the screen makes that explicit rather than appearing to have gained time on the old one.
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative, Validation
+
+**Notes:** Added at review 2026-10-04 (user). A refresh-resets-the-timer defect lets the fare be held indefinitely against the supplier's quote. The second branch of the Expected Result is deliberate: a new hold is acceptable, an apparently extended old one is not. **Discovery: NOT EXECUTED.**
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-137 — An expired offer permits a clean return to Search with the Reissue context intact
+
+**Objective:** Verify expiry is recoverable — the user can search again without restarting the whole Reissue.
+
+**Preconditions:** TC-RFLOW-135 executed; the countdown has reached zero and the offer is unavailable.
+
+**Test Data:** The clean reissue booking (§0.7).
+
+**Steps:**
+
+1. From the expired Review & Pay, return to Search/Re-shop by whatever route the screen offers.
+2. Read the widget's criteria, and the selected passengers and journey.
+3. Run the search again, select an offer and reach Review & Pay.
+
+**Expected Result:** The user returns to Search with the Reissue context intact — the same booking, the same passenger and journey selection, and the widget's criteria preserved. A fresh search is accepted, a new offer can be selected, and a **new** 15-minute hold starts. The expiry cost the offer, not the Reissue attempt; nothing forces the user back to the Itinerary to start again.
+
+**Priority:** P1
+
+**Tags:** End-to-End, Positive, Recovery
+
+**Notes:** Added at review 2026-10-04 (user). Pairs with TC-RFLOW-035 and TC-RFLOW-038, which hold the same principle for a failed search and for changed criteria. **Discovery: NOT EXECUTED.**
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-138 — The 15-minute hold never outlasts the supplier's own offer validity
+
+**Objective:** Verify the app's countdown and the supplier's `validUntil` do not disagree in the dangerous direction.
+
+**Preconditions:** Review & Pay open, with access to the supplier's offer response for the selected offer.
+
+**Test Data:** An offer whose supplier `validUntil` is **shorter** than 15 minutes — **never observed**. Declared Gap, concern **CN-21**.
+
+**Steps:**
+
+1. Select an offer and capture the supplier response's `validUntil` for it.
+2. Open Review & Pay and read the FARE HELD countdown's start value.
+3. Compare the two expiry instants against the same clock.
+4. Where the supplier's validity is the shorter, hold the screen past the supplier's expiry but before the app's, and read what the screen shows.
+
+**Expected Result:** The displayed hold **never outlasts** the supplier's offer validity. An offer already expired at the supplier is never still displayed as held, and payment against it is refused by the same rule as TC-RFLOW-135. Where the app's 15 minutes is the shorter of the two, the app's own expiry governs and the behaviour is TC-RFLOW-135's.
+
+**Priority:** P1
+
+**Tags:** Atomic, Negative, Integration
+
+**Notes:** Added at review 2026-10-04 (user). **This is the behavioural half of concern `CN-21`**; `reissue-mapping`'s `TC-RMAPF-031` and `TC-RMAPX-060` cover the countdown as a displayed value. The one observed Sabre scenario quoted `validUntil` of 20 minutes against the app's 15, which is the safe direction — the unsafe one has never been seen. **Discovery: NOT TESTABLE** — no offer with a sub-15-minute supplier validity is held. Declared Gap, **CN-21**.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-139 — A payment submitted as the countdown expires is not charged against an unavailable offer
+
+**Objective:** Verify the expiry is enforced at the server on submission, not only by the on-screen clock.
+
+**Preconditions:** Review & Pay open with a payment method selected and the countdown within seconds of zero. **A human performs any payment action (§0.4, D-1); the agent reports the flight and amount and stops.**
+
+**Test Data:** The clean reissue booking (§0.7).
+
+**Steps:**
+
+1. Reach Review & Pay, select a payment method and let the countdown run to the last few seconds.
+2. The human submits payment at the moment the countdown reaches zero.
+3. Read the outcome: the response, the booking's status, the wallet balance and whether a Reissue transaction was created.
+
+**Expected Result:** Either the payment is accepted because it was genuinely received before expiry and the Reissue completes normally, or it is refused because the offer had expired — and in the refused case **nothing is charged**: the wallet balance is unchanged, no new Booking Reference or Order ID exists, the original booking is not marked Reissued, and no orphan Reissue transaction is left behind. What must never happen is a charge against an offer the supplier no longer honours.
+
+**Priority:** P1
+
+**Tags:** End-to-End, Negative, Race, Integration
+
+**Notes:** Added at review 2026-10-04 (user). The expiry equivalent of TC-RFLOW-057 (wallet revalidated immediately before payment) and TC-RFLOW-079 (a duplicate Exchange is not processed twice). **Discovery: NOT TESTABLE** — requires a human-performed payment timed to the second against a live supplier, which run-007 never attempted. Declared Gap; raise with the product owner whether this is acceptable to verify in a staging environment at all.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### 13.3 The "Due Now" label and its composition
+
+**The payable amount is labelled "Due Now"** on both the flight-results screen and Review & Pay, and
+the workflow diagrams give its composition as `Sum Total Fees → Supplier+WT+Diff → Display Due Now`.
+
+**The story never names this field.** TC-RFLOW-041 asserts the *value* is a difference and
+TC-RFLOW-053 asserts its *position*; neither asserts the **label**, and nothing asserted the
+**arithmetic between "Due Now" and the breakdown beneath it**. Raised as `DS-7`; the user confirmed on
+2026-10-04 that the label exists on screen.
+
+### TC-RFLOW-140 — The results screen labels the payable amount "Due Now"
+
+**Objective:** Verify the payable difference carries its agreed label on the flight-results screen.
+
+**Preconditions:** A Re-shop search run on a reissuable booking (§0.8), returning at least one selectable offer.
+
+**Test Data:** The clean reissue booking (§0.7).
+
+**Steps:**
+
+1. Run a Re-shop search and read the results.
+2. Read the label attached to the amount the user would pay on each result.
+3. Compare it to the amount shown for the same offer on Review & Pay after selection.
+
+**Expected Result:** The payable amount is labelled **"Due Now"**, and the value under that label is the **difference payable**, never the replacement flight's total price. The same offer carries the same figure under the same label on Review & Pay.
+
+**Priority:** P2
+
+**Tags:** Atomic, Positive, Labelling
+
+**Notes:** Added 2026-10-04 from **DS-7 item 2**, confirmed by the user to exist on screen. Covers no story AC — the story never names this field. Complements TC-RFLOW-041, which asserts the *value* is the difference, and TC-RFLOW-053, which asserts its *position* on Review & Pay; neither asserts the **label**. **Discovery: NOT EXECUTED** — runnable on held data. Related finding: `reissue-flow` FINDING on reissue columns carrying the difference under a fare label — the label question is live on this feature.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-141 — "Due Now" on Review & Pay is Supplier Penalty + WT Change Fee + fare difference
+
+**Objective:** Verify the payable amount carries its label and equals its own stated composition.
+
+**Preconditions:** Review & Pay open on a selected offer, with the fare breakdown visible.
+
+**Test Data:** The clean reissue booking (§0.7). Agency exchange fee 50 or Branch 100, per passenger (D-7, D-11).
+
+**Steps:**
+
+1. Open Review & Pay on a selected offer.
+2. Read the amount labelled **"Due Now"** and its position.
+3. Read the fare difference, the supplier penalty and the WT change fee from the breakdown.
+4. Add the three and compare the sum to "Due Now".
+
+**Expected Result:** The payable amount is labelled **"Due Now"**, sits in the right-top area, and equals **fare difference + supplier penalty + WT change fee** to the last decimal. It is never the replacement flight's total price, and it never disagrees with the breakdown beneath it.
+
+**Priority:** P1
+
+**Tags:** Atomic, Positive, Calculation, Labelling
+
+**Notes:** Added 2026-10-04 from **DS-7 item 2**, confirmed by the user. The composition comes from the workflow diagram's `Sum Total Fees → Supplier+WT+Diff → Display Due Now`. Covers no story AC. Extends TC-RFLOW-053 (position) and TC-RFLOW-046 (breakdown components) with the **arithmetic between them**, which nothing asserted. **Discovery: NOT EXECUTED** — runnable on held data. **A supplier penalty has never been observed at anything but zero**, so step 3's penalty may be 0 on the held bookings; that does not invalidate the sum.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### 13.4 Terms & Conditions on Review & Pay
+
+**Terms & Conditions must be accepted before `Confirm & Charge`.** Both forms of the End-to-End
+Workflow diagram show `… → Accept T&C → Confirm & Charge`, making it a **mandatory gate on the payment
+path**. The user confirmed on 2026-10-04 that the control exists.
+
+**It had no coverage and no Acceptance Criterion.** *"T&C"* and *"Terms"* appear nowhere in the
+original story, and nothing in the first 127 cases touched them. On the user's instruction the story
+was amended on 2026-10-04 to add **`AC-37`** and **§4.9 Terms & Conditions** — the first content added
+to that story that was not part of the original supply, and marked as such there.
+
+**TC-RFLOW-143 is the gate itself.** It establishes that payment is refused without acceptance and
+**stops there** — it never completes a payment (§0.4, D-1).
+
+### TC-RFLOW-142 — Terms & Conditions are displayed on Review & Pay
+
+**Objective:** Verify the T&C control exists on the payment screen.
+
+**Preconditions:** Review & Pay open on a selected offer.
+
+**Test Data:** The clean reissue booking (§0.7).
+
+**Steps:**
+
+1. Open Review & Pay and locate the Terms & Conditions control.
+2. Read its label, its position relative to the payment action, and whether it is ticked by default.
+
+**Expected Result:** A Terms & Conditions control is displayed on Review & Pay, before the `Confirm & Charge` action, and is **not pre-accepted**. The user has to act on it deliberately.
+
+**Priority:** P1
+
+**Tags:** Atomic, Positive, Smoke
+
+**Notes:** Added 2026-10-04 from **DS-7 item 1**, confirmed by the user to exist. **Covers `AC-37`**, added to the story on 2026-10-04 on the user's instruction — when this case was written the story had no AC for it at all, and *"T&C"* and *"Terms"* appeared nowhere in it. The control comes from the End-to-End Workflow documents, both diagram forms of which show `… → Accept T&C → Confirm & Charge` as a gate on the payment path. **If the control is pre-ticked, that is the finding** — a pre-accepted agreement is not an acceptance. **Discovery: NOT EXECUTED** — never looked for in any run.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-143 — Payment cannot proceed until Terms & Conditions are accepted
+
+**Objective:** Verify T&C acceptance is a required gate, not a decoration.
+
+**Preconditions:** Review & Pay open, a payment method selected, Terms & Conditions **not** accepted. **Read §0.4: this case never completes a payment.** It establishes that the action is refused, and stops there.
+
+**Test Data:** The clean reissue booking (§0.7).
+
+**Steps:**
+
+1. Reach Review & Pay, select a payment method, and leave Terms & Conditions unaccepted.
+2. Read the state of the `Confirm & Charge` action — enabled or disabled.
+3. If it is enabled, attempt to continue and read the response. **Stop at the refusal; do not complete a payment.**
+4. Accept Terms & Conditions and read the state of the action again. **Do not continue past this point.**
+
+**Expected Result:** With Terms & Conditions unaccepted, payment **cannot proceed** — the action is disabled, or the attempt is refused with a message naming the unaccepted terms. No charge is taken and no Reissue transaction is created. Once accepted, the action becomes available.
+
+**Priority:** P1
+
+**Tags:** Atomic, Negative, Validation
+
+**Notes:** Added 2026-10-04 from **DS-7 item 1**, confirmed by the user. **Covers `AC-37`**, added to the story the same day — the AC exists *because* this gap was found. **This is the case that matters of the four** — both diagram forms place `Accept T&C` directly before `Confirm & Charge`, making it a mandatory gate on the money path. If payment proceeds without acceptance, the gate does not exist. **Discovery: NOT EXECUTED** — runnable on held data, and it stops before payment, so it needs no human-performed step.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-144 — The Terms & Conditions content is reachable and readable
+
+**Objective:** Verify the user can read what they are being asked to accept.
+
+**Preconditions:** Review & Pay open with the Terms & Conditions control visible.
+
+**Test Data:** The clean reissue booking (§0.7).
+
+**Steps:**
+
+1. Open the Terms & Conditions from its link, modal or expander.
+2. Read whether content is returned, and whether it is reissue-relevant or generic booking terms.
+3. Close it and confirm the Review & Pay state — the selected offer, the payment method and the amount — is unchanged.
+
+**Expected Result:** The terms open and display content. Opening and closing them does not disturb the selected offer, the payment method, the amount, or the fare hold. An acceptance control that leads to nothing readable is a defect.
+
+**Priority:** P2
+
+**Tags:** Atomic, Positive
+
+**Notes:** Added 2026-10-04 from **DS-7 item 1**. **Covers `AC-37`** (story §4.9, added 2026-10-04). Deliberately does not assert the *wording* of the terms — no approved text was supplied, and asserting content against nothing is the TC-RFLOW-092 problem. If the terms are expected to be reissue-specific rather than the standard booking terms, that is a product question to settle before this case is executed. **Discovery: NOT EXECUTED.**
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-145 — Terms & Conditions acceptance does not carry over to a new offer
+
+**Objective:** Verify acceptance belongs to the transaction being agreed, not to the session.
+
+**Preconditions:** Review & Pay reached with Terms & Conditions accepted, payment not made.
+
+**Test Data:** The clean reissue booking (§0.7); at least two selectable offers from one search.
+
+**Steps:**
+
+1. Reach Review & Pay on the first offer and accept Terms & Conditions. Do not pay.
+2. Return to the flight results and select a **different** offer.
+3. On the new Review & Pay, read the Terms & Conditions control's state.
+4. Repeat for a changed search — new criteria, new results, a new offer.
+
+**Expected Result:** The new offer's Review & Pay opens with Terms & Conditions **not accepted**. Acceptance applies to the amount and offer that were on screen when it was given; it is not inherited by a different offer or a different price.
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative, Validation
+
+**Notes:** Added 2026-10-04 from **DS-7 item 1**. **Covers `AC-37`** and story §4.9's rule that acceptance does not carry to a different offer or a changed price. The same principle as TC-RFLOW-038 (changing search criteria invalidates previous results) and TC-RFLOW-136 (a refresh does not restart the fare hold): a carried-over acceptance means the user agreed to one amount and was charged another. **Discovery: NOT EXECUTED.**
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### 13.5 Wallet top-up recovery
+
+**An insufficient wallet offers a top-up and returns to the flow** — `Insufficient → Top up wallet →
+re-check balance` in the workflow diagrams, confirmed by the user on 2026-10-04.
+
+**AC-20 requires the balance be checked and payment blocked, and stops there.** TC-RFLOW-056 asserts
+the block; nothing covered the recovery.
+
+**Both are Declared Gaps on delivery, not on principle:** they need the low-balance wallet of **D-22**
+(was OQ-11), committed by the user but not yet supplied. **The top-up itself is a financial action and
+is human-performed**; the platform verifies read-only.
+
+### TC-RFLOW-146 — An insufficient wallet offers a top-up route rather than a dead end
+
+**Objective:** Verify the recovery path the workflow describes exists.
+
+**Preconditions:** Review & Pay open with Wallet selected and a balance **below** the payable amount.
+
+**Test Data:** A low-balance wallet — **to be supplied (D-22, was OQ-11)**. Not held today.
+
+**Steps:**
+
+1. Reach Review & Pay with a wallet that cannot cover "Due Now".
+2. Read what the screen offers: the message, and whether a top-up action or link is presented.
+3. Read whether the Reissue context — booking, passengers, journey, selected offer — survives following it.
+
+**Expected Result:** The screen states the balance is insufficient **and offers a route to top up**. The user is not left at a dead end with the Reissue abandoned. Following the top-up route does not discard the selected offer or restart the Reissue from the Itinerary.
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative, Recovery
+
+**Notes:** Added 2026-10-04 from **DS-7 item 3**, confirmed by the user. Covers no story AC — the story's AC-20 requires the balance be checked and the payment blocked, and stops there; the top-up loop appears only in the workflow diagrams (`Insufficient → Top up wallet → re-check balance`). Extends TC-RFLOW-056, which asserts the block but not the recovery. **Discovery: NOT TESTABLE** — needs the low-balance wallet of **D-22**, committed but not yet delivered. Declared Gap until it arrives.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### TC-RFLOW-147 — After a top-up the balance is re-checked and the Reissue can continue
+
+**Objective:** Verify the loop closes — topping up returns the user to a payable state without restarting.
+
+**Preconditions:** TC-RFLOW-146 executed; the wallet is below the payable amount. **A top-up is a financial action: the human performs it (§0.4, D-1). The platform never charges or credits a wallet.**
+
+**Test Data:** A low-balance wallet — **to be supplied (D-22)**. Not held today.
+
+**Steps:**
+
+1. From the insufficient-balance state, the **human** tops the wallet up to cover the amount.
+2. Return to Review & Pay and read the displayed balance.
+3. Read whether the Wallet payment method is now selectable and the payment action available.
+4. Confirm the selected offer, passengers, journey and amount are the same as before the top-up.
+
+**Expected Result:** The balance is **re-checked against the current figure**, not a cached one. With sufficient funds the Wallet method becomes selectable and the flow can continue, on the **same** offer and the same amount. The user never has to restart the Reissue from the Itinerary because of a top-up.
+
+**Priority:** P2
+
+**Tags:** End-to-End, Positive, Recovery
+
+**Notes:** Added 2026-10-04 from **DS-7 item 3**. Covers no story AC. Pairs with TC-RFLOW-057, which requires the balance be revalidated immediately before payment — this is the same revalidation seen from the recovery side. **The top-up itself is human-performed and read-only for the platform.** **Discovery: NOT TESTABLE** — needs **D-22**'s wallet. Declared Gap.
+
+**Review:** Approved
+
+**Automation:** Pending
+
+### 13.6 Terms & Conditions on the Booking Confirmation
+
+**Terms & Conditions are displayed again on the completed reissue**, as information rather than as an
+acceptance control. Covered by **`AC-37`** as amended 2026-10-04.
+
+**It asserts presence, not layout.** AC-32 requires the confirmation follow "the agreed
+Reissue-specific UI" and no design was ever supplied — **D-23** records that a screenshot of the
+current build is a visual-regression baseline, not an oracle. This case can therefore pass or fail
+honestly, which TC-RFLOW-092's design-conformance half cannot.
+
+### TC-RFLOW-148 — The Booking Confirmation displays Terms & Conditions
+
+**Objective:** Verify the terms are presented again on the completed reissue, as the workflow describes.
+
+**Preconditions:** A completed Reissue. **The human performed the payment (§0.4, D-1); this case is read-only.**
+
+**Test Data:** A booking reference produced by a human-performed exchange.
+
+**Steps:**
+
+1. Open the reissue Booking Confirmation for the new booking reference.
+2. Locate the Terms & Conditions on the confirmation and read whether content is reachable.
+3. Read it alongside the other confirmation elements — new booking and order information, PNR, segment and passenger details, fare details, and the E-ticket / Print / Search actions.
+
+**Expected Result:** Terms & Conditions are displayed on the reissue confirmation and their content is reachable. They appear as information on a completed transaction, not as an acceptance control — nothing on the confirmation asks the user to agree to anything after the money has been taken.
+
+**Priority:** P3
+
+**Tags:** Atomic, Positive
+
+**Notes:** Added 2026-10-04 from **DS-7 item 1**, confirmed by the user. **Covers `AC-37`**'s second half (terms displayed on the Confirmation as information). AC-32 requires the confirmation follow "the agreed Reissue-specific UI", and no design was supplied (**D-23**: a screenshot of the current build is a regression baseline, not an oracle). **This case therefore asserts presence, not layout** — it can pass or fail honestly, which TC-RFLOW-092's design-conformance half cannot. The workflow diagram lists Terms & Conditions and the E-ticket / Print / Search actions among the confirmation's elements. **Discovery: NOT EXECUTED** — runnable read-only on a booking the human has already exchanged.
+
+**Review:** Approved
 
 **Automation:** Pending
