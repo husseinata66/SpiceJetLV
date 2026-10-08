@@ -385,7 +385,7 @@ This run took the **Manual Execution branch (`4M`)**, which gates on `Review` al
 | Field | Value |
 |---|---|
 | Module | `branch` |
-| Produced by run | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Produced by run | `agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
 | Project Context | Revision 9 (Approved 2026-09-24) + Stage 2 additions `PO-21` … `PO-26` (approved 2026-09-24) |
 | Discovery | `modules/branch/discovery/` run-006 section — **Approved** 2026-09-24 |
 | New test cases | 32 — TC-BR-083 … 114 (suite total 114; 109 … 112 added 2026-09-25 at the user's request; 113, 114 added 2026-10-01 for `PO-30`) |

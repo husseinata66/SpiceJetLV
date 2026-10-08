@@ -14,7 +14,7 @@
 | Integration layer | `ndc-core-service` (as registered on the Feature) |
 | Execution supplier | **Sabre** — core service `SABRE_ATPCO` credential `EGY`; Sabre CERT REST, PCC **EZ4K** |
 | Target Environment | Admin `http://192.168.1.60` · Portal `http://192.168.1.60:9500` · core service staging `/api/v1/reissue` |
-| Produced by run | `run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary` (retargeted to this scope by the 2026-09-27 scope split — see `run.json` `scopeHistory`) |
+| Produced by run | `reissue-run-001__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary` (retargeted to this scope by the 2026-09-27 scope split — see `run.json` `scopeHistory`) |
 | Revision | **13** (2026-09-30 — the **Itinerary screen is brought into the cross-screen consistency scope** (§1.1.2); the non-negativity invariant is added to the coverage model; §2.4's table repaired, §5.1 created and OQ-M15 defined. Full history in §12.) |
 | Target ref at write | `0000c1e9f51c4c17774a1a842608cd25d9ec2222` |
 | Generated | 2026-09-27 |

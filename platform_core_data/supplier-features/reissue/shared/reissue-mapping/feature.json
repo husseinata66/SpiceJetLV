@@ -12,7 +12,7 @@
     "context": {
       "status": "Pending Review",
       "artifactPath": "platform_core_data/supplier-features/reissue/shared/reissue-mapping/context/ProjectContext.md",
-      "lastRun": "run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
+      "lastRun": "reissue-run-001__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
       "lastUpdated": "2026-09-30T12:43:05.880Z",
       "revisionCount": 11,
       "targetRefAtWrite": "0000c1e9f51c4c17774a1a842608cd25d9ec2222"
@@ -20,7 +20,7 @@
     "discovery": {
       "status": "Pending Review",
       "artifactPath": "platform_core_data/supplier-features/reissue/shared/reissue-mapping/discovery/QA_Assessment_Report.md",
-      "lastRun": "run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
+      "lastRun": "reissue-run-001__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
       "lastUpdated": "2026-09-30T12:24:53.262Z",
       "revisionCount": 1,
       "targetRefAtWrite": null
@@ -28,7 +28,7 @@
     "test_design": {
       "status": "Pending Review",
       "artifactPath": "platform_core_data/supplier-features/reissue/shared/reissue-mapping/test_design/TestCases_ReissueMapping.md",
-      "lastRun": "run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
+      "lastRun": "reissue-run-001__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
       "lastUpdated": "2026-09-30T12:40:17.982Z",
       "revisionCount": 1,
       "targetRefAtWrite": null

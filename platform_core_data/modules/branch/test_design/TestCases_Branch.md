@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Module | `branch` |
-| Produced by run | `run-002__2026-08-03_10-26-17__UserStory__US-8605CreateBranch` (TC-BR-001…039) · `run-003__2026-08-04_11-24-38__UserStory__US-8599-SearchActions_US-8606-UpdateBranch` (TC-BR-040…081) · `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` (TC-BR-083 … 112) · 2026-10-01 in place, `PO-30` (TC-BR-113, 114 added; see §0.4) |
+| Produced by run | `run-002__2026-08-03_10-26-17__UserStory__US-8605CreateBranch` (TC-BR-001…039) · `run-003__2026-08-04_11-24-38__UserStory__US-8599-SearchActions_US-8606-UpdateBranch` (TC-BR-040…081) · `agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` (TC-BR-083 … 112) · 2026-10-01 in place, `PO-30` (TC-BR-113, 114 added; see §0.4) |
 | Revision | 4 (run-006 adds TC-BR-083 … 111; see §0.2) · 3 (in place — run-003 extended the suite from Create-only to Create + Search & Actions + Update, adding TC-BR-040…081. The 39 existing cases are unchanged.) |
 | Run Scope Type / Run Type | User Story / User Story |
 | Project Context | `modules/branch/context/ProjectContext.md` |
@@ -31,7 +31,7 @@ Revision 4 **adds** 29 cases, TC-BR-083 … TC-BR-111, for the *Auto Reissue che
 kept only in the git-ignored `credentials.json` and never written into a case.
 
 **The run uses records the user designated, not records it created** (`AUTH-*-DedicatedTestData` in
-`run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` `metadata/SafetyAuthorizations.json`). **Default records, not a limit** (user, 2026-09-24): use AGN9780 and BRN265 by default. A **new** Agency or Branch may be created when a case needs one, **after asking the user each time**. Nothing else may be changed.
+`agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` `metadata/SafetyAuthorizations.json`). **Default records, not a limit** (user, 2026-09-24): use AGN9780 and BRN265 by default. A **new** Agency or Branch may be created when a case needs one, **after asking the user each time**. Nothing else may be changed.
 
 | Fixture | Definition | Restore to after each case |
 |---|---|---|

@@ -1,7 +1,7 @@
 # Discovery Timeline — reissue-mapping (run-007, Stage 2)
 
 - **Scope:** Supplier Features → `reissue` → Shared scope `reissue-mapping`
-- **Run:** `run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary`
+- **Run:** `reissue-run-001__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary`
 - **Upstream:** `context/ProjectContext.md` **Revision 12** (status `Pending Review` — see the gate note in `QA_Assessment_Report.md` §7)
 - **Period:** 2026-09-26 → 2026-09-30
 - **Surfaces:** Admin `http://192.168.1.60` · Portal `http://192.168.1.60:9500` · core `ndc-core-service` · supplier Sabre CERT REST, PCC `EZ4K`

@@ -1,0 +1,31 @@
+{
+  "folderName": "agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+  "index": 1,
+  "scope": "UserStory",
+  "target": "Auto Reissue Checkbox - Agency and Branch",
+  "workflow": "user_story_run",
+  "targetRef": "bc564a4c8364560b2664de5c4e64ad21c8b70925",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-09-23T19:36:43.470Z",
+  "targetRepoRoot": "C:/Users/Mohamed/Desktop/New folder (2)/Ai/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at C:/Users/Mohamed/Desktop/New folder (2)/Ai/agentic-ai-testing-platform",
+  "createdBy": "Run Manager",
+  "startedTime": "2026-09-23T19:36:43.470Z",
+  "status": "Preparing",
+  "scopeFamily": null,
+  "feature": null,
+  "supplier": null,
+  "sharedScope": null,
+  "testingLayerScope": null,
+  "scopeHistory": [],
+  "runOwner": "agency+branch",
+  "renamedFrom": [
+    {
+      "folderName": "run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+      "renamedAt": "2026-10-08T11:21:45.744Z",
+      "approvedBy": "Ahmed Ayman",
+      "reason": "Merge of reissue, ancillaries-airindia-run007 and SeatMap into platform-enhancments: per-Feature/module run numbering (run_manager.md 5.1.1)",
+      "ownerSource": "assigned"
+    }
+  ]
+}

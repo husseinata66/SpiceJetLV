@@ -12,7 +12,7 @@
     "context": {
       "status": "Approved",
       "artifactPath": "platform_core_data/supplier-features/reissue/shared/reissue-flow/context/ProjectContext.md",
-      "lastRun": "run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature",
+      "lastRun": "reissue-run-002__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature",
       "lastUpdated": "2026-10-04T12:41:06.577Z",
       "revisionCount": 8,
       "targetRefAtWrite": "0000c1e9f51c4c17774a1a842608cd25d9ec2222"
@@ -20,7 +20,7 @@
     "discovery": {
       "status": "Pending Review",
       "artifactPath": "platform_core_data/supplier-features/reissue/shared/reissue-flow/discovery/QA_Assessment_Report.md",
-      "lastRun": "run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature",
+      "lastRun": "reissue-run-002__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature",
       "lastUpdated": "2026-09-30T14:41:52.854Z",
       "revisionCount": 1,
       "targetRefAtWrite": null
@@ -28,7 +28,7 @@
     "test_design": {
       "status": "Approved",
       "artifactPath": "platform_core_data/supplier-features/reissue/shared/reissue-flow/test_design/TestCases_ReissueFlow.md",
-      "lastRun": "run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature",
+      "lastRun": "reissue-run-002__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature",
       "lastUpdated": "2026-10-04T13:16:49.953Z",
       "revisionCount": 1,
       "targetRefAtWrite": null

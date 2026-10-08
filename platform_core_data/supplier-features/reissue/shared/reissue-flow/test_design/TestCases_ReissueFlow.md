@@ -4,7 +4,7 @@
 |---|---|
 | Scope | Supplier Features → `reissue` → shared scope `reissue-flow` |
 | Scope family | `supplier-feature` · feature `reissue` · `sharedScope: reissue-flow` |
-| Produced by run | `run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature` |
+| Produced by run | `reissue-run-002__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature` |
 | Revision | 8 (2026-10-04 — **Stage 3 Human Review gate held.** Mohamed Soliman approved the suite; all 148 cases move `Review: Pending` → `Review: Approved` and the workbook is re-exported. `Automation` stays `Pending` throughout. The header's Project Context reference is corrected to **Revision 13, Approved**, and §0.6's edge-case correction is marked as applied. **No case content, count or numbering changed**) |
 | Revision | 7 (2026-10-04 — **the twenty-one cases added today are collected into §13, "Newly added test cases"**, out of §§4/5/6/9 and into one titled section, grouped 13.1–13.6 by subject and kept in numeric order. **TC-RFLOW-001…127 are untouched and nothing was renumbered.** The story gained **`AC-37`** (T&C gate) the same day, so the five T&C cases now cite an AC instead of none) |
 | Revision | 6 (2026-10-04 — **nine cases added from DS-7**, the End-to-End Workflow documents, after the user confirmed the controls exist on screen: TC-RFLOW-140, 141 the **"Due Now"** label and its composition; 142–145 and 148 **Terms & Conditions**, including the acceptance gate before `Confirm & Charge`; 146, 147 the wallet **top-up** recovery. §0.12 added) |

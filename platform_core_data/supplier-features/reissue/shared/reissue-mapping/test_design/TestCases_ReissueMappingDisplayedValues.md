@@ -4,7 +4,7 @@
 |---|---|
 | Scope | Supplier Features / `reissue` / shared scope `reissue-mapping` |
 | Unit of coverage | **one displayed value**, and **one value's agreement across every screen** |
-| Produced by run | `run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary` |
+| Produced by run | `reissue-run-001__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary` |
 | Revision | 2 |
 | Source inventory | `discovery/evidence/ReissueFlow_MappingInventory_s1_run-007.md` |
 | Total Test Cases | 60 (45 field mapping, 15 cross-screen) |

@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Module | `agency` |
-| Produced by run | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Produced by run | `agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
 | Revision | 1 |
 | Screen / State | Portal booking details for AGN9780's booking, with AGN9780 Auto Reissue OFF → ON → OFF |
 | URL / Route | `http://192.168.1.60:9500/myBooking` → `/myBooking/booking-details/AGN9780NDCNDCORD260924GKP8CP` |

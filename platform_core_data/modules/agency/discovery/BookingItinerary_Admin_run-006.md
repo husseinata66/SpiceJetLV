@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Module | `agency` (also cited by `branch` for its Branch-owned booking) |
-| Produced by run | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Produced by run | `agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
 | Revision | 1 |
 | Screen / State | Booking details, unlocked and locked, with the owning org's Auto Reissue on and off |
 | URL / Route | `/booking/booking-details/AGN9780NDCNDCORD260924GKP8CP` (Agency booking `NDCEG-BR-F260924EAzzYT`) · booking details for `BRN265NDCORD2609169XJ1LC` (Branch booking `NDCEG-BR-F260916ENYOeQ`) |

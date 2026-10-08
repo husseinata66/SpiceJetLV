@@ -5,7 +5,7 @@
 | Field | Value |
 |---|---|
 | Module | `agency` |
-| Produced by run | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Produced by run | `agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
 | Revision | 4 |
 | Project Context validated against | `modules/agency/context/ProjectContext.md` — revision **5**, **Approved** 2026-09-24 (Mohamed Soliman). **It was then edited during this stage:** `PO-21` … `PO-26` and the run-006 target environment (`.60`). Those edits were **Approved 2026-09-24 by Mohamed Soliman** at the Stage 2 review |
 | Discovery Mode(s) used | Browser automation: **Browser Driver, headed** (Admin, `http://192.168.1.60`) and **Playwright direct login, headed** (Portal, `http://192.168.1.60:9500`). Human Observation (the user's statements). Documentation (the specification PDF) |

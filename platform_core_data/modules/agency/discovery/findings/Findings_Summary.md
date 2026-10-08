@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Run Folder | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Run Folder | `agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
 | Findings raised by this run | 4 (FINDING-013 … FINDING-016). A fifth, FINDING-017, is filed in `branch` and has a second occurrence on AGN9780 |
 | Earlier Findings re-checked | None. This run covers a different story (Auto Reissue). FINDING-001 … 012 are unchanged |
 | Discovery Mode | Browser automation: **Browser Driver**, headed (Admin) · **Playwright direct login**, headed (Portal) |

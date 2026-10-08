@@ -4,7 +4,7 @@
 |---|---|
 | Scope | `reissue-flow` (shared scope under feature `reissue`) |
 | Suite | `TestCases_ReissueFlow.md` Revision 7 (2026-10-04 — the twenty-one new cases collected into §13; `AC-37` added to the story; nine cases from DS-7; seven open questions answered; DS-6 settled; OQ-12 closed) |
-| Produced by run | `run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature` |
+| Produced by run | `reissue-run-002__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature` |
 | Generated | 2026-09-30 |
 | Status | **Approved** — Mohamed Soliman, 2026-10-04 (Stage 3 Human Review gate held). Discovery (`QA_Assessment_Report.md`) and the upstream `reissue-mapping` artifacts remain **Pending Review** |
 

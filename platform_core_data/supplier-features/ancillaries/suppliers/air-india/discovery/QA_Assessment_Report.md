@@ -1,9 +1,9 @@
-# QA Assessment Report — run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia
+# QA Assessment Report — ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia
 
 | Field | Value |
 |---|---|
 | Scope | Supplier Feature: `ancillaries` / Supplier: `air-india` |
-| Produced by run | `run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia` |
+| Produced by run | `ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia` |
 | Revision | 8 (revised 2026-09-27 — live browser automation upgraded FINDING-001, 002, 005, 006 via read-only exploration; a real test booking then upgraded FINDING-007, 008, 009, 010 the same way; FINDING-011/012 added closing the ANC-53 "reports" coverage gap flagged by the user ahead of Stage 3; FINDING-012 then reclassified Test Gap/Needs Human Review -> Bug/Confirmed after the user confirmed it's a defect in the Statement report itself; FINDING-013 through FINDING-017 added from user-supplied evidence of Admin's Booking-Mid Office cycle — see new §14, a provisional section pending a Project Context revision this run does not itself perform) |
 | Project Context validated against | `platform_core_data/supplier-features/ancillaries/suppliers/air-india/context/ProjectContext.md` (rev 2, Approved 2026-09-25) — **§14's Admin scope is NOT yet reflected in this Project Context revision; see that section's caveat** |
 | Discovery Mode(s) used | User-guided exploration (rev 1-3); Browser automation / Direct Observation added rev 4-6, once `credentials.json` and a working Portal login flow existed, and after explicit user authorization + staging confirmation for the booking step; rev 8 adds user-supplied Static Artifact/Human Observation evidence for Admin (§14) |

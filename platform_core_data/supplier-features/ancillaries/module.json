@@ -5,9 +5,9 @@
   "status": "Active",
   "derivedFromSections": [],
   "kind": "supplier_feature",
-  "integrationLayer": "ndc-core-service",
+  "integrationLayer": "NDC-INT",
   "createdAt": "2026-09-04T10:49:38.245Z",
-  "updatedAt": "2026-10-05T12:54:30.589Z",
+  "updatedAt": "2026-10-08T11:21:40.071Z",
   "supersededBy": null,
   "stages": {
     "context": {
@@ -384,7 +384,7 @@
         "context": {
           "status": "Approved",
           "artifactPath": "platform_core_data/supplier-features/ancillaries/suppliers/air-india/context/ProjectContext.md",
-          "lastRun": "run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia",
+          "lastRun": "ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia",
           "lastUpdated": "2026-09-27T22:48:10.602Z",
           "revisionCount": 3,
           "targetRefAtWrite": "bc564a4c8364560b2664de5c4e64ad21c8b70925"
@@ -392,7 +392,7 @@
         "discovery": {
           "status": "Approved",
           "artifactPath": "platform_core_data/supplier-features/ancillaries/suppliers/air-india/discovery/QA_Assessment_Report.md",
-          "lastRun": "run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia",
+          "lastRun": "ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia",
           "lastUpdated": "2026-09-27T22:36:49.084Z",
           "revisionCount": 8,
           "targetRefAtWrite": "bc564a4c8364560b2664de5c4e64ad21c8b70925"
@@ -400,7 +400,7 @@
         "test_design": {
           "status": "Approved",
           "artifactPath": "platform_core_data/supplier-features/ancillaries/suppliers/air-india/test_design/TestCases_Ancillaries_AirIndia.md",
-          "lastRun": "run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia",
+          "lastRun": "ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia",
           "lastUpdated": "2026-10-03T03:24:18.071Z",
           "revisionCount": 9,
           "targetRefAtWrite": null

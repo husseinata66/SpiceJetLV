@@ -4,7 +4,7 @@
 
 ## run-006 — 2026-09-23 / 2026-09-24 (times **UTC**; local is UTC+3)
 
-Run `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch`. Discovery Mode: Browser Driver, headed (Admin, `http://192.168.1.60`) and Playwright direct login, headed (Portal, `:9500`).
+Run `agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch`. Discovery Mode: Browser Driver, headed (Admin, `http://192.168.1.60`) and Playwright direct login, headed (Portal, `:9500`).
 
 > **How this log was built.** It wasn't typed line by line during the session. It was **assembled when the stage ended** from timestamps recorded at the time: each script's own `HH:MM:SS` log lines, and the tool-return time of every step. Those sources are kept verbatim in `runs/run-006…/discovery/evidence/44-session-output-extract.txt` and `43-portal-cycle-results.json`. §6 asks for a continuously appended log, so this is disclosed rather than presented as one.
 

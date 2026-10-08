@@ -40,7 +40,7 @@ class RenameRunsError extends Error {
 
 /** Text files whose references to a run folder are rewritten. Anything else is reported, not touched. */
 const TEXT_EXTENSIONS = new Set([
-  '.md', '.json', '.csv', '.txt', '.html', '.htm', '.yml', '.yaml', '.xml', '.log',
+  '.md', '.json', '.jsonl', '.csv', '.txt', '.html', '.htm', '.yml', '.yaml', '.xml', '.log',
   '.js', '.ts', '.java', '.properties', '.feature',
 ]);
 
@@ -240,11 +240,27 @@ function rewriteReferences(root, renames) {
     } catch {
       continue;
     }
+    // A run.json's `renamedFrom` history records old names ON PURPOSE. It is lifted out before the
+    // rewrite and put back after, so re-running a rewrite can never turn "renamed from X" into
+    // "renamed from itself".
+    let history = null;
+    if (path.basename(file) === 'run.json') {
+      try {
+        const parsed = JSON.parse(content);
+        if (Array.isArray(parsed.renamedFrom)) history = parsed.renamedFrom;
+      } catch { /* not valid JSON — rewritten as plain text */ }
+    }
+
     let count = 0;
-    const next = content.replace(re, (m) => {
+    let next = content.replace(re, (m) => {
       count += 1;
       return map.get(m);
     });
+    if (count && history) {
+      const parsed = JSON.parse(next);
+      parsed.renamedFrom = history;
+      next = `${JSON.stringify(parsed, null, 2)}\n`;
+    }
     if (count) {
       fs.writeFileSync(file, next, 'utf8');
       filesChanged.push(file);

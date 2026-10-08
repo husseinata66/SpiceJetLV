@@ -4,7 +4,7 @@
 |---|---|
 | Scope | Supplier Features → `reissue` → shared scope `reissue-mapping` |
 | Scope family | `supplier-feature` · feature `reissue` · `sharedScope: reissue-mapping` |
-| Produced by run | `run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary` |
+| Produced by run | `reissue-run-001__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary` |
 | Revision | **2** (2026-09-30 — TC-RMAP-056 and TC-RMAP-057 added: a runnable non-negativity invariant on core amounts, at offer level and per passenger type. User request, 2026-09-30. Rev 1 = created) |
 | Run Scope Type / Run Type | Feature (shared scope) / User Story |
 | Project Context | `supplier-features/reissue/shared/reissue-mapping/context/ProjectContext.md` (Revision 12, status **Pending Review** — see the gate note below) |

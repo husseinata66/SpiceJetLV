@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "legacyName": "run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+    "renamedTo": "agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+    "confidence": "high",
+    "source": "renameRuns",
+    "renamedAt": "2026-10-08T11:21:45.744Z"
+  },
+  {
+    "legacyName": "run-006__2026-09-26_20-51-48__Targeted__Ancillaries-FlynasNDCSeatMap",
+    "renamedTo": "ancillaries-run-002__2026-09-26_20-51-48__Targeted__Ancillaries-FlynasNDCSeatMap",
+    "confidence": "high",
+    "source": "renameRuns",
+    "renamedAt": "2026-10-08T11:21:45.744Z"
+  },
+  {
+    "legacyName": "run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia",
+    "renamedTo": "ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia",
+    "confidence": "high",
+    "source": "renameRuns",
+    "renamedAt": "2026-10-08T11:21:45.744Z"
+  },
+  {
+    "legacyName": "run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
+    "renamedTo": "reissue-run-001__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
+    "confidence": "high",
+    "source": "renameRuns",
+    "renamedAt": "2026-10-08T11:21:45.744Z"
+  },
+  {
+    "legacyName": "run-007__2026-09-28_00-36-05__Targeted__Ancillaries-AirSMCairo",
+    "renamedTo": "ancillaries-run-003__2026-09-28_00-36-05__Targeted__Ancillaries-AirSMCairo",
+    "confidence": "high",
+    "source": "renameRuns",
+    "renamedAt": "2026-10-08T11:21:45.744Z"
+  },
+  {
+    "legacyName": "run-008__2026-09-27_12-13-13__UserStory__AutoReissueCheckbox-ReissueButtonCredentialRule",
+    "renamedTo": "agency+branch-run-002__2026-09-27_12-13-13__UserStory__AutoReissueCheckbox-ReissueButtonCredentialRule",
+    "confidence": "high",
+    "source": "renameRuns",
+    "renamedAt": "2026-10-08T11:21:45.744Z"
+  },
+  {
+    "legacyName": "run-008__2026-09-30_10-11-48__Targeted__Ancillaries-AirSMCairo-Admin",
+    "renamedTo": "ancillaries-run-004__2026-09-30_10-11-48__Targeted__Ancillaries-AirSMCairo-Admin",
+    "confidence": "high",
+    "source": "renameRuns",
+    "renamedAt": "2026-10-08T11:21:45.744Z"
+  },
+  {
+    "legacyName": "run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature",
+    "renamedTo": "reissue-run-002__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature",
+    "confidence": "high",
+    "source": "renameRuns",
+    "renamedAt": "2026-10-08T11:21:45.744Z"
+  },
+  {
+    "legacyName": "run-009__2026-10-04_18-30-46__Targeted__Ancillaries-OmanAir-Admin",
+    "renamedTo": "ancillaries-run-005__2026-10-04_18-30-46__Targeted__Ancillaries-OmanAir-Admin",
+    "confidence": "high",
+    "source": "renameRuns",
+    "renamedAt": "2026-10-08T11:21:45.744Z"
+  },
+  {
+    "legacyName": "run-010__2026-10-04_14-13-31__UserStory__AutoReissueCheckbox-ApprovedSuiteRerun",
+    "renamedTo": "agency+branch-run-003__2026-10-04_14-13-31__UserStory__AutoReissueCheckbox-ApprovedSuiteRerun",
+    "confidence": "high",
+    "source": "renameRuns",
+    "renamedAt": "2026-10-08T11:21:45.744Z"
+  },
+  {
+    "legacyName": "run-010__2026-10-04_18-30-48__Targeted__Ancillaries-OmanAir-Portal",
+    "renamedTo": "ancillaries-run-006__2026-10-04_18-30-48__Targeted__Ancillaries-OmanAir-Portal",
+    "confidence": "high",
+    "source": "renameRuns",
+    "renamedAt": "2026-10-08T11:21:45.744Z"
+  },
+  {
+    "legacyName": "run-011__2026-10-04_17-23-43__UserStory__ReissueFlowManualExecution",
+    "renamedTo": "reissue-run-003__2026-10-04_17-23-43__UserStory__ReissueFlowManualExecution",
+    "confidence": "high",
+    "source": "renameRuns",
+    "renamedAt": "2026-10-08T11:21:45.744Z"
+  }
+]

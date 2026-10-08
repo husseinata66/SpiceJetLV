@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Module | `branch` |
-| Produced by run | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Produced by run | `agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
 | Revision | 1 |
 | Screen / State | Add Branch (never saved): Auto Reissue ticked, with suppliers ticked one at a time · Edit BRN265: Auto Reissue off and on |
 | URL / Route | `/admin/branch/add` · Edit Branch for BRN265 (id 10950) |

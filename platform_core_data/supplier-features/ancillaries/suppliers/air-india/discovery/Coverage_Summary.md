@@ -1,9 +1,9 @@
-# Coverage Summary — run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia
+# Coverage Summary — ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia
 
 | Field | Value |
 |---|---|
 | Scope | Supplier Feature: `ancillaries` / Supplier: `air-india` |
-| Produced by run | `run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia` |
+| Produced by run | `ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia` |
 | Revision | 2 (revised 2026-09-27 — Reports (Total Due to NDC, Sales, Statement) added; declared in-scope via ANC-53's "reports" clause but not actually visited in rev 1 despite the earlier 100% claim) |
 | In-scope surface (from Project Context §2) | Admin: Branch/Supplier/Credential config. Portal: Flight Search, flight selection, PAX Details, Ancillaries (Baggage/Meal/Bundle), booking, six-checkpoint validation, pricing/currency, post-booking change/removal, downstream reflection (confirmation/itinerary/reports) |
 | Generated | 2026-09-26 (revised 2026-09-27) |

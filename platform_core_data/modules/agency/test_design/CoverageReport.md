@@ -18,7 +18,7 @@
 
 | Field | Value |
 |---|---|
-| Produced by run | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Produced by run | `agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
 | Project Context | Revision 5 (Approved 2026-09-24) + Stage 2 additions `PO-21` … `PO-26` (approved 2026-09-24) |
 | Discovery | `modules/agency/discovery/` QA Report Revision 4 — **Approved** 2026-09-24 |
 | New test cases | 33 — TC-AGENCY-061 … 093 (suite total 93; 088 … 093 added 2026-09-25 at the user's request) |

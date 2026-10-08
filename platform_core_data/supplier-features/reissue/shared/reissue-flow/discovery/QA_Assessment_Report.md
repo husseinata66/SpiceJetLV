@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Scope** | Supplier Features → `reissue` → Shared scope `reissue-flow` — **the business feature** |
-| **Run** | `run-009__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature` |
+| **Run** | `reissue-run-002__2026-09-30_17-25-03__UserStory__ReissueFlowBusinessFeature` |
 | **Scope family** | `supplier-feature` · feature `reissue` · `sharedScope: reissue-flow` · `supplier: null` |
 | **Upstream** | `context/ProjectContext.md` **Revision 6** |
 | **Stage** | 2 — Explorer *(shared)* |

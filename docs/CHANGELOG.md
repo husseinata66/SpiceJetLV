@@ -14,6 +14,30 @@ record it; a redundant entry costs nothing, a silent gap defeats the point of th
 
 ---
 
+## 2026-10-08 — `reissue`, `ancillaries-airindia-run007`, and `SeatMap` merged into `platform-enhancments`
+
+User-mandated. The three branches forked from the same commit and each minted run-006…run-011 on
+their own. After merging them (SeatMap first, for its platform code):
+
+- **Runs renamed** with `cli.js rename-runs` (approved by Ahmed Ayman): 6 Ancillaries runs →
+  `ancillaries-run-001…006`, 3 Reissue runs → `reissue-run-001…003`, and the 3 AutoReissueCheckbox runs
+  (no module recorded; owner assigned by a human) → `agency+branch-run-001…003`. References were
+  rewritten, the affected HTML reports rebuilt from their models, and every old name still resolves
+  through `.run_folder_index.json`. `run-001…005` and the unscoped `run-006…Ancillaries-AirIndia` stay as
+  they are.
+- **Ancillaries registry** carries all four Suppliers (flynas-ndc, air-sm-cairo, oman-air, air-india).
+  `integrationLayer` set to `NDC-INT` (human decision) — so `ndc_execution_rules.md` §B, which fires only on
+  `ndc-core-service`, does not apply to Ancillaries.
+- **`FeatureChecklistProfile.md`** rev 3 merges the approved rev 2 with SeatMap's new rows, so it is back
+  to Draft pending re-approval.
+- **Active run pointer cleared** (human decision); the Supplier Feature pointer stays on
+  `ancillaries`/`air-sm-cairo`.
+- **Removed** the 389-file saved ADO taskboard page from the repo root.
+- **Platform defect fixed** in `renameRuns.js`: `.jsonl` event logs were not rewritten, and a repeated
+  rewrite pass could overwrite `renamedFrom` history. Both covered by tests.
+
+---
+
 ## 2026-10-08 — Runs are numbered per Feature/module
 
 User-mandated. Runs shared one global `run-NNN` counter, so the parallel `reissue`,

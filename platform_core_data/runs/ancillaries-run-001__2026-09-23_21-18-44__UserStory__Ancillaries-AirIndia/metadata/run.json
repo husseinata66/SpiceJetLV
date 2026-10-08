@@ -1,0 +1,31 @@
+{
+  "folderName": "ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia",
+  "index": 1,
+  "scope": "UserStory",
+  "target": "Ancillaries-AirIndia",
+  "workflow": "unversioned",
+  "targetRef": "bc564a4c8364560b2664de5c4e64ad21c8b70925",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-09-23T18:18:44.284Z",
+  "targetRepoRoot": "C:/Users/HUSSIENY/Desktop/Ancillaries Airandia",
+  "targetRefReason": "git repository at C:/Users/HUSSIENY/Desktop/Ancillaries Airandia",
+  "createdBy": "Ahmed Alhussieny",
+  "startedTime": "2026-09-23T18:18:44.284Z",
+  "status": "In Progress",
+  "scopeFamily": "supplier-feature",
+  "feature": "ancillaries",
+  "supplier": "air-india",
+  "sharedScope": null,
+  "testingLayerScope": null,
+  "scopeHistory": [],
+  "runOwner": "ancillaries",
+  "renamedFrom": [
+    {
+      "folderName": "run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia",
+      "renamedAt": "2026-10-08T11:21:45.744Z",
+      "approvedBy": "Ahmed Ayman",
+      "reason": "Merge of reissue, ancillaries-airindia-run007 and SeatMap into platform-enhancments: per-Feature/module run numbering (run_manager.md 5.1.1)",
+      "ownerSource": "run.json scope fields"
+    }
+  ]
+}

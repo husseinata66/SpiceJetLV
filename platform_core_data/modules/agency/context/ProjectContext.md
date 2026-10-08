@@ -10,7 +10,7 @@
 | Run Type | **User Story** |
 | Pipeline branch | run-004: **Automation Pipeline** (1 → 2 → 3 → `4A` → `5A` → optional `5H` → `6A`) — **changed at Revision 3**; run-001 took the Manual branch. **run-006: not yet chosen — decided at the Stage 3 gate** (user, 2026-09-23) |
 | Target Environment | run-004: `http://192.168.1.70` — STG, shared staging. **run-006: `http://192.168.1.60` (Admin) — shared; same mutation rules** (corrected by the user 2026-09-24: *"the task is not on 192.168.1.70"*). Wherever §4, §5 and §8.5 name `.70` for a run-006 action, read `.60` |
-| Produced by run | `run-004__2026-08-17_14-35-25__UserStory__US-4222-UpdateAgency` (Revisions 3–4) · **`run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` (Revision 5)** |
+| Produced by run | `run-004__2026-08-17_14-35-25__UserStory__US-4222-UpdateAgency` (Revisions 3–4) · **`agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` (Revision 5)** |
 | Revision | 5 <!-- rev 5, 2026-09-23: run-006 adds the Auto Reissue checkbox story (CRUD coverage across agency + branch). Additive only — see §0.3. --> |
 | Target ref at write | `bc564a4` |
 | Generated | 2026-08-17 · Revision 5: 2026-09-23 |

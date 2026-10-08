@@ -1,8 +1,8 @@
-# Findings Summary — run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia
+# Findings Summary — ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia
 
 | Field | Value |
 |---|---|
-| Run Folder | `run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia` |
+| Run Folder | `ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia` |
 | Total Findings | 17 |
 | Generated | 2026-09-26 |
 | Revised | 2026-09-27 (live browser automation upgraded FINDING-001, 002, 005, 006 to Direct Observation / Confirmed; a real test booking then upgraded FINDING-007, 008, 009, 010 the same way; FINDING-011/012 added closing the ANC-53 "reports" coverage gap — Total Due/Sales Confirmed; Statement (FINDING-012) reclassified same day from Test Gap/Needs Human Review to Bug/Confirmed after the user confirmed it's a defect in the report itself, not a test-data gap; FINDING-013 through FINDING-017 added from user-supplied evidence of Admin's Booking-Mid Office cycle — new scope, not yet reflected in Project Context, all capped at Needs Human Review per the Human Observation/Static Artifact evidence-tier rule (§18) regardless of how consistent the figures are; FINDING-006 and FINDING-012 additionally corroborated via this same Admin evidence) |

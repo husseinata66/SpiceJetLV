@@ -18,7 +18,9 @@ const { createRun, CreateRunError } = require('../createRun');
 const { listRuns, setActiveRun, readActiveRun } = require('../activeRun');
 const { resolveRunFolder, loadIndex } = require('../runFolderIndex');
 const { planRefinement } = require('../runLineage');
-const { planRunRenames, applyRunRenames, RenameRunsError } = require('../renameRuns');
+const {
+  planRunRenames, applyRunRenames, rewriteReferences, RenameRunsError,
+} = require('../renameRuns');
 
 const NOW = new Date(2026, 9, 8, 10, 0, 0);
 
@@ -234,6 +236,7 @@ test('applyRunRenames renames, rewrites references, moves the pointer, and keeps
     nearMiss: `${oldExec}__2`,
   }));
   fs.writeFileSync(path.join(runsDir, oldExec, 'metadata', 'lineage.json'), JSON.stringify({ inheritsFrom: oldFlow }));
+  fs.writeFileSync(path.join(runsDir, oldExec, 'metadata', 'events.jsonl'), `{"run":"${oldExec}"}\n`);
   setActiveRun(runsDir, oldExec, { now: NOW });
 
   const plan = planRunRenames(runsDir);
@@ -249,6 +252,8 @@ test('applyRunRenames renames, rewrites references, moves the pointer, and keeps
   assert.equal(reg.nearMiss, `${oldExec}__2`, 'a longer name that merely starts with the old one is untouched');
   assert.equal(readJson(path.join(runsDir, newExec, 'metadata', 'lineage.json')).inheritsFrom,
     'reissue-run-001__2026-09-26_17-10-56__UserStory__ReissueFlow');
+  assert.equal(fs.readFileSync(path.join(runsDir, newExec, 'metadata', 'events.jsonl'), 'utf8'),
+    `{"run":"${newExec}"}\n`, 'JSON Lines event logs are rewritten too');
 
   const meta = readJson(path.join(runsDir, newExec, 'metadata', 'run.json'));
   assert.equal(meta.folderName, newExec);
@@ -266,6 +271,11 @@ test('applyRunRenames renames, rewrites references, moves the pointer, and keeps
   assert.ok(loadIndex(runsDir).some((e) => e.legacyName === oldExec && e.renamedTo === newExec));
 
   assert.deepEqual(planRunRenames(runsDir).renames, [], 're-planning after apply is a no-op');
+
+  // Running the rewrite again (e.g. to pick up files added later) must not rewrite the history.
+  rewriteReferences(root, res.renamed);
+  assert.equal(readJson(path.join(runsDir, newExec, 'metadata', 'run.json')).renamedFrom[0].folderName, oldExec,
+    'a repeated rewrite never turns "renamed from X" into "renamed from itself"');
   cleanup(root);
 });
 

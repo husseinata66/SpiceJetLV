@@ -109,7 +109,7 @@ T+00:23  Stage 2 end — no mutating action was performed at any point this run
 
 ## run-006 — Auto Reissue checkbox, Branch half (2026-09-23 / 2026-09-24, times **UTC**; local is UTC+3)
 
-Run `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch`. Discovery Mode: Browser Driver, headed, `http://192.168.1.60`.
+Run `agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch`. Discovery Mode: Browser Driver, headed, `http://192.168.1.60`.
 
 > **How this log was built.** It was assembled when the stage ended from timestamps recorded at the time: the scripts' own `HH:MM:SS` lines and each step's tool-return time. Those sources are kept verbatim in `runs/run-006…/discovery/evidence/44-session-output-extract.txt` and `33-branchbooking-cycle-results.json`. It wasn't appended line by line during the session (§6), and that is disclosed here.
 

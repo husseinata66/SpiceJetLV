@@ -19,8 +19,8 @@ Onboarding **AirIndia** as the first Supplier under the **Ancillaries** Supplier
 `workflows_and_pipelines/pipeline/new_us_intake.md` §12. Pipeline chosen: **manual execution only**
 (Stage 1 → Stage 2 → Stage 3 → Stage 4M — no automation branch).
 
-- Run: `run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia`
-  (`platform_core_data/runs/run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia/`)
+- Run: `ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia`
+  (`platform_core_data/runs/ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia/`)
   Scope: `scopeFamily: "supplier-feature"`, `feature: "ancillaries"`, `supplier: "air-india"`.
 - Stage 1 (Project Context): **done, Approved.** Shared baseline rev 4, AirIndia's own rev 3 — both
   Approved 2026-09-28, adding ANC-54…ANC-58 (Admin's Booking-Mid Office scope, see §3 below).
@@ -365,7 +365,7 @@ commit; Discovery artifact revisions as another) rather than one giant commit �
 7. **Module Manager registry (`modules.json`) was stale** relative to the QA Assessment Report's
    real revision — its `discovery.revisionCount`/`lastUpdated` for `ancillaries/air-india` hadn't been
    bumped since an earlier session. Fixed this session via:
-   `node platform_core/tools/module_manager/cli.js supplier-feature supplier stage ancillaries air-india discovery --status "Pending Review" --artifact "platform_core_data/supplier-features/ancillaries/suppliers/air-india/discovery/QA_Assessment_Report.md" --run "run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia"`
+   `node platform_core/tools/module_manager/cli.js supplier-feature supplier stage ancillaries air-india discovery --status "Pending Review" --artifact "platform_core_data/supplier-features/ancillaries/suppliers/air-india/discovery/QA_Assessment_Report.md" --run "ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia"`
    **Remember to run the equivalent command again** any time the Discovery (or any stage) markdown is
    substantively revised — it is not automatic, and CLAUDE.md's standing rule is "never hand-edit
    `modules.json`... every write goes through the CLI."
@@ -640,7 +640,7 @@ categories and the four actions above (the pre-existing `"*"` `Forbidden, absolu
 other ownership class are untouched). `environmentAliases` extended to include `STG_PORTAL` and
 `ANCILLARIES_STG`. This is recorded in `execution_safety_policy.json`/`.md` (already committed) and
 satisfied by a run-scoped authorization file already written:
-`platform_core_data/runs/run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia/metadata/SafetyAuthorizations.json`
+`platform_core_data/runs/ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia/metadata/SafetyAuthorizations.json`
 (+ `.md` companion) — 4 records (`BOOK`, `PAYMENT`, `UPDATE`, `WALLET_CHARGE`, all `SelfCreated`,
 `Allowed`, approved by Ahmed Alhussieny, `revoked: false`). `SafetyPreflight.md` in the same
 `metadata/` folder documents the full preflight (38 planned operations, 0 Forbidden, 0 outstanding
@@ -667,7 +667,7 @@ Approval Required). **None of this needs to be redone** — just confirm on the 
 `NDCEG-BR-F260928ABwtpA` · Trip ID `AGN9808NDCNDCORD2609281VJKYT` · Status `Confirmed` · booked
 28 Sep 2026 19:37 · Total `45,692 EGP` (Base 6,610 + Taxes 15,082 + Meal 1,000 + Baggage 21,000 +
 Bundle 2,000 — matches the on-screen fare breakdown exactly). Evidence screenshots saved to
-`platform_core_data/runs/run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia/manual_execution/artifacts/TC-ANC-002/`
+`platform_core_data/runs/ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia/manual_execution/artifacts/TC-ANC-002/`
 (`01_passenger_details_filled.png` through `05_booking_confirmation.png`).
 
 **Confirmed against the test case's expected behavior:**

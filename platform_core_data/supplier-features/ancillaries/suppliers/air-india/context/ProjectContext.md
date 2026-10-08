@@ -10,7 +10,7 @@
 | Run Scope Type | Feature (Supplier Feature — `new_us_intake.md` §12) |
 | Run Type | User Story |
 | Target Environment | Admin + Portal, one internal test environment, two URLs — see §4 (values held out of version control) |
-| Produced by run | `run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia` |
+| Produced by run | `ancillaries-run-001__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia` |
 | Revision | 3 (2026-09-28 — adds Admin's Booking-Mid Office scope for AirIndia, referencing the shared baseline's new ANC-54…ANC-58) |
 | Target ref at write | `bc564a4c8364560b2664de5c4e64ad21c8b70925` |
 | Generated | 2026-09-23 (revised 2026-09-25, 2026-09-28) |

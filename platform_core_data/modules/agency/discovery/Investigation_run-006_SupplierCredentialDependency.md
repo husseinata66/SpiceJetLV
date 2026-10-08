@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Module | `agency` (with `branch`, `master-supplier`) |
-| Produced by run | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Produced by run | `agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
 | Trigger | User report, 2026-09-26: *"there are some scenarios lead to the suppliers is assigned to agency but does not appear on the auto reissue picker"* |
 | Discovery Mode | Browser automation — Browser Driver, headed. Checks as `Mohamed Soliman`; credential status changed as `odeysysadmin` (the only account with the credential Deactivate action) |
 | Records | BRN265, AGN9780, supplier NDCsbr, credential 313 "NDCSabre staging" — all under the run's grants |

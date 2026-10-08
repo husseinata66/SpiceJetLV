@@ -1,0 +1,318 @@
+{
+  "folderName": "reissue-run-001__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
+  "index": 1,
+  "scope": "UserStory",
+  "target": "Reissue Flow From Itinerary",
+  "workflow": "user_story_run",
+  "targetRef": "bc564a4c8364560b2664de5c4e64ad21c8b70925",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-09-26T14:10:56.501Z",
+  "targetRepoRoot": "C:/Users/Mohamed/Desktop/New folder (2)/Ai/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at C:/Users/Mohamed/Desktop/New folder (2)/Ai/agentic-ai-testing-platform",
+  "createdBy": "Run Manager",
+  "startedTime": "2026-09-26T14:10:56.501Z",
+  "status": "Preparing",
+  "scopeFamily": "supplier-feature",
+  "feature": "reissue",
+  "supplier": null,
+  "sharedScope": "reissue-mapping",
+  "testingLayerScope": {
+    "UI": {
+      "status": "In Scope",
+      "reason": "Terminal layer of hop A: the displayed value and its label. UI behaviour belongs to reissue-flow (ProjectContext 1.1.1)"
+    },
+    "API": {
+      "status": "In Scope"
+    },
+    "Contract": {
+      "status": "In Scope"
+    },
+    "Integration": {
+      "status": "In Scope"
+    },
+    "E2E": {
+      "status": "In Scope",
+      "reason": "Restored 2026-09-27 for the scenario-1 full-cycle run: Portal -> core service -> supplier verified through a human-clicked Exchange"
+    },
+    "Regression": {
+      "status": "Out of Scope",
+      "reason": "Moved to the reissue-flow business-feature scope by the 2026-09-27 split"
+    },
+    "DB": {
+      "status": "Deferred",
+      "reason": "No read-only DB access provided (user intake, 2026-09-26)"
+    },
+    "Security": {
+      "status": "Out of Scope",
+      "reason": "Not selected by the user at intake, 2026-09-26"
+    },
+    "Performance": {
+      "status": "Out of Scope",
+      "reason": "Not selected by the user at intake, 2026-09-26"
+    }
+  },
+  "scopeHistory": [
+    {
+      "changedAt": "2026-09-27T10:28:04.534Z",
+      "approvedBy": "Mohamed Soliman",
+      "reason": "Scope split (2026-09-27): reissue-flow is divided into the mapping scope (UI <-> ndc-core-service <-> supplier) and the business-feature scope. run-007 continues as the mapping run; a later run covers the business feature test cases. Layers narrowed to API/Contract/Integration accordingly.",
+      "previous": {
+        "feature": "reissue",
+        "supplier": null,
+        "sharedScope": "reissue-flow",
+        "testingLayerScope": {
+          "UI": {
+            "status": "In Scope"
+          },
+          "API": {
+            "status": "In Scope"
+          },
+          "Contract": {
+            "status": "In Scope"
+          },
+          "Integration": {
+            "status": "In Scope"
+          },
+          "E2E": {
+            "status": "In Scope"
+          },
+          "Regression": {
+            "status": "In Scope"
+          },
+          "DB": {
+            "status": "Deferred",
+            "reason": "No read-only DB access provided (user intake, 2026-09-26)"
+          },
+          "Security": {
+            "status": "Out of Scope",
+            "reason": "Not selected by the user at intake, 2026-09-26"
+          },
+          "Performance": {
+            "status": "Out of Scope",
+            "reason": "Not selected by the user at intake, 2026-09-26"
+          }
+        }
+      },
+      "next": {
+        "feature": "reissue",
+        "supplier": null,
+        "sharedScope": "reissue-mapping",
+        "testingLayerScope": {
+          "API": {
+            "status": "In Scope"
+          },
+          "Contract": {
+            "status": "In Scope"
+          },
+          "Integration": {
+            "status": "In Scope"
+          },
+          "UI": {
+            "status": "Out of Scope",
+            "reason": "Moved to the reissue-flow business-feature scope by the 2026-09-27 split"
+          },
+          "E2E": {
+            "status": "Out of Scope",
+            "reason": "Moved to the reissue-flow business-feature scope by the 2026-09-27 split"
+          },
+          "Regression": {
+            "status": "Out of Scope",
+            "reason": "Moved to the reissue-flow business-feature scope by the 2026-09-27 split"
+          },
+          "DB": {
+            "status": "Deferred",
+            "reason": "No read-only DB access provided (user intake, 2026-09-26)"
+          },
+          "Security": {
+            "status": "Out of Scope",
+            "reason": "Not selected by the user at intake, 2026-09-26"
+          },
+          "Performance": {
+            "status": "Out of Scope",
+            "reason": "Not selected by the user at intake, 2026-09-26"
+          }
+        }
+      }
+    },
+    {
+      "changedAt": "2026-09-27T11:29:53.143Z",
+      "approvedBy": "Mohamed Soliman",
+      "reason": "Correction (2026-09-27): UI returns to In Scope for reissue-mapping. The screen is the terminal layer of hop A (core service -> Admin/Portal API -> UI), so a displayed-value mapping cannot be verified with UI out of scope. Scoped to the displayed value and its label only; UI behaviour (navigation, validation, eligibility rules, enable/disable) remains reissue-flow's - see ProjectContext 1.1.1.",
+      "previous": {
+        "feature": "reissue",
+        "supplier": null,
+        "sharedScope": "reissue-mapping",
+        "testingLayerScope": {
+          "API": {
+            "status": "In Scope"
+          },
+          "Contract": {
+            "status": "In Scope"
+          },
+          "Integration": {
+            "status": "In Scope"
+          },
+          "UI": {
+            "status": "Out of Scope",
+            "reason": "Moved to the reissue-flow business-feature scope by the 2026-09-27 split"
+          },
+          "E2E": {
+            "status": "Out of Scope",
+            "reason": "Moved to the reissue-flow business-feature scope by the 2026-09-27 split"
+          },
+          "Regression": {
+            "status": "Out of Scope",
+            "reason": "Moved to the reissue-flow business-feature scope by the 2026-09-27 split"
+          },
+          "DB": {
+            "status": "Deferred",
+            "reason": "No read-only DB access provided (user intake, 2026-09-26)"
+          },
+          "Security": {
+            "status": "Out of Scope",
+            "reason": "Not selected by the user at intake, 2026-09-26"
+          },
+          "Performance": {
+            "status": "Out of Scope",
+            "reason": "Not selected by the user at intake, 2026-09-26"
+          }
+        }
+      },
+      "next": {
+        "feature": "reissue",
+        "supplier": null,
+        "sharedScope": "reissue-mapping",
+        "testingLayerScope": {
+          "UI": {
+            "status": "In Scope",
+            "reason": "Terminal layer of hop A: the displayed value and its label. UI behaviour belongs to reissue-flow (ProjectContext 1.1.1)"
+          },
+          "API": {
+            "status": "In Scope"
+          },
+          "Contract": {
+            "status": "In Scope"
+          },
+          "Integration": {
+            "status": "In Scope"
+          },
+          "E2E": {
+            "status": "Out of Scope",
+            "reason": "Moved to the reissue-flow business-feature scope by the 2026-09-27 split"
+          },
+          "Regression": {
+            "status": "Out of Scope",
+            "reason": "Moved to the reissue-flow business-feature scope by the 2026-09-27 split"
+          },
+          "DB": {
+            "status": "Deferred",
+            "reason": "No read-only DB access provided (user intake, 2026-09-26)"
+          },
+          "Security": {
+            "status": "Out of Scope",
+            "reason": "Not selected by the user at intake, 2026-09-26"
+          },
+          "Performance": {
+            "status": "Out of Scope",
+            "reason": "Not selected by the user at intake, 2026-09-26"
+          }
+        }
+      }
+    },
+    {
+      "changedAt": "2026-09-27T14:16:30.149Z",
+      "approvedBy": "Mohamed Soliman",
+      "reason": "Scenario 1 full-cycle (2026-09-27): booking NDCEG-BR-F26092704TCQE, one-way, AGN9780 Portal. The cycle runs Portal itinerary -> Reissue -> offer -> Review & Pay -> human-clicked Exchange -> Sabre getBooking + logs/detail.log verification. E2E returns to In Scope because the mapping is now verified end to end through a real exchange, not only up to Review & Pay.",
+      "previous": {
+        "feature": "reissue",
+        "supplier": null,
+        "sharedScope": "reissue-mapping",
+        "testingLayerScope": {
+          "UI": {
+            "status": "In Scope",
+            "reason": "Terminal layer of hop A: the displayed value and its label. UI behaviour belongs to reissue-flow (ProjectContext 1.1.1)"
+          },
+          "API": {
+            "status": "In Scope"
+          },
+          "Contract": {
+            "status": "In Scope"
+          },
+          "Integration": {
+            "status": "In Scope"
+          },
+          "E2E": {
+            "status": "Out of Scope",
+            "reason": "Moved to the reissue-flow business-feature scope by the 2026-09-27 split"
+          },
+          "Regression": {
+            "status": "Out of Scope",
+            "reason": "Moved to the reissue-flow business-feature scope by the 2026-09-27 split"
+          },
+          "DB": {
+            "status": "Deferred",
+            "reason": "No read-only DB access provided (user intake, 2026-09-26)"
+          },
+          "Security": {
+            "status": "Out of Scope",
+            "reason": "Not selected by the user at intake, 2026-09-26"
+          },
+          "Performance": {
+            "status": "Out of Scope",
+            "reason": "Not selected by the user at intake, 2026-09-26"
+          }
+        }
+      },
+      "next": {
+        "feature": "reissue",
+        "supplier": null,
+        "sharedScope": "reissue-mapping",
+        "testingLayerScope": {
+          "UI": {
+            "status": "In Scope",
+            "reason": "Terminal layer of hop A: the displayed value and its label. UI behaviour belongs to reissue-flow (ProjectContext 1.1.1)"
+          },
+          "API": {
+            "status": "In Scope"
+          },
+          "Contract": {
+            "status": "In Scope"
+          },
+          "Integration": {
+            "status": "In Scope"
+          },
+          "E2E": {
+            "status": "In Scope",
+            "reason": "Restored 2026-09-27 for the scenario-1 full-cycle run: Portal -> core service -> supplier verified through a human-clicked Exchange"
+          },
+          "Regression": {
+            "status": "Out of Scope",
+            "reason": "Moved to the reissue-flow business-feature scope by the 2026-09-27 split"
+          },
+          "DB": {
+            "status": "Deferred",
+            "reason": "No read-only DB access provided (user intake, 2026-09-26)"
+          },
+          "Security": {
+            "status": "Out of Scope",
+            "reason": "Not selected by the user at intake, 2026-09-26"
+          },
+          "Performance": {
+            "status": "Out of Scope",
+            "reason": "Not selected by the user at intake, 2026-09-26"
+          }
+        }
+      }
+    }
+  ],
+  "runOwner": "reissue",
+  "renamedFrom": [
+    {
+      "folderName": "run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
+      "renamedAt": "2026-10-08T11:21:45.744Z",
+      "approvedBy": "Ahmed Ayman",
+      "reason": "Merge of reissue, ancillaries-airindia-run007 and SeatMap into platform-enhancments: per-Feature/module run numbering (run_manager.md 5.1.1)",
+      "ownerSource": "run.json scope fields"
+    }
+  ]
+}

@@ -148,7 +148,7 @@ The Playwright MCP server was deliberately **not** used, despite Search Branch a
 | Field | Value |
 |---|---|
 | Module | `branch` |
-| Produced by run | `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
+| Produced by run | `agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` |
 | Revision | 1 (this run's section; the run-002 and run-003 sections above are unchanged) |
 | In-scope surface (from Project Context) | The 8 *REV 9* rows of ProjectContext §2, plus the §3 row *Admin Itinerary for Branch-created bookings*, which was conditional on Stage 2 finding such bookings (it did) = **9 areas** |
 | Generated | 2026-09-24 |

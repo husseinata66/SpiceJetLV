@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Module | `agency` |
-| Produced by run | `run-004__2026-08-17_14-35-25__UserStory__US-4222-UpdateAgency` · `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` (TC-AGENCY-061 … 093) |
+| Produced by run | `run-004__2026-08-17_14-35-25__UserStory__US-4222-UpdateAgency` · `agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` (TC-AGENCY-061 … 093) |
 | Revision | 5 |
 | Run Scope Type / Run Type | User Story / User Story |
 | Project Context | `modules/agency/context/ProjectContext.md` (revision 5, Approved 2026-09-24; Stage 2 additions `PO-21` … `PO-26` approved 2026-09-24; `PO-30` added 2026-10-01, Pending Review) |
@@ -118,7 +118,7 @@ Revision 4 **adds** 33 cases, TC-AGENCY-061 … TC-AGENCY-093, for the *Auto Rei
 kept only in the git-ignored `credentials.json` and never written into a case.
 
 **The run uses records the user designated, not records it created** (`AUTH-*-DedicatedTestData` in
-`run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` `metadata/SafetyAuthorizations.json`). **Default records, not a limit** (user, 2026-09-24): use AGN9780 and BRN265 by default. A **new** Agency or Branch may be created when a case needs one, **after asking the user each time**. Nothing else may be changed.
+`agency+branch-run-001__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch` `metadata/SafetyAuthorizations.json`). **Default records, not a limit** (user, 2026-09-24): use AGN9780 and BRN265 by default. A **new** Agency or Branch may be created when a case needs one, **after asking the user each time**. Nothing else may be changed.
 
 | Fixture | Definition | Restore to after each case |
 |---|---|---|

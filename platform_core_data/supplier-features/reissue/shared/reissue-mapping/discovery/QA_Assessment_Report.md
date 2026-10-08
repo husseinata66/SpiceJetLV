@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Scope** | Supplier Features → `reissue` → Shared scope `reissue-mapping` |
-| **Run** | `run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary` |
+| **Run** | `reissue-run-001__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary` |
 | **Scope family** | `supplier-feature` · feature `reissue` · `sharedScope: reissue-mapping` · `supplier: null` |
 | **Upstream** | `context/ProjectContext.md` **Revision 12** |
 | **Stage** | 2 — Explorer *(shared)* |
