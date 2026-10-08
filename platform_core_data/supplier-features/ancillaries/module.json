@@ -5,7 +5,7 @@
   "status": "Active",
   "derivedFromSections": [],
   "kind": "supplier_feature",
-  "integrationLayer": null,
+  "integrationLayer": "ndc-core-service",
   "createdAt": "2026-09-04T10:49:38.245Z",
   "updatedAt": "2026-10-05T12:54:30.589Z",
   "supersededBy": null,
@@ -60,15 +60,15 @@
       "acceptanceCriteriaRef": null,
       "status": "Active",
       "createdAt": "2026-09-04T10:49:44.870Z",
-      "updatedAt": "2026-09-26T17:46:10.020Z",
+      "updatedAt": "2026-09-27T22:48:10.396Z",
       "supersededBy": null,
       "stages": {
         "context": {
           "status": "Approved",
           "artifactPath": "platform_core_data/supplier-features/ancillaries/shared/ancillaries-baseline/context/ProjectContext.md",
           "lastRun": null,
-          "lastUpdated": "2026-09-26T17:46:10.020Z",
-          "revisionCount": 1,
+          "lastUpdated": "2026-09-27T22:48:10.396Z",
+          "revisionCount": 4,
           "targetRefAtWrite": null
         },
         "discovery": {
@@ -370,6 +370,60 @@
       "supplierRules": [],
       "supplierRulesSetAt": "2026-10-04T14:15:30.885Z",
       "supplierRulesSetBy": "Mohanad Dawood"
+    },
+    {
+      "slug": "air-india",
+      "name": "AirIndia",
+      "description": null,
+      "feature": "ancillaries",
+      "status": "Active",
+      "createdAt": "2026-09-23T15:48:41.839Z",
+      "updatedAt": "2026-10-03T03:24:18.071Z",
+      "supersededBy": null,
+      "stages": {
+        "context": {
+          "status": "Approved",
+          "artifactPath": "platform_core_data/supplier-features/ancillaries/suppliers/air-india/context/ProjectContext.md",
+          "lastRun": "run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia",
+          "lastUpdated": "2026-09-27T22:48:10.602Z",
+          "revisionCount": 3,
+          "targetRefAtWrite": "bc564a4c8364560b2664de5c4e64ad21c8b70925"
+        },
+        "discovery": {
+          "status": "Approved",
+          "artifactPath": "platform_core_data/supplier-features/ancillaries/suppliers/air-india/discovery/QA_Assessment_Report.md",
+          "lastRun": "run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia",
+          "lastUpdated": "2026-09-27T22:36:49.084Z",
+          "revisionCount": 8,
+          "targetRefAtWrite": "bc564a4c8364560b2664de5c4e64ad21c8b70925"
+        },
+        "test_design": {
+          "status": "Approved",
+          "artifactPath": "platform_core_data/supplier-features/ancillaries/suppliers/air-india/test_design/TestCases_Ancillaries_AirIndia.md",
+          "lastRun": "run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia",
+          "lastUpdated": "2026-10-03T03:24:18.071Z",
+          "revisionCount": 9,
+          "targetRefAtWrite": null
+        },
+        "automation": {
+          "status": "Not Started",
+          "artifactPath": null,
+          "lastRun": null,
+          "lastUpdated": null,
+          "revisionCount": 0,
+          "targetRefAtWrite": null
+        },
+        "healing": {
+          "status": "Not Started",
+          "artifactPath": null,
+          "lastRun": null,
+          "lastUpdated": null,
+          "revisionCount": 0,
+          "targetRefAtWrite": null
+        }
+      },
+      "approvedAt": "2026-09-23T15:48:46.046Z",
+      "approvedBy": "Ahmed Alhussieny"
     }
   ]
 }

@@ -89,10 +89,13 @@ platform_core_data/knowledge_base/
 A profile contains **only**:
 - `defaultBaseUrl`
 - `browser` — launch/context settings (`channel`, `headless` default, `headlessByStage` per-stage display-mode overrides, `viewport`, anything else Playwright's launch/context options need)
-- `login` — username/password/submit selectors, and a post-login success signal
+- `login` — username/password/submit selectors, and a post-login success signal — this is the **default** login flow, used whenever `authenticate()` is called without an `app`
+- `apps` (optional) — named alternate login flows for a **second application** with a different login form (e.g. `apps.portal`), each with its own `baseUrl` and `login` block. Added 2026-09-26 when a Portal application (Agency Code + Email + Password, 3 fields) needed automating alongside the pre-existing Admin application (username + password, 2 fields) — every existing caller that never passes `app` is unaffected, since the root-level `defaultBaseUrl`/`login` are unchanged.
 - `notes` (optional, human-readable)
 
 **Nothing else.** No screen locators, no menu/nav locators, no table/dialog/component locators — those are Screen/Component Knowledge (§3). Keeping this file small and stable is deliberate.
+
+An app's `login` block may add `agencyCodeSelector` alongside the usual `usernameSelector`/`passwordSelector`/`submitSelector`/`successSelector` — when present, `authenticate()` fills that field first, from the resolved credentials' `agencyCode`.
 
 ## 3. Screen / Component Knowledge — inside the repo, but NOT in the Profile
 
@@ -145,7 +148,7 @@ platform_core_data/knowledge_base/
    ```json
    { "username": "...", "password": "..." }
    ```
-   `env` passed to `authenticate()` overrides whatever the file names itself (`environment`/`activeEnvironment`); omit it to let the file decide. `baseUrl` is optional in every shape — falls back to the profile's `defaultBaseUrl`.
+   `env` passed to `authenticate()` overrides whatever the file names itself (`environment`/`activeEnvironment`); omit it to let the file decide. `baseUrl` is optional in every shape — falls back to the profile's `defaultBaseUrl` (or the selected app's `baseUrl`, if `app` was passed). An environment block may also carry `agencyCode`, required only when the app being authenticated against declares `agencyCodeSelector` in its login config (e.g. a Portal app) — omit it entirely for apps that don't need it.
 5. **Resolved automatically from the single project root** — `BrowserDriver.authenticate({env, stage, headless})` resolves `platform_core_data/knowledge_base/credentials/credentials.json` itself; an explicit `credentialsPath` override exists only for edge cases (e.g. tests) and should not be needed in normal use.
 6. **In-memory only, at runtime only.** `driver.js` reads the file once per call, uses the values only to fill the login form, and drops the in-memory reference immediately after submitting login.
 7. **Never logged, never echoed, never copied into artifacts.** No console output, discovery snapshot, Finding, or report may contain a credential value. (One diagnostic `cat` of the file happened during initial setup while debugging a "file doesn't exist" report that turned out to mean "real values ended up in the template" — see Revision history. That's a standing lesson, not a repeatable exception.)
@@ -158,7 +161,7 @@ platform_core_data/knowledge_base/
 
 | Method | Purpose |
 |---|---|
-| `BrowserDriver.authenticate({env, stage, headless, credentialsPath?})` | Static — loads the profile, loads credentials (both auto-resolved under `platform_core_data/`), launches, logs in, returns a session. Every argument is optional. `stage` (e.g. `'manual_execution'`) picks that stage's display mode from `browser.headlessByStage`; precedence is `headless` > `headlessByStage[stage]` > `browser.headless`. |
+| `BrowserDriver.authenticate({env, stage, headless, credentialsPath?, app?})` | Static — loads the profile, loads credentials (both auto-resolved under `platform_core_data/`), launches, logs in, returns a session. Every argument is optional. `stage` (e.g. `'manual_execution'`) picks that stage's display mode from `browser.headlessByStage`; precedence is `headless` > `headlessByStage[stage]` > `browser.headless`. `app` (e.g. `'portal'`) selects a named login flow from the profile's `apps` map instead of the root-level `login`/`defaultBaseUrl`; omit for the original single-app behavior. |
 | `useScreen(name)` / `useComponent(name)` | Loads that screen's/component's locators into the active set. |
 | `resolve(keyOrSelector)` | Returns the selector a dotted key resolves to in the active set — the same resolution `click`/`type`/`waitFor` perform internally. |
 | `navigate(pathOrUrl)` | Absolute URL or a path relative to the profile's `defaultBaseUrl`. |

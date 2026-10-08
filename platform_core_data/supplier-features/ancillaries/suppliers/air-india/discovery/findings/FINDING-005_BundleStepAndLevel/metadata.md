@@ -1,0 +1,22 @@
+- **Finding ID**: FINDING-005
+- **Title**: Bundle is a distinct wizard step ("02 Bundles"), and its Application Level is discovered as Per Journey
+- **Category**: Observation
+- **Severity**: N/A
+- **Severity Reason**: Observation is always N/A per the Severity Matrix (§5.4) — a positive discovery, not a defect.
+- **Confidence Score**: 97% (Direct Observation via live Portal session independently reproduced the identical bundle name, services, and per-passenger pricing)
+- **Evidence Category**: Direct Observation (2026-09-27, live browser automation — real booking flow through the same DEL->DXB IX-1782/IX-813 flight, "02 Bundles" step, selected "Value Pack"), corroborated by the original Human Observation + Static Artifact (`bundle_step.png`). Per §18, Direct Observation is the only Evidence Category that can reach `Confirmed`.
+- **Status**: Confirmed
+- **Business Risk**: None identified.
+- **Technical Risk**: None identified — closes a genuine gap (Bundle's Application Level had no platform default and no AirIndia-specific value at intake).
+- **Module**: Ancillaries / AirIndia (Supplier Feature scope)
+- **Workflow**: Portal — booking wizard, step "02 Bundles" (between Passenger Info and Ancillaries)
+- **Description**: The booking flow is a 3-step wizard: **01 Passenger Info → 02 Bundles → 03 Ancillaries** ("Meals and baggage"). On the Bundles step, one "Select Bundle" dropdown is shown **once for the whole DEL -> DXB journey** (not per leg/segment), offering "Value Pack" with "Bundle Services: Xtra Pack", priced per passenger type: Adult 350 EGP, Child 350 EGP, Infant 0 EGP. This confirms Bundle's **Application Level = Per Journey** for AirIndia.
+- **Expected Behavior**: Per `SupplierChecklist.md` §5c (before this Finding): Bundle Application Level was "To Be Discovered" — no platform-wide default exists for Bundle (unlike Baggage/Meal under ANC-48), and no AirIndia-specific value had been supplied at intake.
+- **Actual Behavior**: Bundle is offered once per journey (DEL -> DXB), not per segment — i.e., Per Journey.
+- **Steps to Reproduce**: Portal booking flow -> after Passenger Info -> "02 Bundles" step -> observe the single "Select Bundle" control scoped to "DEL -> DXB".
+- **Investigation/Recovery Result**: Not applicable — a direct, static observation.
+- **Investigation Notes**: The "Price for Infant: 0 EGP" row inside Bundle Services lists Infant as a passenger type with a zero price, rather than omitting Infant entirely. Live re-verification (2026-09-27) of the same booking's Ancillaries step confirms Infant is fully excluded there (no passenger row at all, not merely zero-priced options) — corroborating the "excluded, displayed at zero" reading over "included at no cost" (see FINDING-006's updated evidence).
+- **Root Cause Hypothesis**: *(omitted — this is a direct discovered fact, not an anomaly needing explanation)*
+- **Occurrence Count**: 1
+- **Evidence Links**: `bundle_step.png` (screenshot supplied by Ahmed Alhussieny, showing the wizard steps, Select Bundle control, Bundle Services pricing, and Fare Breakdown); `live_bundle_pricing_direct_observation.png` (2026-09-27, live automation screenshot showing "Value Pack" / "Xtra Pack" with identical Adult 350 EGP / Child 350 EGP / Infant 0 EGP pricing, and the Fare Breakdown sidebar's "(+) Ancillaries & SSR 700 EGP" / "Bundle Fare +700 EGP" reflecting exactly Adult+Child, excluding Infant).
+- **Recommendation**: Record Bundle's Application Level for AirIndia as **Per Journey**, Source Status **Discovered** (per `CapabilityModel.md` §3 — this value was not Provided at intake, so Discovery is its first source) in `SupplierChecklist.md` §5c during the next Stage 1 revision.

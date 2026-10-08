@@ -1,0 +1,1048 @@
+{
+  "fareType": "Published",
+  "bookedCredentialsSelector": "EGY",
+  "holdExpirationDate": null,
+  "bookingStatus": "UnKnown",
+  "pcc": "",
+  "supplier": "AirIndia",
+  "pnr": "Z33F4Z",
+  "gdsPNR": "",
+  "bookingToken": "",
+  "tickets": {},
+  "passengersSelectedAncillaries": {},
+  "passengersSelectedSeats": {},
+  "journeys": {
+    "SVh_MTc4Mn4gfn5ERUx_MTAvMjAvMjAyNiAxMzozNX5JWEV_MTAvMjAvMjAyNiAxNjozMH5_XklYfiA4MTN_IH5_SVhFfjEwLzIwLzIwMjYgMjA6MjV_RFhCfjEwLzIwLzIwMjYgMjI6NDB_fg--": {
+      "origin": "DEL",
+      "destination": "DXB",
+      "numberOfStops": 1,
+      "segmentRefIds": [
+        "NjM5MjgxMDAxMDAwMDAwMDAwIUlYITE3ODIhICFERUwhSVhFITg5MjMwNTA-",
+        "NjM5MjgxMjQ3MDAwMDAwMDAwIUlYITgxMyEgIUlYRSFEWEIhODU3ODY2Ng--"
+      ]
+    }
+  },
+  "flightSegments": {
+    "NjM5MjgxMDAxMDAwMDAwMDAwIUlYITE3ODIhICFERUwhSVhFITg5MjMwNTA-": {
+      "origin": "DEL",
+      "destination": "IXE",
+      "departureDateTime": "2026-10-20T13:35:00",
+      "arrivalDateTime": "2026-10-20T16:30:00",
+      "departureTerminal": "1",
+      "arrivalTerminal": "",
+      "flightTime": 175,
+      "operatingCarrierCode": "IX",
+      "operatingFlightNumber": "1782",
+      "marketingCarrierCode": "IX",
+      "marketingFlightNumber": "1782",
+      "equipment": "7M8"
+    },
+    "NjM5MjgxMjQ3MDAwMDAwMDAwIUlYITgxMyEgIUlYRSFEWEIhODU3ODY2Ng--": {
+      "origin": "IXE",
+      "destination": "DXB",
+      "departureDateTime": "2026-10-20T20:25:00",
+      "arrivalDateTime": "2026-10-20T22:40:00",
+      "departureTerminal": "",
+      "arrivalTerminal": "2",
+      "flightTime": 135,
+      "operatingCarrierCode": "IX",
+      "operatingFlightNumber": "813",
+      "marketingCarrierCode": "IX",
+      "marketingFlightNumber": "813",
+      "equipment": "7M8"
+    }
+  },
+  "priceClasses": {
+    "MH5Sfn5JNX5SRkZ_SVhGRn5_MH4wfn5Y": {
+      "priceClassName": "FM",
+      "fareDescription": "PublicFare",
+      "rulesAndPenalties": [
+        "Hand Baggage: 7kg",
+        "Check-In Baggage: 20kg (15kg Domestic Flights)",
+        "Infant Check-In Baggage: 10kg",
+        "Reschedule Fee: INR 4000",
+        "Cancellation Fees: INR 4000-7500 (route-dependent)",
+        "Seat: Chargeable",
+        "Meals: Chargeable"
+      ]
+    }
+  },
+  "baggageDetails": {
+    "MCFBRFQ-": {
+      "carryOnBaggage": "7 Kilograms",
+      "checkInBaggage": "40 Kilograms"
+    },
+    "MSFBRFQ-": {
+      "carryOnBaggage": "7 Kilograms",
+      "checkInBaggage": "40 Kilograms"
+    },
+    "MiFDSEQ-": {
+      "carryOnBaggage": "7 Kilograms",
+      "checkInBaggage": "30 Kilograms"
+    },
+    "MyFDSEQ-": {
+      "carryOnBaggage": "7 Kilograms",
+      "checkInBaggage": "30 Kilograms"
+    }
+  },
+  "passengersList": {
+    "MCFBRFQ-": {
+      "title": "MR",
+      "name": {
+        "first": "Ahmed",
+        "middle": null,
+        "last": "TestAdultOne"
+      },
+      "birthDate": "1990-06-15T00:00:00",
+      "gender": "Male",
+      "passengerTypeCode": "ADT",
+      "contactRefId": "P",
+      "travelDocument": {
+        "name": {
+          "first": "AHMED",
+          "middle": null,
+          "last": "TESTADULTONE"
+        },
+        "nationality": "IN",
+        "expirationDate": "2032-01-01T00:00:00Z",
+        "issuanceDate": "1990-06-16T00:00:00Z",
+        "documentNumber": "A1234567",
+        "documentType": "Passport",
+        "gender": "Male",
+        "birthCountry": "EG",
+        "birthDate": "1990-06-15T00:00:00",
+        "issuanceCountryCode": "EG"
+      },
+      "parentPaxRefId": "",
+      "nationality": "IN",
+      "residentCountry": "IN",
+      "age": 36
+    },
+    "MSFBRFQ-": {
+      "title": "MRS",
+      "name": {
+        "first": "Sara",
+        "middle": null,
+        "last": "TestAdultTwo"
+      },
+      "birthDate": "1988-03-20T00:00:00",
+      "gender": "Female",
+      "passengerTypeCode": "ADT",
+      "contactRefId": "P",
+      "travelDocument": {
+        "name": {
+          "first": "SARA",
+          "middle": null,
+          "last": "TESTADULTTWO"
+        },
+        "nationality": "IN",
+        "expirationDate": "2032-01-01T00:00:00Z",
+        "issuanceDate": "1988-03-21T00:00:00Z",
+        "documentNumber": "A7654321",
+        "documentType": "Passport",
+        "gender": "Female",
+        "birthCountry": "EG",
+        "birthDate": "1988-03-20T00:00:00",
+        "issuanceCountryCode": "EG"
+      },
+      "parentPaxRefId": "",
+      "nationality": "IN",
+      "residentCountry": "IN",
+      "age": 38
+    },
+    "MiFDSEQ-": {
+      "title": "MR",
+      "name": {
+        "first": "Tom",
+        "middle": null,
+        "last": "TestChildOne"
+      },
+      "birthDate": "2018-05-10T00:00:00",
+      "gender": "Male",
+      "passengerTypeCode": "CHD",
+      "contactRefId": "P",
+      "travelDocument": {
+        "name": {
+          "first": "TOM",
+          "middle": null,
+          "last": "TESTCHILDONE"
+        },
+        "nationality": "IN",
+        "expirationDate": "2032-01-01T00:00:00Z",
+        "issuanceDate": "2018-05-11T00:00:00Z",
+        "documentNumber": "C1234567",
+        "documentType": "Passport",
+        "gender": "Male",
+        "birthCountry": "EG",
+        "birthDate": "2018-05-10T00:00:00",
+        "issuanceCountryCode": "EG"
+      },
+      "parentPaxRefId": "",
+      "nationality": "IN",
+      "residentCountry": "IN",
+      "age": 8
+    },
+    "MyFDSEQ-": {
+      "title": "MS",
+      "name": {
+        "first": "Amy",
+        "middle": null,
+        "last": "TestChildTwo"
+      },
+      "birthDate": "2016-07-15T00:00:00",
+      "gender": "Female",
+      "passengerTypeCode": "CHD",
+      "contactRefId": "P",
+      "travelDocument": {
+        "name": {
+          "first": "AMY",
+          "middle": null,
+          "last": "TESTCHILDTWO"
+        },
+        "nationality": "IN",
+        "expirationDate": "2032-01-01T00:00:00Z",
+        "issuanceDate": "2016-07-16T00:00:00Z",
+        "documentNumber": "C7654321",
+        "documentType": "Passport",
+        "gender": "Female",
+        "birthCountry": "EG",
+        "birthDate": "2016-07-15T00:00:00",
+        "issuanceCountryCode": "EG"
+      },
+      "parentPaxRefId": "",
+      "nationality": "IN",
+      "residentCountry": "IN",
+      "age": 10
+    },
+    "MCFBRFQ-INFT": {
+      "title": "None",
+      "name": {
+        "first": "Baby",
+        "middle": null,
+        "last": "TestInfantOne"
+      },
+      "birthDate": "2025-01-05T00:00:00",
+      "gender": "Male",
+      "passengerTypeCode": "INF",
+      "contactRefId": "P",
+      "travelDocument": {
+        "name": {
+          "first": "BABY",
+          "middle": "",
+          "last": "TESTINFANTONE"
+        },
+        "nationality": "IN",
+        "expirationDate": "2032-01-01T00:00:00Z",
+        "issuanceDate": "2025-01-06T00:00:00Z",
+        "documentNumber": "I1234567",
+        "documentType": "Passport",
+        "gender": "Male",
+        "birthCountry": "EG",
+        "birthDate": "2025-01-05T00:00:00",
+        "issuanceCountryCode": "EG"
+      },
+      "parentPaxRefId": "MCFBRFQ-",
+      "nationality": "IN",
+      "residentCountry": "IN",
+      "age": 1
+    },
+    "MSFBRFQ-INFT": {
+      "title": "None",
+      "name": {
+        "first": "Lily",
+        "middle": null,
+        "last": "TestInfantTwo"
+      },
+      "birthDate": "2025-03-10T00:00:00",
+      "gender": "Female",
+      "passengerTypeCode": "INF",
+      "contactRefId": "P",
+      "travelDocument": {
+        "name": {
+          "first": "LILY",
+          "middle": "",
+          "last": "TESTINFANTTWO"
+        },
+        "nationality": "IN",
+        "expirationDate": "2032-01-01T00:00:00Z",
+        "issuanceDate": "2025-03-11T00:00:00Z",
+        "documentNumber": "I7654321",
+        "documentType": "Passport",
+        "gender": "Female",
+        "birthCountry": "EG",
+        "birthDate": "2025-03-10T00:00:00",
+        "issuanceCountryCode": "EG"
+      },
+      "parentPaxRefId": "MSFBRFQ-",
+      "nationality": "IN",
+      "residentCountry": "IN",
+      "age": 1
+    }
+  },
+  "contacts": {
+    "P": {
+      "email": "ahmed.alhussieny@tildetech.ae",
+      "phone": {
+        "type": "1",
+        "countryDialingCode": "106",
+        "phoneNumber": "1066225078"
+      },
+      "address": {
+        "line1": "FZ HQ",
+        "line2": "FZ HQ",
+        "city": "DUBAI",
+        "countryCode": "AE"
+      }
+    }
+  },
+  "selectedOffer": {
+    "offerId": "0f1e39fd-b156-4b5d-95bc-c55d1b39d475",
+    "offerJourneys": [
+      "SVh_MTc4Mn4gfn5ERUx_MTAvMjAvMjAyNiAxMzozNX5JWEV_MTAvMjAvMjAyNiAxNjozMH5_XklYfiA4MTN_IH5_SVhFfjEwLzIwLzIwMjYgMjA6MjV_RFhCfjEwLzIwLzIwMjYgMjI6NDB_fg--"
+    ],
+    "passengerFareBreakdown": [
+      {
+        "passengerRefId": "MCFBRFQ-",
+        "paxTotalAmount": {
+          "amount": 20296,
+          "currency": "INR"
+        },
+        "paxTotalAncillaryAmount": {
+          "amount": 11750,
+          "currency": "INR"
+        },
+        "passengerAncillaries": [
+          {
+            "ancillaryCode": "SBHC",
+            "amount": {
+              "amount": 10500,
+              "currency": "INR"
+            }
+          },
+          {
+            "ancillaryCode": "VHRB",
+            "amount": {
+              "amount": 0,
+              "currency": "INR"
+            }
+          },
+          {
+            "ancillaryCode": "VLPL",
+            "amount": {
+              "amount": 1000,
+              "currency": "INR"
+            }
+          },
+          {
+            "ancillaryCode": "VSDB",
+            "amount": {
+              "amount": 250,
+              "currency": "INR"
+            }
+          }
+        ],
+        "passengerTypeCode": "ADT",
+        "paxTotalTaxAmount": {
+          "amount": 7446,
+          "currency": "INR"
+        },
+        "paxBaseAmount": {
+          "amount": 1100,
+          "currency": "INR"
+        },
+        "taxesAndFees": [
+          {
+            "code": "SVGU",
+            "amount": {
+              "amount": 500,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "YQ",
+            "amount": {
+              "amount": 4175,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "YR",
+            "amount": {
+              "amount": 300,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "RCS",
+            "amount": {
+              "amount": 100,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "IN",
+            "amount": {
+              "amount": 767,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "P2",
+            "amount": {
+              "amount": 1182,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "ZR",
+            "amount": {
+              "amount": 114,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "CGST",
+            "amount": {
+              "amount": 154,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "SGST",
+            "amount": {
+              "amount": 154,
+              "currency": "INR"
+            }
+          }
+        ],
+        "segmentDetails": [
+          {
+            "segmentRefId": "NjM5MjgxMDAxMDAwMDAwMDAwIUlYITE3ODIhICFERUwhSVhFITg5MjMwNTA-",
+            "priceClassRefId": "MH5Sfn5JNX5SRkZ_SVhGRn5_MH4wfn5Y",
+            "baggageDetailsRefId": "MCFBRFQ-",
+            "cabinCode": "ECONOMY",
+            "rbd": "R"
+          },
+          {
+            "segmentRefId": "NjM5MjgxMjQ3MDAwMDAwMDAwIUlYITgxMyEgIUlYRSFEWEIhODU3ODY2Ng--",
+            "priceClassRefId": "MH5Sfn5JNX5SRkZ_SVhGRn5_MH4wfn5Y",
+            "baggageDetailsRefId": "MCFBRFQ-",
+            "cabinCode": "ECONOMY",
+            "rbd": "R"
+          }
+        ],
+        "discount": null
+      },
+      {
+        "passengerRefId": "MSFBRFQ-",
+        "paxTotalAmount": {
+          "amount": 20296,
+          "currency": "INR"
+        },
+        "paxTotalAncillaryAmount": {
+          "amount": 11750,
+          "currency": "INR"
+        },
+        "passengerAncillaries": [
+          {
+            "ancillaryCode": "SBHC",
+            "amount": {
+              "amount": 10500,
+              "currency": "INR"
+            }
+          },
+          {
+            "ancillaryCode": "VHRB",
+            "amount": {
+              "amount": 0,
+              "currency": "INR"
+            }
+          },
+          {
+            "ancillaryCode": "VLPL",
+            "amount": {
+              "amount": 1000,
+              "currency": "INR"
+            }
+          },
+          {
+            "ancillaryCode": "VSDB",
+            "amount": {
+              "amount": 250,
+              "currency": "INR"
+            }
+          }
+        ],
+        "passengerTypeCode": "ADT",
+        "paxTotalTaxAmount": {
+          "amount": 7446,
+          "currency": "INR"
+        },
+        "paxBaseAmount": {
+          "amount": 1100,
+          "currency": "INR"
+        },
+        "taxesAndFees": [
+          {
+            "code": "SVGU",
+            "amount": {
+              "amount": 500,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "YQ",
+            "amount": {
+              "amount": 4175,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "YR",
+            "amount": {
+              "amount": 300,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "RCS",
+            "amount": {
+              "amount": 100,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "IN",
+            "amount": {
+              "amount": 767,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "P2",
+            "amount": {
+              "amount": 1182,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "ZR",
+            "amount": {
+              "amount": 114,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "CGST",
+            "amount": {
+              "amount": 154,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "SGST",
+            "amount": {
+              "amount": 154,
+              "currency": "INR"
+            }
+          }
+        ],
+        "segmentDetails": [
+          {
+            "segmentRefId": "NjM5MjgxMDAxMDAwMDAwMDAwIUlYITE3ODIhICFERUwhSVhFITg5MjMwNTA-",
+            "priceClassRefId": "MH5Sfn5JNX5SRkZ_SVhGRn5_MH4wfn5Y",
+            "baggageDetailsRefId": "MSFBRFQ-",
+            "cabinCode": "ECONOMY",
+            "rbd": "R"
+          },
+          {
+            "segmentRefId": "NjM5MjgxMjQ3MDAwMDAwMDAwIUlYITgxMyEgIUlYRSFEWEIhODU3ODY2Ng--",
+            "priceClassRefId": "MH5Sfn5JNX5SRkZ_SVhGRn5_MH4wfn5Y",
+            "baggageDetailsRefId": "MSFBRFQ-",
+            "cabinCode": "ECONOMY",
+            "rbd": "R"
+          }
+        ],
+        "discount": null
+      },
+      {
+        "passengerRefId": "MiFDSEQ-",
+        "paxTotalAmount": {
+          "amount": 20296,
+          "currency": "INR"
+        },
+        "paxTotalAncillaryAmount": {
+          "amount": 11750,
+          "currency": "INR"
+        },
+        "passengerAncillaries": [
+          {
+            "ancillaryCode": "SBHC",
+            "amount": {
+              "amount": 10500,
+              "currency": "INR"
+            }
+          },
+          {
+            "ancillaryCode": "VHRB",
+            "amount": {
+              "amount": 0,
+              "currency": "INR"
+            }
+          },
+          {
+            "ancillaryCode": "VLPL",
+            "amount": {
+              "amount": 1000,
+              "currency": "INR"
+            }
+          },
+          {
+            "ancillaryCode": "VSDB",
+            "amount": {
+              "amount": 250,
+              "currency": "INR"
+            }
+          }
+        ],
+        "passengerTypeCode": "CHD",
+        "paxTotalTaxAmount": {
+          "amount": 7446,
+          "currency": "INR"
+        },
+        "paxBaseAmount": {
+          "amount": 1100,
+          "currency": "INR"
+        },
+        "taxesAndFees": [
+          {
+            "code": "SVGU",
+            "amount": {
+              "amount": 500,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "YQ",
+            "amount": {
+              "amount": 4175,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "YR",
+            "amount": {
+              "amount": 300,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "RCS",
+            "amount": {
+              "amount": 100,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "IN",
+            "amount": {
+              "amount": 767,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "P2",
+            "amount": {
+              "amount": 1182,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "ZR",
+            "amount": {
+              "amount": 114,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "CGST",
+            "amount": {
+              "amount": 154,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "SGST",
+            "amount": {
+              "amount": 154,
+              "currency": "INR"
+            }
+          }
+        ],
+        "segmentDetails": [
+          {
+            "segmentRefId": "NjM5MjgxMDAxMDAwMDAwMDAwIUlYITE3ODIhICFERUwhSVhFITg5MjMwNTA-",
+            "priceClassRefId": "MH5Sfn5JNX5SRkZ_SVhGRn5_MH4wfn5Y",
+            "baggageDetailsRefId": "MiFDSEQ-",
+            "cabinCode": "ECONOMY",
+            "rbd": "R"
+          },
+          {
+            "segmentRefId": "NjM5MjgxMjQ3MDAwMDAwMDAwIUlYITgxMyEgIUlYRSFEWEIhODU3ODY2Ng--",
+            "priceClassRefId": "MH5Sfn5JNX5SRkZ_SVhGRn5_MH4wfn5Y",
+            "baggageDetailsRefId": "MiFDSEQ-",
+            "cabinCode": "ECONOMY",
+            "rbd": "R"
+          }
+        ],
+        "discount": null
+      },
+      {
+        "passengerRefId": "MyFDSEQ-",
+        "paxTotalAmount": {
+          "amount": 20296,
+          "currency": "INR"
+        },
+        "paxTotalAncillaryAmount": {
+          "amount": 11750,
+          "currency": "INR"
+        },
+        "passengerAncillaries": [
+          {
+            "ancillaryCode": "SBHC",
+            "amount": {
+              "amount": 10500,
+              "currency": "INR"
+            }
+          },
+          {
+            "ancillaryCode": "VHRB",
+            "amount": {
+              "amount": 0,
+              "currency": "INR"
+            }
+          },
+          {
+            "ancillaryCode": "VLPL",
+            "amount": {
+              "amount": 1000,
+              "currency": "INR"
+            }
+          },
+          {
+            "ancillaryCode": "VSDB",
+            "amount": {
+              "amount": 250,
+              "currency": "INR"
+            }
+          }
+        ],
+        "passengerTypeCode": "CHD",
+        "paxTotalTaxAmount": {
+          "amount": 7446,
+          "currency": "INR"
+        },
+        "paxBaseAmount": {
+          "amount": 1100,
+          "currency": "INR"
+        },
+        "taxesAndFees": [
+          {
+            "code": "SVGU",
+            "amount": {
+              "amount": 500,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "YQ",
+            "amount": {
+              "amount": 4175,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "YR",
+            "amount": {
+              "amount": 300,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "RCS",
+            "amount": {
+              "amount": 100,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "IN",
+            "amount": {
+              "amount": 767,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "P2",
+            "amount": {
+              "amount": 1182,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "ZR",
+            "amount": {
+              "amount": 114,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "CGST",
+            "amount": {
+              "amount": 154,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "SGST",
+            "amount": {
+              "amount": 154,
+              "currency": "INR"
+            }
+          }
+        ],
+        "segmentDetails": [
+          {
+            "segmentRefId": "NjM5MjgxMDAxMDAwMDAwMDAwIUlYITE3ODIhICFERUwhSVhFITg5MjMwNTA-",
+            "priceClassRefId": "MH5Sfn5JNX5SRkZ_SVhGRn5_MH4wfn5Y",
+            "baggageDetailsRefId": "MyFDSEQ-",
+            "cabinCode": "ECONOMY",
+            "rbd": "R"
+          },
+          {
+            "segmentRefId": "NjM5MjgxMjQ3MDAwMDAwMDAwIUlYITgxMyEgIUlYRSFEWEIhODU3ODY2Ng--",
+            "priceClassRefId": "MH5Sfn5JNX5SRkZ_SVhGRn5_MH4wfn5Y",
+            "baggageDetailsRefId": "MyFDSEQ-",
+            "cabinCode": "ECONOMY",
+            "rbd": "R"
+          }
+        ],
+        "discount": null
+      },
+      {
+        "passengerRefId": "MCFBRFQ-INFT",
+        "paxTotalAmount": {
+          "amount": 4000,
+          "currency": "INR"
+        },
+        "passengerTypeCode": "INF",
+        "paxTotalTaxAmount": {
+          "amount": 190,
+          "currency": "INR"
+        },
+        "paxBaseAmount": {
+          "amount": 3810,
+          "currency": "INR"
+        },
+        "taxesAndFees": [
+          {
+            "code": "CGST",
+            "amount": {
+              "amount": 95,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "SGST",
+            "amount": {
+              "amount": 95,
+              "currency": "INR"
+            }
+          }
+        ],
+        "segmentDetails": [
+          {
+            "segmentRefId": "NjM5MjgxMDAxMDAwMDAwMDAwIUlYITE3ODIhICFERUwhSVhFITg5MjMwNTA-",
+            "priceClassRefId": "MH5Sfn5JNX5SRkZ_SVhGRn5_MH4wfn5Y",
+            "baggageDetailsRefId": "MCFBRFQ-",
+            "cabinCode": "ECONOMY",
+            "rbd": "R"
+          },
+          {
+            "segmentRefId": "NjM5MjgxMjQ3MDAwMDAwMDAwIUlYITgxMyEgIUlYRSFEWEIhODU3ODY2Ng--",
+            "priceClassRefId": "MH5Sfn5JNX5SRkZ_SVhGRn5_MH4wfn5Y",
+            "baggageDetailsRefId": "MCFBRFQ-",
+            "cabinCode": "ECONOMY",
+            "rbd": "R"
+          }
+        ],
+        "discount": null
+      },
+      {
+        "passengerRefId": "MSFBRFQ-INFT",
+        "paxTotalAmount": {
+          "amount": 4000,
+          "currency": "INR"
+        },
+        "passengerTypeCode": "INF",
+        "paxTotalTaxAmount": {
+          "amount": 190,
+          "currency": "INR"
+        },
+        "paxBaseAmount": {
+          "amount": 3810,
+          "currency": "INR"
+        },
+        "taxesAndFees": [
+          {
+            "code": "CGST",
+            "amount": {
+              "amount": 95,
+              "currency": "INR"
+            }
+          },
+          {
+            "code": "SGST",
+            "amount": {
+              "amount": 95,
+              "currency": "INR"
+            }
+          }
+        ],
+        "segmentDetails": [
+          {
+            "segmentRefId": "NjM5MjgxMDAxMDAwMDAwMDAwIUlYITE3ODIhICFERUwhSVhFITg5MjMwNTA-",
+            "priceClassRefId": "MH5Sfn5JNX5SRkZ_SVhGRn5_MH4wfn5Y",
+            "baggageDetailsRefId": "MSFBRFQ-",
+            "cabinCode": "ECONOMY",
+            "rbd": "R"
+          },
+          {
+            "segmentRefId": "NjM5MjgxMjQ3MDAwMDAwMDAwIUlYITgxMyEgIUlYRSFEWEIhODU3ODY2Ng--",
+            "priceClassRefId": "MH5Sfn5JNX5SRkZ_SVhGRn5_MH4wfn5Y",
+            "baggageDetailsRefId": "MSFBRFQ-",
+            "cabinCode": "ECONOMY",
+            "rbd": "R"
+          }
+        ],
+        "discount": null
+      }
+    ],
+    "priceDetails": {
+      "totalAncillariesAmount": {
+        "amount": 48000,
+        "currency": "INR"
+      },
+      "totalPassengersAncillaries": [
+        {
+          "ancillaryCode": "SBHC",
+          "amount": {
+            "amount": 42000,
+            "currency": "INR"
+          }
+        },
+        {
+          "ancillaryCode": "VLPL",
+          "amount": {
+            "amount": 4000,
+            "currency": "INR"
+          }
+        },
+        {
+          "ancillaryCode": "VSDB",
+          "amount": {
+            "amount": 1000,
+            "currency": "INR"
+          }
+        }
+      ],
+      "totalSelectedSeatsAmount": null,
+      "totalAmount": {
+        "amount": 90184,
+        "currency": "INR"
+      },
+      "totalTaxAmount": {
+        "amount": 30164,
+        "currency": "INR"
+      },
+      "totalBaseAmount": {
+        "amount": 12020,
+        "currency": "INR"
+      },
+      "taxesAndFees": [
+        {
+          "code": "SVGU",
+          "amount": {
+            "amount": 2000,
+            "currency": "INR"
+          }
+        },
+        {
+          "code": "YQ",
+          "amount": {
+            "amount": 16700,
+            "currency": "INR"
+          }
+        },
+        {
+          "code": "YR",
+          "amount": {
+            "amount": 1200,
+            "currency": "INR"
+          }
+        },
+        {
+          "code": "RCS",
+          "amount": {
+            "amount": 400,
+            "currency": "INR"
+          }
+        },
+        {
+          "code": "IN",
+          "amount": {
+            "amount": 3068,
+            "currency": "INR"
+          }
+        },
+        {
+          "code": "P2",
+          "amount": {
+            "amount": 4728,
+            "currency": "INR"
+          }
+        },
+        {
+          "code": "ZR",
+          "amount": {
+            "amount": 456,
+            "currency": "INR"
+          }
+        },
+        {
+          "code": "CGST",
+          "amount": {
+            "amount": 806,
+            "currency": "INR"
+          }
+        },
+        {
+          "code": "SGST",
+          "amount": {
+            "amount": 806,
+            "currency": "INR"
+          }
+        }
+      ],
+      "discount": []
+    },
+    "refundability": "UnKnown",
+    "isDealCodeApplied": null,
+    "appliedDealCode": null,
+    "isPromoted": false,
+    "appliedPromotionCode": ""
+  },
+  "emdTickets": {},
+  "isBspCommissionApplied": false,
+  "diRemarks": []
+}

@@ -1,0 +1,22 @@
+- **Finding ID**: FINDING-015
+- **Title**: Admin's wallet shows three distinct balance components (Your Balance / Credit Balance / Top Up Balance), unlike Portal's single balance figure
+- **Category**: Observation
+- **Severity**: N/A
+- **Severity Reason**: Observation is always N/A per the Severity Matrix (§5.4) — a structural/architectural note, not a defect.
+- **Confidence Score**: 88% (clearly shown, and the internal arithmetic — Your Balance = Credit Balance + Top Up Balance — checks out exactly)
+- **Evidence Category**: Static Artifact (2026-09-27, user-supplied screenshot of Admin's Payment Details step), corroborated by Human Observation (the user's confirmation this is a genuine wallet-structure difference, not a display glitch). Per §18, this caps Status below `Confirmed`.
+- **Status**: Needs Human Review (evidence-tier cap; also genuinely useful for Test Design to have confirmed live before relying on it)
+- **Business Risk**: None identified — this is a structural difference, not an error. Test Design needs to know which wallet figure(s) to assert against per channel.
+- **Technical Risk**: None identified.
+- **Module**: Ancillaries / AirIndia (Supplier Feature scope) — Admin channel
+- **Workflow**: Admin — Booking-Mid Office, Payment Details step
+- **Description**: Admin's Payment Details step (Wallet tab) shows three figures: **Your Balance: 8,877,972.19 EGP**, **Credit Balance: 1,000,000 EGP**, **Top Up Balance: 7,877,972.19 EGP**. These reconcile exactly: Your Balance (8,877,972.19) = Credit Balance (1,000,000) + Top Up Balance (7,877,972.19). Portal's equivalent step (per this run's earlier Direct Observation Findings, e.g. FINDING-007) shows a single "Your Balance" figure with no Credit/Top-Up split. After this booking (Total 24,072 EGP), Admin's **Top Up Balance** specifically dropped by exactly the booking total (7,877,972.19 -> 7,853,900.19, confirmed in FINDING-013/016's report evidence) — i.e., deductions come out of the Top Up component, not the Credit component, in this observed case. Admin also offers a second payment method, **Banque Misr**, alongside Wallet — Portal only offered Wallet.
+- **Expected Behavior**: Per ANC-56 (shared baseline rev 4, Approved 2026-09-28): Admin's wallet is structured as three components — Your Balance, Credit Balance, Top Up Balance (Your Balance = Credit Balance + Top Up Balance) — distinct from Portal's single-balance model; ANC-46 still governs deduction timing.
+- **Actual Behavior**: Three-component wallet (Your Balance / Credit Balance / Top Up Balance) on Admin; deduction observed to reduce Top Up Balance by the exact booking total, consistent with the platform-wide "no deduction until confirmation, then the exact total" rule (ANC-46) — just expressed through a different wallet structure than Portal's.
+- **Steps to Reproduce**: Admin -> Booking-Mid Office -> reach the Payment Details step of any booking -> observe the Wallet tab's three balance figures before and after completing the booking.
+- **Investigation/Recovery Result**: Not applicable — user-supplied evidence.
+- **Investigation Notes**: Not yet established whether "Credit Balance" ever gets drawn down (e.g., once Top Up Balance is exhausted), or under what conditions Banque Misr would be used instead of Wallet — both are open questions for a future pass, not blockers.
+- **Root Cause Hypothesis**: *(omitted — a confirmed structural observation, not an anomaly)*
+- **Occurrence Count**: 1
+- **Evidence Links**: `admin_payment_details_wallet_three_components.png` (Payment Details, Wallet tab, three balance figures, Banque Misr tab visible, "Hold is not available for this flight" warning banner).
+- **Recommendation**: Record Admin's three-component wallet structure in the shared `ancillaries-baseline` Project Context once it's revised for Admin scope. Test Design should assert against **Top Up Balance** specifically for Admin deduction-timing cases (mirroring FINDING-007's Portal assertion against the single balance figure), and treat Credit Balance behavior as a separate, currently-undocumented question.

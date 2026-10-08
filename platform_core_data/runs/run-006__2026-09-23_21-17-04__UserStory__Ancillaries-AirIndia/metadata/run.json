@@ -1,0 +1,21 @@
+{
+  "folderName": "run-006__2026-09-23_21-17-04__UserStory__Ancillaries-AirIndia",
+  "index": 6,
+  "scope": "UserStory",
+  "target": "Ancillaries-AirIndia",
+  "workflow": "unversioned",
+  "targetRef": "bc564a4c8364560b2664de5c4e64ad21c8b70925",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-09-23T18:17:04.365Z",
+  "targetRepoRoot": "C:/Users/HUSSIENY/Desktop/Ancillaries Airandia",
+  "targetRefReason": "git repository at C:/Users/HUSSIENY/Desktop/Ancillaries Airandia",
+  "createdBy": "Ahmed Alhussieny",
+  "startedTime": "2026-09-23T18:17:04.365Z",
+  "status": "Preparing",
+  "scopeFamily": null,
+  "feature": null,
+  "supplier": null,
+  "sharedScope": null,
+  "testingLayerScope": null,
+  "scopeHistory": []
+}

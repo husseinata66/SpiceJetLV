@@ -1,0 +1,28 @@
+- **Finding ID**: FINDING-016
+- **Title**: Admin's Total Due to NDC, Agency Wallet, Sales, AR Ledger, and Wallet History reports all correctly reflect the real booking's price/wallet figures
+- **Category**: Observation
+- **Severity**: N/A
+- **Severity Reason**: Observation is always N/A per the Severity Matrix (§5.4) — a positive confirmation across five report types.
+- **Confidence Score**: 92% (five independent reports all agree with each other and with the real booking's known figures — strong mutual corroboration, though not yet independently reproduced via this session's own live automation)
+- **Evidence Category**: Static Artifact (2026-09-27, user-supplied screenshots of five Admin report screens, each with live search results), corroborated by Human Observation. Per §18, this caps Status below `Confirmed`.
+- **Status**: Needs Human Review (evidence-tier cap, not a doubt about the content)
+- **Business Risk**: None identified — closes part of the same ANC-53 "reports" coverage gap already identified for Portal (FINDING-011), now extended to Admin's own report set.
+- **Technical Risk**: None identified.
+- **Module**: Ancillaries / AirIndia (Supplier Feature scope) — Admin channel
+- **Workflow**: Admin — Reports (`Total Due to NDC`, `Agency Wallet`, `Sales`, `AR Ledger Report`, `Wallet History Report`)
+- **Description**: For the same real Admin booking (Order Id `BRN297NDCORD260927O9XJH1`, Total 24,072 EGP, pre-booking wallet 7,877,972.19 EGP), all five reports reconcile exactly:
+  - **Total Due to NDC**: Amount Payable To Ndc = **24072 EGP**.
+  - **Agency Wallet**: Top-up Balance = Net Amount = **7,853,900.19 EGP** (= 7,877,972.19 − 24,072, exact).
+  - **Sales**: Sales Amount = Payable To Ndc = **24,072.00**, Total Markup 0.00.
+  - **AR Ledger**: Credit = **24,072**, Running Balance = **7,853,900.19** (Start Balance 7,877,972.19 minus this credit).
+  - **Wallet History**: Start Balance (Debit column) 7,877,972.19 -> transaction (Credit column) **24,072** -> End Balance (Debit column) **7,853,900.19** — exact arithmetic, though see FINDING-017 for a labeling-convention note on this same report.
+  All five figures are mutually consistent and match the booking's own Costing & Payment detail (FINDING-013) exactly. This closes part of the same ANC-53 "reports" gap already found for Portal (FINDING-011), now for Admin's own equivalent report set. Note: **Daily Sales Report** was explicitly excluded from scope by the user (2026-09-27) and was never evidenced — not covered by this Finding.
+- **Expected Behavior**: Per ANC-53 (booking confirmation, itinerary, and reports all reflect selected ancillaries and their prices) and ANC-57 (shared baseline rev 4, Approved 2026-09-28): Admin exposes its own Reports for price verification — Total Due to NDC, Agency Wallet, Sales, AR Ledger Report, Wallet History Report, Statement.
+- **Actual Behavior**: Matches exactly, across all five report types checked.
+- **Steps to Reproduce**: Admin -> Reports -> open each of Total Due to NDC / Agency Wallet / Sales / AR Ledger Report / Wallet History Report -> filter by the same Branch and a date range bracketing the booking's invoice date -> observe the figures above.
+- **Investigation/Recovery Result**: Not applicable — user-supplied evidence.
+- **Investigation Notes**: Wallet History Report's Credit/Debit column semantics are inverted relative to normal accounting convention — split out as its own Finding (FINDING-017) since it's a UX concern independent of this Finding's core "the numbers are correct" claim.
+- **Root Cause Hypothesis**: *(omitted — confirmed expected behavior, no anomaly)*
+- **Occurrence Count**: 1
+- **Evidence Links**: `admin_total_due_to_ndc_report.png`, `admin_agency_wallet_report.png`, `admin_sales_report.png`, `admin_ar_ledger_report.png`, `admin_wallet_history_report.png`.
+- **Recommendation**: Once live-verified (browser automation or the agreed retrieve-endpoint approach), fold this into the same Coverage/Findings pattern already used for Portal's FINDING-011, extended per-channel.

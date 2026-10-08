@@ -1,0 +1,22 @@
+- **Finding ID**: FINDING-017
+- **Title**: Wallet History Report's Credit/Debit column labeling is inverted from standard accounting convention (numerically correct, but confusing)
+- **Category**: UX Issue
+- **Severity**: Low
+- **Severity Reason**: Matches the Severity Matrix's (§5.4) "UI/cosmetic issues · Minor usability friction" criterion — the underlying figures are correct (see FINDING-016), this is purely a labeling/clarity concern.
+- **Confidence Score**: 82% (clearly shown on a single screenshot; the "inverted" read is an interpretation of column semantics, not a hard fact, so slightly more caution than a pure figure-matching Finding)
+- **Evidence Category**: Static Artifact (2026-09-27, user-supplied screenshot of Admin's Wallet History Report), corroborated by Human Observation. Per §18, this caps Status below `Confirmed`.
+- **Status**: Needs Human Review (evidence-tier cap; also a genuine judgment call on whether this labeling is intentional/acceptable, which is a product decision, not something more automation resolves)
+- **Business Risk**: Minor — an agency/finance user reading this report literally (treating "Credit" as money added and "Debit" as money removed, the normal convention) would misread the direction of their own wallet movement.
+- **Technical Risk**: None — the underlying data and arithmetic are correct (see FINDING-016); this is presentation only.
+- **Module**: Ancillaries / AirIndia (Supplier Feature scope) — Admin channel
+- **Workflow**: Admin — Reports -> Wallet History Report
+- **Description**: In the Wallet History Report for this booking, the **Start Balance** and **End Balance** rows carry their values under the **Debit Amount** column (7,877,972.19 and 7,853,900.19 respectively), while the actual money-out transaction for the booking itself (24,072 EGP, which reduced the balance) is shown under the **Credit Amount** column. In standard accounting convention, a Credit typically increases a balance and a Debit decreases it (or vice versa depending on account type) — here, the column carrying the *balance snapshot* is Debit while the column carrying the *outflow transaction* is Credit, which reads as inverted/confusing regardless of which convention is intended. The arithmetic itself is exact (Start 7,877,972.19 − transaction 24,072 = End 7,853,900.19, per FINDING-016), so this is purely a labeling/semantics concern, not a data-correctness one.
+- **Expected Behavior**: Not defined in Project Context — no documented convention exists for this report's column semantics.
+- **Actual Behavior**: Balance-snapshot rows (Start/End Balance) appear under "Debit Amount"; the actual outflow transaction appears under "Credit Amount."
+- **Steps to Reproduce**: Admin -> Reports -> Wallet History Report -> search any Branch/date range with at least one transaction -> observe the Start Balance / transaction / End Balance rows and which column each value appears under.
+- **Investigation/Recovery Result**: Not applicable — user-supplied evidence.
+- **Investigation Notes**: Only one transaction type (a flight booking debit) was observed in this data — it's not yet known whether a wallet top-up (an actual credit/inflow) would appear under the same "Credit Amount" column, which would clarify whether the column is mislabeled or whether "Credit"/"Debit" here mean something specific to this report that just isn't the everyday convention.
+- **Root Cause Hypothesis**: Likely a labeling/terminology choice inherited from an internal ledger convention (e.g., "Debit" = wallet holding/balance, "Credit" = amount applied against it) rather than a bug — but unconfirmed.
+- **Occurrence Count**: 1
+- **Evidence Links**: `admin_wallet_history_report_labeling.png`.
+- **Recommendation**: Ask the product/business owner whether this column labeling is intentional; if so, consider it documented behavior (not a defect) and note it for Test Design so assertions target the correct column; if not, flag to engineering as a low-severity UX fix.

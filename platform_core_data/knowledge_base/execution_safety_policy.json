@@ -1,11 +1,11 @@
 {
   "policyId": "ndc-admin-portal-stg",
-  "policyVersion": 1,
+  "policyVersion": 2,
   "effectiveFrom": "2026-08-07",
-  "description": "Execution Safety policy for the NDC Admin Portal on shared staging (STG). Machine-readable and authoritative for evaluation; execution_safety_policy.md beside this file explains it for reviewers and records the provenance of every rule. Every rule below is either migrated from existing project evidence or is a flagged conservative default -- none was invented because it seemed reasonable.",
+  "description": "Execution Safety policy for the NDC Admin Portal on shared staging (STG). Machine-readable and authoritative for evaluation; execution_safety_policy.md beside this file explains it for reviewers and records the provenance of every rule. Every rule below is either migrated from existing project evidence or is a flagged conservative default -- none was invented because it seemed reasonable. Version 2 (2026-09-28, HD-SAFETY-006) added a narrow SelfCreated carve-out for booking/financial actions, for the Ancillaries/AirIndia Supplier Feature run -- see execution_safety_policy.md S3.5.",
 
   "environment": "Staging",
-  "environmentAliases": ["STG", "staging", "stg"],
+  "environmentAliases": ["STG", "staging", "stg", "STG_PORTAL", "ANCILLARIES_STG"],
 
   "defaults": {
     "*": {
@@ -104,6 +104,12 @@
     },
 
     "booking": {
+      "SelfCreated": {
+        "decision": "Approval Required",
+        "cleanupRequired": false,
+        "reason": "Booking-lifecycle actions against a booking this run itself creates (Ancillaries/AirIndia test bookings) require an explicit, run-scoped authorization -- never a blanket permission. Every other ownership class stays absolutely forbidden below.",
+        "source": "HD-SAFETY-006 (user-approved 2026-09-28), scoped narrowly to SelfCreated for the Ancillaries/AirIndia Supplier Feature run -- see execution_safety_policy.md S3.5"
+      },
       "*": {
         "decision": "Forbidden",
         "absolute": true,
@@ -113,6 +119,12 @@
     },
 
     "financial": {
+      "SelfCreated": {
+        "decision": "Approval Required",
+        "cleanupRequired": false,
+        "reason": "Financial actions (payment, wallet charge) against a booking this run itself creates require an explicit, run-scoped authorization -- never a blanket permission. Every other ownership class stays absolutely forbidden below.",
+        "source": "HD-SAFETY-006 (user-approved 2026-09-28), scoped narrowly to SelfCreated for the Ancillaries/AirIndia Supplier Feature run -- see execution_safety_policy.md S3.5"
+      },
       "*": {
         "decision": "Forbidden",
         "absolute": true,
@@ -169,6 +181,11 @@
     },
 
     "PAYMENT": {
+      "SelfCreated": {
+        "decision": "Approval Required",
+        "reason": "A payment against a booking this run itself creates, on STG_PORTAL/ANCILLARIES_STG, requires an explicit run-scoped authorization before it executes.",
+        "source": "HD-SAFETY-006 (user-approved 2026-09-28), scoped narrowly for the Ancillaries/AirIndia Supplier Feature run -- see execution_safety_policy.md S3.5"
+      },
       "*": {
         "decision": "Forbidden",
         "absolute": true,
@@ -185,6 +202,11 @@
       }
     },
     "WALLET_CHARGE": {
+      "SelfCreated": {
+        "decision": "Approval Required",
+        "reason": "A wallet deduction against a booking this run itself creates, on STG_PORTAL/ANCILLARIES_STG, requires an explicit run-scoped authorization before it executes.",
+        "source": "HD-SAFETY-006 (user-approved 2026-09-28), scoped narrowly for the Ancillaries/AirIndia Supplier Feature run -- see execution_safety_policy.md S3.5"
+      },
       "*": {
         "decision": "Forbidden",
         "absolute": true,
@@ -201,6 +223,11 @@
       }
     },
     "BOOK": {
+      "SelfCreated": {
+        "decision": "Approval Required",
+        "reason": "A booking this run itself creates, on STG_PORTAL/ANCILLARIES_STG, requires an explicit run-scoped authorization before it executes.",
+        "source": "HD-SAFETY-006 (user-approved 2026-09-28), scoped narrowly for the Ancillaries/AirIndia Supplier Feature run -- see execution_safety_policy.md S3.5"
+      },
       "*": {
         "decision": "Forbidden",
         "absolute": true,
@@ -255,6 +282,7 @@
   },
 
   "notes": [
+    "HD-SAFETY-006 (2026-09-28): the booking/financial SelfCreated entries above (categories.booking, categories.financial, actions.BOOK/PAYMENT/WALLET_CHARGE) are a policy addition for the Ancillaries/AirIndia Supplier Feature run (run-007) -- see execution_safety_policy.md S3.5 for full provenance. Pure additions: every pre-existing rule is unchanged, and every ownership class other than SelfCreated remains exactly as absolutely forbidden as before.",
     "NO MODULE OVERRIDES ARE DEFINED. Module- and entity-scoped overrides are fully supported by the evaluator, but no current project document establishes a rule that differs per module, and inventing one would violate the do-not-invent-permissions rule. Historical per-module grants (run-001 Agency, run-002 Branch, run-003 self-created Branch) were RUN authorizations, not standing project policy, and each states explicitly that it does not carry forward.",
     "ABSOLUTE means no other policy rule, at any scope, can override this one. Separately, and independently of the flag: NO run-scoped authorization can ever lift a Forbidden decision (HD-SAFETY-001, 2026-08-07). A run authorization only ever satisfies an Approval Required.",
     "PROSPECTIVE ONLY. This policy takes effect 2026-08-07 and governs runs created after it. run-001, run-002 and run-003 executed under the prose grants recorded in run_configuration.md and were NOT evaluated by this mechanism (HD-SAFETY-005, 2026-08-07)."

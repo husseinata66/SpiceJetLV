@@ -10,8 +10,8 @@
 | Field | Value |
 |---|---|
 | Policy ID | `ndc-admin-portal-stg` |
-| Version | 1 |
-| Environment | **Staging** (aliases: `STG`, `staging`, `stg`) |
+| Version | 2 (2026-09-28, HD-SAFETY-006 — see §3.5) |
+| Environment | **Staging** (aliases: `STG`, `staging`, `stg`, `STG_PORTAL`, `ANCILLARIES_STG`) |
 | Effective from | **2026-08-07** |
 | Evaluator | [`platform_core/tools/execution_safety/`](../../platform_core/tools/execution_safety/README.md) |
 | Applies to | Runs created on or after 2026-08-07 — see [§6](#6-what-this-policy-does-not-cover) |
@@ -124,6 +124,43 @@ The three historical per-module grants — run-001 (Agency), run-002 (Branch), r
 Branch only) — were **run authorizations, not standing policy**, and each states in its own text
 that it *does not carry forward*. Converting one into a module override would turn a one-run
 approval into a permanent permission.
+
+### 3.5 Relaxed for Ancillaries/AirIndia, 2026-09-28
+
+**HD-SAFETY-006.** A pure addition — every rule in §3.1–§3.3 is unchanged, and every ownership class
+other than `SelfCreated` remains exactly as absolutely forbidden as it was in version 1.
+
+**Context:** Stage 4M (Manual Execution) for the Ancillaries/AirIndia Supplier Feature run (`run-007`)
+needs to actually complete real bookings, payments, and wallet deductions to execute its approved
+test suite — 6 of its 26 executable test cases are end-to-end scenarios that only produce evidence by
+completing a real booking cycle. Under version 1, `BOOK`/`PAYMENT`/`WALLET_CHARGE` were `Forbidden,
+absolute` for every ownership class, which made those 6 cases — and everything depending on their
+output (Confirmation, retrieve-endpoint, Search Booking, Costing, Reports checkpoints) — impossible to
+execute at all.
+
+**What changed:** `categories.booking`, `categories.financial`, and `actions.BOOK` / `actions.PAYMENT`
+/ `actions.WALLET_CHARGE` each gained a new `SelfCreated` key, decision `Approval Required` (never
+`Allowed`, and never `absolute`). A booking this run itself creates — a fresh test booking with test
+passenger data, on `STG_PORTAL` (Portal) or `ANCILLARIES_STG` (Admin) — can now be authorized by a
+run-scoped grant (`SafetyAuthorizations.json`, inside `runs/run-007…/metadata/`), same mechanism as
+every other `Approval Required` decision in this policy. Every other ownership class (`Shared`,
+`Unknown`, `DedicatedTestData`, `ProductionLike`) keeps the pre-existing `*` wildcard rule, unchanged —
+still `Forbidden, absolute`, for booking/financial actions against anyone else's data. `HOLD`,
+`TICKET`, `CANCEL_BOOKING`, `VOID`, `TOP_UP`, `REFUND` are untouched — still `Forbidden, absolute` for
+every ownership class, since no approved test case in this run's scope needs them (Void/Cancel and
+Top-Up were explicitly placed out of scope during Discovery).
+
+**Environment identity:** `STG_PORTAL` (the Portal app, `http://192.168.1.213:9500`) and
+`ANCILLARIES_STG` (the Admin app for this Feature specifically, `http://192.168.1.213`, distinct from
+the original project's Admin app at `192.168.1.70`) were added as aliases of `Staging`, per explicit
+user confirmation (2026-09-28) that both are genuine test/staging systems — not production, not
+connected to a live payment gateway or real supplier ticketing — following the standing project rule
+that an environment's safety is never inferred from its name alone.
+
+**Provenance:** User-approved 2026-09-28, in response to the Stage 4M preflight reporting `BOOK` and
+`financial` actions as `Forbidden, absolute` and blocking all 6 E2E test cases. The user was shown the
+exact JSON diff before approving. Per §7 rule 6 below, this relaxation is recorded here as a Human
+Decision, not an engineering one.
 
 ---
 

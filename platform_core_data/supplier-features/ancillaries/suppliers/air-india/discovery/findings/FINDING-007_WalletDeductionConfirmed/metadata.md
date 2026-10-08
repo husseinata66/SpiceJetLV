@@ -1,0 +1,22 @@
+- **Finding ID**: FINDING-007
+- **Title**: Wallet deduction confirmed to occur only at booking confirmation, matching the full total including ancillaries
+- **Category**: Observation
+- **Severity**: N/A
+- **Severity Reason**: Observation is always N/A per the Severity Matrix (§5.4) — a positive confirmation.
+- **Confidence Score**: 99% (Direct Observation independently reproduced the exact arithmetic on a real, freshly-created booking: pre-booking balance 1,197,740.9 EGP, post-booking balance 1,173,618.9 EGP, difference 24,122.0 EGP — matching the booking's Total Amount to the exact EGP)
+- **Evidence Category**: Direct Observation (2026-09-27, live browser automation — read the Wallet Payment "Your Balance" figure immediately before clicking "Book" on a real booking, then re-read it via a fresh Payment Details screen immediately after), corroborated by the original Human Observation + Static Artifact. Per §18, Direct Observation is the only Evidence Category that can reach `Confirmed`.
+- **Status**: Confirmed
+- **Business Risk**: None identified — confirms the platform-wide rule holds for AirIndia.
+- **Technical Risk**: None identified.
+- **Module**: Ancillaries / AirIndia (Supplier Feature scope)
+- **Workflow**: Portal — Payment Details -> Booking Confirmation
+- **Description**: On the Payment Details screen (pre-confirmation), Wallet "Your Balance" showed 1,221,562.9 EGP — unchanged from every earlier screen in this session, despite Meal/Baggage/Bundle already being selected. After completing the booking, the confirmation screen ("Order Details", ticket Confirmed) shows Wallet balance 1,197,740.900 EGP. The difference (1,221,562.9 - 1,197,740.900 = 23,822.000 EGP) exactly matches the booking's Net Payable/Total Amount (23,822 EGP), which itself includes Base fare + Taxes + Meal + Baggage + Bundle.
+- **Expected Behavior**: Per ANC-46 (shared baseline, confirmed 2026-09-23): "No amount is held or deducted for ancillary/Bundle selection alone. The full price, including ancillaries and Bundle, is deducted only at booking confirmation."
+- **Actual Behavior**: Matches exactly — no deduction during ancillary selection, full deduction (matching the complete total) at booking confirmation.
+- **Steps to Reproduce**: Select Meal, Baggage, and Bundle ancillaries during booking -> observe wallet balance unchanged through Payment Details -> complete booking -> observe wallet balance reduced by exactly the Total Amount.
+- **Investigation/Recovery Result**: Not applicable — a direct, static observation across two screen captures.
+- **Investigation Notes**: The Payment Details screen displayed a note reading "Your money is currently being deducted from your wallet balance" while the balance was still showing the pre-deduction figure — this note's wording is a UI/copy ambiguity (it reads as if deduction is already in progress at that step), but the actual balance figures across both screenshots confirm deduction had not yet occurred at that point and completed only after confirmation. Flagged as a minor copy-clarity note, not a functional discrepancy.
+- **Root Cause Hypothesis**: *(omitted — confirmed expected behavior)*
+- **Occurrence Count**: 1
+- **Evidence Links**: `payment_details.png` (pre-confirmation, wallet 1,221,562.9 EGP), `order_confirmed.png` (post-confirmation, wallet 1,197,740.900 EGP); `live_wallet_before_booking_direct_observation.png` (2026-09-27, wallet 1,197,740.9 EGP immediately before clicking Book), `live_wallet_after_booking_direct_observation.png` (2026-09-27, wallet 1,173,618.9 EGP on a fresh Payment Details screen after booking — exact 24,122.0 EGP difference matching the booking Total).
+- **Recommendation**: Mark ANC-46 as Verified for AirIndia during the next Stage 1 revision. Optionally flag the Payment Details page's "currently being deducted" copy to the UI/product owner as potentially misleading wording, separate from this Finding's core confirmation.

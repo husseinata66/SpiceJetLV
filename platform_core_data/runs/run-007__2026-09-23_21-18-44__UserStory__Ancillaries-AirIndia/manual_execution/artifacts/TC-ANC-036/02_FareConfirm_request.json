@@ -1,0 +1,17 @@
+{
+  "calledAt": "2026-10-03T03:00:38.992Z",
+  "method": "POST",
+  "endpoint": "https://ndc-integration-stg-ne-3.azurewebsites.net/api/V2/FlightSearch/FareConfirm",
+  "headers": {
+    "Content-Type": "application/json",
+    "x-api-key": "[REDACTED]",
+    "Client-Id": "[REDACTED]"
+  },
+  "body": {
+    "supplier": "AirIndia",
+    "credentialsSelector": "EGY",
+    "responseId": "7c4b2f01-1221-4347-80db-73775dd366b7",
+    "selectedOfferId": "e7e8c322-0251-4b35-a228-9e74611dbc51&yAIlY9IAAARA8BGXkZbZlFNWaF9NVE01TVg0Z2ZuNUVSVXhfTVRFdk1qQQQA/gF5TmlBeU1Eb3pNSDVNUzA5HADwE1RvME1INV9Ya2xZZmlBeE9UTl9JSDVfVEV0UGZqRXhMekkEAP4Cd01qWWdNREU2TXpWX1JGaEMcABFRHADwM2ZnLS3ZJE1INVNmbjVKTlg1U1JsaF9TVmhHV0g1X01INHhmbjVZSVRBLcCjREVMo0RYQsCRk5OjQURUoAGTo0NIRAcAf0lORqABkpTfAIQfSHUBNfQPk6QxMzkxoklYwJGY2TxOak01TXpBNE1ETTBNREF3BADwBUlVbFlJVEV6T1RFaElDRkVSVXdonwHwA0lUZzRNak13TURZLcCUo0xLT1IBYNb/awC+MAYA+wWtyNwAHccM/wAAAAD////xiG4JAA8A+R4AoTMAAADCAKExAKM3TTjAwsIAwMLAwMAAszIwMjYtMTEtMjBUMjE6NDA6MDAUADAwOjMUAEDAwAAAMQAfwKwBimFJREU1TTMhAwcFAwElAwAhA8N3TVRvek5YNUVXRUohAwYcACFORBwAbV+TozE5M6sBNGpFM6cBAAgAA6sB8A01TXlFZ0lVeExUeUZFV0VJaE9EYzBPRGcxTlEtqwEwRFhCrwFg1v9rAR90qwEv9USrARASMqsBjzMAozMyMKFBrAEAeTFUMDQ6MzWsAUIxVDAxFAAFrAFwAaNJTlKgoA=="
+  },
+  "httpStatus": 200
+}

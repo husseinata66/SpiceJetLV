@@ -1,0 +1,381 @@
+{
+  "title": "Manual QA Report — Ancillaries / Air India",
+  "documentTitle": "Ancillaries/AirIndia — Manual QA Report",
+  "statusPill": "PENDING REVIEW",
+  "statusPillTone": "warning",
+  "statuses": [
+    { "key": "Passed", "label": "Passed", "tone": "pass" },
+    { "key": "Failed", "label": "Failed", "tone": "fail" },
+    { "key": "Blocked", "label": "Blocked", "tone": "blocked" },
+    { "key": "Skipped", "label": "Skipped", "tone": "warning" },
+    { "key": "Not Executed", "label": "Not Executed", "tone": "neutral" },
+    { "key": "Inconclusive", "label": "Inconclusive", "tone": "accent" },
+    { "key": "Excluded", "label": "Excluded", "tone": "neutral" }
+  ],
+  "meta": {
+    "fields": [
+      { "label": "Run Folder", "value": "run-007__2026-09-23_21-18-44__UserStory__Ancillaries-AirIndia", "mono": true },
+      { "label": "Run Scope", "value": "Feature / User Story — Ancillaries / Air India" },
+      [
+        { "label": "Admin environment", "value": "http://192.168.1.213 (Staging)", "mono": true },
+        { "label": "Portal environment", "value": "http://192.168.1.213:9500 (Staging)", "mono": true }
+      ],
+      { "label": "Execution window", "value": "2026-09-28 19:00 UTC → 2026-10-03 03:10 UTC" },
+      { "label": "Browser mode", "value": "Headed (Playwright MCP) — required for this stage" }
+    ],
+    "runFields": [
+      { "label": "Executable scope", "value": "27 of 28 cases (Review = Approved)" },
+      { "label": "Excluded", "value": "1 — TC-ANC-026, reason: Pending Review" }
+    ]
+  },
+  "summary": {
+    "total": 28,
+    "totalLabel": "Suite Total",
+    "duration": "2026-09-28 → 2026-10-03",
+    "durationLabel": "Execution Window",
+    "donut": { "focus": "Passed", "percent": 92.6, "label": "pass rate (executable scope, 25/27)" }
+  },
+  "testCases": {
+    "title": "Test case results",
+    "searchPlaceholder": "Search by Test Case ID, title, PNR...",
+    "categories": [
+      {
+        "key": "flow",
+        "name": "Six-checkpoint E2E",
+        "icon": "✈️",
+        "open": true,
+        "cases": [
+          {
+            "id": "TC-ANC-002",
+            "title": "One-way, with stop, ancillaries selected (Portal) — six-checkpoint E2E",
+            "status": "Passed",
+            "rows": [
+              { "label": "Booking", "value": "PNR Z33F4Z · Booking Ref NDCEG-BR-F260928ABwtpA · 45,692 EGP" },
+              { "label": "Result", "value": "Every checkpoint consistent; Infant exclusion and Meal-per-leg/Baggage-per-journey rules hold exactly" },
+              { "label": "Carried defects", "value": "Defect A (see TC-ANC-022); Low-severity Bundle label bracket glitch (see Known Limitations)" }
+            ],
+            "evidence": "artifacts/TC-ANC-002/ (12 files: screenshots, redacted retrieve JSON, DOM snapshots)",
+            "detail": {
+              "preconditions": "Portal user logged in as Agency AGN9808",
+              "testData": "Route DEL-DXB (1 stop), one-way, 2 Adult/2 Child/2 Infant",
+              "steps": [ "Search and select flight", "Complete PAX Details and Ancillaries (Meal+Baggage+Bundle)", "Complete payment", "Compare Confirmation, Supplier Retrieve, My Bookings, Costing, Reports" ],
+              "expected": "Every checkpoint shows consistent data for this booking; Infant exclusion and Meal-per-leg/Baggage-per-journey rules hold exactly",
+              "priority": "P1",
+              "tags": [ "E2E", "Smoke", "Regression" ]
+            }
+          },
+          {
+            "id": "TC-ANC-003",
+            "title": "Round-trip, non-stop, ancillaries selected (Portal) — six-checkpoint E2E",
+            "status": "Passed",
+            "rows": [
+              { "label": "Booking", "value": "PNR P6MVJA · Booking Ref NDCEG-BR-F260930MsiBuW · 35,854 EGP (attempt 3 of record)" },
+              { "label": "Result", "value": "Answers round-trip Baggage scoping: once per direction (2 independent slots), not once for the whole trip" },
+              { "label": "Carried defects", "value": "Defect A — return-direction ancillaries missing from the retrieve itemization" }
+            ],
+            "evidence": "artifacts/TC-ANC-003/ (24 files across 3 attempts)",
+            "detail": {
+              "preconditions": "Portal user logged in as Agency AGN9808",
+              "testData": "Route BOM-COK (round-trip), non-stop, 2 Adult/2 Child/2 Infant",
+              "steps": [ "Search and select round-trip flights", "Complete PAX Details and Ancillaries, both legs", "Complete payment", "Compare every checkpoint for both legs" ],
+              "expected": "Every checkpoint consistent; the Baggage round-trip scoping question is answered and recorded",
+              "priority": "P1",
+              "tags": [ "E2E", "Regression" ]
+            }
+          },
+          {
+            "id": "TC-ANC-004",
+            "title": "One-way, non-stop, ancillaries selected (Admin) — six-checkpoint E2E",
+            "status": "Passed",
+            "rows": [
+              { "label": "Booking", "value": "PNR USCWVR · Booking Ref NDCEG-BR-F260930PldcAl · 18,176 EGP" },
+              { "label": "Result", "value": "All checkpoints reconcile including Markup (+100 EGP/pax), Service Charge, Discount; control case for Defect A — no repeated code, itemization complete and correct" }
+            ],
+            "evidence": "artifacts/TC-ANC-004/ (17 files)",
+            "detail": {
+              "preconditions": "Admin user logged in; a Branch is selected",
+              "testData": "Route BOM-COK, one-way, non-stop, 2 Adult/2 Child/2 Infant",
+              "steps": [ "Booking-Mid Office, select Branch", "Search and select flight", "PAX Details, Bundle, Ancillaries", "Complete payment", "Compare Confirmation, Supplier Retrieve, Search Booking, Costing, 5 Reports" ],
+              "expected": "Every checkpoint consistent; Infant exclusion and Meal-per-leg/Baggage-per-journey rules hold",
+              "priority": "P1",
+              "tags": [ "E2E", "Smoke", "Regression" ]
+            }
+          },
+          {
+            "id": "TC-ANC-005",
+            "title": "Round-trip, with stop, ancillaries selected (Admin) — six-checkpoint E2E",
+            "status": "Passed",
+            "rows": [
+              { "label": "Booking", "value": "PNR MSK5XB · Booking Ref NDCEG-BR-F261001XcqALn · 51,656 EGP" },
+              { "label": "Result", "value": "Confirms Baggage once-per-direction on round trips; Markup/Service/Discount all reconcile" },
+              { "label": "Carried defects", "value": "Defect A — Baggage and Bundle codes also undercounted on the return direction" }
+            ],
+            "evidence": "artifacts/TC-ANC-005/ (10 files)",
+            "detail": {
+              "preconditions": "Admin user logged in; a Branch is selected",
+              "testData": "Route DEL-DXB (round-trip, 1 stop), 2 Adult/2 Child/2 Infant (fallback to 1/1/1 used)",
+              "steps": [ "Booking-Mid Office, select Branch", "Search round-trip 1-stop flights", "PAX Details, Bundle, Ancillaries, both legs", "Complete payment", "Compare every checkpoint" ],
+              "expected": "Every checkpoint consistent; Baggage round-trip scoping question answered",
+              "priority": "P1",
+              "tags": [ "E2E", "Regression" ]
+            }
+          }
+        ]
+      },
+      {
+        "key": "boundary",
+        "name": "Boundary / Edge cases",
+        "icon": "🧭",
+        "open": true,
+        "cases": [
+          {
+            "id": "TC-ANC-009",
+            "title": "Each Infant is assigned to a distinct Adult passenger",
+            "status": "Passed",
+            "rows": [
+              { "label": "Result", "value": "Assigning a second Infant to an already-held Adult is blocked with an inline 'This adult already assigned!' error" }
+            ],
+            "evidence": "artifacts/TC-ANC-009/01_duplicate_infant_assignment_blocked.png",
+            "detail": {
+              "preconditions": "PAX Details step open for a 2 Adult + 2 Infant booking",
+              "testData": "PNR S61IHQ — one-way DEL-DXB, 2 Adult + 2 Infant",
+              "steps": [ "Enter 2 Adults", "Assign Infant 1 to Adult 1", "Attempt to assign Infant 2 to Adult 1 also" ],
+              "expected": "Each Infant accepted against a distinct Adult; the system blocks a second Infant on an Adult already holding one",
+              "priority": "P2",
+              "tags": [ "Atomic", "Boundary" ]
+            }
+          },
+          {
+            "id": "TC-ANC-034",
+            "title": "One-way, no ancillaries selected for any passenger (Admin) — six-checkpoint E2E",
+            "status": "Passed",
+            "rows": [
+              { "label": "Booking", "value": "PNR H9ZK7E · 24,742 EGP" },
+              { "label": "Result", "value": "Zero-ancillary boundary handled cleanly at every checkpoint; ANC-55 Markup confirmed unconditional on ancillary selection" }
+            ],
+            "evidence": "artifacts/TC-ANC-034/ (7 files)",
+            "detail": {
+              "testData": "Route DEL-DXB, one-way, 1 stop, 2A/2C/2I, zero ancillaries",
+              "expected": "Booking completes with no ancillary charge anywhere; every checkpoint agrees",
+              "priority": "P2",
+              "tags": [ "E2E", "Regression", "Boundary" ]
+            }
+          },
+          {
+            "id": "TC-ANC-035",
+            "title": "Round-trip, ancillaries selected for the onward leg only (Portal) — six-checkpoint E2E",
+            "status": "Passed",
+            "rows": [
+              { "label": "Booking", "value": "PNR S13GWS · 35,281 EGP" },
+              { "label": "Result", "value": "Confirms Baggage CAN be selected onward-only on a round trip, with zero carry-over to the return leg" },
+              { "label": "Carried defects", "value": "Defect A — within-direction repeat also undercounted; corrupted paxTotalAncillaryAmount on this booking" }
+            ],
+            "evidence": "artifacts/TC-ANC-035/ (8 files)",
+            "detail": {
+              "testData": "Route DEL-DXB (round-trip, 1 stop), onward-only Meal+Baggage",
+              "expected": "The system accepts an asymmetric, onward-only ancillary selection, charges only for what was selected",
+              "priority": "P2",
+              "tags": [ "E2E", "Regression", "Boundary" ]
+            }
+          }
+        ]
+      },
+      {
+        "key": "business-rule",
+        "name": "Business Rules (wallet, mid-flow edits)",
+        "icon": "📐",
+        "cases": [
+          {
+            "id": "TC-ANC-015",
+            "title": "Portal wallet balance unchanged during selection, deducted exact total at confirmation",
+            "status": "Passed",
+            "rows": [
+              { "label": "Result", "value": "Balance unchanged throughout selection (1,056,791.9 EGP); exact 18,422 EGP deduction confirmed via the Total Due to NDC report" }
+            ],
+            "evidence": "artifacts/TC-ANC-015/",
+            "detail": { "priority": "P1", "tags": [ "Atomic", "Regression" ] }
+          },
+          {
+            "id": "TC-ANC-016",
+            "title": "Admin's Top Up Balance reduced by the exact booking total",
+            "status": "Passed",
+            "rows": [
+              { "label": "Result", "value": "Top Up Balance before 7,849,943.19 → after 7,831,767.19, exactly minus the 18,176 EGP total (TC-ANC-004 evidence)" }
+            ],
+            "evidence": "artifacts/TC-ANC-016/",
+            "detail": { "priority": "P1", "tags": [ "Atomic", "Regression" ] }
+          },
+          {
+            "id": "TC-ANC-018",
+            "title": "A selected ancillary can be changed or removed before booking, per passenger",
+            "status": "Passed",
+            "rows": [
+              { "label": "Result", "value": "Changed Passenger 1's Meal (+75 EGP) and removed Passenger 2's Baggage (-900 EGP); each isolated to its own passenger, fare updated by exactly its own delta each time" }
+            ],
+            "evidence": "artifacts/TC-ANC-018/01_before_change.png; artifacts/TC-ANC-018/02_after_change_and_remove.png",
+            "detail": { "priority": "P2", "tags": [ "Atomic", "Regression" ] }
+          },
+          {
+            "id": "TC-ANC-019",
+            "title": "A selected ancillary cannot be changed or removed after booking (Portal)",
+            "status": "Passed",
+            "rows": [
+              { "label": "Result", "value": "Zero change/cancel/remove control found anywhere on the confirmed booking's detail page (reused TC-ANC-035's booking, S13GWS)" }
+            ],
+            "evidence": "artifacts/TC-ANC-019/",
+            "detail": { "priority": "P1", "tags": [ "Atomic", "Regression" ] }
+          }
+        ]
+      },
+      {
+        "key": "integration",
+        "name": "Supplier Retrieve-Endpoint Integration",
+        "icon": "🔌",
+        "open": true,
+        "cases": [
+          {
+            "id": "TC-ANC-022",
+            "title": "Supplier retrieve-endpoint data matches the booked selections (both channels)",
+            "status": "Failed",
+            "statusLabel": "Failed",
+            "rows": [
+              { "label": "Expected", "value": "Passenger and ancillary codes/amounts match the retrieve response directly" },
+              { "label": "Actual", "value": "Per-passenger itemization undercounts any ancillary code repeated for that passenger — confirmed on 5/5 bookings with a repeat, 0/2 false positives on control bookings with no repeat" },
+              { "label": "Defect", "value": "Defect A — see Findings below for the full write-up" }
+            ],
+            "evidence": "artifacts/TC-ANC-022/; artifacts/TC-ANC-023/; TC-ANC-003/R3_07_supplier_retrieve_response.json; TC-ANC-005/06_supplier_retrieve_response.json; TC-ANC-035/06_supplier_retrieve_response.json",
+            "detail": {
+              "preconditions": "A completed booking exists with its Airline PNR known; Postman/API access to the supplier retrieve endpoint",
+              "expected": "Passenger and ancillary data match the retrieve response directly; fare amounts match only after ROE + Markup are applied",
+              "priority": "P1",
+              "tags": [ "Scenario", "Regression" ]
+            }
+          },
+          {
+            "id": "TC-ANC-023",
+            "title": "Investigate unexplained aggregate-total discrepancy in retrieve-endpoint data",
+            "status": "Passed",
+            "rows": [
+              { "label": "Result", "value": "Root cause identified: Defect A — repeated-code itemization undercount, reproduced 3/3 PNRs (YSTPMB, Y1ZVFF, Z33F4Z)" }
+            ],
+            "evidence": "artifacts/TC-ANC-023/",
+            "detail": { "priority": "P2", "tags": [ "Atomic", "Exploratory" ] }
+          },
+          {
+            "id": "TC-ANC-036",
+            "title": "Supplier GetAncillary endpoint data matches the Portal UI's Ancillaries step exactly",
+            "status": "Passed",
+            "rows": [
+              { "label": "Method", "value": "Called Search→FareConfirm→AddPassenger→GetAncillary directly against the NDC integration service, then searched identical criteria live on the Portal UI" },
+              { "label": "Result", "value": "11/11 (Leg 1) + 24/24 (Leg 2) Meal codes and 10/10 Baggage codes matched exactly (code, description, ROE-0.5 price); Infant excluded from ancillary eligibility at the raw API layer itself" },
+              { "label": "Added", "value": "Added mid-delivery, user-directed ad-hoc verification — accepted back into the suite 2026-10-03" }
+            ],
+            "evidence": "artifacts/TC-ANC-036/ (4 redacted API request/response pairs, 1 screenshot)",
+            "detail": {
+              "preconditions": "Direct HTTP access to the NDC integration service's Search/FareConfirm/AddPassenger/GetAncillary endpoints; Portal user logged in",
+              "testData": "DEL-DXB, one-way, 1 Adult + 1 Child + 1 Infant",
+              "expected": "Every ancillary data point the UI displays matches the raw GetAncillary response exactly after ROE conversion; Infant exclusion holds at both layers",
+              "priority": "P2",
+              "tags": [ "Scenario", "Regression", "Integration" ]
+            }
+          }
+        ]
+      },
+      {
+        "key": "usability",
+        "name": "Exploratory / UX judgment",
+        "icon": "🧪",
+        "open": true,
+        "cases": [
+          {
+            "id": "TC-ANC-027",
+            "title": "Confirm whether Wallet History Report's Credit/Debit labeling is intentional",
+            "status": "Inconclusive",
+            "rows": [
+              { "label": "Observation", "value": "Start/End Balance rows appear under Debit; the actual money-out transaction appears under Credit — inverted from standard convention, reproduced 2/2 Admin bookings" },
+              { "label": "Decision", "value": "Explicitly deferred by the reviewer — case cannot resolve to Passed/Failed until a product decision is made" }
+            ],
+            "evidence": "artifacts/TC-ANC-027/00_execution_log.md",
+            "detail": { "priority": "P3", "tags": [ "Atomic", "Exploratory" ] }
+          }
+        ]
+      },
+      {
+        "key": "positive",
+        "name": "Atomic / desk-reviewed (evidence reused)",
+        "icon": "✅",
+        "cases": [
+          { "id": "TC-ANC-001", "title": "Verify Admin Branch/Supplier/Credential configuration for AirIndia", "status": "Passed", "rows": [ { "label": "Result", "value": "Supplier IndiaAirLine / Credential IndiaAirLineStg confirmed active on Branch BRN297" } ], "evidence": "artifacts/TC-ANC-001/01_branch_product_access_flight_tab.png" },
+          { "id": "TC-ANC-006", "title": "Book mixed passengers (2 ADT, 2 CHD, 2 INF) on Portal — Infant excluded from ancillaries", "status": "Passed", "rows": [ { "label": "Result", "value": "Recorded from TC-ANC-002 evidence — only Adult/Child cards offered, no Infant row anywhere" } ], "evidence": "artifacts/TC-ANC-006/00_execution_log.md" },
+          { "id": "TC-ANC-007", "title": "Book mixed passengers (2 ADT, 2 CHD, 2 INF) on Admin — Infant excluded from ancillaries", "status": "Passed", "rows": [ { "label": "Result", "value": "Recorded from TC-ANC-004/005 evidence — Infant rows blank for Meal/Seat/Bundle, no Extra Baggage entry" } ], "evidence": "artifacts/TC-ANC-007/00_execution_log.md" },
+          { "id": "TC-ANC-008", "title": "Adult and Child both receive full ancillary options", "status": "Passed", "rows": [ { "label": "Result", "value": "Recorded from TC-ANC-002/003/004/005 — both passenger types show selectable Meal/Baggage/Bundle" } ], "evidence": "artifacts/TC-ANC-008/00_execution_log.md" },
+          { "id": "TC-ANC-010", "title": "ROE currency conversion arithmetic is correct", "status": "Passed", "rows": [ { "label": "Result", "value": "TC-ANC-035: Taxes 31,180 INR × 0.5 = 15,590 EGP exact; Base 24,182 × 0.5 = 12,091 EGP exact (Portal, zero Markup)" } ], "evidence": "artifacts/TC-ANC-010/00_execution_log.md" },
+          { "id": "TC-ANC-011", "title": "Markup folds into Base Fare, never shown as a separate line item", "status": "Passed", "rows": [ { "label": "Result", "value": "No 'Markup' row ever shown on any Fare Details/Fare Breakdown screen across 6 bookings" } ], "evidence": "artifacts/TC-ANC-011/00_execution_log.md" },
+          { "id": "TC-ANC-012", "title": "Total price arithmetic is correct on Admin", "status": "Passed", "rows": [ { "label": "Result", "value": "TC-ANC-005: Base 12,391 + Taxes 15,590 + Service 75 + Meal 750 + Baggage 21,000 + Bundle 2,000 − Discount 150 = 51,656 exact" } ], "evidence": "artifacts/TC-ANC-012/00_execution_log.md" },
+          { "id": "TC-ANC-014", "title": "Bundle coexists with individually selected Meal/Baggage without conflict", "status": "Passed", "rows": [ { "label": "Result", "value": "Bundle + Meal + Baggage each priced separately and summed correctly, no conflict (TC-ANC-005)" } ], "evidence": "artifacts/TC-ANC-014/00_execution_log.md" },
+          { "id": "TC-ANC-020", "title": "Booking Confirmation reflects all selected ancillaries per passenger (Portal)", "status": "Passed", "rows": [ { "label": "Result", "value": "Recorded from TC-ANC-002's confirmation checkpoint" } ], "evidence": "artifacts/TC-ANC-020/00_execution_log.md" },
+          { "id": "TC-ANC-021", "title": "Itinerary independently reflects the same ancillaries (Portal)", "status": "Passed", "rows": [ { "label": "Result", "value": "Recorded from TC-ANC-002's My Bookings/Segment Ancillaries checkpoint" } ], "evidence": "artifacts/TC-ANC-021/00_execution_log.md" },
+          { "id": "TC-ANC-024", "title": "Portal Total Due to NDC and Sales reports reflect the booking correctly", "status": "Passed", "rows": [ { "label": "Result", "value": "Confirmed on 3 independent Portal bookings (TC-ANC-002/003/035)" } ], "evidence": "artifacts/TC-ANC-024/00_execution_log.md" },
+          { "id": "TC-ANC-025", "title": "Admin's five reports reflect the booking correctly", "status": "Passed", "rows": [ { "label": "Result", "value": "Confirmed on 3 independent Admin bookings (TC-ANC-004/005/034)" } ], "evidence": "artifacts/TC-ANC-025/00_execution_log.md" },
+          { "id": "TC-ANC-026", "title": "Statement report reflects the booking correctly (Portal and Admin)", "status": "Excluded", "rows": [ { "label": "Reason", "value": "Pending Review — held back since Stage 3 pending FINDING-012 (confirmed Statement-report defect on both channels)" } ], "evidence": "—" }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "type": "findings",
+      "title": "Defect Register",
+      "badges": [ { "value": 1, "label": "Confirmed defects", "tone": "fail" }, { "value": 1, "label": "Pending decision", "tone": "accent" } ],
+      "items": [
+        {
+          "kind": "Defect",
+          "tone": "fail",
+          "body": "The supplier retrieve endpoint's per-passenger ancillary itemization undercounts any ancillary code repeated for that passenger (two legs of one direction, or two directions of a round trip) — e.g. a Meal charged on 2 legs at 200 EGP/leg is itemized as only 400 INR instead of 800 INR. The booking-level aggregate total remains correct in every case observed, so no customer-facing amount is wrong; only a per-passenger breakdown consumer would be misled. Reproduced on 5 independent bookings (PNRs YSTPMB, Y1ZVFF, Z33F4Z, P6MVJA, MSK5XB, S13GWS); confirmed absent on 2 control bookings with no repeated code.",
+          "refs": "(TC-ANC-022, TC-ANC-023, TC-ANC-002, TC-ANC-003, TC-ANC-005, TC-ANC-035)",
+          "fields": [
+            { "label": "Category", "value": "Data Integrity" },
+            { "label": "Layer", "value": "Integration" },
+            { "label": "Severity", "value": "Medium", "mono": false },
+            { "label": "Priority", "value": "P2" },
+            { "label": "Reproducibility", "value": "Always" },
+            { "label": "Suspected Component", "value": "NDC integration service Retrieve mapping — passengerAncillaries itemization step" }
+          ],
+          "evidence": "artifacts/TC-ANC-023/TC-ANC-023_investigation.md; artifacts/TC-ANC-003/R3_07_supplier_retrieve_response.json; artifacts/TC-ANC-005/06_supplier_retrieve_response.json; artifacts/TC-ANC-035/06_supplier_retrieve_response.json"
+        },
+        {
+          "kind": "Pending decision",
+          "tone": "accent",
+          "body": "Wallet History Report shows Start/End Balance rows under the 'Debit' column while the actual money-out booking transaction appears under 'Credit' — the inverse of standard accounting convention. The figures themselves are correct in every booking checked; only the column placement is in question. The reviewer was asked directly and explicitly chose to defer the decision, so this case stays Inconclusive rather than being forced to Passed or Failed.",
+          "refs": "(TC-ANC-027)",
+          "fields": [
+            { "label": "Reproducibility", "value": "Always (2/2 bookings)" },
+            { "label": "Confirmed defect?", "value": "No — awaiting product decision", "mono": false }
+          ],
+          "evidence": "artifacts/TC-ANC-004/16_report_wallet_history.png"
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Known Limitations",
+      "blocks": [
+        "Statement report (TC-ANC-026) could not be verified this pass — a confirmed defect (FINDING-012) makes it return zero rows on both channels; it is held Excluded until fixed.",
+        "A direct live re-read of the post-booking Portal wallet balance widget was not captured for TC-ANC-015 — a transient network dropout interrupted a second attempt; the Total Due to NDC report's exact-match figure was used as equivalent evidence instead.",
+        "A cosmetic label glitch on the Bundle Services field ('[Xtra Pack', a stray unmatched bracket) was observed once during TC-ANC-002 — Low severity, display-only, no effect on data or amounts."
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Recommendations",
+      "blocks": [
+        { "kind": "ul", "items": [
+          "Fix the NDC integration service's Retrieve mapping so a repeated ancillary code itemizes correctly per occurrence, then re-execute TC-ANC-022.",
+          "Obtain the deferred product decision on Wallet History's Debit/Credit labeling, then re-execute TC-ANC-027 to a definite outcome.",
+          "Fix FINDING-012 (Statement report), move TC-ANC-026's Review to Approved, then execute it.",
+          "Low priority: fix the stray '[' in the Bundle Services label rendering."
+        ] }
+      ]
+    }
+  ]
+}

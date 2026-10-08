@@ -170,6 +170,31 @@ function loadCredentials(envOverride, credentialsPathOverride) {
 }
 
 /**
+ * Resolves which login flow and base URL to use: the profile's root-level `login`/`defaultBaseUrl`
+ * (unchanged default, used by every existing caller), or a named entry under `profile.apps[app]`
+ * when `app` is given (added 2026-09-26 for a second application — e.g. a Portal — with a
+ * structurally different login form from the Admin app every other module's tooling assumes).
+ * Purely additive: omitting `app` reproduces the exact prior behavior.
+ *
+ * @param {object} profile
+ * @param {string} [app]
+ * @returns {{ loginConfig: object, appBaseUrl: string|undefined }}
+ */
+function resolveAppConfig(profile, app) {
+  if (!app) {
+    return { loginConfig: profile.login, appBaseUrl: undefined };
+  }
+  const appConfig = profile.apps && profile.apps[app];
+  if (!appConfig) {
+    throw new Error(
+      `No app "${app}" defined in the Browser Profile's "apps" map. ` +
+      `Registered apps: ${profile.apps ? Object.keys(profile.apps).join(', ') || '(none)' : '(none)'}.`
+    );
+  }
+  return { loginConfig: appConfig.login, appBaseUrl: appConfig.baseUrl };
+}
+
+/**
  * Launches a browser per the Browser Profile's settings, authenticates against the resolved
  * environment, and returns the raw Playwright handles plus the loaded (non-secret) profile.
  * Prefer `api.js`'s `BrowserDriver.authenticate()` in calling code — this function is the
@@ -185,10 +210,21 @@ function loadCredentials(envOverride, credentialsPathOverride) {
  *   per-stage display-mode default from the profile's `browser.headlessByStage` map, so a stage
  *   whose purpose requires a visible browser gets one without every call site remembering to ask.
  *   Precedence: explicit `headless` argument > `headlessByStage[stage]` > `browser.headless`.
+ * @param {string} [opts.app] - selects a named login flow from the profile's `apps` map (e.g.
+ *   `'portal'`) instead of the root-level `login`/`defaultBaseUrl` — added 2026-09-26 for a second
+ *   application with a different login form. Omit for the original, single-app behavior.
  */
-async function launchAuthenticated({ env, credentialsPath, headless, stage } = {}) {
+async function launchAuthenticated({ env, credentialsPath, headless, stage, app } = {}) {
   const profile = loadProfile();
   let { creds, env: resolvedEnv } = loadCredentials(env, credentialsPath);
+  const { loginConfig, appBaseUrl } = resolveAppConfig(profile, app);
+
+  if (loginConfig.agencyCodeSelector && !creds.agencyCode) {
+    throw new Error(
+      `The "${app}" app's login requires "agencyCode" in the resolved credentials for ` +
+      `environment "${resolvedEnv}", but none was found.`
+    );
+  }
 
   const browserSettings = profile.browser || {};
   const byStage = browserSettings.headlessByStage || {};
@@ -208,7 +244,7 @@ async function launchAuthenticated({ env, credentialsPath, headless, stage } = {
   });
   const page = await context.newPage();
 
-  const baseUrl = creds.baseUrl || profile.defaultBaseUrl;
+  const baseUrl = creds.baseUrl || appBaseUrl || profile.defaultBaseUrl;
   // `networkidle` is NOT a usable readiness signal for this target (fixed 2026-08-02).
   //
   // It resolves only after 500ms with no more than two in-flight requests. An Angular SPA that
@@ -220,17 +256,40 @@ async function launchAuthenticated({ env, credentialsPath, headless, stage } = {
   //
   // The correct readiness signal for a login page is the login form itself, so wait for that.
   await page.goto(baseUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
-  await page.waitForSelector(profile.login.usernameSelector, { state: 'visible', timeout: 30000 });
+  try {
+    await page.waitForSelector(loginConfig.usernameSelector, { state: 'visible', timeout: 30000 });
+  } catch (err) {
+    const diagPath = path.join(require('os').tmpdir(), `browser-driver-login-form-failure-${Date.now()}.png`);
+    try {
+      await page.screenshot({ path: diagPath });
+    } catch (_) { /* best-effort diagnostic only */ }
+    err.message += `\nPage URL while waiting for login form: ${page.url()}\nPage title: ${await page.title().catch(() => '(unavailable)')}\nDiagnostic screenshot: ${diagPath}`;
+    throw err;
+  }
 
-  await page.fill(profile.login.usernameSelector, creds.username);
-  await page.fill(profile.login.passwordSelector, creds.password);
+  // Portal's login (app: 'portal') adds a third field ahead of username/password — Agency Code.
+  // Root-level Admin login has no agencyCodeSelector, so this is skipped for every existing caller.
+  if (loginConfig.agencyCodeSelector) {
+    await page.fill(loginConfig.agencyCodeSelector, creds.agencyCode);
+  }
+  await page.fill(loginConfig.usernameSelector, creds.username);
+  await page.fill(loginConfig.passwordSelector, creds.password);
 
   // Credentials are no longer needed after this point — drop the reference so nothing
   // downstream in this process can accidentally serialize/log it.
   creds = null;
 
-  await page.click(profile.login.submitSelector);
-  await page.waitForSelector(profile.login.successSelector, { timeout: 20000 });
+  await page.click(loginConfig.submitSelector);
+  try {
+    await page.waitForSelector(loginConfig.successSelector, { timeout: 20000 });
+  } catch (err) {
+    const diagPath = path.join(require('os').tmpdir(), `browser-driver-login-failure-${Date.now()}.png`);
+    try {
+      await page.screenshot({ path: diagPath });
+    } catch (_) { /* best-effort diagnostic only */ }
+    err.message += `\nPost-login page URL: ${page.url()}\nPost-login page title: ${await page.title().catch(() => '(unavailable)')}\nDiagnostic screenshot: ${diagPath}`;
+    throw err;
+  }
 
   return { browser, context, page, profile, env: resolvedEnv };
 }

@@ -1,0 +1,22 @@
+- **Finding ID**: FINDING-002
+- **Title**: AirIndia's live Application Level confirmed — Meal Per Segment, Extra Baggage Per Journey
+- **Category**: Observation
+- **Severity**: N/A
+- **Severity Reason**: Observation is always N/A per the Severity Matrix (§5.4) — this is a positive confirmation, not a defect claim.
+- **Confidence Score**: 98% (Direct Observation via live authenticated Portal session independently reproduced the exact same Meal-per-leg / Baggage-per-journey structure for BOTH Test Adult and Test Child passenger cards)
+- **Evidence Category**: Direct Observation (2026-09-27, live browser automation via `BrowserDriver.authenticate({ env: 'STG_PORTAL', app: 'portal' })` — real flight search DEL->DXB 15/10/2026, selected the same IX-1782/IX-813 flight, completed Passenger Info -> Bundles -> Ancillaries steps, and expanded all passenger rows), corroborated by the original Human Observation + Static Artifact (`pax_details_fare_breakdown.png`). Per §18, Direct Observation is the only Evidence Category that can reach `Confirmed`.
+- **Status**: Confirmed
+- **Business Risk**: None identified — this confirms the platform default behaves as expected for this Supplier.
+- **Technical Risk**: None identified.
+- **Module**: Ancillaries / AirIndia (Supplier Feature scope)
+- **Workflow**: Portal — Passenger Details (PAX Details), on the DEL->IXE->DXB (1 stop) itinerary
+- **Description**: On the Passenger Details screen, each passenger's **Meal Preference** is offered separately per flight leg (Leg 1 DEL->IXE and Leg 2 IXE->DXB each show their own meal option with its own price) — confirming **Per Segment** application. **Extra Baggage** is offered once, for the whole onward journey "DEL -> DXB" — confirming **Per Journey** application. Both match the platform-wide default recorded in ANC-48 (Meal=Segment, Baggage=Journey) for this Supplier.
+- **Expected Behavior**: Per `ProjectContext.md` §2 / ANC-48: Baggage at AirIndia's Application Level (platform default: Per Journey), Meal at AirIndia's Application Level (platform default: Per Segment) — both **defaults**, explicitly subject to Discovery verification (ANC-13), not assumed.
+- **Actual Behavior**: Matches the default exactly, as described above.
+- **Steps to Reproduce**: Portal booking flow -> select the DEL->IXE->DXB flight -> Passenger Details screen -> observe Meal Preference (per leg) and Extra Baggage (per whole journey) sections for each passenger card.
+- **Investigation/Recovery Result**: Not applicable — a direct, static observation, not a failure condition.
+- **Investigation Notes**: Corrected 2026-09-26 — the booking flow is a 3-step wizard: **01 Passenger Info → 02 Bundles → 03 Ancillaries**, where the app's own UI labels step 03 specifically **"Ancillaries: Meals and baggage"** (i.e., the live application's internal "Ancillaries" term covers only Meal + Baggage, not Bundle). Bundle is a distinct preceding step. This differs from the platform's Capability Model, where Bundle is one of the four Ancillaries capabilities (`CapabilityModel.md` §1) — not a defect, but a terminology/navigation distinction Test Design should know: "go to the Ancillaries step" in the live app reaches only Meal/Baggage, and Bundle must be reached via the separate "Bundles" step.
+- **Root Cause Hypothesis**: *(omitted — this is confirmed expected behavior, not an anomaly needing explanation)*
+- **Occurrence Count**: 1
+- **Evidence Links**: `pax_details_fare_breakdown.png` (screenshot supplied by Ahmed Alhussieny, showing both passenger cards' Meal Preference and Extra Baggage sections plus the Fare Breakdown panel); `live_ancillaries_meal_baggage_direct_observation.png` (2026-09-27, live automation screenshot of the Ancillaries step with both Test Adult and Test Child expanded, each showing Meal Preference per leg [DEL->IXE, IXE->DXB] and Extra Baggage once for DEL->DXB).
+- **Recommendation**: Once Discovery confirms this behavior against additional Suppliers/routes if needed, mark AirIndia's `SupplierChecklist.md` §5c Application Level Source Status as `Verified` (currently `Provided`) during the next Stage 1/Discovery sign-off, per the Capability Model's Provided-to-Verified lifecycle (`CapabilityModel.md` §6). Also note the actual UI structure (no separate Ancillaries screen) for Test Design's step-by-step test cases.

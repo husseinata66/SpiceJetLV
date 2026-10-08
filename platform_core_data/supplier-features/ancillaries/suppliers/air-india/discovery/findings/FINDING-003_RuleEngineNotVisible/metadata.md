@@ -1,0 +1,22 @@
+- **Finding ID**: FINDING-003
+- **Title**: Rule-engine adjustments resolved — Markup folds into Base Fare by design; Service Charge/Discount aren't configured yet in this test environment
+- **Category**: Test Gap
+- **Severity**: N/A
+- **Severity Reason**: Test Gap is always N/A per the Severity Matrix (§5.4) — a coverage limitation caused by missing test-environment configuration, not application behavior.
+- **Confidence Score**: 85%
+- **Evidence Category**: Human Observation (operator's direct explanation), corroborated by Static Artifact (the original Fare Breakdown screenshot).
+- **Status**: Needs Human Review (Human Observation caps below `Confirmed`, per §18; also genuinely blocked pending configuration, not yet verifiable live)
+- **Business Risk**: None identified for Markup (confirmed folded into Base Fare by design). For Service Charge/Discount: until configured, pricing validation cannot exercise those components at all for AirIndia.
+- **Technical Risk**: Test Design cannot yet write assertions against live Service Charge/Discount values, since no configuration exists yet to produce them.
+- **Module**: Ancillaries / AirIndia (Supplier Feature scope)
+- **Workflow**: Portal — Passenger Details, Fare Breakdown panel
+- **Description**: The confirmed shared-baseline pricing contract (ANC-44) states "a rule engine applies markup, discount, and service-fee adjustments per passenger." The live Fare Breakdown panel shows only: Base fare (per passenger type), (+) Ancillaries & SSR (Meal Preference, Extra Baggage), Tax & Fees (per passenger type), and Total Amount. Arithmetic checks out exactly as a plain sum (Base + Tax&Fees + Ancillaries = Total: 4,505 + 7,617 + 2,850 = 14,972 EGP) with **no separate Markup/Discount/Service Fee line items visible**.
+- **Expected Behavior**: Per ANC-44 (shared baseline, confirmed 2026-09-23): "A rule engine applies markup, discount, and service-fee adjustments per passenger." Per the operator's clarification (2026-09-26): Markup is added directly into Base Fare (by design, not separately displayed); Service Charge and Discount **should** be shown in the Fare Breakdown as their own line items once configured.
+- **Actual Behavior**: No Markup/Discount/Service Fee rows appear in the Fare Breakdown; the visible components sum exactly to the Total with no unexplained residual — because Markup is folded into Base Fare by design, and Service Charge/Discount have not been configured for this Branch/Credential yet ("till now i did not add them" — operator's words).
+- **Steps to Reproduce**: Portal booking flow -> Passenger Details screen -> expand "Fare Breakdown" panel (right side) -> observe the listed components.
+- **Investigation/Recovery Result**: Not applicable — resolved via direct explanation from the operator, not a failure condition.
+- **Investigation Notes**: Resolved 2026-09-26 — Markup is intentionally invisible (folded into Base Fare). Service Charge and Discount are meant to be visible separate line items but are simply not yet configured for AirIndia's test Branch/Credential — this is a test-data gap, not a UI limitation or undocumented behavior.
+- **Root Cause Hypothesis**: *(omitted — resolved by direct explanation, no anomaly remains)*
+- **Occurrence Count**: 1
+- **Evidence Links**: `pax_details_fare_breakdown.png`.
+- **Recommendation**: Configure Service Charge and/or Discount for AirIndia's test Branch/Credential, then re-verify they appear as separate Fare Breakdown line items, before Test Design finalizes pricing assertions around them. Record "Markup folds into Base Fare by design" in `SupplierChecklist.md` §6 (Contract/Mapping) during the next Stage 1 revision.

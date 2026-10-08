@@ -145,3 +145,9 @@ platform_core_data/automation_baseline/**/generatedReport_*.zip
 # Re-included by path, so an incidental log anywhere else is still ignored.
 !platform_core_data/modules/**/evidence/**/*.log
 !platform_core_data/runs/**/artifacts/**/*.log
+
+# Postman collections containing live, hardcoded API credentials (x-api-key /
+# Client-Id as literal values, not {{variables}}) — never committed, same
+# reasoning as credentials.json. If a future export resolves its secrets to
+# Postman environment variables instead, it can be un-ignored then.
+*.postman_collection.json

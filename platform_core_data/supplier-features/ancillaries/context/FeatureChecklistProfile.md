@@ -13,15 +13,15 @@
 
 **Feature:** Ancillaries (`ancillaries`)
 **Canonical location:** `platform_core_data/supplier-features/ancillaries/context/FeatureChecklistProfile.md`
-**Status:** Draft — pending approval
-**Revision:** 2 — cabin × bundle coverage rows; OQ-ANC-06 answered (human decision, 2026-09-27)
-**Last Updated:** 2026-09-27
+**Status:** Draft — pending approval (merge of two approved/draft lines; re-approval needed)
+**Revision:** 3 — merges rev 2 Approved 2026-09-25 (resolved OQ-ANC-01…08/11) with the 2026-09-27 cabin × bundle and seat-eligibility rows
+**Last Updated:** 2026-10-08
 
 ### Sources
 
 | Source | Path | Revision | What it contributed |
 |---|---|---|---|
-| Shared baseline context | `shared/ancillaries-baseline/context/ProjectContext.md` | rev 1 | §A, §B, §C, §D rows and the `ANC-xx` IDs |
+| Shared baseline context | `shared/ancillaries-baseline/context/ProjectContext.md` | rev 3 (Approved 2026-09-25) | §A, §B, §C, §D rows and the `ANC-xx` IDs (now `ANC-01`…`ANC-53`) |
 | Feature-level capability model (not a shared scope) | `context/CapabilityModel.md` | rev 1 | The capability gate every row below depends on; injected separately into §5c |
 | Feature-level operational knowledge (not a shared scope) | `context/ExecutionFlow_HappyPath.md` | rev 2 | How to execute — referenced by Suppliers via `SupplierChecklist.md` §3c, never duplicated. Rev 2 adds §3.1 cabin × bundle coverage |
 | Human decision (not a shared scope) | Mohanad Dawood, 2026-09-27, in session (run-006) | — | The cabin × bundle rows below, and the answer to OQ-ANC-06. No `ANC-xx` ID yet: to be added to the shared baseline context's §6 at its next Stage 1 review |
@@ -87,11 +87,11 @@ or `N/A`.
 | Each selected ancillary classified per checkpoint using the five-value model | ANC-32 | Confirmed |
 | Per-checkpoint checks: passenger, segment/journey, type, quantity, price, currency, total, persisted status | ANC-33 | Confirmed |
 | Ancillary pricing captured separately from base flight price, at all three points | ANC-34, ANC-35 | Confirmed |
-| Final booking amount validated against the confirmed pricing contract | ANC-36 | **Open** — the pricing contract is undefined (OQ-ANC-01). Do not assert an expected total, and do not defect an arithmetic mismatch on the simple formula alone |
-| Wallet or payment validation on ancillary selection | — | **Open** — OQ-ANC-02. Not known to exist. Its absence is not a defect |
-| Change or removal of a selected ancillary, before or after booking | — | **Open** — OQ-ANC-03. No coverage designed until confirmed |
-| Currency handling when credential market currency differs from booking currency | ANC-28, ANC-33 | **Open** — OQ-ANC-05 |
-| Bundle interaction with individually selected capabilities `[gated: Bundle]` | — | **Open** — OQ-ANC-07. Whether a Bundle includes, excludes, or coexists with separate selections is undefined |
+| Final booking amount validated against the confirmed pricing contract | ANC-36, ANC-42, ANC-43, ANC-44, ANC-45 | **Confirmed** — resolved 2026-09-23. Pricing contract: Supplier price × ROE, taxes/fees per offer, rule-engine markup/discount/service fee, ancillary+bundle added to total |
+| Wallet or payment validation on ancillary selection | ANC-46 | **Confirmed** — resolved 2026-09-23. No deduction at selection; full deduction (incl. ancillaries/bundle) at booking confirmation |
+| Change or removal of a selected ancillary, before or after booking | ANC-47, ANC-52 | **Confirmed** — resolved 2026-09-23/2026-09-25. Permitted before booking, per passenger, not mandatory for every passenger. **Not permitted after booking** |
+| Currency handling when credential market currency differs from booking currency | ANC-28, ANC-33, ANC-42 | **Confirmed** — resolved 2026-09-23. ROE-based conversion: booking price = Supplier price × ROE |
+| Bundle interaction with individually selected capabilities `[gated: Bundle]` | ANC-50 | **Confirmed** — resolved 2026-09-23. Bundle coexists with individually selected capabilities, no conflict; priced separately in the fare breakdown, then included in the total |
 | Every bundle is exercised in every cabin class the Supplier returns — one fresh offer per cabin × bundle, same check set on each `[gated: Bundle]` | ANC-39; human decision 2026-09-27 | Confirmed (human decision). Procedure: `ExecutionFlow_HappyPath.md` §3.1. A combination already executed in the same run is not repeated |
 | Seat eligibility rules (infants, children, exit rows, seat sets) apply to every Supplier; only Supplier-specific rules differ `[gated: Seat]` | ANC-21; human decision 2026-09-27 | Confirmed (human decision). Supplier-only rules (e.g. ladies-only seats) are recorded per Supplier in `SupplierChecklist.md` §7c, collected at intake |
 
@@ -116,7 +116,7 @@ register.
 | A capability recorded as Unsupported **is** exposed live | ANC-08, ANC-22. Discrepancy record. Not a defect — the recorded value was incomplete |
 | Selection rejected by a Supplier restriction (quantity, eligibility, passenger type, route, fare family) | ANC-41. Expected behavior where the restriction is confirmed. Restrictions are recorded from evidence, never invented, so an unconfirmed rejection is an observation first |
 | Selected ancillary missing after booking | ANC-25, ANC-32. Classified as `Missing` at the failing checkpoint |
-| Price or currency mismatch across checkpoints | ANC-33, ANC-36. Record as an observation against OQ-ANC-01 until the pricing contract is confirmed |
+| Price or currency mismatch across checkpoints | ANC-33, ANC-36, ANC-42. Pricing contract is confirmed (ROE-based conversion, taxes/fees per offer, rule-engine adjustments) — a mismatch against that contract is now assessable as a defect candidate, not merely an observation |
 | Supplier error or timeout during ancillary retrieval or booking | — | Flagged: no requirement defines an expected error contract for this Feature. Record the Supplier behavior as observed during Discovery. Do not assume a normalized error shape |
 
 ## D. Feature-Specific UI Notes
@@ -139,18 +139,16 @@ register.
 
 <!-- Not new questions. These are the shared baseline context's own Open Questions (§8), carried here
      because they directly affect rows above. A Supplier Checklist's §12 references these rather than
-     re-deriving them. -->
+     re-deriving them. Resolved items (OQ-ANC-01…08, OQ-ANC-11) are cited inline against the rows they
+     resolved, in §A/§B/§C above, rather than repeated here — only genuinely open items remain below. -->
 
 | Source | Question | Affects |
 |---|---|---|
-| ProjectContext §8, OQ-ANC-01 | What is the confirmed ancillary pricing contract? Which of taxes, fees, markup, commission, discount, bundle pricing sit between ancillary amounts and the final total? | §B pricing rows, §C price-mismatch row |
-| ProjectContext §8, OQ-ANC-02 | Does ancillary selection trigger wallet or payment validation? | §B wallet row |
-| ProjectContext §8, OQ-ANC-03 | Can a selected ancillary be changed or removed, before or after booking? | §B change/removal row |
-| ProjectContext §8, OQ-ANC-04 | Which downstream representations must reflect ancillaries? | §B downstream row, ANC-25 completion criteria |
-| ProjectContext §8, OQ-ANC-05 | Currency handling when credential market currency differs from booking currency | §B currency row |
-| ProjectContext §8, OQ-ANC-06 | Are passenger-type eligibility rules global, or purely per-Supplier? **Answered 2026-09-27 (Mohanad Dawood): global — they apply to every Supplier — except Supplier-specific rules such as ladies-only seats, which are collected per Supplier at intake (`SupplierChecklist.md` §7c).** To be folded into the shared baseline context at its next Stage 1 review | §A passenger data row, §C restriction row |
-| ProjectContext §8, OQ-ANC-07 | Do Bundle and individual capabilities conflict? | §B Bundle interaction row |
-| ProjectContext §8, OQ-ANC-08 | Are Admin and Portal the same environment and tenant? Same login? | §A user rows, §B independent-recording row, §D URL row |
 | ProjectContext §8, OQ-ANC-09 | Seat / Seatmap boundary — deferred by decision | §A and §B Seat rows |
 | ProjectContext §8, OQ-ANC-10 | Bundle / Upselling boundary — deferred by decision | §A and §B Bundle rows |
-| ProjectContext §8, OQ-ANC-11 | Which integration/backend path does Ancillaries use? `integrationLayer` stays `null` | Keeps `ndc_execution_rules.md` §B inactive for this Feature |
+
+**Resolved (2026-09-23/2026-09-25), cited inline above:** OQ-ANC-01 → ANC-42…ANC-45 · OQ-ANC-02 →
+ANC-46 · OQ-ANC-03/03b → ANC-47, ANC-52 · OQ-ANC-04 → ANC-48, ANC-53 · OQ-ANC-05 → ANC-42 ·
+OQ-ANC-06 → ANC-49 · OQ-ANC-07 → ANC-50 · OQ-ANC-08 → ANC-51 · OQ-ANC-11 → `integrationLayer` set to
+`NDC-INT` (human decision, 2026-10-08; it was `ndc-core-service` on 2026-09-25). OQ-ANC-06 was
+also answered independently on 2026-09-27 (Mohanad Dawood) — see the seat-eligibility row in §B.
