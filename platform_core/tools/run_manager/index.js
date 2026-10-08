@@ -8,4 +8,5 @@ module.exports = {
   ...require('./runLineage'),
   ...require('./runManifest'),
   ...require('./createRun'),
+  ...require('./renameRuns'),
 };

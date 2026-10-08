@@ -14,6 +14,28 @@ record it; a redundant entry costs nothing, a silent gap defeats the point of th
 
 ---
 
+## 2026-10-08 — Runs are numbered per Feature/module
+
+User-mandated. Runs shared one global `run-NNN` counter, so the parallel `reissue`,
+`ancillaries-airindia-run007`, and `SeatMap` branches each minted their own `run-006`…`run-011` and
+collided on merge. A run's folder name now carries its owner and that owner's own counter:
+`reissue-run-003`, `ancillaries-run-002`, `agency+branch-run-001`, `agency.bulk-export-run-001`. A run
+with no recorded scope stays a bare `run-NNN`.
+
+- `runFolderName.js` — `deriveRunOwner()` reads the owner from `run.json`'s scope fields (never the
+  target text); `nextRunIndex()`/`formatRunIndex()`/`parseRunFolderName()` are owner-aware.
+- `createRun.js` writes `runOwner`; new optional `moduleFeature` for classic Feature runs.
+- `cli.js new` and the naming verb take `--feature/--supplier/--shared-scope` or
+  `--modules/--module-feature`; `cli.js list` orders by start time, since indexes no longer compare
+  across owners; refinement runs stay in their prior run's sequence.
+- New `renameRuns.js` + `cli.js rename-runs` move existing runs onto the convention: plan by default,
+  `--apply` needs `--approved-by` and `--reason`, rewrites references in the data root, moves the
+  Active Run pointer, records `renamedFrom` in `run.json`, and keeps old names resolvable through
+  `.run_folder_index.json`. Runs with no recorded scope are only renamed when a human assigns an owner.
+- Spec: `run_manager.md` §5.1.1.
+
+---
+
 ## 2026-09-03 — NDC Core Service runs gain an execution/governance rule set
 
 User-mandated. Adds `workflows_and_pipelines/pipeline/ndc_execution_rules.md`, a rule set that

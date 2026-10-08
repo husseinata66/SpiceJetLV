@@ -160,6 +160,11 @@ for correction — silently dropping to module scope writes Feature output into 
 - **Never hand-edit `modules.json`, `module.json`, or `feature.json`** — every write goes through
   `platform_core/tools/module_manager/cli.js`.
 - **Never hand-format a slug or a run folder name.** The tooling generates both.
+- **Runs are numbered per Feature/module** — `reissue-run-003`, `agency-run-004`, `agency+branch-run-001`.
+  Pass the owner when creating a run (`run_manager/cli.js new … --feature F --supplier S`, or
+  `--modules m`); a run without one is a bare global `run-NNN`. Existing runs move onto the convention
+  only through `run_manager/cli.js rename-runs`, which plans first and needs `--approved-by` to apply
+  ([`run_manager.md`](workflows_and_pipelines/pipeline/run_manager.md) §5.1.1).
 - **Scope is not authorization.** A module being in scope is not permission to mutate its records;
   that is decided per action against `execution_safety_policy.json` (`pipeline.md` §14).
 - **Ask before every execution whether it runs Headed or Headless.** Never inferred, never carried

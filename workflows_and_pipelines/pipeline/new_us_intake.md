@@ -352,7 +352,12 @@ When a human says **"new supplier"** (or names a new Supplier for a Supplier Fea
 5. Render the Supplier Checklist into the freshly-scaffolded `context/` folder — §12.2a.
 6. Create a run bound to the Feature + Supplier (never the Feature alone, and never both Supplier and
    shared scope — `run_manager.md`'s run-ownership validation enforces this mechanically via
-   `scopeFamily`), then run the normal pipeline stages against that Supplier's scope.
+   `scopeFamily`), then run the normal pipeline stages against that Supplier's scope:
+   ```bash
+   node platform_core/tools/run_manager/cli.js new --scope <Scope> --target <Target> \
+     --feature <feature> (--supplier <supplier> | --shared-scope <shared-scope>)
+   ```
+   The run is numbered within its Feature — `<feature>-run-NNN` (`run_manager.md` §5.1.1).
 
 NDC Core Service is **not** a parent choice in this flow, and is never asked about. A Feature's
 integration layer is recorded on the Feature (§11.2) and read from there when it matters.

@@ -105,10 +105,12 @@ function detectStagesPresent(runsDir, folderName) {
 }
 
 /**
- * Lists every run folder on disk, newest-first by run index (unindexed/legacy runs sort last,
- * then alphabetically). Used by the CLI's `list` verb and by any agent that needs to offer a choice.
+ * Lists every run folder on disk, newest-first by start time (runs with no readable start time sort
+ * last, then alphabetically). Start time, not run index: each Feature/module numbers its own runs
+ * (run_manager.md §5.1.1), so `ancillaries-run-002` and `reissue-run-007` have no index order between
+ * them. Used by the CLI's `list` verb and by any agent that needs to offer a choice.
  * @param {string} runsDir
- * @returns {Array<{folderName: string, index: number|null, scope: string|null, target: string|null, status: string|null, stagesPresent: string[]}>}
+ * @returns {Array<{folderName: string, index: number|null, runOwner: string|null, scope: string|null, target: string|null, status: string|null, stagesPresent: string[]}>}
  */
 function listRuns(runsDir) {
   let names = [];
@@ -126,19 +128,35 @@ function listRuns(runsDir) {
     return {
       folderName,
       index: parsed.index ?? meta.index ?? null,
+      runOwner: parsed.owner ?? meta.runOwner ?? null,
       scope: parsed.scope ?? meta.scope ?? null,
       target: parsed.target ?? meta.target ?? null,
       status: meta.status ?? null,
       stagesPresent: detectStagesPresent(runsDir, folderName),
+      // Sort key only, dropped before returning.
+      sortTime: runStartMillis(parsed, meta),
     };
   });
 
-  return runs.sort((a, b) => {
-    if (a.index !== null && b.index !== null) return b.index - a.index;
-    if (a.index !== null) return -1;
-    if (b.index !== null) return 1;
+  runs.sort((a, b) => {
+    if (a.sortTime !== null && b.sortTime !== null && a.sortTime !== b.sortTime) return b.sortTime - a.sortTime;
+    if (a.sortTime !== null && b.sortTime === null) return -1;
+    if (b.sortTime !== null && a.sortTime === null) return 1;
     return a.folderName.localeCompare(b.folderName);
   });
+  return runs.map(({ sortTime, ...run }) => run);
+}
+
+/**
+ * A run's start time in epoch ms: run.json's startedTime (UTC ISO) when present, else the folder-name
+ * timestamp read as local time — which is how formatTimestamp() wrote it.
+ */
+function runStartMillis(parsed, meta) {
+  const fromMeta = meta.startedTime ? Date.parse(meta.startedTime) : NaN;
+  if (Number.isFinite(fromMeta)) return fromMeta;
+  const m = /^(\d{4})-(\d{2})-(\d{2})_(\d{2})-(\d{2})-(\d{2})$/.exec(parsed.timestamp || '');
+  if (!m) return null;
+  return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]).getTime();
 }
 
 /**
@@ -188,7 +206,7 @@ function setActiveRun(runsDir, identifier, opts = {}) {
   if (!isRunFolder(runsDir, folderName)) {
     throw new ActiveRunError(
       `"${folderName}" exists under ${runsDir} but is not a run folder: its name matches neither ` +
-      'the current convention (run-NNN__YYYY-MM-DD_HH-mm-ss__Scope__Target) nor the legacy ' +
+      'the current convention ([<owner>-]run-NNN__YYYY-MM-DD_HH-mm-ss__Scope__Target) nor the legacy ' +
       'RUN-YYYYMMDD-XXX form, and it has no metadata/ folder. Run `cli.js list` to see real runs.'
     );
   }
@@ -203,6 +221,7 @@ function setActiveRun(runsDir, identifier, opts = {}) {
     activeRun: {
       folderName,
       index: parsed.index ?? meta.index ?? null,
+      runOwner: parsed.owner ?? meta.runOwner ?? null,
       scope: parsed.scope ?? meta.scope ?? null,
       target: parsed.target ?? meta.target ?? null,
       // Cached for display only — metadata/run.json remains authoritative (§7).
@@ -371,6 +390,7 @@ module.exports = {
   isRunFolder,
   activeRunPath,
   listRuns,
+  runStartMillis,
   setActiveRun,
   readActiveRun,
   resolveActiveRunFolder,

@@ -1,7 +1,11 @@
 // Run Folder Naming — the single source of truth for generating and parsing run folder names.
 //
 // Convention (see workflows_and_pipelines/pipeline/run_manager.md §5):
-//   YYYY-MM-DD_HH-mm-ss__[Scope]__[Module-or-UserStory]
+//   [<owner>-]run-NNN__YYYY-MM-DD_HH-mm-ss__[Scope]__[Module-or-UserStory]
+//
+// `<owner>` is the Feature or module the run belongs to (§5.1.1), and NNN counts runs of THAT owner
+// only — `reissue-run-003` is the third Reissue run, whatever other Features did in between. A run
+// with no owner (full-project, or created before owners existed) keeps the bare global `run-NNN`.
 //
 // This module is the only place that formats a run folder name — agents/skills/scripts must
 // call generateRunFolderName() (or cli.js) rather than hand-formatting the string themselves.
@@ -135,38 +139,107 @@ function formatTimestampUTC(date) {
 /** Width of the zero-padded run index prefix (`run-001__…`). */
 const RUN_INDEX_PAD = 3;
 
-/** Matches the `run-NNN__` prefix at the head of a folder name. */
-const RUN_INDEX_RE = /^run-(\d+)__/i;
+/**
+ * Matches the `[<owner>-]run-NNN__` prefix at the head of a folder name. Group 1 is the owner (absent
+ * on an unowned run), group 2 the index. The owner is matched greedily and then backtracked, so an
+ * owner that itself contains "-run" (a Feature slugged `dry-run`) still parses: `dry-run-run-001__`.
+ */
+const RUN_INDEX_RE = /^(?:([a-z0-9][a-z0-9.+-]*)-)?run-(\d+)__/;
+
+/** A run owner: lowercase slug characters, `.` between a module and its Feature, `+` between modules. */
+const RUN_OWNER_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*(?:[.+][a-z0-9]+(?:-[a-z0-9]+)*)*$/;
 
 /**
- * Formats a 1-based run index as the folder-name prefix segment: 1 -> "run-001".
+ * Validates and returns a run owner, or null for "no owner". Throws on a malformed one rather than
+ * sanitizing it: the owner decides which counter a run joins, so a silently-repaired owner would put
+ * the run in the wrong sequence.
+ * @param {*} owner
+ * @returns {string|null}
+ */
+function normalizeRunOwner(owner) {
+  if (owner === null || owner === undefined || owner === '') return null;
+  const str = String(owner);
+  if (!RUN_OWNER_RE.test(str)) {
+    throw new TypeError(
+      `Invalid run owner ${JSON.stringify(owner)} — expected a lowercase slug ("reissue"), ` +
+      '"<module>.<feature>" ("agency.bulk-export"), or modules joined with "+" ("agency+branch").'
+    );
+  }
+  return str;
+}
+
+/**
+ * Derives which Feature or module a run belongs to, from the scope fields its run.json records.
+ * Never guessed from the target text or the folder name — a run that records no scope has no owner.
+ *
+ *   Supplier Feature run (`scopeFamily: "supplier-feature"`) -> the Feature:       "reissue"
+ *   classic Feature run (one module + `moduleFeature`)       -> "<module>.<feature>": "agency.bulk-export"
+ *   one module                                               -> the module:        "agency"
+ *   several modules                                          -> sorted, "+"-joined: "agency+branch"
+ *   full-project, or nothing recorded                        -> null (bare `run-NNN`)
+ *
+ * The Supplier is deliberately NOT part of the owner: runs are numbered per Feature, and the Supplier
+ * already shows in the target segment and in run.json.
+ *
+ * @param {{scopeFamily?: string|null, feature?: string|null, modules?: string[]|null,
+ *          moduleScope?: string|null, moduleFeature?: string|null}} runJson
+ * @returns {string|null}
+ */
+function deriveRunOwner(runJson = {}) {
+  if (runJson.scopeFamily === 'supplier-feature') return normalizeRunOwner(runJson.feature);
+  if (runJson.moduleScope === 'full-project') return null;
+
+  const modules = Array.isArray(runJson.modules) ? [...new Set(runJson.modules.filter(Boolean))] : [];
+  if (runJson.moduleFeature) {
+    if (modules.length !== 1) {
+      throw new TypeError(
+        `A classic Feature run (moduleFeature ${JSON.stringify(runJson.moduleFeature)}) must name ` +
+        `exactly one parent module in modules[]; got ${JSON.stringify(runJson.modules ?? null)}.`
+      );
+    }
+    return normalizeRunOwner(`${modules[0]}.${runJson.moduleFeature}`);
+  }
+  if (!modules.length) return null;
+  return normalizeRunOwner(modules.sort().join('+'));
+}
+
+/**
+ * Formats a 1-based run index as the folder-name prefix segment: 1 -> "run-001", or with an owner,
+ * (1, "reissue") -> "reissue-run-001".
  * Indexes past the pad width keep their full width rather than being truncated
  * (run 1000 becomes "run-1000"), so the prefix never collides or loses information.
  * @param {number} index
+ * @param {string|null} [owner]
  * @returns {string}
  */
-function formatRunIndex(index) {
+function formatRunIndex(index, owner = null) {
   if (!Number.isInteger(index) || index < 1) {
     throw new TypeError(`formatRunIndex requires a positive integer, received ${JSON.stringify(index)}`);
   }
-  return `run-${String(index).padStart(RUN_INDEX_PAD, '0')}`;
+  const resolvedOwner = normalizeRunOwner(owner);
+  const prefix = `run-${String(index).padStart(RUN_INDEX_PAD, '0')}`;
+  return resolvedOwner ? `${resolvedOwner}-${prefix}` : prefix;
 }
 
 /**
  * Determines the index a new run should take: one past the highest index already present in
- * `existingNames`. Folder names without a parseable `run-NNN__` prefix (legacy runs, and runs
+ * `existingNames` FOR THE SAME OWNER. Each owner has its own sequence, and unowned `run-NNN` folders
+ * form one more sequence of their own. Folder names without a parseable prefix (legacy runs, and runs
  * created before the index convention) are ignored rather than guessed at, so a directory holding
  * only legacy folders still starts a fresh sequence at 1.
  *
  * @param {string[]} [existingNames]
+ * @param {string|null} [owner]
  * @returns {number} the next 1-based run index
  */
-function nextRunIndex(existingNames = []) {
+function nextRunIndex(existingNames = [], owner = null) {
+  const resolvedOwner = normalizeRunOwner(owner);
   let highest = 0;
   for (const name of existingNames) {
     const match = String(name).match(RUN_INDEX_RE);
     if (!match) continue;
-    const value = Number(match[1]);
+    if ((match[1] || null) !== resolvedOwner) continue;
+    const value = Number(match[2]);
     if (Number.isFinite(value) && value > highest) highest = value;
   }
   return highest + 1;
@@ -176,17 +249,17 @@ function nextRunIndex(existingNames = []) {
  * Builds the folder name from already-resolved parts. Does not sanitize `timestamp` (callers
  * should pass the output of formatTimestamp) but does sanitize scope/target.
  *
- * When `index` is supplied, the name is prefixed with `run-NNN__` so a run's ordinal is visible
- * without opening it; the timestamp still follows immediately, so names remain chronologically
- * sortable within a single index sequence.
+ * When `index` is supplied, the name is prefixed with `[<owner>-]run-NNN__` so a run's owner and
+ * ordinal are visible without opening it; the timestamp still follows immediately, so names remain
+ * chronologically sortable within a single owner's sequence.
  *
- * @param {{timestamp: string, scope: string, target: string, index?: number}} parts
+ * @param {{timestamp: string, scope: string, target: string, index?: number, owner?: string|null}} parts
  * @returns {string}
  */
-function buildRunFolderName({ timestamp, scope, target, index }) {
+function buildRunFolderName({ timestamp, scope, target, index, owner = null }) {
   if (!timestamp) throw new TypeError('buildRunFolderName requires a timestamp');
   const body = `${timestamp}__${sanitizeSegment(scope)}__${sanitizeSegment(target)}`;
-  return index === undefined || index === null ? body : `${formatRunIndex(index)}__${body}`;
+  return index === undefined || index === null ? body : `${formatRunIndex(index, owner)}__${body}`;
 }
 
 /**
@@ -213,19 +286,21 @@ function pickTarget(metadata = {}) {
  * Top-level generator: given run metadata, produces the full run folder name, resolving
  * collisions against `existingNames` with a deterministic numeric suffix.
  *
- * By default the name carries a `run-NNN__` index prefix (one past the highest index already
- * present in `existingNames`), so every run folder states its ordinal, start time, scope, and
- * target: `run-001__2026-07-27_14-30-05__Smoke__Login`.
+ * By default the name carries a `[<owner>-]run-NNN__` prefix (one past the highest index already
+ * present in `existingNames` for that owner), so every run folder states its owner, ordinal, start
+ * time, scope, and target: `reissue-run-003__2026-10-04_17-23-43__UserStory__ReissueFlow`.
  *
  * @param {object} metadata
  * @param {string} [metadata.scope] - raw scope/run-type string, normalized via normalizeScope()
  * @param {string} [metadata.target] - explicit target label; if omitted, derived via pickTarget()
+ * @param {string|null} [metadata.owner] - the Feature/module the run belongs to (see
+ *   deriveRunOwner()); omitted or null gives an unowned `run-NNN`
  * @param {object} [options]
  * @param {string[]} [options.existingNames] - folder names already present, to avoid collisions
  *   and to derive the next run index
  * @param {Date} [options.now] - the run's start time; required (never defaults to `new Date()`
  *   internally so callers/tests stay deterministic)
- * @param {number} [options.index] - explicit run index; defaults to nextRunIndex(existingNames)
+ * @param {number} [options.index] - explicit run index; defaults to nextRunIndex(existingNames, owner)
  * @param {boolean} [options.withIndex=true] - set false to omit the `run-NNN__` prefix entirely
  *   (used by the legacy-migration path, which infers names for folders that predate the prefix)
  * @returns {string}
@@ -239,12 +314,13 @@ function generateRunFolderName(metadata = {}, { existingNames = [], now, index, 
   const target = metadata.target !== undefined && metadata.target !== null
     ? metadata.target
     : pickTarget(metadata);
+  const owner = normalizeRunOwner(metadata.owner);
 
   const resolvedIndex = withIndex === false
     ? undefined
-    : (index !== undefined && index !== null ? index : nextRunIndex(existingNames));
+    : (index !== undefined && index !== null ? index : nextRunIndex(existingNames, owner));
 
-  let name = buildRunFolderName({ timestamp, scope, target, index: resolvedIndex });
+  let name = buildRunFolderName({ timestamp, scope, target, index: resolvedIndex, owner });
 
   const existing = new Set(existingNames);
   if (existing.has(name)) {
@@ -262,8 +338,9 @@ const LEGACY_RE = /^RUN-(\d{8})-(\d{3})(?:-([a-z0-9-]+))?$/i;
  * index prefix) and the legacy `RUN-YYYYMMDD-XXX(-slug)?` form.
  *
  * @param {string} name
- * @returns {{format: 'new'|'legacy'|'unknown', index?: number, timestamp?: string, scope?: string,
- *   target?: string, dedupeSuffix?: number, runId?: string, sequence?: string, slug?: string}}
+ * @returns {{format: 'new'|'legacy'|'unknown', index?: number, owner?: string, timestamp?: string,
+ *   scope?: string, target?: string, dedupeSuffix?: number, runId?: string, sequence?: string,
+ *   slug?: string}}
  */
 function parseRunFolderName(name) {
   if (typeof name !== 'string' || !name) {
@@ -286,9 +363,11 @@ function parseRunFolderName(name) {
   // as they did before, just without an `index` field.
   let rest0 = name;
   let index;
+  let owner;
   const indexMatch = name.match(RUN_INDEX_RE);
   if (indexMatch) {
-    index = Number(indexMatch[1]);
+    owner = indexMatch[1];
+    index = Number(indexMatch[2]);
     rest0 = name.slice(indexMatch[0].length);
   }
 
@@ -307,6 +386,7 @@ function parseRunFolderName(name) {
     return {
       format: 'new',
       ...(index !== undefined ? { index } : {}),
+      ...(owner ? { owner } : {}),
       timestamp,
       scope,
       target,
@@ -321,6 +401,9 @@ module.exports = {
   CANONICAL_SCOPES,
   RUN_INDEX_PAD,
   RUN_INDEX_RE,
+  RUN_OWNER_RE,
+  normalizeRunOwner,
+  deriveRunOwner,
   formatRunIndex,
   nextRunIndex,
   sanitizeSegment,

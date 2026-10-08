@@ -136,6 +136,11 @@ function resolveRunFolder(runsDir, identifier) {
   const byNewName = index.find((e) => e.inferredNewName === identifier);
   if (byNewName && onDisk.includes(byNewName.legacyName)) return byNewName.legacyName;
 
+  // The other direction: a run renamed onto its owner's sequence (renameRuns.js) is on disk under its
+  // NEW name, and its old name keeps resolving through `renamedTo`.
+  const renamed = index.find((e) => e.legacyName === identifier && e.renamedTo);
+  if (renamed && onDisk.includes(renamed.renamedTo)) return renamed.renamedTo;
+
   // Bare-Run-ID convenience lookup (e.g. "RUN-20260706-001" -> "RUN-20260706-001-login").
   //
   // AMBIGUITY IS AN ERROR, NOT A COIN FLIP. This previously used find(), returning the first

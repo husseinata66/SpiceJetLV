@@ -30,7 +30,7 @@ const fs = require('fs');
 const path = require('path');
 
 const { resolveRunFolder } = require('./runFolderIndex');
-const { generateRunFolderName, parseRunFolderName } = require('./runFolderName');
+const { generateRunFolderName, parseRunFolderName, deriveRunOwner } = require('./runFolderName');
 const { computeDrift } = require('./targetRef');
 
 const LINEAGE_FILENAME = 'lineage.json';
@@ -135,7 +135,20 @@ function planRefinement(runsDir, priorIdentifier, opts = {}) {
       .filter((e) => e.isDirectory()).map((e) => e.name);
   } catch { /* fresh runs dir */ }
 
-  const newFolder = generateRunFolderName({ scope: newScope, target: newTarget }, { existingNames, now });
+  // A refinement belongs to the same Feature/module as the run it refines, so it joins that owner's
+  // sequence (run_manager.md §5.1.1). Older runs that predate owners stay unowned.
+  let owner = priorMeta.runOwner ?? priorParsed.owner ?? null;
+  if (!owner) {
+    try {
+      owner = deriveRunOwner(priorMeta);
+    } catch (err) {
+      throw new LineageError(`Cannot tell which Feature/module "${priorFolder}" belongs to: ${err.message}`);
+    }
+  }
+  const newFolder = generateRunFolderName(
+    { scope: newScope, target: newTarget, owner },
+    { existingNames, now }
+  );
 
   // Drift is the whole point: it tells the new run which inherited conclusions are suspect.
   let drift = null;
@@ -156,6 +169,7 @@ function planRefinement(runsDir, priorIdentifier, opts = {}) {
     newRunFolder: newFolder,
     scope: newScope,
     target: newTarget,
+    owner: owner ?? null,
     plannedAt: now.toISOString(),
     inheritable: inspectInheritable(runsDir, priorFolder),
     drift,

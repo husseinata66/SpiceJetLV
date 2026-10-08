@@ -70,8 +70,12 @@ Before any Agent runs, two pointers must resolve: **which module** and **which r
 
    ```bash
    node platform_core/tools/run_manager/cli.js new \
-     --scope UserStory --target Login --workflow first_run --scope-paths <in-scope paths>
+     --scope UserStory --target Login --workflow first_run --scope-paths <in-scope paths> \
+     --modules login
    ```
+
+   `--modules` names the run's module, so the run is numbered within it (`login-run-001`); use
+   `--feature <F> (--supplier <S> | --shared-scope <SS>)` for a Supplier Feature run (`run_manager.md` §5.1.1).
 
    It generates the folder name (§5.5 — never hand-formatted), creates the Run Workspace (§6), writes `run.json` **with the Target Project code-state anchor** (`targetRef`, §5.8), creates `metadata/RunManifest.md` from its template (§5.11), and **activates the run** (§5.7). Where the anchor cannot be captured, that is recorded as a declared gap rather than left silent.
 

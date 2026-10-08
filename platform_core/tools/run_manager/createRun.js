@@ -23,7 +23,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { generateRunFolderName, parseRunFolderName } = require('./runFolderName');
+const { generateRunFolderName, parseRunFolderName, deriveRunOwner } = require('./runFolderName');
 const { captureTargetRef } = require('./targetRef');
 const { setActiveRun } = require('./activeRun');
 const { renderRunManifest } = require('./runManifest');
@@ -151,6 +151,21 @@ function createRun(runsDir, opts = {}) {
   // Validated BEFORE any folder is created — a rejected ownership shape must leave nothing behind,
   // exactly like every other createRun() validation failure.
   validateRunScopeFamily(extraRunJson);
+  if (extraRunJson.moduleFeature && extraRunJson.scopeFamily) {
+    throw new CreateRunError(
+      '`moduleFeature` names a classic module Feature and cannot be combined with a ' +
+      `\`scopeFamily\` run (got scopeFamily=${JSON.stringify(extraRunJson.scopeFamily)}).`
+    );
+  }
+
+  // The owner decides which per-Feature/per-module counter the run joins (run_manager.md §5.1.1).
+  // It comes from the scope fields run.json records, never from the target text.
+  let runOwner;
+  try {
+    runOwner = deriveRunOwner(extraRunJson);
+  } catch (err) {
+    throw new CreateRunError(err.message);
+  }
 
   let existingNames = [];
   try {
@@ -159,7 +174,7 @@ function createRun(runsDir, opts = {}) {
   } catch { /* fresh runs dir — created below */ }
 
   const folderName = opts.folderName
-    || generateRunFolderName({ scope, target }, { existingNames, now });
+    || generateRunFolderName({ scope, target, owner: runOwner }, { existingNames, now });
 
   const runDir = path.join(runsDir, folderName);
   if (fs.existsSync(runDir)) {
@@ -192,6 +207,7 @@ function createRun(runsDir, opts = {}) {
   const runJson = {
     folderName,
     index: parsed.index ?? null,
+    runOwner: parsed.owner ?? runOwner ?? null,
     scope: scope ?? parsed.scope ?? null,
     target: target ?? parsed.target ?? null,
     workflow: workflow || UNVERSIONED,

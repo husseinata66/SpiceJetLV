@@ -752,7 +752,8 @@ The Run Manager is the only component that creates a run, names it, or decides w
 | Command | Effect |
 |---|---|
 | `cli.js --scope <S> --target <T> [--json]` | generate a run folder name (default verb — never hand-format one) |
-| `cli.js new --scope <S> --target <T> [--workflow W] [--no-activate]` | create a run: name + code-state anchor + Run Manifest + activation |
+| `cli.js new --scope <S> --target <T> [--workflow W] [--no-activate]` | create a run: name + code-state anchor + Run Manifest + activation. Add `--feature F (--supplier S \| --shared-scope SS)` or `--modules m [--module-feature F]` so the run is numbered within its Feature/module (`reissue-run-003`) |
+| `cli.js rename-runs [--assign "<run>=<owner>"] [--apply --approved-by N --reason R]` | move existing runs onto their Feature/module's own sequence — plans by default, writes nothing |
 | `cli.js active [--json]` · `use <run>` · `list [--json]` · `refresh` · `clear` | read, switch, refresh, or remove the Active Run pointer |
 | `cli.js stage "<Stage>" --status <Approved\|…>` · `manifest [--json]` | record and read the Run Manifest stage ledger |
 | `cli.js refine <prior-run> [--dry-run]` · `drift [--run <r>]` · `anchor [--run <r>]` | run lineage, code drift since a run was anchored, anchor backfill |

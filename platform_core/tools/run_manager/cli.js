@@ -24,8 +24,18 @@
 //   node .../cli.js drift [--run <r>] [--json]  # what changed in the target since a run was anchored
 //
 //   # run creation + manifest (the Run Manager's own bookkeeping)
-//   node .../cli.js new --scope <S> --target <T> [--workflow W] [--no-activate]
+//   node .../cli.js new --scope <S> --target <T> [--workflow W] [--no-activate] [<owner flags>]
 //                                               # create a run: name + anchor + Manifest + activate
+//     owner flags — which Feature/module the run belongs to, so it joins that owner's sequence
+//     (run_manager.md §5.1.1). Also accepted by the default naming verb:
+//       --feature F (--supplier S | --shared-scope SS)   Supplier Feature run  -> F-run-NNN
+//       --modules a[,b] [--module-feature F]             module / classic Feature run
+//                                                        -> a-run-NNN · a+b-run-NNN · a.F-run-NNN
+//     none of them                                       -> bare run-NNN (full-project / unscoped)
+//
+//   # move existing runs onto their owner's sequence (the one sanctioned rename, §5.1.1)
+//   node .../cli.js rename-runs [--assign "<run>=<owner>,<run>=<owner>"] [--json]       # plan only
+//   node .../cli.js rename-runs ... --apply --approved-by "<name>" --reason "..." [--no-rewrite-refs]
 //   node .../cli.js stage "<Stage>" --status <Approved|...> [--reviewer R] [--revisions N]
 //                                               # record a stage checkpoint in the Run Manifest
 //   node .../cli.js manifest [--json]           # read the stage ledger ("where are we right now?")
@@ -51,7 +61,8 @@
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
-const { generateRunFolderName, parseRunFolderName } = require('./runFolderName');
+const { generateRunFolderName, parseRunFolderName, deriveRunOwner } = require('./runFolderName');
+const { planRunRenames, applyRunRenames, RenameRunsError } = require('./renameRuns');
 const { resolveRunFolder } = require('./runFolderIndex');
 const { captureTargetRef, computeDrift } = require('./targetRef');
 const {
@@ -78,8 +89,47 @@ const {
 
 const VERBS = new Set([
   'name', 'active', 'use', 'list', 'refresh', 'clear', 'refine', 'drift',
-  'new', 'stage', 'manifest', 'anchor', 'scope-change',
+  'new', 'stage', 'manifest', 'anchor', 'scope-change', 'rename-runs',
 ]);
+
+function argValue(args, key) {
+  return args[key] && args[key] !== true ? String(args[key]) : undefined;
+}
+
+/**
+ * The run.json scope fields the owner flags describe (see the usage header). Returns {} when none are
+ * given, which keeps the run unowned exactly as before these flags existed.
+ */
+function scopeFieldsFromArgs(args) {
+  const feature = argValue(args, 'feature');
+  const modules = argValue(args, 'modules');
+  if (feature && modules) {
+    throw new CreateRunError(
+      '--feature (a Supplier Feature) and --modules (classic modules) describe different scope families — pass one.'
+    );
+  }
+  if (feature) {
+    return {
+      scopeFamily: 'supplier-feature',
+      feature,
+      supplier: argValue(args, 'supplier') ?? null,
+      sharedScope: argValue(args, 'shared-scope') ?? null,
+    };
+  }
+  if (modules) {
+    const list = modules.split(',').map((m) => m.trim()).filter(Boolean);
+    const moduleFeature = argValue(args, 'module-feature');
+    return {
+      modules: list,
+      moduleScope: list.length > 1 ? 'multi' : 'single',
+      ...(moduleFeature ? { moduleFeature } : {}),
+    };
+  }
+  if (argValue(args, 'module-feature')) {
+    throw new CreateRunError('--module-feature needs its parent module: --modules <module> --module-feature <feature>.');
+  }
+  return {};
+}
 
 function parseArgs(argv) {
   const out = { _: [] };
@@ -159,8 +209,17 @@ function cmdName(args) {
       .map((e) => e.name);
   }
 
+  let owner;
+  try {
+    owner = deriveRunOwner(scopeFieldsFromArgs(args));
+  } catch (err) {
+    console.error(err.message);
+    process.exitCode = 1;
+    return;
+  }
+
   const folderName = generateRunFolderName(
-    { scope: args.scope, target: args.target },
+    { scope: args.scope, target: args.target, owner },
     {
       existingNames,
       now,
@@ -174,6 +233,7 @@ function cmdName(args) {
     console.log(JSON.stringify({
       folderName,
       index: parsed.index ?? null,
+      runOwner: parsed.owner ?? null,
       scope: args.scope,
       target: args.target,
       started: now.toISOString(),
@@ -501,6 +561,7 @@ function cmdNew(args) {
       scopePaths,
       ...(args.workflow && args.workflow !== true ? { workflow: args.workflow } : {}),
       ...(args['created-by'] && args['created-by'] !== true ? { createdBy: args['created-by'] } : {}),
+      extraRunJson: scopeFieldsFromArgs(args),
       activate: !args['no-activate'],
     });
   } catch (err) {
@@ -758,12 +819,96 @@ function cmdList(args) {
 
   for (const run of runs) {
     const marker = run.folderName === active ? '*' : ' ';
-    const idx = run.index === null ? 'legacy ' : `run-${String(run.index).padStart(3, '0')}`;
+    const owner = run.runOwner ? `${run.runOwner.padEnd(18)} ` : `${'(unowned)'.padEnd(18)} `;
     const status = run.status ? ` [${run.status}]` : '';
     const stages = run.stagesPresent.length ? `  (${run.stagesPresent.join(', ')})` : '  (no stages yet)';
-    console.log(`${marker} ${idx}  ${run.folderName}${status}${stages}`);
+    console.log(`${marker} ${owner} ${run.folderName}${status}${stages}`);
   }
   if (active) console.log('\n* = active run');
+}
+
+/** Parses --assign "<run>=<owner>,<run>=<owner>" into { run: owner }. */
+function parseAssign(raw) {
+  const out = {};
+  if (!raw) return out;
+  for (const pair of String(raw).split(',').map((s) => s.trim()).filter(Boolean)) {
+    const eq = pair.lastIndexOf('=');
+    if (eq <= 0) throw new RenameRunsError(`--assign entry "${pair}" is not <run>=<owner>.`);
+    out[pair.slice(0, eq).trim()] = pair.slice(eq + 1).trim();
+  }
+  return out;
+}
+
+/**
+ * `rename-runs` — move existing runs onto their Feature/module's own `<owner>-run-NNN` sequence.
+ * Plans by default and writes nothing; `--apply` needs --approved-by and --reason, because this is the
+ * one sanctioned exception to run immutability (run_manager.md §5.1.1, §5.6).
+ */
+function cmdRenameRuns(args) {
+  const runsDir = resolveRunsDir(args);
+  if (!runsDir) return;
+
+  let plan;
+  try {
+    plan = planRunRenames(runsDir, { assign: parseAssign(argValue(args, 'assign')) });
+  } catch (err) {
+    if (err instanceof RenameRunsError || err instanceof TypeError) {
+      console.error(err.message);
+      process.exitCode = 1;
+      return;
+    }
+    throw err;
+  }
+
+  if (!args.apply) {
+    if (args.json) {
+      console.log(JSON.stringify(plan, null, 2));
+    } else {
+      console.log(`Rename plan — ${plan.renames.length} run(s) to rename (nothing written)\n`);
+      for (const r of plan.renames) {
+        console.log(`  ${r.from}\n    -> ${r.to}    (owner from ${r.ownerSource})`);
+      }
+      if (plan.unchanged.length) {
+        console.log(`\nAlready on their owner's sequence: ${plan.unchanged.map((u) => u.folderName).join(', ')}`);
+      }
+      if (plan.unowned.length) {
+        console.log('\nNo owner recorded — left as they are (give one with --assign "<run>=<owner>"):');
+        for (const u of plan.unowned) console.log(`  ${u.folderName}`);
+      }
+      if (plan.errors.length) {
+        console.log('\nErrors — the plan cannot be applied until these are resolved:');
+        for (const e of plan.errors) console.log(`  ${e.folderName}: ${e.error}`);
+      }
+      console.log('\nApply with: --apply --approved-by "<name>" --reason "..."');
+    }
+    if (plan.errors.length) process.exitCode = 1;
+    return;
+  }
+
+  try {
+    const res = applyRunRenames(runsDir, plan, {
+      now: new Date(),
+      approvedBy: argValue(args, 'approved-by'),
+      reason: argValue(args, 'reason'),
+      ...(args['no-rewrite-refs'] ? { rewriteRoot: null } : {}),
+    });
+    if (args.json) {
+      console.log(JSON.stringify(res, null, 2));
+      return;
+    }
+    console.log(`Renamed ${res.renamed.length} run(s).`);
+    for (const r of res.renamed) console.log(`  ${r.from} -> ${r.to}`);
+    console.log(`References rewritten: ${res.replacements} in ${res.filesChanged.length} file(s).`);
+    if (res.activeRunUpdated) console.log('Active run pointer updated.');
+    console.log(`Old names still resolve through ${path.join('runs', '.run_folder_index.json')}.`);
+  } catch (err) {
+    if (err instanceof RenameRunsError) {
+      console.error(err.message);
+      process.exitCode = 1;
+      return;
+    }
+    throw err;
+  }
 }
 
 function cmdRefresh(args) {
@@ -807,6 +952,7 @@ function main() {
     case 'manifest': return cmdManifest(args);
     case 'anchor': return cmdAnchor(args);
     case 'scope-change': return cmdScopeChange(args);
+    case 'rename-runs': return cmdRenameRuns(args);
     default: return cmdName(args);
   }
 }
