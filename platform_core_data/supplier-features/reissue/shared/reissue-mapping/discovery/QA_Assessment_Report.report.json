@@ -1,0 +1,1058 @@
+{
+ "title": "Discovery - QA Assessment Report",
+ "documentTitle": "Reissue Mapping - Discovery Report",
+ "statusPill": "PENDING REVIEW",
+ "statusPillTone": "warning",
+ "statuses": [
+  {
+   "key": "VERIFIED",
+   "label": "Verified",
+   "tone": "pass"
+  },
+  {
+   "key": "DEFECT",
+   "label": "Defect raised",
+   "tone": "fail"
+  },
+  {
+   "key": "PARTIAL",
+   "label": "Partial - residual unknown",
+   "tone": "warning"
+  },
+  {
+   "key": "NOT EXERCISED",
+   "label": "Never exercised",
+   "tone": "blocked"
+  }
+ ],
+ "meta": {
+  "fields": [
+   [
+    {
+     "label": "Scope",
+     "value": "Supplier Features / reissue / shared scope reissue-mapping"
+    },
+    {
+     "label": "Stage",
+     "value": "2 - Explorer (shared)"
+    }
+   ],
+   [
+    {
+     "label": "Scope family",
+     "value": "supplier-feature",
+     "mono": true
+    },
+    {
+     "label": "Shared scope",
+     "value": "reissue-mapping",
+     "mono": true
+    }
+   ],
+   {
+    "label": "Upstream",
+    "value": "context/ProjectContext.md Revision 12 (status: Pending Review - see the gate note)",
+    "mono": true
+   }
+  ],
+  "runFields": [
+   [
+    {
+     "label": "Run",
+     "value": "run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
+     "mono": true
+    },
+    {
+     "label": "Period",
+     "value": "2026-09-26 to 2026-09-30"
+    }
+   ],
+   [
+    {
+     "label": "Layers in scope",
+     "value": "UI, API, Contract, Integration, E2E"
+    },
+    {
+     "label": "Excluded",
+     "value": "Regression (moved to reissue-flow), DB (deferred), Security, Performance"
+    }
+   ],
+   [
+    {
+     "label": "Surfaces",
+     "value": "Admin 192.168.1.60, Portal :9500, ndc-core-service, Sabre CERT PCC EZ4K"
+    },
+    {
+     "label": "Scenarios",
+     "value": "10 scenarios, 187 evidence files"
+    }
+   ],
+   [
+    {
+     "label": "Currencies",
+     "value": "EGP and AED at two exchange rates (9 and 0.1)"
+    },
+    {
+     "label": "Trip types",
+     "value": "one-way, round trip, multi-city"
+    }
+   ]
+  ]
+ },
+ "summary": {
+  "title": "1. Executive Summary - mapping rules assessed",
+  "total": 25,
+  "totalLabel": "Mapping rules defined (hop A + hop B + chain)",
+  "duration": "5 days",
+  "durationLabel": "Discovery period",
+  "donut": {
+   "focus": "VERIFIED",
+   "percent": 72,
+   "label": "rules verified"
+  }
+ },
+ "testCases": {
+  "title": "Mapping rule assessment",
+  "searchPlaceholder": "Search by rule id, field, finding...",
+  "open": true,
+  "categories": [
+   {
+    "key": "integration",
+    "name": "Hop A - core service to Admin/Portal API to screen",
+    "icon": "🖥",
+    "open": true,
+    "cases": [
+     {
+      "id": "A1",
+      "title": "Additional base fare carries from core to the screen",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "core additional base fare -> screen 'Additional base fare'"
+       },
+       {
+        "label": "Observed",
+        "value": "Equal on 17/17 offers across two bookings, and 18/18 on scenario 10"
+       },
+       {
+        "label": "Conditions",
+        "value": "positive and zero; two currencies; two exchange rates; one-way, round trip, multi-city"
+       }
+      ],
+      "evidence": "s1, s10 paired captures; s10-offer-comparison.json"
+     },
+     {
+      "id": "A2",
+      "title": "Additional tax & fees, and its composition",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "core tax difference -> screen 'Additional taxes'"
+       },
+       {
+        "label": "Observed",
+        "value": "Values equal. Composition now evidenced per tax code: Adult XL 2.16 + E3 22.4 + IO 316.0 = 340.56"
+       },
+       {
+        "label": "Residual",
+        "value": "Roll-up rule across the full code list still not formally specified"
+       }
+      ],
+      "evidence": "s10-portal-review-SV390.json - taxCodeSums"
+     },
+     {
+      "id": "A3",
+      "title": "Supplier fee / penalty reaches the screen",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "core penalty -> screen 'Supplier fee'"
+       },
+       {
+        "label": "Observed",
+        "value": "1,306.80 AED on screen against 13,068.00 EGP at core, at rate 0.1"
+       },
+       {
+        "label": "Risk closed",
+        "value": "RSK-M5 - previously evidenced only at zero on both sides"
+       }
+      ],
+      "evidence": "s10 - first non-zero penalty observed in this run"
+     },
+     {
+      "id": "A4",
+      "title": "DUE NOW / Amount payable",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "screen payable = core totalPayable x rate + change fee"
+       },
+       {
+        "label": "Observed",
+        "value": "Holds on all 18 offers; 38,268.80 x 0.1 = 3,826.88 + 150.00 = 3,976.88"
+       }
+      ],
+      "evidence": "s10-offer-comparison.json"
+     },
+     {
+      "id": "A5",
+      "title": "Change fee is app-origin and matches configuration",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "Rule Engine Exchange Fees -> screen 'Change fee'"
+       },
+       {
+        "label": "Observed",
+        "value": "Rule 'Dubai' = 25 Fixed Amount, By Pax, agency AGN10030 -> 25 x 6 = 150.00"
+       },
+       {
+        "label": "Confirms",
+        "value": "null in the supplier-currency block, present only in agency currency - added after conversion"
+       }
+      ],
+      "evidence": "Admin Rule Engine exchange-fee 1741; s10 review payload"
+     },
+     {
+      "id": "A6",
+      "title": "Currently ticketed - Total",
+      "status": "DEFECT",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "the booked offer's total shown on Review & Pay"
+       },
+       {
+        "label": "Observed",
+        "value": "Line items sum to 3,604.88; the screen prints 3,605.00"
+       },
+       {
+        "label": "Finding",
+        "value": "FINDING-R02, and FINDING-R18 where the same rounding reaches the wallet"
+       },
+       {
+        "label": "Reproduced",
+        "value": "at ROE 9 and at ROE 0.1 - not rate-specific"
+       }
+      ],
+      "evidence": "s10-portal-review-SV390.json; s1"
+     },
+     {
+      "id": "A7",
+      "title": "Per-passenger-type breakdown",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "core per-PTC groups -> screen per-type lines"
+       },
+       {
+        "label": "Observed",
+        "value": "2 Adult + 2 Child + 2 Infant; every group sums to its own total"
+       },
+       {
+        "label": "Residual",
+        "value": "a party split into several fare groups priced unalike has never been seen - Gap G2"
+       }
+      ],
+      "evidence": "s9, s10"
+     },
+     {
+      "id": "A8",
+      "title": "Result flight times",
+      "status": "DEFECT",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "core segment departure/arrival -> screen"
+       },
+       {
+        "label": "Observed",
+        "value": "Search results show SV-382 at 06:10, matching the supplier. Itinerary shows the same flight at 08:10"
+       },
+       {
+        "label": "Sharpened",
+        "value": "two screens in one application disagree about one flight"
+       },
+       {
+        "label": "Finding",
+        "value": "FINDING-R01 - raised in the sibling reissue-flow scope"
+       }
+      ],
+      "evidence": "s10 booking-details vs search results"
+     },
+     {
+      "id": "A9",
+      "title": "Reissue availability",
+      "status": "PARTIAL",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "eligibility -> the Reissue control"
+       },
+       {
+        "label": "Observed",
+        "value": "core answered 200 'changeable' for a nonsense credential"
+       },
+       {
+        "label": "Open",
+        "value": "RSK-M3 - not re-tested this run"
+       }
+      ],
+      "evidence": "s1"
+     },
+     {
+      "id": "A10",
+      "title": "Wallet - Your Balance",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "financial-details -> 'Your Balance'"
+       },
+       {
+        "label": "Observed",
+        "value": "Admin = topUpBalance + creditLimit; Portal = topUpBalance where creditAgency is false, and includes credit where it is true"
+       },
+       {
+        "label": "Resolved",
+        "value": "OQ-M7 closed. FINDING-R16 raised and withdrawn - the creditAgency flag scopes the agency channel only"
+       },
+       {
+        "label": "Remaining",
+        "value": "FINDING-R17 - 3 decimals in the sidebar, 2 on the page"
+       }
+      ],
+      "evidence": "wallet-OQM7-reproduction.json; s10"
+     },
+     {
+      "id": "A11",
+      "title": "Review & Pay lines",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "every line on Review & Pay against its own total"
+       },
+       {
+        "label": "Observed",
+        "value": "Additional to pay sums exactly: 1,805.40 + 714.68 + 1,306.80 + 150.00 = 3,976.88"
+       },
+       {
+        "label": "Exception",
+        "value": "the Currently ticketed total does not - see A6"
+       }
+      ],
+      "evidence": "s10-portal-review-SV390.json"
+     },
+     {
+      "id": "A12",
+      "title": "Returned but not displayed",
+      "status": "PARTIAL",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "the one omission the oracle can catch (ProjectContext 2.0)"
+       },
+       {
+        "label": "Observed",
+        "value": "no instance found where a core value was returned and silently dropped"
+       },
+       {
+        "label": "Note",
+        "value": "partial by nature - absence of evidence across ten scenarios, not proof"
+       }
+      ],
+      "evidence": "all scenarios"
+     }
+    ]
+   },
+   {
+    "key": "business-rule",
+    "name": "Hop B - Sabre to core service",
+    "icon": "🔗",
+    "open": true,
+    "cases": [
+     {
+      "id": "B1",
+      "title": "modifyPrice.baseDifference",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "Sabre totalPriceDifference.baseFare -> core baseDifference"
+       },
+       {
+        "label": "Observed",
+        "value": "Equal 17/17 x2 bookings, 18/18 on scenario 10"
+       },
+       {
+        "label": "Residual",
+        "value": "naming mismatch between layers unresolved, values correct"
+       }
+      ],
+      "evidence": "s1, s10"
+     },
+     {
+      "id": "B2",
+      "title": "modifyPrice.taxDifference",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "Sabre totalTax -> core taxDifference"
+       },
+       {
+        "label": "Observed",
+        "value": "Equal on every offer compared"
+       }
+      ],
+      "evidence": "s1, s10"
+     },
+     {
+      "id": "B3",
+      "title": "modifyPrice.penalty",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "Sabre totalFee -> core penalty"
+       },
+       {
+        "label": "Observed",
+        "value": "13,068.00 EGP identical at both layers"
+       },
+       {
+        "label": "Note",
+        "value": "totalFee is ABSENT, not zero, on an offer with no penalty - 1 of 18 on s10"
+       },
+       {
+        "label": "Resolved",
+        "value": "DS-M4 resolved in the field map's favour"
+       }
+      ],
+      "evidence": "s10-sabre-reshop-TTDMXL-B.json"
+     },
+     {
+      "id": "B4",
+      "title": "modifyPrice.totalPayable",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "Sabre grandTotal -> core totalPayable"
+       },
+       {
+        "label": "Observed",
+        "value": "Straight mapping for the current configuration, all offers"
+       }
+      ],
+      "evidence": "s1, s10"
+     },
+     {
+      "id": "B5",
+      "title": "Passenger-type codes",
+      "status": "PARTIAL",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "Sabre passengerTypeCode -> core ADT/CHD/INF"
+       },
+       {
+        "label": "Observed",
+        "value": "Codes map correctly"
+       },
+       {
+        "label": "Open",
+        "value": "population equivalence unconfirmed - Gap G2"
+       }
+      ],
+      "evidence": "s9, s10"
+     },
+     {
+      "id": "B6",
+      "title": "Segment departure times",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "Sabre departureDate/Time -> core departureDateTime"
+       },
+       {
+        "label": "Observed",
+        "value": "Supplier and core agree exactly"
+       },
+       {
+        "label": "Consequence",
+        "value": "localises FINDING-R01's corruption to the application layer, not the mapping"
+       }
+      ],
+      "evidence": "s10"
+     },
+     {
+      "id": "B7",
+      "title": "originalPaidAmount",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "original ticket value at supplier and core"
+       },
+       {
+        "label": "Observed",
+        "value": "15,577.40 / 22,848.20 exact at both"
+       }
+      ],
+      "evidence": "s1"
+     },
+     {
+      "id": "B8",
+      "title": "Ticket / coupon status",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "Sabre flightTickets[] grouped by travelerIndex"
+       },
+       {
+        "label": "Observed",
+        "value": "Correct post-exchange state is 3 documents per traveler: original Exchanged, new ticket live, EMD live"
+       },
+       {
+        "label": "Critical detail",
+        "value": "ticketStatusName reads Issued on the SPENT ticket too - coupon status is the field that decides whether a passenger can travel"
+       },
+       {
+        "label": "Gap",
+        "value": "scenarios 1, 2, 5, 6, 8b were never checked this way - Gap G9"
+       }
+      ],
+      "evidence": "s10-sabre-getBooking-TTDMXL-after.json; s9 (failed this check - FINDING-R13)"
+     },
+     {
+      "id": "B9",
+      "title": "Negative differences (Refund / Even)",
+      "status": "NOT EXERCISED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "a re-shop cheaper than the original ticket"
+       },
+       {
+        "label": "Observed",
+        "value": "NOTHING. This path has never been run in this scope"
+       },
+       {
+        "label": "Assessment",
+        "value": "the highest-risk unmapped path - Declared Gap G1"
+       },
+       {
+        "label": "Blocked by",
+        "value": "OQ-M4 - needs a booking whose re-shop is cheaper"
+       }
+      ],
+      "evidence": "no evidence exists"
+     },
+     {
+      "id": "B10",
+      "title": "Sabre fields core does not republish",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Rule",
+        "value": "fields present at the supplier and absent at core"
+       },
+       {
+        "label": "Assessment",
+        "value": "not a defect source under the oracle in 2.0 - recorded for the contract owner"
+       }
+      ],
+      "evidence": "s1, s10"
+     }
+    ]
+   },
+   {
+    "key": "flow",
+    "name": "Chain-level checks",
+    "icon": "🔗",
+    "open": true,
+    "cases": [
+     {
+      "id": "C1",
+      "title": "End-to-end integrity - same offer count, same values",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Observed",
+        "value": "18 of 18 offers aligned across all three layers inside one capture window, zero value mismatches at either hop"
+       },
+       {
+        "label": "Method",
+        "value": "alignment by flight signature - carrier, flight number, departure datetime - never by array index"
+       }
+      ],
+      "evidence": "s10-alignment.json, s10-offer-comparison.json"
+     },
+     {
+      "id": "C2",
+      "title": "Portal / Admin parity",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Observed",
+        "value": "Portal 17/17 equal to core, totalPayable = core + change fee; re-proven headless 2026-09-27"
+       }
+      ],
+      "evidence": "s1, p2 captures"
+     },
+     {
+      "id": "C3",
+      "title": "Stability between polls",
+      "status": "VERIFIED",
+      "rows": [
+       {
+        "label": "Observed",
+        "value": "core values unchanged across 19:35 and 20:13 on the same booking"
+       }
+      ],
+      "evidence": "s1"
+     }
+    ]
+   }
+  ]
+ },
+ "sections": [
+  {
+   "type": "findings",
+   "title": "2. Findings — 18 live, 3 withdrawn",
+   "open": true,
+   "badges": [
+    {
+     "value": 1,
+     "label": "Critical",
+     "tone": "blocked"
+    },
+    {
+     "value": 4,
+     "label": "High",
+     "tone": "fail"
+    },
+    {
+     "value": 1,
+     "label": "High if confirmed",
+     "tone": "fail"
+    },
+    {
+     "value": 9,
+     "label": "Medium",
+     "tone": "warning"
+    },
+    {
+     "value": 3,
+     "label": "Low",
+     "tone": "neutral"
+    },
+    {
+     "value": 3,
+     "label": "Withdrawn",
+     "tone": "neutral"
+    }
+   ],
+   "items": [
+    {
+     "kind": "Defect - High if confirmed (UNREPRODUCED)",
+     "tone": "fail",
+     "body": "A reissue eligibility/reshop call made with a deliberately invalid supplier credential returned 200 and reported the booking as changeable. Observed once on scenario 1 and never repeated; it sat as a risk line for nine further scenarios.",
+     "refs": "(FINDING-R22)",
+     "fields": [
+      {
+       "label": "Deliberately not asserted",
+       "value": "Whether the credential reached the supplier, whether the offers were real, and whether a clean session behaves the same are all unestablished. Raised to force a re-test, not to claim a proven vulnerability.",
+       "mono": false
+      },
+      {
+       "label": "The untested step that matters most",
+       "value": "Calling with a credential belonging to a DIFFERENT agency. That distinguishes weak validation from credentials not being segregated.",
+       "mono": false
+      },
+      {
+       "label": "Evidence weakness",
+       "value": "The original request/response pair was never preserved as its own file - a security-adjacent observation should have been captured the moment it was seen.",
+       "mono": false
+      }
+     ]
+    },
+    {
+     "kind": "Defect - Medium",
+     "tone": "warning",
+     "body": "The supplier badge on the results grid and Review & Pay is read from properties.refundableInfo - a field named for refundability carrying a supplier ENVIRONMENT name - while a correctly-named supplierName sits populated and unused in the same object and refundable is null.",
+     "refs": "(FINDING-R19)",
+     "fields": [
+      {
+       "label": "Open question",
+       "value": "Is a credential environment name meant to be visible to an agency at all? The production equivalent is unknown to this run.",
+       "mono": false
+      }
+     ]
+    },
+    {
+     "kind": "Defect - Medium",
+     "tone": "warning",
+     "body": "The core service sends bare IATA and carrier codes. Every airport, city, country and airline name on the reissue screens is produced by a Portal-side lookup that no mapping rule covers, no test verifies, and nothing would notice if it were wrong.",
+     "refs": "(FINDING-R20)",
+     "fields": [
+      {
+       "label": "Why it is raised despite no wrong name being seen",
+       "value": "A stale entry renders a correct code as the wrong city - the kind of error an agent reads past because the code beside it is right. On a multi-airport city that is a passenger at the wrong airport.",
+       "mono": false
+      },
+      {
+       "label": "The asymmetry that makes it a defect",
+       "value": "The change fee is a declared, governed app-origin value. Six others are undeclared and ungoverned.",
+       "mono": false
+      }
+     ]
+    },
+    {
+     "kind": "Defect candidate - Medium (severity uncertain)",
+     "tone": "warning",
+     "body": "The core reshop response carries a supplier warnings channel. It has been empty in every capture this run took, no reissue screen can render it, and its display path has therefore never executed.",
+     "refs": "(FINDING-R21)",
+     "fields": [
+      {
+       "label": "Honest uncertainty",
+       "value": "If the supplier only emits advisory text this is Low. If it emits conditions bearing on validity, an agency pays without seeing what the airline said, and it is High. One non-empty warnings response would settle it.",
+       "mono": false
+      },
+      {
+       "label": "Sibling",
+       "value": "isRepriceRequired is false on every offer ever captured; its true branch has never run, on the screen where the agent is about to pay.",
+       "mono": false
+      }
+     ]
+    },
+    {
+     "kind": "Defect - Critical - APPROVED 2026-09-30 (supplier)",
+     "tone": "blocked",
+     "body": "An exchange voids all six tickets but issues only five. Traveler 2 holds only his original ticket with both coupons Exchanged - a spent document and nothing else. The new-ticket sequence runs 392, [393 absent], 394, 395, 396, 397. The agency paid for six passengers and received five sets of documents.",
+     "refs": "(FINDING-R13 - RPTIYO)",
+     "fields": [
+      {
+       "label": "Disposition",
+       "value": "Approved at the Stage 2 gate as a SUPPLIER defect - the missing document is Sabre's. The application residue (declaring success without verifying per-passenger ticketing) stays open and is NOT closed by R14's fix.",
+       "mono": false
+      },
+      {
+       "label": "Why it was invisible",
+       "value": "The application's own confirmation showed null for all six ticket numbers. Tested through the UI alone this logs as a display bug. Querying Sabre directly turned it into a passenger who cannot board.",
+       "mono": false
+      },
+      {
+       "label": "Cause",
+       "value": "NOT established. logs/detail.log would likely distinguish supplier failure from a malformed book request.",
+       "mono": false
+      },
+      {
+       "label": "Required control",
+       "value": "The application must verify per-passenger ticketing after every exchange and refuse to display success until each passenger holds a live document. Today it verifies nothing.",
+       "mono": false
+      },
+      {
+       "label": "Test data",
+       "value": "Every booking in this scope is Sabre CERT fixture data with fabricated passenger names. No person is affected and there is nothing to issue - earlier wording saying otherwise was overstated. Severity is retained as an assessment of the behaviour in production.",
+       "mono": false
+      }
+     ],
+     "evidence": "s9-sabre-getBooking-RPTIYO-after.json - 16 documents, no ...393 anywhere"
+    },
+    {
+     "kind": "Defect - High",
+     "tone": "fail",
+     "body": "Confirmation fare details do not sum: Base fare + Taxes + Service Charges comes to 38,958.80 while Total Amount reads 51,932.801. The missing 12,974.00 EGP is the supplier penalty. Confirmed to originate in the backend bookingConfirm response, not the UI.",
+     "refs": "(FINDING-R12)",
+     "fields": [
+      {
+       "label": "Correction",
+       "value": "The multi-city hypothesis was DISPROVEN by scenario 9.",
+       "mono": false
+      }
+     ]
+    },
+    {
+     "kind": "Defect - High - APPROVED 2026-09-30, with development",
+     "tone": "fail",
+     "body": "A completed, paid exchange leaves ticketNo as null for all six passengers while the supplier holds five newly issued tickets. The booking went from three of six present to zero of six.",
+     "refs": "(FINDING-R14 - RPTIYO)",
+     "fields": [
+      {
+       "label": "Disposition",
+       "value": "Approved. Cause confirmed in the source: an explicit condition in the reissue flow (absent from direct book) suppresses the ticket-number update when the returned count does not match the passenger count. Reported to development 2026-09-30.",
+       "mono": false
+      },
+      {
+       "label": "Fix warning",
+       "value": "Do NOT simply relax the condition - a positional join would mis-assign tickets to passengers. Join on the supplier's travelerIndex, store every number that joins, mark the passenger that does not.",
+       "mono": false
+      },
+      {
+       "label": "Why it compounds R13",
+       "value": "A partial failure rendered as a uniform blank is worse than either a correct display or an obvious error, because it removes the signal that anything is wrong.",
+       "mono": false
+      }
+     ]
+    },
+    {
+     "kind": "Defect - High",
+     "tone": "fail",
+     "body": "The screen asks the agency to confirm AED 3,976.88; the wallet is debited AED 3,977.00. The rounding previously recorded as a record-keeping fault reaches real money.",
+     "refs": "(FINDING-R18 - TTDMXL)",
+     "fields": [
+      {
+       "label": "Measured",
+       "value": "walletBalance 119,062 -> 115,085 from the API before and after, corroborated by /dashboard/wallet. Not read from the screen.",
+       "mono": false
+      },
+      {
+       "label": "Why it is silent",
+       "value": "The invoice records 3,977 too, so wallet and invoice agree on the wrong number. Only summing the invoice's own components reveals it.",
+       "mono": false
+      },
+      {
+       "label": "Corrects",
+       "value": "FINDING-R15's severity note asserted the wallet is debited the correct amount. That was never measured and is now falsified.",
+       "mono": false
+      }
+     ]
+    },
+    {
+     "kind": "Defect - High",
+     "tone": "fail",
+     "body": "Sabre issues a ticket the application never stores. Positional and systematic: every even-numbered passenger. Reproduced on four bookings, once on the lead passenger.",
+     "refs": "(FINDING-R06)",
+     "fields": [
+      {
+       "label": "Withdrawn escalation",
+       "value": "Briefly raised to Critical on the belief that a missing number blocks the exchange. Scenario 6 exchanged successfully with a number missing, so that escalation is withdrawn.",
+       "mono": false
+      }
+     ]
+    },
+    {
+     "kind": "Defect - Medium",
+     "tone": "warning",
+     "body": "bookingConfirm merges the supplier penalty into totalTax, so the Confirmation page and e-ticket show a change penalty as Taxes - which the supplier explicitly books as not tax.",
+     "refs": "(FINDING-R03)"
+    },
+    {
+     "kind": "Defect - Medium",
+     "tone": "warning",
+     "body": "changeFee disappears at bookingConfirm and its value reappears in serviceCharges, a field that was 0.00 throughout search and review. Decisive on scenario 10: the rule engine contributes zero to a reissue, so a non-zero serviceCharges can only be the change fee.",
+     "refs": "(FINDING-R05)"
+    },
+    {
+     "kind": "Defect - Medium",
+     "tone": "warning",
+     "body": "POST /v2/reissue/{ref}/book returns 409 with 'the request could not be completed' - no error code, no cause, no reference to quote, and the agent is left with a Failed order and no next step.",
+     "refs": "(FINDING-R07)"
+    },
+    {
+     "kind": "Defect - Medium",
+     "tone": "warning",
+     "body": "When Sabre returns two Adult fare groups with different taxes, the core service merges them by passenger-type code and multiplies the FIRST group's per-passenger tax by the full quantity. The amount charged stays correct; the breakdown shown does not add up to the total beside it.",
+     "refs": "(FINDING-R08)"
+    },
+    {
+     "kind": "Defect - Medium",
+     "tone": "warning",
+     "body": "The negative-base-fare filter suppresses every offer on some routes and the screen reports the result as an empty market, which is false. Cause confirmed as a filter deployed between 13:18:43Z and 13:35:28Z, pinned from this run's own captures.",
+     "refs": "(FINDING-R11)",
+     "fields": [
+      {
+       "label": "Superseded hypothesis",
+       "value": "The 'RUH is a connection point' explanation was wrong - coincidence, not cause. Retained as a record of the reasoning.",
+       "mono": false
+      }
+     ]
+    },
+    {
+     "kind": "Defect - Medium",
+     "tone": "warning",
+     "body": "In one invoiceInfo object, agencyInvoiceAmt is truncated down, totalAmt is rounded up, they disagree by about 1.00, and neither equals the amount charged. feeNTaxes carries an unconverted supplier-currency figure inside an object labelled with the agency currency.",
+     "refs": "(FINDING-R15)",
+     "fields": [
+      {
+       "label": "Reconfirmed",
+       "value": "feeNTaxes is unconverted at ROE 0.1 as well as 9, so it is not an artefact of one rate. But 'one floors, the other ceilings' is NOT universal - on scenario 10 both round up and agree.",
+       "mono": false
+      }
+     ]
+    },
+    {
+     "kind": "Defect - Low",
+     "tone": "neutral",
+     "body": "Review & Pay shows the currently-ticketed total as 31,347.00 EGP where every other source says 31,346.80.",
+     "refs": "(FINDING-R02)",
+     "fields": [
+      {
+       "label": "Root cause corrected",
+       "value": "In EGP totalOfferAmount is exact (a binding fault); in AED it is itself already rounded (a conversion fault). Two defects under one label - re-pointing the binding fixes only one.",
+       "mono": false
+      }
+     ]
+    },
+    {
+     "kind": "Defect - Low",
+     "tone": "neutral",
+     "body": "The Reissue History panel reads '2 Reissues' after a single exchange. Cosmetic, but it overstates how many times a ticket has been exchanged - which matters where penalties accumulate per exchange.",
+     "refs": "(FINDING-R04)"
+    },
+    {
+     "kind": "Defect - Low",
+     "tone": "neutral",
+     "body": "The same wallet balance, same channel, same session, is printed as 8,405,996.200 on the dashboard and with two decimals on Review & Pay. Deliberately NOT a member of the R12/R15 float family - the stored value is clean; only the display pipe varies.",
+     "refs": "(FINDING-R17)"
+    },
+    {
+     "kind": "Withdrawn",
+     "tone": "neutral",
+     "body": "FINDING-R09 currency conversion - the rate of exchange is a multiplier. Behaviour correct, no defect exists. Withdrawn 2026-09-29."
+    },
+    {
+     "kind": "Withdrawn",
+     "tone": "neutral",
+     "body": "FINDING-R10 reissue controls lock-gated - correct and by design. Withdrawn 2026-09-29.",
+     "fields": [
+      {
+       "label": "What was got wrong",
+       "value": "The claim that the lock cannot be taken was falsified.",
+       "mono": false
+      }
+     ]
+    },
+    {
+     "kind": "Withdrawn",
+     "tone": "neutral",
+     "body": "FINDING-R16 Admin wallet adds the credit line - intended system behaviour. Raised and withdrawn the same day, 2026-09-30.",
+     "fields": [
+      {
+       "label": "What was got wrong",
+       "value": "creditAgency:false was read as 'this agency has no credit line'. The flag scopes WHO SEES the credit, not whether it exists. Confirmed on AGN10030 where creditAgency is true and the Portal does return the credit.",
+       "mono": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "cleanup",
+   "title": "Declared Gaps - conditions with no test data",
+   "open": true,
+   "heading": "Nine gaps. A condition with no data is Not Testable and is recorded against the rule it would have covered - never dropped, never reported as covered (ProjectContext 2.4):",
+   "items": [
+    {
+     "label": "G1 - blocks B9",
+     "ref": "OQ-M4",
+     "body": "A booking whose re-shop is cheaper - a Refund or negative difference. The highest-risk unmapped path in the scope."
+    },
+    {
+     "label": "G2 - blocks A7, B5",
+     "ref": "OQ-M10 / OQ-M15",
+     "body": "A party Sabre splits into several fare groups priced unalike. Leaves the known 'first published fare applied to every passenger' risk unexercised."
+    },
+    {
+     "label": "G3 - blocks A2",
+     "ref": "OQ-M15",
+     "body": "A fare carrying a negative XT tax, for the index-alignment risk."
+    },
+    {
+     "label": "G4 - blocks A3, B3",
+     "ref": "OQ-M15",
+     "body": "A fare with totalTaxOnFee non-zero."
+    },
+    {
+     "label": "G5 - blocks A1-A4, B1-B4",
+     "ref": "OQ-M15",
+     "body": "A non-Economy cabin."
+    },
+    {
+     "label": "G6 - blocks A8, B6",
+     "ref": "OQ-M2",
+     "body": "Browser at UTC and at explicit Africa/Cairo and Asia/Dubai. FINDING-R01's mechanism is inferred, not demonstrated across zones."
+    },
+    {
+     "label": "G7 - blocks A3, B3",
+     "ref": "ProjectContext 1 q3",
+     "body": "Sabre returning an empty string rather than 0 or an absent field."
+    },
+    {
+     "label": "G8 - blocks five findings",
+     "ref": "logs/detail.log",
+     "body": "Never accessible in this run. Blocks the CAUSE of R06, R07, R11, R13 and R18. The single cheapest unblock available."
+    },
+    {
+     "label": "G9 - blocks B8",
+     "ref": "scenarios 1, 2, 5, 6, 8b",
+     "body": "Never checked per-passenger against the supplier - that check did not exist until R13 was found on scenario 9. Five getBooking calls. The R13 defect may already be sitting in a completed exchange."
+    }
+   ]
+  },
+  {
+   "type": "notes",
+   "title": "Method, gate, and recommendation",
+   "open": true,
+   "blocks": [
+    "The question this scope answers is not whether reissue works. It is narrower: for every value on a reissue screen, does it still mean what the supplier meant?",
+    {
+     "kind": "ul",
+     "items": [
+      "Paired capture - supplier, core and screen read in one narrow window, because supplier prices move between calls.",
+      "Alignment by flight signature, never by array index - each layer calls Sabre separately and receives a different ordering, so offer[0] against offer[0] compares different flights.",
+      "The oracle: there is no design document; the implemented UI is the source of truth. A flag is raised only when a value comes back from the backend and is not displayed.",
+      "The platform never clicked Pay, Exchange or Confirm. Every payment was made by the human after the agent reported the exact flight and amount.",
+      "Querying the supplier directly is what found the worst defect. R13 was unreachable from any screen and any application payload. It is now a standing check for this scope."
+     ]
+    },
+    "A method failure worth recording: on 2026-09-29 a calculation error on scenario 5's confirmation was missed by the agent and caught by the user. The cause was not tooling - occurrences were being recorded without re-deriving the arithmetic behind them. The sweep that followed is what produced R02's root-cause correction.",
+    "Three findings were raised and withdrawn, and four claims were falsified by later evidence: R06's Critical escalation, R11's connection-point hypothesis, R12's multi-city hypothesis, and R15's wallet-is-correct claim. All are retained rather than deleted - a withdrawn finding is the record of what was checked.",
+    "GATE NOTE - read before approving. This stage consumed a Project Context whose status reads Pending Review, not Approved. Stage 2's own rule requires Approved. The context was revised twelve times during discovery and the oracle itself was restated at Revision 12, which is how it happened; the work is sound regardless. Whether to approve Revision 12 retroactively or to re-baseline is the reviewer's decision.",
+    "RECOMMENDATION",
+    {
+     "kind": "ul",
+     "items": [
+      "Act on R13 operationally before anything else - a named passenger holds a spent ticket and no replacement.",
+      "Treat R18 as a live financial defect, not a rounding nuisance. Small per booking, always in the agency's disfavour, invisible because wallet and invoice agree on the wrong number.",
+      "Obtain logs/detail.log - five findings gain a mechanism.",
+      "Re-verify scenarios 1, 2, 5, 6 and 8b per-passenger against Sabre.",
+      "Proceed to Stage 3. It is required for this scope, and the mapping is NOT finished being tested - discovery established the mapping is correct wherever exercised, but the residual risk is in paths never run.",
+      "Supply the test data for the nine Declared Gaps, or accept them as Not Testable on the record."
+     ]
+    }
+   ]
+  },
+  {
+   "type": "notes",
+   "title": "5. Concerns register - 36 non-defect items",
+   "open": false,
+   "blocks": [
+    "Process, scope, governance, test-data and method concerns that are not defect-shaped are recorded in `CONCERNS_REGISTER.md` beside this report, so nothing raised during the run is lost between sessions. Highlights:",
+    {
+     "kind": "ul",
+     "items": [
+      "GOVERNANCE - Stage 2 consumed a Pending Review context; Stage 3 was authored against two unapproved upstreams; the run manifest and feature.json disagree about whether Stage 1 is approved.",
+      "SCOPE - the Itinerary screen was added to the mapping scope on 2026-09-30, reversing the 2026-09-28 exclusion. ProjectContext still records the narrower scope and should be revised before the suites are approved.",
+      "RISK - nothing from run-007 is committed to git. 30+ files including the only record of a Critical finding.",
+      "ACCESS - logs/detail.log blocks the CAUSE of six findings and is the cheapest unblock available.",
+      "OUTSTANDING - five getBooking calls on scenarios 1, 2, 5, 6 and 8b; the Critical fulfilment defect may already sit in a completed exchange.",
+      "TEST DATA - the exchange fee and the service charge are both 25 per passenger, making two distinct defects indistinguishable by amount.",
+      "NOT DEFECTS - six items assessed and deliberately not raised, with the reasoning retained: the 100-vs-130 duration note (cleared against 25 segments at three layers), the pagination count, identical per-type base fares, hop-A renames, ticket-number sequence gaps, and the Admin/Portal wallet difference."
+     ]
+    }
+   ]
+  }
+ ]
+}

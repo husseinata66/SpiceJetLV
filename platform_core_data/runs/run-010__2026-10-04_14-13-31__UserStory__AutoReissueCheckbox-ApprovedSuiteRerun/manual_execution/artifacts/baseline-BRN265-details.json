@@ -1,0 +1,73 @@
+{
+ "branchDetails": {
+  "opCountryId": 945,
+  "code": "BRN265",
+  "cityId": 1300,
+  "countryId": 67,
+  "countryName": "Egypt",
+  "id": 10950,
+  "stateId": 1035,
+  "address1": "Cairo",
+  "address2": "",
+  "zipCode": "00",
+  "remarks": "run-007 CL-1 check: restore BRN265 to Sabre/315, selection [315] — approve",
+  "approvalStatus": 1,
+  "phoneNo": "+20-1147647823",
+  "importPNR": true,
+  "restrictPrivateFare": false,
+  "abtaNo": "",
+  "name": "NDC2_Mohamed Soliman",
+  "operatingCountryName": "EgyptLiveeee",
+  "serviceTaxNo": ""
+ },
+ "mailConfig": {
+  "email": "mohamed.soliman@tildetech.ae",
+  "password": "123456789"
+ },
+ "contactInfo": [
+  {
+   "name": "Mohamed Soliman",
+   "phoneNo": "+20-1147647823",
+   "email": "mohamed.soliman@tildetech.ae"
+  }
+ ],
+ "paymentSettings": {
+  "targetDates": [],
+  "creditLimit": 1000000,
+  "topUpLimit": 1000000,
+  "creditTerms": "10000",
+  "reachingPercentage": null,
+  "warningPrompt": 0,
+  "outstandingThreshold": 5,
+  "paymentIds": [
+   1,
+   2,
+   14
+  ]
+ },
+ "productAccessDetails": [
+  {
+   "id": 131,
+   "name": "Sabre",
+   "credentialDescription": "tt",
+   "description": "tt",
+   "credentials": [
+    {
+     "id": 315,
+     "name": "Sabre Staging",
+     "checked": true,
+     "autoReissueAllowed": true
+    }
+   ]
+  }
+ ],
+ "productIds": [
+  1
+ ],
+ "autoReissueEnabled": true,
+ "reissueCredentials": [
+  {
+   "credentialId": 315
+  }
+ ]
+}

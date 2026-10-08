@@ -1,0 +1,120 @@
+{
+  "idx": 0,
+  "k": "branch2",
+  "itin": {
+    "bookingStatus": 2,
+    "supplierName": "Sabre",
+    "ticketPccId": 315,
+    "locked": 1,
+    "holder": "Mohamed Soliman",
+    "actions": {
+      "showViewTicket": true,
+      "canManualReissue": true,
+      "canAutoReissue": true,
+      "showSyncPnr": true,
+      "showPayAndBook": false,
+      "showModifiedTicket": false,
+      "showCancelBtn": true,
+      "showCancelHoldBtn": false,
+      "showRefundBtn": true,
+      "canReleaseLock": true
+    },
+    "agencyId": "null",
+    "branchId": "BRN265"
+  },
+  "elig": {
+    "offerReissuable": true,
+    "tripType": 1,
+    "journeysDetails": {
+      "allJourneysRequired": true,
+      "journeys": [
+        {
+          "sequence": 1,
+          "origin": "CAI",
+          "destination": "JED",
+          "cabinClass": 1,
+          "date": "01-12-2026"
+        }
+      ]
+    },
+    "passengersDetails": {
+      "allPassengersRequired": true,
+      "passengers": [
+        {
+          "sequence": 1,
+          "fullName": "ayman khaled",
+          "type": 0,
+          "reissuable": true,
+          "ticketNumber": "0654859778738"
+        },
+        {
+          "sequence": 2,
+          "fullName": "mahmoud khaled",
+          "type": 0,
+          "reissuable": true,
+          "ticketNumber": "0654859778739"
+        },
+        {
+          "sequence": 3,
+          "fullName": "eissa khaled",
+          "type": 1,
+          "reissuable": true,
+          "ticketNumber": "0654859778740"
+        },
+        {
+          "sequence": 4,
+          "fullName": "waleed emad",
+          "type": 2,
+          "reissuable": true,
+          "ticketNumber": "0654859778741",
+          "assignedTo": 1
+        }
+      ]
+    },
+    "metadata": "eyJhbGciOiJIUzUxMiJ9.eyJrZXkiOiJkYXRhIiwiZGF0YSI6eyJyZWlzc3VlU2VhcmNoIjp0cnVlLCJib29raW5nUmVmIjoiTkRDRUctQlItRjI2MDkyNlB3WU1SMiIsImFsbEpvdXJuZXlzUmVxdWlyZWQiOnRydWUsImFsbFBhc3NlbmdlcnNSZXF1aXJlZCI6dHJ1ZSwicmVzcG9uc2VJZCI6ImVOcnRsVTl2bXpBWWg3LUx6eWp5UHdMazFrYlYxbVVhWk11aDI1U0RCMDdHR2t4bFRCY1U1YnZQSnRvYXJUWnlsVXVuY1VIaWhlZjktYlY1eEFIVXN1RHl0Z0F6a0thcnhUSURnUzZWMjFLd1hjYks0cXFxVzZIQTdBQWUyYTdsWUlaeFRPTUpoZ0hJV3ltNXlMdDVYZWc2dUhtVGdlTVR2S3FWdnJEOXN3WUlFUXA5RzF5emhsczZoRENlUUdjSHhlU1dxM21wT2xQN1FoZDZwb1p2S3k3VWg3YjZ4bVVEWmxfUk9nQ2l2N3NWR1pQbVhSS0FVbXlZVVBOVElBckFqN3FWZ25kUGhVMHRxM1NUc2M1MFczVVBKbmJPbXU4NlFwWDVQVmVtOXdFb3lSNzV6dlF1LUw0SFQwOVAtWnFCMDVER1lSSkZjVVJpRFF0VzhhdW1xZk9TcWJJV19ZRWdYWF9RWjlEdnhObjhFWXJvSkhhT2J4Q3piMmNFaFpRTWJGZ2Z3dlpuQUVFRURVUW90ci1Xbk4wWDlVX1J6NXZfZnF5WHpKNmRWd2lkNGNmZ0QzeTN1QVItYjRXaGM0Z3o5dk5ITzBzaW4tVGxXeXVOazZrUF9jNC1OUFFhLW1acGg2a1hUS3d3UWo3d0ozcEJjcHJZNEJCNzdYWmtZNzNRRk51X0x6ZTdOdlJmS3VOQmxST0h5bmhVZVZSNVZQbDFxVXlHVktiUW9USnhxRHhGSkg2WnlnVENhRlI1VkhsVS1XS1Y2YURLeUtFeWRhaU1TWmk4OEs4OHNHQ2J5U2loOUpXWTdQZDFYR0x5Zi1uaVA2VFQtdmdMUGtMOWtnLnVLZlZPNVRYVDZqOVh0bVhuTnhKUnFxdHdwdWIwcFdkYVBIenBGY2o5Z1UifSwibm9uY2UiOiI4MGVjNDM4NC0wNWIwLTRhNTAtYmVkMy1lZWU2ZjAxYTYwMmMiLCJzdWIiOiJSZWlzc3VlU2VhcmNoQ29udGV4dCIsImlhdCI6MTc5MDQzODQ0Nn0.gTYbPGzsLb6ws3Ds9KAxmfVKOBndoya4zQUd4uUHMVegpKGDGlpsl78MZRvwtSfC6urGWGoql79jk2PqEW-w7g"
+  },
+  "eligText": "Select journeys and passengers\nChoose what you want to change\n\nSelect the affected journeys and passengers to continue.\n\nJourneys\nAll required\n\nAll journeys are included by the airline and cannot be changed.\n\n1- CAI  JED\n01-12-2026\nPassengers\nAll required\n\nAll passengers are included by the airline and cannot be changed.\n\n1- ayman khaled\nADULT · Ticket 0654859778738\n2- mahmoud khaled\nADULT · Ticket 0654859778739\n3- eissa khaled\nCHILD · Ticket 0654859778740\n4- waleed emad · assigned to: ayman khaled\nINFANT · Ticket 0654859778741\nCancel\nContinue to reissue",
+  "error": "locator.click: Timeout 30000ms exceeded.",
+  "release": {
+    "bookingStatus": 2,
+    "supplierName": "Sabre",
+    "ticketPccId": 315,
+    "locked": 0,
+    "holder": "",
+    "actions": {
+      "showViewTicket": true,
+      "canManualReissue": true,
+      "canAutoReissue": true,
+      "showSyncPnr": true,
+      "showPayAndBook": false,
+      "showModifiedTicket": false,
+      "showCancelBtn": true,
+      "showCancelHoldBtn": false,
+      "showRefundBtn": true,
+      "canReleaseLock": false
+    },
+    "agencyId": "null",
+    "branchId": "BRN265"
+  },
+  "writes": [
+    {
+      "at": "2026-09-26T16:00:26.745Z",
+      "m": "PATCH",
+      "u": "/odeysysadmin/v2/bookingDetails2/lockUnLock",
+      "body": "{\"bookingRefId\":null,\"orderId\":\"BRN265NDCORD2609269C3COS\"}"
+    },
+    {
+      "at": "2026-09-26T16:00:53.369Z",
+      "m": "POST",
+      "u": "/odeysysadmin/v2/reissue/NDCEG-BR-F260926PwYMR2/search",
+      "body": "{\"passengerSequences\":[1,2,3,4],\"routes\":[{\"journeySequence\":1,\"origin\":\"CAI\",\"destination\":\"JED\",\"dateOfJourney\":\"01-12-2026\",\"cabinClass\":1}],\"metadata\":\"eyJhbGciOiJIUzUxMiJ9.eyJrZXkiOiJkYXRhIiwiZGF0YSI6eyJyZWlzc3VlU2VhcmNoIjp0cnVlLCJib29raW5nUmVmIjoiTkRDRUctQlItRjI2MDkyNlB3WU1SMiIsImFsbEpvdXJuZXlzUmVxdWlyZWQiOnRydWUsImFsbFBhc3NlbmdlcnNSZXF1aXJlZCI6dHJ1ZSwicmVzcG9uc2VJZCI6ImVOcnRsVTl2bXpBWWg3LUx6eWp5UHdMazFrYlYxbVVhWk11aDI1U0RCMDdHR2t4bFRCY1U1YnZQSnRvYXJUWnlsVXVuY1VIaWhlZjktYlY1eEFIVXN1RHl0Z0F6a0thcnhUSURnUzZWMjFLd1hjYks0cXFxVzZIQTdBQWUyYTdsWUlaeFRPTUpoZ0hJV3ltNXlMdDVYZWc2dUhtVGdlTVR2S3FWdnJEOXN3WUlFUXA5RzF5emhsczZoRENlUUdjSHhlU1dxM21wT2xQN1FoZDZwb1p2S3k3VWg3YjZ4bVVEWmxfUk9nQ2l2N3NWR1pQbVhSS0FVbXlZVVBOVElBckFqN3FWZ25kUGhVMHRxM1NUc2M1MFczVVBKbmJPbXU4NlFwWDVQVmVtOXdFb3lSNzV6dlF1LUw0SFQwOVAtWnFCMDVER1lSSkZjVVJpRFF0VzhhdW1xZk9TcWJJV19ZRWdYWF9RWjlEdnhObjhFWXJvSkhhT2J4Q3piMmNFaFpRTWJGZ2Z3dlpuQUVFRURVUW90ci1Xbk4wWDlVX1J6NXZfZnF5WHpKNmRWd2lkNGNmZ0QzeTN1QVItYjRXaGM0Z3o5dk5ITzBzaW4tVGxXeXVOazZrUF9jNC1OUFFhLW1acGg2a1hUS3d3UWo3d0ozcEJjcHJZNEJCNzdYWmtZNzNRRk51X0x6ZTdOdlJmS3VOQmxST0h5bmhVZVZSNVZQbDFxVXlHVktiUW9USnhxRHhGSkg2WnlnVENhRlI1VkhsVS1XS1Y2YURLeUtFeWRhaU1TWmk4OEs4OHNHQ2J5U2loOUpXWTdQZDFYR0x5Zi1uaVA2VFQtdmdMUGtMOWtnLnVLZlZPNVRYVDZqOVh0bVhuTnhKUnFxdHdwdWIwcFdkYVBIenBGY2o5Z1UifSwibm9uY2UiOiI4MGVjNDM4NC0wNWIwLTRhNTAtYmVkMy1lZWU2ZjAxYTYwMmMiLCJzdWIiOiJSZWlzc3VlU2VhcmNoQ29udGV4dCIsImlhdCI6MTc5MDQzODQ0Nn0.gTYbPGzsLb6ws3Ds9KAxmfVKOBndoya4zQUd4uUHMVegpKGDGlpsl78MZRvwtSfC6urGWGoql79jk2PqEW-w7g\"}"
+    },
+    {
+      "at": "2026-09-26T16:02:52.080Z",
+      "m": "PATCH",
+      "u": "/odeysysadmin/v2/bookingDetails2/lockUnLock",
+      "body": "{\"bookingRefId\":null,\"orderId\":\"BRN265NDCORD2609269C3COS\"}"
+    }
+  ],
+  "blocked": []
+}

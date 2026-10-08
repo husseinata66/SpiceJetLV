@@ -1,0 +1,755 @@
+{
+  "title": "Coverage Report — branch (run-006, Auto Reissue)",
+  "documentTitle": "branch — Test Design run-006",
+  "statusPill": "APPROVED",
+  "statusPillTone": "pass",
+  "statuses": [
+    {
+      "key": "Covered",
+      "label": "Covered",
+      "tone": "pass"
+    },
+    {
+      "key": "Partial",
+      "label": "Partially Covered",
+      "tone": "warning"
+    },
+    {
+      "key": "Uncovered",
+      "label": "Uncovered",
+      "tone": "fail"
+    },
+    {
+      "key": "Excluded",
+      "label": "Excluded",
+      "tone": "neutral"
+    },
+    {
+      "key": "Assumption-based",
+      "label": "Assumption-based",
+      "tone": "accent"
+    }
+  ],
+  "meta": {
+    "fields": [
+      [
+        {
+          "label": "Module",
+          "value": "branch",
+          "mono": true
+        },
+        {
+          "label": "Pipeline",
+          "value": "Manual (4M)"
+        }
+      ],
+      {
+        "label": "Status",
+        "value": "Approved — Mohamed Soliman, 2026-09-25 (29 cases; TC-BR-112 added afterwards, Pending)"
+      }
+    ]
+  },
+  "summary": {
+    "title": "1. Coverage summary",
+    "total": 29,
+    "totalLabel": "New test cases (run-006)",
+    "donut": {
+      "focus": "Covered",
+      "percent": 100,
+      "label": "requirement rows covered"
+    }
+  },
+  "testCases": {
+    "title": "New test cases",
+    "categories": [
+      {
+        "name": "Auto Reissue",
+        "cases": [
+          {
+            "id": "TC-BR-083",
+            "title": "Auto Reissue is unchecked by default on Add Branch",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Positive"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 REV 9 \"Auto Reissue checkbox on Create Branch and Update Branch\" / `PO-15`"
+              },
+              {
+                "label": "Expected",
+                "value": "**Auto Reissue** is shown and unchecked. **Auto Reissue Credentials** is not shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-084",
+            "title": "Picker is empty on a new Branch with no supplier",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-EmptyValues"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 REV 9 \"Reissue-credential selection (UI)\" / ASM-BR-4"
+              },
+              {
+                "label": "Expected",
+                "value": "The picker shows \"No results found\"."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-085",
+            "title": "An LCC credential is not offered for Auto Reissue",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative, Business-Rule"
+              },
+              {
+                "label": "Requirement",
+                "value": "`PO-21`"
+              },
+              {
+                "label": "Expected",
+                "value": "The AirArabiaEgypt credential is not offered."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-086",
+            "title": "A Galileo PCC credential is offered for Auto Reissue",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Positive, Business-Rule"
+              },
+              {
+                "label": "Requirement",
+                "value": "`PO-21`"
+              },
+              {
+                "label": "Expected",
+                "value": "**GalileoLive** is offered."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-087",
+            "title": "An Amadeus PCC credential is not offered for Auto Reissue",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative, Business-Rule"
+              },
+              {
+                "label": "Requirement",
+                "value": "`PO-21` / spec `S-9`"
+              },
+              {
+                "label": "Expected",
+                "value": "**Amadeus Live** is not offered."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-088",
+            "title": "A TravelportNdc PCC credential is offered for Auto Reissue",
+            "status": "Assumption-based",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Positive, Assumption-based"
+              },
+              {
+                "label": "Requirement",
+                "value": "`PO-21`"
+              },
+              {
+                "label": "Expected",
+                "value": "The TravelportNdc credential is offered."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-089",
+            "title": "Turn Auto Reissue on for a Branch and save",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Positive, Smoke"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 REV 9 \"Saved value retrieved on edit and on GET\" / spec `S-10`"
+              },
+              {
+                "label": "Expected",
+                "value": "**Auto Reissue** is ticked and **NDCSabre staging** is shown in **Auto Reissue Credentials**."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-090",
+            "title": "Branch Auto Reissue change waits for approval",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Regression"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 REV 9 \"Maker–checker on the new field\" / XC-01, XC-03, XC-04"
+              },
+              {
+                "label": "Expected",
+                "value": "After step 4, the row shows **Pending for approval**. After step 5, it shows **Approved**. After step 6, Auto Reissue is unticked."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-091",
+            "title": "Turning Branch Auto Reissue off keeps the saved credentials",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Positive, Regression"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 REV 9 \"Off keeps saved credentials\" / spec `S-7`"
+              },
+              {
+                "label": "Expected",
+                "value": "The picker already shows **NDCSabre staging**."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-092",
+            "title": "Branch Auto Reissue on with no credential shows \"Required\"",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-EmptyValues"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-2` / `PO-23`"
+              },
+              {
+                "label": "Expected",
+                "value": "\"Required\" appears under **Auto Reissue Credentials**. BRN265 is not saved."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-093",
+            "title": "Branch update without a remark is refused",
+            "status": "Assumption-based",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-EmptyValues, Assumption-based"
+              },
+              {
+                "label": "Requirement",
+                "value": "RISK-BR-10 / US 8606 \"mandatory Remarks\""
+              },
+              {
+                "label": "Expected",
+                "value": "The form shows a message that the remark is required, and BRN265 is not saved."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-094",
+            "title": "Branch API rejects Auto Reissue on with an empty credential list",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-EmptyValues"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-2` / `PO-23` / `PO-17`"
+              },
+              {
+                "label": "Expected",
+                "value": "The response is **400** with message \"Select at least one eligible credential\". BRN265 is unchanged."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-095",
+            "title": "Branch API keeps saved credentials when sent off with others",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Positive"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-3` / `PO-17`"
+              },
+              {
+                "label": "Expected",
+                "value": "The request succeeds. The GET returns `autoReissueEnabled: false` and `reissueCredentials` `[313]`, not 315."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-096",
+            "title": "Branch API rejects a credential without an ID",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-InvalidInputs"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-4` / `PO-17`"
+              },
+              {
+                "label": "Expected",
+                "value": "The response is **400** with message \"Every auto-reissue credential must have an ID\". BRN265 is unchanged."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-097",
+            "title": "Branch API rejects an unknown credential ID",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-InvalidInputs"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-5` (unknown) / `PO-17`"
+              },
+              {
+                "label": "Expected",
+                "value": "The response is **400** with message \"Every auto-reissue credential must exist and be active\". BRN265 is unchanged."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-098",
+            "title": "Branch API rejects duplicate credential IDs",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-InvalidInputs"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-6` / `PO-17`"
+              },
+              {
+                "label": "Expected",
+                "value": "The response is **400** with message \"Auto-reissue credentials must not contain duplicates\". BRN265 is unchanged."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-099",
+            "title": "Branch API rejects a credential not assigned to the Branch",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-InvalidInputs, Permissions"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-8` / `PO-17`"
+              },
+              {
+                "label": "Expected",
+                "value": "The response is **400** with message \"Each auto-reissue credential must be mapped to this organization\". BRN265 is unchanged."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-100",
+            "title": "Branch Auto Reissue does not change its Agencies' checkbox",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Integration"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 REV 9 \"Independence from Agencies\" / `PO-16` / spec §3"
+              },
+              {
+                "label": "Expected",
+                "value": "AGN9780's **Auto Reissue** is still unticked."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-101",
+            "title": "Admin shows Reissue for a Branch booking when Branch Auto Reissue is on",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Positive, Smoke"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec §5 / `PO-26` / PC §3 REV 9 row (Branch-created bookings — now reachable, GAP-BR-R6-02)"
+              },
+              {
+                "label": "Expected",
+                "value": "The **Reissue** button is shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-102",
+            "title": "Admin hides Reissue for a Branch booking when Branch Auto Reissue is off",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative, Smoke"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec §5 / `PO-26`"
+              },
+              {
+                "label": "Expected",
+                "value": "The **Reissue** button is not shown. **Manual Reissue** is still shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-103",
+            "title": "Reissue shows on a Branch booking whose credential is not selected",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Business-Rule"
+              },
+              {
+                "label": "Requirement",
+                "value": "`PO-22`"
+              },
+              {
+                "label": "Expected",
+                "value": "The **Reissue** button is shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-104",
+            "title": "Agency Auto Reissue off does not hide Reissue on a Branch booking",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Integration"
+              },
+              {
+                "label": "Requirement",
+                "value": "`PO-16` / `PO-26` / spec §5"
+              },
+              {
+                "label": "Expected",
+                "value": "The **Reissue** button is shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-105",
+            "title": "Reading the Branch drops a credential that became invalid",
+            "status": "Partial",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Assumption-based"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 REV 9 \"read-time clean-up\" / spec §4 / RISK-BR-11"
+              },
+              {
+                "label": "Expected",
+                "value": "The invalid credential is no longer listed. **Auto Reissue** stays ticked."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-106",
+            "title": "Updating a Branch without touching Auto Reissue still works",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Regression, Smoke"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 REV 9 \"Regression smoke\" / RISK-BR-12"
+              },
+              {
+                "label": "Expected",
+                "value": "The update is saved and approved. **Auto Reissue** and **Auto Reissue Credentials** are the same as recorded."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-107",
+            "title": "Create a Branch with Auto Reissue on",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Positive"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 REV 9 \"Auto Reissue checkbox on Create Branch\" / `PO-19`"
+              },
+              {
+                "label": "Expected",
+                "value": "The new Branch shows **Auto Reissue** ticked with **GalileoLive**."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-108",
+            "title": "Agency Portal does not list its Branch's own bookings",
+            "status": "Assumption-based",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Permissions, Assumption-based"
+              },
+              {
+                "label": "Requirement",
+                "value": "`PO-26`"
+              },
+              {
+                "label": "Expected",
+                "value": "`NDCEG-BR-F260916ENYOeQ` is not listed."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-109",
+            "title": "A Branch can have a supplier its Agency doesn't have",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Integration"
+              },
+              {
+                "label": "Expected",
+                "value": "BRN265 lists the supplier. AGN9780 lists it as **not assigned**. Both records stay Approved."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-110",
+            "title": "An inactive credential leaves the Branch's Auto Reissue picker",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Negative, Integration"
+              },
+              {
+                "label": "Expected",
+                "value": "After step 4, `{CRED}` is no longer in the saved selection, and **Auto Reissue** is still ticked. After step 5, `{CRED}` is not offered."
+              }
+            ]
+          },
+          {
+            "id": "TC-BR-111",
+            "title": "What the Branch's Auto Reissue picker shows when the supplier is made inactive",
+            "status": "Assumption-based",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Exploratory, Integration"
+              },
+              {
+                "label": "Expected",
+                "value": "The tester records what is shown in steps 4–5, and the reviewer confirms whether it is intended. Spec §4 suggests the credential is dropped and not offered, with Auto Reissue still ticked."
+              }
+            ]
+          }
+        ],
+        "key": "auto-reissue",
+        "open": true
+      }
+    ]
+  },
+  "sections": [
+    {
+      "type": "notes",
+      "title": "Coverage gaps and exclusions",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "Out-of-Scope: Branch Portal impact (the Portal shows Agency bookings only).",
+            "Pre-existing: TC-BR-082 has no traceability row.",
+            "Needs a decision: TC-BR-107 creates a permanent Branch (creation was revoked).",
+            "Findings: 1/1 dispositioned as a documented exception.",
+            "Added 2026-09-25 at the user’s request: TC-BR-109, TC-BR-110, TC-BR-111.",
+            "Inactive credential/supplier cases change shared staging data: they need the user’s go-ahead, a supplier/credential only the test records use, and reactivation afterwards."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "About this page",
+      "blocks": [
+        "The HTML rendering of the run-006 revision. The Markdown CoverageReport.md, TestCases_*.md and TraceabilityMatrix.md are the artifacts under review. Statuses describe coverage, not results: nothing has been executed."
+      ]
+    }
+  ]
+}

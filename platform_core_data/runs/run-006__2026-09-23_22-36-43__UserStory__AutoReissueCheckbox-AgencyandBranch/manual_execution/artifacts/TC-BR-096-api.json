@@ -1,0 +1,26 @@
+{
+  "request": {
+    "autoReissueEnabled": true,
+    "reissueCredentials": [
+      {}
+    ]
+  },
+  "response": {
+    "status": 400,
+    "body": "{\"code\":400,\"message\":\"Every auto-reissue credential must have an ID\",\"requestId\":\"9976befb-d864-4068-b4df-a43a266ec432\"}"
+  },
+  "branchBefore": {
+    "api": true,
+    "creds": [
+      313
+    ],
+    "appr": 1
+  },
+  "branchAfter": {
+    "api": true,
+    "creds": [
+      313
+    ],
+    "appr": 1
+  }
+}

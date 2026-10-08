@@ -151,3 +151,6 @@ platform_core_data/automation_baseline/**/generatedReport_*.zip
 # reasoning as credentials.json. If a future export resolves its secrets to
 # Postman environment variables instead, it can be un-ignored then.
 *.postman_collection.json
+
+# Excel lock files - never commit
+~$*

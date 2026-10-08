@@ -1,0 +1,8 @@
+{
+  "label": "scenario 7 · QTZVXU · ADMIN UI · One Way CAI-RUH 22 Dec · AED · paired capture 2026-09-29T11:02Z",
+  "supplier": "../discovery/evidence/s7-sabre-reshop-QTZVXU.json",
+  "core": "../discovery/evidence/s7-core-reshop-QTZVXU.json",
+  "portal": "../discovery/evidence/s7-admin-search-QTZVXU.json",
+  "offerIndex": 0,
+  "rate": 9
+}

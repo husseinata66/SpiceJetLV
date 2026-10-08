@@ -1,0 +1,109 @@
+{
+ "stateBefore": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1
+ },
+ "step1_form": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "Sabre Staging",
+  "credentialsSectionInText": true
+ },
+ "buttons": [
+  "Welcome\nMohamed Soliman",
+  "MS",
+  "Add",
+  "Change Threshold",
+  "Cancel",
+  "Reject",
+  "Approve",
+  "Send For Approval"
+ ],
+ "step2_afterUntick": {
+  "checkboxPresent": true,
+  "checked": false,
+  "credentialsControlPresent": false,
+  "credentialsLabel": null,
+  "credentialsSectionInText": false
+ },
+ "step3_net": [
+  {
+   "m": "PUT",
+   "u": "/odeysysadmin/Master2/Branch/10950",
+   "s": 204,
+   "body": ""
+  }
+ ],
+ "step3_url": "http://192.168.1.60/admin/branch",
+ "step3_messages": {
+  "toasts": [],
+  "errors": [],
+  "dialog": null
+ },
+ "step4_gridRow": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Pending for approval |",
+ "step4_state": {
+  "autoReissueEnabled": false,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 0
+ },
+ "rowActions": [
+  {
+   "tag": "I",
+   "cls": "pi pi-pencil",
+   "title": ""
+  },
+  {
+   "tag": "I",
+   "cls": "pi pi-thumbs-up",
+   "title": ""
+  },
+  {
+   "tag": "I",
+   "cls": "pi pi-thumbs-down",
+   "title": ""
+  }
+ ],
+ "step5_dialog": {
+  "text": "NDC2_Mohamed Soliman Remark * Cancel Submit",
+  "buttons": [
+   "Cancel",
+   "Submit"
+  ],
+  "hasTextField": true
+ },
+ "step5_net": [
+  {
+   "m": "PATCH",
+   "u": "/odeysysadmin/Master2/Branch/approveOrReject",
+   "s": 200,
+   "body": "{\"statusMessage\":\"Branch Approved Successfully!!\",\"success\":true}"
+  }
+ ],
+ "step5_gridRow": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Approved |",
+ "step5_state": {
+  "autoReissueEnabled": false,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1
+ },
+ "step6_reopened": {
+  "checkboxPresent": true,
+  "checked": false,
+  "credentialsControlPresent": false,
+  "credentialsLabel": null,
+  "credentialsSectionInText": false
+ }
+}

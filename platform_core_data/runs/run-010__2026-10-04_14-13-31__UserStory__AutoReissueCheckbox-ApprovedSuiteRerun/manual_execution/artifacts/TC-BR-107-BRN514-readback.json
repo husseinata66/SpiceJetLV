@@ -1,0 +1,13 @@
+{
+ "readback": {
+  "formAutoReissue": {
+   "checkboxPresent": true,
+   "checked": false,
+   "credentialsControlPresent": false,
+   "credentialsLabel": null,
+   "credentialsSectionInText": false
+  },
+  "checkedSuppliers": []
+ },
+ "raw": {}
+}

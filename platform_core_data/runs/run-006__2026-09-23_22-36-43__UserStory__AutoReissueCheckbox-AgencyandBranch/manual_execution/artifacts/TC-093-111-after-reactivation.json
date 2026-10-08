@@ -1,0 +1,60 @@
+{
+  "supplier": {
+    "id": 157,
+    "name": "NDCsbr",
+    "type": 1,
+    "status": 1,
+    "approvalStatus": 1,
+    "managerName": "test",
+    "supplierPCC": [
+      {
+        "id": 313,
+        "name": "NDCSabre staging"
+      }
+    ],
+    "locked": false
+  },
+  "agency": {
+    "st": {
+      "api": true,
+      "creds": [
+        313
+      ],
+      "appr": 1,
+      "status": 1
+    },
+    "ticked": true,
+    "picker": "NDCSabre staging",
+    "pickerOptions": [
+      "Sabre Staging",
+      "NDCSabre staging"
+    ],
+    "pcc": {
+      "Sabre": "Sabre Staging",
+      "NDCsbr": "NDCSabre staging"
+    }
+  },
+  "branch": {
+    "st": {
+      "api": true,
+      "creds": [
+        313
+      ],
+      "appr": 1,
+      "pa": [
+        "Sabre:315",
+        "NDCsbr:313"
+      ]
+    },
+    "ticked": true,
+    "picker": "NDCSabre staging",
+    "pickerOptions": [
+      "Sabre Staging",
+      "NDCSabre staging"
+    ],
+    "pcc": {
+      "Sabre": "Sabre Staging",
+      "NDCsbr": "NDCSabre staging"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+ "TC-BR-083": {
+  "autoReissueShown": true,
+  "checked": false,
+  "credentialsSectionShown": false,
+  "importPnrNearby": true
+ },
+ "TC-BR-084-afterTick": {
+  "checked": true,
+  "credentialsSectionShown": true
+ },
+ "TC-BR-084-pickerOptions": {
+  "panel": true,
+  "text": "No results found",
+  "options": [
+   "No results found"
+  ]
+ }
+}

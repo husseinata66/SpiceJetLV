@@ -1,0 +1,32 @@
+{
+ "stateNow": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 313
+   },
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 0
+ },
+ "rowNow": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Pending for approval |",
+ "remarkFields": [
+  {
+   "val": "Cairo",
+   "ph": "",
+   "label": "Address 1 *"
+  },
+  {
+   "val": "",
+   "ph": "",
+   "label": "Address 2"
+  },
+  {
+   "val": "run-010 setup approve",
+   "ph": "remarks...",
+   "label": "Remarks *"
+  }
+ ]
+}

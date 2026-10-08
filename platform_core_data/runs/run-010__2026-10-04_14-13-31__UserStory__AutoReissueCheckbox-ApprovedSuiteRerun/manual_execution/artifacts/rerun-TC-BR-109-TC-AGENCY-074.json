@@ -1,0 +1,138 @@
+{
+ "purpose": "run-010 re-execution of TC-BR-109 and TC-AGENCY-074, as a controlled detach / re-attach so the propagation is observed twice on separate occasions.",
+ "p1_branchBefore": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 313
+   }
+  ],
+  "approvalStatus": 1
+ },
+ "p1_agencySuppliersBefore": [
+  {
+   "name": "Sabre",
+   "checked": true,
+   "creds": [
+    315
+   ]
+  },
+  {
+   "name": "NDCsbr",
+   "checked": true,
+   "creds": [
+    313
+   ]
+  }
+ ],
+ "p1_branchCredSetTo": "NDCSabre staging, Sabre Staging",
+ "p1_untick": "clicked:true",
+ "p1_ndcsbrChecked": false,
+ "p1_net": [
+  {
+   "m": "PUT",
+   "u": "/odeysysadmin/Master2/Branch/10950",
+   "s": 204,
+   "body": ""
+  }
+ ],
+ "p1_url": "http://192.168.1.60/admin/branch",
+ "p1_flagged": [],
+ "p1_branchAfter": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1
+ },
+ "p1_agencySuppliersAfter": [
+  {
+   "name": "Sabre",
+   "checked": true,
+   "creds": [
+    315
+   ]
+  }
+ ],
+ "p1_agencyPicker": {
+  "ar": {
+   "checkboxPresent": true,
+   "checked": false,
+   "credentialsControlPresent": false,
+   "credentialsLabel": null,
+   "credentialsSectionInText": false
+  },
+  "options": [
+   {
+    "t": "Sabre Staging",
+    "sel": false
+   }
+  ]
+ },
+ "p2_tick": "clicked:false",
+ "p2_rowDesc": [
+  "id-supplier-157"
+ ],
+ "p2_pccOptions": [
+  {
+   "t": "NDCSabre staging",
+   "sel": false
+  }
+ ],
+ "p2_pccChosen": "NDCSabre staging",
+ "p2_net": [
+  {
+   "m": "PUT",
+   "u": "/odeysysadmin/Master2/Branch/10950",
+   "s": 204,
+   "body": ""
+  }
+ ],
+ "p2_url": "http://192.168.1.60/admin/branch",
+ "p2_branchAfter": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1
+ },
+ "p2_agencySuppliersAfter": [
+  {
+   "name": "Sabre",
+   "checked": true,
+   "creds": [
+    315
+   ]
+  },
+  {
+   "name": "NDCsbr",
+   "checked": true,
+   "creds": [
+    313
+   ]
+  }
+ ],
+ "p2_agencyPicker": {
+  "ar": {
+   "checkboxPresent": true,
+   "checked": false,
+   "credentialsControlPresent": false,
+   "credentialsLabel": null,
+   "credentialsSectionInText": false
+  },
+  "options": [
+   {
+    "t": "Sabre Staging",
+    "sel": false
+   },
+   {
+    "t": "NDCSabre staging",
+    "sel": false
+   }
+  ]
+ }
+}

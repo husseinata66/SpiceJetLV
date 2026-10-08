@@ -1,0 +1,87 @@
+{
+  "AGN9780": {
+    "picker": [
+      "Sabre Staging [selected]"
+    ],
+    "tabs": [
+      "Sabre"
+    ],
+    "pcc": {
+      "Sabre": [
+        "Sabre Staging [selected]"
+      ]
+    },
+    "rows": [
+      "[x] Sabre Flight"
+    ]
+  },
+  "BRN265": {
+    "picker": [
+      "Sabre Staging [selected]"
+    ],
+    "tabs": [
+      "Sabre"
+    ],
+    "pcc": {
+      "Sabre": [
+        "Sabre Staging [selected]"
+      ]
+    },
+    "rows": [
+      "[x] Sabre Flight",
+      "[ ] AirArabiaEgypt Select Flight",
+      "[ ] AirArbia Select Flight",
+      "[ ] AirArbiaUAE Flight",
+      "[ ] AirBlue Select Flight",
+      "[ ] AirBlueKSA Select Flight",
+      "[ ] AirCairo Select Flight",
+      "[ ] AirSMCairo Select Flight",
+      "[ ] AirSMCairoKSA Select Flight",
+      "[ ] AirSMCairoUAE Select Flight",
+      "[ ] AirSMCairoUSA Select Flight",
+      "[ ] Amadeus Flight",
+      "[ ] AmdNDC Flight",
+      "[ ] AmdNDCaaaa Flight",
+      "[ ] BlueAirline Select Flight",
+      "[ ] DOT Select Flight",
+      "[ ] E Flight",
+      "[ ] EgyptAirEgy Select Flight",
+      "[ ] EgyptAirUAE Select Flight",
+      "[ ] ElJazeeraV4 Select Flight",
+      "[ ] EmiratesNdc Select Flight",
+      "[ ] Ethiopia Select Flight",
+      "[ ] FlyAdealNDC Select Flight",
+      "[ ] FlyDubai Select Flight",
+      "[ ] FlyDubaiUAE Select Flight",
+      "[ ] FlyDubi Select Flight",
+      "[ ] FlyJinnah Select Flight",
+      "[ ] FlyNas Select Flight",
+      "[ ] FlyNasKSA Select Flight",
+      "[ ] Galileo Flight",
+      "[ ] GDI Select Flight",
+      "[ ] GulfAirEgy Select Flight",
+      "[ ] IndgoNDC Select Flight",
+      "[ ] IndiaAirLine Select Flight",
+      "[ ] Indigo Select Flight",
+      "[ ] JazeeraAirways Select Flight",
+      "[ ] JazeeraAirwaysEG Select Flight",
+      "[ ] JazeeraAirwaysKWI Select Flight",
+      "[ ] NDCGal Flight",
+      "[ ] NDCsbr Flight",
+      "[ ] NDCWT Select Flight",
+      "[ ] OmanAirNdc Select Flight",
+      "[ ] RiyadhAirEGY Select Flight",
+      "[ ] RiyadhAirKSA Select Flight",
+      "[ ] RiyadhAirUAE Select Flight",
+      "[ ] SalamAir Select Flight",
+      "[ ] SereneAir Select Flight",
+      "[ ] ShuraTech Select Flight",
+      "[ ] ShuraTechGLC Select Flight",
+      "[ ] Spicejet Select Flight",
+      "[ ] THO Select Flight",
+      "[ ] TravelFusion Select Flight",
+      "[ ] TravelportNdc Flight",
+      "[ ] TurkishAirlines Select Flight"
+    ]
+  }
+}

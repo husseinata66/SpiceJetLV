@@ -1,0 +1,144 @@
+{
+ "P": "OOTKQP",
+ "ok": 13,
+ "bad": 4,
+ "rows": [
+  [
+   "SV300@11:45",
+   "fee 400",
+   "core pay 487.2",
+   "admin pay 887.2",
+   "screen shows 887.20",
+   "all equal"
+  ],
+  [
+   "SV386@01:00",
+   "fee 400",
+   "core pay 10476.2",
+   "admin pay 10876.2",
+   "screen shows 10,876.20",
+   "all equal"
+  ],
+  [
+   "SV308@03:35",
+   "fee 400",
+   "core pay 10476.2",
+   "admin pay 10876.2",
+   "screen shows 10,876.20",
+   "all equal"
+  ],
+  [
+   "SV382@06:10",
+   "fee 400",
+   "core pay 10476.2",
+   "admin pay 10876.2",
+   "screen shows 10,876.20",
+   "all equal"
+  ],
+  [
+   "SV330@16:40",
+   "fee 400",
+   "core pay 10476.2",
+   "admin pay 10876.2",
+   "screen shows 10,876.20",
+   "all equal"
+  ],
+  [
+   "SV304@17:20",
+   "fee 400",
+   "core pay 10476.2",
+   "admin pay 10876.2",
+   "screen shows 10,876.20",
+   "all equal"
+  ],
+  [
+   "SV302@19:50",
+   "fee 400",
+   "core pay 10476.2",
+   "admin pay 10876.2",
+   "screen shows 10,876.20",
+   "all equal"
+  ],
+  [
+   "SV388@22:25",
+   "fee 400",
+   "core pay 10476.2",
+   "admin pay 10876.2",
+   "screen shows 10,876.20",
+   "all equal"
+  ],
+  [
+   "SV418@15:05+SV1049@21:00",
+   "fee 400",
+   "core pay 11211.2",
+   "admin pay 11611.2",
+   "screen shows 11,611.20",
+   "all equal"
+  ],
+  [
+   "SV310@10:40+SV1041@17:00",
+   "fee 400",
+   "core pay 11211.2",
+   "admin pay 11611.2",
+   "screen shows 11,611.20",
+   "all equal"
+  ],
+  [
+   "SV320@23:35+SV1019@06:00",
+   "fee 400",
+   "core pay 11211.2",
+   "admin pay 11611.2",
+   "screen shows 11,611.20",
+   "all equal"
+  ],
+  [
+   "SV312@19:55+SV1057@02:30",
+   "fee 400",
+   "core pay 11211.2",
+   "admin pay 11611.2",
+   "screen shows 11,611.20",
+   "all equal"
+  ],
+  [
+   "SV312@19:55+SV1015@04:00",
+   "fee 400",
+   "core pay 11211.2",
+   "admin pay 11611.2",
+   "screen shows 11,611.20",
+   "all equal"
+  ],
+  [
+   "SV390@04:45+SV1425@10:20",
+   "fee 400",
+   "core pay 15180.2",
+   "admin pay 15580.2",
+   "screen MISSING 15,580.20",
+   "all equal"
+  ],
+  [
+   "SV380@19:55+SV1421@03:45",
+   "fee 400",
+   "core pay 15180.2",
+   "admin pay 15580.2",
+   "screen MISSING 15,580.20",
+   "all equal"
+  ],
+  [
+   "SV318@08:30+SV1429@19:25",
+   "fee 400",
+   "core pay 15180.2",
+   "admin pay 15580.2",
+   "screen MISSING 15,580.20",
+   "all equal"
+  ],
+  [
+   "SV318@08:30+SV1431@22:20",
+   "fee 400",
+   "core pay 15180.2",
+   "admin pay 15580.2",
+   "screen MISSING 15,580.20",
+   "all equal"
+  ]
+ ],
+ "extra": []
+}

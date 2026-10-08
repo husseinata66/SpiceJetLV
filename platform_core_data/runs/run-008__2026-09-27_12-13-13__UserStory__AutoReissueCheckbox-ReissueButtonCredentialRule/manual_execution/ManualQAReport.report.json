@@ -1,0 +1,874 @@
+{
+  "title": "Auto Reissue — the Reissue button's credential rule",
+  "documentTitle": "run-008 — Manual QA Report",
+  "statusPill": "PENDING REVIEW",
+  "statusPillTone": "warning",
+  "statuses": [
+    {
+      "key": "Passed",
+      "label": "Passed",
+      "tone": "pass"
+    },
+    {
+      "key": "Failed",
+      "label": "Failed",
+      "tone": "fail"
+    },
+    {
+      "key": "Blocked",
+      "label": "Blocked",
+      "tone": "blocked"
+    },
+    {
+      "key": "Skipped",
+      "label": "Skipped",
+      "tone": "warning"
+    },
+    {
+      "key": "Not Executed",
+      "label": "Not Executed",
+      "tone": "neutral"
+    },
+    {
+      "key": "Inconclusive",
+      "label": "Inconclusive",
+      "tone": "accent"
+    },
+    {
+      "key": "Excluded",
+      "label": "Excluded",
+      "tone": "neutral"
+    }
+  ],
+  "meta": {
+    "fields": [
+      [
+        {
+          "label": "Run folder",
+          "value": "run-008__2026-09-27_12-13-13__UserStory__AutoReissueCheckbox-ReissueButtonCredentialRule",
+          "mono": true
+        },
+        {
+          "label": "Refines",
+          "value": "run-006 (Auto Reissue checkbox — Agency and Branch)"
+        }
+      ],
+      [
+        {
+          "label": "Scope / Type",
+          "value": "User Story / Selective Re-run"
+        },
+        {
+          "label": "Modules",
+          "value": "agency, branch"
+        }
+      ],
+      [
+        {
+          "label": "Admin",
+          "value": "http://192.168.1.60",
+          "mono": true
+        },
+        {
+          "label": "Portal",
+          "value": "http://192.168.1.60:9500",
+          "mono": true
+        }
+      ]
+    ],
+    "runFields": [
+      [
+        {
+          "label": "Executed",
+          "value": "2026-09-27, 09:40–11:25 UTC"
+        },
+        {
+          "label": "Mechanism",
+          "value": "Browser Driver — headless"
+        }
+      ],
+      [
+        {
+          "label": "Suite total",
+          "value": "206 (94 agency + 112 branch)"
+        },
+        {
+          "label": "Executable scope",
+          "value": "16 (all Review = Approved)"
+        }
+      ],
+      {
+        "label": "Decision under test",
+        "value": "PO-28 — the Reissue button needs the Auto Reissue checkbox AND a selected credential matching the credential the PNR was booked on. Supersedes PO-22."
+      }
+    ]
+  },
+  "summary": {
+    "title": "Executive Summary",
+    "total": 206,
+    "totalLabel": "Suite Total (16 in this run's scope)",
+    "duration": "1h 45m",
+    "durationLabel": "Execution Duration",
+    "donut": {
+      "focus": "Passed",
+      "percent": 100,
+      "label": "pass rate (executable scope, 16/16)"
+    }
+  },
+  "testCases": {
+    "title": "Test case results (16 in scope)",
+    "searchPlaceholder": "Search by ID, title, organisation, booking...",
+    "open": true,
+    "categories": [
+      {
+        "key": "business-rule",
+        "name": "The PO-28 credential rule",
+        "icon": "🔑",
+        "open": true,
+        "cases": [
+          {
+            "id": "TC-AGENCY-082",
+            "title": "Reissue is hidden when the booking's credential is not selected",
+            "status": "Passed",
+            "statusLabel": "Passed (Rev 2 expectation)",
+            "rows": [
+              {
+                "label": "Organisation state",
+                "value": "AGN9780 — Auto Reissue ON, selection [NDCSabre staging (313)], Approved"
+              },
+              {
+                "label": "Booking",
+                "value": "NDCEG-BR-F260924EAzzYT — booked on Sabre Staging (315)"
+              },
+              {
+                "label": "Expected",
+                "value": "The Reissue button is NOT shown, because the selected credential does not match the booking's"
+              },
+              {
+                "label": "Actual",
+                "value": "Not shown. Action bar rendered: Void / Cancel, Sync PNR, Release PNR"
+              },
+              {
+                "label": "API",
+                "value": "actionsDetails.canAutoReissue: false"
+              }
+            ],
+            "evidence": "TC-AGENCY-082-admin.png, TC-AGENCY-082-setup-form.png, TC-AGENCY-082-observation.json",
+            "detail": {
+              "preconditions": "AGN9780 Auto Reissue on and Approved, with supplier NDCsbr / credential 313 attached and set as the only Auto Reissue credential. Booking NDCEG-BR-F260924EAzzYT is Booked on credential 315.",
+              "testData": "Agency AGN9780 (id 10961); order AGN9780NDCNDCORD260924GKP8CP",
+              "steps": [
+                "Open the booking's Itinerary.",
+                "Take the lock on the Created By card.",
+                "Open View Passenger Details.",
+                "Read the rendered action buttons and the Itinerary API's actionsDetails."
+              ],
+              "expected": "The Reissue button is not shown. (Manual Reissue is out of scope — PO-29.)",
+              "priority": "P1",
+              "tags": [
+                "Atomic",
+                "Negative",
+                "Business-Rule"
+              ],
+              "extra": [
+                {
+                  "heading": "Why this case changed",
+                  "value": "Rev 1 expected the button to be SHOWN, under the now-superseded PO-22. Stage 3 inverted the expectation on 2026-09-27 when PO-28 replaced it."
+                }
+              ]
+            }
+          },
+          {
+            "id": "TC-BR-103",
+            "title": "Reissue is hidden on a Branch booking whose credential is not selected",
+            "status": "Passed",
+            "statusLabel": "Passed (Rev 2 expectation)",
+            "rows": [
+              {
+                "label": "Organisation state",
+                "value": "BRN265 — Auto Reissue ON, selection [NDCSabre staging (313)]"
+              },
+              {
+                "label": "Booking",
+                "value": "NDCEG-BR-F260926PwYMR2 — booked on Sabre Staging (315)"
+              },
+              {
+                "label": "Expected",
+                "value": "The Reissue button is NOT shown"
+              },
+              {
+                "label": "Actual",
+                "value": "Not shown. Action bar rendered: Void / Cancel, Sync PNR, Release PNR"
+              },
+              {
+                "label": "API",
+                "value": "actionsDetails.canAutoReissue: false"
+              }
+            ],
+            "evidence": "TC-BR-103-admin.png, TC-BR-103-setup-form.png, TC-BR-103-observation.json",
+            "detail": {
+              "preconditions": "BRN265 Auto Reissue on, with NDCsbr / 313 attached and set as the only Auto Reissue credential.",
+              "testData": "Branch BRN265 (id 10950); order BRN265NDCORD2609269C3COS",
+              "steps": [
+                "Open the booking's Itinerary.",
+                "Take the lock on the Created By card.",
+                "Open View Passenger Details.",
+                "Read the rendered action buttons and the Itinerary API's actionsDetails."
+              ],
+              "expected": "The Reissue button is not shown. (Manual Reissue is out of scope — PO-29.)",
+              "priority": "P1",
+              "tags": [
+                "Atomic",
+                "Negative",
+                "Business-Rule"
+              ],
+              "extra": [
+                {
+                  "heading": "Booking changed",
+                  "value": "Stage 3 moved this case off NDCEG-BR-F260916ENYOeQ, which was exchanged outside the application and is no longer reissuable (run-007 D-13)."
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "key": "positive",
+        "name": "Button shown — checkbox on and credential matched",
+        "icon": "✅",
+        "open": true,
+        "cases": [
+          {
+            "id": "TC-AGENCY-076",
+            "title": "Admin shows Reissue for an Agency booking when Auto Reissue is on",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Organisation state",
+                "value": "AGN9780 — Auto Reissue ON, selection [Sabre Staging (315)]"
+              },
+              {
+                "label": "Expected",
+                "value": "The Reissue button is shown"
+              },
+              {
+                "label": "Actual",
+                "value": "Shown. Action bar: Void / Cancel, Reissue, Sync PNR, Release PNR"
+              },
+              {
+                "label": "API",
+                "value": "actionsDetails.canAutoReissue: true"
+              }
+            ],
+            "evidence": "TC-AGENCY-076-admin.png, stateA-observations.json",
+            "detail": {
+              "priority": "P1",
+              "tags": [
+                "Atomic",
+                "Positive",
+                "Smoke"
+              ]
+            }
+          },
+          {
+            "id": "TC-BR-101",
+            "title": "Admin shows Reissue for a Branch booking when Branch Auto Reissue is on",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Organisation state",
+                "value": "BRN265 — Auto Reissue ON, selection [Sabre Staging (315)]"
+              },
+              {
+                "label": "Expected",
+                "value": "The Reissue button is shown"
+              },
+              {
+                "label": "Actual",
+                "value": "Shown. Action bar: Void / Cancel, Reissue, Sync PNR, Release PNR"
+              },
+              {
+                "label": "API",
+                "value": "actionsDetails.canAutoReissue: true"
+              }
+            ],
+            "evidence": "TC-BR-101-admin.png, stateA-observations.json",
+            "detail": {
+              "priority": "P1",
+              "tags": [
+                "Atomic",
+                "Positive",
+                "Smoke"
+              ]
+            }
+          },
+          {
+            "id": "TC-AGENCY-079",
+            "title": "Portal shows Reissue when the Agency has Auto Reissue on",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Surface",
+                "value": "Portal, agency login AGN9780"
+              },
+              {
+                "label": "Expected",
+                "value": "The Reissue button is shown"
+              },
+              {
+                "label": "Actual",
+                "value": "Shown. Buttons: Time Limit, Reissue"
+              }
+            ],
+            "evidence": "TC-AGENCY-079-portal.png, stateA-portal-observations.json",
+            "detail": {
+              "priority": "P1",
+              "tags": [
+                "Atomic",
+                "Positive",
+                "Smoke"
+              ]
+            }
+          },
+          {
+            "id": "TC-AGENCY-081",
+            "title": "Portal shows Reissue without a lock",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Expected",
+                "value": "The Created By card has no lock control; Reissue is shown"
+              },
+              {
+                "label": "Actual",
+                "value": "Zero lock controls on the page; Reissue shown — both clauses hold"
+              },
+              {
+                "label": "Scope note",
+                "value": "The case's Manual Reissue clause was removed by PO-29. Manual Reissue was not offered; recorded as an observation only."
+              }
+            ],
+            "evidence": "TC-AGENCY-081-portal.png, stateA-portal-observations.json",
+            "detail": {
+              "priority": "P3",
+              "tags": [
+                "Atomic",
+                "Regression"
+              ]
+            }
+          },
+          {
+            "id": "TC-BR-104",
+            "title": "Agency Auto Reissue off does not hide Reissue on a Branch booking",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Organisation state",
+                "value": "BRN265 ON with [315]; AGN9780 OFF"
+              },
+              {
+                "label": "Expected",
+                "value": "The Reissue button is shown — the Agency's value does not govern a Branch-owned booking"
+              },
+              {
+                "label": "Actual",
+                "value": "Shown"
+              },
+              {
+                "label": "API",
+                "value": "actionsDetails.canAutoReissue: true"
+              }
+            ],
+            "evidence": "TC-BR-104-admin.png, stateD-observations.json",
+            "detail": {
+              "priority": "P2",
+              "tags": [
+                "Atomic",
+                "Integration"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "key": "negative",
+        "name": "Button hidden — checkbox off, or status not Booked",
+        "icon": "🚫",
+        "open": true,
+        "cases": [
+          {
+            "id": "TC-AGENCY-077",
+            "title": "Admin hides Reissue for an Agency booking when Auto Reissue is off",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Organisation state",
+                "value": "AGN9780 — Auto Reissue OFF, Approved"
+              },
+              {
+                "label": "Expected",
+                "value": "The Reissue button is not shown"
+              },
+              {
+                "label": "Actual",
+                "value": "Not shown. Action bar rendered: Void / Cancel, Sync PNR, Release PNR"
+              },
+              {
+                "label": "API",
+                "value": "actionsDetails.canAutoReissue: false"
+              },
+              {
+                "label": "Scope note",
+                "value": "This case also asserted that Manual Reissue is still shown when the run began. PO-29 (2026-09-27) put Manual Reissue out of scope for this story, and Stage 3 removed the clause. Manual Reissue was in fact not rendered — kept as an observation, not a defect."
+              }
+            ],
+            "evidence": "TC-AGENCY-077-admin.png, stateD-observations.json, comparison TC-AGENCY-083-admin.png",
+            "detail": {
+              "preconditions": "AGN9780 Auto Reissue off and Approved; booking NDCEG-BR-F260924EAzzYT Booked and not locked by another user.",
+              "steps": [
+                "Open the booking's Itinerary.",
+                "Take the lock on the Created By card (Take Control).",
+                "Open View Passenger Details.",
+                "Read the rendered action buttons and actionsDetails."
+              ],
+              "expected": "Reissue not shown. (The Manual Reissue clause was removed by PO-29.)",
+              "priority": "P1",
+              "tags": [
+                "Atomic",
+                "Negative",
+                "Smoke"
+              ]
+            }
+          },
+          {
+            "id": "TC-BR-102",
+            "title": "Admin hides Reissue for a Branch booking when Branch Auto Reissue is off",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Organisation state",
+                "value": "BRN265 — Auto Reissue OFF, Approved"
+              },
+              {
+                "label": "Expected",
+                "value": "The Reissue button is not shown"
+              },
+              {
+                "label": "Actual",
+                "value": "Not shown. Action bar rendered: Void / Cancel, Sync PNR, Release PNR"
+              },
+              {
+                "label": "API",
+                "value": "actionsDetails.canAutoReissue: false"
+              },
+              {
+                "label": "Scope note",
+                "value": "As TC-AGENCY-077 — the Manual Reissue clause was removed by PO-29 and the behaviour is kept as an observation."
+              }
+            ],
+            "evidence": "TC-BR-102-admin.png, TC-BR-102-observation.json",
+            "detail": {
+              "priority": "P1",
+              "tags": [
+                "Atomic",
+                "Negative",
+                "Smoke"
+              ]
+            }
+          },
+          {
+            "id": "TC-AGENCY-078",
+            "title": "Branch Auto Reissue on does not enable an Agency booking",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Organisation state",
+                "value": "BRN265 ON; AGN9780 OFF"
+              },
+              {
+                "label": "Expected",
+                "value": "The Reissue button is not shown"
+              },
+              {
+                "label": "Actual",
+                "value": "Not shown — canAutoReissue: false"
+              }
+            ],
+            "evidence": "TC-AGENCY-078-admin.png, stateD-observations.json",
+            "detail": {
+              "priority": "P1",
+              "tags": [
+                "Atomic",
+                "Integration"
+              ]
+            }
+          },
+          {
+            "id": "TC-AGENCY-080",
+            "title": "Portal hides Reissue when the Agency has Auto Reissue off",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Surface",
+                "value": "Portal, agency login AGN9780"
+              },
+              {
+                "label": "Expected",
+                "value": "The Reissue button is not shown"
+              },
+              {
+                "label": "Actual",
+                "value": "Not shown. Buttons: Time Limit only"
+              }
+            ],
+            "evidence": "TC-AGENCY-080-portal.png, TC-AGENCY-080-observation.json",
+            "detail": {
+              "priority": "P1",
+              "tags": [
+                "Atomic",
+                "Negative",
+                "Smoke"
+              ]
+            }
+          },
+          {
+            "id": "TC-AGENCY-083",
+            "title": "A booking made on behalf of the Agency follows the Agency's checkbox",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Organisation state",
+                "value": "BRN265 ON; AGN9780 OFF"
+              },
+              {
+                "label": "Booking",
+                "value": "NDCEG-BR-F2609242aZ6EJ — booked on behalf of AGN9780"
+              },
+              {
+                "label": "Expected",
+                "value": "The Reissue button is not shown — the booking belongs to the Agency, so the Agency's checkbox governs"
+              },
+              {
+                "label": "Actual",
+                "value": "Not shown — canAutoReissue: false"
+              },
+              {
+                "label": "Note",
+                "value": "Observed without taking the lock: this booking was already held by odeysysadmin before the run started. The assertion does not depend on the lock."
+              }
+            ],
+            "evidence": "TC-AGENCY-083-admin.png, stateD-observations.json",
+            "detail": {
+              "priority": "P2",
+              "tags": [
+                "Atomic",
+                "Integration",
+                "Assumption-based"
+              ]
+            }
+          },
+          {
+            "id": "TC-AGENCY-084",
+            "title": "A booking not in Booked status does not show Reissue",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Organisation state",
+                "value": "AGN9780 ON with its credential selected — so only the status condition is unmet"
+              },
+              {
+                "label": "Booking",
+                "value": "NDCEG-BR-F251014N1oohh — On Hold"
+              },
+              {
+                "label": "Actual",
+                "value": "Not shown — canAutoReissue: false"
+              }
+            ],
+            "evidence": "TC-AGENCY-084-admin.png, stateA-observations.json",
+            "detail": {
+              "priority": "P3",
+              "tags": [
+                "Atomic",
+                "Negative",
+                "Assumption-based"
+              ]
+            }
+          },
+          {
+            "id": "TC-AGENCY-094",
+            "title": "Portal hides Reissue for an Agency booking on hold",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Surface",
+                "value": "Portal, agency login AGN9780"
+              },
+              {
+                "label": "Booking",
+                "value": "NDCEG-BR-F251014N1oohh — On Hold"
+              },
+              {
+                "label": "Actual",
+                "value": "Not shown"
+              }
+            ],
+            "evidence": "TC-AGENCY-094-portal.png, stateA-portal-observations.json",
+            "detail": {
+              "priority": "P2",
+              "tags": [
+                "Atomic",
+                "Negative"
+              ]
+            }
+          },
+          {
+            "id": "TC-BR-112",
+            "title": "Admin hides Reissue for a Branch booking on hold",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Organisation state",
+                "value": "BRN265 ON with its credential selected — so only the status condition is unmet"
+              },
+              {
+                "label": "Booking",
+                "value": "NDCEG-BR-F251103CdegUo — On Hold"
+              },
+              {
+                "label": "Actual",
+                "value": "Not shown — canAutoReissue: false"
+              }
+            ],
+            "evidence": "TC-BR-112-admin.png, stateA-observations.json",
+            "detail": {
+              "priority": "P2",
+              "tags": [
+                "Atomic",
+                "Negative"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "key": "flow",
+        "name": "Exploratory — pending approval",
+        "icon": "🔍",
+        "open": true,
+        "cases": [
+          {
+            "id": "TC-AGENCY-085",
+            "title": "Which value the Itinerary uses while an Auto Reissue change is pending",
+            "status": "Passed",
+            "statusLabel": "Passed (observation recorded)",
+            "rows": [
+              {
+                "label": "What was done",
+                "value": "AGN9780 was off. Auto Reissue was ticked with Sabre Staging (315) — the booking's own credential — and submitted with Send For Approval, not approved."
+              },
+              {
+                "label": "Organisation state",
+                "value": "autoReissueEnabled: true with approvalStatus: 0 — the change is pending"
+              },
+              {
+                "label": "Observed",
+                "value": "The Itinerary returned canAutoReissue: true and rendered the Reissue button, on an unapproved change"
+              },
+              {
+                "label": "Open question",
+                "value": "Reproduces run-006 REC-1. A product decision is still owed — see REC-008-2"
+              }
+            ],
+            "evidence": "TC-AGENCY-085-pending.png, TC-AGENCY-085-observation.json",
+            "detail": {
+              "expected": "No fixed pass/fail — the tester records whether Reissue is shown while the change is pending, and a reviewer decides whether that is intended.",
+              "priority": "P3",
+              "tags": [
+                "Atomic",
+                "Exploratory",
+                "Assumption-based"
+              ],
+              "extra": [
+                {
+                  "heading": "What happened next",
+                  "value": "The pending change was approved, which returned AGN9780 to its required final state: Auto Reissue on, selection [315], Approved."
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "type": "findings",
+      "title": "Defects and open questions",
+      "badges": [
+        {
+          "value": 0,
+          "label": "Defects",
+          "tone": "pass"
+        },
+        {
+          "value": 1,
+          "label": "Out-of-scope observation",
+          "tone": "neutral"
+        },
+        {
+          "value": 1,
+          "label": "Open question",
+          "tone": "accent"
+        }
+      ],
+      "items": [
+        {
+          "kind": "No defects",
+          "tone": "pass",
+          "body": "Every case in scope passed. No Failed or Inconclusive result stands, so no defect record is owed for this run."
+        },
+        {
+          "kind": "Observation — out of scope",
+          "tone": "neutral",
+          "body": "With the owning organisation's Auto Reissue checkbox off, the Reissue button was correctly hidden and Manual Reissue was missing too — Void / Cancel appeared in its place, while the page's own API reported canManualReissue: true. Manual Reissue appeared only on the one booking held by a different user. Seen four times across both modules.",
+          "refs": "(seen while running TC-AGENCY-077 and TC-BR-102 · PO-29)",
+          "fields": [
+            {
+              "label": "Scope",
+              "value": "Manual Reissue is out of scope for this story (PO-29, user decision 2026-09-27). This was not asserted, did not fail, and is not a defect of this story.",
+              "mono": false
+            },
+            {
+              "label": "Reliability",
+              "value": "Four agreeing observations across two bookings and both modules.",
+              "mono": false
+            },
+            {
+              "label": "Cause (not established)",
+              "value": "Lock ownership fits every observation; a void-eligibility time window was not ruled out. The component's source was not read.",
+              "mono": false
+            },
+            {
+              "label": "Owner",
+              "value": "Whoever owns the Itinerary action bar. Passed on as information only.",
+              "mono": false
+            }
+          ],
+          "evidence": "TC-AGENCY-077-admin.png, TC-BR-102-admin.png, TC-AGENCY-083-admin.png (the contrasting case), stateD-observations.json"
+        },
+        {
+          "kind": "Open question",
+          "tone": "accent",
+          "body": "The Itinerary acts on an Auto Reissue change that nobody has approved. With AGN9780's change pending (approvalStatus: 0), the Reissue button was already rendered and canAutoReissue was already true. This may bypass maker-checker.",
+          "refs": "(TC-AGENCY-085 · reproduces run-006 REC-1 · RSK-013)",
+          "fields": [
+            {
+              "label": "Needed",
+              "value": "A product decision: should the Itinerary follow the approved value or the pending one?",
+              "mono": false
+            }
+          ],
+          "evidence": "TC-AGENCY-085-observation.json, TC-AGENCY-085-pending.png"
+        }
+      ]
+    },
+    {
+      "type": "cleanup",
+      "title": "Shared-environment changes — all reverted",
+      "heading": "Every change this run made on shared staging, and how it was put back (verified in artifacts/final-state.json):",
+      "items": [
+        {
+          "label": "Auto Reissue toggled",
+          "ref": "AGN9780",
+          "refIn": "TC-AGENCY-077/078/080/083, TC-BR-104",
+          "body": "Switched off, then back on and Approved. Final: ON, Approved."
+        },
+        {
+          "label": "Auto Reissue toggled",
+          "ref": "BRN265",
+          "refIn": "TC-BR-102",
+          "body": "Switched off, then back on and Approved. Final: ON, Approved."
+        },
+        {
+          "label": "Supplier attached then detached",
+          "ref": "NDCsbr / credential 313",
+          "refIn": "TC-AGENCY-082, TC-BR-103",
+          "body": "Added to BRN265 Product Access and to AGN9780's reissue selection to create the credential-mismatch state, then removed. Final: Product Access back to Sabre / 315 only."
+        },
+        {
+          "label": "Reissue selection moved",
+          "ref": "[315] → [313] → [315]",
+          "refIn": "TC-AGENCY-082, TC-BR-103",
+          "body": "Both organisations. Final: [315] on both."
+        },
+        {
+          "label": "Booking lock taken and released",
+          "ref": "NDCEG-BR-F260924EAzzYT",
+          "refIn": "TC-AGENCY-076/077/082/085",
+          "body": "Take Control used, then Release Control. Confirmed unlocked at the end of the run."
+        },
+        {
+          "label": "Pre-existing lock left alone",
+          "ref": "NDCEG-BR-F2609242aZ6EJ",
+          "refIn": "TC-AGENCY-083",
+          "body": "Held by odeysysadmin before this run began. Not ours to release; still held."
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Requirement Coverage",
+      "blocks": [
+        "Computed from the Traceability Matrix of both modules. 7 of 7 testable requirement rows verified, 1 open question, 0 partially verified, 0 uncovered.",
+        {
+          "kind": "ul",
+          "items": [
+            "PO-28 — the button needs the checkbox AND a matching credential (supersedes PO-22): VERIFIED by TC-AGENCY-082 and TC-BR-103 in the negative, and by TC-AGENCY-076, 079, 081, TC-BR-101, 104 in the positive.",
+            "PO-16 — Agency and Branch checkboxes are independent: VERIFIED (TC-AGENCY-078, TC-BR-104).",
+            "PO-24 — the Itinerary condition is Status Booked: VERIFIED (TC-AGENCY-084, 094, TC-BR-112).",
+            "PO-25 — the Portal is in scope and shows Reissue without a lock: VERIFIED (TC-AGENCY-079, 080, 081, 094).",
+            "PO-26 — an on-behalf booking follows the Agency it belongs to: VERIFIED (TC-AGENCY-083).",
+            "spec §5 — the Itinerary's display conditions: VERIFIED for the Reissue button on all four covering cases. The Manual Reissue half is out of scope (PO-29) and deliberately not verified.",
+            "RSK-013 — which value the Itinerary uses while a change is pending: NOT VERIFIED, open question. The behaviour was recorded, not judged.",
+            "PO-29 — Manual Reissue is out of scope for this story: a scope decision, asserted by no case.",
+            "PO-22 — the button is independent of the selected credential: WITHDRAWN on 2026-09-27, replaced by PO-28."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Known Limitations",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "The run was headless. This stage normally runs with a visible browser so a person can watch each step. The user was asked beforehand and chose headless. Screenshots and API responses were captured as usual, so no result changes — what is missing is the live human observation.",
+            "A scope decision was taken mid-stage. Three approved cases asserted something about Manual Reissue when this run began. The product owner ruled it out of scope (PO-29) afterwards and the clause was removed. Two cases changed from Failed to Passed because the expectation changed, not because anything was re-run.",
+            "Credential 313 had to be borrowed. Both organisations had been reduced to a single credential after run-006, so the wrong-credential state did not exist. NDCsbr / 313 was attached with the user's explicit go-ahead, used, and detached again.",
+            "One lock was left in place — NDCEG-BR-F2609242aZ6EJ was already held by odeysysadmin before this run began.",
+            "The test design was amended and approved the same day, by the person who requested the change. A reviewer wanting an independent check should read modules/*/test_design/ first.",
+            "Video and console logs were not collected. Screenshots, API responses and structured per-case observations were."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Recommendations",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "REC-008-1 — Pass the Manual Reissue observation to whoever owns the Itinerary action bar, as information rather than as a defect of this story.",
+            "REC-008-2 — Answer the question run-006 raised as REC-1: should the Itinerary act on an Auto Reissue change nobody has approved yet? Today it does.",
+            "REC-008-3 — Record PO-28 as confirmed in the reissue-flow context and close run-007's DS-2.",
+            "REC-008-4 — Keep a second reissue-eligible credential permanently attached to AGN9780 and BRN265, so TC-AGENCY-082 and TC-BR-103 can run without changing Product Access each time.",
+            "REC-008-5 — Re-check the remaining 48 auto-reissue cases from run-006 against PO-28; this run covered only the button-display ones."
+          ]
+        }
+      ]
+    }
+  ]
+}

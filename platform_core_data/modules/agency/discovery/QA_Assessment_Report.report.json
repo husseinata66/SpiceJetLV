@@ -1,0 +1,218 @@
+{
+  "title": "QA Assessment Report — agency (run-006, Auto Reissue)",
+  "documentTitle": "agency — Discovery run-006",
+  "statusPill": "APPROVED",
+  "statusPillTone": "pass",
+  "meta": {
+    "fields": [
+      [
+        {
+          "label": "Module",
+          "value": "agency",
+          "mono": true
+        },
+        {
+          "label": "Run",
+          "value": "run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+          "mono": true
+        }
+      ],
+      [
+        {
+          "label": "Project Context",
+          "value": "ProjectContext.md Rev 5 — Approved 2026-09-24; PO-21 … PO-26 added during Stage 2; approved 2026-09-24",
+          "mono": false
+        },
+        {
+          "label": "Status",
+          "value": "Approved — Mohamed Soliman, 2026-09-24",
+          "mono": false
+        }
+      ],
+      {
+        "label": "Environment",
+        "value": "http://192.168.1.60 (Admin) · http://192.168.1.60:9500 (Portal) — shared staging",
+        "mono": true
+      }
+    ],
+    "runFields": [
+      [
+        {
+          "label": "Discovery Mode",
+          "value": "Browser automation — Browser Driver (headed); Playwright direct login for the Portal",
+          "mono": false
+        },
+        {
+          "label": "Generated",
+          "value": "2026-09-24",
+          "mono": false
+        }
+      ]
+    ]
+  },
+  "summary": null,
+  "sections": [
+    {
+      "type": "notes",
+      "title": "About this page",
+      "blocks": [
+        "This page is the HTML rendering of the run-006 revision only. The Markdown QA_Assessment_Report.md is the artifact under review and also keeps the earlier runs’ revisions.",
+        "Confidence: every Finding below rests on Direct Observation / System Response. Items marked \"Human Observation\" are the user’s statements and were not observed."
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Headline",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "The Itinerary Reissue button follows the Agency’s Auto Reissue checkbox — Admin (on/off) and Portal (off/on/off).",
+            "S-4, S-5 (unknown id), S-6 and S-8 return 400 with the specification’s exact messages; nothing saved. S-7 holds.",
+            "No defect found. All four Findings were confirmed intended by the user (PO-23, PO-24, and no lock on the Portal).",
+            "Needs your decision: the Project Context was edited after approval (PO-21 … PO-26, .60) and the run used your designated records AGN9780/BRN265 rather than self-created ones."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "findings",
+      "title": "Findings",
+      "badges": [
+        {
+          "value": 4,
+          "label": "Confirmed intended",
+          "tone": "neutral"
+        }
+      ],
+      "items": [
+        {
+          "kind": "Observation — Rejected (intended, user 2026-09-24)",
+          "tone": "neutral",
+          "body": "On the Portal, Reissue shows on an unlocked booking (lockedStatus 0, no lock control); in Admin it was seen only with the lock held.",
+          "refs": "(FINDING-016)",
+          "fields": [
+            {
+              "label": "Answer",
+              "value": "No lock is needed on the Portal. The lock is an Admin-only precondition.",
+              "mono": false
+            },
+            {
+              "label": "Annotated",
+              "value": "42-portal-1-AGN9780-ON-itinerary.annotated.png — Q1a, Q1b",
+              "mono": true
+            }
+          ],
+          "evidence": "Direct Observation — 43-portal-cycle-results.json, 22/42 screenshots"
+        },
+        {
+          "kind": "Requirement Gap — Rejected (intended, PO-23)",
+          "tone": "neutral",
+          "body": "Auto Reissue on + no credential: the screen shows \"Required\"; \"Select at least one eligible credential\" is the API’s message.",
+          "refs": "(FINDING-013)",
+          "evidence": "Direct Observation — 34-rule-S-2.png"
+        },
+        {
+          "kind": "Observation — Rejected (intended, PO-24)",
+          "tone": "neutral",
+          "body": "Send For Approval leaves the Agency Inactive + Pending until approved; the edit form’s Approve saves and approves in one step.",
+          "refs": "(FINDING-014)",
+          "evidence": "Direct Observation — 10–13, 43"
+        },
+        {
+          "kind": "Observation — Rejected (intended, PO-24)",
+          "tone": "neutral",
+          "body": "Status bar \"Ticketed Document\" vs Status \"Booked\"; the eligibility condition is Booked.",
+          "refs": "(FINDING-015)",
+          "evidence": "Direct Observation — 18, 23, 42"
+        }
+      ]
+    },
+    {
+      "type": "findings",
+      "title": "Gaps and open questions",
+      "items": [
+        {
+          "kind": "Gap — Extends",
+          "tone": "warning",
+          "body": "PO-19/§5 say self-created records only; the run changed designated AGN9780 and BRN265 (DedicatedTestData grants).",
+          "refs": "(GAP-AG-R6-01)"
+        },
+        {
+          "kind": "Gap — Extends",
+          "tone": "warning",
+          "body": "PO-21 … PO-26 and the .60 target were written into the approved context during Stage 2.",
+          "refs": "(GAP-AG-R6-03)"
+        },
+        {
+          "kind": "Gap — Contradicts",
+          "tone": "warning",
+          "body": "§5, §7, §8.3, §8.5 still name http://192.168.1.70.",
+          "refs": "(GAP-AG-R6-05)"
+        },
+        {
+          "kind": "Gap — Run record",
+          "tone": "warning",
+          "body": "SafetyAuthorizations approvedAt for the DedicatedTestData grants (2026-09-24 09:30Z/09:45Z) is later than the approval given (2026-09-23 21:34Z) and the first change (21:38Z).",
+          "refs": "(GAP-AG-R6-07)"
+        },
+        {
+          "kind": "Open question",
+          "tone": "accent",
+          "body": "RSK-013: does canAutoReissue read the approved or the pending value?",
+          "refs": "(OQ-AG-R6-2)"
+        },
+        {
+          "kind": "Open question",
+          "tone": "accent",
+          "body": "RSK-012: no inactive / later-invalid credential exists on .60 — S-5 inactive and read-time clean-up unreachable without supplier changes.",
+          "refs": "(OQ-AG-R6-3)"
+        },
+        {
+          "kind": "Open question",
+          "tone": "accent",
+          "body": "ASM-021: \"mapped to this Agency\" vs \"on its parent Branch\" — consistent so far, not proven equal.",
+          "refs": "(OQ-AG-R6-4)"
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Coverage (from Coverage_Summary.md)",
+      "blocks": [
+        "11/13 declared areas visited = 85% — 9 Covered · 2 Partial · 1 Blocked · 1 Skipped.",
+        {
+          "kind": "ul",
+          "items": [
+            "Not covered: read-time clean-up (spec §4) — Blocked (needs a supplier change, not granted).",
+            "Not covered: regression smoke — Skipped (Stage 3).",
+            "Partial: backend rules — S-3 not run; S-5 inactive variant unreachable.",
+            "Partial: bounded by parent Branch — ASM-021 open."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "cleanup",
+      "title": "Live state left behind",
+      "heading": "Records changed by this run (both user-designated):",
+      "items": [
+        {
+          "label": "Agency",
+          "ref": "AGN9780",
+          "body": "Auto Reissue OFF, Approved; reissueCredentials [277] still stored in the background (S-7)."
+        },
+        {
+          "label": "Branch",
+          "ref": "BRN265",
+          "body": "Auto Reissue ON, [313], Approved — its restore target."
+        },
+        {
+          "label": "Bookings",
+          "ref": "NDCEG-BR-F260924EAzzYT, NDCEG-BR-F260916ENYOeQ",
+          "body": "Unchanged. Made by the user; the platform never booked or clicked Reissue / Release PNR / Void-Cancel."
+        }
+      ]
+    }
+  ]
+}

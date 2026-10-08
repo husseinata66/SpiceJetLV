@@ -1,0 +1,98 @@
+{
+  "scenario": "Scenario 1 - one-way, full cycle",
+  "capturedAt": "2026-09-27T14:21:30.241Z",
+  "bookingRef": "NDCEG-BR-F26092704TCQE",
+  "orderId": "AGN9780NDCNDCORD260927XMFO4U",
+  "gdsPNR": "OWXGIW",
+  "airlinePNR": "DCSV",
+  "supplier": "Sabre",
+  "ticketPccId": 315,
+  "tripType": "One Way",
+  "sector": "CAI - JED",
+  "totalEGP": 31346.8,
+  "passengers": [
+    {
+      "no": 1,
+      "name": "emad ahmed",
+      "passengerType": 0,
+      "ticketNo": "0654859778747",
+      "passengerPrice": 7174.8
+    },
+    {
+      "no": 2,
+      "name": "mahmoud omar",
+      "passengerType": 0,
+      "ticketNo": "0654859778748",
+      "passengerPrice": 7174.8
+    },
+    {
+      "no": 3,
+      "name": "abdallah ragb",
+      "passengerType": 1,
+      "ticketNo": "0654859778749",
+      "passengerPrice": 6138.8
+    },
+    {
+      "no": 4,
+      "name": "ezz ayman",
+      "passengerType": 1,
+      "ticketNo": "0654859778750",
+      "passengerPrice": 6138.8
+    },
+    {
+      "no": 5,
+      "name": "sara ahmed",
+      "passengerType": 2,
+      "ticketNo": "0654859778751",
+      "passengerPrice": 2359.8
+    },
+    {
+      "no": 6,
+      "name": "eissa soliman",
+      "passengerType": 2,
+      "ticketNo": "0654859778752",
+      "passengerPrice": 2359.8
+    }
+  ],
+  "segment": {
+    "segmentRefNo": 1,
+    "legOrder": 1,
+    "operatingCarrier": "",
+    "origin": "CAI",
+    "destination": "JED",
+    "sector": "CAI - JED ( SV - 382 )",
+    "noOfStops": 1,
+    "arrDate": "2026-12-02",
+    "departureTerminal": "2",
+    "flightDuration": "2h 10m",
+    "deptDate": "2026-12-02",
+    "deptTime": "06:10:00",
+    "arrivalTerminal": "1",
+    "bookingClass": "V",
+    "cabinClass": "ECONOMY",
+    "arrTime": "09:20:00",
+    "arrivalDate": 1796203200000,
+    "departureDate": 1796191800000
+  },
+  "actionsDetails": {
+    "showViewTicket": true,
+    "canManualReissue": false,
+    "canAutoReissue": true,
+    "showSyncPnr": false,
+    "showPayAndBook": false,
+    "showModifiedTicket": false,
+    "showCancelBtn": false,
+    "showCancelHoldBtn": false,
+    "showRefundBtn": false,
+    "canReleaseLock": false
+  },
+  "lockedStatus": 0,
+  "FINDING_R01": {
+    "api_deptTime": "06:10:00",
+    "api_arrTime": "09:20:00",
+    "screen_dept": "08:10:00",
+    "screen_arr": "11:20:00",
+    "offset": "+2h (browser TZ Africa/Cairo)",
+    "reproduced": true
+  }
+}

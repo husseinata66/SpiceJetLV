@@ -1,0 +1,155 @@
+{
+  "title": "QA Assessment Report — branch (run-006, Auto Reissue)",
+  "documentTitle": "branch — Discovery run-006",
+  "statusPill": "APPROVED",
+  "statusPillTone": "pass",
+  "meta": {
+    "fields": [
+      [
+        {
+          "label": "Module",
+          "value": "branch",
+          "mono": true
+        },
+        {
+          "label": "Run",
+          "value": "run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+          "mono": true
+        }
+      ],
+      [
+        {
+          "label": "Project Context",
+          "value": "ProjectContext.md Rev 9 — Approved 2026-09-24; PO-21 … PO-26 added during Stage 2; approved 2026-09-24",
+          "mono": false
+        },
+        {
+          "label": "Status",
+          "value": "Approved — Mohamed Soliman, 2026-09-24",
+          "mono": false
+        }
+      ],
+      {
+        "label": "Environment",
+        "value": "http://192.168.1.60 (Admin) · http://192.168.1.60:9500 (Portal) — shared staging",
+        "mono": true
+      }
+    ],
+    "runFields": [
+      [
+        {
+          "label": "Discovery Mode",
+          "value": "Browser automation — Browser Driver (headed); Playwright direct login for the Portal",
+          "mono": false
+        },
+        {
+          "label": "Generated",
+          "value": "2026-09-24",
+          "mono": false
+        }
+      ]
+    ]
+  },
+  "summary": null,
+  "sections": [
+    {
+      "type": "notes",
+      "title": "About this page",
+      "blocks": [
+        "This page is the HTML rendering of the run-006 revision only. The Markdown QA_Assessment_Report.md is the artifact under review and also keeps the earlier runs’ revisions.",
+        "Confidence: every Finding below rests on Direct Observation / System Response. Items marked \"Human Observation\" are the user’s statements and were not observed."
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Headline",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "A Branch can own a booking itself (agencyId null) — ASM-BR-6 refuted; the §3-conditional Branch Itinerary case is now reachable.",
+            "That booking’s Reissue button followed BRN265’s checkbox (off → hidden, on → shown), checked in one session with the flag read right before.",
+            "Picker source confirmed on an unsaved Add Branch: LCC excluded, Galileo tab included, Amadeus excluded (PO-21)."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "findings",
+      "title": "Findings",
+      "badges": [
+        {
+          "value": 1,
+          "label": "Confirmed intended",
+          "tone": "neutral"
+        }
+      ],
+      "items": [
+        {
+          "kind": "Observation — Rejected (intended, PO-22)",
+          "tone": "neutral",
+          "body": "Reissue shows even though the booking’s credential (315) is not in BRN265’s selection [313]; the selection is enforced when Reissue is clicked (reissue-flow).",
+          "refs": "(FINDING-017)",
+          "evidence": "Direct Observation — 33-branchbooking-cycle-results.json, 45-itinerary-credential-fields.txt"
+        }
+      ]
+    },
+    {
+      "type": "findings",
+      "title": "Gaps and open questions",
+      "items": [
+        {
+          "kind": "Gap — Extends",
+          "tone": "warning",
+          "body": "PO-19/§5 say a self-created Branch; the run used designated BRN265, Branch creation revoked.",
+          "refs": "(GAP-BR-R6-01)"
+        },
+        {
+          "kind": "Gap — Contradicts",
+          "tone": "warning",
+          "body": "§3 excluded Branch-created bookings unless they exist — they do; move to §2.",
+          "refs": "(GAP-BR-R6-02)"
+        },
+        {
+          "kind": "Gap — Extends",
+          "tone": "warning",
+          "body": "PO-21 … PO-26 and .60 written during Stage 2 need approval; PO-26 row has an extra table cell.",
+          "refs": "(GAP-BR-R6-03)"
+        },
+        {
+          "kind": "Gap — Contradicts",
+          "tone": "warning",
+          "body": "§8.1 still says verify login on .70.",
+          "refs": "(GAP-BR-R6-04)"
+        },
+        {
+          "kind": "Open question",
+          "tone": "accent",
+          "body": "S-3 … S-6 not sent against the Branch API (/Master2/Branch).",
+          "refs": "(OQ-BR-R6-2)"
+        },
+        {
+          "kind": "Open question",
+          "tone": "accent",
+          "body": "S-5 inactive and read-time clean-up unreachable without supplier changes.",
+          "refs": "(OQ-BR-R6-1)"
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Coverage (from Coverage_Summary.md)",
+      "blocks": [
+        "7/9 declared areas visited = 78% — 6 Covered · 1 Partial · 2 Skipped.",
+        {
+          "kind": "ul",
+          "items": [
+            "Not covered: backend rules via the Branch API — Skipped.",
+            "Not covered: regression smoke — Skipped (Stage 3).",
+            "Partial: S-7 covered; read-time clean-up blocked."
+          ]
+        }
+      ]
+    }
+  ]
+}

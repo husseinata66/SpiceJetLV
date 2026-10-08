@@ -1,0 +1,76 @@
+{
+ "agencyName": "RUN010_AR_Off_Agency",
+ "autoReissue": false,
+ "branch": "NDC2_Mohamed Soliman (BRN265)",
+ "state": "Asyut",
+ "city": "Asyut",
+ "textFilled": 16,
+ "dropdownsFilled": [
+  {
+   "id": "id-AccountType",
+   "picked": "saving"
+  },
+  {
+   "id": "id-Invoicegeneration",
+   "picked": "BiWeekly"
+  },
+  {
+   "id": "id-Month",
+   "picked": "January"
+  },
+  {
+   "id": "id-Year",
+   "picked": "2026"
+  }
+ ],
+ "paymentTicked": true,
+ "dateStart": {
+  "panelTitle": "October2026",
+  "picked": "15",
+  "value": "15/10/2026"
+ },
+ "dateEnd": {
+  "panelTitle": "October2026",
+  "picked": "15",
+  "value": "15/10/2027"
+ },
+ "datesLegacy": [
+  [
+   "id-ContractStartDate",
+   "15/10/2026"
+  ],
+  [
+   "id-ContractEndDate",
+   "15/10/2027"
+  ]
+ ],
+ "fileInputs": [
+  {
+   "idx": 0,
+   "id": "",
+   "accept": ""
+  },
+  {
+   "idx": 1,
+   "id": "",
+   "accept": "image/*"
+  }
+ ],
+ "arForm": {
+  "checkboxPresent": true,
+  "checked": false,
+  "credentialsControlPresent": false,
+  "credentialsLabel": null,
+  "credentialsSectionInText": false
+ },
+ "sendNet": [
+  {
+   "m": "POST",
+   "u": "/odeysysadmin/Admin2/agency/",
+   "s": 204,
+   "body": ""
+  }
+ ],
+ "url": "http://192.168.1.60/admin/agency",
+ "invalid": []
+}

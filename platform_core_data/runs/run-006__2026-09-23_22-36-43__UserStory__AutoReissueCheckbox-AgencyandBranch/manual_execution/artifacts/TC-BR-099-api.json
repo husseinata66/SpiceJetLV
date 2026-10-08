@@ -1,0 +1,28 @@
+{
+  "request": {
+    "autoReissueEnabled": true,
+    "reissueCredentials": [
+      {
+        "credentialId": 287
+      }
+    ]
+  },
+  "response": {
+    "status": 400,
+    "body": "{\"code\":400,\"message\":\"Each auto-reissue credential must be mapped to this organization\",\"requestId\":\"0ad663f2-506d-4de5-a087-cdc564e789a4\"}"
+  },
+  "branchBefore": {
+    "api": true,
+    "creds": [
+      313
+    ],
+    "appr": 1
+  },
+  "branchAfter": {
+    "api": true,
+    "creds": [
+      313
+    ],
+    "appr": 1
+  }
+}

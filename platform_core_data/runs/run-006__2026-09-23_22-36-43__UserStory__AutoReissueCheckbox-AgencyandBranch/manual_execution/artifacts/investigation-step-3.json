@@ -1,0 +1,319 @@
+{
+  "step": 3,
+  "snaps": [
+    {
+      "label": "before",
+      "at": "2026-09-26T13:34:42.425Z",
+      "BRN265": {
+        "saved": {
+          "api": true,
+          "creds": [
+            277,
+            287,
+            289,
+            297,
+            345,
+            589
+          ],
+          "appr": 1,
+          "pa": [
+            "Sabre:297",
+            "Galileo:277+287+289+345+589",
+            "NDCsbr:313"
+          ]
+        },
+        "rowsTicked": {
+          "Sabre": true,
+          "NDCsbr": true
+        },
+        "pccTabs": {
+          "Sabre": "SabreLive",
+          "Galileo": "All (5 selected)",
+          "NDCsbr": "NDCSabre staging"
+        },
+        "autoReissueTicked": true,
+        "pickerShows": "All (6 selected)",
+        "pickerOffers": [
+          "GalileoLive",
+          "Galileo Live UAE",
+          "Live EGY PCC",
+          "KSA Galileoo",
+          "HH",
+          "SabreLive",
+          "NDCSabre staging"
+        ]
+      },
+      "AGN9780": {
+        "saved": {
+          "api": true,
+          "creds": [
+            277,
+            287,
+            289,
+            297,
+            345,
+            589
+          ],
+          "appr": 1,
+          "status": 1
+        },
+        "rowsTicked": {
+          "Sabre": true,
+          "NDCsbr": true
+        },
+        "pccTabs": {
+          "Galileo": "All (5 selected)",
+          "Sabre": "SabreLive",
+          "NDCsbr": "NDCSabre staging"
+        },
+        "autoReissueTicked": true,
+        "pickerShows": "All (6 selected)",
+        "pickerOffers": [
+          "GalileoLive",
+          "Galileo Live UAE",
+          "Live EGY PCC",
+          "KSA Galileoo",
+          "HH",
+          "SabreLive",
+          "NDCSabre staging"
+        ]
+      }
+    },
+    {
+      "label": "credential-inactive",
+      "at": "2026-09-26T13:35:40.993Z",
+      "BRN265": {
+        "saved": {
+          "api": true,
+          "creds": [
+            277,
+            287,
+            289,
+            297,
+            345,
+            589
+          ],
+          "appr": 1,
+          "pa": [
+            "Sabre:297",
+            "Galileo:277+287+289+345+589"
+          ]
+        },
+        "rowsTicked": {
+          "Sabre": true,
+          "NDCsbr": false
+        },
+        "pccTabs": {
+          "Sabre": "SabreLive",
+          "Galileo": "All (5 selected)"
+        },
+        "autoReissueTicked": true,
+        "pickerShows": "All (6 selected)",
+        "pickerOffers": [
+          "GalileoLive",
+          "Galileo Live UAE",
+          "Live EGY PCC",
+          "KSA Galileoo",
+          "HH",
+          "SabreLive"
+        ]
+      },
+      "AGN9780": {
+        "saved": {
+          "api": true,
+          "creds": [
+            277,
+            287,
+            289,
+            297,
+            345,
+            589
+          ],
+          "appr": 1,
+          "status": 1
+        },
+        "rowsTicked": {
+          "Sabre": true,
+          "NDCsbr": true
+        },
+        "pccTabs": {
+          "Galileo": "All (5 selected)",
+          "Sabre": "SabreLive",
+          "NDCsbr": "NDCSabre staging"
+        },
+        "autoReissueTicked": true,
+        "pickerShows": "All (6 selected)",
+        "pickerOffers": [
+          "GalileoLive",
+          "Galileo Live UAE",
+          "Live EGY PCC",
+          "KSA Galileoo",
+          "HH",
+          "SabreLive",
+          "NDCSabre staging"
+        ]
+      }
+    },
+    {
+      "label": "after-branch-save-while-inactive",
+      "at": "2026-09-26T13:36:46.097Z",
+      "BRN265": {
+        "saved": {
+          "api": true,
+          "creds": [
+            277,
+            287,
+            289,
+            297,
+            345,
+            589
+          ],
+          "appr": 1,
+          "pa": [
+            "Sabre:297",
+            "Galileo:277+287+289+345+589"
+          ]
+        },
+        "rowsTicked": {
+          "Sabre": true,
+          "NDCsbr": false
+        },
+        "pccTabs": {
+          "Sabre": "SabreLive",
+          "Galileo": "All (5 selected)"
+        },
+        "autoReissueTicked": true,
+        "pickerShows": "All (6 selected)",
+        "pickerOffers": [
+          "GalileoLive",
+          "Galileo Live UAE",
+          "Live EGY PCC",
+          "KSA Galileoo",
+          "HH",
+          "SabreLive"
+        ]
+      },
+      "AGN9780": {
+        "saved": {
+          "api": true,
+          "creds": [
+            277,
+            287,
+            289,
+            297,
+            345,
+            589
+          ],
+          "appr": 1,
+          "status": 1
+        },
+        "rowsTicked": {
+          "Sabre": true,
+          "NDCsbr": null
+        },
+        "pccTabs": {
+          "Galileo": "All (5 selected)",
+          "Sabre": "SabreLive"
+        },
+        "autoReissueTicked": true,
+        "pickerShows": "All (6 selected)",
+        "pickerOffers": [
+          "GalileoLive",
+          "Galileo Live UAE",
+          "Live EGY PCC",
+          "KSA Galileoo",
+          "HH",
+          "SabreLive"
+        ]
+      }
+    },
+    {
+      "label": "credential-reactivated",
+      "at": "2026-09-26T13:37:45.640Z",
+      "BRN265": {
+        "saved": {
+          "api": true,
+          "creds": [
+            277,
+            287,
+            289,
+            297,
+            345,
+            589
+          ],
+          "appr": 1,
+          "pa": [
+            "Sabre:297",
+            "Galileo:277+287+289+345+589"
+          ]
+        },
+        "rowsTicked": {
+          "Sabre": true,
+          "NDCsbr": false
+        },
+        "pccTabs": {
+          "Sabre": "SabreLive",
+          "Galileo": "All (5 selected)"
+        },
+        "autoReissueTicked": true,
+        "pickerShows": "All (6 selected)",
+        "pickerOffers": [
+          "GalileoLive",
+          "Galileo Live UAE",
+          "Live EGY PCC",
+          "KSA Galileoo",
+          "HH",
+          "SabreLive"
+        ]
+      },
+      "AGN9780": {
+        "saved": {
+          "api": true,
+          "creds": [
+            277,
+            287,
+            289,
+            297,
+            345,
+            589
+          ],
+          "appr": 1,
+          "status": 1
+        },
+        "rowsTicked": {
+          "Sabre": true,
+          "NDCsbr": null
+        },
+        "pccTabs": {
+          "Galileo": "All (5 selected)",
+          "Sabre": "SabreLive"
+        },
+        "autoReissueTicked": true,
+        "pickerShows": "All (6 selected)",
+        "pickerOffers": [
+          "GalileoLive",
+          "Galileo Live UAE",
+          "Live EGY PCC",
+          "KSA Galileoo",
+          "HH",
+          "SabreLive"
+        ]
+      }
+    }
+  ],
+  "notes": [
+    {
+      "at": "2026-09-26T13:35:11.794Z",
+      "credential313": "NDCSabre staging NDCsbr Inactive"
+    },
+    {
+      "at": "2026-09-26T13:36:20.775Z",
+      "brSave": "run-006 investigation step 3: save BRN265 while 313 inactive",
+      "ok": true
+    },
+    {
+      "at": "2026-09-26T13:37:16.057Z",
+      "credential313": "NDCSabre staging NDCsbr Active"
+    }
+  ]
+}

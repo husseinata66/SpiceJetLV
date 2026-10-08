@@ -1,0 +1,119 @@
+{
+ "TC-BR-109": {
+  "branchTickedSuppliers": [
+   "NDCsbr",
+   "Sabre"
+  ],
+  "agencyListedSuppliers": [
+   "Sabre",
+   "NDCsbr"
+  ],
+  "agencyTickedSuppliers": [
+   "Sabre",
+   "NDCsbr"
+  ],
+  "branchOnly": []
+ },
+ "TC-AGENCY-091": {
+  "agencyListedSuppliers": [
+   "Sabre",
+   "NDCsbr"
+  ],
+  "branchTickedSuppliers": [
+   "NDCsbr",
+   "Sabre"
+  ],
+  "everyAgencySupplierIsOnBranch": true
+ },
+ "TC-AGENCY-074": {
+  "agencyPickerOptions": [
+   {
+    "t": "Sabre Staging",
+    "sel": true
+   },
+   {
+    "t": "NDCSabre staging",
+    "sel": false
+   }
+  ],
+  "branchPickerOptions": [
+   {
+    "t": "Sabre Staging",
+    "sel": true
+   },
+   {
+    "t": "NDCSabre staging",
+    "sel": false
+   }
+  ],
+  "agencyPccCredentials": [
+   "Sabre",
+   "NDCsbr"
+  ],
+  "branchOnlyCredential": "NDCSabre staging (BRN265 holds NDCsbr; AGN9780 does not)"
+ },
+ "TC-BR-089": {
+  "stateBefore": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 315
+    }
+   ],
+   "approvalStatus": 1
+  },
+  "step1_form": {
+   "checkboxPresent": true,
+   "checked": false,
+   "credentialsControlPresent": false,
+   "credentialsLabel": null,
+   "credentialsSectionInText": false
+  },
+  "step3_options": [
+   {
+    "t": "Sabre Staging",
+    "sel": true
+   },
+   {
+    "t": "NDCSabre staging",
+    "sel": false
+   }
+  ],
+  "step3_target": "NDCSabre staging",
+  "step3_label": "NDCSabre staging",
+  "step5_net": [
+   {
+    "m": "PUT",
+    "u": "/odeysysadmin/Master2/Branch/10950",
+    "s": 204,
+    "body": ""
+   }
+  ],
+  "step5_url": "http://192.168.1.60/admin/branch",
+  "step6_net": [
+   {
+    "m": "PATCH",
+    "u": "/odeysysadmin/Master2/Branch/approveOrReject",
+    "s": 200,
+    "body": "{\"statusMessage\":\"Branch Approved Successfully!!\",\"success\":true}"
+   }
+  ],
+  "step6_gridRow": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Approved |",
+  "step7_reopened": {
+   "checkboxPresent": true,
+   "checked": true,
+   "credentialsControlPresent": true,
+   "credentialsLabel": "NDCSabre staging",
+   "credentialsSectionInText": true
+  },
+  "stateAfter": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ],
+   "approvalStatus": 1
+  }
+ }
+}

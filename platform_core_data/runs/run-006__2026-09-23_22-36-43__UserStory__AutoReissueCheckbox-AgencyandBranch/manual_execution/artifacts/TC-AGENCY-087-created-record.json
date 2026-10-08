@@ -1,0 +1,16 @@
+{
+  "code": "AGN10029",
+  "id": 11448,
+  "name": "RUN006_AR_Agency",
+  "branch": "BRN265",
+  "grid": {
+    "id": 11448,
+    "name": "RUN006_AR_Agency",
+    "code": "AGN10029",
+    "countryName": "Egypt",
+    "cityName": "Asyut",
+    "branchName": "NDC2_Mohamed Soliman",
+    "status": 1,
+    "approvalStatus": 1
+  }
+}

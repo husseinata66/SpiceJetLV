@@ -1,0 +1,29 @@
+{
+ "TC-AGENCY-080": {
+  "defaultDates": {
+   "from": "2026-09-04",
+   "to": "2026-10-04"
+  },
+  "filters": {
+   "ref": "NDCEG-BR-F260924EAzzYT",
+   "from": "2026-09-04",
+   "to": "2026-10-04"
+  },
+  "listed": true,
+  "excerpt": "mohamed.soliman@tildetech.ae\n|\n+20-1147647823\nWELCOME\nMohamed Soliman\n\nSearch Booking\n\nFind a booking by reference, passenger, route or date.\nOrder Id\nBooking Reference\nAirline PNR\nGDS PNR\nInvoice No.\nTicket No.\nBooking Status\nSelect\nAgency Booking Status\nSelect\nBooking Date From *\nBooking Date To *\nPassenger Details\nAdvanced booking filters\nSearch\nOrder Id\tClient Name\tBooking Reference\tBooked By\tOrder Date\tProduct\tTotal\tBook\nAGN9780NDCNDCORD260924GKP8CP\tabdelrahman ragb\tNDCEG-BR-F260924EAzzYT\tAGN9780:mohamed.soliman@tildetech.ae\t2026-09-24\tFlight\t15,577.40 EGP\t\n\nShowing 1 results of 1 results\n\nShow\n10\nresults\nAbout Us\nMission\nVision\nPolicy\nContact Us\nCopyright © Wonder Travel 2026. All Rights Reserved.",
+  "detailUrl": "http://192.168.1.60:9500/myBooking/booking-details/AGN9780NDCNDCORD260924GKP8CP?search=N4IgDghg5gpgcgexALgIwBpzRgZQJYBeMKqADJngM4AKEAHgCIwAuEeANpQKJ2QB2AExgCUAMwicYmAMYAnPMxjyIKUAllDZASRHI%2BAV3btMAIwQIA1nj5QASjFEoQcBgGEuAcQC0AIVteAMQAmADZSAE4ggBYuAEECAgBNABUQTCgBGj5ZFAMjCj4ANwQ8aXgkPUNjEGZSixZEXKrTcysbHFZmfUom-JBsPmkATx9W6ygOiC6eyr7KVllmBiniZBAg0lCvCO2otJAYQWXFJw2tsl39tll2axhqOFte9gBfF6A",
+  "passengerPanelOpened": true,
+  "reissueShown": false,
+  "actions": [],
+  "detailExcerpt": "mohamed.soliman@tildetech.ae\n|\n+20-1147647823\nWELCOME\nMohamed Soliman\nORDER NUMBER\nAGN9780NDCNDCORD260924GKP8CP\nPASSENGER\nAbdelrahman Ragb\nTime Limit\nNDCEG-BR-F260924EAzzYT\nItinerary Details\nCosting\nDocuments & Queue Request\nAGENCY BOOKING STATUS:\nTicketed Document\nBooking Information\n\nOrder Ref\n\nAGN9780NDCNDCORD260924GKP8CP\n\nTrip Type\n\nOne Way\n\nStatus\n\nBooked\n\nAirline PNR\n\nDCSV\n\nGDS PNR\n\nRGGMXP\n\nReference Details\n\nBooking Ref\n\nNDCEG-BR-F260924EAzzYT\n\nBooking Date\n\n24-09-2026 11:10\n\nTotal Passenger(s)\n\n3\n\nSector\n\nCAI - JED\n\n Journey Details\n\n1 Journey\nCAI\nJED\nJourney 1\n\nSector\n\nCAI To JED\n\nTravel Date\n\n01-12-2026\n\nBooking Class\n\nV\n\nCabin\n\nEconomy\n\nCheck-in\n\nNumber 1 Piece Allowed.\n\nFlight Detail\n\nCAI - JED ( SV - 382 )\n\nDeparture Date-Time\n\n01-12-2026 08:10:00\n\nArrival Date-Time\n\n01-12-2026 11:20:00\n\nDuration\n\n2h 10m\n\nDeparture Terminal\n\n2\n\nArrival Terminal\n\n1\n\nView Passenger Details\nTitle\tName\tPassenger Type\tDOB\tNationality\tTicket Number\tBooking Status\nMr\t\nabdelrahman ragb\nLead Passenger\n\tAdult\t1997-02-28\tEgypt\t0654859778719\tBOOKED\nMr\t\nabdallah ragb\n\tChild\t2015-02-28\tEgypt\t0654859778720\tBOOKED\nMs\t\nsara ahmed\n\tInfant\t2025-09-30\tEgypt\t0654859778721\tBOOKED\nCreated By: NDC2_Mohamed Soliman\nDate: 24-09-2026\nBooking Overview\nClient\n\nClient Name: abdelrahman ragb\n\nCustomer Type : Retail\n\nCustomer Profile Id : 1570557\n\nNationality : Egypt\n\nMobile : 1147647823\n\nEmail : mohamed.soliman@tildetech.ae\n\nIdentity No : e125848779\n\nIdentity Type : Passport\n\nPassenger\n\n3 Passenger\n\n3 Booked Seats\n\nCAI - JED\n\nCosting\nTotal Sales Amount:\n15,577.40 EGP\nTotal Net Amount:\n15,577.40 EGP\nTotal Booking Amount:\n15,577.40 EGP\nAbout Us\nMission\nVision\nPolicy\nContact Us\nCopyright © Wonder Travel 2026. All Rights Reserved."
+ },
+ "TC-BR-108": {
+  "filters": {
+   "ref": "NDCEG-BR-F260916ENYOeQ",
+   "from": "2026-09-04",
+   "to": "2026-10-04"
+  },
+  "listed": false,
+  "excerpt": "mohamed.soliman@tildetech.ae\n|\n+20-1147647823\nWELCOME\nMohamed Soliman\n\nSearch Booking\n\nFind a booking by reference, passenger, route or date.\nOrder Id\nBooking Reference\nAirline PNR\nGDS PNR\nInvoice No.\nTicket No.\nBooking Status\nSelect\nAgency Booking Status\nSelect\nBooking Date From *\nBooking Date To *\nPassenger Details\nAdvanced booking filters\nSearch\nOrder Id\tClient Name\tBooking Reference\tBooked By\tOrder Date\tProduct\tTotal\tBook\n\n\nNo data has been found!\n\nAbout Us\nMission\nVision\nPolicy\nContact Us\nCopyright © Wonder Travel 2026. All Rights Reserved."
+ }
+}

@@ -1,0 +1,25 @@
+{
+  "startedAt": "2026-09-28T15:38:40.530Z",
+  "finishedAt": "2026-09-28T15:39:10.838Z",
+  "criteria": [
+    {
+      "origin": "CAI",
+      "destination": "JED",
+      "date": "2026-12-16"
+    },
+    {
+      "origin": "JED",
+      "destination": "RUH",
+      "date": "2026-12-17"
+    }
+  ],
+  "tickets": [
+    "0654859779099",
+    "0654859779100",
+    "0654859779101",
+    "0654859779102",
+    "0654859779103",
+    "0654859779104"
+  ],
+  "note": "ticket 0654859779100 is held by Sabre but absent from the application record - FINDING-R06"
+}

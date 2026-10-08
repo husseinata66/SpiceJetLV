@@ -1,0 +1,13 @@
+{
+  "capturedAt": "2026-09-24",
+  "source": "GET /odeysysadmin/Admin2/agency/10961 (HTTP 200), read during Discovery, before any change",
+  "agencyCode": "AGN9780",
+  "agencyId": 10961,
+  "agencyName": "NDC2_Mohamed Soliman",
+  "parentBranch": "BRN265 (NDC2_Mohamed Soliman)",
+  "approvalStatus": "Approved (grid)",
+  "autoReissueEnabled": false,
+  "reissueCredentials": [],
+  "credentialsWithAutoReissueAllowedTrue": 2,
+  "note": "Restore target: run-006 returns AGN9780 to exactly these Auto Reissue values when it finishes."
+}

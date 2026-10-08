@@ -1,0 +1,318 @@
+{
+ "branchName": "RUN010_AR_Branch",
+ "operatingCountry": "egypt",
+ "country": "no-panel",
+ "state": "Cairo",
+ "city": "Cairo",
+ "textFilled": 18,
+ "dropdownsFilled": [
+  {
+   "id": "id-SetMonth",
+   "picked": "January"
+  },
+  {
+   "id": "id-SetYear",
+   "picked": "2026"
+  },
+  {
+   "id": "id-supplier-123",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-122",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-138",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-167",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-135",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-179",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-201",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-200",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-196",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-182",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-146",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-198",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-188",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-190",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-185",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-130",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-171",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-127",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-132",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-160",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-197",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-161",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-187",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-151",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-219",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-158",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-178",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-156",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-192",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-206",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-174",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-175",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-227",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-216",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-218",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-217",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-133",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-181",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-124",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-136",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-186",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-149",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-128",
+   "picked": null
+  },
+  {
+   "id": "id-supplier-191",
+   "picked": null
+  }
+ ],
+ "paymentTicked": true,
+ "galileoTick": "clicked:false",
+ "rowDesc": [
+  "id-supplier-119"
+ ],
+ "pccOptions": [
+  {
+   "t": "GalileoLive",
+   "sel": false
+  },
+  {
+   "t": "Galileo Live UAE",
+   "sel": false
+  },
+  {
+   "t": "Live EGY PCC",
+   "sel": false
+  },
+  {
+   "t": "KSA Galileoo",
+   "sel": false
+  },
+  {
+   "t": "HH",
+   "sel": false
+  }
+ ],
+ "pccChosen": "GalileoLive",
+ "dropdownState": [
+  {
+   "id": "id-Operatingcountry",
+   "value": "egypt",
+   "label": null,
+   "visible": true
+  },
+  {
+   "id": "id-Country",
+   "value": "Egypt",
+   "label": null,
+   "visible": true
+  },
+  {
+   "id": "id-State",
+   "value": "",
+   "label": "Cairo",
+   "visible": true
+  },
+  {
+   "id": "id-City",
+   "value": "",
+   "label": "Cairo",
+   "visible": true
+  },
+  {
+   "id": "id-Name",
+   "value": "Run Ten",
+   "label": null,
+   "visible": true
+  }
+ ],
+ "arOptions": [
+  {
+   "t": "GalileoLive",
+   "sel": false
+  }
+ ],
+ "arChosen": "GalileoLive",
+ "dateStart": "no-input",
+ "dateEnd": "no-input",
+ "fileInputs": [],
+ "cityRetry": "Cairo",
+ "finalState": [
+  {
+   "id": "id-City",
+   "count": 1,
+   "values": [
+    ""
+   ],
+   "labels": [
+    "Cairo"
+   ]
+  },
+  {
+   "id": "id-Name",
+   "count": 2,
+   "values": [
+    "Run Ten",
+    "Run Ten"
+   ],
+   "labels": [
+    null,
+    null
+   ]
+  }
+ ],
+ "sendNet": [
+  {
+   "m": "POST",
+   "u": "/odeysysadmin/Master2/Branch/",
+   "s": 204,
+   "body": ""
+  }
+ ],
+ "url": "http://192.168.1.60/admin/branch",
+ "invalid": [],
+ "rowBeforeApprove": "BRN514 | Run Ten |  | Cairo | Pending for approval |",
+ "newBranchCode": "BRN514",
+ "approveNet": [
+  {
+   "m": "PATCH",
+   "u": "/odeysysadmin/Master2/Branch/approveOrReject",
+   "s": 200,
+   "body": "{\"statusMessage\":\"Branch Approved Successfully!!\",\"success\":true}"
+  }
+ ],
+ "rowAfterApprove": "BRN514 | Run Ten |  | Cairo | Approved |",
+ "reopenUrl": "http://192.168.1.60/admin/branch/edit/BRN514",
+ "reopenedAR": {
+  "checkboxPresent": true,
+  "checked": false,
+  "credentialsControlPresent": false,
+  "credentialsLabel": null,
+  "credentialsSectionInText": false
+ }
+}

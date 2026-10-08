@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reissue Mapping - Discovery Report</title>
+<style>
+  :root{
+    color-scheme: light;
+    --paper:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAEEF4;
+    --ink:#10151F; --ink-2:#45536B; --ink-muted:#7C8AA0;
+    --line:#DDE3EC; --line-strong:#C6CEDC;
+    --accent:#2A78D6; --accent-ink:#1C5CAB; --accent-wash:#E4EEFA;
+    --good:#0CA30C; --warning:#C98A17; --serious:#D9673C; --critical:#D03B3B;
+    --good-wash:rgba(12,163,12,0.12); --warning-wash:rgba(250,178,25,0.16);
+    --serious-wash:rgba(236,131,90,0.14); --critical-wash:rgba(208,59,59,0.12);
+    --shadow:rgba(16,21,31,0.08);
+    --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --font-mono:ui-monospace,"SF Mono","Cascadia Code","Roboto Mono",Consolas,"Courier New",monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --paper:#0A0E15; --surface:#111826; --surface-2:#16202F;
+      --ink:#EDF1F7; --ink-2:#B7C2D1; --ink-muted:#8290A6;
+      --line:#232E40; --line-strong:#324058;
+      --accent:#3987E5; --accent-ink:#8FBBEF; --accent-wash:#152A45;
+      --good:#35C24A; --warning:#E3A730; --serious:#E88A5E; --critical:#EA5B5B;
+      --good-wash:rgba(53,194,74,0.16); --warning-wash:rgba(227,167,48,0.16);
+      --serious-wash:rgba(232,138,94,0.16); --critical-wash:rgba(234,91,91,0.18);
+      --shadow:rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --paper:#0A0E15; --surface:#111826; --surface-2:#16202F;
+    --ink:#EDF1F7; --ink-2:#B7C2D1; --ink-muted:#8290A6;
+    --line:#232E40; --line-strong:#324058;
+    --accent:#3987E5; --accent-ink:#8FBBEF; --accent-wash:#152A45;
+    --good:#35C24A; --warning:#E3A730; --serious:#E88A5E; --critical:#EA5B5B;
+    --good-wash:rgba(53,194,74,0.16); --warning-wash:rgba(227,167,48,0.16);
+    --serious-wash:rgba(232,138,94,0.16); --critical-wash:rgba(234,91,91,0.18);
+    --shadow:rgba(0,0,0,0.5);
+  }
+  :root[data-theme="light"]{
+    color-scheme: light;
+    --paper:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAEEF4;
+    --ink:#10151F; --ink-2:#45536B; --ink-muted:#7C8AA0;
+    --line:#DDE3EC; --line-strong:#C6CEDC;
+    --accent:#2A78D6; --accent-ink:#1C5CAB; --accent-wash:#E4EEFA;
+    --good:#0CA30C; --warning:#C98A17; --serious:#D9673C; --critical:#D03B3B;
+    --good-wash:rgba(12,163,12,0.12); --warning-wash:rgba(250,178,25,0.16);
+    --serious-wash:rgba(236,131,90,0.14); --critical-wash:rgba(208,59,59,0.12);
+    --shadow:rgba(16,21,31,0.08);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--paper); color:var(--ink); font-family:var(--font-sans);
+        font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation-duration:.001ms !important; transition-duration:.001ms !important; } }
+  a{ color:var(--accent-ink); }
+  .wrap{ max-width:960px; margin:0 auto; padding:32px 20px 80px; }
+  .dashboard-card{ background:var(--surface); border:1px solid var(--line-strong); border-radius:24px; padding:24px; }
+  code,.mono{ font-family:var(--font-mono); font-size:.92em; }
+  .header{ display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:24px; }
+  .header-main{ flex:1 1 auto; min-width:280px; }
+  .header h1{ font-size:32px; font-weight:800; margin:0 0 8px; }
+  .header .meta{ color:var(--ink-muted); font-size:13px; }
+  .pill{ display:inline-flex; align-items:center; gap:6px; padding:6px 18px; border-radius:999px; font-size:12px; font-weight:700; letter-spacing:.03em; border:1px solid transparent; }
+  .pill-complete{ background:var(--good-wash); color:var(--good); border-color:var(--good); }
+  .pill-interrupted{ background:var(--critical-wash); color:var(--critical); }
+  .section-num{ font-size:17px; font-weight:700; color:var(--ink); margin:32px 0 14px; text-transform:none; letter-spacing:normal; border-bottom:none; padding-bottom:0; }
+  .summary-layout{ display:flex; align-items:center; gap:36px; flex-wrap:wrap; margin-bottom:28px; }
+  .donut-block{ display:flex; align-items:center; gap:20px; flex-shrink:0; }
+  .stats-block{ flex:1 1 360px; min-width:280px; display:flex; flex-direction:column; gap:14px; }
+  .scard{ text-align:center; }
+  .scard .lbl{ font-size:15px; font-weight:700; color:var(--ink-muted); margin-top:4px; }
+  .scard .val{ font-size:24px; font-weight:700; color:var(--ink); }
+  .scard .val.pass{ color:var(--good); }
+  .scard .val.fail{ color:var(--critical); }
+  .scard .val.blocked{ color:var(--serious); }
+  .scard .val.accent{ color:var(--accent-ink); }
+  .scard-total .lbl{ font-size:17px; margin-top:6px; }
+  .scard-total .val{ font-size:28px; }
+  summary.section-summary-flex > .section-count-badges,
+  summary.section-summary-flex > .section-count-badge{ float:right; }
+  .section-count-badge{ display:flex; flex-direction:column; align-items:center; justify-content:center;
+      background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; padding:6px 20px;
+      text-transform:none; letter-spacing:normal; flex-shrink:0; }
+  .section-count-badge .scb-val{ font-size:20px; font-weight:700; color:var(--accent-ink); line-height:1.2; }
+  .section-count-badge .scb-lbl{ font-size:11px; color:var(--ink-muted); margin-top:1px; }
+  .section-count-badges{ display:flex; gap:10px; flex-shrink:0; }
+  .scb-val.serious{ color:var(--serious); }
+  .scb-val.accent{ color:var(--accent-ink); }
+  .summary-cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; }
+  .donut{ width:280px; height:280px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .donut-hole{ width:190px; height:190px; border-radius:50%; background:var(--paper); display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .donut-pct{ font-size:34px; font-weight:800; color:var(--ink); }
+  .donut-sub{ font-size:15px; color:var(--ink-muted); }
+  .donut-legend{ display:flex; flex-direction:column; gap:10px; }
+  .litem{ display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-2); white-space:nowrap; }
+  .litem .lcount{ margin-left:4px; color:var(--ink-muted); }
+  .swatch{ width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+  .swatch.pass{ background:var(--good); }
+  .swatch.fail{ background:var(--critical); }
+  .swatch.blocked{ background:var(--serious); }
+  h2{ font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-2);
+      border-bottom:1px solid var(--line); padding-bottom:6px; margin:32px 0 12px; }
+  .section-collapse{ margin:0; }
+  .section-collapse > summary{ font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-2);
+      border-bottom:1px solid var(--line); padding-bottom:6px; margin:32px 0 12px; cursor:pointer; }
+  .section-collapse > summary::-webkit-details-marker{ color:var(--ink-muted); }
+  .tc-section > summary{ margin-top:0; }
+  .tc-category{ background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; margin-bottom:10px; }
+  .tc-category > summary{ display:flex; align-items:center; gap:10px; padding:14px 16px; cursor:pointer; list-style:none; }
+  .tc-category > summary::-webkit-details-marker{ display:none; }
+  .cat-icon{ font-size:16px; flex-shrink:0; width:22px; display:inline-flex; align-items:center; justify-content:center; }
+  .cat-name{ font-weight:700; color:var(--ink); flex-shrink:0; }
+  .cat-counts{ display:flex; gap:14px; margin-left:auto; font-size:12px; }
+  .cc{ font-weight:600; }
+  .cc.pass{ color:var(--good); }
+  .cc.fail{ color:var(--critical); }
+  .cc.blocked{ color:var(--serious); }
+  .cat-chev{ display:inline-block; width:9px; flex-shrink:0; color:var(--ink-muted); font-size:10px; transition:transform .15s ease; }
+  .cat-chev::before{ content:'\25B8'; }
+  details.tc-category[open] > summary .cat-chev{ transform:rotate(90deg); }
+  .tc-category-body{ padding:0 16px 16px; }
+  .tc-category.cat-empty{ display:none; }
+  .tc-subhead{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:14px 0 8px; padding-bottom:4px; border-bottom:1px solid var(--line); }
+  .tc-subhead:first-child{ margin-top:4px; }
+  .tc-subhead-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+  .tc-subhead-label.pos{ color:var(--good); }
+  .tc-subhead-label.neg{ color:var(--critical); }
+  .tc-subhead-counts{ display:flex; gap:12px; font-size:11px; }
+  .tc{ background:var(--surface); border:1px solid var(--line-strong); border-left-width:4px; border-radius:12px; padding:16px 18px; margin-bottom:8px; }
+  .tc.PASS{ border-left-color:var(--good); }
+  .tc.FAIL{ border-left-color:var(--critical); }
+  .tc.BLOCKED{ border-left-color:var(--serious); }
+  .tc-head{ display:flex; justify-content:space-between; gap:10px; font-weight:600; }
+  .badge{ font-size:11px; font-weight:700; padding:2px 8px; border-radius:5px; }
+  .badge.PASS{ background:var(--good-wash); color:var(--good); }
+  .badge.FAIL{ background:var(--critical-wash); color:var(--critical); }
+  .badge.BLOCKED{ background:var(--serious-wash); color:var(--serious); }
+  .tc .row{ margin-top:6px; font-size:13px; color:var(--ink-2); overflow-wrap:anywhere; }
+  .tc .row b{ color:var(--ink); }
+  .view-tc-wrap{ margin-top:10px; }
+  .view-tc > summary{ display:block; text-align:right; color:var(--accent-ink); text-decoration:underline; cursor:pointer; font-size:12px; font-weight:600; list-style:none; }
+  .view-tc > summary::-webkit-details-marker{ display:none; }
+  .view-tc-body{ margin-top:8px; padding:14px 16px; background:var(--surface-2); border:1px solid var(--line); border-radius:8px; font-size:13px; }
+  .vtc-h{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-muted); margin:12px 0 4px; }
+  .vtc-h:first-child{ margin-top:0; }
+  .vtc-p{ color:var(--ink-2); overflow-wrap:anywhere; }
+  .vtc-steps{ margin:0; padding-left:18px; color:var(--ink-2); }
+  .vtc-steps li{ margin-bottom:4px; overflow-wrap:anywhere; }
+  details.evidence, details.hops{ margin-top:6px; }
+  details.evidence summary, details.hops summary{ cursor:pointer; font-size:12px; color:var(--accent-ink); }
+  details.evidence .ev-body{ margin-top:4px; padding:8px 10px; background:var(--surface-2); border-radius:6px; font-size:12px; overflow-wrap:anywhere; }
+  .hop{ padding:6px 0; border-top:1px solid var(--line); font-size:12px; }
+  .hop:first-child{ border-top:none; }
+  .hop-endpoint{ font-weight:600; color:var(--ink); }
+  .hop .hd{ color:var(--ink-muted); margin-top:2px; overflow-wrap:anywhere; }
+  .hop .hd.hop-reqres.js-hidden{ display:none; }
+  .hop-reqres-toggle{ margin-left:8px; font-size:11px; font-weight:600; color:var(--accent-ink); text-decoration:underline; cursor:pointer; }
+  .hop-reqres-panel{ margin-top:10px; display:flex; flex-direction:column; gap:18px; }
+  .hop-reqres-panel.js-hidden{ display:none; }
+  .rr-title{ font-size:15px; font-weight:700; color:var(--ink); margin-bottom:6px; }
+  .rr-line{ font-size:13px; color:var(--ink-2); margin-bottom:10px; font-family:var(--font-mono); overflow-wrap:anywhere; }
+  .rr-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-muted); margin:10px 0 6px; }
+  .rr-box{ background:#0B0E15; color:#D7DEE8; border-radius:10px; padding:14px 16px; font-family:var(--font-mono); font-size:12.5px; overflow:auto; }
+  .rr-headers-box .rr-h-line{ margin-bottom:14px; white-space:pre-wrap; overflow-wrap:anywhere; }
+  .rr-headers-box .rr-h-line:last-child{ margin-bottom:0; }
+  .rr-body-box{ max-height:340px; }
+  .rr-body-box pre{ margin:0; white-space:pre; }
+  .rr-redacted{ color:#8290A6; }
+  .rr-note{ font-size:11px; color:var(--ink-muted); font-style:italic; margin-top:6px; }
+  .tc-status-row{ display:flex; align-items:center; gap:10px; }
+  .tc-reqres-toggle{ margin-left:auto; }
+  .tc-reqres-panel{ margin-top:10px; display:flex; flex-direction:column; gap:18px; }
+  .tc-reqres-panel.js-hidden{ display:none; }
+  .rr-attempt-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--accent-ink); margin:0 0 4px; }
+  .finding{ border-radius:12px; padding:10px 12px; margin-bottom:8px; font-size:13px; overflow-wrap:anywhere; }
+  .finding.defect{ background:var(--serious-wash); border:1px solid var(--serious); }
+  .finding.unknown_resolution{ background:var(--accent-wash); border:1px solid var(--accent); }
+  .finding .kind{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; }
+  .cleanup{ background:var(--warning-wash); border:1px solid var(--warning); border-radius:12px; padding:12px 14px; }
+  .cleanup ul{ margin:6px 0 0; padding-left:18px; }
+  .cleanup li{ margin-bottom:6px; overflow-wrap:anywhere; }
+  .empty{ color:var(--ink-muted); font-size:13px; font-style:italic; }
+.meta-card{ margin-top:8px; }
+.fields{ display:flex; flex-direction:column; gap:4px; margin:4px 0 6px; }
+.fields.run-meta{ margin-top:10px; padding-top:10px; border-top:1px solid var(--line); }
+.field-row{ display:flex; flex-wrap:wrap; gap:4px 28px; }
+.field{ font-size:14px; display:flex; gap:6px; }
+.field .k{ color:var(--ink-2); font-weight:700; font-size:15px; letter-spacing:normal; text-transform:none; flex-shrink:0; }
+.field .k::after{ content:':'; }
+.field .v{ color:var(--ink); }
+.tc-actions{ display:flex; justify-content:flex-end; gap:8px; margin:32px 0 8px; }
+.tc-actions button{ padding:7px 12px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:12px; font-weight:600; cursor:pointer; }
+.tc-cat-actions{ display:flex; justify-content:flex-end; gap:8px; margin:4px 0 10px; }
+.tc-cat-actions button{ padding:5px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:11px; font-weight:600; cursor:pointer; }
+.tc-cat-actions button:hover{ background:var(--surface-2); }
+.tc-actions button:hover{ background:var(--surface-2); }
+.tc-toolbar{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:0 0 14px; position:sticky; top:0; z-index:5; }
+.tc-toolbar input[type="search"]{ flex:1 1 240px; min-width:180px; padding:7px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); font-size:13px; }
+.tc-toolbar select{ padding:7px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); font-size:13px; }
+.tc-toolbar button{ padding:7px 12px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:12px; font-weight:600; cursor:pointer; }
+.tc-toolbar button:hover{ background:var(--surface-2); }
+#tcResetFilters{ color:var(--critical); border-color:var(--critical); }
+#tcResetFilters:hover{ background:var(--critical-wash); }
+.tc-toolbar .tc-count{ font-size:12px; color:var(--ink-muted); margin-left:auto; white-space:nowrap; }
+details.tc > summary.tc-head{ cursor:pointer; list-style:none; }
+details.tc > summary.tc-head::-webkit-details-marker{ display:none; }
+.tc-head .chev{ display:inline-block; width:9px; flex-shrink:0; color:var(--ink-muted); font-size:10px; transition:transform .15s ease; align-self:center; }
+.tc-head .chev::before{ content:'\25B8'; }
+details.tc[open] > summary.tc-head .chev{ transform:rotate(90deg); }
+details.tc.js-hidden{ display:none; }
+.tc-no-results{ padding:28px 20px; text-align:center; color:var(--critical); font-size:18px; font-weight:700; background:var(--critical-wash); border:1px solid var(--critical); border-radius:12px; margin-bottom:10px; }
+.tc-no-results.js-hidden{ display:none; }
+
+/* --- Generated-report status tones ---------------------------------------
+   The reference report hardcoded PASS/FAIL/BLOCKED. Generated reports declare
+   their own status vocabulary and map each status to one of these tones, so a
+   Stage 5A "ERROR" or a Stage 6A "PARTIAL" colours correctly without new CSS. */
+.tc.tone-pass{ border-left-color:var(--good); }
+.tc.tone-fail{ border-left-color:var(--critical); }
+.tc.tone-blocked{ border-left-color:var(--serious); }
+.tc.tone-warning{ border-left-color:var(--warning); }
+.tc.tone-accent{ border-left-color:var(--accent); }
+.tc.tone-neutral{ border-left-color:var(--line-strong); }
+.badge.tone-pass{ background:var(--good-wash); color:var(--good); }
+.badge.tone-fail{ background:var(--critical-wash); color:var(--critical); }
+.badge.tone-blocked{ background:var(--serious-wash); color:var(--serious); }
+.badge.tone-warning{ background:var(--warning-wash); color:var(--warning); }
+.badge.tone-accent{ background:var(--accent-wash); color:var(--accent-ink); }
+.badge.tone-neutral{ background:var(--surface-2); color:var(--ink-muted); }
+.swatch.tone-pass{ background:var(--good); }
+.swatch.tone-fail{ background:var(--critical); }
+.swatch.tone-blocked{ background:var(--serious); }
+.swatch.tone-warning{ background:var(--warning); }
+.swatch.tone-accent{ background:var(--accent); }
+.swatch.tone-neutral{ background:var(--line-strong); }
+.cc.tone-pass{ color:var(--good); }
+.cc.tone-fail{ color:var(--critical); }
+.cc.tone-blocked{ color:var(--serious); }
+.cc.tone-warning{ color:var(--warning); }
+.cc.tone-accent{ color:var(--accent-ink); }
+.cc.tone-neutral{ color:var(--ink-muted); }
+.scard .val.tone-pass{ color:var(--good); }
+.scard .val.tone-fail{ color:var(--critical); }
+.scard .val.tone-blocked{ color:var(--serious); }
+.scard .val.tone-warning{ color:var(--warning); }
+.scard .val.tone-accent{ color:var(--accent-ink); }
+.scard .val.tone-neutral{ color:var(--ink); }
+.scb-val.tone-pass{ color:var(--good); }
+.scb-val.tone-fail{ color:var(--critical); }
+.scb-val.tone-blocked{ color:var(--serious); }
+.scb-val.tone-warning{ color:var(--warning); }
+.scb-val.tone-accent{ color:var(--accent-ink); }
+.scb-val.tone-neutral{ color:var(--ink-muted); }
+.finding.tone-fail{ background:var(--critical-wash); border:1px solid var(--critical); }
+.finding.tone-blocked{ background:var(--serious-wash); border:1px solid var(--serious); }
+.finding.tone-warning{ background:var(--warning-wash); border:1px solid var(--warning); }
+.finding.tone-accent{ background:var(--accent-wash); border:1px solid var(--accent); }
+.finding.tone-pass{ background:var(--good-wash); border:1px solid var(--good); }
+.finding.tone-neutral{ background:var(--surface-2); border:1px solid var(--line-strong); }
+.finding .fkv{ margin-top:4px; }
+.finding .fkv b{ color:var(--ink); }
+.notes-block{ font-size:13px; color:var(--ink-2); }
+.notes-block p{ margin:0 0 8px; overflow-wrap:anywhere; }
+.notes-block ul{ margin:0 0 8px; padding-left:18px; }
+.notes-block li{ margin-bottom:4px; overflow-wrap:anywhere; }
+.rr-attempt-label + .rr-title{ margin-top:0; }
+.rr-response-title{ margin-top:18px; }
+.pill.tone-pass{ background:var(--good-wash); color:var(--good); border-color:var(--good); }
+.pill.tone-fail{ background:var(--critical-wash); color:var(--critical); border-color:var(--critical); }
+.pill.tone-blocked{ background:var(--serious-wash); color:var(--serious); border-color:var(--serious); }
+.pill.tone-warning{ background:var(--warning-wash); color:var(--warning); border-color:var(--warning); }
+.pill.tone-accent{ background:var(--accent-wash); color:var(--accent-ink); border-color:var(--accent); }
+.pill.tone-neutral{ background:var(--surface-2); color:var(--ink-muted); border-color:var(--line-strong); }
+</style>
+</head><body><div class="wrap">
+<div class="header"><div class="header-main">
+<h1>Discovery - QA Assessment Report</h1>
+</div><div><span class="pill tone-warning">PENDING REVIEW</span></div></div>
+<div class="meta-card dashboard-card">
+<div class="fields">
+<div class="field-row"><div class="field"><span class="k">Scope</span><span class="v">Supplier Features / reissue / shared scope reissue-mapping</span></div>
+<div class="field"><span class="k">Stage</span><span class="v">2 - Explorer (shared)</span></div></div>
+<div class="field-row"><div class="field"><span class="k">Scope family</span><span class="v"><span class="mono">supplier-feature</span></span></div>
+<div class="field"><span class="k">Shared scope</span><span class="v"><span class="mono">reissue-mapping</span></span></div></div>
+<div class="field"><span class="k">Upstream</span><span class="v"><span class="mono">context/ProjectContext.md Revision 12 (status: Pending Review - see the gate note)</span></span></div>
+</div>
+<div class="fields run-meta">
+<div class="field-row"><div class="field"><span class="k">Run</span><span class="v"><span class="mono">run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary</span></span></div>
+<div class="field"><span class="k">Period</span><span class="v">2026-09-26 to 2026-09-30</span></div></div>
+<div class="field-row"><div class="field"><span class="k">Layers in scope</span><span class="v">UI, API, Contract, Integration, E2E</span></div>
+<div class="field"><span class="k">Excluded</span><span class="v">Regression (moved to reissue-flow), DB (deferred), Security, Performance</span></div></div>
+<div class="field-row"><div class="field"><span class="k">Surfaces</span><span class="v">Admin 192.168.1.60, Portal :9500, ndc-core-service, Sabre CERT PCC EZ4K</span></div>
+<div class="field"><span class="k">Scenarios</span><span class="v">10 scenarios, 187 evidence files</span></div></div>
+<div class="field-row"><div class="field"><span class="k">Currencies</span><span class="v">EGP and AED at two exchange rates (9 and 0.1)</span></div>
+<div class="field"><span class="k">Trip types</span><span class="v">one-way, round trip, multi-city</span></div></div>
+</div>
+</div>
+<h2 class="section-num">1. Executive Summary - mapping rules assessed</h2>
+<div class="summary-layout">
+<div class="donut-block">
+<div class="donut" style="background:conic-gradient(var(--good) 0% 76%, var(--critical) 76% 84%, var(--warning) 84% 96%, var(--serious) 96% 100%)">
+<div class="donut-hole"><div class="donut-pct">72%</div><div class="donut-sub">rules verified</div></div>
+</div>
+<div class="donut-legend">
+<div class="litem"><span class="swatch tone-pass"></span>Verified <span class="lcount">19 / 25</span></div>
+<div class="litem"><span class="swatch tone-fail"></span>Defect raised <span class="lcount">2 / 25</span></div>
+<div class="litem"><span class="swatch tone-warning"></span>Partial - residual unknown <span class="lcount">3 / 25</span></div>
+<div class="litem"><span class="swatch tone-blocked"></span>Never exercised <span class="lcount">1 / 25</span></div>
+</div>
+</div>
+<div class="stats-block">
+<div class="scard scard-total dashboard-card"><div class="val">25</div><div class="lbl">Mapping rules defined (hop A + hop B + chain)</div></div>
+<div class="summary-cards">
+<div class="scard dashboard-card"><div class="val tone-pass">19</div><div class="lbl">Verified</div></div>
+<div class="scard dashboard-card"><div class="val tone-fail">2</div><div class="lbl">Defect raised</div></div>
+<div class="scard dashboard-card"><div class="val tone-warning">3</div><div class="lbl">Partial - residual unknown</div></div>
+<div class="scard dashboard-card"><div class="val tone-blocked">1</div><div class="lbl">Never exercised</div></div>
+</div>
+<div class="scard scard-total dashboard-card"><div class="val">5 days</div><div class="lbl">Discovery period</div></div>
+</div>
+</div>
+<div class="tc-actions">
+<button type="button" id="tcExpandAll">Expand all</button>
+<button type="button" id="tcCollapseAll">Collapse all</button>
+</div>
+<details class="section-collapse tc-section" open>
+<summary>Mapping rule assessment</summary>
+<div class="tc-toolbar dashboard-card">
+<input type="search" id="tcSearch" placeholder="Search by rule id, field, finding...">
+<select id="tcStatusFilter">
+<option value="">All statuses</option>
+<option value="VERIFIED">VERIFIED</option>
+<option value="DEFECT">DEFECT</option>
+<option value="PARTIAL">PARTIAL</option>
+<option value="NOT EXERCISED">NOT EXERCISED</option>
+</select>
+<select id="tcCategoryFilter">
+<option value="">All categories</option>
+<option value="integration">Hop A - core service to Admin/Portal API to screen</option>
+<option value="business-rule">Hop B - Sabre to core service</option>
+<option value="flow">Chain-level checks</option>
+</select>
+<button type="button" id="tcResetFilters">Reset</button>
+<span id="tcCount" class="tc-count"></span>
+</div>
+<div id="tcNoResults" class="tc-no-results js-hidden">No test cases match your search. Try a different keyword, or clear the search/filters above.</div>
+<details class="tc-category" data-cat="integration" open>
+<summary><span class="cat-icon">🖥</span><span class="cat-name">Hop A - core service to Admin/Portal API to screen</span><span class="cat-counts"><span class="cc tone-pass">8 verified</span><span class="cc tone-fail">2 defect raised</span><span class="cc tone-warning">2 partial - residual unknown</span><span class="cc tone-blocked">0 never exercised</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">A1</span> - Additional base fare carries from core to the screen</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> core additional base fare -&gt; screen &#39;Additional base fare&#39;</div>
+<div class="row"><b>Observed:</b> Equal on 17/17 offers across two bookings, and 18/18 on scenario 10</div>
+<div class="row"><b>Conditions:</b> positive and zero; two currencies; two exchange rates; one-way, round trip, multi-city</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s1, s10 paired captures; s10-offer-comparison.json</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">A2</span> - Additional tax &amp; fees, and its composition</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> core tax difference -&gt; screen &#39;Additional taxes&#39;</div>
+<div class="row"><b>Observed:</b> Values equal. Composition now evidenced per tax code: Adult XL 2.16 + E3 22.4 + IO 316.0 = 340.56</div>
+<div class="row"><b>Residual:</b> Roll-up rule across the full code list still not formally specified</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s10-portal-review-SV390.json - taxCodeSums</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">A3</span> - Supplier fee / penalty reaches the screen</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> core penalty -&gt; screen &#39;Supplier fee&#39;</div>
+<div class="row"><b>Observed:</b> 1,306.80 AED on screen against 13,068.00 EGP at core, at rate 0.1</div>
+<div class="row"><b>Risk closed:</b> RSK-M5 - previously evidenced only at zero on both sides</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s10 - first non-zero penalty observed in this run</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">A4</span> - DUE NOW / Amount payable</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> screen payable = core totalPayable x rate + change fee</div>
+<div class="row"><b>Observed:</b> Holds on all 18 offers; 38,268.80 x 0.1 = 3,826.88 + 150.00 = 3,976.88</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s10-offer-comparison.json</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">A5</span> - Change fee is app-origin and matches configuration</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> Rule Engine Exchange Fees -&gt; screen &#39;Change fee&#39;</div>
+<div class="row"><b>Observed:</b> Rule &#39;Dubai&#39; = 25 Fixed Amount, By Pax, agency AGN10030 -&gt; 25 x 6 = 150.00</div>
+<div class="row"><b>Confirms:</b> null in the supplier-currency block, present only in agency currency - added after conversion</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">Admin Rule Engine exchange-fee 1741; s10 review payload</div></details>
+</details>
+<details class="tc tone-fail" data-status="DEFECT">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">A6</span> - Currently ticketed - Total</span><span class="badge tone-fail">DEFECT</span></summary>
+<div class="row"><b>Rule:</b> the booked offer&#39;s total shown on Review &amp; Pay</div>
+<div class="row"><b>Observed:</b> Line items sum to 3,604.88; the screen prints 3,605.00</div>
+<div class="row"><b>Finding:</b> FINDING-R02, and FINDING-R18 where the same rounding reaches the wallet</div>
+<div class="row"><b>Reproduced:</b> at ROE 9 and at ROE 0.1 - not rate-specific</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">DEFECT</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s10-portal-review-SV390.json; s1</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">A7</span> - Per-passenger-type breakdown</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> core per-PTC groups -&gt; screen per-type lines</div>
+<div class="row"><b>Observed:</b> 2 Adult + 2 Child + 2 Infant; every group sums to its own total</div>
+<div class="row"><b>Residual:</b> a party split into several fare groups priced unalike has never been seen - Gap G2</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s9, s10</div></details>
+</details>
+<details class="tc tone-fail" data-status="DEFECT">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">A8</span> - Result flight times</span><span class="badge tone-fail">DEFECT</span></summary>
+<div class="row"><b>Rule:</b> core segment departure/arrival -&gt; screen</div>
+<div class="row"><b>Observed:</b> Search results show SV-382 at 06:10, matching the supplier. Itinerary shows the same flight at 08:10</div>
+<div class="row"><b>Sharpened:</b> two screens in one application disagree about one flight</div>
+<div class="row"><b>Finding:</b> FINDING-R01 - raised in the sibling reissue-flow scope</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">DEFECT</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s10 booking-details vs search results</div></details>
+</details>
+<details class="tc tone-warning" data-status="PARTIAL">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">A9</span> - Reissue availability</span><span class="badge tone-warning">PARTIAL</span></summary>
+<div class="row"><b>Rule:</b> eligibility -&gt; the Reissue control</div>
+<div class="row"><b>Observed:</b> core answered 200 &#39;changeable&#39; for a nonsense credential</div>
+<div class="row"><b>Open:</b> RSK-M3 - not re-tested this run</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">PARTIAL</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s1</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">A10</span> - Wallet - Your Balance</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> financial-details -&gt; &#39;Your Balance&#39;</div>
+<div class="row"><b>Observed:</b> Admin = topUpBalance + creditLimit; Portal = topUpBalance where creditAgency is false, and includes credit where it is true</div>
+<div class="row"><b>Resolved:</b> OQ-M7 closed. FINDING-R16 raised and withdrawn - the creditAgency flag scopes the agency channel only</div>
+<div class="row"><b>Remaining:</b> FINDING-R17 - 3 decimals in the sidebar, 2 on the page</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">wallet-OQM7-reproduction.json; s10</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">A11</span> - Review &amp; Pay lines</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> every line on Review &amp; Pay against its own total</div>
+<div class="row"><b>Observed:</b> Additional to pay sums exactly: 1,805.40 + 714.68 + 1,306.80 + 150.00 = 3,976.88</div>
+<div class="row"><b>Exception:</b> the Currently ticketed total does not - see A6</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s10-portal-review-SV390.json</div></details>
+</details>
+<details class="tc tone-warning" data-status="PARTIAL">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">A12</span> - Returned but not displayed</span><span class="badge tone-warning">PARTIAL</span></summary>
+<div class="row"><b>Rule:</b> the one omission the oracle can catch (ProjectContext 2.0)</div>
+<div class="row"><b>Observed:</b> no instance found where a core value was returned and silently dropped</div>
+<div class="row"><b>Note:</b> partial by nature - absence of evidence across ten scenarios, not proof</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">PARTIAL</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">all scenarios</div></details>
+</details>
+</div>
+</details>
+<details class="tc-category" data-cat="business-rule" open>
+<summary><span class="cat-icon">🔗</span><span class="cat-name">Hop B - Sabre to core service</span><span class="cat-counts"><span class="cc tone-pass">8 verified</span><span class="cc tone-fail">0 defect raised</span><span class="cc tone-warning">1 partial - residual unknown</span><span class="cc tone-blocked">1 never exercised</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">B1</span> - modifyPrice.baseDifference</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> Sabre totalPriceDifference.baseFare -&gt; core baseDifference</div>
+<div class="row"><b>Observed:</b> Equal 17/17 x2 bookings, 18/18 on scenario 10</div>
+<div class="row"><b>Residual:</b> naming mismatch between layers unresolved, values correct</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s1, s10</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">B2</span> - modifyPrice.taxDifference</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> Sabre totalTax -&gt; core taxDifference</div>
+<div class="row"><b>Observed:</b> Equal on every offer compared</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s1, s10</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">B3</span> - modifyPrice.penalty</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> Sabre totalFee -&gt; core penalty</div>
+<div class="row"><b>Observed:</b> 13,068.00 EGP identical at both layers</div>
+<div class="row"><b>Note:</b> totalFee is ABSENT, not zero, on an offer with no penalty - 1 of 18 on s10</div>
+<div class="row"><b>Resolved:</b> DS-M4 resolved in the field map&#39;s favour</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s10-sabre-reshop-TTDMXL-B.json</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">B4</span> - modifyPrice.totalPayable</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> Sabre grandTotal -&gt; core totalPayable</div>
+<div class="row"><b>Observed:</b> Straight mapping for the current configuration, all offers</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s1, s10</div></details>
+</details>
+<details class="tc tone-warning" data-status="PARTIAL">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">B5</span> - Passenger-type codes</span><span class="badge tone-warning">PARTIAL</span></summary>
+<div class="row"><b>Rule:</b> Sabre passengerTypeCode -&gt; core ADT/CHD/INF</div>
+<div class="row"><b>Observed:</b> Codes map correctly</div>
+<div class="row"><b>Open:</b> population equivalence unconfirmed - Gap G2</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">PARTIAL</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s9, s10</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">B6</span> - Segment departure times</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> Sabre departureDate/Time -&gt; core departureDateTime</div>
+<div class="row"><b>Observed:</b> Supplier and core agree exactly</div>
+<div class="row"><b>Consequence:</b> localises FINDING-R01&#39;s corruption to the application layer, not the mapping</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s10</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">B7</span> - originalPaidAmount</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> original ticket value at supplier and core</div>
+<div class="row"><b>Observed:</b> 15,577.40 / 22,848.20 exact at both</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s1</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">B8</span> - Ticket / coupon status</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> Sabre flightTickets[] grouped by travelerIndex</div>
+<div class="row"><b>Observed:</b> Correct post-exchange state is 3 documents per traveler: original Exchanged, new ticket live, EMD live</div>
+<div class="row"><b>Critical detail:</b> ticketStatusName reads Issued on the SPENT ticket too - coupon status is the field that decides whether a passenger can travel</div>
+<div class="row"><b>Gap:</b> scenarios 1, 2, 5, 6, 8b were never checked this way - Gap G9</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s10-sabre-getBooking-TTDMXL-after.json; s9 (failed this check - FINDING-R13)</div></details>
+</details>
+<details class="tc tone-blocked" data-status="NOT EXERCISED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">B9</span> - Negative differences (Refund / Even)</span><span class="badge tone-blocked">NOT EXERCISED</span></summary>
+<div class="row"><b>Rule:</b> a re-shop cheaper than the original ticket</div>
+<div class="row"><b>Observed:</b> NOTHING. This path has never been run in this scope</div>
+<div class="row"><b>Assessment:</b> the highest-risk unmapped path - Declared Gap G1</div>
+<div class="row"><b>Blocked by:</b> OQ-M4 - needs a booking whose re-shop is cheaper</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-blocked">NOT EXERCISED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">no evidence exists</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">B10</span> - Sabre fields core does not republish</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Rule:</b> fields present at the supplier and absent at core</div>
+<div class="row"><b>Assessment:</b> not a defect source under the oracle in 2.0 - recorded for the contract owner</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s1, s10</div></details>
+</details>
+</div>
+</details>
+<details class="tc-category" data-cat="flow" open>
+<summary><span class="cat-icon">🔗</span><span class="cat-name">Chain-level checks</span><span class="cat-counts"><span class="cc tone-pass">3 verified</span><span class="cc tone-fail">0 defect raised</span><span class="cc tone-warning">0 partial - residual unknown</span><span class="cc tone-blocked">0 never exercised</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">C1</span> - End-to-end integrity - same offer count, same values</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Observed:</b> 18 of 18 offers aligned across all three layers inside one capture window, zero value mismatches at either hop</div>
+<div class="row"><b>Method:</b> alignment by flight signature - carrier, flight number, departure datetime - never by array index</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s10-alignment.json, s10-offer-comparison.json</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">C2</span> - Portal / Admin parity</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Observed:</b> Portal 17/17 equal to core, totalPayable = core + change fee; re-proven headless 2026-09-27</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s1, p2 captures</div></details>
+</details>
+<details class="tc tone-pass" data-status="VERIFIED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">C3</span> - Stability between polls</span><span class="badge tone-pass">VERIFIED</span></summary>
+<div class="row"><b>Observed:</b> core values unchanged across 19:35 and 20:13 on the same booking</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">VERIFIED</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s1</div></details>
+</details>
+</div>
+</details>
+</details>
+<details class="section-collapse" id="section-2-findings-18-live-3-withdrawn" open>
+<summary class="section-summary-flex">2. Findings — 18 live, 3 withdrawn<span class="section-count-badges"><span class="section-count-badge"><span class="scb-val tone-blocked">1</span><span class="scb-lbl">Critical</span></span><span class="section-count-badge"><span class="scb-val tone-fail">4</span><span class="scb-lbl">High</span></span><span class="section-count-badge"><span class="scb-val tone-fail">1</span><span class="scb-lbl">High if confirmed</span></span><span class="section-count-badge"><span class="scb-val tone-warning">9</span><span class="scb-lbl">Medium</span></span><span class="section-count-badge"><span class="scb-val tone-neutral">3</span><span class="scb-lbl">Low</span></span><span class="section-count-badge"><span class="scb-val tone-neutral">3</span><span class="scb-lbl">Withdrawn</span></span></span></summary>
+<div class="finding tone-fail"><div class="kind">Defect - High if confirmed (UNREPRODUCED)</div>
+A reissue eligibility/reshop call made with a deliberately invalid supplier credential returned 200 and reported the booking as changeable. Observed once on scenario 1 and never repeated; it sat as a risk line for nine further scenarios. <span class="mono">(FINDING-R22)</span>
+<div class="fkv"><b>Deliberately not asserted:</b> Whether the credential reached the supplier, whether the offers were real, and whether a clean session behaves the same are all unestablished. Raised to force a re-test, not to claim a proven vulnerability.</div>
+<div class="fkv"><b>The untested step that matters most:</b> Calling with a credential belonging to a DIFFERENT agency. That distinguishes weak validation from credentials not being segregated.</div>
+<div class="fkv"><b>Evidence weakness:</b> The original request/response pair was never preserved as its own file - a security-adjacent observation should have been captured the moment it was seen.</div>
+</div>
+<div class="finding tone-warning"><div class="kind">Defect - Medium</div>
+The supplier badge on the results grid and Review &amp; Pay is read from properties.refundableInfo - a field named for refundability carrying a supplier ENVIRONMENT name - while a correctly-named supplierName sits populated and unused in the same object and refundable is null. <span class="mono">(FINDING-R19)</span>
+<div class="fkv"><b>Open question:</b> Is a credential environment name meant to be visible to an agency at all? The production equivalent is unknown to this run.</div>
+</div>
+<div class="finding tone-warning"><div class="kind">Defect - Medium</div>
+The core service sends bare IATA and carrier codes. Every airport, city, country and airline name on the reissue screens is produced by a Portal-side lookup that no mapping rule covers, no test verifies, and nothing would notice if it were wrong. <span class="mono">(FINDING-R20)</span>
+<div class="fkv"><b>Why it is raised despite no wrong name being seen:</b> A stale entry renders a correct code as the wrong city - the kind of error an agent reads past because the code beside it is right. On a multi-airport city that is a passenger at the wrong airport.</div>
+<div class="fkv"><b>The asymmetry that makes it a defect:</b> The change fee is a declared, governed app-origin value. Six others are undeclared and ungoverned.</div>
+</div>
+<div class="finding tone-warning"><div class="kind">Defect candidate - Medium (severity uncertain)</div>
+The core reshop response carries a supplier warnings channel. It has been empty in every capture this run took, no reissue screen can render it, and its display path has therefore never executed. <span class="mono">(FINDING-R21)</span>
+<div class="fkv"><b>Honest uncertainty:</b> If the supplier only emits advisory text this is Low. If it emits conditions bearing on validity, an agency pays without seeing what the airline said, and it is High. One non-empty warnings response would settle it.</div>
+<div class="fkv"><b>Sibling:</b> isRepriceRequired is false on every offer ever captured; its true branch has never run, on the screen where the agent is about to pay.</div>
+</div>
+<div class="finding tone-blocked"><div class="kind">Defect - Critical - APPROVED 2026-09-30 (supplier)</div>
+An exchange voids all six tickets but issues only five. Traveler 2 holds only his original ticket with both coupons Exchanged - a spent document and nothing else. The new-ticket sequence runs 392, [393 absent], 394, 395, 396, 397. The agency paid for six passengers and received five sets of documents. <span class="mono">(FINDING-R13 - RPTIYO)</span>
+<div class="fkv"><b>Disposition:</b> Approved at the Stage 2 gate as a SUPPLIER defect - the missing document is Sabre&#39;s. The application residue (declaring success without verifying per-passenger ticketing) stays open and is NOT closed by R14&#39;s fix.</div>
+<div class="fkv"><b>Why it was invisible:</b> The application&#39;s own confirmation showed null for all six ticket numbers. Tested through the UI alone this logs as a display bug. Querying Sabre directly turned it into a passenger who cannot board.</div>
+<div class="fkv"><b>Cause:</b> NOT established. logs/detail.log would likely distinguish supplier failure from a malformed book request.</div>
+<div class="fkv"><b>Required control:</b> The application must verify per-passenger ticketing after every exchange and refuse to display success until each passenger holds a live document. Today it verifies nothing.</div>
+<div class="fkv"><b>Test data:</b> Every booking in this scope is Sabre CERT fixture data with fabricated passenger names. No person is affected and there is nothing to issue - earlier wording saying otherwise was overstated. Severity is retained as an assessment of the behaviour in production.</div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">s9-sabre-getBooking-RPTIYO-after.json - 16 documents, no ...393 anywhere</div></details>
+</div>
+<div class="finding tone-fail"><div class="kind">Defect - High</div>
+Confirmation fare details do not sum: Base fare + Taxes + Service Charges comes to 38,958.80 while Total Amount reads 51,932.801. The missing 12,974.00 EGP is the supplier penalty. Confirmed to originate in the backend bookingConfirm response, not the UI. <span class="mono">(FINDING-R12)</span>
+<div class="fkv"><b>Correction:</b> The multi-city hypothesis was DISPROVEN by scenario 9.</div>
+</div>
+<div class="finding tone-fail"><div class="kind">Defect - High - APPROVED 2026-09-30, with development</div>
+A completed, paid exchange leaves ticketNo as null for all six passengers while the supplier holds five newly issued tickets. The booking went from three of six present to zero of six. <span class="mono">(FINDING-R14 - RPTIYO)</span>
+<div class="fkv"><b>Disposition:</b> Approved. Cause confirmed in the source: an explicit condition in the reissue flow (absent from direct book) suppresses the ticket-number update when the returned count does not match the passenger count. Reported to development 2026-09-30.</div>
+<div class="fkv"><b>Fix warning:</b> Do NOT simply relax the condition - a positional join would mis-assign tickets to passengers. Join on the supplier&#39;s travelerIndex, store every number that joins, mark the passenger that does not.</div>
+<div class="fkv"><b>Why it compounds R13:</b> A partial failure rendered as a uniform blank is worse than either a correct display or an obvious error, because it removes the signal that anything is wrong.</div>
+</div>
+<div class="finding tone-fail"><div class="kind">Defect - High</div>
+The screen asks the agency to confirm AED 3,976.88; the wallet is debited AED 3,977.00. The rounding previously recorded as a record-keeping fault reaches real money. <span class="mono">(FINDING-R18 - TTDMXL)</span>
+<div class="fkv"><b>Measured:</b> walletBalance 119,062 -&gt; 115,085 from the API before and after, corroborated by /dashboard/wallet. Not read from the screen.</div>
+<div class="fkv"><b>Why it is silent:</b> The invoice records 3,977 too, so wallet and invoice agree on the wrong number. Only summing the invoice&#39;s own components reveals it.</div>
+<div class="fkv"><b>Corrects:</b> FINDING-R15&#39;s severity note asserted the wallet is debited the correct amount. That was never measured and is now falsified.</div>
+</div>
+<div class="finding tone-fail"><div class="kind">Defect - High</div>
+Sabre issues a ticket the application never stores. Positional and systematic: every even-numbered passenger. Reproduced on four bookings, once on the lead passenger. <span class="mono">(FINDING-R06)</span>
+<div class="fkv"><b>Withdrawn escalation:</b> Briefly raised to Critical on the belief that a missing number blocks the exchange. Scenario 6 exchanged successfully with a number missing, so that escalation is withdrawn.</div>
+</div>
+<div class="finding tone-warning"><div class="kind">Defect - Medium</div>
+bookingConfirm merges the supplier penalty into totalTax, so the Confirmation page and e-ticket show a change penalty as Taxes - which the supplier explicitly books as not tax. <span class="mono">(FINDING-R03)</span>
+</div>
+<div class="finding tone-warning"><div class="kind">Defect - Medium</div>
+changeFee disappears at bookingConfirm and its value reappears in serviceCharges, a field that was 0.00 throughout search and review. Decisive on scenario 10: the rule engine contributes zero to a reissue, so a non-zero serviceCharges can only be the change fee. <span class="mono">(FINDING-R05)</span>
+</div>
+<div class="finding tone-warning"><div class="kind">Defect - Medium</div>
+POST /v2/reissue/{ref}/book returns 409 with &#39;the request could not be completed&#39; - no error code, no cause, no reference to quote, and the agent is left with a Failed order and no next step. <span class="mono">(FINDING-R07)</span>
+</div>
+<div class="finding tone-warning"><div class="kind">Defect - Medium</div>
+When Sabre returns two Adult fare groups with different taxes, the core service merges them by passenger-type code and multiplies the FIRST group&#39;s per-passenger tax by the full quantity. The amount charged stays correct; the breakdown shown does not add up to the total beside it. <span class="mono">(FINDING-R08)</span>
+</div>
+<div class="finding tone-warning"><div class="kind">Defect - Medium</div>
+The negative-base-fare filter suppresses every offer on some routes and the screen reports the result as an empty market, which is false. Cause confirmed as a filter deployed between 13:18:43Z and 13:35:28Z, pinned from this run&#39;s own captures. <span class="mono">(FINDING-R11)</span>
+<div class="fkv"><b>Superseded hypothesis:</b> The &#39;RUH is a connection point&#39; explanation was wrong - coincidence, not cause. Retained as a record of the reasoning.</div>
+</div>
+<div class="finding tone-warning"><div class="kind">Defect - Medium</div>
+In one invoiceInfo object, agencyInvoiceAmt is truncated down, totalAmt is rounded up, they disagree by about 1.00, and neither equals the amount charged. feeNTaxes carries an unconverted supplier-currency figure inside an object labelled with the agency currency. <span class="mono">(FINDING-R15)</span>
+<div class="fkv"><b>Reconfirmed:</b> feeNTaxes is unconverted at ROE 0.1 as well as 9, so it is not an artefact of one rate. But &#39;one floors, the other ceilings&#39; is NOT universal - on scenario 10 both round up and agree.</div>
+</div>
+<div class="finding tone-neutral"><div class="kind">Defect - Low</div>
+Review &amp; Pay shows the currently-ticketed total as 31,347.00 EGP where every other source says 31,346.80. <span class="mono">(FINDING-R02)</span>
+<div class="fkv"><b>Root cause corrected:</b> In EGP totalOfferAmount is exact (a binding fault); in AED it is itself already rounded (a conversion fault). Two defects under one label - re-pointing the binding fixes only one.</div>
+</div>
+<div class="finding tone-neutral"><div class="kind">Defect - Low</div>
+The Reissue History panel reads &#39;2 Reissues&#39; after a single exchange. Cosmetic, but it overstates how many times a ticket has been exchanged - which matters where penalties accumulate per exchange. <span class="mono">(FINDING-R04)</span>
+</div>
+<div class="finding tone-neutral"><div class="kind">Defect - Low</div>
+The same wallet balance, same channel, same session, is printed as 8,405,996.200 on the dashboard and with two decimals on Review &amp; Pay. Deliberately NOT a member of the R12/R15 float family - the stored value is clean; only the display pipe varies. <span class="mono">(FINDING-R17)</span>
+</div>
+<div class="finding tone-neutral"><div class="kind">Withdrawn</div>
+FINDING-R09 currency conversion - the rate of exchange is a multiplier. Behaviour correct, no defect exists. Withdrawn 2026-09-29.
+</div>
+<div class="finding tone-neutral"><div class="kind">Withdrawn</div>
+FINDING-R10 reissue controls lock-gated - correct and by design. Withdrawn 2026-09-29.
+<div class="fkv"><b>What was got wrong:</b> The claim that the lock cannot be taken was falsified.</div>
+</div>
+<div class="finding tone-neutral"><div class="kind">Withdrawn</div>
+FINDING-R16 Admin wallet adds the credit line - intended system behaviour. Raised and withdrawn the same day, 2026-09-30.
+<div class="fkv"><b>What was got wrong:</b> creditAgency:false was read as &#39;this agency has no credit line&#39;. The flag scopes WHO SEES the credit, not whether it exists. Confirmed on AGN10030 where creditAgency is true and the Portal does return the credit.</div>
+</div>
+</details>
+<details class="section-collapse" id="section-declared-gaps-conditions-with-no-test-data" open>
+<summary>Declared Gaps - conditions with no test data</summary>
+<div class="cleanup"><b>Nine gaps. A condition with no data is Not Testable and is recorded against the rule it would have covered - never dropped, never reported as covered (ProjectContext 2.4):</b><ul>
+<li><b>G1 - blocks B9</b> - <span class="mono">OQ-M4</span> - A booking whose re-shop is cheaper - a Refund or negative difference. The highest-risk unmapped path in the scope.</li>
+<li><b>G2 - blocks A7, B5</b> - <span class="mono">OQ-M10 / OQ-M15</span> - A party Sabre splits into several fare groups priced unalike. Leaves the known &#39;first published fare applied to every passenger&#39; risk unexercised.</li>
+<li><b>G3 - blocks A2</b> - <span class="mono">OQ-M15</span> - A fare carrying a negative XT tax, for the index-alignment risk.</li>
+<li><b>G4 - blocks A3, B3</b> - <span class="mono">OQ-M15</span> - A fare with totalTaxOnFee non-zero.</li>
+<li><b>G5 - blocks A1-A4, B1-B4</b> - <span class="mono">OQ-M15</span> - A non-Economy cabin.</li>
+<li><b>G6 - blocks A8, B6</b> - <span class="mono">OQ-M2</span> - Browser at UTC and at explicit Africa/Cairo and Asia/Dubai. FINDING-R01&#39;s mechanism is inferred, not demonstrated across zones.</li>
+<li><b>G7 - blocks A3, B3</b> - <span class="mono">ProjectContext 1 q3</span> - Sabre returning an empty string rather than 0 or an absent field.</li>
+<li><b>G8 - blocks five findings</b> - <span class="mono">logs/detail.log</span> - Never accessible in this run. Blocks the CAUSE of R06, R07, R11, R13 and R18. The single cheapest unblock available.</li>
+<li><b>G9 - blocks B8</b> - <span class="mono">scenarios 1, 2, 5, 6, 8b</span> - Never checked per-passenger against the supplier - that check did not exist until R13 was found on scenario 9. Five getBooking calls. The R13 defect may already be sitting in a completed exchange.</li>
+</ul></div>
+</details>
+<details class="section-collapse" id="section-method-gate-and-recommendation" open>
+<summary>Method, gate, and recommendation</summary>
+<div class="notes-block">
+<p>The question this scope answers is not whether reissue works. It is narrower: for every value on a reissue screen, does it still mean what the supplier meant?</p>
+<ul>
+<li>Paired capture - supplier, core and screen read in one narrow window, because supplier prices move between calls.</li>
+<li>Alignment by flight signature, never by array index - each layer calls Sabre separately and receives a different ordering, so offer[0] against offer[0] compares different flights.</li>
+<li>The oracle: there is no design document; the implemented UI is the source of truth. A flag is raised only when a value comes back from the backend and is not displayed.</li>
+<li>The platform never clicked Pay, Exchange or Confirm. Every payment was made by the human after the agent reported the exact flight and amount.</li>
+<li>Querying the supplier directly is what found the worst defect. R13 was unreachable from any screen and any application payload. It is now a standing check for this scope.</li>
+</ul>
+<p>A method failure worth recording: on 2026-09-29 a calculation error on scenario 5&#39;s confirmation was missed by the agent and caught by the user. The cause was not tooling - occurrences were being recorded without re-deriving the arithmetic behind them. The sweep that followed is what produced R02&#39;s root-cause correction.</p>
+<p>Three findings were raised and withdrawn, and four claims were falsified by later evidence: R06&#39;s Critical escalation, R11&#39;s connection-point hypothesis, R12&#39;s multi-city hypothesis, and R15&#39;s wallet-is-correct claim. All are retained rather than deleted - a withdrawn finding is the record of what was checked.</p>
+<p>GATE NOTE - read before approving. This stage consumed a Project Context whose status reads Pending Review, not Approved. Stage 2&#39;s own rule requires Approved. The context was revised twelve times during discovery and the oracle itself was restated at Revision 12, which is how it happened; the work is sound regardless. Whether to approve Revision 12 retroactively or to re-baseline is the reviewer&#39;s decision.</p>
+<p>RECOMMENDATION</p>
+<ul>
+<li>Act on R13 operationally before anything else - a named passenger holds a spent ticket and no replacement.</li>
+<li>Treat R18 as a live financial defect, not a rounding nuisance. Small per booking, always in the agency&#39;s disfavour, invisible because wallet and invoice agree on the wrong number.</li>
+<li>Obtain logs/detail.log - five findings gain a mechanism.</li>
+<li>Re-verify scenarios 1, 2, 5, 6 and 8b per-passenger against Sabre.</li>
+<li>Proceed to Stage 3. It is required for this scope, and the mapping is NOT finished being tested - discovery established the mapping is correct wherever exercised, but the residual risk is in paths never run.</li>
+<li>Supply the test data for the nine Declared Gaps, or accept them as Not Testable on the record.</li>
+</ul>
+</div>
+</details>
+<details class="section-collapse" id="section-5-concerns-register-36-non-defect-items">
+<summary>5. Concerns register - 36 non-defect items</summary>
+<div class="notes-block">
+<p>Process, scope, governance, test-data and method concerns that are not defect-shaped are recorded in `CONCERNS_REGISTER.md` beside this report, so nothing raised during the run is lost between sessions. Highlights:</p>
+<ul>
+<li>GOVERNANCE - Stage 2 consumed a Pending Review context; Stage 3 was authored against two unapproved upstreams; the run manifest and feature.json disagree about whether Stage 1 is approved.</li>
+<li>SCOPE - the Itinerary screen was added to the mapping scope on 2026-09-30, reversing the 2026-09-28 exclusion. ProjectContext still records the narrower scope and should be revised before the suites are approved.</li>
+<li>RISK - nothing from run-007 is committed to git. 30+ files including the only record of a Critical finding.</li>
+<li>ACCESS - logs/detail.log blocks the CAUSE of six findings and is the cheapest unblock available.</li>
+<li>OUTSTANDING - five getBooking calls on scenarios 1, 2, 5, 6 and 8b; the Critical fulfilment defect may already sit in a completed exchange.</li>
+<li>TEST DATA - the exchange fee and the service charge are both 25 per passenger, making two distinct defects indistinguishable by amount.</li>
+<li>NOT DEFECTS - six items assessed and deliberately not raised, with the reasoning retained: the 100-vs-130 duration note (cleared against 25 segments at three layers), the pagination count, identical per-type base fares, hop-A renames, ticket-number sequence gaps, and the Admin/Portal wallet difference.</li>
+</ul>
+</div>
+</details>
+</div><script>
+(function(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll('details.tc'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('details.section-collapse'));
+  var categories = Array.prototype.slice.call(document.querySelectorAll('details.tc-category'));
+  var search = document.getElementById('tcSearch');
+  var statusSel = document.getElementById('tcStatusFilter');
+  var categorySel = document.getElementById('tcCategoryFilter');
+  var countEl = document.getElementById('tcCount');
+  var noResultsEl = document.getElementById('tcNoResults');
+  var resetBtn = document.getElementById('tcResetFilters');
+  var expandBtn = document.getElementById('tcExpandAll');
+  var collapseBtn = document.getElementById('tcCollapseAll');
+
+  var hasToolbar = !!(search && statusSel && categorySel && countEl && noResultsEl);
+
+  function applyFilter(){
+    if (!hasToolbar) return;
+    var q = search.value.trim().toLowerCase();
+    var status = statusSel.value;
+    var category = categorySel.value;
+    var visible = 0;
+    cards.forEach(function(card){
+      var matchesStatus = !status || card.getAttribute('data-status') === status;
+      var matchesText = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
+      var matchesCategory = !category || card.closest('details.tc-category').getAttribute('data-cat') === category;
+      var show = matchesStatus && matchesText && matchesCategory;
+      card.classList.toggle('js-hidden', !show);
+      if (show) visible++;
+      if (show && q) card.open = true;
+    });
+    categories.forEach(function(cat){
+      var anyVisible = cat.querySelector('details.tc:not(.js-hidden)');
+      var matchesCategory = !category || cat.getAttribute('data-cat') === category;
+      cat.classList.toggle('cat-empty', !anyVisible || !matchesCategory);
+      if (anyVisible && matchesCategory && (q || status || category)) cat.open = true;
+    });
+    countEl.textContent = visible + ' / ' + cards.length + ' shown';
+    noResultsEl.classList.toggle('js-hidden', visible !== 0);
+  }
+
+  if (hasToolbar) {
+    search.addEventListener('input', applyFilter);
+    statusSel.addEventListener('change', applyFilter);
+    categorySel.addEventListener('change', applyFilter);
+  }
+  if (resetBtn) resetBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    search.value = '';
+    statusSel.value = '';
+    categorySel.value = '';
+    applyFilter();
+  });
+  if (expandBtn) expandBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    cards.forEach(function(c){ c.open = true; });
+    sections.forEach(function(s){ s.open = true; });
+    categories.forEach(function(c){ c.open = true; });
+  });
+  if (collapseBtn) collapseBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    cards.forEach(function(c){ c.open = false; });
+    sections.forEach(function(s){ s.open = false; });
+    categories.forEach(function(c){ c.open = false; });
+  });
+
+  categories.forEach(function(cat){
+    var catCards = Array.prototype.slice.call(cat.querySelectorAll('details.tc'));
+    var catExpandBtn = cat.querySelector('.tc-cat-expand');
+    var catCollapseBtn = cat.querySelector('.tc-cat-collapse');
+    if (catExpandBtn) catExpandBtn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      catCards.forEach(function(c){ c.open = true; });
+    });
+    if (catCollapseBtn) catCollapseBtn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      catCards.forEach(function(c){ c.open = false; });
+    });
+  });
+
+  applyFilter();
+
+  Array.prototype.slice.call(document.querySelectorAll('.hop')).forEach(function(hop){
+    var panel = hop.querySelector('.hop-reqres-panel');
+    var endpointSpan = hop.querySelector('.hop-endpoint');
+    var toggle = document.createElement('a');
+    toggle.href = '#';
+    toggle.className = 'hop-reqres-toggle';
+    toggle.textContent = 'View req & response';
+
+    if (panel) {
+      panel.classList.add('js-hidden');
+      toggle.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var hidden = panel.classList.toggle('js-hidden');
+        toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+      });
+      endpointSpan.parentNode.insertBefore(toggle, endpointSpan.nextSibling);
+      return;
+    }
+
+    var hds = Array.prototype.slice.call(hop.querySelectorAll('.hd'));
+    var reqEl = hds[0];
+    var resEl = hds[1];
+    if (!reqEl || !resEl) return;
+    reqEl.classList.add('hop-reqres', 'js-hidden');
+    resEl.classList.add('hop-reqres', 'js-hidden');
+    toggle.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var hidden = reqEl.classList.toggle('js-hidden');
+      resEl.classList.toggle('js-hidden', hidden);
+      toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+    });
+    endpointSpan.parentNode.insertBefore(toggle, endpointSpan.nextSibling);
+  });
+
+  Array.prototype.slice.call(document.querySelectorAll('.tc-reqres-anchor')).forEach(function(anchor){
+    var card = anchor.closest('details.tc');
+    var panel = card ? card.querySelector(':scope > .tc-reqres-panel') : null;
+    if (!panel) return;
+    panel.classList.add('js-hidden');
+    var toggle = document.createElement('a');
+    toggle.href = '#';
+    toggle.className = 'hop-reqres-toggle tc-reqres-toggle';
+    toggle.textContent = 'View req & response';
+    toggle.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var hidden = panel.classList.toggle('js-hidden');
+      toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+    });
+    anchor.parentNode.insertBefore(toggle, anchor.nextSibling);
+  });
+})();
+</script>
+</body></html>

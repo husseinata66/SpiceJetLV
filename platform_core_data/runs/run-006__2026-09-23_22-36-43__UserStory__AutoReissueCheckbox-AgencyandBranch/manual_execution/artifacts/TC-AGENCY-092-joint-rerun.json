@@ -1,0 +1,32 @@
+{
+  "deactivated": "2026-09-26T11:54:46.246Z",
+  "credential": "NDCSabre staging NDCsbr Inactive",
+  "branch": {
+    "api": true,
+    "creds": [],
+    "appr": 1,
+    "pa": [
+      "Sabre:297"
+    ]
+  },
+  "branchPcc": {
+    "Sabre": "SabreLive"
+  },
+  "branchOptions": [
+    "SabreLive"
+  ],
+  "agency": {
+    "api": true,
+    "creds": [],
+    "appr": 1,
+    "status": 1
+  },
+  "agencyPcc": {
+    "Sabre": "SabreLive",
+    "NDCsbr": "NDCSabre staging"
+  },
+  "agencyOptions": [
+    "SabreLive",
+    "NDCSabre staging"
+  ]
+}

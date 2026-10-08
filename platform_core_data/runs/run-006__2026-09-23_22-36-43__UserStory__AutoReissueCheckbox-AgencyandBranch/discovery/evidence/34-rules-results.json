@@ -1,0 +1,111 @@
+[
+  {
+    "case": "S-2",
+    "time": "10:30:10",
+    "pickerPrefill": "Sabre Staging",
+    "pickerAtSubmit": "Select",
+    "request": null,
+    "httpStatus": "no request sent",
+    "response": null,
+    "toasts": [],
+    "fieldErrors": [],
+    "expected": "Select at least one eligible credential",
+    "agencyAfter": {
+      "status": 1,
+      "approvalStatus": 1
+    }
+  },
+  {
+    "case": "S-4",
+    "time": "10:30:35",
+    "pickerPrefill": "Sabre Staging",
+    "pickerAtSubmit": "Sabre Staging",
+    "request": {
+      "autoReissueEnabled": true,
+      "reissueCredentials": [
+        {}
+      ]
+    },
+    "httpStatus": 400,
+    "response": "{\"code\":400,\"message\":\"Every auto-reissue credential must have an ID\",\"requestId\":\"86b04a7a-c4ee-4835-83e8-ce933ba3c4b4\"}",
+    "toasts": [],
+    "fieldErrors": [],
+    "expected": "Every auto-reissue credential must have an ID",
+    "agencyAfter": {
+      "status": 1,
+      "approvalStatus": 1
+    }
+  },
+  {
+    "case": "S-5",
+    "time": "10:31:00",
+    "pickerPrefill": "Sabre Staging",
+    "pickerAtSubmit": "Sabre Staging",
+    "request": {
+      "autoReissueEnabled": true,
+      "reissueCredentials": [
+        {
+          "credentialId": 999999
+        }
+      ]
+    },
+    "httpStatus": 400,
+    "response": "{\"code\":400,\"message\":\"Every auto-reissue credential must exist and be active\",\"requestId\":\"88752f4b-ccb3-4b53-b6b2-fe5dc2d74c91\"}",
+    "toasts": [],
+    "fieldErrors": [],
+    "expected": "Every auto-reissue credential must exist and be active",
+    "agencyAfter": {
+      "status": 1,
+      "approvalStatus": 1
+    }
+  },
+  {
+    "case": "S-6",
+    "time": "10:31:29",
+    "pickerPrefill": "Sabre Staging",
+    "pickerAtSubmit": "Sabre Staging",
+    "request": {
+      "autoReissueEnabled": true,
+      "reissueCredentials": [
+        {
+          "credentialId": 315
+        },
+        {
+          "credentialId": 315
+        }
+      ]
+    },
+    "httpStatus": 400,
+    "response": "{\"code\":400,\"message\":\"Auto-reissue credentials must not contain duplicates\",\"requestId\":\"ddeadd1c-4e1c-4cea-b13d-79fb8d1dc689\"}",
+    "toasts": [],
+    "fieldErrors": [],
+    "expected": "Auto-reissue credentials must not contain duplicates",
+    "agencyAfter": {
+      "status": 1,
+      "approvalStatus": 1
+    }
+  },
+  {
+    "case": "S-8",
+    "time": "10:31:58",
+    "pickerPrefill": "Sabre Staging",
+    "pickerAtSubmit": "Sabre Staging",
+    "request": {
+      "autoReissueEnabled": true,
+      "reissueCredentials": [
+        {
+          "credentialId": 277
+        }
+      ]
+    },
+    "httpStatus": 400,
+    "response": "{\"code\":400,\"message\":\"Each auto-reissue credential must be mapped to this organization\",\"requestId\":\"d3e6fd2e-ce10-494b-b734-48336b8d3f93\"}",
+    "toasts": [],
+    "fieldErrors": [],
+    "expected": "Each auto-reissue credential must be mapped to this organization",
+    "agencyAfter": {
+      "status": 1,
+      "approvalStatus": 1
+    }
+  }
+]

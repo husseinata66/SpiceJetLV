@@ -1,0 +1,643 @@
+{
+  "widgetUrl": "http://192.168.1.60/booking/reissue?reissue-request-param=N4IgRg9hDWCWB2BzASgUwGYgFwgHIBEBhAUQHEBaAIWXIDEAmANgAYBOegFmIEEAvXgJoAVEABoQABwCGAZxmokqAE4BlVAEcArgoDGqGdgDaARlH1RAZgC64gLaoALlPxSn2EKgCeAKQAWYUh1YAHlYbwBJAFVeSIAPAFkw1gA6L28lAC0ADThQ72gBLORfcNgAd1gM0lpmARVwxjTPDIB1ABteHQsANTbI%2Bm7fHVtcCHCAKwlmHXhegBlCb1gwelYlKRaAVnhI227bCYhYIWhkfGRInQcARTbwh2Rx8Pp4-GhPXGJuygUJDO7COEZOFbLQZGBiBIAG4AEyy3k02Q6u26sRh7WaLWuIXgyE86MiwNB4NolCGFlwbTAthhbRmuBU2Voxik8LaGUBjBhAAlvMYMioKsNup1SKxNDoBt4OQ0Qd1gjNkDJukIGLhSBJKJEWr56HM4o1iDC5rhjG1kFJeOqdLQRRl8KahNzupoVGLoDDIg4LKg2rQOAJoLFYMh4RBUFsANLdSJlDjBIRtMrXca4Xwqbq4byoSLGYw6Np-IRfCBCAZtbrETbqSL4bxzFS2Xy4VDdCTXITdVgqa6RASeRPedTBLL-ObdZBlbotCS0HTQVgt2jIfXEByRbpFFQCVbjZCZ64CZgADg4LVsxnbWRhjGuzAcVOYupWtE23XoDnoyAp3JaWUo4zxIm4QtNADi2hY%2BRZPQvjcioxjcMmtjQC8Rq4BknbqL0x7MDGDieAI7LeNc-4WDCsDGAUHqbFI3S0LguCgtyUi0DCZRCEIMJCLg4zXMm0CbC0gYZBkqDwpopoCMYkSRKwkTIG03gEbwd5gJEvh9NyGTMGAYHjBkFgSFk%2BoSBAML0MeNy2MQX68BkjTwLgUICBREhgNylAWEBOi4RYlBKEIxhHmALQOJGUizMwrxaq2ECeHeb4ZNAvi%2BMgzAyBYKjQN0ZSvKajaxN4uybMEUi2JEmwCLwMJSGAZG2C0y4FOM3QOFkzCIMwf6wfuDItEay5ZDosSoGBwQQhILRTcYKmRP8KjcRAnyIGiFaIn68QwsQbTqIGvjxhO9CoKQyCwKgxChqqMLMFIuG0JEpDHsY8RBnM13bFJ3TcjJyDcmprCbBm3TxMgQhKhkvC%2BAUFgZNcKbhNVWRTDoxiIMYYB1vEuDcuZUhtAIHC4EJnjIKQ3glcQrDwC0bxlDCMMZMELRLNcxisB8flSLg8CUCowSEMYvjxOaka6b4MRbOgMLJdMDrSOMAhkcQsSbJ8sYwtVIlZBWSXhGUO4OMQ52sMYnq4KD0xlLgdkOCo9B8cgxC%2BHTthlJs8S2MgDhCGKRtZPdjVOd0%2BDxPQKja4IM7jEI8BtG0TNxisDiTUIvixCo%2BC2nM-vaGDmxgG0uDaEU0i5p475ycg9AwsguAww4MK2BIuABN0kaeqwtAZE2vjB7gWS4E%2BRX0N46DudAxj6m0UjxKQxgJC0pq9ps%2BA6J4mynJWxgjhISgqgi1y8AJVQSJs9qUGi0DxLE3QCRIMJ0cOtreKyN5lhAFjBF3EC7CJ4TwOlEEmwoTUkpIcEIJxnrlWaE8Bw8QWiRCioQZgzAibXzmI1eOpAvQZCeB8B0tgqi4NwCPA45RYBdG6LAcBKIJBdFNP8SkhRvDjCkMQJyYBcRtFQNybECxvASEKNiYI4xiCfyENwKKKl6DW28CkHQ4wKFtHGOMZg8B0DjAAPr0HuAAdlwNwY86g2hCEjOMKEzxlDwChNcTR05ZyeEoNcbgS1EA6G5LwacEBeCxDKFkXg3BNi2CkNwegUIdDBAsBABwtglDhGuBkcguB1DMHwPAOCjBbDqFkNwMQIAHBKFgBIIQngJCoGwKYEA4wICaCUPALwBgsCGFAPIRA9h4APAwKMCp4gICFMQAgdwhBuDhDyTCfQDgECuFgBAeA7hvDEHwHkpQYAYSNMMDYEAOhaoIEINPOQPT8nrChL6FwDhylYGMLo1gLBdEsBQQ8gAvlYR5QA",
+  "widgetNet": [
+    {
+      "at": "2026-09-26T14:57:53.491Z",
+      "m": "GET",
+      "u": "/odeysysadmin/Booking2/flight-search/flight-airports?search=JED",
+      "status": 200,
+      "req": "",
+      "body": [
+        {
+          "id": 3231,
+          "name": "King Abdulaziz International",
+          "iataCode": "JED",
+          "displayName": "King Abdulaziz International (JED)",
+          "cityName": "Jeddah",
+          "countryName": "Saudi Arabia"
+        }
+      ]
+    },
+    {
+      "at": "2026-09-26T14:57:53.491Z",
+      "m": "GET",
+      "u": "/odeysysadmin/Booking2/flight-search/flight-airports?search=CAI",
+      "status": 200,
+      "req": "",
+      "body": [
+        {
+          "id": 1075,
+          "name": "Cairo International Airport",
+          "iataCode": "CAI",
+          "displayName": "Cairo International Airport (CAI)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 4633,
+          "name": "A Carnevalli",
+          "iataCode": "MRD",
+          "displayName": "A Carnevalli (MRD)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 3802,
+          "name": "4 de Fevereiroo",
+          "iataCode": "LAD",
+          "displayName": "4 de Fevereiroo (LAD)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9136,
+          "name": "testxxw",
+          "iataCode": "XXW",
+          "displayName": "testxxw (XXW)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9133,
+          "name": "test9283",
+          "iataCode": "TFD",
+          "displayName": "test9283 (TFD)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9131,
+          "name": "shj",
+          "iataCode": "WAS",
+          "displayName": "shj (WAS)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9130,
+          "name": "GG",
+          "iataCode": "PUL",
+          "displayName": "GG (PUL)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9122,
+          "name": "airport oog",
+          "iataCode": "OOG",
+          "displayName": "airport oog (OOG)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9110,
+          "name": "airportNammme",
+          "iataCode": "EFF",
+          "displayName": "airportNammme (EFF)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9108,
+          "name": "testAirport",
+          "iataCode": "TTX",
+          "displayName": "testAirport (TTX)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9119,
+          "name": "ahmed1",
+          "iataCode": "VBN",
+          "displayName": "ahmed1 (VBN)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9113,
+          "name": "tesssgfgf",
+          "iataCode": "DGH",
+          "displayName": "tesssgfgf (DGH)",
+          "cityName": "New Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9111,
+          "name": "Elmaghraby Airport",
+          "iataCode": "LLD",
+          "displayName": "Elmaghraby Airport (LLD)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 4256,
+          "name": "La Chinita",
+          "iataCode": "MAR",
+          "displayName": "La Chinita (MAR)",
+          "cityName": "Maracaibo",
+          "countryName": "Venezuela"
+        },
+        {
+          "id": 4328,
+          "name": "Middle Caicos",
+          "iataCode": "MDS",
+          "displayName": "Middle Caicos (MDS)",
+          "cityName": "Middle Caicos",
+          "countryName": "Turks and Caicos Islands"
+        },
+        {
+          "id": 4861,
+          "name": "North Caicos",
+          "iataCode": "NCA",
+          "displayName": "North Caicos (NCA)",
+          "cityName": "North Caicos",
+          "countryName": "Turks and Caicos Islands"
+        },
+        {
+          "id": 5367,
+          "name": "Cairns AAF",
+          "iataCode": "OZR",
+          "displayName": "Cairns AAF (OZR)",
+          "cityName": "Ozark",
+          "countryName": "United States"
+        },
+        {
+          "id": 5521,
+          "name": "Pine Cay",
+          "iataCode": "PIC",
+          "displayName": "Pine Cay (PIC)",
+          "cityName": "Pine Cay",
+          "countryName": "Turks and Caicos Islands"
+        },
+        {
+          "id": 1545,
+          "name": "Caicara Del Orinoco",
+          "iataCode": "CXA",
+          "displayName": "Caicara Del Orinoco (CXA)",
+          "cityName": "Caicara Del Orinoco",
+          "countryName": "Venezuela"
+        },
+        {
+          "id": 5576,
+          "name": "International",
+          "iataCode": "PLS",
+          "displayName": "International (PLS)",
+          "cityName": "Providenciales",
+          "countryName": "Turks and Caicos Islands"
+        },
+        {
+          "id": 6497,
+          "name": "Salt Cay",
+          "iataCode": "SLX",
+          "displayName": "Salt Cay (SLX)",
+          "cityName": "Salt Cay",
+          "countryName": "Turks and Caicos Islands"
+        },
+        {
+          "id": 1348,
+          "name": "Caia",
+          "iataCode": "CMZ",
+          "displayName": "Caia (CMZ)",
+          "cityName": "Caia",
+          "countryName": "Mozambique"
+        },
+        {
+          "id": 1366,
+          "name": "Cairns",
+          "iataCode": "CNS",
+          "displayName": "Cairns (CNS)",
+          "cityName": "Cairns",
+          "countryName": "Australia"
+        },
+        {
+          "id": 1260,
+          "name": "Cairo",
+          "iataCode": "CIR",
+          "displayName": "Cairo (CIR)",
+          "cityName": "Cairo",
+          "countryName": "United States"
+        },
+        {
+          "id": 1218,
+          "name": "Caiguna",
+          "iataCode": "CGV",
+          "displayName": "Caiguna (CGV)",
+          "cityName": "Caiguna",
+          "countryName": "Australia"
+        },
+        {
+          "id": 8119,
+          "name": "International",
+          "iataCode": "XSC",
+          "displayName": "International (XSC)",
+          "cityName": "South Caicos",
+          "countryName": "Turks and Caicos Islands"
+        },
+        {
+          "id": 2458,
+          "name": "Galcaio",
+          "iataCode": "GLK",
+          "displayName": "Galcaio (GLK)",
+          "cityName": "Galcaio",
+          "countryName": "Somalia"
+        },
+        {
+          "id": 2375,
+          "name": "Grand Turk Island",
+          "iataCode": "GDT",
+          "displayName": "Grand Turk Island (GDT)",
+          "cityName": "Grand Turk Island",
+          "countryName": "Turks and Caicos Islands"
+        }
+      ]
+    }
+  ],
+  "widgetText": "Welcome\nMohamed Soliman\nMS\nDashboard\nAdmin\nMaster\nRule Engine\nSettings\nUser Management\nBooking-Mid Office\nProfile\nReports\nPNR Query\nTransfer PNR\nImport PNR\nImport Booked PNR\nReissue\nCHOOSE NEW FLIGHTS\n1\nChoose Replacement Flights\n2\nReview and Pay\n3\nConfirmation\nExchanging 1 flight\nROWS ARE FIXED — ONE PER HELD FLIGHT\nYOU'RE REPLACING\n1 journey\nJ1\nFROM\nCairo\nTO\nJeddah\nDEPART\nCABIN\nEconomy\nSearch flights\nCopyright © Wonder Travel 2026. All Rights Reserved. RC1",
+  "widgetButtons": [
+    "Welcome Mohamed Soliman",
+    "MS",
+    "YOU'RE REPLACING 1 journey",
+    "Search flights"
+  ],
+  "widgetInputs": [
+    {
+      "id": "origin-0",
+      "name": "",
+      "ph": "City or airport",
+      "v": "CAI",
+      "dis": false,
+      "ro": false
+    },
+    {
+      "id": "destination-0",
+      "name": "",
+      "ph": "City or airport",
+      "v": "JED",
+      "dis": false,
+      "ro": false
+    },
+    {
+      "id": "date-0",
+      "name": "",
+      "ph": "DD MMM YYYY",
+      "v": "1 Dec 2026",
+      "dis": false,
+      "ro": true
+    }
+  ],
+  "searchNet": [],
+  "resultsUrl": "http://192.168.1.60/booking/reissue?reissue-request-param=N4IgRg9hDWCWB2BzASgUwGYgFwgHIBEBhAUQHEBaAIWXIDEAmANgAYBOegFmIEEAvXgJoAVEABoQABwCGAZxmokqAE4BlVAEcArgoDGqGdgDaARlH1RAZgC64gLaoALlPxSn2EKgCeAKQAWYUh1YAHlYbwBJAFVeSIAPAFkw1gA6L28lAC0ADThQ72gBLORfcNgAd1gM0lpmARVwxjTPDIB1ABteHQsANTbI%2Bm7fHVtcCHCAKwlmHXhegBlCb1gwelYlKRaAVnhI227bCYhYIWhkfGRInQcARTbwh2Rx8Pp4-GhPXGJuygUJDO7COEZOFbLQZGBiBIAG4AEyy3k02Q6u26sRh7WaLWuIXgyE86MiwNB4NolCGFlwbTAthhbRmuBU2Voxik8LaGUBjBhAAlvMYMioKsNup1SKxNDoBt4OQ0Qd1gjNkDJukIGLhSBJKJEWr56HM4o1iDC5rhjG1kFJeOqdLQRRl8KahNzupoVGLoDDIg4LKg2rQOAJoLFYMh4RBUFsANLdSJlDjBIRtMrXca4Xwqbq4byoSLGYw6Np-IRfCBCAZtbrETbqSL4bxzFS2Xy4VDdCTXITdVgqa6RASeRPedTBLL-ObdZBlbotCS0HTQVgt2jIfXEByRbpFFQCVbjZCZ64CZgADg4LVsxnbWRhjGuzAcVOYupWtE23XoDnoyAp3JaWUo4zxIm4QtNADi2hY%2BRZPQvjcioxjcMmtjQC8Rq4BknbqL0x7MDGDieAI7LeNc-4WDCsDGAUHqbFI3S0LguCgtyUi0DCZRCEIMJCLg4zXMm0CbC0gYZBkqDwpopoCMYkSRKwkTIG03gEbwd5gJEvh9NyGTMGAYHjBkFgSFk%2BoSBAML0MeNy2MQX68BkjTwLgUICBREhgNylAWEBOi4RYlBKEIxhHmALQOJGUizMwrxaq2ECeHeb4ZNAvi%2BMgzAyBYKjQN0ZSvKajaxN4uybMEUi2JEmwCLwMJSGAZG2C0y4FOM3QOFkzCIMwf6wfuDItEay5ZDosSoGBwQQhILRTcYKmRP8KjcRAnyIGiFaIn68QwsQbTqIGvjxhO9CoKQyCwKgxChqqMLMFIuG0JEpDHsY8RBnM13bFJ3TcjJyDcmprCbBm3TxMgQhKhkvC%2BAUFgZNcKbhNVWRTDoxiIMYYB1vEuDcuZUhtAIHC4EJnjIKQ3glcQrDwC0bxlDCMMZMELRLNcxisB8flSLg8CUCowSEMYvjxOaka6b4MRbOgMLJdMDrSOMAhkcQsSbJ8sYwtVIlZBWSXhGUO4OMQ52sMYnq4KD0xlLgdkOCo9B8cgxC%2BHTthlJs8S2MgDhCGKRtZPdjVOd0%2BDxPQKja4IM7jEI8BtG0TNxisDiTUIvixCo%2BC2nM-vaGDmxgG0uDaEU0i5p475ycg9AwsguAww4MK2BIuABN0kaeqwtAZE2vjB7gWS4E%2BRX0N46DudAxj6m0UjxKQxgJC0pq9ps%2BA6J4mynJWxgjhISgqgi1y8AJVQSJs9qUGi0DxLE3QCRIMJ0cOtreKyN5lhAFjBF3EC7CJ4TwOlEEmwoTUkpIcEIJxnrlWaE8Bw8QWiRCioQZgzAibXzmI1eOpAvQZCeB8B0tgqi4NwCPA45RYBdG6LAcBKIJBdFNP8SkhRvDjCkMQJyYBcRtFQNybECxvASEKNiYI4xiCfyENwKKKl6DW28CkHQ4wKFtHGOMZg8B0DjAAPr0HuAAdlwNwY86g2hCEjOMKEzxlDwChNcTR05ZyeEoNcbgS1EA6G5LwacEBeCxDKFkXg3BNi2CkNwegUIdDBAsBABwtglDhGuBkcguB1DMHwPAOCjBbDqFkNwMQIAHBKFgBIIQngJCoGwKYEA4wICaCUPALwBgsCGFAPIRA9h4APAwKMCp4gICFMQAgdwhBuDhDyTCfQDgECuFgBAeA7hvDEHwHkpQYAYSNMMDYEAOhaoIEINPOQPT8nrChL6FwDhylYGMLo1gLBdEsBQQ8gAvlYR5QA&reissue-search=NobwRAVg9grgTgOwKYE8DKSCOMkIMZJgBcAjADRhRwCWA5tQsWAMICCAkmBQCZIDOAFwYBDIVEZEwAKQCiAES5huopAHkAZlNiJUTAEwAGPQDYAtCT2mDJRXmEAjBswA2wvn2IkAvgF0gA",
+  "resultsText": "Welcome\nMohamed Soliman\nMS\nDashboard\nAdmin\nMaster\nRule Engine\nSettings\nUser Management\nBooking-Mid Office\nProfile\nReports\nPNR Query\nTransfer PNR\nImport PNR\nImport Booked PNR\nReissue\nCHOOSE NEW FLIGHTS\n1\nChoose Replacement Flights\n2\nReview and Pay\n3\nConfirmation\nExchanging 1 flight\nROWS ARE FIXED — ONE PER HELD FLIGHT\nYOU'RE REPLACING\n1 journey\nJ1\nFROM\nCairo\nTO\nJeddah\nDEPART\nCABIN\nEconomy\nSearching…\nSearching for replacement flights\nCopyright © Wonder Travel 2026. All Rights Reserved. RC1",
+  "resultsButtons": [
+    "Welcome Mohamed Soliman",
+    "MS",
+    "YOU'RE REPLACING 1 journey",
+    "Searching…"
+  ],
+  "negativeAmounts": [],
+  "release": {
+    "bookingStatus": 2,
+    "supplierName": "Sabre",
+    "ticketPccId": 315,
+    "locked": 0,
+    "holder": "",
+    "actions": {
+      "showViewTicket": true,
+      "canManualReissue": true,
+      "canAutoReissue": true,
+      "showSyncPnr": true,
+      "showPayAndBook": false,
+      "showModifiedTicket": false,
+      "showCancelBtn": true,
+      "showCancelHoldBtn": false,
+      "showRefundBtn": true,
+      "canReleaseLock": false
+    },
+    "agencyId": "AGN9780",
+    "branchId": "BRN265"
+  },
+  "writes": [
+    {
+      "at": "2026-09-26T14:57:22.148Z",
+      "m": "PATCH",
+      "u": "/odeysysadmin/v2/bookingDetails2/lockUnLock",
+      "body": "{\"bookingRefId\":null,\"orderId\":\"AGN9780NDCNDCORD260924GKP8CP\"}"
+    },
+    {
+      "at": "2026-09-26T14:58:00.074Z",
+      "m": "POST",
+      "u": "/odeysysadmin/v2/reissue/NDCEG-BR-F260924EAzzYT/search",
+      "body": "{\"passengerSequences\":[1,2,3],\"routes\":[{\"journeySequence\":1,\"origin\":\"CAI\",\"destination\":\"JED\",\"dateOfJourney\":\"01-12-2026\",\"cabinClass\":1}],\"metadata\":\"eyJhbGciOiJIUzUxMiJ9.eyJrZXkiOiJkYXRhIiwiZGF0YSI6eyJyZWlzc3VlU2VhcmNoIjp0cnVlLCJib29raW5nUmVmIjoiTkRDRUctQlItRjI2MDkyNEVBenpZVCIsImFsbEpvdXJuZXlzUmVxdWlyZWQiOnRydWUsImFsbFBhc3NlbmdlcnNSZXF1aXJlZCI6dHJ1ZSwicmVzcG9uc2VJZCI6ImVOcnRsVTF2NGpBUWh2LUx6eEdLN1lRazNGcFVzZDN1THVuSG9kdUt3elF4YkxiRXJoeW5KVUw4OTlwQjNhSVNJeU11clpZTEVoT2VlVE5qUDJLSmhNeVpQTV9SQUYyTlJqOXZVLVRwVWpFck9NeFRLUEtUVXRSY29jRVNQY084Wm1pQXd6Q0tlb0h2b2F5V2t2R3NHWXBjMTlIWktFV3JkX2hHS1AwQmk2MEdNZTVqVl80VUtyYlZJQXB3di1kYkd5aVFNNmFHaFdwTTdTNjQwQk5WYkZZeXJuN1Y1UU9URlJyYzQ0bUhlUHZ0bktjZ3pXLUpod28tQmE2RzZ6enNvYi1pbHB3MTc0V3BrT1Y0bWtKanV0MDBUeVoyQ05VZkhhR0s3SkVwMDN1SmxJUm5OamU5Yzdab3dmWFRkYjVtX0g0WXhHRVNSWEdFRXcxektObEpWWW1zQUZVSTNoNEgxdlVuZlFMdElqYkh4OVR2eGRieERXTFd0a0VFUG81MkxLd05nY1VHUURHbU95SVVMRTRsZzhkY3ZQQjIzdXp0c1g1bDJMNHd2alY4NWYyRGJ5OE9nWDkwd3ZZOWJiQ19yN3BaNnBSOC1hMlRKbkhzUW5fdkh0cDNpajY3dEx5NEUwdzdZZXlVZkIwY2tEeE91dUNRT0cwNzZtS2QwREhwdmw5MmRtTG9EeXFUWFNvVDM2SXlzYWpjTnllOWw4b2tpWThxSDFVLXFueTR5blNueXRpaU1yV29UR2dRN3ZtdmpNbGVKdU9FZmhhVDNXN0hJU2JfbHk1LUlaMG1xMWN1QU5Dcy5kRVE1OXprVTJuQzk5ZGp5ZDBxdkMxVk5pdVFqOFVJaXd6T2o3OFZoUmZZIn0sIm5vbmNlIjoiOTk1MmUyZjItMWU0MC00NWMxLWFlOGUtZjIyNDNmZGZjN2JmIiwic3ViIjoiUmVpc3N1ZVNlYXJjaENvbnRleHQiLCJpYXQiOjE3OTA0MzQ2NzJ9.cjicljj0nfj_2It7NA8qlTKjvI2ernvQ_VWpFyBQAoNgcHzVWozxwXzA5maA2vcO3otmrIQZ-Nq0DnHS6mqasA\"}"
+    },
+    {
+      "at": "2026-09-26T14:58:32.018Z",
+      "m": "PATCH",
+      "u": "/odeysysadmin/v2/bookingDetails2/lockUnLock",
+      "body": "{\"bookingRefId\":null,\"orderId\":\"AGN9780NDCNDCORD260924GKP8CP\"}"
+    }
+  ],
+  "blocked": [],
+  "allNet": [
+    {
+      "at": "2026-09-26T14:57:52.682Z",
+      "m": "GET",
+      "u": "/odeysysadmin/v2/reissue/NDCEG-BR-F260924EAzzYT/eligibility",
+      "status": 200,
+      "req": "",
+      "body": {
+        "offerReissuable": true,
+        "tripType": 1,
+        "journeysDetails": {
+          "allJourneysRequired": true,
+          "journeys": [
+            {
+              "sequence": 1,
+              "origin": "CAI",
+              "destination": "JED",
+              "cabinClass": 1,
+              "date": "01-12-2026"
+            }
+          ]
+        },
+        "passengersDetails": {
+          "allPassengersRequired": true,
+          "passengers": [
+            {
+              "sequence": 1,
+              "fullName": "abdelrahman ragb",
+              "type": 0,
+              "reissuable": true,
+              "ticketNumber": "0654859778719"
+            },
+            {
+              "sequence": 2,
+              "fullName": "abdallah ragb",
+              "type": 1,
+              "reissuable": true,
+              "ticketNumber": "0654859778720"
+            },
+            {
+              "sequence": 3,
+              "fullName": "sara ahmed",
+              "type": 2,
+              "reissuable": true,
+              "ticketNumber": "0654859778721",
+              "assignedTo": 1
+            }
+          ]
+        },
+        "metadata": "eyJhbGciOiJIUzUxMiJ9.eyJrZXkiOiJkYXRhIiwiZGF0YSI6eyJyZWlzc3VlU2VhcmNoIjp0cnVlLCJib29raW5nUmVmIjoiTkRDRUctQlItRjI2MDkyNEVBenpZVCIsImFsbEpvdXJuZXlzUmVxdWlyZWQiOnRydWUsImFsbFBhc3NlbmdlcnNSZXF1aXJlZCI6dHJ1ZSwicmVzcG9uc2VJZCI6ImVOcnRsVTF2NGpBUWh2LUx6eEdLN1lRazNGcFVzZDN1THVuSG9kdUt3elF4YkxiRXJoeW5KVUw4OTlwQjNhSVNJeU11clpZTEVoT2VlVE5qUDJLSmhNeVpQTV9SQUYyTlJqOXZVLVRwVWpFck9NeFRLUEtUVXRSY29jRVNQY084Wm1pQXd6Q0tlb0h2b2F5V2t2R3NHWXBjMTlIWktFV3JkX2hHS1AwQmk2MEdNZTVqVl80VUtyYlZJQXB3di1kYkd5aVFNNmFHaFdwTTdTNjQwQk5WYkZZeXJuN1Y1UU9URlJyYzQ0bUhlUHZ0bktjZ3pXLUpod28tQmE2RzZ6enNvYi1pbHB3MTc0V3BrT1Y0bWtKanV0MDBUeVoyQ05VZkhhR0s3SkVwMDN1SmxJUm5OamU5Yzdab3dmWFRkYjVtX0g0WXhHRVNSWEdFRXcxektObEpWWW1zQUZVSTNoNEgxdlVuZlFMdElqYkh4OVR2eGRieERXTFd0a0VFUG81MkxLd05nY1VHUURHbU95SVVMRTRsZzhkY3ZQQjIzdXp0c1g1bDJMNHd2alY4NWYyRGJ5OE9nWDkwd3ZZOWJiQ19yN3BaNnBSOC1hMlRKbkhzUW5fdkh0cDNpajY3dEx5NEUwdzdZZXlVZkIwY2tEeE91dUNRT0cwNzZtS2QwREhwdmw5MmRtTG9EeXFUWFNvVDM2SXlzYWpjTnllOWw4b2tpWThxSDFVLXFueTR5blNueXRpaU1yV29UR2dRN3ZtdmpNbGVKdU9FZmhhVDNXN0hJU2JfbHk1LUlaMG1xMWN1QU5Dcy5kRVE1OXprVTJuQzk5ZGp5ZDBxdkMxVk5pdVFqOFVJaXd6T2o3OFZoUmZZIn0sIm5vbmNlIjoiOTk1MmUyZjItMWU0MC00NWMxLWFlOGUtZjIyNDNmZGZjN2JmIiwic3ViIjoiUmVpc3N1ZVNlYXJjaENvbnRleHQiLCJpYXQiOjE3OTA0MzQ2NzJ9.cjicljj0nfj_2It7NA8qlTKjvI2ernvQ_VWpFyBQAoNgcHzVWozxwXzA5maA2vcO3otmrIQZ-Nq0DnHS6mqasA"
+      }
+    },
+    {
+      "at": "2026-09-26T14:57:53.491Z",
+      "m": "GET",
+      "u": "/odeysysadmin/Booking2/flight-search/flight-airports?search=JED",
+      "status": 200,
+      "req": "",
+      "body": [
+        {
+          "id": 3231,
+          "name": "King Abdulaziz International",
+          "iataCode": "JED",
+          "displayName": "King Abdulaziz International (JED)",
+          "cityName": "Jeddah",
+          "countryName": "Saudi Arabia"
+        }
+      ]
+    },
+    {
+      "at": "2026-09-26T14:57:53.491Z",
+      "m": "GET",
+      "u": "/odeysysadmin/Booking2/flight-search/flight-airports?search=CAI",
+      "status": 200,
+      "req": "",
+      "body": [
+        {
+          "id": 1075,
+          "name": "Cairo International Airport",
+          "iataCode": "CAI",
+          "displayName": "Cairo International Airport (CAI)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 4633,
+          "name": "A Carnevalli",
+          "iataCode": "MRD",
+          "displayName": "A Carnevalli (MRD)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 3802,
+          "name": "4 de Fevereiroo",
+          "iataCode": "LAD",
+          "displayName": "4 de Fevereiroo (LAD)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9136,
+          "name": "testxxw",
+          "iataCode": "XXW",
+          "displayName": "testxxw (XXW)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9133,
+          "name": "test9283",
+          "iataCode": "TFD",
+          "displayName": "test9283 (TFD)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9131,
+          "name": "shj",
+          "iataCode": "WAS",
+          "displayName": "shj (WAS)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9130,
+          "name": "GG",
+          "iataCode": "PUL",
+          "displayName": "GG (PUL)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9122,
+          "name": "airport oog",
+          "iataCode": "OOG",
+          "displayName": "airport oog (OOG)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9110,
+          "name": "airportNammme",
+          "iataCode": "EFF",
+          "displayName": "airportNammme (EFF)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9108,
+          "name": "testAirport",
+          "iataCode": "TTX",
+          "displayName": "testAirport (TTX)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9119,
+          "name": "ahmed1",
+          "iataCode": "VBN",
+          "displayName": "ahmed1 (VBN)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9113,
+          "name": "tesssgfgf",
+          "iataCode": "DGH",
+          "displayName": "tesssgfgf (DGH)",
+          "cityName": "New Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 9111,
+          "name": "Elmaghraby Airport",
+          "iataCode": "LLD",
+          "displayName": "Elmaghraby Airport (LLD)",
+          "cityName": "Cairo",
+          "countryName": "Egypt"
+        },
+        {
+          "id": 4256,
+          "name": "La Chinita",
+          "iataCode": "MAR",
+          "displayName": "La Chinita (MAR)",
+          "cityName": "Maracaibo",
+          "countryName": "Venezuela"
+        },
+        {
+          "id": 4328,
+          "name": "Middle Caicos",
+          "iataCode": "MDS",
+          "displayName": "Middle Caicos (MDS)",
+          "cityName": "Middle Caicos",
+          "countryName": "Turks and Caicos Islands"
+        },
+        {
+          "id": 4861,
+          "name": "North Caicos",
+          "iataCode": "NCA",
+          "displayName": "North Caicos (NCA)",
+          "cityName": "North Caicos",
+          "countryName": "Turks and Caicos Islands"
+        },
+        {
+          "id": 5367,
+          "name": "Cairns AAF",
+          "iataCode": "OZR",
+          "displayName": "Cairns AAF (OZR)",
+          "cityName": "Ozark",
+          "countryName": "United States"
+        },
+        {
+          "id": 5521,
+          "name": "Pine Cay",
+          "iataCode": "PIC",
+          "displayName": "Pine Cay (PIC)",
+          "cityName": "Pine Cay",
+          "countryName": "Turks and Caicos Islands"
+        },
+        {
+          "id": 1545,
+          "name": "Caicara Del Orinoco",
+          "iataCode": "CXA",
+          "displayName": "Caicara Del Orinoco (CXA)",
+          "cityName": "Caicara Del Orinoco",
+          "countryName": "Venezuela"
+        },
+        {
+          "id": 5576,
+          "name": "International",
+          "iataCode": "PLS",
+          "displayName": "International (PLS)",
+          "cityName": "Providenciales",
+          "countryName": "Turks and Caicos Islands"
+        },
+        {
+          "id": 6497,
+          "name": "Salt Cay",
+          "iataCode": "SLX",
+          "displayName": "Salt Cay (SLX)",
+          "cityName": "Salt Cay",
+          "countryName": "Turks and Caicos Islands"
+        },
+        {
+          "id": 1348,
+          "name": "Caia",
+          "iataCode": "CMZ",
+          "displayName": "Caia (CMZ)",
+          "cityName": "Caia",
+          "countryName": "Mozambique"
+        },
+        {
+          "id": 1366,
+          "name": "Cairns",
+          "iataCode": "CNS",
+          "displayName": "Cairns (CNS)",
+          "cityName": "Cairns",
+          "countryName": "Australia"
+        },
+        {
+          "id": 1260,
+          "name": "Cairo",
+          "iataCode": "CIR",
+          "displayName": "Cairo (CIR)",
+          "cityName": "Cairo",
+          "countryName": "United States"
+        },
+        {
+          "id": 1218,
+          "name": "Caiguna",
+          "iataCode": "CGV",
+          "displayName": "Caiguna (CGV)",
+          "cityName": "Caiguna",
+          "countryName": "Australia"
+        },
+        {
+          "id": 8119,
+          "name": "International",
+          "iataCode": "XSC",
+          "displayName": "International (XSC)",
+          "cityName": "South Caicos",
+          "countryName": "Turks and Caicos Islands"
+        },
+        {
+          "id": 2458,
+          "name": "Galcaio",
+          "iataCode": "GLK",
+          "displayName": "Galcaio (GLK)",
+          "cityName": "Galcaio",
+          "countryName": "Somalia"
+        },
+        {
+          "id": 2375,
+          "name": "Grand Turk Island",
+          "iataCode": "GDT",
+          "displayName": "Grand Turk Island (GDT)",
+          "cityName": "Grand Turk Island",
+          "countryName": "Turks and Caicos Islands"
+        }
+      ]
+    }
+  ]
+}

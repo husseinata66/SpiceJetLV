@@ -1,0 +1,74 @@
+{
+ "stateBefore": {
+  "autoReissueEnabled": false,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "gridRowBefore": "AGN9780 | NDC2_Mohamed Soliman | Egypt | Badr | Active | Approved | NDC2_Mohamed Soliman |",
+ "step2_form": {
+  "checkboxPresent": true,
+  "checked": false,
+  "credentialsControlPresent": false,
+  "credentialsLabel": null,
+  "credentialsSectionInText": false
+ },
+ "step3_afterTick": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "Sabre Staging",
+  "credentialsSectionInText": true
+ },
+ "step4_options": [
+  {
+   "t": "Sabre Staging",
+   "sel": true
+  }
+ ],
+ "step4_optionsAfter": [],
+ "step4_form": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "Sabre Staging",
+  "credentialsSectionInText": true
+ },
+ "step4_chosen": "Sabre Staging",
+ "step6_net": [
+  {
+   "m": "PUT",
+   "u": "/odeysysadmin/Admin2/agency/10961",
+   "s": 204,
+   "body": ""
+  }
+ ],
+ "step6_url": "http://192.168.1.60/admin/agency",
+ "step6_messages": {
+  "toasts": [],
+  "errors": [],
+  "dialog": null
+ },
+ "step7_reopened": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "Sabre Staging",
+  "credentialsSectionInText": true
+ },
+ "stateAfter": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "gridRowAfter": "AGN9780 | NDC2_Mohamed Soliman | Egypt | Badr | Active | Approved | NDC2_Mohamed Soliman |"
+}

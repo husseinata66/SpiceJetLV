@@ -1,0 +1,69 @@
+{
+ "urlAfterLogin": "http://192.168.1.60:9500/dashboard",
+ "urlMyBooking": "http://192.168.1.60:9500/myBooking",
+ "searchClicked": true,
+ "branchBookingListed": false,
+ "resultsExcerpt": "mohamed.soliman@tildetech.ae\n|\n+20-1147647823\nWELCOME\nMohamed Soliman\n\nSearch Booking\n\nFind a booking by reference, passenger, route or date.\nOrder Id\nBooking Reference\nAirline PNR\nGDS PNR\nInvoice No.\nTicket No.\nBooking Status\nSelect\nAgency Booking Status\nSelect\nBooking Date From *\nBooking Date To *\nPassenger Details\nAdvanced booking filters\nSearch\nOrder Id\tClient Name\tBooking Reference\tBooked By\tOrder Date\tProduct\tTotal\tBook\nAGN9780NDCNDCORD260928QUWYEJ\tAhmed Tester\tNDCEG-BR-F260928dKBuIx\tAGN9780:mohamed.soliman@tildetech.ae\t2026-09-28\tFlight\t3,745.00 EGP\t\n\nAGN9780NDCNDCORD2609282KFYWO\tmahmoud khaled\tNDCEG-BR-F260928XmO3Yx\tAGN9780:mohamed.soliman@tildetech.ae\t2026-09-28\tFlight\t14,004.80 EGP\t\n\nAGN9780NDCNDCORD260928YWRYVE\tayman ahmed\tNDCEG-BR-F260928qf1UA2\tAGN9780:mohamed.soliman@tildetech.ae\t2026-09-28\tFlight\t51,932.80 EGP\t\n\nAGN9780NDCNDCORD260928AIP2HG\tayman ahmed\tNDCEG-BR-F2609284y8YIz\tAGN9780:mohamed.soliman@tildetech.ae\t2026-09-28\tFlight\t50,304.80 EGP\t\n\nAGN9780NDCNDCORD260928Z7DKWU\tahmed ezz\tNDCEG-BR-F260928QhBHd7\tAGN9780:mohamed.soliman@tildetech.ae\t2026-09-28\tFlight\t48,623.00 EGP\t\n\nAGN9780NDCNDCORD260928P0J9OR\tahmed ezz\tNDCEG-BR-F260928v8EC7m\tAGN9780:mohamed.soliman@tildetech.ae\t2026-09-28\tFlight\t30,096.80 EGP\t\n\nAGN9780NDCNDCORD26092854OOW5\tayman ahmed\tNDCEG-BR-F260928oCvhaD\tAGN9780:mohamed.soliman@tildetech.ae\t2026-09-28\tFlight\t45,326.80 EGP\t\n\nAGN9780NDCNDCORD260928ZZ2RWB\tayman ahmed\tNDCEG-BR-F260928CMve29\tAGN9780:mohamed.soliman@tildetech.ae\t2026-09-28\tFlight\t28,542.80 EGP\t\n\nAGN9780NDCNDCORD2609281JAPB0\tayman ahmed\tNDCEG-BR-F260928qDzmIB\tAGN9780:mohamed.soliman@tildetech.ae\t2026-09-28\tFlight\t11,684.80 EGP\t\n\nAGN9780NDCNDCORD260927U5JV1B\temad ahmed\tNDCEG-BR-F260927ddTlHj\tAGN9780:mohamed.soliman@tildetech.ae\t2026-09-27\tFlight\t10,220.80 EGP\t\n\nShowing 10 results of 15 results\n\nShow\n10\nresults\n1\n2\nAbout Us\nMission\nVision\nPolicy\nContact Us\nCopyright © Wonder Travel 2026. All Rights Reserved.",
+ "referencesShown": [
+  "NDCEG-BR-F260928",
+  "NDCEG-BR-F260928X",
+  "NDCEG-BR-F260928",
+  "NDCEG-BR-F2609284",
+  "NDCEG-BR-F260928Q",
+  "NDCEG-BR-F260928",
+  "NDCEG-BR-F260928",
+  "NDCEG-BR-F260928CM",
+  "NDCEG-BR-F260928",
+  "NDCEG-BR-F260927"
+ ],
+ "filterFields": [
+  {
+   "id": "id-OrderId",
+   "ph": "Order Id"
+  },
+  {
+   "id": "id-BookingReference",
+   "ph": "Booking Reference"
+  },
+  {
+   "id": "id-AirlinePNR",
+   "ph": "Airline PNR"
+  },
+  {
+   "id": "id-GDSPNR",
+   "ph": "GDS PNR"
+  },
+  {
+   "id": "id-InvoiceNo.",
+   "ph": "Invoice No."
+  },
+  {
+   "id": "id-TicketNo.",
+   "ph": "Ticket No."
+  },
+  {
+   "id": "id-BookingStatus",
+   "ph": "Select"
+  },
+  {
+   "id": "id-AgencyBookingStatus",
+   "ph": "Select"
+  },
+  {
+   "id": "id-BookingDateFrom",
+   "ph": "YYYY-MM-DD"
+  },
+  {
+   "id": "id-BookingDateTo",
+   "ph": "YYYY-MM-DD"
+  },
+  {
+   "id": "",
+   "ph": ""
+  }
+ ],
+ "typedInto": "id-OrderId",
+ "filteredListed": false,
+ "filteredExcerpt": "mohamed.soliman@tildetech.ae\n|\n+20-1147647823\nWELCOME\nMohamed Soliman\n\nSearch Booking\n\nFind a booking by reference, passenger, route or date.\nOrder Id\nBooking Reference\nAirline PNR\nGDS PNR\nInvoice No.\nTicket No.\nBooking Status\nSelect\nAgency Booking Status\nSelect\nBooking Date From *\nBooking Date To *\nPassenger Details\nAdvanced booking filters\nSearch\nOrder Id\tClient Name\tBooking Reference\tBooked By\tOrder Date\tProduct\tTotal\tBook\n\n\nNo data has been found!\n\nAbout Us\nMission\nVision\nPolicy\nContact Us\nCopyright © Wonder Travel 2026. All Rights Reserved.",
+ "filteredRefs": []
+}

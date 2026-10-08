@@ -1,0 +1,45 @@
+{
+ "label": "scenario 10 - AFTER the exchange - new order AGN10030NDCNDCORD2609306TCU5L / new ref NDCEG-BR-F260930Vrf576 / GDS PNR TTDMXL / Airline PNR 8P5X4B",
+ "capturedAt": "2026-09-30T11:26:37Z",
+ "endpoint": "GET /odeysysportal/v2/bookingConfirm/AGN10030NDCNDCORD2609306TCU5L",
+ "agreedCharge": 3976.88,
+ "screenButtonLabel": "Confirm & charge AED 3,976.88",
+
+ "walletMovement": {
+  "beforeAt": "2026-09-30T11:03:34Z",
+  "before": {"walletBalance":119062,"topUpBalance":69062,"creditLimit":50000},
+  "afterAt": "2026-09-30T11:26:37Z",
+  "after":  {"walletBalance":115085,"topUpBalance":65085,"creditLimit":50000},
+  "actualDebit": 3977.00,
+  "agreedCharge": 3976.88,
+  "overchargedBy": 0.12,
+  "source": "GET /v2/financial/financial-details - exact integers from the API, NOT the 3-decimal sidebar rendering. Corroborated by /v2/dashboard/wallet.",
+  "verdict": "DEFECT - the wallet was debited the ROUNDED figure. Real money differs from the amount the agency agreed to."
+ },
+
+ "invoiceInfo": {
+  "currency":"AED","totalFare":1805.4,"totalTax":2021.48,"serviceCharges":150,"discountPrice":0,
+  "feeNTaxes":20214.8,"agencyInvoiceAmt":3977,"totalAmt":3977,
+  "componentSum": 3976.88,
+  "notes": {
+   "R02_R12_rounding": "1805.4 + 2021.48 + 150 = 3976.88, but agencyInvoiceAmt and totalAmt both read 3977. Both round UP (same as the original booking's 3604.88 -> 3605), not the floor/ceiling split seen in FINDING-R15's four AED cases.",
+   "R03_penaltyAsTax": "totalTax 2021.48 = additional taxes 714.68 + supplier penalty 1306.80. The penalty is folded into tax in the invoice, though Review & Pay showed it separately as 'Supplier fee'. FINDING-R03 REPRODUCES.",
+   "R05_changeFeeInServiceCharge": "serviceCharges 150 is the CHANGE FEE. Decisive here because the rule engine contributes 0 to a reissue (discountPrice 0, and the new offer carried serviceChargeAmount 0 for every passenger type), so the 150 can only be the change fee. FINDING-R05 REPRODUCES.",
+   "R15_feeNTaxes": "feeNTaxes 20214.8 is EGP inside an object labelled AED - 2021.48 / 0.1. FINDING-R15's feeNTaxes issue REPRODUCES at ROE 0.1, a second and very different rate."
+  }
+ },
+
+ "ticketNumbers": {
+  "app": {"1 mahmoud ahmed":"0654859779627","2 mohamed emad":"0654859779628","3 emad ahmed":"0654859779629","4 fawaz khaled":"0654859779631","5 eid ahmed":"0654859779632","6 hazem ali":"0654859779633"},
+  "sequenceGap": "0654859779630 is not issued in this PNR. Checked at the supplier - it is NOT a missing document; every traveler has one.",
+  "R06": "Does NOT reproduce - all six stored.",
+  "R14": "Does NOT reproduce - all six present after the exchange."
+ },
+
+ "supplierFulfilmentCheck": {
+  "endpoint": "POST /v1/trip/orders/getBooking {confirmationId: TTDMXL}",
+  "documents": 18,
+  "perTraveler": "each of the 6 travelers holds exactly 3 documents: original ticket (coupons Exchanged), new ticket (live), EMD (live)",
+  "R13": "Does NOT reproduce - no traveler is left without a valid document. The standing post-exchange check introduced by FINDING-R13 passed."
+ }
+}

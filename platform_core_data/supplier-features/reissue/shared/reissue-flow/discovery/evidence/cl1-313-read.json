@@ -1,0 +1,77 @@
+{
+  "at": "2026-09-26T18:52:12.103Z",
+  "as": "ADMIN_60_SUPER",
+  "BRN265": {
+    "on": true,
+    "creds": [
+      313
+    ],
+    "pa": [
+      "Sabre:315",
+      "NDCsbr:313"
+    ],
+    "appr": 1
+  },
+  "AGN9780": {
+    "on": true,
+    "creds": [],
+    "sup": [
+      "Sabre:315",
+      "NDCsbr:313"
+    ],
+    "appr": 1
+  },
+  "open": {
+    "bookingStatus": 2,
+    "supplierName": "Sabre",
+    "ticketPccId": 315,
+    "locked": 1,
+    "holder": "odeysysadmin",
+    "actions": {
+      "showViewTicket": true,
+      "canManualReissue": true,
+      "canAutoReissue": false,
+      "showSyncPnr": true,
+      "showPayAndBook": false,
+      "showModifiedTicket": false,
+      "showCancelBtn": true,
+      "showCancelHoldBtn": false,
+      "showRefundBtn": true,
+      "canReleaseLock": true
+    },
+    "agencyId": "null",
+    "branchId": "BRN265"
+  },
+  "buttons": [
+    "Welcome odeysysadmin",
+    "O",
+    "Time Limit",
+    "History",
+    "Void / Cancel",
+    "Manual Reissue",
+    "Sync PNR",
+    "Release PNR"
+  ],
+  "reissueShown": false,
+  "release": {
+    "bookingStatus": 2,
+    "supplierName": "Sabre",
+    "ticketPccId": 315,
+    "locked": 0,
+    "holder": "",
+    "actions": {
+      "showViewTicket": true,
+      "canManualReissue": true,
+      "canAutoReissue": false,
+      "showSyncPnr": true,
+      "showPayAndBook": false,
+      "showModifiedTicket": false,
+      "showCancelBtn": true,
+      "showCancelHoldBtn": false,
+      "showRefundBtn": true,
+      "canReleaseLock": false
+    },
+    "agencyId": "null",
+    "branchId": "BRN265"
+  }
+}

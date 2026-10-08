@@ -1,0 +1,57 @@
+{
+ "before": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "formBefore": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "Sabre Staging",
+  "credentialsSectionInText": true
+ },
+ "remarkSent": "run-010 TC-AGENCY-090 1791113625929",
+ "dialog": null,
+ "messages": {
+  "toasts": [],
+  "errors": [],
+  "dialog": null
+ },
+ "url": "http://192.168.1.60/admin/agency",
+ "network": [
+  {
+   "m": "POST",
+   "u": "/odeysysadmin/Master2/state/search?status=1",
+   "s": 200,
+   "body": "{\"payload\":[{\"id\":1032,\"code\":\"Asyut\",\"name\":\"Asyut\",\"countryName\":\"Egypt\",\"countryId\":67,\"approvalStatus\":1,\"status\":1},{\"id\":1033,\"code\":\"Bani Suwayf\",\"name\":\"Bani Suwayf\",\"countryName\":\"Egypt\",\"countryId\":67,\"approvalStatus\":1,\"status\":1},{\"id\":1034,\"code\":\"Bur Sa'id\",\"name\":\"Bur Sa'id\",\"countryName\":\"Egypt\",\"countryId\":67,\"approvalStatus\":1,\"status\":1},{\"id\":1035,\"code\":\"Cairo\",\"name\":\"Cairo\","
+  },
+  {
+   "m": "PUT",
+   "u": "/odeysysadmin/Admin2/agency/10961",
+   "s": 204,
+   "body": ""
+  },
+  {
+   "m": "POST",
+   "u": "/odeysysadmin/Admin2/agency/search?size=10&page=1",
+   "s": 200,
+   "body": "{\"payload\":[{\"id\":10961,\"name\":\"NDC2_Mohamed Soliman\",\"code\":\"AGN9780\",\"countryName\":\"Egypt\",\"cityName\":\"Badr\",\"branchName\":\"NDC2_Mohamed Soliman\",\"status\":1,\"approvalStatus\":1},{\"id\":10957,\"name\":\"NDC2_Hashem Hesham\",\"code\":\"AGN9776\",\"countryName\":\"Egypt\",\"cityName\":\"Badr\",\"branchName\":\"NDC2_Hashem Hesham\",\"status\":1,\"approvalStatus\":1},{\"id\":11451,\"name\":\"NDC2_Mohamed SolimanEmirates\",\"code\":\"AG"
+  }
+ ],
+ "after": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1,
+  "status": 1
+ }
+}

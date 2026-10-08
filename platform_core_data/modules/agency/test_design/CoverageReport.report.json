@@ -1,0 +1,835 @@
+{
+  "title": "Coverage Report — agency (run-006, Auto Reissue)",
+  "documentTitle": "agency — Test Design run-006",
+  "statusPill": "APPROVED",
+  "statusPillTone": "pass",
+  "statuses": [
+    {
+      "key": "Covered",
+      "label": "Covered",
+      "tone": "pass"
+    },
+    {
+      "key": "Partial",
+      "label": "Partially Covered",
+      "tone": "warning"
+    },
+    {
+      "key": "Uncovered",
+      "label": "Uncovered",
+      "tone": "fail"
+    },
+    {
+      "key": "Excluded",
+      "label": "Excluded",
+      "tone": "neutral"
+    },
+    {
+      "key": "Assumption-based",
+      "label": "Assumption-based",
+      "tone": "accent"
+    }
+  ],
+  "meta": {
+    "fields": [
+      [
+        {
+          "label": "Module",
+          "value": "agency",
+          "mono": true
+        },
+        {
+          "label": "Pipeline",
+          "value": "Manual (4M)"
+        }
+      ],
+      {
+        "label": "Status",
+        "value": "Approved — Mohamed Soliman, 2026-09-25 (all 33 new cases Review: Approved)"
+      }
+    ]
+  },
+  "summary": {
+    "title": "1. Coverage summary",
+    "total": 33,
+    "totalLabel": "New test cases (run-006)",
+    "donut": {
+      "focus": "Covered",
+      "percent": 100,
+      "label": "requirement rows covered"
+    }
+  },
+  "testCases": {
+    "title": "New test cases",
+    "categories": [
+      {
+        "name": "Auto Reissue",
+        "cases": [
+          {
+            "id": "TC-AGENCY-061",
+            "title": "Auto Reissue is unchecked by default on Add Agency",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Positive"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 \"Auto Reissue checkbox on Create/Update Agency\" / `PO-15` / spec §1"
+              },
+              {
+                "label": "Expected",
+                "value": "**Auto Reissue** is shown under Agency Features and is unchecked. **Auto Reissue Credentials** is not shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-062",
+            "title": "Ticking Auto Reissue shows the credentials picker",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Positive"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 \"Reissue-credential selection (UI)\" / ASM-019"
+              },
+              {
+                "label": "Expected",
+                "value": "After step 1, **Auto Reissue Credentials** appears. After step 2, it is hidden."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-063",
+            "title": "Turn Auto Reissue on for an Agency and save",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Positive, Smoke"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 \"Saved value is retrieved when the Agency is edited\" / spec `S-10`, §4"
+              },
+              {
+                "label": "Expected",
+                "value": "**Auto Reissue** is ticked and the credential chosen in step 4 is shown in **Auto Reissue Credentials**."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-064",
+            "title": "Auto Reissue change waits for approval after Send For Approval",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Regression"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 \"Maker–checker on the new field\" / XC-01, XC-04 / `PO-24`"
+              },
+              {
+                "label": "Expected",
+                "value": "After step 5, the row shows **Inactive** and **Pending for approval**. After step 6, it shows **Active** and **Approved**. After step 7, Auto Reissue is ticked with the chosen credential."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-065",
+            "title": "Auto Reissue on with no credential shows \"Required\"",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-EmptyValues"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-2` / `PO-23`"
+              },
+              {
+                "label": "Expected",
+                "value": "\"Required\" appears under **Auto Reissue Credentials**. The Agency is not saved: its row stays Approved and Auto Reissue stays off."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-066",
+            "title": "API rejects Auto Reissue on with an empty credential list",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-EmptyValues"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-2` / `PO-23` / `PO-17`"
+              },
+              {
+                "label": "Expected",
+                "value": "The response is **400** with message \"Select at least one eligible credential\". AGN9780 is unchanged."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-067",
+            "title": "API keeps the saved credentials when Auto Reissue is sent off with others",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Positive"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-3` / `PO-17`"
+              },
+              {
+                "label": "Expected",
+                "value": "The request succeeds. The GET returns `autoReissueEnabled: false` and `reissueCredentials` equal to `{STORED}`, not the ID that was sent."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-068",
+            "title": "API rejects a credential without an ID",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-InvalidInputs"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-4` / `PO-17`"
+              },
+              {
+                "label": "Expected",
+                "value": "The response is **400** with message \"Every auto-reissue credential must have an ID\". AGN9780 is unchanged."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-069",
+            "title": "API rejects an unknown credential ID",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-InvalidInputs"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-5` (unknown) / `PO-17`"
+              },
+              {
+                "label": "Expected",
+                "value": "The response is **400** with message \"Every auto-reissue credential must exist and be active\". AGN9780 is unchanged."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-070",
+            "title": "API rejects an inactive credential",
+            "status": "Partial",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-InvalidInputs, Assumption-based"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-5` (inactive) / RSK-012"
+              },
+              {
+                "label": "Expected",
+                "value": "The response is **400** with message \"Every auto-reissue credential must exist and be active\". AGN9780 is unchanged."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-071",
+            "title": "API rejects duplicate credential IDs",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-InvalidInputs"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-6` / `PO-17`"
+              },
+              {
+                "label": "Expected",
+                "value": "The response is **400** with message \"Auto-reissue credentials must not contain duplicates\". AGN9780 is unchanged."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-072",
+            "title": "API rejects a credential not assigned to the Agency",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative-InvalidInputs, Permissions"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-8` / `PO-16` / ASM-021"
+              },
+              {
+                "label": "Expected",
+                "value": "The response is **400** with message \"Each auto-reissue credential must be mapped to this organization\". AGN9780 is unchanged."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-073",
+            "title": "Turning Auto Reissue off keeps the saved credentials",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Positive, Regression"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec `S-7`"
+              },
+              {
+                "label": "Expected",
+                "value": "After step 4, Auto Reissue is unticked. After step 6, the picker already shows `{C}`."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-074",
+            "title": "Agency picker offers only credentials its Branch holds",
+            "status": "Assumption-based",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Integration, Assumption-based"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 \"Agency credential set is bounded by the parent Branch\" / `PO-16` / ASM-003, ASM-021"
+              },
+              {
+                "label": "Expected",
+                "value": "Every option is a credential BRN265 also holds."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-075",
+            "title": "Reading the Agency drops a credential that became invalid",
+            "status": "Partial",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Assumption-based"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec §4 (read-time clean-up) / RSK-012"
+              },
+              {
+                "label": "Expected",
+                "value": "The invalid credential is no longer listed. **Auto Reissue** stays ticked, even if no credential is left."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-076",
+            "title": "Admin shows Reissue for an Agency booking when Auto Reissue is on",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Positive, Smoke"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 \"Admin Itinerary Reissue button visibility\" / spec §5"
+              },
+              {
+                "label": "Expected",
+                "value": "The **Reissue** button is shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-077",
+            "title": "Admin hides Reissue for an Agency booking when Auto Reissue is off",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative, Smoke"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 \"Admin Itinerary Reissue button visibility\" / spec §5"
+              },
+              {
+                "label": "Expected",
+                "value": "The **Reissue** button is not shown. **Manual Reissue** is still shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-078",
+            "title": "Branch Auto Reissue on does not enable an Agency booking",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Integration"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 \"Agency and Branch are independent\" / `PO-16` / spec §3"
+              },
+              {
+                "label": "Expected",
+                "value": "The **Reissue** button is not shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-079",
+            "title": "Portal shows Reissue when the Agency has Auto Reissue on",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Positive, Smoke"
+              },
+              {
+                "label": "Requirement",
+                "value": "`PO-25` / spec §5"
+              },
+              {
+                "label": "Expected",
+                "value": "The **Reissue** button is shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-080",
+            "title": "Portal hides Reissue when the Agency has Auto Reissue off",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative, Smoke"
+              },
+              {
+                "label": "Requirement",
+                "value": "`PO-25` / spec §5"
+              },
+              {
+                "label": "Expected",
+                "value": "The **Reissue** button is not shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-081",
+            "title": "Portal shows Reissue without a lock and offers no Manual Reissue",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Regression"
+              },
+              {
+                "label": "Requirement",
+                "value": "`PO-25`"
+              },
+              {
+                "label": "Expected",
+                "value": "The **Created By** card has no lock control. **Reissue** is shown. **Manual Reissue** is not shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-082",
+            "title": "Reissue shows even if the booking's credential is not selected",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Business-Rule"
+              },
+              {
+                "label": "Requirement",
+                "value": "`PO-22`"
+              },
+              {
+                "label": "Expected",
+                "value": "The **Reissue** button is shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-083",
+            "title": "A booking made on behalf of the Agency follows the Agency's checkbox",
+            "status": "Assumption-based",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Integration, Assumption-based"
+              },
+              {
+                "label": "Requirement",
+                "value": "`PO-26`"
+              },
+              {
+                "label": "Expected",
+                "value": "The **Reissue** button is not shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-084",
+            "title": "A booking not in Booked status does not show Reissue",
+            "status": "Assumption-based",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Negative, Assumption-based"
+              },
+              {
+                "label": "Requirement",
+                "value": "spec §5 (BOOKED) / ASM-022 / `PO-24`"
+              },
+              {
+                "label": "Expected",
+                "value": "The **Reissue** button is not shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-085",
+            "title": "Which value the Itinerary uses while an Auto Reissue change is pending",
+            "status": "Assumption-based",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Exploratory, Assumption-based"
+              },
+              {
+                "label": "Requirement",
+                "value": "RSK-013 / XC-01, XC-04"
+              },
+              {
+                "label": "Expected",
+                "value": "The tester records whether **Reissue** is shown while the change is pending, and the reviewer confirms whether that is intended."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-086",
+            "title": "Updating an Agency without touching Auto Reissue still works",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Regression, Smoke"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 \"Regression — existing Agency CRUD is unaffected\" / RSK-014"
+              },
+              {
+                "label": "Expected",
+                "value": "The update is saved and approved. **Auto Reissue** and **Auto Reissue Credentials** are the same as recorded."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-087",
+            "title": "Create an Agency with Auto Reissue on",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Positive"
+              },
+              {
+                "label": "Requirement",
+                "value": "PC §2 \"Auto Reissue checkbox on Create/Update Agency\" / `PO-19`"
+              },
+              {
+                "label": "Expected",
+                "value": "The new Agency shows **Auto Reissue** ticked with the chosen credential."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-088",
+            "title": "Create an Agency with Auto Reissue off",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Positive"
+              },
+              {
+                "label": "Expected",
+                "value": "The Agency is created and approved. **Auto Reissue** is unticked and **Auto Reissue Credentials** is not shown."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-089",
+            "title": "Edit an Agency with Auto Reissue off",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Positive"
+              },
+              {
+                "label": "Expected",
+                "value": "The save succeeds with no \"Required\" message. **Auto Reissue** is still unticked."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-090",
+            "title": "Edit an Agency with Auto Reissue on",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Regression"
+              },
+              {
+                "label": "Expected",
+                "value": "**Auto Reissue** is still ticked and **Auto Reissue Credentials** still shows `{C}`."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-091",
+            "title": "An Agency can only have suppliers its Branch has",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Integration, Permissions"
+              },
+              {
+                "label": "Expected",
+                "value": "Every supplier listed for AGN9780 is one that BRN265 has. No other supplier can be selected."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-092",
+            "title": "An inactive credential leaves the Agency's Auto Reissue picker",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Negative, Integration"
+              },
+              {
+                "label": "Expected",
+                "value": "After step 4, `{CRED}` is no longer in the saved selection, and **Auto Reissue** is still ticked. After step 5, `{CRED}` is not offered."
+              }
+            ]
+          },
+          {
+            "id": "TC-AGENCY-093",
+            "title": "What the Agency's Auto Reissue picker shows when the supplier is made inactive",
+            "status": "Assumption-based",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Exploratory, Integration"
+              },
+              {
+                "label": "Expected",
+                "value": "The tester records what is shown in steps 4–5, and the reviewer confirms whether it is intended. Spec §4 suggests the `{SUP}` credential is dropped and not offered, with Auto Reissue still ticked."
+              }
+            ]
+          }
+        ],
+        "key": "auto-reissue",
+        "open": true
+      }
+    ]
+  },
+  "sections": [
+    {
+      "type": "notes",
+      "title": "Coverage gaps and exclusions",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "Out-of-Scope: the Reissue flow after the button (reissue-flow), and role authorization (single account).",
+            "Needs user bookings: TC-AGENCY-083 (on behalf), TC-AGENCY-084 (not Booked).",
+            "Needs a decision: TC-AGENCY-087 creates a permanent Agency.",
+            "Findings: 5/5 dispositioned as documented exceptions.",
+            "Added 2026-09-25 at the user’s request: TC-AGENCY-088, TC-AGENCY-089, TC-AGENCY-090, TC-AGENCY-091, TC-AGENCY-092, TC-AGENCY-093.",
+            "Inactive credential/supplier cases change shared staging data: they need the user’s go-ahead, a supplier/credential only the test records use, and reactivation afterwards."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "About this page",
+      "blocks": [
+        "The HTML rendering of the run-006 revision. The Markdown CoverageReport.md, TestCases_*.md and TraceabilityMatrix.md are the artifacts under review. Statuses describe coverage, not results: nothing has been executed."
+      ]
+    }
+  ]
+}

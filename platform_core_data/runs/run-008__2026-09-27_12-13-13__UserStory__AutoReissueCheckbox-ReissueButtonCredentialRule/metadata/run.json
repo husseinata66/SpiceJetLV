@@ -1,0 +1,23 @@
+{
+  "folderName": "run-008__2026-09-27_12-13-13__UserStory__AutoReissueCheckbox-ReissueButtonCredentialRule",
+  "index": 8,
+  "scope": "UserStory",
+  "target": "AutoReissueCheckbox-ReissueButtonCredentialRule",
+  "workflow": "unversioned",
+  "targetRef": "0000c1e9f51c4c17774a1a842608cd25d9ec2222",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-09-27T09:13:13.878Z",
+  "targetRepoRoot": "C:/Users/user/Desktop/ReissueAi/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at C:/Users/user/Desktop/ReissueAi/agentic-ai-testing-platform",
+  "createdBy": "Run Manager (refine)",
+  "startedTime": "2026-09-27T09:13:13.878Z",
+  "status": "Preparing",
+  "scopeFamily": null,
+  "feature": null,
+  "supplier": null,
+  "sharedScope": null,
+  "testingLayerScope": null,
+  "scopeHistory": [],
+  "inheritsFrom": "run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch",
+  "supersedes": "run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch"
+}

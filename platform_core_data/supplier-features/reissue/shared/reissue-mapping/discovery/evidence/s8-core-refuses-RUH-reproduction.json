@@ -1,0 +1,43 @@
+{
+  "what": "core /api/v1/reissue/reshop returns 422 NO_EXCHANGE_OPTIONS_AVAILABLE while Sabre flightReshop returns 50 offers for the identical criteria in the same minute",
+  "booking": { "bookingRef": "NDCEG-BR-F260929u1ptMk", "gdsPnr": "QZTJRV", "orderId": "BRN503NDCORD260929NWUZ06", "surface": "Admin UI", "agencyCurrency": "AED" },
+  "bookedItinerary": {
+    "journey1": "CAI-JED 17 Dec 2026, Saudia 300",
+    "journey2": "JED-RUH 06 Jan 2027 Saudia 1022, then RUH-CAI Saudia 417",
+    "note": "RUH is a CONNECTION point inside the held ticket, not an endpoint. JED is an endpoint."
+  },
+  "tickets": ["0654859779334","0654859779335","0654859779336","0654859779337","0654859779338","0654859779339"],
+  "timeline": [
+    { "at": "2026-09-29T13:18:07Z", "actor": "sabre flightReshop", "criteria": "CAI-RUH 20 Dec / RUH-CAI 10 Jan", "http": 200, "offers": 50 },
+    { "at": "2026-09-29T13:18:43Z", "actor": "core reshop",       "criteria": "CAI-RUH 20 Dec / RUH-CAI 10 Jan", "http": 200, "offers": 50, "note": "SUCCEEDED - captured as s8-core-reshop-QZTJRV.json" },
+    { "at": "2026-09-29T13:35:28Z", "actor": "Admin UI search",   "criteria": "CAI-RUH 20 Dec / RUH-CAI 10 Jan", "http": 200, "offers": 0, "note": "empty body; screen said 'the market is just empty on those exact criteria'" },
+    { "at": "2026-09-29T13:37:xx", "actor": "core reshop, no cabinClass", "http": 422, "errorCode": "NO_EXCHANGE_OPTIONS_AVAILABLE" },
+    { "at": "2026-09-29T13:37:xx", "actor": "core reshop, cabinClass 1",  "http": 422, "errorCode": "NO_EXCHANGE_OPTIONS_AVAILABLE" },
+    { "at": "2026-09-29T13:38:37Z", "actor": "sabre flightReshop", "criteria": "CAI-RUH 20 Dec / RUH-CAI 10 Jan", "http": 200, "offers": 50, "note": "supplier still serving the route at the moment core refused it" },
+    { "at": "2026-09-29T13:39:21Z", "actor": "core reshop", "criteria": "CAI-RUH 20 Dec / RUH-CAI 10 Jan", "http": 422 },
+    { "at": "2026-09-29T13:39:43Z", "actor": "core reshop", "criteria": "CAI-JED 20 Dec / JED-CAI 10 Jan", "http": 200, "offers": 50, "note": "CONTROL - core is healthy for this booking" },
+    { "at": "2026-09-29T13:40:06Z", "actor": "core reshop", "criteria": "CAI-RUH 20 Dec / RUH-CAI 10 Jan", "http": 422 },
+    { "at": "2026-09-29T13:41:09Z", "actor": "core reshop", "criteria": "CAI-RUH 20 Dec / RUH-CAI 10 Jan", "http": 422 },
+    { "at": "2026-09-29T13:41:29Z", "actor": "core reshop", "criteria": "CAI-RUH 20 Dec / RUH-CAI 10 Jan", "http": 422 },
+    { "at": "2026-09-29T13:41:59Z", "actor": "core reshop", "criteria": "CAI-RUH 21 Dec / RUH-CAI 11 Jan", "http": 422, "note": "shifted one day - the screen's own suggested remedy; also fails" },
+    { "at": "2026-09-29T13:42:20Z", "actor": "core reshop", "criteria": "CAI-RUH 20 Dec / RUH-CAI 10 Jan", "http": 422 }
+  ],
+  "pairedDestinationMatrix": {
+    "note": "Sabre and core called back to back per row, same booking, same dates 20 Dec / 10 Jan",
+    "rows": [
+      { "criteria": "CAI-JED / JED-CAI", "meaning": "booked route, new dates",        "sabre": 50, "core": 50 },
+      { "criteria": "CAI-DMM / DMM-CAI", "meaning": "a DIFFERENT changed destination", "sabre": 42, "core": 42 },
+      { "criteria": "CAI-RUH / RUH-CAI", "meaning": "the failing one",                 "sabre": 50, "core": 0, "coreHttp": 422 }
+    ]
+  },
+  "rulesOut": {
+    "transient": "six consecutive failures over seven minutes",
+    "cabinClass": "fails with and without cabinClass 1",
+    "staleResponseId": "fresh eligibility fetched immediately before each reshop",
+    "coreUnhealthy": "CAI-JED and CAI-DMM both return offers in the same window",
+    "dateSpecific": "shifting both legs one day still fails",
+    "supplierEmpty": "Sabre returns 50 offers for the exact criteria at the moment core refuses",
+    "routeChangeUnsupported": "CAI-DMM is also a route change and passes through fine"
+  },
+  "screenText": "Nothing on these routes and dates. The search ran fine - the market is just empty on those exact criteria. MOST LIKELY TO WORK: Shift every flight one day later."
+}

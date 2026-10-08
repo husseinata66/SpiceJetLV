@@ -1,0 +1,39 @@
+{
+  "startedAt": "2026-09-29T19:14:15.659Z",
+  "finishedAt": "2026-09-29T19:14:50.361Z",
+  "criteria": [
+    {
+      "origin": "CAI",
+      "destination": "RUH",
+      "date": "2027-03-05"
+    },
+    {
+      "origin": "RUH",
+      "destination": "DMM",
+      "date": "2027-03-08"
+    }
+  ],
+  "ticketsAtSabre": [
+    "0654859779386",
+    "0654859779387",
+    "0654859779388",
+    "0654859779389",
+    "0654859779390",
+    "0654859779391"
+  ],
+  "ticketsInApp": [
+    "0654859779386",
+    "",
+    "0654859779388",
+    "",
+    "0654859779390",
+    ""
+  ],
+  "gdsPnr": "RPTIYO",
+  "bookingRef": "NDCEG-BR-F2609294YODAr",
+  "orderId": "BRN503NDCORD2609295ENC6G",
+  "surface": "ADMIN UI",
+  "currency": "AED",
+  "tripType": "MULTI CITY",
+  "note": "multi-city case for FINDING-R12 trigger; FINDING-R06 every-even-passenger occurrence"
+}

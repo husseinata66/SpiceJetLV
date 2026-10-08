@@ -1,0 +1,31 @@
+{
+  "request": {
+    "autoReissueEnabled": true,
+    "reissueCredentials": [
+      {
+        "credentialId": 313
+      },
+      {
+        "credentialId": 313
+      }
+    ]
+  },
+  "response": {
+    "status": 400,
+    "body": "{\"code\":400,\"message\":\"Auto-reissue credentials must not contain duplicates\",\"requestId\":\"5fe2779f-814e-4e7d-bdae-1b02de960649\"}"
+  },
+  "branchBefore": {
+    "api": true,
+    "creds": [
+      313
+    ],
+    "appr": 1
+  },
+  "branchAfter": {
+    "api": true,
+    "creds": [
+      313
+    ],
+    "appr": 1
+  }
+}

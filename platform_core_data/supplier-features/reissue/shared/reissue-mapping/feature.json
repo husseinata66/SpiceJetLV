@@ -1,0 +1,56 @@
+{
+  "slug": "reissue-mapping",
+  "name": "Reissue Mapping",
+  "description": null,
+  "sourceUserStory": "Reissue - Auto Reissue flow from Itinerary",
+  "acceptanceCriteriaRef": "knowledge_base/requirements/user_stories/Reissue_Flow_From_Itinerary.md#acceptance-criteria",
+  "status": "Active",
+  "createdAt": "2026-09-27T10:27:47.722Z",
+  "updatedAt": "2026-09-30T12:43:05.880Z",
+  "supersededBy": null,
+  "stages": {
+    "context": {
+      "status": "Pending Review",
+      "artifactPath": "platform_core_data/supplier-features/reissue/shared/reissue-mapping/context/ProjectContext.md",
+      "lastRun": "run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
+      "lastUpdated": "2026-09-30T12:43:05.880Z",
+      "revisionCount": 11,
+      "targetRefAtWrite": "0000c1e9f51c4c17774a1a842608cd25d9ec2222"
+    },
+    "discovery": {
+      "status": "Pending Review",
+      "artifactPath": "platform_core_data/supplier-features/reissue/shared/reissue-mapping/discovery/QA_Assessment_Report.md",
+      "lastRun": "run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
+      "lastUpdated": "2026-09-30T12:24:53.262Z",
+      "revisionCount": 1,
+      "targetRefAtWrite": null
+    },
+    "test_design": {
+      "status": "Pending Review",
+      "artifactPath": "platform_core_data/supplier-features/reissue/shared/reissue-mapping/test_design/TestCases_ReissueMapping.md",
+      "lastRun": "run-007__2026-09-26_17-10-56__UserStory__ReissueFlowFromItinerary",
+      "lastUpdated": "2026-09-30T12:40:17.982Z",
+      "revisionCount": 1,
+      "targetRefAtWrite": null
+    },
+    "automation": {
+      "status": "Not Started",
+      "artifactPath": null,
+      "lastRun": null,
+      "lastUpdated": null,
+      "revisionCount": 0,
+      "targetRefAtWrite": null
+    },
+    "healing": {
+      "status": "Not Started",
+      "artifactPath": null,
+      "lastRun": null,
+      "lastUpdated": null,
+      "revisionCount": 0,
+      "targetRefAtWrite": null
+    }
+  },
+  "approvedAt": "2026-09-27T10:27:47.843Z",
+  "approvedBy": "Mohamed Soliman",
+  "module": "reissue"
+}

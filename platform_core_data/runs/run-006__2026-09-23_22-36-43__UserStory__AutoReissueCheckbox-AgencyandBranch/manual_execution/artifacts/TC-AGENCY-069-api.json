@@ -1,0 +1,32 @@
+{
+  "request": {
+    "autoReissueEnabled": true,
+    "reissueCredentials": [
+      {
+        "credentialId": 999999
+      }
+    ]
+  },
+  "response": {
+    "status": 400,
+    "body": "{\"code\":400,\"message\":\"Every auto-reissue credential must exist and be active\",\"requestId\":\"5d951167-f68f-49ff-b8e3-8ee4e1be7bda\"}"
+  },
+  "agencyBefore": {
+    "st": 200,
+    "api": false,
+    "creds": [
+      315
+    ],
+    "appr": 1,
+    "status": 1
+  },
+  "agencyAfter": {
+    "st": 200,
+    "api": false,
+    "creds": [
+      315
+    ],
+    "appr": 1,
+    "status": 1
+  }
+}

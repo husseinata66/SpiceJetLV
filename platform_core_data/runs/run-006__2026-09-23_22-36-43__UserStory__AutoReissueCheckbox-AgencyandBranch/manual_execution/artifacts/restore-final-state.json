@@ -1,0 +1,40 @@
+{
+  "brBefore": {
+    "api": true,
+    "creds": [],
+    "appr": 1,
+    "pa": [
+      "Sabre:315",
+      "NDCsbr:313"
+    ]
+  },
+  "brSave": {
+    "ok": true,
+    "pending": "BRN265 NDC2_Mohamed Soliman Egypt Cairo Pending for approval ",
+    "approved": "BRN265 NDC2_Mohamed Soliman Egypt Cairo Approved "
+  },
+  "brAfter": {
+    "api": true,
+    "creds": [
+      315
+    ],
+    "appr": 1,
+    "pa": [
+      "Sabre:315"
+    ]
+  },
+  "brPcc": {
+    "Sabre": "Sabre Staging"
+  },
+  "agFinal": {
+    "api": false,
+    "creds": [
+      315
+    ],
+    "appr": 1,
+    "status": 1
+  },
+  "agFinalPcc": {
+    "Sabre": "Sabre Staging"
+  }
+}

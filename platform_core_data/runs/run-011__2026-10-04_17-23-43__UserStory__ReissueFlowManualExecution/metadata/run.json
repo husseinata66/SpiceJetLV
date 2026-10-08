@@ -1,0 +1,58 @@
+{
+  "folderName": "run-011__2026-10-04_17-23-43__UserStory__ReissueFlowManualExecution",
+  "index": 11,
+  "scope": "UserStory",
+  "target": "Reissue Flow Manual Execution",
+  "workflow": "unversioned",
+  "targetRef": "6e26ebe1ddd0a8e4448619cb9fb83b165105dfa4",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-10-04T14:23:43.472Z",
+  "targetRepoRoot": "C:/Users/user/Desktop/ReissueAi/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at C:/Users/user/Desktop/ReissueAi/agentic-ai-testing-platform",
+  "createdBy": "Run Manager",
+  "startedTime": "2026-10-04T14:23:43.472Z",
+  "status": "Preparing",
+  "scopeFamily": "supplier-feature",
+  "feature": "reissue",
+  "supplier": null,
+  "sharedScope": "reissue-flow",
+  "testingLayerScope": {
+    "UI": {
+      "status": "In Scope",
+      "reason": "Behaviour of every screen in the flow: appearance, navigation, validation, enable/disable. Value provenance on the same screens belongs to reissue-mapping (ProjectContext 1.1.1)"
+    },
+    "E2E": {
+      "status": "In Scope",
+      "reason": "Platform drives to Review & Pay; the rest verified read-only after the human-performed Exchange (D-1)"
+    },
+    "Regression": {
+      "status": "In Scope",
+      "reason": "Reports, PNR Query, Itinerary, Pay & Book cycle (D-8)"
+    },
+    "API": {
+      "status": "Out of Scope",
+      "reason": "Moved to reissue-mapping by the 2026-09-27 scope split"
+    },
+    "Contract": {
+      "status": "Out of Scope",
+      "reason": "Moved to reissue-mapping by the 2026-09-27 scope split"
+    },
+    "Integration": {
+      "status": "Out of Scope",
+      "reason": "Moved to reissue-mapping by the 2026-09-27 scope split"
+    },
+    "DB": {
+      "status": "Deferred",
+      "reason": "No read-only DB access provided (intake 2026-09-26). Blocks AC-26 and AC-30 - OQ-9, DS-3"
+    },
+    "Security": {
+      "status": "Out of Scope",
+      "reason": "Not selected by the user at intake, 2026-09-26"
+    },
+    "Performance": {
+      "status": "Out of Scope",
+      "reason": "Not selected by the user at intake, 2026-09-26"
+    }
+  },
+  "scopeHistory": []
+}

@@ -1,0 +1,66 @@
+{
+ "window": "credential NDCSabre staging (313) Inactive",
+ "step2_toggle": {
+  "before": "NDCSabre staging | NDCsbr | Active |",
+  "clicked": true,
+  "dialog": null,
+  "after": "NDCSabre staging | NDCsbr | Inactive |"
+ },
+ "agencyForm": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "Select",
+  "credentialsSectionInText": true
+ },
+ "agencyPicker": [
+  {
+   "t": "Sabre Staging",
+   "sel": false
+  },
+  {
+   "t": "NDCSabre staging",
+   "sel": false
+  }
+ ],
+ "agencyState": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "branchForm": {
+  "checkboxPresent": true,
+  "checked": true,
+  "credentialsControlPresent": true,
+  "credentialsLabel": "Select",
+  "credentialsSectionInText": true
+ },
+ "branchPicker": [
+  {
+   "t": "Sabre Staging",
+   "sel": false
+  }
+ ],
+ "branchState": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [],
+  "approvalStatus": 1
+ },
+ "agency070": {
+  "status": 400,
+  "text": "{\"code\":400,\"message\":\"Every auto-reissue credential must exist and be active\",\"requestId\":\"5e56973c-cebf-4d62-a5f5-261896d40aa1\"}"
+ },
+ "agency070_stateAfter": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [],
+  "approvalStatus": 1,
+  "status": 1
+ },
+ "restore": {
+  "before": "NDCSabre staging | NDCsbr | Inactive |",
+  "clicked": true,
+  "dialog": null,
+  "after": "NDCSabre staging | NDCsbr | Active |"
+ }
+}

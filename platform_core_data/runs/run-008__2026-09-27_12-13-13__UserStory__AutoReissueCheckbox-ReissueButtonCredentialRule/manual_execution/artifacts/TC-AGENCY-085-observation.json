@@ -1,0 +1,64 @@
+{
+ "at": "2026-09-27T10:24:14.243Z",
+ "startState": {
+  "autoReissueEnabled": false,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 1
+ },
+ "sendForApproval": {
+  "before": false,
+  "setTo": true,
+  "committed": true
+ },
+ "agencyWhilePending": {
+  "autoReissueEnabled": true,
+  "reissueCredentials": [
+   {
+    "credentialId": 315
+   }
+  ],
+  "approvalStatus": 0
+ },
+ "itinerary": {
+  "tag": "TC-AGENCY-085-pending",
+  "orderId": "AGN9780NDCNDCORD260924GKP8CP",
+  "lockTaken": false,
+  "passengerDetailsOpened": true,
+  "buttons": [
+   "Welcome Mohamed Soliman",
+   "MS",
+   "Time Limit",
+   "History",
+   "Void / Cancel",
+   "Reissue",
+   "Sync PNR",
+   "Release PNR"
+  ],
+  "reissueShown": true,
+  "manualReissueShown": false,
+  "api": {
+   "showViewTicket": true,
+   "canManualReissue": true,
+   "canAutoReissue": true,
+   "showSyncPnr": true,
+   "showPayAndBook": false,
+   "showModifiedTicket": false,
+   "showCancelBtn": true,
+   "showCancelHoldBtn": false,
+   "showRefundBtn": true,
+   "canReleaseLock": true
+  },
+  "order": {
+   "lockedStatus": 0,
+   "lockHolderName": null,
+   "agencyId": "AGN9780",
+   "branchId": "BRN265",
+   "agentBookStatus": 2
+  },
+  "screenshot": "manual_execution/artifacts/TC-AGENCY-085-pending.png"
+ }
+}

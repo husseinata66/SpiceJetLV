@@ -1,0 +1,65 @@
+{
+ "TC-BR-085": {
+  "tc": "TC-BR-085",
+  "supplier": "AirArabiaEgypt",
+  "credSource": "product-access-row",
+  "credDropdownId": "id-supplier-123",
+  "credOptions": [
+   "AirArabiaEgypt"
+  ],
+  "credentialChosen": "AirArabiaEgypt",
+  "autoReissuePickerOptions": [
+   "No results found"
+  ],
+  "pickerPanelFound": true
+ },
+ "TC-BR-086": {
+  "tc": "TC-BR-086",
+  "supplier": "Galileo",
+  "credSource": "pcc-tab",
+  "credDropdownId": "id-Genericsuppliercredentials(PCC)",
+  "credOptions": [
+   "GalileoLive",
+   "Galileo Live UAE",
+   "Live EGY PCC",
+   "KSA Galileoo",
+   "HH"
+  ],
+  "credentialChosen": "GalileoLive",
+  "autoReissuePickerOptions": [
+   "GalileoLive"
+  ],
+  "pickerPanelFound": true
+ },
+ "TC-BR-087": {
+  "tc": "TC-BR-087",
+  "supplier": "Amadeus",
+  "credSource": "pcc-tab",
+  "credDropdownId": "id-Genericsuppliercredentials(PCC)",
+  "credOptions": [
+   "Amadeus Live",
+   "Amadeus UAE",
+   "Amadeus KSA"
+  ],
+  "credentialChosen": "Amadeus Live",
+  "autoReissuePickerOptions": [
+   "No results found"
+  ],
+  "pickerPanelFound": true
+ },
+ "TC-BR-088": {
+  "tc": "TC-BR-088",
+  "supplier": "TravelportNdc",
+  "credSource": "pcc-tab",
+  "credDropdownId": "id-Genericsuppliercredentials(PCC)",
+  "credOptions": [
+   "TravelPortProd",
+   "Travelport NDC STG"
+  ],
+  "credentialChosen": "TravelPortProd",
+  "autoReissuePickerOptions": [
+   "TravelPortProd"
+  ],
+  "pickerPanelFound": true
+ }
+}

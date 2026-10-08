@@ -1,0 +1,7 @@
+{
+  "label": "scenario 4 · PUAUTI · MULTI CITY CAI-JED-RUH · date change 08/12 Jan 2027 · paired capture 2026-09-28T16:12Z",
+  "supplier": "../discovery/evidence/s4-sabre-reshop-PUAUTI.json",
+  "core": "../discovery/evidence/s4-core-reshop-PUAUTI.json",
+  "portal": "../discovery/evidence/s4-portal-search-PUAUTI.json",
+  "offerIndex": 0
+}

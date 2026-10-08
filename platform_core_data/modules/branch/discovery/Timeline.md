@@ -104,3 +104,50 @@ T+00:21  Occurrence 2 appended to FINDING-001, 007, 008, 009, 011 (same conditio
 T+00:22  Artifacts written: 2 discovery snapshots, 4 new evidence packages, summaries updated
 T+00:23  Stage 2 end — no mutating action was performed at any point this run
 ```
+
+---
+
+## run-006 — Auto Reissue checkbox, Branch half (2026-09-23 / 2026-09-24, times **UTC**; local is UTC+3)
+
+Run `run-006__2026-09-23_22-36-43__UserStory__AutoReissueCheckbox-AgencyandBranch`. Discovery Mode: Browser Driver, headed, `http://192.168.1.60`.
+
+> **How this log was built.** It was assembled when the stage ended from timestamps recorded at the time: the scripts' own `HH:MM:SS` lines and each step's tool-return time. Those sources are kept verbatim in `runs/run-006…/discovery/evidence/44-session-output-extract.txt` and `33-branchbooking-cycle-results.json`. It wasn't appended line by line during the session (§6), and that is disclosed here.
+
+```
+2026-09-23
+21:22  Browser Driver login on http://192.168.1.60 -> /dashboard                                      [00]
+21:24  Navigate /admin/branch/add (unsaved): "Auto Reissue" beside Import PNR, unchecked                 [01-branch-add-form]
+21:25  Tick (unsaved): "Auto Reissue Credentials" picker; no network call; "No results found"           [02,03]
+21:26  Read-only GET /Master2/Branch/BRN265/details: NDCsbr, credential 313, autoReissueAllowed true;
+       Auto Reissue on, reissueCredentials [313]
+21:34  User designates BRN265 for all steps ("if you need a new branch ask me")
+21:35  Grants: BRANCH UPDATE/SUBMIT/APPROVE DedicatedTestData (BRN265 only); BRANCH-CREATE revoked. Baseline saved [05]
+2026-09-24
+10:10  User supplies Branch booking NDCEG-BR-F260916ENYOeQ
+10:12  Read-only: order BRN265NDCORD2609169XJ1LC, branch BRN265, agency null, locked by odeysysadmin     [27]
+10:12  Itinerary (BRN265 on): Sabre, ticketPccId 315, Booked, canAutoReissue true; Reissue shown       [28,29,45]
+10:14  BRN265 untick + Remarks -> PUT /Master2/Branch/10950 204 -> Pending -> PATCH approveOrReject 200 [30]
+10:15  Details GET: autoReissueEnabled false, [313] kept (S-7)
+10:16  Diff vs baseline: supplier Sabre (315 checked, 297 unchecked) now present -> PAUSE, ask the user
+10:24  User: yes, Sabre was added by them manually. Baseline annotated (laterChangeOutsideRun006)
+10:24  Itinerary: canAutoReissue true while BRN265 believed off                                         [31]
+10:25  Re-read: BRN265 is ON [313] Approved -- changed by hand in another session -> OFF check INCONCLUSIVE [32]
+10:26  User: check the flag and the button in the same session
+10:27:00  PUT Branch/10950 autoReissueEnabled false, [] -> 204
+10:27:11  Grid: Pending for approval · 10:27:24 Approved
+10:27:29  Flag read: form false, api false, [313], approval 1
+10:27:37  Itinerary: canAutoReissue false, Reissue HIDDEN, Manual Reissue shown, locked 1               [33-…-OFF]
+10:27:42  Flag re-read: unchanged
+10:27:51  Re-tick: picker pre-filled "NDCSabre staging" (S-7); PUT [313] -> 204
+10:28:02  Grid: Pending · 10:28:17 Approved
+10:28:24  Flag read: true, [313]
+10:28:30  Itinerary: canAutoReissue true, Reissue SHOWN                                                  [33-…-ON]
+10:28:36  Flag re-read: unchanged. BRN265 left at its restore target (on, [313], Approved)
+10:41  Unsaved Add Branch: LCC AirArabiaEgypt ticked, row credential chosen -> picker empty             [39-…AirArabiaEgypt]
+10:49  PCC tab control identified as a multi-select
+10:51  Unsaved: Galileo tab "GalileoLive" -> picker ["GalileoLive"]; Amadeus tab "Amadeus Live" -> empty [39-…Galileo,39-…Amadeus,40]
+11:45  User: PO-21 corrected (hard-coded list; Amadeus unsupported) -> Amadeus result is expected
+14:01  FINDING-017 created · 14:10 Stage 2 artifacts written (+ HTML) -> Pending Review
+```
+
+Numbers in brackets are files in `runs/run-006…/discovery/evidence/`. **Never done:** creating a Branch, booking, or clicking Reissue / Release PNR / Void-Cancel.

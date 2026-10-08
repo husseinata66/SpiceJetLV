@@ -1,0 +1,156 @@
+{
+ "setup_BR_API": {
+  "labelAfterSelect": "NDCSabre staging",
+  "afterSelect": {
+   "autoReissueEnabled": true,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ],
+   "approvalStatus": 1
+  },
+  "afterOff": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ],
+   "approvalStatus": 1
+  },
+  "capturedBase": true
+ },
+ "TC-BR-094": {
+  "response": {
+   "status": 400,
+   "text": "{\"code\":400,\"message\":\"Select at least one eligible credential\",\"requestId\":\"b06561af-764b-46c1-8771-9fac5dfb9a52\"}",
+   "json": {
+    "code": 400,
+    "message": "Select at least one eligible credential",
+    "requestId": "b06561af-764b-46c1-8771-9fac5dfb9a52"
+   }
+  },
+  "branchAfter": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ],
+   "approvalStatus": 1
+  },
+  "gridRow": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Approved |"
+ },
+ "TC-BR-096": {
+  "response": {
+   "status": 400,
+   "text": "{\"code\":400,\"message\":\"Every auto-reissue credential must have an ID\",\"requestId\":\"f2ade147-6998-4390-904b-227114ca44b4\"}",
+   "json": {
+    "code": 400,
+    "message": "Every auto-reissue credential must have an ID",
+    "requestId": "f2ade147-6998-4390-904b-227114ca44b4"
+   }
+  },
+  "branchAfter": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ],
+   "approvalStatus": 1
+  },
+  "gridRow": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Approved |"
+ },
+ "TC-BR-097": {
+  "response": {
+   "status": 400,
+   "text": "{\"code\":400,\"message\":\"Every auto-reissue credential must exist and be active\",\"requestId\":\"be2d6c7c-9253-4ae3-bd55-22c5177f2eb2\"}",
+   "json": {
+    "code": 400,
+    "message": "Every auto-reissue credential must exist and be active",
+    "requestId": "be2d6c7c-9253-4ae3-bd55-22c5177f2eb2"
+   }
+  },
+  "branchAfter": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ],
+   "approvalStatus": 1
+  },
+  "gridRow": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Approved |"
+ },
+ "TC-BR-098": {
+  "response": {
+   "status": 400,
+   "text": "{\"code\":400,\"message\":\"Auto-reissue credentials must not contain duplicates\",\"requestId\":\"b58ef2c8-97e8-428d-87a4-8ce295d4bcb0\"}",
+   "json": {
+    "code": 400,
+    "message": "Auto-reissue credentials must not contain duplicates",
+    "requestId": "b58ef2c8-97e8-428d-87a4-8ce295d4bcb0"
+   }
+  },
+  "branchAfter": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ],
+   "approvalStatus": 1
+  },
+  "gridRow": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Approved |"
+ },
+ "TC-BR-099": {
+  "response": {
+   "status": 400,
+   "text": "{\"code\":400,\"message\":\"Each auto-reissue credential must be mapped to this organization\",\"requestId\":\"7a21980a-2933-44e3-b787-df372599321f\"}",
+   "json": {
+    "code": 400,
+    "message": "Each auto-reissue credential must be mapped to this organization",
+    "requestId": "7a21980a-2933-44e3-b787-df372599321f"
+   }
+  },
+  "branchAfter": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ],
+   "approvalStatus": 1
+  },
+  "gridRow": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Approved |"
+ },
+ "TC-BR-095": {
+  "response": {
+   "status": 204,
+   "text": "",
+   "json": null
+  },
+  "stateAfterSend": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ],
+   "approvalStatus": 0
+  },
+  "rowAfterSend": "BRN265 | NDC2_Mohamed Soliman | Egypt | Cairo | Pending for approval |",
+  "approved": true,
+  "stateAfterApprove": {
+   "autoReissueEnabled": false,
+   "reissueCredentials": [
+    {
+     "credentialId": 313
+    }
+   ],
+   "approvalStatus": 1
+  }
+ }
+}

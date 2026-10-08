@@ -1,0 +1,20 @@
+{
+ "TC-AGENCY-061": {
+  "autoReissueLabelPresent": true,
+  "autoReissueCredentialsPresent": false,
+  "checked": false,
+  "boxHtml": "<p-checkbox _ngcontent-wxh-c74=\"\" class=\"p-element ng-untouched ng-pristine ng-valid\"><div class=\"p-checkbox p-component\"><div class=\"p-hidden-accessible\"><input type=\"checkbox\" value=\"true\" id=\"id--AutoReissue\" name=\"id\" aria-checked=\"false\"></div><div class=\"p-checkbox-box\"><span class=\"p-checkbox"
+ },
+ "TC-AGENCY-062-after-tick": {
+  "autoReissueLabelPresent": true,
+  "autoReissueCredentialsPresent": true,
+  "checked": true,
+  "boxHtml": "<p-checkbox _ngcontent-wxh-c74=\"\" class=\"p-element ng-untouched ng-valid ng-dirty\"><div class=\"p-checkbox p-component p-checkbox-checked\"><div class=\"p-hidden-accessible\"><input type=\"checkbox\" value=\"true\" id=\"id--AutoReissue\" name=\"id\" aria-checked=\"true\" style=\"\"></div><div class=\"p-checkbox-box "
+ },
+ "TC-AGENCY-062-after-untick": {
+  "autoReissueLabelPresent": true,
+  "autoReissueCredentialsPresent": false,
+  "checked": false,
+  "boxHtml": "<p-checkbox _ngcontent-wxh-c74=\"\" class=\"p-element ng-untouched ng-valid ng-dirty\"><div class=\"p-checkbox p-component\"><div class=\"p-hidden-accessible\"><input type=\"checkbox\" value=\"true\" id=\"id--AutoReissue\" name=\"id\" aria-checked=\"false\" style=\"\"></div><div class=\"p-checkbox-box\"><span class=\"p-ch"
+ }
+}
