@@ -1,0 +1,25 @@
+{
+  "folderName": "run-008__2026-09-30_10-11-48__Targeted__Ancillaries-AirSMCairo-Admin",
+  "index": 8,
+  "scope": "Targeted",
+  "target": "Ancillaries-AirSMCairo-Admin",
+  "workflow": "unversioned",
+  "targetRef": "62dbab2bdd8a8a0f393813e108b899a64c54a9ab",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-09-30T07:11:48.726Z",
+  "targetRepoRoot": "C:/Users/Sheen-qc/Desktop/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at C:/Users/Sheen-qc/Desktop/agentic-ai-testing-platform",
+  "createdBy": "Run Manager",
+  "startedTime": "2026-09-30T07:11:48.726Z",
+  "status": "Preparing",
+  "scopeFamily": "supplier-feature",
+  "feature": "ancillaries",
+  "supplier": "air-sm-cairo",
+  "sharedScope": null,
+  "testingLayerScope": null,
+  "scopeHistory": [],
+  "environment": {
+    "admin": "http://192.168.1.237",
+    "portal": "http://192.168.1.237:9500"
+  }
+}

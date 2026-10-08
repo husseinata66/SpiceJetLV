@@ -53,6 +53,8 @@
 //                                              # approval; touches that one field and nothing else
 //   node .../cli.js supplier-feature shared   <propose|approve|scaffold|stage> <feature> [...]
 //   node .../cli.js supplier-feature supplier <propose|approve|scaffold|stage|list> <feature> [...]
+//   node .../cli.js supplier-feature supplier capabilities <feature> <supplier> [--hold yes|no ...] --by "..."
+//   node .../cli.js supplier-feature supplier rules <feature> <supplier> --value "slug,slug"|none --by "..."
 //   node .../cli.js supplier-feature use-feature  <feature>
 //   node .../cli.js supplier-feature use-supplier <feature> <supplier>
 //   node .../cli.js supplier-feature inspect-scope [--user-story ...] [--name "..."] [--json]
@@ -132,6 +134,11 @@ const {
   scaffoldSupplier,
   listSuppliers,
   listAllSuppliers,
+  findSupplier,
+  SUPPLIER_CAPABILITIES,
+  emptyCapabilities,
+  setSupplierCapabilities,
+  setSupplierRules,
 } = require('./supplierRegistry');
 
 const VERBS = new Set([
@@ -175,7 +182,19 @@ const KNOWN_FLAGS = new Set([
   // is implemented through (e.g. ndc-core-service); `--value` is its counterpart on
   // `feature set-integration-layer`, which is the ONLY sanctioned way to correct it after approval.
   'supplier-features-dir', 'integration-layer', 'value',
+  // Supplier capabilities (`supplier capabilities`, ndc_execution_rules.md §A15). Written out
+  // literally rather than spread from SUPPLIER_CAPABILITIES so the usage-header guard below can
+  // still read this list from the source text — and so a new capability has to be added here
+  // deliberately, which is the same provenance argument the rest of this allowlist rests on.
+  'hold', 'pay-after-hold', 'meal', 'baggage', 'seat', 'bundle',
 ]);
+
+// The two lists must agree: every capability's flag is accepted, and nothing else is.
+for (const c of SUPPLIER_CAPABILITIES) {
+  if (!KNOWN_FLAGS.has(c.flag)) {
+    throw new Error(`Capability "${c.key}" declares flag --${c.flag}, which is missing from KNOWN_FLAGS.`);
+  }
+}
 
 function parseArgs(argv) {
   const out = { _: [] };
@@ -1212,7 +1231,7 @@ function cmdSfShared(dir, args, stamp, str) {
 
 function cmdSfSupplier(dir, args, stamp, str) {
   const action = args._[2];
-  const ACTIONS = ['propose', 'approve', 'scaffold', 'stage', 'list'];
+  const ACTIONS = ['propose', 'approve', 'scaffold', 'stage', 'list', 'capabilities', 'rules'];
   const featureSlug = args._[3];
   if (!action || !ACTIONS.includes(action) || !featureSlug) {
     console.error(`Usage: cli.js supplier-feature supplier <${ACTIONS.join('|')}> <feature> [...]`);
@@ -1277,6 +1296,9 @@ function cmdSfSupplier(dir, args, stamp, str) {
     return;
   }
 
+  if (action === 'capabilities') { cmdSfSupplierCapabilities(dir, args, stamp, str, featureSlug); return; }
+  if (action === 'rules') { cmdSfSupplierRules(dir, args, stamp, str, featureSlug); return; }
+
   // stage
   const supplierSlug = args._[4];
   const stage = args._[5];
@@ -1294,6 +1316,83 @@ function cmdSfSupplier(dir, args, stamp, str) {
     ...(args['no-revision'] ? { incrementRevision: false } : {}),
   }, { now: stamp });
   console.log(`Recorded ${featureSlug}/${supplierSlug} ${stage}: ${updated.stages[stage].status}`);
+}
+
+/**
+ * `supplier capabilities` — records what the Supplier supports (new_us_intake.md §12.2 step 3).
+ * With no capability flag it prints the current answers; `Unknown` is what the capability gate
+ * treats as Not Supported.
+ */
+function cmdSfSupplierCapabilities(dir, args, stamp, str, featureSlug) {
+  const supplierSlug = args._[4];
+  if (!supplierSlug) {
+    console.error(
+      `Usage: cli.js supplier-feature supplier capabilities ${featureSlug} <supplier> ` +
+      `[${SUPPLIER_CAPABILITIES.map((c) => `--${c.flag} yes|no|unknown`).join(' ')}] --by "<who>"`
+    );
+    process.exitCode = 1;
+    return;
+  }
+  const values = {};
+  for (const c of SUPPLIER_CAPABILITIES) {
+    if (args[c.flag] !== undefined) values[c.key] = args[c.flag] === true ? '' : args[c.flag];
+  }
+  let entry;
+  if (Object.keys(values).length) {
+    const by = str(args.by);
+    if (!by) {
+      console.error('Recording capabilities requires --by "<who gave the answer>".');
+      process.exitCode = 1;
+      return;
+    }
+    entry = setSupplierCapabilities(dir, featureSlug, supplierSlug, values, { now: stamp, setBy: by });
+  } else {
+    entry = findSupplier(dir, featureSlug, supplierSlug);
+    if (!entry) {
+      console.error(`No Supplier "${supplierSlug}" is registered under Feature "${featureSlug}".`);
+      process.exitCode = 1;
+      return;
+    }
+  }
+  const caps = { ...emptyCapabilities(), ...(entry.capabilities || {}) };
+  if (args.json) { console.log(JSON.stringify(caps, null, 2)); return; }
+  console.log(`Capabilities — ${featureSlug}/${supplierSlug}`);
+  for (const c of SUPPLIER_CAPABILITIES) console.log(`  ${c.label.padEnd(16)} ${caps[c.key]}`);
+}
+
+/** `supplier rules` — records the Supplier's confirmed own rules, as slugs; `none` is recorded too. */
+function cmdSfSupplierRules(dir, args, stamp, str, featureSlug) {
+  const supplierSlug = args._[4];
+  const raw = str(args.value);
+  if (!supplierSlug) {
+    console.error(
+      `Usage: cli.js supplier-feature supplier rules ${featureSlug} <supplier> --value "slug,slug"|none --by "<who>"`
+    );
+    process.exitCode = 1;
+    return;
+  }
+  let entry;
+  if (raw) {
+    const by = str(args.by);
+    if (!by) {
+      console.error('Recording rules requires --by "<who gave the answer>".');
+      process.exitCode = 1;
+      return;
+    }
+    const rules = raw.trim().toLowerCase() === 'none' ? [] : raw.split(',');
+    entry = setSupplierRules(dir, featureSlug, supplierSlug, rules, { now: stamp, setBy: by });
+  } else {
+    entry = findSupplier(dir, featureSlug, supplierSlug);
+    if (!entry) {
+      console.error(`No Supplier "${supplierSlug}" is registered under Feature "${featureSlug}".`);
+      process.exitCode = 1;
+      return;
+    }
+  }
+  if (args.json) { console.log(JSON.stringify(entry.supplierRules ?? null)); return; }
+  if (!entry.supplierRulesSetAt) { console.log(`Rules — ${featureSlug}/${supplierSlug}: not yet asked`); return; }
+  const list = entry.supplierRules || [];
+  console.log(`Rules — ${featureSlug}/${supplierSlug}: ${list.length ? list.join(', ') : 'None'}`);
 }
 
 function cmdSfUseFeature(dir, args, stamp) {

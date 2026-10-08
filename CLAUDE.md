@@ -104,10 +104,23 @@ owner: a Supplier-driven Feature (Ancillaries, Upselling) is never forced throug
 1. Ask: **"Which Supplier Feature is this supplier for?"** — never inferred, never assumed from a
    prior run. Read the current options live from
    `cli.js supplier-feature feature list --json`; never offer a hardcoded list.
-2. Ask for the supplier checklist / scope description for that Supplier.
-3. Create the Supplier scope
-   (`cli.js supplier-feature supplier propose/approve/scaffold <feature> ...`), then a run bound to
-   Feature + Supplier, and run the normal pipeline stages against it.
+2. Ask **which supplier credential** the run uses — named by the human, never carried over.
+3. Ask the **capability checklist**, one question each: **Hold · Pay after Hold · Meal · Baggage ·
+   Seat · Bundle**, `Supported` / `Not Supported` / `Unknown`. Booking is never asked — every
+   Supplier books. Suppliers differ — flynas has no Hold
+   or Pay after Hold — and this is **never inferred** from the Supplier's name or another Supplier.
+4. Ask for the supplier checklist / scope description, and whether the Supplier has rules of its own.
+5. Create the Supplier scope
+   (`cli.js supplier-feature supplier propose/approve/scaffold <feature> ...`), record the answers
+   (`... supplier capabilities ...` and `... supplier rules ...` — never hand-edit `supplier.json`),
+   then a run bound to Feature + Supplier, and run the normal pipeline stages against it.
+
+**Only part of a suite runs against a given Supplier.** A test case declares what it needs in its
+`Requires` column (and `Supplier Rule` for a Supplier-specific rule like ladies-only seats). Before
+execution, `capability_gate/cli.js plan --run <run>` writes `metadata/CapabilityPlan.md`: cases needing
+a capability the Supplier lacks are **Excluded — Not supported by supplier**, never run and failed, and
+stay out of executable scope and pass rate. `Unknown` counts as Not Supported. Full rule:
+[`ndc_execution_rules.md`](workflows_and_pipelines/pipeline/ndc_execution_rules.md) §A15.
 
 **A Supplier under one Feature is independent from the same Supplier name under a different
 Feature.** "Travelport NDC" under Import Booked PNR and "Travelport NDC" under Ancillaries are two

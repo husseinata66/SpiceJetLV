@@ -60,6 +60,16 @@ Before Stage 1 completes on a Supplier run, record where applicable:
 - known test data
 - known blockers
 - inherited Feature artifacts (pointers, per §A1)
+- **Supplier capabilities (§A15)** — ask, one question per capability, before the first run on this
+  Supplier: **Hold · Pay after Hold · Meal · Baggage · Seat · Bundle**, each `Supported` /
+  `Not Supported` / `Unknown`. *(Added 2026-09-27, human decision — Mohanad Dawood.)*
+- **Supplier credential** — which credential this run uses, named by the human, never carried over
+  from a previous run.
+- **Supplier-specific rules** — ask the human running the pipeline, before the first run on this
+  Supplier: *"Does this Supplier have rules of its own, beyond the Feature's rules?"* Record the answer
+  in that Supplier's `SupplierChecklist.md` §7c, including an explicit "None". The Feature's rules apply
+  to every Supplier; a Supplier rule only adds to, replaces, or tightens one of them, and never moves up
+  to the Feature from one Supplier alone. *(Added 2026-09-27, human decision — Mohanad Dawood.)*
 
 An unknown value is allowed and must be stated explicitly as one of: `Unknown`, `To Be Discovered`,
 `Blocked`, `Pending Confirmation`, `N/A`. Never left blank, never invented.
@@ -219,6 +229,50 @@ See `new_us_intake.md` §12.2 step 3 and §12.3 for its full behavior (overlap c
 on a hit). Overlap is a candidate, never a verdict.
 
 ---
+
+## A15. Supplier capabilities decide which test cases run
+
+*(Added 2026-09-27, human decision — Mohanad Dawood.)*
+
+**Suppliers differ in what they can do.** flynas has no Hold and no Pay after Hold; another Supplier
+may sell no meals. A test case that needs a capability the Supplier lacks can only fail, and a failure
+that means "this Supplier was never going to do this" is noise that hides the real ones.
+
+**The six capabilities are fixed:** `Hold`, `Pay after Hold`, `Meal`, `Baggage`, `Seat`, `Bundle`.
+**Booking itself is not one of them** — every Supplier books, so a `Book` capability could only read
+`Supported` and would gate nothing (human decision, 2026-09-28). Each
+is `Supported`, `Not Supported`, or `Unknown`. They are asked at intake (§A2), never inferred from a
+Supplier's name, from another Supplier, or from what a screen happens to show on one flight.
+
+**The recorded value lives in `supplier.json`**, written only through
+`module_manager/cli.js supplier-feature supplier capabilities`, which appends to `capabilityHistory`.
+`SupplierChecklist.md` §2c mirrors it for a reader. Neither is ever hand-edited.
+
+**`Pay after Hold` depends on `Hold`.** It is an action performed *on a held booking*, so with no Hold
+there is nothing to pay for later. The registry enforces this: setting `Hold` to anything other than
+`Supported` takes `Pay after Hold` down with it (recorded in `capabilityHistory`, never silent), and
+asking for both at once in one command is refused as a contradiction. At intake, **`Pay after Hold` is
+not asked at all when `Hold` is not Supported** — the answer is already known.
+
+**A test case declares what it needs** in its `Requires` column — `None`, one or more capabilities
+(`Hold + Pay after Hold`), or a negation (`Not Hold`) for a case that tests a Supplier *without* that
+capability. A case that tests a Supplier-specific rule also names it in `Supplier Rule`, matching a
+slug recorded for that Supplier (§7c).
+
+**Before execution starts**, `capability_gate/cli.js plan --run <run-folder>` writes
+`runs/<run>/metadata/CapabilityPlan.md` — the same discipline as the Safety Preflight (§6.1 of
+`manual-execution-skill`): what will run is known and recorded first, not discovered case by case.
+
+**`Unknown` is treated as `Not Supported`.** Nothing is guessed. A capability left `Unknown` silently
+narrows the run, so it is answered properly at intake instead.
+
+**An excluded case is reported, never dropped.** It keeps its row with status
+`Excluded — Not supported by supplier`, and stays out of executable scope and pass rate. A Supplier
+that cannot hold is not penalised for the Hold cases it could never run, and the reader can still see
+which cases those were.
+
+**This gate is not the Review gate and not the Safety gate.** Three separate questions, in order:
+*can this Supplier do it* · *is this case approved* · *is this action allowed here*.
 
 # §B — NDC-Core-Service-specific rules
 

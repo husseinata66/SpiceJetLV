@@ -225,6 +225,8 @@ Every Test Case in the Manual Test Suite (Markdown/Excel) contains exactly these
 - **Notes** *(optional)* — anywhere additional explanation is genuinely needed, so Steps/Expected Result never grow long carrying it instead (see "If additional explanation is needed" below)
 - **Review** — the human review status of this case after Stage 3. `Pending` | `Approved` | `Rejected`, default **`Pending`** (§6.3)
 - **Automation** — whether this approved case should be automated. `Pending` | `Approved` | `Rejected`, default **`Pending`** (§6.3)
+- **Requires** — the Supplier capabilities this case cannot run without. `None` | one or more of `Hold`, `Pay after Hold`, `Meal`, `Baggage`, `Seat`, `Bundle` joined with `+` | `Not <capability>`, default **`None`** (§6.2a)
+- **Supplier Rule** — the Supplier-specific rule this case tests, as its slug (e.g. `ladies-only-seats`); empty for a case that applies to every Supplier (§6.2a)
 
 ### Step Writing Rules
 
@@ -274,6 +276,37 @@ The following are still mandatory pipeline outputs — nothing here is dropped, 
 - **Risk** (Level + one-line statement, derived from a populated Finding's own Business/Technical Risk where applicable) — recorded in the Traceability Matrix's Risk column, aggregated in the Coverage Report's Risks section (§18 #9).
 - **Category** (Positive/Negative-{subtype}/Exploratory/etc., §7) and **Test Type** (Smoke/Regression) — recorded as compact Tags on the test case (§6.1) *and* rolled up in the Coverage Report's Test Scenarios section (§18 #5) for at-a-glance breakdown.
 - **Automation decision** — **no longer recorded here.** *(Revised 2026-08-01.)* It is now the `Automation` column on the test case itself (§6.3), a **binding** decision rather than the advisory `AutomationCandidate` tag and Coverage Report listing it replaces. Stage `4A` consumes a case only when `Review = Approved AND Automation = Approved` (§6.3.2). The `Automation` column alone is never read by Stage `4M` — but `Review` is, by both branches (§6.3.2).
+
+## 6.2a The Supplier Columns — Requires and Supplier Rule
+
+*(Added 2026-09-27, user-mandated. Additive: no existing field was removed, renamed, or reordered —
+both columns are appended after `Automation`.)*
+
+Suppliers differ in what they can do. A case that needs a capability the Supplier lacks can only fail,
+so it is excluded before execution (`manual-execution-skill` §4.2). For that to be decidable, **the
+case has to say what it needs** — and it says it here, not in prose a tool cannot read.
+
+| Column | Records | Allowed values | Default |
+|---|---|---|---|
+| `Requires` | The Supplier capabilities this case cannot run without | `None` · one or more of `Hold`, `Pay after Hold`, `Meal`, `Baggage`, `Seat`, `Bundle`, joined with `+` · a negation, `Not <capability>` | `None` |
+| `Supplier Rule` | The Supplier-specific rule this case tests, as its slug | a slug from that Supplier's `SupplierChecklist.md` §7c (e.g. `ladies-only-seats`) · empty | empty |
+
+**`Requires` names what the case needs, never what it happens to use.** A seat-map rendering case
+requires `Seat`; a case checking a paid booking's meal requires `Meal`. **Booking is never a
+requirement** — every Supplier books, so naming it would gate nothing. When in doubt, ask: *if this Supplier could not do X, would this case still have a
+meaningful expected result?* If yes, X is not required.
+
+**`Not <capability>` is for cases that test the absence.** `Not Hold` reads "this case runs only for a
+Supplier that cannot hold" — the case that asserts no Hold button is offered. It is not a negation of
+the test; it is the case's audience.
+
+**`Supplier Rule` is for a rule only some Suppliers have**, such as flynas's ladies-only seats. Leave
+it empty for everything else. **Feature-level rules are not Supplier rules**: exit rows, infants,
+children and seat sets apply to every Supplier and carry no slug here. Filling it in defensively is
+worse than leaving it blank — it silently withholds a generic case from every other Supplier.
+
+**Neither column is a lifecycle decision, and neither is read by the Review or Automation gates.**
+They describe the case; `Review` and `Automation` record what a human decided about it (§6.3).
 
 ## 6.3 The Lifecycle Columns — Review and Automation
 

@@ -49,6 +49,26 @@ const SUPPLIER_STAGES = MODULE_STAGES;
 /** Mirrors FEATURE_STATUSES/MODULE_STATUSES — proposed, approved, superseded on the same terms. */
 const SUPPLIER_STATUSES = ['Proposed', 'Active', 'Superseded', 'Archived'];
 
+/**
+ * What a Supplier can do, asked at intake (new_us_intake.md §12.2) and read by the capability gate
+ * (platform_core/tools/capability_gate). Suppliers differ — flynas has no Hold — so a test case that
+ * needs a capability the Supplier lacks is excluded, not run and failed.
+ *
+ * BOOKING ITSELF IS NOT LISTED. Every Supplier can book — that is what a Supplier is for (human
+ * decision, Mohanad Dawood, 2026-09-28). A Supplier that could not book would not be registered, so a
+ * `book` capability could only ever read `Supported` and would gate nothing. Whether a Book *button*
+ * appears on a given screen is a UI question, not a Supplier capability.
+ */
+const SUPPLIER_CAPABILITIES = [
+  { key: 'hold', label: 'Hold', flag: 'hold' },
+  { key: 'payAfterHold', label: 'Pay after Hold', flag: 'pay-after-hold' },
+  { key: 'meal', label: 'Meal', flag: 'meal' },
+  { key: 'baggage', label: 'Baggage', flag: 'baggage' },
+  { key: 'seat', label: 'Seat', flag: 'seat' },
+  { key: 'bundle', label: 'Bundle', flag: 'bundle' },
+];
+const CAPABILITY_VALUES = ['Supported', 'Not Supported', 'Unknown'];
+
 const SUPPLIERS_DIRNAME = 'suppliers';
 const SUPPLIER_STATE_FILENAME = 'supplier.json';
 
@@ -302,6 +322,132 @@ function recordSupplierStage(featureModulesDir, featureSlug, supplierSlug, stage
   return updated;
 }
 
+/** `yes`/`no`/`unknown` (CLI shorthand) or the canonical value, case-insensitively. */
+function normalizeCapabilityValue(raw) {
+  const text = String(raw ?? '').trim().toLowerCase();
+  const alias = { yes: 'Supported', y: 'Supported', no: 'Not Supported', n: 'Not Supported' };
+  if (alias[text]) return alias[text];
+  return CAPABILITY_VALUES.find((v) => v.toLowerCase() === text) || null;
+}
+
+/** Shared write path for capabilities and rules: update the entry, the registry, and supplier.json. */
+function updateSupplierEntry(featureModulesDir, featureSlug, supplierSlug, mutate, now) {
+  requireFeature(featureModulesDir, featureSlug);
+  const suppliers = listSuppliers(featureModulesDir, featureSlug);
+  const existing = suppliers.find((s) => s.slug === supplierSlug);
+  if (!existing) {
+    throw new SupplierRegistryError(
+      `No Supplier "${supplierSlug}" is registered under Feature "${featureSlug}". ` +
+      `Run \`cli.js supplier-feature supplier list ${featureSlug}\` to see its registered Suppliers.`
+    );
+  }
+  const timestamp = now.toISOString();
+  const updated = { ...mutate(existing, timestamp), updatedAt: timestamp };
+  persistSuppliers(
+    featureModulesDir, featureSlug, suppliers.map((s) => (s.slug === supplierSlug ? updated : s)), timestamp
+  );
+  if (fs.existsSync(supplierDir(featureModulesDir, featureSlug, supplierSlug))) {
+    writeJsonAtomic(supplierStatePath(featureModulesDir, featureSlug, supplierSlug), updated);
+  }
+  return updated;
+}
+
+/**
+ * Records what the Supplier supports. Merges over earlier answers; every change is appended to
+ * `capabilityHistory`, never overwritten. A capability never answered reads as `Unknown`.
+ * @param {Record<string,string>} values keyed by SUPPLIER_CAPABILITIES[].key
+ * @param {{now: Date, setBy: string}} opts
+ */
+function setSupplierCapabilities(featureModulesDir, featureSlug, supplierSlug, values = {}, opts = {}) {
+  const { now, setBy } = opts;
+  if (!(now instanceof Date) || Number.isNaN(now.getTime())) {
+    throw new SupplierRegistryError('setSupplierCapabilities requires an explicit valid `now` Date.');
+  }
+  if (!setBy || !String(setBy).trim()) {
+    throw new SupplierRegistryError('setSupplierCapabilities requires `setBy` — who gave the answer.');
+  }
+  const known = new Set(SUPPLIER_CAPABILITIES.map((c) => c.key));
+  const changes = {};
+  for (const [key, raw] of Object.entries(values)) {
+    if (!known.has(key)) {
+      throw new SupplierRegistryError(
+        `Unknown capability "${key}". Expected one of: ${[...known].join(', ')}.`
+      );
+    }
+    const value = normalizeCapabilityValue(raw);
+    if (!value) {
+      throw new SupplierRegistryError(
+        `Capability "${key}" is "${raw}" — expected one of: ${CAPABILITY_VALUES.join(', ')} (or yes/no).`
+      );
+    }
+    changes[key] = value;
+  }
+  if (!Object.keys(changes).length) {
+    throw new SupplierRegistryError('No capability values given.');
+  }
+
+  return updateSupplierEntry(featureModulesDir, featureSlug, supplierSlug, (existing, timestamp) => {
+    const applied = { ...changes };
+    // Only known capabilities survive a write: a key retired from the model (`book`, removed
+    // 2026-09-28) is dropped here rather than lingering in supplier.json as a value nothing reads.
+    const known = emptyCapabilities();
+    const prior = Object.fromEntries(
+      Object.entries(existing.capabilities || {}).filter(([k]) => k in known)
+    );
+    const capabilities = { ...known, ...prior, ...applied };
+
+    // Pay after Hold is an action ON a held booking: with no Hold there is nothing to pay for later.
+    // Asking for both at once in one command is a contradiction and is refused; otherwise Pay after
+    // Hold simply follows Hold down, recorded in the history so the change is visible rather than
+    // silent.
+    if (capabilities.hold !== 'Supported' && capabilities.payAfterHold === 'Supported') {
+      if (applied.payAfterHold === 'Supported') {
+        throw new SupplierRegistryError(
+          'Pay after Hold cannot be Supported while Hold is not — a booking must be held before it is '
+          + 'paid later. Set Hold first, or leave Pay after Hold as Not Supported.'
+        );
+      }
+      capabilities.payAfterHold = 'Not Supported';
+      applied.payAfterHold = 'Not Supported';
+    }
+
+    const history = Array.isArray(existing.capabilityHistory) ? existing.capabilityHistory : [];
+    return {
+      ...existing,
+      capabilities,
+      capabilityHistory: [...history, { at: timestamp, by: String(setBy).trim(), changes: applied }],
+    };
+  }, now);
+}
+
+/**
+ * Records which Supplier-specific rules (SupplierChecklist §7c) are confirmed for this Supplier, as
+ * short slugs matching the test cases' `Supplier Rule` column. An empty list is a recorded "None".
+ * @param {string[]} rules @param {{now: Date, setBy: string}} opts
+ */
+function setSupplierRules(featureModulesDir, featureSlug, supplierSlug, rules = [], opts = {}) {
+  const { now, setBy } = opts;
+  if (!(now instanceof Date) || Number.isNaN(now.getTime())) {
+    throw new SupplierRegistryError('setSupplierRules requires an explicit valid `now` Date.');
+  }
+  if (!setBy || !String(setBy).trim()) {
+    throw new SupplierRegistryError('setSupplierRules requires `setBy` — who gave the answer.');
+  }
+  const cleaned = [...new Set(rules.map((r) => String(r).trim()).filter(Boolean))];
+  for (const r of cleaned) assertValidModuleSlug(r);
+  return updateSupplierEntry(featureModulesDir, featureSlug, supplierSlug, (existing, timestamp) => ({
+    ...existing,
+    supplierRules: cleaned,
+    supplierRulesSetAt: timestamp,
+    supplierRulesSetBy: String(setBy).trim(),
+  }), now);
+}
+
+/** Every capability `Unknown` — the value before intake has answered. */
+function emptyCapabilities() {
+  return Object.fromEntries(SUPPLIER_CAPABILITIES.map((c) => [c.key, 'Unknown']));
+}
+
 /**
  * A Supplier's effective state plus which stage folders exist on disk.
  * @returns {object|null}
@@ -399,7 +545,13 @@ module.exports = {
   SUPPLIER_STATUSES,
   SUPPLIERS_DIRNAME,
   SUPPLIER_STATE_FILENAME,
+  SUPPLIER_CAPABILITIES,
+  CAPABILITY_VALUES,
   SupplierRegistryError,
+  normalizeCapabilityValue,
+  emptyCapabilities,
+  setSupplierCapabilities,
+  setSupplierRules,
   suppliersDir,
   supplierDir,
   supplierStatePath,

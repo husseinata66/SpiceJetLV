@@ -265,3 +265,106 @@ test('the suppliers[] cache lands in BOTH the Feature module.json and the module
     cleanup(svcDir);
   }
 });
+
+// ── Supplier capabilities and rules ────────────────────────────────────────────────────────────
+const {
+  setSupplierCapabilities, setSupplierRules, emptyCapabilities,
+} = require('../supplierRegistry');
+
+test('capabilities default to Unknown and merge answers, keeping a history', () => {
+  const svcDir = makeSvcDir();
+  try {
+    const f = seedFeature(svcDir);
+    const s = seedSupplier(svcDir, f);
+    assert.deepEqual(emptyCapabilities(), {
+      hold: 'Unknown', payAfterHold: 'Unknown',
+      meal: 'Unknown', baggage: 'Unknown', seat: 'Unknown', bundle: 'Unknown',
+    });
+    setSupplierCapabilities(svcDir, f, s, { hold: 'no', seat: 'yes' }, { now: NOW, setBy: 'QA' });
+    const updated = setSupplierCapabilities(svcDir, f, s, { meal: 'Supported' }, { now: LATER, setBy: 'QA' });
+    assert.equal(updated.capabilities.hold, 'Not Supported');
+    assert.equal(updated.capabilities.seat, 'Supported');
+    assert.equal(updated.capabilities.meal, 'Supported');
+    assert.equal(updated.capabilities.bundle, 'Unknown');
+    assert.equal(updated.capabilityHistory.length, 2);
+    assert.equal(findSupplier(svcDir, f, s).capabilities.meal, 'Supported');
+  } finally { cleanup(svcDir); }
+});
+
+test('Pay after Hold cannot be Supported without Hold', () => {
+  const svcDir = makeSvcDir();
+  try {
+    const f = seedFeature(svcDir);
+    const s = seedSupplier(svcDir, f);
+    assert.throws(
+      () => setSupplierCapabilities(svcDir, f, s, { payAfterHold: 'yes' }, { now: NOW, setBy: 'QA' }),
+      SupplierRegistryError
+    );
+    assert.throws(
+      () => setSupplierCapabilities(svcDir, f, s, { hold: 'no', payAfterHold: 'yes' }, { now: NOW, setBy: 'QA' }),
+      SupplierRegistryError,
+      'asking for both at once is a contradiction, not something to quietly resolve'
+    );
+    assert.equal(findSupplier(svcDir, f, s).capabilities, undefined, 'nothing written on refusal');
+  } finally { cleanup(svcDir); }
+});
+
+test('turning Hold off takes Pay after Hold with it, recorded in the history', () => {
+  const svcDir = makeSvcDir();
+  try {
+    const f = seedFeature(svcDir);
+    const s = seedSupplier(svcDir, f);
+    setSupplierCapabilities(svcDir, f, s, { hold: 'yes', payAfterHold: 'yes' }, { now: NOW, setBy: 'QA' });
+    const after = setSupplierCapabilities(svcDir, f, s, { hold: 'no' }, { now: LATER, setBy: 'QA' });
+    assert.equal(after.capabilities.hold, 'Not Supported');
+    assert.equal(after.capabilities.payAfterHold, 'Not Supported', 'it follows Hold down');
+    assert.deepEqual(
+      after.capabilityHistory[1].changes,
+      { hold: 'Not Supported', payAfterHold: 'Not Supported' },
+      'the implied change is recorded, not silent'
+    );
+  } finally { cleanup(svcDir); }
+});
+
+test('Pay after Hold cannot stand on an Unknown Hold either', () => {
+  const svcDir = makeSvcDir();
+  try {
+    const f = seedFeature(svcDir);
+    const s = seedSupplier(svcDir, f);
+    // Unknown is treated as Not Supported by the capability gate, so it cannot support a later payment.
+    assert.throws(
+      () => setSupplierCapabilities(svcDir, f, s, { payAfterHold: 'Supported' }, { now: NOW, setBy: 'QA' }),
+      SupplierRegistryError
+    );
+  } finally { cleanup(svcDir); }
+});
+
+test('unknown capability names, bad values, and a missing setBy are refused', () => {
+  const svcDir = makeSvcDir();
+  try {
+    const f = seedFeature(svcDir);
+    const s = seedSupplier(svcDir, f);
+    assert.throws(() => setSupplierCapabilities(svcDir, f, s, { refund: 'yes' }, { now: NOW, setBy: 'QA' }),
+      SupplierRegistryError);
+    assert.throws(() => setSupplierCapabilities(svcDir, f, s, { seat: 'maybe' }, { now: NOW, setBy: 'QA' }),
+      SupplierRegistryError);
+    assert.throws(() => setSupplierCapabilities(svcDir, f, s, { seat: 'yes' }, { now: NOW }),
+      SupplierRegistryError);
+  } finally { cleanup(svcDir); }
+});
+
+test('supplier rules record a list, and an empty list is a recorded None', () => {
+  const svcDir = makeSvcDir();
+  try {
+    const f = seedFeature(svcDir);
+    const s = seedSupplier(svcDir, f);
+    assert.equal(findSupplier(svcDir, f, s).supplierRulesSetAt, undefined);
+    const withRule = setSupplierRules(svcDir, f, s, ['ladies-only-seats', 'ladies-only-seats'],
+      { now: NOW, setBy: 'QA' });
+    assert.deepEqual(withRule.supplierRules, ['ladies-only-seats']);
+    const none = setSupplierRules(svcDir, f, s, [], { now: LATER, setBy: 'QA' });
+    assert.deepEqual(none.supplierRules, []);
+    assert.ok(none.supplierRulesSetAt);
+    assert.throws(() => setSupplierRules(svcDir, f, s, ['Not A Slug'], { now: NOW, setBy: 'QA' }));
+  } finally { cleanup(svcDir); }
+});

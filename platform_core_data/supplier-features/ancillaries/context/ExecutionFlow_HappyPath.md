@@ -17,8 +17,8 @@
 **Feature:** Ancillaries (`ancillaries`)
 **Canonical location:** `platform_core_data/supplier-features/ancillaries/context/ExecutionFlow_HappyPath.md`
 **Status:** Draft — pending approval
-**Revision:** 1
-**Last Updated:** 2026-09-04
+**Revision:** 2 — adds §3.1 cabin × bundle coverage (human decision, Mohanad Dawood, 2026-09-27)
+**Last Updated:** 2026-09-27
 **Related:** `CapabilityModel.md` (same folder) — governs every capability gate below.
 `FeatureChecklistProfile.md` (same folder) — the rows injected into a Supplier's Checklist.
 Requirement IDs trace to `shared/ancillaries-baseline/context/ProjectContext.md` rev 1 §6.
@@ -116,6 +116,46 @@ as one linked record rather than scattered notes:
 3. Use a route and date consistent with the Supplier's own recorded test data. Availability may
    depend on route, cabin, or fare family — that dependency is a per-Supplier Discovery obligation
    (ANC-39), never assumed here.
+
+### 3.1 Cabin × bundle coverage — every cabin, every bundle `[gated: Bundle]`
+
+*(Added 2026-09-27, human decision — Mohanad Dawood. Applies to every Ancillaries Supplier.)*
+
+Seat maps, seat prices and included services change completely with the cabin and the bundle. A result
+on one bundle proves nothing for another. So the unit of coverage is **one cabin × one bundle**, and a
+Supplier run is not complete until every combination the Supplier returns has been exercised.
+
+1. **List the cabins.** From the search results, record every cabin class the Supplier returns for the
+   route and date (e.g. Economy, Business). Pick at least one flight per cabin. Prefer one flight that
+   sells several cabins on the same aircraft, so the cabins compare directly.
+2. **List the bundles per cabin, live.** Open a fresh offer in each cabin and read the bundle list in
+   PAX Details. Never assume one cabin's bundles from another, or one Supplier's from another. A cabin
+   that offers a single bundle has a single combination.
+3. **One fresh offer per combination.** Start each cabin × bundle from a new search result / new offer.
+   Do not reuse one offer by going Prev and switching the bundle: that path has its own known defects
+   (extras wiped, stuck wizard) and would contaminate every other result. Switching bundles on one offer
+   is tested separately, as its own case.
+4. **Run the same check set on every combination**, for the capabilities this Supplier supports
+   (§5c):
+   - the bundle's included services (baggage, meal, seat entitlement), as shown;
+   - the seat map `[gated: Seat]`: seat count, free / paid / blocked counts, price tiers, cabin and
+     section labels, and any seat attribute that implies a price (e.g. "Chargeable seat") versus the
+     price shown;
+   - assign one paid and one free seat where both exist, confirm, and check the seat line in the fare
+     breakdown;
+   - meal and extra-baggage options with prices `[gated: Meal]` `[gated: Baggage]`, including whether an
+     option clashes with baggage the bundle already includes;
+   - one booking per combination, **only** where booking is authorized for the environment
+     (`execution_safety_policy.json`, or a recorded human decision), with the `Book` step approved
+     each time.
+5. **Do not repeat a combination already executed in the same run.** Its recorded result stands and is
+   cited. A combination executed in an earlier run is evidence only, never a result for this run
+   (`ndc_execution_rules.md` §A11).
+6. **Record the cabin and bundle on every result**, and report coverage as a cabin × bundle table,
+   marking each combination Executed, Not Executed (with reason) or Not Offered.
+
+If the Supplier's §5c records Bundle as anything other than `Supported`, the matrix collapses to one
+row per cabin; the cabin rule (step 1) still applies.
 
 ## 4. Step 3 — Portal: select a flight from the Supplier under test
 
@@ -279,7 +319,8 @@ unconnected sets — the configuration in Admin is what makes the Portal result 
 | | Fields |
 |---|---|
 | **Admin** | Environment, URL, user/role, Branch, Supplier, Credential, PCC, Market/Country, Agency |
-| **Portal** | Environment, URL, user/role, search route and date, selected flight, Supplier attribution evidence |
+| **Portal** | Environment, URL, user/role, search route and date, selected flight, **cabin and bundle** (§3.1), Supplier attribution evidence |
+| **Coverage** | The cabin × bundle table (§3.1 step 6): every combination the Supplier returned, and its status |
 | **Capabilities** | Per capability: Capability Result, Source Status, Application Level, evidence, any discrepancy record |
 | **Selections** | Per selected ancillary: the §7.1 field set |
 | **Pricing** | Base total before, each ancillary amount, updated total after, currency |

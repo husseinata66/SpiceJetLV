@@ -1,0 +1,79 @@
+{
+  "slug": "oman-air",
+  "name": "OmanAir",
+  "description": null,
+  "feature": "ancillaries",
+  "status": "Active",
+  "createdAt": "2026-10-04T14:15:30.307Z",
+  "updatedAt": "2026-10-04T14:15:30.885Z",
+  "supersededBy": null,
+  "stages": {
+    "context": {
+      "status": "Not Started",
+      "artifactPath": null,
+      "lastRun": null,
+      "lastUpdated": null,
+      "revisionCount": 0,
+      "targetRefAtWrite": null
+    },
+    "discovery": {
+      "status": "Not Started",
+      "artifactPath": null,
+      "lastRun": null,
+      "lastUpdated": null,
+      "revisionCount": 0,
+      "targetRefAtWrite": null
+    },
+    "test_design": {
+      "status": "Not Started",
+      "artifactPath": null,
+      "lastRun": null,
+      "lastUpdated": null,
+      "revisionCount": 0,
+      "targetRefAtWrite": null
+    },
+    "automation": {
+      "status": "Not Started",
+      "artifactPath": null,
+      "lastRun": null,
+      "lastUpdated": null,
+      "revisionCount": 0,
+      "targetRefAtWrite": null
+    },
+    "healing": {
+      "status": "Not Started",
+      "artifactPath": null,
+      "lastRun": null,
+      "lastUpdated": null,
+      "revisionCount": 0,
+      "targetRefAtWrite": null
+    }
+  },
+  "approvedAt": "2026-10-04T14:15:30.441Z",
+  "approvedBy": "Mohanad Dawood",
+  "capabilities": {
+    "hold": "Supported",
+    "payAfterHold": "Supported",
+    "meal": "Not Supported",
+    "baggage": "Not Supported",
+    "seat": "Supported",
+    "bundle": "Not Supported"
+  },
+  "capabilityHistory": [
+    {
+      "at": "2026-10-04T14:15:30.748Z",
+      "by": "Mohanad Dawood",
+      "changes": {
+        "hold": "Supported",
+        "payAfterHold": "Supported",
+        "meal": "Not Supported",
+        "baggage": "Not Supported",
+        "seat": "Supported",
+        "bundle": "Not Supported"
+      }
+    }
+  ],
+  "supplierRules": [],
+  "supplierRulesSetAt": "2026-10-04T14:15:30.885Z",
+  "supplierRulesSetBy": "Mohanad Dawood"
+}

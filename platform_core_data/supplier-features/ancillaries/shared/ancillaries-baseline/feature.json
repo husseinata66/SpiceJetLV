@@ -6,14 +6,14 @@
   "acceptanceCriteriaRef": null,
   "status": "Active",
   "createdAt": "2026-09-04T10:49:44.870Z",
-  "updatedAt": "2026-09-04T10:50:07.010Z",
+  "updatedAt": "2026-09-26T17:46:10.020Z",
   "supersededBy": null,
   "stages": {
     "context": {
-      "status": "Pending Review",
+      "status": "Approved",
       "artifactPath": "platform_core_data/supplier-features/ancillaries/shared/ancillaries-baseline/context/ProjectContext.md",
       "lastRun": null,
-      "lastUpdated": "2026-09-04T10:50:07.010Z",
+      "lastUpdated": "2026-09-26T17:46:10.020Z",
       "revisionCount": 1,
       "targetRefAtWrite": null
     },

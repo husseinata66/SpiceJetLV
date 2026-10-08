@@ -154,6 +154,53 @@ Three prohibitions define this stage's boundary:
 **The decision is read from the Markdown suite, which is authoritative** — not from the workbook. A reviewer who marked their decisions in the `.xlsx` must first move them into the Markdown with `cli.js --import-lifecycle` (`tools/test_suite_export/README.md`); until that runs, the workbook holds decisions the Markdown does not, and the next export would discard them. This stage never edits either file (§12 #8) — a scope that looks wrong is reported, not corrected here.
 
 
+## 4.2 The Capability Gate — which cases this Supplier can run at all
+
+*(Added 2026-09-27, user-mandated. `ndc_execution_rules.md` §A15.)*
+
+**Suppliers differ in what they can do.** flynas has no Hold and no Pay after Hold; another Supplier
+may sell no meals. Executing a Hold case against a Supplier that cannot hold produces a failure that
+means only "this Supplier was never going to do this" — noise that buries the real findings and, worse,
+makes a Supplier look worse than one whose suite happened to avoid its gaps.
+
+**So this gate runs first, before the `Review` gate.** Three questions, in order, each answering
+something the others cannot:
+
+```text
+Can this Supplier do it?   → §4.2   no  → Excluded — Not supported by supplier
+Is this case approved?     → §4.1   no  → Excluded — Pending / Rejected at Review
+Is this action allowed?    → §6.1   no  → Skipped — Execution Safety Policy
+```
+
+**The decision is computed, not interpreted.** This stage calls
+`platform_core/tools/capability_gate/cli.js plan --run {{RUN_FOLDER}}` **before executing anything**,
+which writes `runs/{{RUN_FOLDER}}/metadata/CapabilityPlan.md` — the same discipline as the Safety
+Preflight (§6.1). What will run is known and recorded up front, not discovered case by case.
+
+It reads two things, neither of which this stage may edit:
+
+| | |
+|---|---|
+| What the Supplier can do | `supplier.json` → `capabilities` — `Hold`, `Pay after Hold`, `Meal`, `Baggage`, `Seat`, `Bundle`, each `Supported` / `Not Supported` / `Unknown`, recorded at intake (`new_us_intake.md` §12.2) |
+| What the case needs | the case's own `Requires` and `Supplier Rule` columns (`test-design-skill` §6.1) |
+
+**`Unknown` is treated as `Not Supported`.** Nothing is guessed from a Supplier's name, from another
+Supplier, or from what a screen happens to show on one flight. A capability left `Unknown` silently
+narrows the run, which is why intake asks for it explicitly.
+
+**An excluded case is reported, never dropped** — the same rule §4.1 already applies. It keeps its row
+in the Results, the CSV and the QA Report with status `Excluded` and reason `Not supported by
+supplier`, and it stays **out of executable scope and out of the pass rate**. A Supplier that cannot
+hold is not penalised for Hold cases it could never run, and a reader can still see exactly which
+cases those were and why.
+
+**This gate never reclassifies a result.** It decides what runs; it does not turn a genuine `Failed`
+into an exclusion. A case that ran and failed stays `Failed` whatever its `Requires` says.
+
+**On a classic (non-Supplier) run this gate does not apply** — there is no Supplier, so every case
+passes it. It is keyed on the run's `scopeFamily === "supplier-feature"`, exactly as §A of
+`ndc_execution_rules.md` is, and never on a folder name or the word "supplier" in a User Story.
+
 ## 4.1 The Application Context — this stage closes its cycle
 
 *(Added 2026-08-18, user-mandated.)*
@@ -258,7 +305,7 @@ Every test case executed gets exactly one classification:
 | **Skipped** | The test case was deliberately not executed (e.g., its mutating action is not authorized for this environment, per §6) — a decision, not a failure. |
 | **Not Executed** | The test case was in scope but the run ended (time limit, environment failure, manual stop) before reaching it. |
 | **Inconclusive** | The test case was executed but produced a result this skill cannot confidently classify as Passed or Failed (e.g., a genuinely ambiguous UI state) — reported as such, never forced into Passed or Failed. |
-| **Excluded** | *(Added 2026-08-01.)* The test case was **never authorized to run**: its `Review` column is not `Approved` (§4.1). The reason is mandatory and is exactly one of `Pending Review` or `Rejected at Review`. |
+| **Excluded** | *(Added 2026-08-01; extended 2026-09-27.)* The test case was **never in the executable set**. The reason is mandatory and is exactly one of `Pending Review`, `Rejected at Review` (§4.1), or `Not supported by supplier` (§4.2). |
 
 **`Excluded` is deliberately not `Skipped`, and the distinction is load-bearing.** `Skipped` means a case that *was* authorized and that this stage decided, at execution time, not to run — an unauthorized mutating action on a shared environment, say. `Excluded` means the case was never in the executable set to begin with. Collapsing them makes the one question a reviewer most needs answered — *how much of the approved suite did we actually get through?* — impossible to compute, because the denominator would silently mix "you told me not to run this" with "I chose not to run this."
 

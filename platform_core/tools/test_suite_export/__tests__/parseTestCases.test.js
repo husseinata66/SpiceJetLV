@@ -215,6 +215,8 @@ test('toRows emits the §6.1 header in order, then one row per case', () => {
     // sit at the end. Their position is asserted here because the order is a contract, not a
     // preference: a reader diffing two workbooks relies on columns not shifting under them.
     'Review', 'Automation',
+    // Supplier gating columns, appended 2026-09-27 after the lifecycle pair for the same reason.
+    'Requires', 'Supplier Rule',
   ]);
   assert.strictEqual(rows.length, cases.length + 1);
   for (const row of rows) assert.strictEqual(row.length, FIELDS.length);

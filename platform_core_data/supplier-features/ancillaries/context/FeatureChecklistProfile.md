@@ -14,8 +14,8 @@
 **Feature:** Ancillaries (`ancillaries`)
 **Canonical location:** `platform_core_data/supplier-features/ancillaries/context/FeatureChecklistProfile.md`
 **Status:** Draft — pending approval
-**Revision:** 1
-**Last Updated:** 2026-09-04
+**Revision:** 2 — cabin × bundle coverage rows; OQ-ANC-06 answered (human decision, 2026-09-27)
+**Last Updated:** 2026-09-27
 
 ### Sources
 
@@ -23,7 +23,8 @@
 |---|---|---|---|
 | Shared baseline context | `shared/ancillaries-baseline/context/ProjectContext.md` | rev 1 | §A, §B, §C, §D rows and the `ANC-xx` IDs |
 | Feature-level capability model (not a shared scope) | `context/CapabilityModel.md` | rev 1 | The capability gate every row below depends on; injected separately into §5c |
-| Feature-level operational knowledge (not a shared scope) | `context/ExecutionFlow_HappyPath.md` | rev 1 | How to execute — referenced by Suppliers via `SupplierChecklist.md` §3c, never duplicated |
+| Feature-level operational knowledge (not a shared scope) | `context/ExecutionFlow_HappyPath.md` | rev 2 | How to execute — referenced by Suppliers via `SupplierChecklist.md` §3c, never duplicated. Rev 2 adds §3.1 cabin × bundle coverage |
+| Human decision (not a shared scope) | Mohanad Dawood, 2026-09-27, in session (run-006) | — | The cabin × bundle rows below, and the answer to OQ-ANC-06. No `ANC-xx` ID yet: to be added to the shared baseline context's §6 at its next Stage 1 review |
 
 **ID scheme used below:** `ANC-01` … `ANC-41`, the canonical series issued by the shared baseline
 context §6. No Traceability Matrix exists yet — no Test Design has run for this Feature.
@@ -45,8 +46,9 @@ or `N/A`.
 | Portal user able to search, book, and select ancillaries | ANC-19, ANC-21 | May or may not be the same account as the Admin user — OQ-ANC-08 |
 | A valid search route and date returning results from the Supplier under test | ANC-19, ANC-20 | Availability may depend on route / cabin / fare family — ANC-39, per-Supplier |
 | A multi-segment journey (e.g. CAI to DXB to BKK) | ANC-10, ANC-11, ANC-12, ANC-13 | Required to tell Segment-level from Journey-level behavior. A single-segment route cannot distinguish them |
-| Valid passenger data for the required passenger mix | ANC-21 | Passenger-type eligibility rules unknown at Feature level — OQ-ANC-06 |
+| Valid passenger data for the required passenger mix | ANC-21 | Passenger-type eligibility rules are Feature-level (OQ-ANC-06 answered 2026-09-27); Supplier-only rules are in each Supplier's `SupplierChecklist.md` §7c |
 | A fare/cabin on which ancillaries are actually offered | ANC-39 | Which fares expose ancillaries is a per-Supplier Discovery obligation, never assumed |
+| At least one flight **per cabin class** the Supplier returns, and the live bundle list for each cabin `[gated: Bundle]` | ANC-39; human decision 2026-09-27 | Drives the cabin × bundle matrix — `ExecutionFlow_HappyPath.md` §3.1. Prefer one flight selling several cabins on the same aircraft |
 | Baggage-eligible booking `[gated: Baggage]` | ANC-23, ANC-29, ANC-37 | Only where Baggage is Supported for this Supplier |
 | Meal-eligible booking `[gated: Meal]` | ANC-23, ANC-29, ANC-37 | Only where Meal is Supported for this Supplier |
 | Seat-eligible booking `[gated: Seat]` | ANC-23, ANC-29, ANC-37 | Only where Seat is Supported. Exposing Seat claims no Seatmap scope — OQ-ANC-09 |
@@ -90,6 +92,8 @@ or `N/A`.
 | Change or removal of a selected ancillary, before or after booking | — | **Open** — OQ-ANC-03. No coverage designed until confirmed |
 | Currency handling when credential market currency differs from booking currency | ANC-28, ANC-33 | **Open** — OQ-ANC-05 |
 | Bundle interaction with individually selected capabilities `[gated: Bundle]` | — | **Open** — OQ-ANC-07. Whether a Bundle includes, excludes, or coexists with separate selections is undefined |
+| Every bundle is exercised in every cabin class the Supplier returns — one fresh offer per cabin × bundle, same check set on each `[gated: Bundle]` | ANC-39; human decision 2026-09-27 | Confirmed (human decision). Procedure: `ExecutionFlow_HappyPath.md` §3.1. A combination already executed in the same run is not repeated |
+| Seat eligibility rules (infants, children, exit rows, seat sets) apply to every Supplier; only Supplier-specific rules differ `[gated: Seat]` | ANC-21; human decision 2026-09-27 | Confirmed (human decision). Supplier-only rules (e.g. ladies-only seats) are recorded per Supplier in `SupplierChecklist.md` §7c, collected at intake |
 
 **No universal happy-path row exists, deliberately.** A Supplier supporting Baggage + Meal + Seat +
 Bundle and one supporting Baggage + Meal both inherit this table, and both produce different coverage
@@ -144,7 +148,7 @@ register.
 | ProjectContext §8, OQ-ANC-03 | Can a selected ancillary be changed or removed, before or after booking? | §B change/removal row |
 | ProjectContext §8, OQ-ANC-04 | Which downstream representations must reflect ancillaries? | §B downstream row, ANC-25 completion criteria |
 | ProjectContext §8, OQ-ANC-05 | Currency handling when credential market currency differs from booking currency | §B currency row |
-| ProjectContext §8, OQ-ANC-06 | Are passenger-type eligibility rules global, or purely per-Supplier? | §A passenger data row, §C restriction row |
+| ProjectContext §8, OQ-ANC-06 | Are passenger-type eligibility rules global, or purely per-Supplier? **Answered 2026-09-27 (Mohanad Dawood): global — they apply to every Supplier — except Supplier-specific rules such as ladies-only seats, which are collected per Supplier at intake (`SupplierChecklist.md` §7c).** To be folded into the shared baseline context at its next Stage 1 review | §A passenger data row, §C restriction row |
 | ProjectContext §8, OQ-ANC-07 | Do Bundle and individual capabilities conflict? | §B Bundle interaction row |
 | ProjectContext §8, OQ-ANC-08 | Are Admin and Portal the same environment and tenant? Same login? | §A user rows, §B independent-recording row, §D URL row |
 | ProjectContext §8, OQ-ANC-09 | Seat / Seatmap boundary — deferred by decision | §A and §B Seat rows |

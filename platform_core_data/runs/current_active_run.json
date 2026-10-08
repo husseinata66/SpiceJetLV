@@ -1,17 +1,19 @@
 {
   "schemaVersion": 1,
   "activeRun": {
-    "folderName": "run-005__2026-09-01_11-41-40__UserStory__ImportBookedPNR-NewLayerContract",
-    "index": 5,
-    "scope": "UserStory",
-    "target": "ImportBookedPNR-NewLayerContract",
+    "folderName": "run-009__2026-10-04_18-30-46__Targeted__Ancillaries-OmanAir-Admin",
+    "index": 9,
+    "scope": "Targeted",
+    "target": "Ancillaries-OmanAir-Admin",
     "status": "Preparing",
     "title": null,
-    "startedTime": "2026-09-01T08:41:40.582Z",
-    "stagesPresent": [],
-    "path": "platform_core_data/runs/run-005__2026-09-01_11-41-40__UserStory__ImportBookedPNR-NewLayerContract"
+    "startedTime": "2026-10-04T15:30:46.831Z",
+    "stagesPresent": [
+      "manual_execution"
+    ],
+    "path": "platform_core_data/runs/run-009__2026-10-04_18-30-46__Targeted__Ancillaries-OmanAir-Admin"
   },
-  "switchedAt": "2026-09-01T08:41:40.582Z",
+  "switchedAt": "2026-10-05T13:11:47.744Z",
   "setBy": "Run Manager",
-  "previousRun": "run-004__2026-08-17_14-35-25__UserStory__US-4222-UpdateAgency"
+  "previousRun": "run-011__2026-10-05_15-54-30__Targeted__Ancillaries-AirSMCairo-Admin"
 }

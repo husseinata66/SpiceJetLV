@@ -300,3 +300,42 @@ test('proposing a Feature scaffolds nothing until it is approved', () => {
     assert.equal(rows.find((r) => r.slug === 'refund').status, 'Proposed');
   });
 });
+
+test('supplier capabilities records answers into supplier.json and prints them', () => withDir((dir) => {
+  seedFullTree(dir);
+  const set = runCli([
+    'supplier-feature', 'supplier', 'capabilities', 'import-booked-pnr', 'travelport-ndc',
+    '--hold', 'no', '--pay-after-hold', 'no', '--bundle', 'yes', '--seat', 'yes', '--by', 'QA Lead',
+  ], dir);
+  assert.equal(set.code, 0, set.stderr);
+  assert.match(set.stdout, /Hold\s+Not Supported/);
+  assert.match(set.stdout, /Meal\s+Unknown/);
+  const state = readJson(path.join(dir, 'import-booked-pnr', 'suppliers', 'travelport-ndc', 'supplier.json'));
+  assert.equal(state.capabilities.bundle, 'Supported');
+  assert.equal(state.capabilityHistory[0].by, 'QA Lead');
+
+  const shown = runCli([
+    'supplier-feature', 'supplier', 'capabilities', 'import-booked-pnr', 'travelport-ndc', '--json',
+  ], dir);
+  assert.equal(JSON.parse(shown.stdout).seat, 'Supported');
+}));
+
+test('supplier capabilities without --by is refused and writes nothing', () => withDir((dir) => {
+  seedFullTree(dir);
+  const r = runCli([
+    'supplier-feature', 'supplier', 'capabilities', 'import-booked-pnr', 'travelport-ndc', '--hold', 'yes',
+  ], dir);
+  assert.equal(r.code, 1);
+  const state = readJson(path.join(dir, 'import-booked-pnr', 'suppliers', 'travelport-ndc', 'supplier.json'));
+  assert.equal(state.capabilities, undefined);
+}));
+
+test('supplier rules records slugs, and "none" as an empty recorded list', () => withDir((dir) => {
+  seedFullTree(dir);
+  const base = ['supplier-feature', 'supplier', 'rules', 'import-booked-pnr', 'travelport-ndc'];
+  assert.match(runCli(base, dir).stdout, /not yet asked/);
+  assert.equal(runCli([...base, '--value', 'ladies-only-seats', '--by', 'QA'], dir).code, 0);
+  assert.match(runCli(base, dir).stdout, /ladies-only-seats/);
+  assert.equal(runCli([...base, '--value', 'none', '--by', 'QA'], dir).code, 0);
+  assert.match(runCli(base, dir).stdout, /: None/);
+}));

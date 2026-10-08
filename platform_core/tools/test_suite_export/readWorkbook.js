@@ -143,25 +143,29 @@ function columnIndex(letters) {
  */
 function parseSheet(xml, sharedStrings) {
   const rows = [];
-  const rowRe = /<row(?:\s([^>]*))?>([\s\S]*?)<\/row>|<row(?:\s([^>]*))?\/>/g;
+  // The self-closing form is tried FIRST: `<row r="5" .../>` would otherwise match the opening-tag
+  // alternative and swallow every following row up to the next `</row>`.
+  const rowRe = /<row(?:\s([^>]*?))?\/>|<row(?:\s([^>]*))?>([\s\S]*?)<\/row>/g;
   let rowMatch;
   let sequentialRow = 0;
 
   while ((rowMatch = rowRe.exec(xml)) !== null) {
-    const attrs = rowMatch[1] || rowMatch[3] || '';
-    const body = rowMatch[2] || '';
+    const attrs = rowMatch[1] || rowMatch[2] || '';
+    const body = rowMatch[3] || '';
     const rAttr = /\br="(\d+)"/.exec(attrs);
     const rowIndex = rAttr ? Number(rAttr[1]) - 1 : sequentialRow;
     sequentialRow = rowIndex + 1;
 
     const cells = [];
-    const cellRe = /<c(?:\s([^>]*))?>([\s\S]*?)<\/c>|<c(?:\s([^>]*))?\/>/g;
+    // Self-closing first, for the same reason: a styled empty cell (`<c r="R2" s="5"/>`, written by
+    // Excel and openpyxl for a blank formatted cell) would otherwise take the NEXT cell's value.
+    const cellRe = /<c(?:\s([^>]*?))?\/>|<c(?:\s([^>]*))?>([\s\S]*?)<\/c>/g;
     let cellMatch;
     let sequentialCol = 0;
 
     while ((cellMatch = cellRe.exec(body)) !== null) {
-      const cellAttrs = cellMatch[1] || cellMatch[3] || '';
-      const cellBody = cellMatch[2] || '';
+      const cellAttrs = cellMatch[1] || cellMatch[2] || '';
+      const cellBody = cellMatch[3] || '';
       const refAttr = /\br="([A-Z]+)\d+"/.exec(cellAttrs);
       const col = refAttr ? columnIndex(refAttr[1]) : sequentialCol;
       sequentialCol = col + 1;

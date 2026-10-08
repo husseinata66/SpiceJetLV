@@ -1,0 +1,23 @@
+{
+  "runId": "run-006__2026-09-26_20-51-48__Targeted__Ancillaries-FlynasNDCSeatMap",
+  "authorizations": [
+    {
+      "authorizationId": "AUTH-ANCILLARIES-CREATE-SelfCreated",
+      "runId": "run-006__2026-09-26_20-51-48__Targeted__Ancillaries-FlynasNDCSeatMap",
+      "environment": "Staging",
+      "module": "ancillaries",
+      "action": "CREATE",
+      "ownership": "SelfCreated",
+      "targetScope": "passenger details each case submits to its own flight offer (booking/add-pax), run-006 only",
+      "decision": "Allowed",
+      "approvedAt": "2026-09-26T18:03:00.113Z",
+      "approvedBy": "Mohanad Dawood",
+      "policyId": "ndc-admin-portal-stg",
+      "policyVersion": 1,
+      "policyHash": "sha256:374508eece1cebbb084334ce1bdbcefe",
+      "cleanupRequired": false,
+      "note": "Granted 2026-09-26 in session. BOOK and WALLET_CHARGE remain Forbidden (absolute).",
+      "revoked": false
+    }
+  ]
+}

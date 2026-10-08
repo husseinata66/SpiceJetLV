@@ -1,0 +1,28 @@
+{
+  "folderName": "run-009__2026-10-04_18-30-46__Targeted__Ancillaries-OmanAir-Admin",
+  "index": 9,
+  "scope": "Targeted",
+  "target": "Ancillaries-OmanAir-Admin",
+  "workflow": "unversioned",
+  "targetRef": "62dbab2bdd8a8a0f393813e108b899a64c54a9ab",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-10-04T15:30:46.831Z",
+  "targetRepoRoot": "C:/Users/Sheen-qc/Desktop/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at C:/Users/Sheen-qc/Desktop/agentic-ai-testing-platform",
+  "createdBy": "Run Manager",
+  "startedTime": "2026-10-04T15:30:46.831Z",
+  "status": "Preparing",
+  "scopeFamily": "supplier-feature",
+  "feature": "ancillaries",
+  "supplier": "oman-air",
+  "sharedScope": null,
+  "testingLayerScope": [
+    "Admin"
+  ],
+  "scopeHistory": [],
+  "environment": {
+    "admin": "http://192.168.1.237",
+    "credentialName": "OmanAir Staging",
+    "execution": "Headed"
+  }
+}

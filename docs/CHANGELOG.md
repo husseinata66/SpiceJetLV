@@ -36,6 +36,38 @@ with no recorded scope stays a bare `run-NNN`.
 
 ---
 
+## 2026-09-27 — Supplier capabilities decide which test cases run
+
+User-mandated. Suppliers differ in what they can do — flynas has no Hold and no Pay after Hold — so a
+test case needing a capability the Supplier lacks is now **excluded before execution** instead of run
+and failed. Six capabilities: `Hold`, `Pay after Hold`, `Meal`, `Baggage`, `Seat`, `Bundle`, each
+`Supported` / `Not Supported` / `Unknown`, where **`Unknown` is treated as Not Supported** (nothing is
+guessed).
+
+- **Asked at intake**, one question per capability, plus which supplier credential the run uses
+  (`new_us_intake.md` §12.2 steps 2–3; `ndc_execution_rules.md` §A2, new §A15). Never inferred from a
+  Supplier's name, from another Supplier, or from what one flight's screen happens to show.
+- **Recorded in `supplier.json`** via two new commands — `supplier-feature supplier capabilities` and
+  `supplier rules` — which append to `capabilityHistory`; `SupplierChecklist.md` §2c mirrors them for a
+  reader, and §7c gains a `Slug` column so rule-specific cases can be matched to a Supplier. Neither
+  file is hand-edited. **`Pay after Hold` depends on `Hold`** — it acts on a held booking, so turning
+  Hold off takes it down too (recorded, never silent), asking for both at once is refused, and intake
+  skips the question entirely when Hold is not Supported.
+- **Test cases declare what they need**: new `Requires` and `Supplier Rule` columns, appended after the
+  lifecycle pair so no existing column moves (`test-design-skill` §6.1, new §6.2a). `Requires` takes
+  `None`, a `+`-joined list, or a negation (`Not Hold`) for cases that test a Supplier *without* a
+  capability.
+- **New tool `platform_core/tools/capability_gate/`** computes the plan and writes
+  `runs/<run>/metadata/CapabilityPlan.md` **before execution starts**, the same discipline as the
+  Safety Preflight. It is the first of three gates (`manual-execution-skill` new §4.2): *can this
+  Supplier do it* → *is this case approved* → *is this action allowed*. Excluded cases keep their row
+  with reason `Not supported by supplier` and stay out of executable scope and pass rate.
+- **Platform defect fixed**: `test_suite_export/readWorkbook.js` mis-parsed self-closing `<c/>` and
+  `<row/>` elements, so a styled-but-empty cell took the next cell's value — silently shifting columns
+  on any workbook written with blank formatted cells. Regression test added.
+
+---
+
 ## 2026-09-03 — NDC Core Service runs gain an execution/governance rule set
 
 User-mandated. Adds `workflows_and_pipelines/pipeline/ndc_execution_rules.md`, a rule set that

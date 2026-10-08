@@ -1,0 +1,96 @@
+Test ID,Status,Evidence / Note
+TC-SM-NAV-001,Passed,Admin wizard has two steps (Passenger Info / Ancillaries); seats only reachable on step 2
+TC-SM-NAV-002b,N/A,No bundle step on this supplier
+TC-SM-NAV-003,Passed,'Select Seat' opens full-screen map titled Seat Map · CAI → JED · Onward
+TC-SM-NAV-005,Passed,Rerun: map closes with nothing chosen; no seat panel; price unchanged (28451.4)
+TC-SM-RND-001,Passed,Seat total equals drawn seats on every map (167/167; 156/156; 168/168; 179/179)
+TC-SM-RND-002,Passed,All seat numbers unique; every seat in one state; only 'available' observed (no taken seats to sort)
+TC-SM-RND-003,Passed,Every label has seat number / row / side / cabin / features / price
+TC-SM-RND-005,Passed,Cabin1-3 all Economy; key shows Economy from EGP 236; consistent
+TC-SM-RND-006,Passed,Map header flight SM479 20:20-22:30 aircraft 320 matches chosen flight
+TC-SM-RND-007,Passed,SM475 (168 seats) vs SM480 (179 seats) give different maps
+TC-SM-RND-010,Passed,Round trip: one map per flight (SM475 CAI-JED Onward; SM480 JED-CAI Return)
+TC-SM-STA-002,Known Bug,Not counted as a test failure. Product bug per tester: (1) a reserved seat is REMOVED from the map instead of being returned as occupied/blocked (evidence: 3A missing on SM475 15/10 after Hold 8ODF37; tester booked 1A on SM479 16/10 and the map went 173 -> 172 seats with 1A gone; screenshot in evidence). (2) After a FAILED booking the seat should be released open again, but seats from failed attempts stayed missing (5A 5B 7A 9A 9B 11A on SM479 16/10) - inconsistent: 1A 1B 4A from the last failed attempt were back. Expected: reserved seat shown as occupied/blocked; seat freed when the booking fails
+TC-SM-STA-004,Passed,Words seen: Chargeable Seat / Leg space seat / Window seat / Exit or emergency exit seat / Seat not allowed for infant (wording differs from sheet list - review)
+TC-SM-STA-005,Passed,All 56 'Window seat' labels are at row edges; no 'Aisle seat' label exists on this aircraft
+TC-SM-STA-006,Passed,Exit rows 12-13 contiguous (12 seats) flagged Exit or emergency exit seat; not marked Leg space
+TC-SM-SEL-001,Passed,One click opens info panel; count stays 0/3; bottom button unchanged
+TC-SM-SEL-002,Passed,Button 'Book 5A for AdultOne' (real seat + first name); count 1/3 after press
+TC-SM-SEL-003,Passed,Panel shows state / seat / price / cabin / position in row / deck
+TC-SM-SEL-006,Passed,Continue without seats -> Confirm 1 of 3 seats -> Confirm 3 seats; Clear all present
+TC-SM-SEL-007,Passed,Moving passenger 5C->10A freed 5C; count stayed 3/3
+TC-SM-SEL-008,Passed,Clear all -> 0/3; seats free; charge 'No seat charges Free'; button back to Continue without seats
+TC-SM-SEL-009,Passed,Confirm closes map; 'Selected seats 3 travellers' lists name / seat / price
+TC-SM-SEL-010,Passed,Rerun: after confirming, the button (labelled Seat 2 more when seats remain) reopens the map with 5A still chosen (1/3) and the card showing 5A
+TC-SM-SEL-012,Passed,Held seat labelled 'selected for AdultOne TestAirCairo'; button 'Assigned to another passenger' disabled
+TC-SM-MPX-002,Passed,Seat went to the active passenger; button named that passenger
+TC-SM-MPX-004,Passed,Second passenger cannot take a held seat (disabled button; holder named)
+TC-SM-MPX-006,Passed,Return map started 0/1; outbound seat did not copy over
+TC-SM-MPX-007,Passed,Rerun: confirming 1 of 3 seats is allowed; summary lists one traveller (AdultOne 5A 614); Book and Hold stay enabled
+TC-SM-PRC-002,Passed,All 167 chargeable seats carry a price (236/614/1180); none zero or free
+TC-SM-PRC-003,Passed,Seat Selection is its own line; payable 26907 -> 28371 (+1464)
+TC-SM-PRC-003b,Passed,Three prices on one aircraft; cabin1 'from EGP 236'
+TC-SM-PRC-004,Passed,Base 11200 + tax 15707 + seats 1464 = 28371
+TC-SM-GEN-003,Passed,Mr -> Male; Ms -> Female; gender not editable (Mrs not tried)
+TC-SM-PER-001,Passed,Prev then Next kept seats meals bags; total unchanged 30216
+TC-SM-PER-002,Passed,Seat 1464 + meal 1560 + bag 285 each own line; total 30216
+TC-SM-PER-004,Skipped,Needs a real 60-minute wall-clock wait
+TC-SM-PER-007,Passed,Seat listed in summary and payable before pressing Book
+TC-SM-NEG-003,Passed,4 rapid clicks on book button -> one seat; count never above 3/3
+TC-SM-NEG-006,Failed,Broken token is refused but user lands on Dashboard not Flight Search
+TC-SM-A11Y-001,Passed,Rerun at 640px: page does not slide sideways; traveller panel visible; last-row seat 30A reachable and bookable
+TC-SM-A11Y-002,Passed,Every seat is a button with label incl. availability; held seat announced; book button names seat and passenger
+TC-SM-PAX-001,Passed,Infants get no meal / bag / seat card; child gets all three; map lists 3 travellers
+TC-SM-PAX-003,Passed,'Assigned to' lists adults only (child not offered)
+TC-SM-PAX-004,Passed,After a seat is booked the next passenger without a seat becomes active
+TC-SM-PAX-006,Passed,Fare and tax listed per type; child priced same as adult (base 3500 / tax 3387.8)
+TC-SM-PAX-007,Failed,Rerun on Admin: (1) closed section still accepts typing (2) two sections can be open at once (Adult2 + Child) (3) Next is blocked with Required markers but the closed passenger header shows no signal. Expand All works. Same 3 of 4 sub-checks as Portal run-007
+TC-SM-PAX-008,Passed,Accepted by tester: booking is rejected when both infant-holding adults share a seat set and the seat map does not pre-block the neighbouring seats (not a bug). Note: my own scripted failures for this scenario were automation artefacts so they are not used as evidence
+TC-SM-FRC-001,N/A,Supplier-specific behaviour: the Price Update pop-up after Book Flight only happens with flynas (tester). Not applicable to Air Cairo. The token fareMismatch flag was false on every Air Cairo booking
+TC-SM-FRC-002,N/A,Supplier-specific behaviour: the Price Update pop-up after Book Flight only happens with flynas (tester). Not applicable to Air Cairo. The token fareMismatch flag was false on every Air Cairo booking
+TC-SM-FRC-003,N/A,Supplier-specific behaviour: the Price Update pop-up after Book Flight only happens with flynas (tester). Not applicable to Air Cairo. The token fareMismatch flag was false on every Air Cairo booking
+TC-SM-FRC-005,N/A,Supplier-specific behaviour: the Price Update pop-up after Book Flight only happens with flynas (tester). Not applicable to Air Cairo. The token fareMismatch flag was false on every Air Cairo booking
+TC-SM-ERR-001,Failed,Rerun: a simulated HTTP 500 on the flight search call is shown on screen as No Flights Found - no error message and no retry. Matches the fault described in the sheet (server failure looks like no results). Screenshot in evidence. Decision needed whether to treat as Known Bug like CNF-018
+TC-SM-ERR-002,Not Executed,Session expiry seen once but not exercised mid-booking
+TC-SM-ERR-004,Passed,Rerun: after typing egy in one nationality list the next list opens with empty filter and all 249 options
+TC-SM-ERR-005,Passed,Each result card names its connection (aircairo ndc test)
+TC-SM-EXR-001,Passed,Lone adult booked exit seat 12A (EGP 1180) with no restriction
+TC-SM-EXR-002,Passed,CORRECTED: exit rows are NOT removed when an infant is in the party (2 ADT + 1 INF showed rows 12-13). The seat map lets the infant-holding adult pick an exit seat; the rule is enforced by the supplier at submission (seen on Portal run-007). Same pattern as EXR-004 per tester decision. Earlier note (rows removed with infants) came from stale automation sessions
+TC-SM-EXR-003,Passed,Rerun: seat map lets the child pick exit seat 12A but Hold is rejected by the supplier: SPECIFIC SEAT REQUESTED NOT AVAILABLE - RESTRICTED & ACCEPTED (order YODSFA). Evidence screenshot saved
+TC-SM-EXR-004,Passed,Rule enforced at submission (Hold rejected: SPECIFIC SEAT REQUESTED NOT AVAILABLE - RESTRICTED). The seat map does not recheck per passenger - not treated as a bug per tester decision same as PAX-008
+TC-SM-EXR-005,Passed,Rerun (2 ADT + 1 INF SM479 16/10): exit rows 12-13 shown; 12A identical and bookable for both adults whether the infant is linked to AdultOne or re-linked to AdultTwo - the map does not move the restriction. Same pattern as PAX-008 / EXR-004 (not handled in UI; rule enforced by supplier at submission). Submission not re-tested here because booking is currently down
+TC-SM-RTP-001,Passed,Round trip shows 2 Select Seat buttons and 2 meal / 2 baggage panels labelled Onward / Return
+TC-SM-RTP-004,Passed,Return map opens empty on its own aircraft; outbound 5A still offered there
+TC-SM-RTP-005,Not Executed,Round-trip wizard shows no Fare Breakdown panel; only per-journey 'Selected seats' lines and Net Payable 15461.8
+TC-SM-MCT-003,Passed,Rerun on a 2-leg multi-city (CAI-JED then JED-CAI): 2 seat maps 2 meal boxes 2 baggage boxes (one per flight). A 3-leg search (JED-RUH-CAI) returned No Flights Found so 3 legs could not be tested
+TC-SM-MCT-004,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-SM-MCT-005,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-SM-MCT-006,Passed,Rerun on 2-leg multi-city: Extra Baggage has one box per journey labelled CAI-JED Trip 1 and JED-CAI Trip 2
+TC-SM-MCT-007,Not Executed,Rerun: no connecting itinerary available - CAI-RUH and CAI-DMM search results are all Non Stop (CAI-JED also non stop)
+TC-SM-CNF-001,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-SM-CNF-002,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-SM-CNF-003,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-SM-CNF-004,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-SM-CNF-007,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-SM-CNF-008,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-SM-CNF-010,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-SM-CNF-011,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-SM-CNF-012,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-SM-CNF-015,Passed,Rerun: walked away from the wizard with seats chosen; order count on BRN298 stayed 26 (no order created); wallet 647245.8 shown before leaving
+TC-SM-CNF-017,Passed,Failed bookings show Booking Failed with 0.00 payable on confirmation and details (list and dashboard not checked)
+TC-SM-CNF-018,Known Bug,Not counted as a test failure. Failed because of a known product bug: editing an adult's name then coming forward wipes all seats meals bags (30216 -> 26907) and clears infant links. Reproduced on flynas Portal (run-006) and Air Cairo Portal (run-007) and Admin (run-008)
+TC-ML-001,Passed,Adult and child each have a 22-item meal list with names and prices
+TC-ML-002,Passed,No meal choice for infants
+TC-ML-003,Passed,Meal +520 own line; removing it returns total and drops the line
+TC-ML-005,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-BG-001,Passed,Adult and child each have a 9-item baggage list with prices
+TC-BG-002,Passed,No baggage choice for infants
+TC-BG-003,Passed,Changing bag 95 -> 3068 replaces the first (only 3068 charged)
+TC-BG-005,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-HLD-005,Passed,Hold 8ODF37 kept seat 3A + meal + bag (11266.8)
+TC-PAH-002,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-PAH-003,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-PAH-004,Blocked,Not yet run: earlier submissions failed because of automation / stale-state artefacts (tester repeats them manually without errors). Rerun in a clean session per booking
+TC-SM-BND-006,Passed,No bundle choice or line; 2 steps only
+TC-SM-PRC-005,N/A,Air Cairo prices natively in EGP - no currency conversion or ROE on Admin (baggage/meal/seat all shown in EGP)
+TC-SM-CNF-016,N/A,Baggage list is per-item (One Kilogram / Golf / Ski / Excess Fees ...) - no discrete weight tiers to build the same-weight clash

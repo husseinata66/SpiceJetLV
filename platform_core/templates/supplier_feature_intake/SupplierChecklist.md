@@ -120,6 +120,33 @@
 | Security testing applicable? | Yes / No / Unknown | | | |
 | Performance testing applicable? | Yes / No / Unknown | | | |
 
+## 2c. Supplier Capabilities — GENERIC
+
+<!-- WHAT THIS IS. Which of the six optional actions this Supplier can perform. Booking itself is
+     NOT listed: every Supplier books, so the question would gate nothing. Suppliers differ:
+     flynas has no Hold and no Pay after Hold. A test case that needs a capability the Supplier lacks
+     is EXCLUDED before execution, never run and failed (`ndc_execution_rules.md` §A15).
+
+     ASKED AT INTAKE, always, one question per row (`new_us_intake.md` §12.2 step 3). It is never
+     inferred from the Supplier's name, from another Supplier, or from what the UI happens to show.
+
+     `Unknown` is treated as Not Supported by the capability gate — nothing is guessed. Answer it
+     properly before a run rather than leaving it to that default.
+
+     THE RECORDED VALUE IS supplier.json, NOT THIS TABLE. Write it with
+     `module_manager/cli.js supplier-feature supplier capabilities <feature> <supplier> --hold no ... --by "<who>"`,
+     which appends to `capabilityHistory`. This table mirrors it for a human reader. Never hand-edit
+     either one. -->
+
+| Capability | Supported / Not Supported / Unknown | Source | Notes |
+|---|---|---|---|
+| Hold | Unknown | Intake — {{WHO}}, {{DATE}} | Can a booking be held without paying? |
+| Pay after Hold | Unknown | Intake — {{WHO}}, {{DATE}} | Can a held booking be paid later? Depends on Hold — Not Supported whenever Hold is, and not asked at intake in that case |
+| Meal | Unknown | Intake — {{WHO}}, {{DATE}} | Are meals sold? |
+| Baggage | Unknown | Intake — {{WHO}}, {{DATE}} | Is extra baggage sold? |
+| Seat | Unknown | Intake — {{WHO}}, {{DATE}} | Is seat selection offered? |
+| Bundle | Unknown | Intake — {{WHO}}, {{DATE}} | Are fare bundles/packages offered? |
+
 ## 2b. Testing Layer Scope — GENERIC
 
 <!-- Default: every layer is In Scope unless the human explicitly restricts a specific run — a
@@ -333,6 +360,27 @@ overwriting:
 <!-- Execution Layer values: UI / API / Contract / Integration / E2E / Regression / DB.
      A behavior marked Open/Provisional/Pending Confirmation in the Profile keeps that status here —
      rendering never promotes it to Confirmed. -->
+
+### 7c. Supplier-Specific Rules — GENERIC
+
+<!-- Feature-level business rules apply to EVERY Supplier of this Feature. This table holds only the
+     rules that belong to THIS Supplier — an extra restriction, an exception, or a stricter version of
+     a Feature rule (e.g. ladies-only seats on one airline).
+
+     Collected at intake, BEFORE the first run on this Supplier: ask the human running the pipeline
+     "Does this Supplier have rules of its own, beyond the Feature's rules?" (ndc_execution_rules.md
+     §A2). Record each answer here with its source. "None" is a valid, recorded answer — never left
+     blank. A rule found later in live behavior is added here as Pending Confirmation until the human
+     confirms it; it is never promoted to the Feature's rules from one Supplier alone. -->
+
+| Rule | Slug | Relation to Feature rules | Applies to | Expected behavior | Source | Status |
+|---|---|---|---|---|---|---|
+| {{SUPPLIER_RULE}} | {{rule-slug}} | Adds / Replaces / Stricter than `<Feature rule>` | | | Intake — {{WHO}}, {{DATE}} | Confirmed / Pending Confirmation |
+
+<!-- `Slug` is what a test case's `Supplier Rule` column names (e.g. `ladies-only-seats`), so the
+     capability gate can tell which rule-specific cases belong to this Supplier. Record the CONFIRMED
+     slugs with `... supplier rules <feature> <supplier> --value "slug,slug"|none --by "<who>"`; a rule
+     still Pending Confirmation is not recorded there, so its cases stay excluded until it is confirmed. -->
 
 ## 8. Error Handling
 

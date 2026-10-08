@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Air Cairo Ancillaries — QA Report</title>
+<style>
+  :root{
+    color-scheme: light;
+    --paper:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAEEF4;
+    --ink:#10151F; --ink-2:#45536B; --ink-muted:#7C8AA0;
+    --line:#DDE3EC; --line-strong:#C6CEDC;
+    --accent:#2A78D6; --accent-ink:#1C5CAB; --accent-wash:#E4EEFA;
+    --good:#0CA30C; --warning:#C98A17; --serious:#D9673C; --critical:#D03B3B;
+    --good-wash:rgba(12,163,12,0.12); --warning-wash:rgba(250,178,25,0.16);
+    --serious-wash:rgba(236,131,90,0.14); --critical-wash:rgba(208,59,59,0.12);
+    --shadow:rgba(16,21,31,0.08);
+    --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --font-mono:ui-monospace,"SF Mono","Cascadia Code","Roboto Mono",Consolas,"Courier New",monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --paper:#0A0E15; --surface:#111826; --surface-2:#16202F;
+      --ink:#EDF1F7; --ink-2:#B7C2D1; --ink-muted:#8290A6;
+      --line:#232E40; --line-strong:#324058;
+      --accent:#3987E5; --accent-ink:#8FBBEF; --accent-wash:#152A45;
+      --good:#35C24A; --warning:#E3A730; --serious:#E88A5E; --critical:#EA5B5B;
+      --good-wash:rgba(53,194,74,0.16); --warning-wash:rgba(227,167,48,0.16);
+      --serious-wash:rgba(232,138,94,0.16); --critical-wash:rgba(234,91,91,0.18);
+      --shadow:rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --paper:#0A0E15; --surface:#111826; --surface-2:#16202F;
+    --ink:#EDF1F7; --ink-2:#B7C2D1; --ink-muted:#8290A6;
+    --line:#232E40; --line-strong:#324058;
+    --accent:#3987E5; --accent-ink:#8FBBEF; --accent-wash:#152A45;
+    --good:#35C24A; --warning:#E3A730; --serious:#E88A5E; --critical:#EA5B5B;
+    --good-wash:rgba(53,194,74,0.16); --warning-wash:rgba(227,167,48,0.16);
+    --serious-wash:rgba(232,138,94,0.16); --critical-wash:rgba(234,91,91,0.18);
+    --shadow:rgba(0,0,0,0.5);
+  }
+  :root[data-theme="light"]{
+    color-scheme: light;
+    --paper:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAEEF4;
+    --ink:#10151F; --ink-2:#45536B; --ink-muted:#7C8AA0;
+    --line:#DDE3EC; --line-strong:#C6CEDC;
+    --accent:#2A78D6; --accent-ink:#1C5CAB; --accent-wash:#E4EEFA;
+    --good:#0CA30C; --warning:#C98A17; --serious:#D9673C; --critical:#D03B3B;
+    --good-wash:rgba(12,163,12,0.12); --warning-wash:rgba(250,178,25,0.16);
+    --serious-wash:rgba(236,131,90,0.14); --critical-wash:rgba(208,59,59,0.12);
+    --shadow:rgba(16,21,31,0.08);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--paper); color:var(--ink); font-family:var(--font-sans);
+        font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation-duration:.001ms !important; transition-duration:.001ms !important; } }
+  a{ color:var(--accent-ink); }
+  .wrap{ max-width:960px; margin:0 auto; padding:32px 20px 80px; }
+  .dashboard-card{ background:var(--surface); border:1px solid var(--line-strong); border-radius:24px; padding:24px; }
+  code,.mono{ font-family:var(--font-mono); font-size:.92em; }
+  .header{ display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:24px; }
+  .header-main{ flex:1 1 auto; min-width:280px; }
+  .header h1{ font-size:32px; font-weight:800; margin:0 0 8px; }
+  .header .meta{ color:var(--ink-muted); font-size:13px; }
+  .pill{ display:inline-flex; align-items:center; gap:6px; padding:6px 18px; border-radius:999px; font-size:12px; font-weight:700; letter-spacing:.03em; border:1px solid transparent; }
+  .pill-complete{ background:var(--good-wash); color:var(--good); border-color:var(--good); }
+  .pill-interrupted{ background:var(--critical-wash); color:var(--critical); }
+  .section-num{ font-size:17px; font-weight:700; color:var(--ink); margin:32px 0 14px; text-transform:none; letter-spacing:normal; border-bottom:none; padding-bottom:0; }
+  .summary-layout{ display:flex; align-items:center; gap:36px; flex-wrap:wrap; margin-bottom:28px; }
+  .donut-block{ display:flex; align-items:center; gap:20px; flex-shrink:0; }
+  .stats-block{ flex:1 1 360px; min-width:280px; display:flex; flex-direction:column; gap:14px; }
+  .scard{ text-align:center; }
+  .scard .lbl{ font-size:15px; font-weight:700; color:var(--ink-muted); margin-top:4px; }
+  .scard .val{ font-size:24px; font-weight:700; color:var(--ink); }
+  .scard .val.pass{ color:var(--good); }
+  .scard .val.fail{ color:var(--critical); }
+  .scard .val.blocked{ color:var(--serious); }
+  .scard .val.accent{ color:var(--accent-ink); }
+  .scard-total .lbl{ font-size:17px; margin-top:6px; }
+  .scard-total .val{ font-size:28px; }
+  summary.section-summary-flex > .section-count-badges,
+  summary.section-summary-flex > .section-count-badge{ float:right; }
+  .section-count-badge{ display:flex; flex-direction:column; align-items:center; justify-content:center;
+      background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; padding:6px 20px;
+      text-transform:none; letter-spacing:normal; flex-shrink:0; }
+  .section-count-badge .scb-val{ font-size:20px; font-weight:700; color:var(--accent-ink); line-height:1.2; }
+  .section-count-badge .scb-lbl{ font-size:11px; color:var(--ink-muted); margin-top:1px; }
+  .section-count-badges{ display:flex; gap:10px; flex-shrink:0; }
+  .scb-val.serious{ color:var(--serious); }
+  .scb-val.accent{ color:var(--accent-ink); }
+  .summary-cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; }
+  .donut{ width:280px; height:280px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .donut-hole{ width:190px; height:190px; border-radius:50%; background:var(--paper); display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .donut-pct{ font-size:34px; font-weight:800; color:var(--ink); }
+  .donut-sub{ font-size:15px; color:var(--ink-muted); }
+  .donut-legend{ display:flex; flex-direction:column; gap:10px; }
+  .litem{ display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-2); white-space:nowrap; }
+  .litem .lcount{ margin-left:4px; color:var(--ink-muted); }
+  .swatch{ width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+  .swatch.pass{ background:var(--good); }
+  .swatch.fail{ background:var(--critical); }
+  .swatch.blocked{ background:var(--serious); }
+  h2{ font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-2);
+      border-bottom:1px solid var(--line); padding-bottom:6px; margin:32px 0 12px; }
+  .section-collapse{ margin:0; }
+  .section-collapse > summary{ font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-2);
+      border-bottom:1px solid var(--line); padding-bottom:6px; margin:32px 0 12px; cursor:pointer; }
+  .section-collapse > summary::-webkit-details-marker{ color:var(--ink-muted); }
+  .tc-section > summary{ margin-top:0; }
+  .tc-category{ background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; margin-bottom:10px; }
+  .tc-category > summary{ display:flex; align-items:center; gap:10px; padding:14px 16px; cursor:pointer; list-style:none; }
+  .tc-category > summary::-webkit-details-marker{ display:none; }
+  .cat-icon{ font-size:16px; flex-shrink:0; width:22px; display:inline-flex; align-items:center; justify-content:center; }
+  .cat-name{ font-weight:700; color:var(--ink); flex-shrink:0; }
+  .cat-counts{ display:flex; gap:14px; margin-left:auto; font-size:12px; }
+  .cc{ font-weight:600; }
+  .cc.pass{ color:var(--good); }
+  .cc.fail{ color:var(--critical); }
+  .cc.blocked{ color:var(--serious); }
+  .cat-chev{ display:inline-block; width:9px; flex-shrink:0; color:var(--ink-muted); font-size:10px; transition:transform .15s ease; }
+  .cat-chev::before{ content:'\25B8'; }
+  details.tc-category[open] > summary .cat-chev{ transform:rotate(90deg); }
+  .tc-category-body{ padding:0 16px 16px; }
+  .tc-category.cat-empty{ display:none; }
+  .tc-subhead{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:14px 0 8px; padding-bottom:4px; border-bottom:1px solid var(--line); }
+  .tc-subhead:first-child{ margin-top:4px; }
+  .tc-subhead-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+  .tc-subhead-label.pos{ color:var(--good); }
+  .tc-subhead-label.neg{ color:var(--critical); }
+  .tc-subhead-counts{ display:flex; gap:12px; font-size:11px; }
+  .tc{ background:var(--surface); border:1px solid var(--line-strong); border-left-width:4px; border-radius:12px; padding:16px 18px; margin-bottom:8px; }
+  .tc.PASS{ border-left-color:var(--good); }
+  .tc.FAIL{ border-left-color:var(--critical); }
+  .tc.BLOCKED{ border-left-color:var(--serious); }
+  .tc-head{ display:flex; justify-content:space-between; gap:10px; font-weight:600; }
+  .badge{ font-size:11px; font-weight:700; padding:2px 8px; border-radius:5px; }
+  .badge.PASS{ background:var(--good-wash); color:var(--good); }
+  .badge.FAIL{ background:var(--critical-wash); color:var(--critical); }
+  .badge.BLOCKED{ background:var(--serious-wash); color:var(--serious); }
+  .tc .row{ margin-top:6px; font-size:13px; color:var(--ink-2); overflow-wrap:anywhere; }
+  .tc .row b{ color:var(--ink); }
+  .view-tc-wrap{ margin-top:10px; }
+  .view-tc > summary{ display:block; text-align:right; color:var(--accent-ink); text-decoration:underline; cursor:pointer; font-size:12px; font-weight:600; list-style:none; }
+  .view-tc > summary::-webkit-details-marker{ display:none; }
+  .view-tc-body{ margin-top:8px; padding:14px 16px; background:var(--surface-2); border:1px solid var(--line); border-radius:8px; font-size:13px; }
+  .vtc-h{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-muted); margin:12px 0 4px; }
+  .vtc-h:first-child{ margin-top:0; }
+  .vtc-p{ color:var(--ink-2); overflow-wrap:anywhere; }
+  .vtc-steps{ margin:0; padding-left:18px; color:var(--ink-2); }
+  .vtc-steps li{ margin-bottom:4px; overflow-wrap:anywhere; }
+  details.evidence, details.hops{ margin-top:6px; }
+  details.evidence summary, details.hops summary{ cursor:pointer; font-size:12px; color:var(--accent-ink); }
+  details.evidence .ev-body{ margin-top:4px; padding:8px 10px; background:var(--surface-2); border-radius:6px; font-size:12px; overflow-wrap:anywhere; }
+  .hop{ padding:6px 0; border-top:1px solid var(--line); font-size:12px; }
+  .hop:first-child{ border-top:none; }
+  .hop-endpoint{ font-weight:600; color:var(--ink); }
+  .hop .hd{ color:var(--ink-muted); margin-top:2px; overflow-wrap:anywhere; }
+  .hop .hd.hop-reqres.js-hidden{ display:none; }
+  .hop-reqres-toggle{ margin-left:8px; font-size:11px; font-weight:600; color:var(--accent-ink); text-decoration:underline; cursor:pointer; }
+  .hop-reqres-panel{ margin-top:10px; display:flex; flex-direction:column; gap:18px; }
+  .hop-reqres-panel.js-hidden{ display:none; }
+  .rr-title{ font-size:15px; font-weight:700; color:var(--ink); margin-bottom:6px; }
+  .rr-line{ font-size:13px; color:var(--ink-2); margin-bottom:10px; font-family:var(--font-mono); overflow-wrap:anywhere; }
+  .rr-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-muted); margin:10px 0 6px; }
+  .rr-box{ background:#0B0E15; color:#D7DEE8; border-radius:10px; padding:14px 16px; font-family:var(--font-mono); font-size:12.5px; overflow:auto; }
+  .rr-headers-box .rr-h-line{ margin-bottom:14px; white-space:pre-wrap; overflow-wrap:anywhere; }
+  .rr-headers-box .rr-h-line:last-child{ margin-bottom:0; }
+  .rr-body-box{ max-height:340px; }
+  .rr-body-box pre{ margin:0; white-space:pre; }
+  .rr-redacted{ color:#8290A6; }
+  .rr-note{ font-size:11px; color:var(--ink-muted); font-style:italic; margin-top:6px; }
+  .tc-status-row{ display:flex; align-items:center; gap:10px; }
+  .tc-reqres-toggle{ margin-left:auto; }
+  .tc-reqres-panel{ margin-top:10px; display:flex; flex-direction:column; gap:18px; }
+  .tc-reqres-panel.js-hidden{ display:none; }
+  .rr-attempt-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--accent-ink); margin:0 0 4px; }
+  .finding{ border-radius:12px; padding:10px 12px; margin-bottom:8px; font-size:13px; overflow-wrap:anywhere; }
+  .finding.defect{ background:var(--serious-wash); border:1px solid var(--serious); }
+  .finding.unknown_resolution{ background:var(--accent-wash); border:1px solid var(--accent); }
+  .finding .kind{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; }
+  .cleanup{ background:var(--warning-wash); border:1px solid var(--warning); border-radius:12px; padding:12px 14px; }
+  .cleanup ul{ margin:6px 0 0; padding-left:18px; }
+  .cleanup li{ margin-bottom:6px; overflow-wrap:anywhere; }
+  .empty{ color:var(--ink-muted); font-size:13px; font-style:italic; }
+.meta-card{ margin-top:8px; }
+.fields{ display:flex; flex-direction:column; gap:4px; margin:4px 0 6px; }
+.fields.run-meta{ margin-top:10px; padding-top:10px; border-top:1px solid var(--line); }
+.field-row{ display:flex; flex-wrap:wrap; gap:4px 28px; }
+.field{ font-size:14px; display:flex; gap:6px; }
+.field .k{ color:var(--ink-2); font-weight:700; font-size:15px; letter-spacing:normal; text-transform:none; flex-shrink:0; }
+.field .k::after{ content:':'; }
+.field .v{ color:var(--ink); }
+.tc-actions{ display:flex; justify-content:flex-end; gap:8px; margin:32px 0 8px; }
+.tc-actions button{ padding:7px 12px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:12px; font-weight:600; cursor:pointer; }
+.tc-cat-actions{ display:flex; justify-content:flex-end; gap:8px; margin:4px 0 10px; }
+.tc-cat-actions button{ padding:5px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:11px; font-weight:600; cursor:pointer; }
+.tc-cat-actions button:hover{ background:var(--surface-2); }
+.tc-actions button:hover{ background:var(--surface-2); }
+.tc-toolbar{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:0 0 14px; position:sticky; top:0; z-index:5; }
+.tc-toolbar input[type="search"]{ flex:1 1 240px; min-width:180px; padding:7px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); font-size:13px; }
+.tc-toolbar select{ padding:7px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); font-size:13px; }
+.tc-toolbar button{ padding:7px 12px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:12px; font-weight:600; cursor:pointer; }
+.tc-toolbar button:hover{ background:var(--surface-2); }
+#tcResetFilters{ color:var(--critical); border-color:var(--critical); }
+#tcResetFilters:hover{ background:var(--critical-wash); }
+.tc-toolbar .tc-count{ font-size:12px; color:var(--ink-muted); margin-left:auto; white-space:nowrap; }
+details.tc > summary.tc-head{ cursor:pointer; list-style:none; }
+details.tc > summary.tc-head::-webkit-details-marker{ display:none; }
+.tc-head .chev{ display:inline-block; width:9px; flex-shrink:0; color:var(--ink-muted); font-size:10px; transition:transform .15s ease; align-self:center; }
+.tc-head .chev::before{ content:'\25B8'; }
+details.tc[open] > summary.tc-head .chev{ transform:rotate(90deg); }
+details.tc.js-hidden{ display:none; }
+.tc-no-results{ padding:28px 20px; text-align:center; color:var(--critical); font-size:18px; font-weight:700; background:var(--critical-wash); border:1px solid var(--critical); border-radius:12px; margin-bottom:10px; }
+.tc-no-results.js-hidden{ display:none; }
+
+/* --- Generated-report status tones ---------------------------------------
+   The reference report hardcoded PASS/FAIL/BLOCKED. Generated reports declare
+   their own status vocabulary and map each status to one of these tones, so a
+   Stage 5A "ERROR" or a Stage 6A "PARTIAL" colours correctly without new CSS. */
+.tc.tone-pass{ border-left-color:var(--good); }
+.tc.tone-fail{ border-left-color:var(--critical); }
+.tc.tone-blocked{ border-left-color:var(--serious); }
+.tc.tone-warning{ border-left-color:var(--warning); }
+.tc.tone-accent{ border-left-color:var(--accent); }
+.tc.tone-neutral{ border-left-color:var(--line-strong); }
+.badge.tone-pass{ background:var(--good-wash); color:var(--good); }
+.badge.tone-fail{ background:var(--critical-wash); color:var(--critical); }
+.badge.tone-blocked{ background:var(--serious-wash); color:var(--serious); }
+.badge.tone-warning{ background:var(--warning-wash); color:var(--warning); }
+.badge.tone-accent{ background:var(--accent-wash); color:var(--accent-ink); }
+.badge.tone-neutral{ background:var(--surface-2); color:var(--ink-muted); }
+.swatch.tone-pass{ background:var(--good); }
+.swatch.tone-fail{ background:var(--critical); }
+.swatch.tone-blocked{ background:var(--serious); }
+.swatch.tone-warning{ background:var(--warning); }
+.swatch.tone-accent{ background:var(--accent); }
+.swatch.tone-neutral{ background:var(--line-strong); }
+.cc.tone-pass{ color:var(--good); }
+.cc.tone-fail{ color:var(--critical); }
+.cc.tone-blocked{ color:var(--serious); }
+.cc.tone-warning{ color:var(--warning); }
+.cc.tone-accent{ color:var(--accent-ink); }
+.cc.tone-neutral{ color:var(--ink-muted); }
+.scard .val.tone-pass{ color:var(--good); }
+.scard .val.tone-fail{ color:var(--critical); }
+.scard .val.tone-blocked{ color:var(--serious); }
+.scard .val.tone-warning{ color:var(--warning); }
+.scard .val.tone-accent{ color:var(--accent-ink); }
+.scard .val.tone-neutral{ color:var(--ink); }
+.scb-val.tone-pass{ color:var(--good); }
+.scb-val.tone-fail{ color:var(--critical); }
+.scb-val.tone-blocked{ color:var(--serious); }
+.scb-val.tone-warning{ color:var(--warning); }
+.scb-val.tone-accent{ color:var(--accent-ink); }
+.scb-val.tone-neutral{ color:var(--ink-muted); }
+.finding.tone-fail{ background:var(--critical-wash); border:1px solid var(--critical); }
+.finding.tone-blocked{ background:var(--serious-wash); border:1px solid var(--serious); }
+.finding.tone-warning{ background:var(--warning-wash); border:1px solid var(--warning); }
+.finding.tone-accent{ background:var(--accent-wash); border:1px solid var(--accent); }
+.finding.tone-pass{ background:var(--good-wash); border:1px solid var(--good); }
+.finding.tone-neutral{ background:var(--surface-2); border:1px solid var(--line-strong); }
+.finding .fkv{ margin-top:4px; }
+.finding .fkv b{ color:var(--ink); }
+.notes-block{ font-size:13px; color:var(--ink-2); }
+.notes-block p{ margin:0 0 8px; overflow-wrap:anywhere; }
+.notes-block ul{ margin:0 0 8px; padding-left:18px; }
+.notes-block li{ margin-bottom:4px; overflow-wrap:anywhere; }
+.rr-attempt-label + .rr-title{ margin-top:0; }
+.rr-response-title{ margin-top:18px; }
+.pill.tone-pass{ background:var(--good-wash); color:var(--good); border-color:var(--good); }
+.pill.tone-fail{ background:var(--critical-wash); color:var(--critical); border-color:var(--critical); }
+.pill.tone-blocked{ background:var(--serious-wash); color:var(--serious); border-color:var(--serious); }
+.pill.tone-warning{ background:var(--warning-wash); color:var(--warning); border-color:var(--warning); }
+.pill.tone-accent{ background:var(--accent-wash); color:var(--accent-ink); border-color:var(--accent); }
+.pill.tone-neutral{ background:var(--surface-2); color:var(--ink-muted); border-color:var(--line-strong); }
+</style>
+</head><body><div class="wrap">
+<div class="header"><div class="header-main">
+<h1>Manual QA Report — Ancillaries &amp; Seat Map (Air Cairo NDC)</h1>
+</div><div><span class="pill tone-pass">PORTAL PASS COMPLETE</span></div></div>
+<div class="meta-card dashboard-card">
+<div class="fields">
+<div class="field"><span class="k">Scope</span><span class="v">Supplier Feature Ancillaries -&gt; Supplier Air Cairo NDC (air-sm-cairo), Portal, 100 executable-scope cases of a 126-case sheet</span></div>
+<div class="field-row"><div class="field"><span class="k">Coverage</span><span class="v">100 cases executed (72 Passed, 7 Failed, 2 Blocked, 1 Skipped, 13 Not Executed, 5 N/A).</span></div>
+<div class="field"><span class="k">Description</span><span class="v">Manual Execution of the Ancillaries suite against Air Cairo staging Portal; a real Hold-then-Pay booking and a real Confirmed booking were completed; two supplier-enforced negative rules were proven by real Hold/Book rejection.</span></div></div>
+</div>
+<div class="fields run-meta">
+<div class="field-row"><div class="field"><span class="k">Supplier</span><span class="v">Air Cairo (air-sm-cairo, IATA SM)</span></div>
+<div class="field"><span class="k">Environment</span><span class="v">192.168.1.237:9500 (staging)</span></div>
+<div class="field"><span class="k">Execution Mode</span><span class="v">Headed</span></div></div>
+<div class="field"><span class="k">Executed</span><span class="v">2026-09-28</span></div>
+<div class="field"><span class="k">Operator</span><span class="v">Mohanad Dawood</span></div>
+<div class="field"><span class="k">Status</span><span class="v">PORTAL PASS COMPLETE (100 executable-scope cases)</span></div>
+</div>
+</div>
+<h2 class="section-num">1. Executive Summary</h2>
+<div class="summary-layout">
+<div class="donut-block">
+<div class="donut" style="background:conic-gradient(var(--good) 0% 72%, var(--critical) 72% 79%, var(--serious) 79% 81%, var(--line-strong) 81% 82%, var(--warning) 82% 95%, var(--line-strong) 95% 100%)">
+<div class="donut-hole"><div class="donut-pct">72%</div><div class="donut-sub">pass rate of executable scope</div></div>
+</div>
+<div class="donut-legend">
+<div class="litem"><span class="swatch tone-pass"></span>Passed <span class="lcount">72 / 100</span></div>
+<div class="litem"><span class="swatch tone-fail"></span>Failed <span class="lcount">7 / 100</span></div>
+<div class="litem"><span class="swatch tone-blocked"></span>Blocked <span class="lcount">2 / 100</span></div>
+<div class="litem"><span class="swatch tone-neutral"></span>Skipped <span class="lcount">1 / 100</span></div>
+<div class="litem"><span class="swatch tone-warning"></span>Not Executed <span class="lcount">13 / 100</span></div>
+<div class="litem"><span class="swatch tone-neutral"></span>N/A <span class="lcount">5 / 100</span></div>
+</div>
+</div>
+<div class="stats-block">
+<div class="scard scard-total dashboard-card"><div class="val">126</div><div class="lbl">Total Suite Cases (100 executable this run)</div></div>
+<div class="summary-cards">
+<div class="scard dashboard-card"><div class="val tone-pass">72</div><div class="lbl">Passed</div></div>
+<div class="scard dashboard-card"><div class="val tone-fail">7</div><div class="lbl">Failed</div></div>
+<div class="scard dashboard-card"><div class="val tone-blocked">2</div><div class="lbl">Blocked</div></div>
+<div class="scard dashboard-card"><div class="val tone-neutral">1</div><div class="lbl">Skipped</div></div>
+<div class="scard dashboard-card"><div class="val tone-warning">13</div><div class="lbl">Not Executed</div></div>
+<div class="scard dashboard-card"><div class="val tone-neutral">5</div><div class="lbl">N/A</div></div>
+</div>
+</div>
+</div>
+<div class="tc-actions">
+<button type="button" id="tcExpandAll">Expand all</button>
+<button type="button" id="tcCollapseAll">Collapse all</button>
+</div>
+<details class="section-collapse tc-section" open>
+<summary>Test case results</summary>
+<div class="tc-toolbar dashboard-card">
+<input type="search" id="tcSearch" placeholder="Search by ID, title...">
+<select id="tcStatusFilter">
+<option value="">All statuses</option>
+<option value="PASSED">PASSED</option>
+<option value="FAILED">FAILED</option>
+<option value="BLOCKED">BLOCKED</option>
+<option value="SKIPPED">SKIPPED</option>
+<option value="NOT_EXECUTED">NOT_EXECUTED</option>
+<option value="NA">NA</option>
+</select>
+<select id="tcCategoryFilter">
+<option value="">All categories</option>
+<option value="business-rule">Confirmed Defects (Failed)</option>
+<option value="integration">Blocked — Technical (CORS)</option>
+<option value="flow">N/A — Structural (not applicable on this supplier)</option>
+<option value="boundary">Not Executed</option>
+<option value="regression">Skipped</option>
+<option value="positive">Passed — Core Mechanics</option>
+</select>
+<button type="button" id="tcResetFilters">Reset</button>
+<span id="tcCount" class="tc-count"></span>
+</div>
+<div id="tcNoResults" class="tc-no-results js-hidden">No test cases match your search. Try a different keyword, or clear the search/filters above.</div>
+<details class="tc-category" data-cat="business-rule" open>
+<summary><span class="cat-icon">⚖️</span><span class="cat-name">Confirmed Defects (Failed)</span><span class="cat-counts"><span class="cc tone-pass">0 passed</span><span class="cc tone-fail">7 failed</span><span class="cc tone-blocked">0 blocked</span><span class="cc tone-neutral">0 skipped</span><span class="cc tone-warning">0 not executed</span><span class="cc tone-neutral">0 n/a</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-fail" data-status="FAILED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PAX-007</span> - Closed passenger sections still report missing information</span><span class="badge tone-fail">FAILED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Multiple sub-checks failed: a collapsed passenger section&#39;s First Name field remained genuinely editable; two accordion sections could be open simultaneously; and an incomplete-but-collapsed passenger blocked Next with no visible signal on the collapsed header (no badge/error count) - only correct behaviour was that Next itself is blocked and Expand All resurfaces the Required markers.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">FAILED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-fail" data-status="FAILED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-EXR-004</span> - The rule is rechecked when you switch passenger</span><span class="badge tone-fail">FAILED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Distinct from EXR-002/003 (whether the rule is enforced at all): this case is specifically about whether the seat map&#39;s displayed state changes per passenger/per infant-assignment. It was directly and conclusively observed to never change (identical aria-label regardless of which passenger or infant-assignment is active) - a UI defect finding, not a re-statement of EXR-002/003.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">FAILED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-fail" data-status="FAILED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-EXR-005</span> - The rule follows the infant&#39;s linked adult</span><span class="badge tone-fail">FAILED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Same UI-defect finding as EXR-004: switching the infant&#39;s Assigned to between adults changed nothing about the seat&#39;s displayed state or availability.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">FAILED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-fail" data-status="FAILED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-MCT-003</span> - Three journeys give three seat maps and three sets of ancillaries</span><span class="badge tone-fail">FAILED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Partly Passed, partly Failed on a 2-leg multi-city itinerary: seat maps and meal panels were correctly split one-per-flight, but the Extra Baggage panel existed only for the outbound leg and was entirely absent for the return leg - the same underlying journey-scoping defect as TC-SM-MCT-006.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">FAILED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-fail" data-status="FAILED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-MCT-006</span> - Extra baggage should say which flight it belongs to</span><span class="badge tone-fail">FAILED</span></summary>
+<div class="row"><b>Requires:</b> Baggage</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> On the 2-leg multi-city trip, only one Extra Baggage panel exists (headed for the outbound leg); the return leg&#39;s baggage options are not offered anywhere. Confirms the sheet&#39;s own known-fault class (baggage not correctly scoped per journey), though the exact shape (missing panel vs merged/mislabelled panel) differs from the sheet&#39;s original description.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">FAILED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-fail" data-status="FAILED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-RTP-005</span> - Seat and ancillary charges should be identifiable per journey</span><span class="badge tone-fail">FAILED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Reproduces the sheet&#39;s own known fault exactly: with one seat on each of two separate flights, the Fare Breakdown showed one merged base-fare line, one merged tax line and one merged Seat Selection total (614+236=850) - none itemised per journey.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">FAILED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-fail" data-status="FAILED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CNF-018</span> - Going back a step must not silently throw away seats and ancillaries</span><span class="badge tone-fail">FAILED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Confirmed defect (cross-supplier, first found on flynas in run-006): editing a passenger&#39;s First Name after choosing ancillaries silently discarded the held seat and its EGP 1,180 fare line, with no warning, toast or dialog. High/P1 - see Defect Register.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">FAILED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+</div>
+</details>
+<details class="tc-category" data-cat="integration" open>
+<summary><span class="cat-icon">🔗</span><span class="cat-name">Blocked — Technical (CORS)</span><span class="cat-counts"><span class="cc tone-pass">0 passed</span><span class="cc tone-fail">0 failed</span><span class="cc tone-blocked">2 blocked</span><span class="cc tone-neutral">0 skipped</span><span class="cc tone-warning">0 not executed</span><span class="cc tone-neutral">0 n/a</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-blocked" data-status="BLOCKED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-MCT-004</span> - A seat booked on one flight never appears against another</span><span class="badge tone-blocked">BLOCKED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Submitting Hold on the 2-leg multi-city itinerary failed with a browser-level CORS error on the fare-recheck-hold call, before the page ever navigated away from Passenger Info. The precondition (a completed Hold/Book to inspect) could not be reached at all - recorded Blocked by this technical error, not scored Pass/Fail. Raised separately as its own technical finding, not folded into the case verdict.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-blocked">BLOCKED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-blocked" data-status="BLOCKED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-MCT-005</span> - Seats and ancillaries survive to the confirmation page per flight</span><span class="badge tone-blocked">BLOCKED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Same CORS blocker as TC-SM-MCT-004 - the Hold needed to reach the confirmation/e-ticket page never completed. Not scored Pass/Fail.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-blocked">BLOCKED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+</div>
+</details>
+<details class="tc-category" data-cat="flow" open>
+<summary><span class="cat-icon">🔀</span><span class="cat-name">N/A — Structural (not applicable on this supplier)</span><span class="cat-counts"><span class="cc tone-pass">0 passed</span><span class="cc tone-fail">0 failed</span><span class="cc tone-blocked">0 blocked</span><span class="cc tone-neutral">0 skipped</span><span class="cc tone-warning">0 not executed</span><span class="cc tone-neutral">5 n/a</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-neutral" data-status="NA">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-NAV-002</span> - You cannot reach the seats without choosing a fare package</span><span class="badge tone-neutral">NA</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Air Cairo has no in-wizard bundle step at all (fare package is chosen at search, before Passenger Info) - there is nothing for this case to gate on. Not scored as a failure.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-neutral">NA</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-neutral" data-status="NA">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-NAV-002b</span> - Missing passenger details and a missing fare package are both reported</span><span class="badge tone-neutral">NA</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Compound case: the missing-passenger-details half was directly confirmed reported (8 Required markers). The missing-fare-package half cannot occur on this supplier (no such wizard step, same structural reason as TC-SM-NAV-002), so the case as a whole is recorded N/A - final, most-informed verdict supersedes the earlier partial Passed reading.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-neutral">NA</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-neutral" data-status="NA">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CNF-007</span> - Infants appear as passengers but carry no seat or ancillaries</span><span class="badge tone-neutral">NA</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> This particular order has no infant (1 adult only), so the counting behaviour could not be checked on it directly; already covered on the separate 4-passenger booking earlier in this run, where the infant correctly had zero ancillary sections (TC-SM-PAX-001).</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-neutral">NA</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-neutral" data-status="NA">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CNF-016</span> - Extra baggage must not clash with the baggage already in the fare package</span><span class="badge tone-neutral">NA</span></summary>
+<div class="row"><b>Requires:</b> Baggage</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Air Cairo&#39;s baggage model has no discrete weight tiers (only per-kilogram/equipment items), so the exact same-weight clash this case requires cannot be constructed - already established under TC-BG-003. Not scored as a failure; flagged for test design to generalise the wording.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-neutral">NA</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-neutral" data-status="NA">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PRC-005</span> - Seat map and ancillary prices use the right exchange rate</span><span class="badge tone-neutral">NA</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Air Cairo prices natively in EGP with no currency conversion at any point, so there is no Rate-Of-Exchange division for this case to check. Not scored as a failure.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-neutral">NA</span><span class="tc-reqres-anchor"></span></div>
+</details>
+</div>
+</details>
+<details class="tc-category" data-cat="boundary" open>
+<summary><span class="cat-icon">📏</span><span class="cat-name">Not Executed</span><span class="cat-counts"><span class="cc tone-pass">0 passed</span><span class="cc tone-fail">0 failed</span><span class="cc tone-blocked">0 blocked</span><span class="cc tone-neutral">0 skipped</span><span class="cc tone-warning">13 not executed</span><span class="cc tone-neutral">0 n/a</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-warning" data-status="NOT_EXECUTED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-STA-002</span> - A taken seat can be looked at but not booked</span><span class="badge tone-warning">NOT_EXECUTED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Recorded Not Executed as written in the results doc: on this supplier a genuinely sold seat is removed from the map entirely rather than shown disabled/viewable, so the case&#39;s own precondition (taken-but-still-viewable) never occurs on this supplier&#39;s data model. Not a defect - a different, internally consistent design choice.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">NOT_EXECUTED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-warning" data-status="NOT_EXECUTED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-FRC-001</span> - A changed price is shown before the booking screen</span><span class="badge tone-warning">NOT_EXECUTED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Price-mismatch trigger (fareMismatch true) could not be reproduced on Air Cairo across four separate searches/dates/fare classes; every decoded flight-token carried fareMismatch false. Not a defect - data/supplier-driven precondition never occurred this session.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">NOT_EXECUTED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-warning" data-status="NOT_EXECUTED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-FRC-002</span> - Accepting the new price carries it forward</span><span class="badge tone-warning">NOT_EXECUTED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Same precondition gap as TC-SM-FRC-001 - no changed-price dialog was ever produced to accept.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">NOT_EXECUTED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-warning" data-status="NOT_EXECUTED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-FRC-003</span> - Cancelling leaves nothing behind</span><span class="badge tone-warning">NOT_EXECUTED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Same precondition gap as TC-SM-FRC-001 - nothing to cancel out of.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">NOT_EXECUTED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-warning" data-status="NOT_EXECUTED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-FRC-005</span> - Every later total uses the accepted price</span><span class="badge tone-warning">NOT_EXECUTED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Same precondition gap as TC-SM-FRC-001 - no accepted-price figure existed to trace downstream.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">NOT_EXECUTED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-warning" data-status="NOT_EXECUTED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-ERR-001</span> - A server failure must not look like &#39;No Flights Found&#39;</span><span class="badge tone-warning">NOT_EXECUTED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Not attempted or discussed anywhere in this run&#39;s results - a genuine coverage gap for this supplier pass, distinct from the documented Not-Executed groups above.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">NOT_EXECUTED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-warning" data-status="NOT_EXECUTED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-ERR-002</span> - The session ending in the middle of a booking</span><span class="badge tone-warning">NOT_EXECUTED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Not attempted or discussed anywhere in this run&#39;s results - a genuine coverage gap for this supplier pass.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">NOT_EXECUTED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-warning" data-status="NOT_EXECUTED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-EXR-001</span> - An adult travelling alone CAN take an exit seat</span><span class="badge tone-warning">NOT_EXECUTED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> No exit-row seats existed on the flight (SM477) this case was first attempted on. It was not independently retried by a completed Hold/Book on the later SM475 exit-row flight the way EXR-002/003 were, though the UI check there showed an unrestricted adult&#39;s exit seat as available (indirect, not conclusive support).</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">NOT_EXECUTED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-warning" data-status="NOT_EXECUTED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-MCT-007</span> - Seat maps follow FLIGHTS, fare packages follow JOURNEYS</span><span class="badge tone-warning">NOT_EXECUTED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Needs one journey spanning multiple connecting flights; the only working multi-city route found this session (CAI-JED-CAI) is two independent single-flight journeys, not a connecting one, so this case remains untestable on this itinerary.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">NOT_EXECUTED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-warning" data-status="NOT_EXECUTED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CAB-001</span> - The same flight gives a different map in each cabin</span><span class="badge tone-warning">NOT_EXECUTED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> business-cabin</div>
+<div class="row"><b>Notes:</b> Air Cairo has no Business cabin on this route: a Business search returned the same five Economy fares, each explicitly labelled No Business. This is a route/environment limitation, not a failure - there is no second cabin&#39;s map to compare against.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">NOT_EXECUTED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-warning" data-status="NOT_EXECUTED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CAB-003</span> - &#39;Not offered&#39; sections can be told apart from single taken seats</span><span class="badge tone-warning">NOT_EXECUTED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> business-cabin</div>
+<div class="row"><b>Notes:</b> Same reason as TC-SM-CAB-001 - no second (Business) cabin map exists on this route to compare Not offered sections against.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">NOT_EXECUTED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-warning" data-status="NOT_EXECUTED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CAB-004</span> - The Business row has its middle seats blocked</span><span class="badge tone-warning">NOT_EXECUTED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> business-cabin</div>
+<div class="row"><b>Notes:</b> Same reason as TC-SM-CAB-001 - no Business row exists on this route to check for a blocked-middle-seat pattern.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">NOT_EXECUTED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-warning" data-status="NOT_EXECUTED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CAB-007</span> - A two-cabin aircraft shows both cabins properly</span><span class="badge tone-warning">NOT_EXECUTED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> business-cabin</div>
+<div class="row"><b>Notes:</b> Same reason as TC-SM-CAB-001 - no second cabin exists on this route/supplier combination to render at all.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">NOT_EXECUTED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+</div>
+</details>
+<details class="tc-category" data-cat="regression" open>
+<summary><span class="cat-icon">🔁</span><span class="cat-name">Skipped</span><span class="cat-counts"><span class="cc tone-pass">0 passed</span><span class="cc tone-fail">0 failed</span><span class="cc tone-blocked">0 blocked</span><span class="cc tone-neutral">1 skipped</span><span class="cc tone-warning">0 not executed</span><span class="cc tone-neutral">0 n/a</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-neutral" data-status="SKIPPED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PER-004</span> - What happens when the time limit runs out</span><span class="badge tone-neutral">SKIPPED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> The real expiry needs a genuine wall-clock wait (staging enforces 60 minutes); the countdown mechanism itself was observed working repeatedly, but the expiry-then-redirect behaviour at zero was not exercised. Same disposition as run-006 on flynas.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-neutral">SKIPPED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+</div>
+</details>
+<details class="tc-category" data-cat="positive" open>
+<summary><span class="cat-icon">✅</span><span class="cat-name">Passed — Core Mechanics</span><span class="cat-counts"><span class="cc tone-pass">72 passed</span><span class="cc tone-fail">0 failed</span><span class="cc tone-blocked">0 blocked</span><span class="cc tone-neutral">0 skipped</span><span class="cc tone-warning">0 not executed</span><span class="cc tone-neutral">0 n/a</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-NAV-001</span> - You can only pick seats on step 2</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Step 1 (Passenger Info) exposes no Select Seat control and no Seat Selection section; seats appear only after advancing to Ancillaries.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-NAV-003</span> - &#39;Select Seat&#39; opens the seat map</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> 0 seat elements before the click; 169 after clicking Select Seat, with the traveller picker open.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-NAV-005</span> - You can skip seats completely</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Continue without seats closed the map with no seat assigned; total stayed at the base fare; Book remained enabled.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-RND-001</span> - The seat total matches the seats you can see</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Rail SEATS count matched the actual data-seat-id count exactly on every flight checked (170/169 on SM475, 163 on SM477).</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-RND-002</span> - Every seat has one clear state and one seat number</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> 170 rendered, 170 unique seat numbers, 0 duplicates; every seat resolves to exactly one state.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-RND-003</span> - Every seat has a full description</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> All 163 labels on SM477 carried seat number, row, side and cabin; zero incomplete descriptions.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-RND-005</span> - Cabin and section information agrees with the map</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Rail and decoded cabin info agree (CABINS Economy), matching the map&#39;s own all-Economy structure.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-RND-006</span> - The flight shown on the map is the flight you chose</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Rail flight card (SM477, departs/arrives, seats) matched the flight actually selected from search.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-RND-007</span> - Two different flights give two different maps</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Different flights/aircraft (SM475 170 seats, SM477 163, SM478 179) each gave a distinct, matching map - never the same map reused for a different flight.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-RND-010</span> - Each flight in a trip gets its own map</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Same evidence as RND-007: four different maps (170/169/163/179 seats) across two aircraft/flight numbers on this supplier, each matching its own rail.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-STA-004</span> - Seat features use known wording</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Only three known feature words appear across the whole map (Chargeable Seat, Leg space seat, Window seat); no unrecognised wording.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-STA-005</span> - Window and aisle labels match where the seat really is</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Every seat in columns A/F marked Window seat, none outside those columns; zero mismatches on 163 seats.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-STA-006</span> - Emergency exit seats are marked</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> 12 exit-row seats correctly labelled Exit or emergency exit seat; each also carries its own explicit Seat not allowed for infant metadata flag.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-SEL-001</span> - One click only shows the seat - it does not book it</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Clicking a free seat opened its detail panel without incrementing the seat counter; nothing booked by the click alone.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-SEL-002</span> - A seat is only taken when you press the button in the box</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Detail panel&#39;s Book seat for name action is the only thing that assigns the seat; the click alone does not.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-SEL-003</span> - The seat information box is correct</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Clicked seat&#39;s detail-panel text was byte-identical to its own map aria-label.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-SEL-006</span> - The bottom button changes as seats are chosen</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Footer button progressed Confirm 1 of 3 seats -&gt; Confirm 2 of 3 seats as assignments were made.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-SEL-007</span> - Moving a passenger to another seat frees the first seat</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Moving a passenger&#39;s seat released the old seat (back to available) and attached the new one, price following the move; no phantom second seat.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-SEL-008</span> - &#39;Clear all seats&#39; also removes the seat charge</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Clear all seats returned both seats to available, counter to 0/3, and removed the Seat Selection line and Ancillaries and SSR subtotal entirely; no orphaned charge.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-SEL-009</span> - Confirming saves the seat and closes the map</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Confirm seat closed the map and the seat persisted into the fare breakdown.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-SEL-010</span> - &#39;Change Seats&#39; reopens the map with your choice still there</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Reopening the seat control (Seat 1 more / Change Seats) restored prior assignments and the traveller counter intact.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-SEL-012</span> - A seat held by another passenger in your booking is marked</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> A seat held by another passenger in the same booking is marked selected for name and carries seat--selected-other, visibly distinct from available/own-seat.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-MPX-002</span> - The seat goes to the passenger who is selected</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> The seat&#39;s Book button named the active passenger explicitly; the seat attached to that passenger alone.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-MPX-004</span> - Two passengers cannot have the same seat</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> With a different passenger active, clicking a seat already held by another passenger offered no Book button; counter stayed unchanged.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-MPX-006</span> - Seats on one flight do not affect the other flight</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Seats on the onward flight left the return map&#39;s counter and seats completely untouched; each journey&#39;s map is independent.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-MPX-007</span> - Some passengers can have seats and others none</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Confirmed with 2 of 3 seated: booking proceeded without complaint and the seat charge counted only the seats that existed.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PRC-002</span> - A seat marked &#39;Chargeable seat&#39; must always have a price</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> All 170 seats marked Chargeable Seat also carried a real price; none rendered free. The flynas free-chargeable-seat-under-Plus defect does not reproduce (no bundles on this supplier).</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PRC-003</span> - A paid seat is added as its own line in the price</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> A paid seat appears as its own Seat Selection fare line, nested under the ancillaries subtotal rather than folded into the base fare.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PRC-003b</span> - One aircraft can have several seat prices at once</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> One aircraft carried three simultaneous seat price tiers (EGP 236/614/1,180); rail&#39;s from EGP 236 agreed with the cheapest.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PRC-004</span> - The price breakdown adds up</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Base + ancillaries + tax reconciled exactly to the displayed (ceiling-rounded) total on one-way, multi-passenger and round-trip bookings alike.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-GEN-003</span> - Gender comes from the title and cannot be edited</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Gender field is disabled and derives from Title (Mr-&gt;Male, Ms-&gt;Female) on every passenger checked; cannot be set independently.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PER-001</span> - Seats survive going back a step</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> On its own terms (navigating back/forward without editing any field), the seat summary and total were byte-identical before and after. The stronger check - actually editing a name - was then run separately and fails; see TC-SM-CNF-018.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PER-002</span> - Seats, meals and bags all work together</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat + Meal + Baggage</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Seat, meal and baggage lines all coexisted correctly in one booking; none overwrote another and the arithmetic was exact.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PER-007</span> - The seat appears on the payment summary</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Net Payable on the payment panel matched the fare breakdown&#39;s unrounded total exactly, including the seat charge.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-NEG-003</span> - Clicking quickly does not book two seats</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> A rapid double/five-click on an available seat resulted in exactly one Book control and one assignment; no duplicate or race condition.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-NEG-006</span> - Opening the booking page with a broken or missing link</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> A broken or missing flight-token produced a clean No Data Found state with Go Back/Go Home actions; no crash page or leaked internals.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-A11Y-001</span> - The seat map works on a smaller screen</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> At phone width (390x844) there was no horizontal page scroll and all seats still rendered; the layout reflows rather than overflowing.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-A11Y-002</span> - Seat states can be read by screen readers</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Every seat is a real button whose aria-label conveys seat number, row, side, cabin, features, state and price; nothing relies on colour alone.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PAX-001</span> - Infants get no seat and no extras; children get both</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Only the adults and the child get ancillary sections (meal/baggage); the infant has none at all and is excluded from the seat traveller picker.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PAX-003</span> - An infant must be linked to an adult</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> The infant&#39;s Assigned to field is marked required and blocks advancing to Ancillaries until set.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PAX-004</span> - The map moves on to the next passenger automatically</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> After assigning a seat, the traveller picker automatically advanced to the next unseated passenger.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PAX-006</span> - Each passenger type is priced separately</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Each passenger type (adult/child/infant) carried its own separate base-fare and tax line; infant charged base fare + tax, not carried free.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-ERR-004</span> - Typing in one dropdown must not affect another</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> A Nationality-dropdown filter typed for one passenger did not bleed into the next passenger&#39;s dropdown, which opened empty with the full country list - the sheet&#39;s previously documented defect does not reproduce on this supplier.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-ERR-005</span> - Each offer says which airline connection it came from</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> All 5 result cards for the search carried the connection label, one per card, none missing.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-EXR-002</span> - An adult with an infant CANNOT take an exit seat</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Final verdict after a real Hold attempt with the document-number confound removed: an infant-holding adult seated in an exit row was genuinely rejected by the supplier (SPECIFIC SEAT REQUESTED NOT AVAILABLE - RESTRICTED). The rule is enforced at Hold/Book, even though the seat map itself never blocks or re-flags the selection on screen.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-EXR-003</span> - A child CANNOT take an exit seat</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Final verdict: a child seated in the same exit row was rejected by an identical real Hold failure message, mirroring EXR-002.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-RTP-001</span> - A return trip gives one seat map per journey</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> The ancillaries step rendered two of everything (meals, baggage, seat selection, included-baggage panels), each correctly labelled with its own journey.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-RTP-004</span> - Seat maps are completely separate per journey</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Onward and return seat maps are completely separate: the same seat number was simultaneously held on one leg and free on the other; assigning a seat on one leg left the other map&#39;s counter at 0.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CNF-001</span> - The confirmation total equals what was quoted</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Order Costing tab&#39;s fare total (8,987.80) plus SSR total (1,795.00) equalled the recorded Total Booking Amount (10,782.80), matching the quoted price at Hold/Pay exactly.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CNF-002</span> - Every price line survives the booking unchanged</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Same evidence as CNF-001 - every price line (fare, meal, baggage, seat) survived to the order unchanged.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CNF-003</span> - Every ancillary reaches the confirmation with its own price</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> The order&#39;s Segment Ancillaries tab lists meal, baggage and seat separately, each with its own price, matching what was chosen.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CNF-004</span> - Seats carry through to the right passenger with the right price</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> The seat is listed under the correct passenger&#39;s own ancillary block, same seat number and same price as at booking.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CNF-008</span> - The e-ticket and the confirmation page agree exactly</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> PNR, ticket number, status and total all matched exactly between the confirmation-at-booking and the Order Details page read later.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CNF-010</span> - The wallet is reduced by exactly the booking amount</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Verified via TC-PAH-002&#39;s wallet reconciliation: the wallet dropped by exactly the booking&#39;s recorded total (10,782.800 EGP), to the millieme, with no gap - this corroborates run-006&#39;s root-cause read that flynas&#39;s 1.22-1.64 EGP shortfall was a SAR/EGP conversion artifact, since Air Cairo prices natively in EGP with no conversion and shows none.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CNF-011</span> - The Costing tab adds up and is the figure to trust</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> The Costing tab&#39;s Total Sales Amount, Total Net Amount and Total Booking Amount all independently agreed at 10,782.80 EGP, matching the fare+SSR arithmetic exactly.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CNF-012</span> - The order page itemises every ancillary and reconciles</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> The order&#39;s Costing tab itemises Meal/Baggage/Seat as separate SSR components before rolling up to the booking total.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CNF-015</span> - Walking away before &#39;Book&#39; creates nothing - THE SAFE TEST</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> A confirmed seat was navigated away from (to My Bookings) without pressing Book; the passenger&#39;s name appears in no booking afterward - walking away creates nothing.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-CNF-017</span> - A failed booking must be reported as failed everywhere</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> None</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Checked all three named surfaces (confirmation/Order Details banner, Booking Details page, Dashboard) against a real failed order: all three correctly showed the failure (Booking Has been failed! / Booking Failed status / excluded from the Pending count) - none of the sheet&#39;s known-fault symptoms reproduced on this supplier.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-PAX-008</span> - Two infant-holding adults cannot sit in the same set of seats</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Seat</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Final verdict after two confound-free retries: with an invalid-document confound removed, a real Book attempt with two infant-holding adults in the same 3-seat set was genuinely rejected (Invalid request); a fresh Hold attempt with fresh document numbers was rejected identically. The rule is enforced at order submission, just not in the seat-map UI (an earlier UI-only reading and a first Book attempt were confounded/inconclusive and are superseded by this result).</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ML-001</span> - Meals are offered per passenger and per flight</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Meal</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> 3 Meal Preference sections appeared, one each for both adults and the child, each with its own journey heading; the infant had none.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ML-002</span> - An infant is not offered a meal</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Meal</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> The infant had no meal section at all (not empty or disabled) on a 4-passenger booking.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ML-003</span> - Choosing and removing a meal changes the price correctly</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Meal</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Adding a meal added exactly its price as its own fare line; removing it returned the total to precisely the starting figure with no residue.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-ML-005</span> - The chosen meal reaches the confirmation (SPENDS REAL MONEY)</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Meal</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> On a real completed booking, the chosen meal (code, name, price) matched exactly between the pre-booking fare breakdown, the confirmation/order page and the e-ticket.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-BG-001</span> - Extra baggage is offered per passenger and per journey</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Baggage</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> 3 Extra Baggage sections appeared, one each for both adults and the child, each with its own journey heading; the infant had none.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-BG-002</span> - An infant is not offered extra baggage</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Baggage</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> The infant had no baggage section at all on the same 4-passenger booking.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-BG-003</span> - Changing the bag weight replaces the bag, it does not add a second one</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Baggage</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Exercised against the case&#39;s real intent (swapping one baggage selection for another, since this supplier sells items rather than weight tiers): changing the selection produced exactly one Extra Baggage line at the new price, not two stacked. Wording flagged for test design to generalise per supplier.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-BG-005</span> - The extra bag reaches the confirmation (SPENDS REAL MONEY)</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Baggage</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> On a real completed booking, the chosen extra bag (item and price) matched exactly between the pre-booking fare breakdown, the confirmation/order page and the e-ticket, alongside the separately-shown included baggage allowance.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-HLD-005</span> - Seats, meals and bags chosen before holding are kept on the held booking</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Hold + Seat + Meal + Baggage</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> A real Hold booking (PNR 8ANO44) retained the seat, meal and extra baggage chosen before holding, with the fare reconciling exactly and the wallet unmoved (a Hold does not charge).</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-PAH-002</span> - Paying takes exactly the booking amount from the wallet</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Hold + Pay after Hold</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Paying the held booking debited the wallet by exactly the booking total (10,782.800 EGP), to the millieme.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-PAH-003</span> - A price change between hold and payment is shown before paying</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Hold + Pay after Hold</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> Reopening the held booking before paying showed the same Net Payable amount as at Hold - no price had changed, so the if-unchanged-the-held-price-is-charged branch applied and no change dialog was due.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-PAH-004</span> - After payment the e-ticket is issued and matches the booking</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Hold + Pay after Hold</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> After payment the booking moved Hold -&gt; Confirmed, a ticket number was issued, and every e-ticket field (passenger, flight, meal, seat, baggage) matched what was held.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+<details class="tc tone-pass" data-status="PASSED">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-SM-BND-006</span> - A supplier with no fare packages shows no package step</span><span class="badge tone-pass">PASSED</span></summary>
+<div class="row"><b>Requires:</b> Not Bundle</div>
+<div class="row"><b>Supplier Rule:</b> None</div>
+<div class="row"><b>Notes:</b> With Bundle correctly Not Supported, the wizard shows no fare-package step or Fare Bundles &amp; Services section at all, and the Included Baggage panel shows concrete fixed-to-fare values instead of depends on bundle.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">PASSED</span><span class="tc-reqres-anchor"></span></div>
+</details>
+</div>
+</details>
+</details>
+<details class="section-collapse" id="section-defect-register" open>
+<summary class="section-summary-flex">Defect Register<span class="section-count-badges"><span class="section-count-badge"><span class="scb-val tone-fail">7</span><span class="scb-lbl">Defects</span></span><span class="section-count-badge"><span class="scb-val tone-blocked">1</span><span class="scb-lbl">Technical Blocker</span></span><span class="section-count-badge"><span class="scb-val tone-warning">1</span><span class="scb-lbl">Code-quality finding</span></span></span></summary>
+<div class="finding tone-fail"><div class="kind">Defect</div>
+Editing a passenger&#39;s First Name after choosing ancillaries silently discards the held seat and its fare line — no warning, toast or dialog is shown. Now confirmed on two suppliers (flynas in run-006, Air Cairo here), on two currencies, two ancillary models and two environments — a Feature-level defect in the booking wizard, not a supplier integration problem. <span class="mono">(TC-SM-CNF-018)</span>
+<div class="fkv"><b>Severity:</b> <code>High</code></div>
+<div class="fkv"><b>Priority:</b> <code>P1</code></div>
+<div class="fkv"><b>Category:</b> <code>Workflow / Data Loss</code></div>
+<div class="fkv"><b>Reproducibility:</b> <code>Always, on both suppliers tested</code></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">Seat summary and fare total before/after the name edit, quoted in ManualExecutionResults.md; empty alert/toast containers recorded at the moment of loss.</div></details>
+</div>
+<div class="finding tone-warning"><div class="kind">Defect</div>
+Closed passenger sections fail three of four expected behaviours: a collapsed section&#39;s field remains genuinely editable; two accordion sections can be open simultaneously; and an incomplete, collapsed passenger blocks Next with no visible signal on its own header (no badge, no error count) — only manual expansion reveals which passenger is the problem. <span class="mono">(TC-SM-PAX-007)</span>
+<div class="fkv"><b>Severity:</b> <code>Low</code></div>
+<div class="fkv"><b>Priority:</b> <code>P3</code></div>
+<div class="fkv"><b>Category:</b> <code>Usability / Validation</code></div>
+<div class="fkv"><b>Reproducibility:</b> <code>Always, on this booking</code></div>
+</div>
+<div class="finding tone-warning"><div class="kind">Defect</div>
+The exit-row/infant-restriction seat&#39;s displayed state (aria-label, availability) never changes regardless of which passenger is active or which adult the infant is assigned to — byte-identical output across every passenger tried. The underlying rule IS enforced by the supplier at Hold/Book (see TC-SM-EXR-002/003, both Passed), but the seat map itself gives the agent no warning before submitting. <span class="mono">(TC-SM-EXR-004, TC-SM-EXR-005)</span>
+<div class="fkv"><b>Severity:</b> <code>Medium</code></div>
+<div class="fkv"><b>Priority:</b> <code>P2</code></div>
+<div class="fkv"><b>Category:</b> <code>UI / Business Rule Display</code></div>
+<div class="fkv"><b>Reproducibility:</b> <code>Always, on every passenger/assignment switch tried</code></div>
+</div>
+<div class="finding tone-warning"><div class="kind">Defect</div>
+A 2-leg multi-city booking gets only one Extra Baggage panel (for the outbound leg); the return leg has no baggage panel or options offered at all. Seat maps and meal panels are correctly split one-per-flight on the same booking. <span class="mono">(TC-SM-MCT-003, TC-SM-MCT-006)</span>
+<div class="fkv"><b>Severity:</b> <code>Medium</code></div>
+<div class="fkv"><b>Priority:</b> <code>P2</code></div>
+<div class="fkv"><b>Category:</b> <code>Workflow / Multi-city</code></div>
+<div class="fkv"><b>Reproducibility:</b> <code>Always, on this itinerary</code></div>
+</div>
+<div class="finding tone-warning"><div class="kind">Defect</div>
+Seat and ancillary charges across two separate flights on one itinerary are shown as one merged base-fare line, one merged tax line and one merged Seat Selection total, not itemised per journey — reproduces the test sheet&#39;s own known-fault description exactly on a different supplier. <span class="mono">(TC-SM-RTP-005)</span>
+<div class="fkv"><b>Severity:</b> <code>Medium</code></div>
+<div class="fkv"><b>Priority:</b> <code>P2</code></div>
+<div class="fkv"><b>Category:</b> <code>Pricing / Multi-city</code></div>
+<div class="fkv"><b>Reproducibility:</b> <code>Always, on this itinerary</code></div>
+</div>
+<div class="finding tone-blocked"><div class="kind">Blocker</div>
+Submitting Hold on a 2-leg multi-city itinerary fails outright with a browser-level CORS error on the &#39;fare-recheck-hold&#39; call — the request never reaches the server in a way the browser accepts, and the page never leaves Passenger Info. A single-flight Hold never hits this error in this run. Needs a developer, not a retest. <span class="mono">(TC-SM-MCT-004, TC-SM-MCT-005)</span>
+</div>
+<div class="finding tone-warning"><div class="kind">Finding</div>
+A calcBaggagePrice null-dereference console error (Cannot read properties of null, reading &#39;baggageMetaData&#39;) fires on every baggage change. First seen on flynas in run-006 under a completely different baggage data model and environment; now reproduces identically on Air Cairo. The computed price is still correct in both cases — not scored against any case, but worth a developer&#39;s eye as a latent defect in a pricing code path. <span class="mono">(cross-supplier, not scored against a case)</span>
+<div class="fkv"><b>Severity:</b> <code>Low (as observed)</code></div>
+</div>
+</details>
+<details class="section-collapse" id="section-assumptions-risks-resolved" open>
+<summary>Assumptions &amp; Risks Resolved</summary>
+<div class="notes-block">
+<p>TC-SM-PAX-008 (two infant-holding adults, one seat set): an initial UI-only reading and a first real Book attempt were inconclusive/confounded by an unrelated invalid document number. Two clean retries (Book and Hold, confound removed) were consistently rejected by the supplier — the rule is real and enforced at order submission, not in the seat map.</p>
+<p>TC-SM-EXR-002/003 (exit-row restriction): resolved from an initial UI-only Failed reading to Passed once real Hold attempts were genuinely and specifically rejected by the supplier (&quot;SPECIFIC SEAT REQUESTED NOT AVAILABLE - RESTRICTED&quot;). The UI-only reading described what the seat map offers, not what the supplier accepts.</p>
+<p>TC-SM-EXR-004/005 remain Failed — a separate question (does the seat map&#39;s own displayed state change per passenger) with its own direct, repeated evidence that it does not, independent of whether the underlying rule holds elsewhere (it does).</p>
+<p>TC-SM-CNF-018 and the calcBaggagePrice console error are now each confirmed on two suppliers, raising both to Feature-level findings.</p>
+<p>An early meal-price observation (a 20.00 EGP decline cost, and no free-meal option) was explicitly WITHDRAWN after a DOM-parsing mistake was identified and corrected with a screenshot; the real value is SRV42 at 0.00 EGP, and a free decline option genuinely exists.</p>
+<p>A new confirmed Supplier Rule: Air Cairo Document Number must be a capital A followed by 8 digits, recorded via module_manager/cli.js supplier-feature supplier rules.</p>
+</div>
+</details>
+<details class="section-collapse" id="section-known-limitations" open>
+<summary>Known Limitations</summary>
+<div class="notes-block">
+<p>Portal only — no Admin-app pass has been run against Air Cairo.</p>
+<p>TC-SM-ERR-001 and TC-SM-ERR-002 were never attempted this run at all — a genuine coverage gap, distinct from every other Not Executed case, which each carry a documented reason.</p>
+<p>13 cases are Not Executed for a documented reason: no Business cabin on this route (TC-SM-CAB-001/003/004/007), no reproducible fare-mismatch trigger (TC-SM-FRC-001/002/003/005), no connecting multi-city itinerary found (TC-SM-MCT-007), the taken-seat-still-viewable precondition never occurring on this supplier (TC-SM-STA-002), and no exit-row seats on the first flight TC-SM-EXR-001 was attempted on.</p>
+<p>Six TC-RPT-* report cases are drafted but Review: Pending — the suite has no coverage at all for the four reports; TC-SM-NEG-004 and TC-SM-EXR-007 are Review: Rejected and were not run.</p>
+<p>A live staging booking session was allowed after the credential API key was checked to start with &quot;tt&quot;; two Confirmed/Ticketed bookings and several deliberately-failed Hold/Book attempts remain on staging, not cancelled.</p>
+<p>This run&#39;s disposition of TC-SM-CAB-001/003/004/007 as Not Executed deliberately departs from the capability gate&#39;s current live output (which flags them Excluded); a known, accepted divergence for this run only.</p>
+</div>
+</details>
+</div><script>
+(function(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll('details.tc'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('details.section-collapse'));
+  var categories = Array.prototype.slice.call(document.querySelectorAll('details.tc-category'));
+  var search = document.getElementById('tcSearch');
+  var statusSel = document.getElementById('tcStatusFilter');
+  var categorySel = document.getElementById('tcCategoryFilter');
+  var countEl = document.getElementById('tcCount');
+  var noResultsEl = document.getElementById('tcNoResults');
+  var resetBtn = document.getElementById('tcResetFilters');
+  var expandBtn = document.getElementById('tcExpandAll');
+  var collapseBtn = document.getElementById('tcCollapseAll');
+
+  var hasToolbar = !!(search && statusSel && categorySel && countEl && noResultsEl);
+
+  function applyFilter(){
+    if (!hasToolbar) return;
+    var q = search.value.trim().toLowerCase();
+    var status = statusSel.value;
+    var category = categorySel.value;
+    var visible = 0;
+    cards.forEach(function(card){
+      var matchesStatus = !status || card.getAttribute('data-status') === status;
+      var matchesText = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
+      var matchesCategory = !category || card.closest('details.tc-category').getAttribute('data-cat') === category;
+      var show = matchesStatus && matchesText && matchesCategory;
+      card.classList.toggle('js-hidden', !show);
+      if (show) visible++;
+      if (show && q) card.open = true;
+    });
+    categories.forEach(function(cat){
+      var anyVisible = cat.querySelector('details.tc:not(.js-hidden)');
+      var matchesCategory = !category || cat.getAttribute('data-cat') === category;
+      cat.classList.toggle('cat-empty', !anyVisible || !matchesCategory);
+      if (anyVisible && matchesCategory && (q || status || category)) cat.open = true;
+    });
+    countEl.textContent = visible + ' / ' + cards.length + ' shown';
+    noResultsEl.classList.toggle('js-hidden', visible !== 0);
+  }
+
+  if (hasToolbar) {
+    search.addEventListener('input', applyFilter);
+    statusSel.addEventListener('change', applyFilter);
+    categorySel.addEventListener('change', applyFilter);
+  }
+  if (resetBtn) resetBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    search.value = '';
+    statusSel.value = '';
+    categorySel.value = '';
+    applyFilter();
+  });
+  if (expandBtn) expandBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    cards.forEach(function(c){ c.open = true; });
+    sections.forEach(function(s){ s.open = true; });
+    categories.forEach(function(c){ c.open = true; });
+  });
+  if (collapseBtn) collapseBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    cards.forEach(function(c){ c.open = false; });
+    sections.forEach(function(s){ s.open = false; });
+    categories.forEach(function(c){ c.open = false; });
+  });
+
+  categories.forEach(function(cat){
+    var catCards = Array.prototype.slice.call(cat.querySelectorAll('details.tc'));
+    var catExpandBtn = cat.querySelector('.tc-cat-expand');
+    var catCollapseBtn = cat.querySelector('.tc-cat-collapse');
+    if (catExpandBtn) catExpandBtn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      catCards.forEach(function(c){ c.open = true; });
+    });
+    if (catCollapseBtn) catCollapseBtn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      catCards.forEach(function(c){ c.open = false; });
+    });
+  });
+
+  applyFilter();
+
+  Array.prototype.slice.call(document.querySelectorAll('.hop')).forEach(function(hop){
+    var panel = hop.querySelector('.hop-reqres-panel');
+    var endpointSpan = hop.querySelector('.hop-endpoint');
+    var toggle = document.createElement('a');
+    toggle.href = '#';
+    toggle.className = 'hop-reqres-toggle';
+    toggle.textContent = 'View req & response';
+
+    if (panel) {
+      panel.classList.add('js-hidden');
+      toggle.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var hidden = panel.classList.toggle('js-hidden');
+        toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+      });
+      endpointSpan.parentNode.insertBefore(toggle, endpointSpan.nextSibling);
+      return;
+    }
+
+    var hds = Array.prototype.slice.call(hop.querySelectorAll('.hd'));
+    var reqEl = hds[0];
+    var resEl = hds[1];
+    if (!reqEl || !resEl) return;
+    reqEl.classList.add('hop-reqres', 'js-hidden');
+    resEl.classList.add('hop-reqres', 'js-hidden');
+    toggle.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var hidden = reqEl.classList.toggle('js-hidden');
+      resEl.classList.toggle('js-hidden', hidden);
+      toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+    });
+    endpointSpan.parentNode.insertBefore(toggle, endpointSpan.nextSibling);
+  });
+
+  Array.prototype.slice.call(document.querySelectorAll('.tc-reqres-anchor')).forEach(function(anchor){
+    var card = anchor.closest('details.tc');
+    var panel = card ? card.querySelector(':scope > .tc-reqres-panel') : null;
+    if (!panel) return;
+    panel.classList.add('js-hidden');
+    var toggle = document.createElement('a');
+    toggle.href = '#';
+    toggle.className = 'hop-reqres-toggle tc-reqres-toggle';
+    toggle.textContent = 'View req & response';
+    toggle.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var hidden = panel.classList.toggle('js-hidden');
+      toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+    });
+    anchor.parentNode.insertBefore(toggle, anchor.nextSibling);
+  });
+})();
+</script>
+</body></html>

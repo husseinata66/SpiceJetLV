@@ -37,6 +37,13 @@ const FIELDS = [
   // of the contract, not a replacement.
   { key: 'review', label: 'Review', width: 12 },
   { key: 'automation', label: 'Automation', width: 12 },
+  // ── Supplier gating columns (added 2026-09-27, user-mandated) ──────────────────────────────
+  // Appended after the lifecycle pair so no existing column moves. `Requires` names the Supplier
+  // capabilities a case cannot run without (`None`, or e.g. `Seat`, `Hold + Pay after Hold`,
+  // `Not Hold`); `Supplier Rule` names a Supplier-specific rule the case tests. Both are read by
+  // platform_core/tools/capability_gate, which excludes a case the Supplier cannot support.
+  { key: 'requires', label: 'Requires', width: 22 },
+  { key: 'supplierRule', label: 'Supplier Rule', width: 20 },
 ];
 
 /** Fields whose absence makes a case unexecutable at Stage 4, so it is reported, never inferred. */

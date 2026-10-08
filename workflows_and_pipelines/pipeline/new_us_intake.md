@@ -336,10 +336,29 @@ When a human says **"new supplier"** (or names a new Supplier for a Supplier Fea
    appears automatically with no edit to this document. If the named Feature is not registered yet,
    that is a separate propose→approve step the human decides on — not something the Supplier request
    creates as a side effect.
-2. Ask for the supplier checklist / scope description for that Supplier.
-3. Run the scope sweep: `cli.js supplier-feature inspect-scope --name "<Supplier name>" [--user-story ...] --json`.
+2. Ask **which supplier credential** this Supplier is tested with — named by the human, never carried
+   over from a previous run.
+3. Ask the **capability checklist**, one question per capability, `Supported` / `Not Supported` /
+   `Unknown` (`ndc_execution_rules.md` §A15):
+
+   > **Hold** · **Pay after Hold** · **Meal** · **Baggage** · **Seat** · **Bundle**
+
+   Booking itself is never asked — every Supplier books.
+
+   Never inferred from the Supplier's name or from another Supplier — flynas has no Hold and no Pay
+   after Hold, another Supplier may sell no meals. `Unknown` is treated as Not Supported when the run
+   is planned, so it is worth answering properly now.
+
+   **Skip `Pay after Hold` when `Hold` is not Supported** — paying later is an action on a held
+   booking, so with no Hold the answer is already Not Supported. Asking anyway invites a contradictory
+   pair the registry would only refuse (`ndc_execution_rules.md` §A15).
+4. Ask for the supplier checklist / scope description for that Supplier, **and ask whether the
+   Supplier has rules of its own** beyond the Feature's rules (e.g. ladies-only seats on one airline).
+   The answers go into that Supplier's `SupplierChecklist.md` §7c — "None" is recorded too
+   (`ndc_execution_rules.md` §A2).
+5. Run the scope sweep: `cli.js supplier-feature inspect-scope --name "<Supplier name>" [--user-story ...] --json`.
    Overlap is a candidate, never a verdict — identical reasoning to §5.1.
-4. Propose the Supplier under the named Feature and **wait for confirmation** before creating
+6. Propose the Supplier under the named Feature and **wait for confirmation** before creating
    anything:
    ```bash
    cli.js supplier-feature supplier propose  <feature> --name "<Supplier name>"
@@ -349,8 +368,18 @@ When a human says **"new supplier"** (or names a new Supplier for a Supplier Fea
    `scaffoldSupplier()` only creates the folder skeleton and `supplier.json` — it does not render any
    Markdown (identical to `scaffoldFeature()`'s behavior for Features). Rendering the Supplier
    Checklist itself is a separate, agent-performed step — §12.2a.
-5. Render the Supplier Checklist into the freshly-scaffolded `context/` folder — §12.2a.
-6. Create a run bound to the Feature + Supplier (never the Feature alone, and never both Supplier and
+7. **Record the answers from steps 3 and 4** against the now-registered Supplier. Both write
+   `supplier.json`; neither file is ever hand-edited:
+   ```bash
+   cli.js supplier-feature supplier capabilities <feature> <supplier> --by "<who>" \
+       --hold no --pay-after-hold no --meal yes --baggage yes --seat yes --bundle yes
+   cli.js supplier-feature supplier rules <feature> <supplier> --value "ladies-only-seats"|none --by "<who>"
+   ```
+   Only **Confirmed** rules are recorded — a rule still Pending Confirmation leaves its cases excluded
+   until it is confirmed.
+8. Render the Supplier Checklist into the freshly-scaffolded `context/` folder — §12.2a. Its §2c and
+   §7c mirror what step 7 recorded.
+9. Create a run bound to the Feature + Supplier (never the Feature alone, and never both Supplier and
    shared scope — `run_manager.md`'s run-ownership validation enforces this mechanically via
    `scopeFamily`), then run the normal pipeline stages against that Supplier's scope:
    ```bash
@@ -358,6 +387,14 @@ When a human says **"new supplier"** (or names a new Supplier for a Supplier Fea
      --feature <feature> (--supplier <supplier> | --shared-scope <shared-scope>)
    ```
    The run is numbered within its Feature — `<feature>-run-NNN` (`run_manager.md` §5.1.1).
+10. **Before execution, plan the run against those capabilities** — what will run is known and recorded
+    first, exactly as the Safety Preflight is:
+    ```bash
+    node platform_core/tools/capability_gate/cli.js plan --suite <TestCases_X.md> \
+        --feature <feature> --supplier <supplier> --run <run-folder>
+    ```
+    It writes `runs/<run>/metadata/CapabilityPlan.md`: which cases run, and which are excluded because
+    this Supplier cannot support them.
 
 NDC Core Service is **not** a parent choice in this flow, and is never asked about. A Feature's
 integration layer is recorded on the Feature (§11.2) and read from there when it matters.
