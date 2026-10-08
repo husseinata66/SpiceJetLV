@@ -287,7 +287,7 @@ For every executed test case, this skill captures, wherever applicable, and name
 | Evidence Type | When applicable |
 |---|---|
 | Screenshots | **Only for a defect** — a `Failed`, `Blocked`, or `Inconclusive` case, or an observation that becomes a defect or an Open Question (`pipeline.md` §11.4). **Never for a `Passed` case, a navigation step, or a "key step."** Saved to `artifacts/` and cited by path — not opened back into context unless a visual-only defect (layout, overlap, truncation) cannot be judged from the page text |
-| Observed values (text) | **Every case, and the only evidence a `Passed` case needs:** the values the page actually showed (labels, amounts, totals, statuses, messages), quoted next to the Expected Result they satisfy |
+| Observed results (text), by test type | **Every case — and all a `Passed` case needs.** Follows the test type (`pipeline.md` §11.4): UI — the values the page showed (labels, amounts, totals, statuses, messages); API — request and response (status, asserted fields); DB — the query and the asserted rows/fields; integration — the compared values from each side. Quoted next to the Expected Result they satisfy; secrets redacted |
 | Videos | Where the environment/tooling supports session recording |
 | Notes | Free-text observations a screenshot alone doesn't capture — e.g., a subjective UI judgment, timing behavior, or an ambiguity worth flagging to Test Design |
 | Logs | Console/network logs, where the target application and tooling expose them |

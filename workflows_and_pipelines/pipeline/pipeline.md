@@ -986,8 +986,21 @@ screenshot **only** when it is evidence for:
   observation that becomes a defect or an Open Question.
 
 **Never** for a `Passed` case, a navigation step, a "key step", a screen visited along the way, or to
-prove that a screen exists. A `Passed` case is evidenced in text: the observed values quoted next to the
-Expected Result (what the page showed, the totals, the status), which is precise, diffable, and cheap.
+prove that a screen exists.
+
+**Screenshots are one evidence type among several, and only a UI one.** Evidence follows the test
+type — a screenshot is never the default, and never a substitute for the type's own evidence:
+
+| Test type | Evidence for every case (incl. `Passed`) | Added for a defect |
+|---|---|---|
+| UI | Observed values quoted in text next to the Expected Result — labels, amounts, totals, statuses, messages | Screenshot of the failure state; console log; DOM/accessibility excerpt of the affected element |
+| API | Request (method, endpoint, key headers, body) and response (status, body or the asserted fields) | Full request/response pair, correlation/trace ID, timing |
+| DB / persistence | The query (or record lookup) and the returned rows/fields that were asserted | Full result set for the affected records; before/after state where the case mutates data |
+| Integration / NDC | The compared values from each side, with the `ndc_execution_rules.md` §A9 classification | Both payloads, the integration layer's response, network calls |
+| Non-UI (logs, files, jobs) | The log line, file content, or job status that was asserted | The surrounding log window, the full file, job history |
+
+Every captured secret (tokens, credentials, API keys) is redacted before it is written, whatever the
+type. A UI case that also asserts an API or DB effect carries both types' evidence.
 
 **Why:** screenshots are the largest avoidable cost of a browser stage — each one is a file, and each one
 viewed is image tokens in the agent's context, repeated on every later turn of that session. A suite of
