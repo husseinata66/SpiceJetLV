@@ -1002,6 +1002,23 @@ type — a screenshot is never the default, and never a substitute for the type'
 Every captured secret (tokens, credentials, API keys) is redacted before it is written, whatever the
 type. A UI case that also asserts an API or DB effect carries both types' evidence.
 
+**A `Passed` result must show that each assertion was validated, not just that values were captured.**
+For every assertion in the case's Expected Result, record one row:
+
+| Assertion | Expected | Actual (observed) | Check | Result |
+|---|---|---|---|---|
+| Seat summary shows the selected seat and price | `1C · EGP 1,180` | `Rania · 1C · EGP 1,180` | contains | ✅ |
+| Total = base fare + seat price | `20,736.18` | `20,736.18` | equals (2 dp) | ✅ |
+| `GET /booking/{pnr}` returns the seat | `seat = 1C` | `seat = "1C"` | equals | ✅ |
+
+- **Expected** is taken from the test case's Expected Result (or the contract it cites), not from what
+  was observed.
+- **Check** names how the two were compared — `equals`, `contains`, `matches <pattern>`, `≥`, `within
+  ±N`, `present`/`absent`, `classification = Exact Match` (§A9). A normalization or tolerance is stated,
+  never implied.
+- **Every assertion gets a row.** An assertion that could not be checked makes the case `Inconclusive`,
+  never `Passed`; a list of observed values with no expected value beside it is not evidence of a pass.
+
 **Why:** screenshots are the largest avoidable cost of a browser stage — each one is a file, and each one
 viewed is image tokens in the agent's context, repeated on every later turn of that session. A suite of
 mostly-passing cases was producing dozens of screenshots nobody reads.
