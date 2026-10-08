@@ -14,6 +14,20 @@ record it; a redundant entry costs nothing, a silent gap defeats the point of th
 
 ---
 
+## 2026-10-08 — Screenshots only for Findings and defects
+
+User-mandated, to cut token consumption. Browser stages were capturing a screenshot per case and per
+"key step" — `ancillaries-run-002` alone holds 77, almost all for Passed cases — and every one viewed
+costs image tokens on each later turn of the session. New `pipeline.md` §11.4: a screenshot is taken
+**only** as evidence for a Finding or a defect (Failed/Blocked/Inconclusive); a Passed case is evidenced
+by its observed values quoted in text; screenshots are saved and cited by path, not opened back into
+context unless a visual-only defect needs it. Applied in `manual-execution-skill` §7 (was "ideally also
+on key steps"), `automation-execution-skill` §16 (on failure only), `explorer-skill` §5.15.1 (no per-screen
+screenshots), `ndc_execution_rules.md` §A9, and `CLAUDE.md`. Evidence floors for real problems are
+unchanged.
+
+---
+
 ## 2026-10-08 — `reissue`, `ancillaries-airindia-run007`, and `SeatMap` merged into `platform-enhancments`
 
 User-mandated. The three branches forked from the same commit and each minted run-006…run-011 on

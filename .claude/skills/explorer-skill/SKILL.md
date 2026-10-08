@@ -464,7 +464,7 @@ This is a rule about **purpose**, not about tooling — and the line is precise,
 | A DOM snapshot captured because a console error fired and the DOM state explains the Finding (§5.11, §9) | A DOM snapshot of every screen visited, captured so automation can mine locators from it later |
 | An accessibility-tree read used to determine whether a control is actually reachable, supporting an accessibility Finding | An accessibility-tree dump per screen, persisted as a locator inventory |
 | Naming a control in prose so a reader knows which element a Finding concerns ("the Product Access section's Add button") | Recording that control's `css`/`xpath` selector as a reusable locator definition |
-| A screenshot documenting an in-scope screen | A "Screen Inventory" artifact whose purpose is to seed page objects |
+| A screenshot that is a Finding's evidence (`pipeline.md` §11.4 — screenshots are taken only for Findings) | A screenshot of every screen visited, or a "Screen Inventory" artifact whose purpose is to seed page objects |
 
 **The test to apply:** *is this artifact here because a Finding needs it as evidence, or because a later stage might want to reuse it?* The first is Discovery's job. The second is out of scope, and (per `pipeline.md` §11.2) is debug scaffolding rather than a deliverable.
 

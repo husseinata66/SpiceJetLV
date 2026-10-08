@@ -170,8 +170,10 @@ fare/taxes/total/currency, tickets/coupons, baggage/services, original booking/t
 **Target state:** Target Environment, target branch/agency, Supplier configuration, target
 credential/PCC, executing user, wallet baseline where the Feature involves a wallet.
 
-**Execution evidence:** UI screenshots, request/response payloads, relevant network calls, the
-integration layer's response, persisted records, and DB evidence where allowed.
+**Execution evidence:** request/response payloads, relevant network calls, the integration layer's
+response, persisted records, and DB evidence where allowed. UI screenshots **only** for an
+`Unexpected Difference`, a `Missing` value, or another defect (`pipeline.md` §11.4) — a match is
+evidenced by the compared values themselves.
 
 Classify differences as: `Exact Match` · `Expected Normalization` · `Accepted Difference` ·
 `Unexpected Difference` · `Missing` · `Not Verifiable`. Do not fail a normalization difference unless

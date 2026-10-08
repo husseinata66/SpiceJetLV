@@ -450,7 +450,7 @@ This table is illustrative, not authoritative — the authoritative source is al
 
 | Evidence Type | When applicable |
 |---|---|
-| Screenshots | UI-based frameworks; captured at minimum on failure, ideally also on key steps |
+| Screenshots | UI-based frameworks; captured **on failure only** (`pipeline.md` §11.4) — never on passing tests or intermediate steps. A passing test with no screenshot is not a gap |
 | Videos | UI-based frameworks where the runner supports session recording |
 | Execution Traces | Frameworks with a trace/replay capability (e.g., Playwright Trace Viewer) |
 | Console Logs | UI-based frameworks with browser console access |

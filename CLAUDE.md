@@ -182,6 +182,11 @@ for correction — silently dropping to module scope writes Feature output into 
   that is decided per action against `execution_safety_policy.json` (`pipeline.md` §14).
 - **Ask before every execution whether it runs Headed or Headless.** Never inferred, never carried
   over from the previous run.
+- **Screenshots only for Findings and defects** (Failed/Blocked/Inconclusive). Never for a Passed
+  case, a navigation step, or a screen visited along the way — a Passed case is evidenced by its
+  observed values in text. Save to `artifacts/` and cite by path; don't open the image back into
+  context unless a visual-only defect needs it
+  ([`pipeline.md`](workflows_and_pipelines/pipeline/pipeline.md) §11.4).
 
 ## Reports
 

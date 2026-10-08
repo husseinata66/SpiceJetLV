@@ -267,7 +267,7 @@ Notes:
 - "Running Application" is the live target system, reached through browser automation — it is data to be observed, not a source of requirements.
 - **It resolves its input from the module workspace**, not from a run folder: `modules/{module}/context/ProjectContext.md` at its current revision, whose `status:` must read `Approved`. It records the revision it consumed in its own `upstream` header (`module_architecture.md` §10.1) and never copies the context into its own folder.
 - Output includes the Gap Analysis (documented vs. observed) required by the Explorer Skill specification.
-- **Behavioural output only — no selectors, no DOM captures, no locator candidates** (§3.5). Selector acquisition belongs to Stage `4A`. A screenshot documenting an in-scope screen remains permanent evidence; a DOM dump does not (§11.2).
+- **Behavioural output only — no selectors, no DOM captures, no locator candidates** (§3.5). Selector acquisition belongs to Stage `4A`. A screenshot that is a Finding's evidence remains permanent; a DOM dump does not (§11.2). Screenshots are taken only for Findings and defects (§11.4).
 - Its output feeds **both** branches unchanged.
 
 ### Stage 3 — Test Design Skill *(shared)*
@@ -966,7 +966,7 @@ A project- or run-level flag, **default `Off`**, recorded in that run's Project 
 
 ### 11.2 What counts as a permanent artifact vs. debug scaffolding
 
-- **Permanent:** a Discovery snapshot, a Finding and its Evidence Package, the QA Assessment Report, Timeline, Coverage Summary, Test Design outputs, an Automation package, Execution Results/evidence, the Final QA Report — i.e., anything §4/Expected-Artifacts tables across the agent specs actually name. A screenshot that documents an in-scope screen as part of a Discovery snapshot or a Finding's evidence is permanent.
+- **Permanent:** a Discovery snapshot, a Finding and its Evidence Package, the QA Assessment Report, Timeline, Coverage Summary, Test Design outputs, an Automation package, Execution Results/evidence, the Final QA Report — i.e., anything §4/Expected-Artifacts tables across the agent specs actually name. A screenshot that is a Finding's or a defect's evidence (§11.4) is permanent.
 - **Debug scaffolding, never persisted by default:** the Node/Playwright (or other) script used to drive the browser to get that screenshot; raw, pre-synthesis JSON dumps of every element on a page; one-off reconnaissance screenshots taken only to verify navigation/tooling before the real discovery pass, not to document an application screen.
 - When in doubt whether a given file is a deliverable or scaffolding, ask: "Does an agent spec's Expected Artifacts table name this?" If not, it does not belong anywhere under `platform_core_data/`.
 
@@ -975,6 +975,35 @@ A project- or run-level flag, **default `Off`**, recorded in that run's Project 
 This rule governs all runs from 2026-07-12 onward. Pre-existing debug scripts/raw dumps left in earlier runs' artifact folders (e.g., `_login_discovery.js` and its `_results.json` under RUN-20260712-001) are not automatically deleted by this section — cleaning up a prior, already-approved run's artifacts is a separate decision to confirm with the user, not an automatic side effect of adopting this rule.
 
 This must remain a permanent platform capability, not a habit built around the currently-hosted application — whatever `platform_core_data/` is retargeted at next loads Platform Knowledge plus its own Project Knowledge, with no architectural change required.
+
+### 11.4 Screenshots only for Findings and defects
+
+**User-mandated (2026-10-08).** Every stage that drives a browser (Stage 2, `4M`, `5A`, `5H`) takes a
+screenshot **only** when it is evidence for:
+
+- a **Finding** (Stage 2, any Category — including the annotated screenshot an unclear item requires), or
+- a **defect** — a test case that is `Failed`, `Blocked`, or `Inconclusive`, or an execution-time
+  observation that becomes a defect or an Open Question.
+
+**Never** for a `Passed` case, a navigation step, a "key step", a screen visited along the way, or to
+prove that a screen exists. A `Passed` case is evidenced in text: the observed values quoted next to the
+Expected Result (what the page showed, the totals, the status), which is precise, diffable, and cheap.
+
+**Why:** screenshots are the largest avoidable cost of a browser stage — each one is a file, and each one
+viewed is image tokens in the agent's context, repeated on every later turn of that session. A suite of
+mostly-passing cases was producing dozens of screenshots nobody reads.
+
+Two rules that follow from it:
+
+1. **Save, don't view.** A screenshot is written to the run's `artifacts/` folder and cited by path. The
+   agent judges the screen from the page's text/accessibility snapshot, and opens the image itself only
+   when a visual-only defect (layout, overlap, colour, truncation) cannot be judged any other way.
+2. **The evidence floors elsewhere still apply to what IS captured.** A Finding still gets its
+   Category's evidence set (`explorer-skill` §5.11), and a defect still gets the full Defect
+   Documentation Standard (`manual-execution-skill` §10.1). This rule removes screenshots from passing
+   work; it never thins the evidence for a real problem.
+
+An automation framework (Stage `5A`) is configured the same way: screenshot **on failure only**.
 
 ## 12. Automation Asset Lifecycle (added 2026-07-24, user-mandated)
 

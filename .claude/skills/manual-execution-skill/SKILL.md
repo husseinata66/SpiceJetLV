@@ -92,7 +92,7 @@ Three prohibitions define this stage's boundary:
 - **Validate preconditions before execution** (§5) — confirm the test case's stated Preconditions (login state, data state, role) actually hold before running its Steps; a test case whose preconditions cannot be met is `Blocked`, never force-run against an unmet precondition.
 - **Execute tests on the target environment** named in the Project Context, driving the live application through the **Playwright MCP server, headed, not headless** (§11.1), so a human can watch each interaction happen live — confirming the target environment matches what the Project Context expects before running anything.
 - **Record execution results** for every test case: Status, Execution Time, and, on failure/block, the specific step and observed-vs-expected discrepancy.
-- **Capture execution evidence** (§7) — screenshots, videos, notes, and logs where applicable — and name explicitly what wasn't captured and why, never a silent gap.
+- **Capture execution evidence** (§7) — observed values for every case; screenshots only for defects (`pipeline.md` §11.4); videos, notes, and logs where applicable — and name explicitly what wasn't captured and why, never a silent gap. A `Passed` case with no screenshot is not a gap.
 - **Classify every result** using exactly the Result Classification set (§8): Passed, Failed, Blocked, Skipped, Not Executed, Inconclusive.
 - **Generate a Manual Execution Summary** — a run-level narrative and headline figures, distinct from the raw per-test Manual Execution Results.
 - **Self-report the delivery** (§9) — produce a stakeholder-facing **Manual QA Report** (requirement coverage, outcome figures, defect register, resolved assumptions) and a **Manual Test Results CSV**, both derived from the same per-test result set.
@@ -286,7 +286,8 @@ For every executed test case, this skill captures, wherever applicable, and name
 
 | Evidence Type | When applicable |
 |---|---|
-| Screenshots | At minimum on failure/block; ideally also on key steps |
+| Screenshots | **Only for a defect** — a `Failed`, `Blocked`, or `Inconclusive` case, or an observation that becomes a defect or an Open Question (`pipeline.md` §11.4). **Never for a `Passed` case, a navigation step, or a "key step."** Saved to `artifacts/` and cited by path — not opened back into context unless a visual-only defect (layout, overlap, truncation) cannot be judged from the page text |
+| Observed values (text) | **Every case, and the only evidence a `Passed` case needs:** the values the page actually showed (labels, amounts, totals, statuses, messages), quoted next to the Expected Result they satisfy |
 | Videos | Where the environment/tooling supports session recording |
 | Notes | Free-text observations a screenshot alone doesn't capture — e.g., a subjective UI judgment, timing behavior, or an ambiguity worth flagging to Test Design |
 | Logs | Console/network logs, where the target application and tooling expose them |
