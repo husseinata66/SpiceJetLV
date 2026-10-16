@@ -1,0 +1,2151 @@
+{
+ "offers": {
+  "A": 200,
+  "B": 262
+ },
+ "flights": {
+  "A": 200,
+  "B": 262
+ },
+ "flightsOnlyA": [],
+ "flightsOnlyB": [
+  "SV310 CAI-RUH 11-20T10:35>11-20T14:10 + SV1039 RUH-JED 11-20T16:00>11-20T17:55 || SV1040 JED-RUH 11-27T17:00>11-27T18:40 + SV321 RUH-CAI 11-27T20:15>11-27T22:20",
+  "SV310 CAI-RUH 11-20T10:35>11-20T14:10 + SV1039 RUH-JED 11-20T16:00>11-20T17:55 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+  "SV310 CAI-RUH 11-20T10:35>11-20T14:10 + SV1039 RUH-JED 11-20T16:00>11-20T17:55 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+  "SV310 CAI-RUH 11-20T10:35>11-20T14:10 + SV1039 RUH-JED 11-20T16:00>11-20T17:55 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+  "SV310 CAI-RUH 11-20T10:35>11-20T14:10 + SV1039 RUH-JED 11-20T16:00>11-20T17:55 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+  "SV310 CAI-RUH 11-20T10:35>11-20T14:10 + SV1039 RUH-JED 11-20T16:00>11-20T17:55 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+  "SV310 CAI-RUH 11-20T10:35>11-20T14:10 + SV1039 RUH-JED 11-20T16:00>11-20T17:55 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+  "SV310 CAI-RUH 11-20T10:35>11-20T14:10 + SV1039 RUH-JED 11-20T16:00>11-20T17:55 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+  "SV310 CAI-RUH 11-20T10:35>11-20T14:10 + SV1039 RUH-JED 11-20T16:00>11-20T17:55 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+  "KU546 CAI-KWI 11-20T11:25>11-20T14:50 + KU785 KWI-JED 11-20T16:20>11-20T18:40 || KU788 JED-KWI 11-27T12:35>11-27T14:35 + KU541 KWI-CAI 11-27T17:05>11-27T18:55",
+  "KU544 CAI-KWI 11-20T02:40>11-20T06:05 + KU787 KWI-JED 11-20T08:45>11-20T11:05 || KU788 JED-KWI 11-27T12:35>11-27T14:35 + KU541 KWI-CAI 11-27T17:05>11-27T18:55",
+  "KU544 CAI-KWI 11-20T02:40>11-20T06:05 + KU6105 KWI-JED 11-20T12:15>11-20T14:50 || KU784 JED-KWI 11-27T03:10>11-27T05:20 + KU545 KWI-CAI 11-27T08:05>11-27T09:55",
+  "KU544 CAI-KWI 11-20T02:40>11-20T06:05 + KU6105 KWI-JED 11-20T12:15>11-20T14:50 || KU788 JED-KWI 11-27T12:35>11-27T14:35 + KU541 KWI-CAI 11-27T17:05>11-27T18:55",
+  "XY570 CAI-JED 11-20T17:40>11-20T20:50 || XY18 JED-RUH 11-27T07:15>11-27T08:50 + XY269 RUH-CAI 11-27T10:35>11-27T12:35",
+  "XY590 CAI-JED 11-20T21:20>11-21T00:30 || XY18 JED-RUH 11-27T07:15>11-27T08:50 + XY269 RUH-CAI 11-27T10:35>11-27T12:35",
+  "XY578 CAI-JED 11-20T11:40>11-20T14:55 || XY18 JED-RUH 11-27T07:15>11-27T08:50 + XY269 RUH-CAI 11-27T10:35>11-27T12:35",
+  "XY572 CAI-JED 11-20T20:05>11-20T23:20 || XY18 JED-RUH 11-27T07:15>11-27T08:50 + XY269 RUH-CAI 11-27T10:35>11-27T12:35",
+  "XY568 CAI-JED 11-20T23:50>11-21T03:05 || XY18 JED-RUH 11-27T07:15>11-27T08:50 + XY269 RUH-CAI 11-27T10:35>11-27T12:35",
+  "XY566 CAI-JED 11-20T08:20>11-20T11:30 || XY40 JED-RUH 11-27T16:55>11-27T18:30 + XY265 RUH-CAI 11-27T20:00>11-27T22:20",
+  "XY584 CAI-JED 11-20T09:25>11-20T12:35 || XY40 JED-RUH 11-27T16:55>11-27T18:30 + XY265 RUH-CAI 11-27T20:00>11-27T22:20",
+  "XY570 CAI-JED 11-20T17:40>11-20T20:50 || XY40 JED-RUH 11-27T16:55>11-27T18:30 + XY265 RUH-CAI 11-27T20:00>11-27T22:20",
+  "XY590 CAI-JED 11-20T21:20>11-21T00:30 || XY40 JED-RUH 11-27T16:55>11-27T18:30 + XY265 RUH-CAI 11-27T20:00>11-27T22:20",
+  "XY578 CAI-JED 11-20T11:40>11-20T14:55 || XY40 JED-RUH 11-27T16:55>11-27T18:30 + XY265 RUH-CAI 11-27T20:00>11-27T22:20",
+  "XY572 CAI-JED 11-20T20:05>11-20T23:20 || XY40 JED-RUH 11-27T16:55>11-27T18:30 + XY265 RUH-CAI 11-27T20:00>11-27T22:20",
+  "XY568 CAI-JED 11-20T23:50>11-21T03:05 || XY40 JED-RUH 11-27T16:55>11-27T18:30 + XY265 RUH-CAI 11-27T20:00>11-27T22:20",
+  "QR1304 CAI-DOH 11-20T13:05>11-20T17:10 + QR1188 DOH-JED 11-20T17:55>11-20T20:35 || QR1193 JED-DOH 11-27T12:30>11-27T14:50 + QR1307 DOH-CAI 11-27T15:45>11-27T18:20",
+  "QR1302 CAI-DOH 11-20T19:35>11-20T23:40 + QR1184 DOH-JED 11-21T01:00>11-21T03:40 || QR1193 JED-DOH 11-27T12:30>11-27T14:50 + QR1307 DOH-CAI 11-27T15:45>11-27T18:20",
+  "QR1304 CAI-DOH 11-20T13:05>11-20T17:10 + QR1188 DOH-JED 11-20T17:55>11-20T20:35 || QR1185 JED-DOH 11-27T05:10>11-27T07:30 + QR1303 DOH-CAI 11-27T08:30>11-27T11:05",
+  "QR1302 CAI-DOH 11-20T19:35>11-20T23:40 + QR1184 DOH-JED 11-21T01:00>11-21T03:40 || QR1185 JED-DOH 11-27T05:10>11-27T07:30 + QR1303 DOH-CAI 11-27T08:30>11-27T11:05",
+  "QR1304 CAI-DOH 11-20T13:05>11-20T17:10 + QR1188 DOH-JED 11-20T17:55>11-20T20:35 || QR1191 JED-DOH 11-27T11:35>11-27T13:55 + QR1301 DOH-CAI 11-27T15:00>11-27T17:35",
+  "QR1302 CAI-DOH 11-20T19:35>11-20T23:40 + QR1184 DOH-JED 11-21T01:00>11-21T03:40 || QR1191 JED-DOH 11-27T11:35>11-27T13:55 + QR1301 DOH-CAI 11-27T15:00>11-27T17:35",
+  "RJ504 CAI-AMM 11-20T14:05>11-20T16:25 + RJ706 AMM-JED 11-20T17:50>11-20T20:00 || RJ707 JED-AMM 11-27T21:00>11-27T23:10 + RJ507 AMM-CAI 11-28T01:30>11-28T02:05",
+  "RJ506 CAI-AMM 11-20T19:55>11-20T22:15 + RJ704 AMM-JED 11-21T01:35>11-21T03:45 || RJ707 JED-AMM 11-27T21:00>11-27T23:10 + RJ507 AMM-CAI 11-28T01:30>11-28T02:05",
+  "RJ502 CAI-AMM 11-20T08:40>11-20T11:00 + RJ706 AMM-JED 11-20T17:50>11-20T20:00 || RJ707 JED-AMM 11-27T21:00>11-27T23:10 + RJ507 AMM-CAI 11-28T01:30>11-28T02:05",
+  "RJ504 CAI-AMM 11-20T14:05>11-20T16:25 + RJ706 AMM-JED 11-20T17:50>11-20T20:00 || RJ727 JED-AMM 11-27T07:20>11-27T09:30 + RJ503 AMM-CAI 11-27T12:30>11-27T13:05",
+  "RJ506 CAI-AMM 11-20T19:55>11-20T22:15 + RJ704 AMM-JED 11-21T01:35>11-21T03:45 || RJ727 JED-AMM 11-27T07:20>11-27T09:30 + RJ503 AMM-CAI 11-27T12:30>11-27T13:05",
+  "RJ502 CAI-AMM 11-20T08:40>11-20T11:00 + RJ706 AMM-JED 11-20T17:50>11-20T20:00 || RJ727 JED-AMM 11-27T07:20>11-27T09:30 + RJ503 AMM-CAI 11-27T12:30>11-27T13:05",
+  "RJ504 CAI-AMM 11-20T14:05>11-20T16:25 + RJ706 AMM-JED 11-20T17:50>11-20T20:00 || RJ705 JED-AMM 11-27T06:00>11-27T08:10 + RJ503 AMM-CAI 11-27T12:30>11-27T13:05",
+  "RJ506 CAI-AMM 11-20T19:55>11-20T22:15 + RJ704 AMM-JED 11-21T01:35>11-21T03:45 || RJ705 JED-AMM 11-27T06:00>11-27T08:10 + RJ503 AMM-CAI 11-27T12:30>11-27T13:05",
+  "RJ502 CAI-AMM 11-20T08:40>11-20T11:00 + RJ706 AMM-JED 11-20T17:50>11-20T20:00 || RJ705 JED-AMM 11-27T06:00>11-27T08:10 + RJ503 AMM-CAI 11-27T12:30>11-27T13:05",
+  "TK691 CAI-IST 11-20T10:15>11-20T13:50 + TK126 IST-JED 11-20T15:20>11-20T19:10 || TK95 JED-IST 11-27T02:25>11-27T06:30 + TK690 IST-CAI 11-27T07:55>11-27T09:20",
+  "ME305 CAI-BEY 11-20T14:10>11-20T15:30 + ME368 BEY-JED 11-20T17:45>11-20T21:15 || ME365 JED-BEY 11-27T13:25>11-27T14:55 + ME306 BEY-CAI 11-27T18:15>11-27T19:45",
+  "ME303 CAI-BEY 11-20T10:35>11-20T11:55 + ME368 BEY-JED 11-20T17:45>11-20T21:15 || ME365 JED-BEY 11-27T13:25>11-27T14:55 + ME306 BEY-CAI 11-27T18:15>11-27T19:45",
+  "ME305 CAI-BEY 11-20T14:10>11-20T15:30 + ME368 BEY-JED 11-20T17:45>11-20T21:15 || ME369 JED-BEY 11-27T22:15>11-27T23:45 + ME304 BEY-CAI 11-28T11:40>11-28T13:10",
+  "ME303 CAI-BEY 11-20T10:35>11-20T11:55 + ME368 BEY-JED 11-20T17:45>11-20T21:15 || ME369 JED-BEY 11-27T22:15>11-27T23:45 + ME304 BEY-CAI 11-28T11:40>11-28T13:10",
+  "GF80 CAI-BAH 11-20T04:20>11-20T08:20 + GF171 BAH-JED 11-20T10:05>11-20T12:40 || GF174 JED-BAH 11-27T21:40>11-27T23:50 + GF79 BAH-CAI 11-28T01:05>11-28T03:35",
+  "GF80 CAI-BAH 11-20T04:20>11-20T08:20 + GF183 BAH-JED 11-20T12:30>11-20T15:05 || GF174 JED-BAH 11-27T21:40>11-27T23:50 + GF79 BAH-CAI 11-28T01:05>11-28T03:35",
+  "GF80 CAI-BAH 11-20T04:20>11-20T08:20 + GF171 BAH-JED 11-20T10:05>11-20T12:40 || GF182 JED-BAH 11-27T06:00>11-27T08:05 + GF71 BAH-CAI 11-27T12:10>11-27T14:40",
+  "GF80 CAI-BAH 11-20T04:20>11-20T08:20 + GF183 BAH-JED 11-20T12:30>11-20T15:05 || GF182 JED-BAH 11-27T06:00>11-27T08:05 + GF71 BAH-CAI 11-27T12:10>11-27T14:40",
+  "GF80 CAI-BAH 11-20T04:20>11-20T08:20 + GF171 BAH-JED 11-20T10:05>11-20T12:40 || GF176 JED-BAH 11-27T05:15>11-27T07:25 + GF71 BAH-CAI 11-27T12:10>11-27T14:40",
+  "GF80 CAI-BAH 11-20T04:20>11-20T08:20 + GF183 BAH-JED 11-20T12:30>11-20T15:05 || GF176 JED-BAH 11-27T05:15>11-27T07:25 + GF71 BAH-CAI 11-27T12:10>11-27T14:40",
+  "TK691 CAI-IST 11-20T10:15>11-20T13:50 + TK126 IST-JED 11-20T15:20>11-20T19:10 || TK115 JED-IST 11-27T07:50>11-27T12:00 + TK7883 IST-CAI 11-27T14:00>11-27T15:20",
+  "TK691 CAI-IST 11-20T10:15>11-20T13:50 + TK126 IST-JED 11-20T15:20>11-20T19:10 || TK97 JED-IST 11-27T06:35>11-27T10:45 + TK7883 IST-CAI 11-27T14:00>11-27T15:20",
+  "GF6120 CAI-BAH 11-20T19:55>11-20T23:35 + GF181 BAH-JED 11-21T01:35>11-21T04:10 || GF174 JED-BAH 11-27T21:40>11-27T23:50 + GF79 BAH-CAI 11-28T01:05>11-28T03:35",
+  "GF6120 CAI-BAH 11-20T19:55>11-20T23:35 + GF181 BAH-JED 11-21T01:35>11-21T04:10 || GF182 JED-BAH 11-27T06:00>11-27T08:05 + GF71 BAH-CAI 11-27T12:10>11-27T14:40",
+  "GF6120 CAI-BAH 11-20T19:55>11-20T23:35 + GF181 BAH-JED 11-21T01:35>11-21T04:10 || GF176 JED-BAH 11-27T05:15>11-27T07:25 + GF71 BAH-CAI 11-27T12:10>11-27T14:40",
+  "EY712 CAI-AUH 11-20T07:25>11-20T12:45 + EY611 AUH-JED 11-20T14:15>11-20T16:20 || EY604 JED-AUH 11-27T05:55>11-27T09:20 + EY713 AUH-CAI 11-27T10:25>11-27T12:30",
+  "EY714 CAI-AUH 11-20T13:50>11-20T19:15 + EY601 AUH-JED 11-20T21:20>11-20T23:35 || EY604 JED-AUH 11-27T05:55>11-27T09:20 + EY713 AUH-CAI 11-27T10:25>11-27T12:30",
+  "EY712 CAI-AUH 11-20T07:25>11-20T12:45 + EY611 AUH-JED 11-20T14:15>11-20T16:20 || EY602 JED-AUH 11-27T03:15>11-27T06:50 + EY713 AUH-CAI 11-27T10:25>11-27T12:30",
+  "EY714 CAI-AUH 11-20T13:50>11-20T19:15 + EY601 AUH-JED 11-20T21:20>11-20T23:35 || EY602 JED-AUH 11-27T03:15>11-27T06:50 + EY713 AUH-CAI 11-27T10:25>11-27T12:30",
+  "EY712 CAI-AUH 11-20T07:25>11-20T12:45 + EY611 AUH-JED 11-20T14:15>11-20T16:20 || EY604 JED-AUH 11-27T05:55>11-27T09:20 + EY715 AUH-CAI 11-27T14:35>11-27T16:45",
+  "EY714 CAI-AUH 11-20T13:50>11-20T19:15 + EY601 AUH-JED 11-20T21:20>11-20T23:35 || EY604 JED-AUH 11-27T05:55>11-27T09:20 + EY715 AUH-CAI 11-27T14:35>11-27T16:45"
+ ],
+ "matched": 200,
+ "stopsDiff": [],
+ "fareOpt": {
+  "matchedOptions": 149,
+  "onlyA": [
+   {
+    "flight": "KU546 CAI-KWI 11-20T11:25>11-20T14:50 + KU785 KWI-JED 11-20T16:20>11-20T18:40 || KU784 JED-KWI 11-27T03:10>11-27T05:20 + KU545 KWI-CAI 11-27T08:05>11-27T09:55",
+    "brand": "ECONOMY ZERO/ECONOMY ZERO/ECONOMY ZERO/ECONOMY ZERO",
+    "detail": "ADTx1:Economy|V|0PC,Economy|V|0PC,Economy|V|0PC,Economy|V|0PC"
+   },
+   {
+    "flight": "KU544 CAI-KWI 11-20T02:40>11-20T06:05 + KU787 KWI-JED 11-20T08:45>11-20T11:05 || KU784 JED-KWI 11-27T03:10>11-27T05:20 + KU545 KWI-CAI 11-27T08:05>11-27T09:55",
+    "brand": "ECONOMY ZERO/ECONOMY ZERO/ECONOMY ZERO/ECONOMY ZERO",
+    "detail": "ADTx1:Economy|V|0PC,Economy|V|0PC,Economy|V|0PC,Economy|V|0PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|U|0PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|W|2PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|W|2PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|W|2PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|W|2PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|W|2PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|W|2PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|W|2PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|E|2PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|E|2PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|E|2PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|E|2PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|E|2PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|E|2PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST BUY",
+    "detail": "ADTx1:Economy|E|2PC,Economy|T|1PC"
+   }
+  ],
+  "onlyB": [
+   {
+    "flight": "KU546 CAI-KWI 11-20T11:25>11-20T14:50 + KU785 KWI-JED 11-20T16:20>11-20T18:40 || KU784 JED-KWI 11-27T03:10>11-27T05:20 + KU545 KWI-CAI 11-27T08:05>11-27T09:55",
+    "brand": "ECONOMY SAVER/ECONOMY SAVER/ECONOMY SAVER/ECONOMY SAVER",
+    "detail": "ADTx1:Economy|V|0PC,Economy|V|0PC,Economy|T|1PC,Economy|T|1PC"
+   },
+   {
+    "flight": "KU544 CAI-KWI 11-20T02:40>11-20T06:05 + KU787 KWI-JED 11-20T08:45>11-20T11:05 || KU784 JED-KWI 11-27T03:10>11-27T05:20 + KU545 KWI-CAI 11-27T08:05>11-27T09:55",
+    "brand": "ECONOMY SAVER/ECONOMY SAVER/ECONOMY SAVER/ECONOMY SAVER",
+    "detail": "ADTx1:Economy|V|0PC,Economy|V|0PC,Economy|T|1PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS665 CAI-JED 11-20T02:25>11-20T05:40 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS661 CAI-JED 11-20T07:10>11-20T10:25 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS671 CAI-JED 11-20T14:15>11-20T17:30 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS669 CAI-JED 11-20T18:25>11-20T21:40 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS663 CAI-JED 11-20T23:00>11-21T02:15 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "/",
+    "detail": "ADTx1:Economy|U|0PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|W|2PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|W|2PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|W|2PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|W|2PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|W|2PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|W|2PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS643 CAI-JED 11-20T20:40>11-20T23:55 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|W|2PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS670 JED-CAI 11-27T22:55>11-28T00:10",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|E|2PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS666 JED-CAI 11-27T06:40>11-27T07:55",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|E|2PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS644 JED-CAI 11-27T01:10>11-27T02:30",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|E|2PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS664 JED-CAI 11-27T03:40>11-27T05:00",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|E|2PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS674 JED-CAI 11-27T05:40>11-27T07:00",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|E|2PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS662 JED-CAI 11-27T11:40>11-27T13:00",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|E|2PC,Economy|U|0PC"
+   },
+   {
+    "flight": "MS673 CAI-JED 11-20T01:00>11-20T04:15 || MS672 JED-CAI 11-27T19:00>11-27T20:20",
+    "brand": "ECONOMY BEST OFFER/ECONOMY BEST OFFER",
+    "detail": "ADTx1:Economy|E|2PC,Economy|U|0PC"
+   }
+  ],
+  "dupA": [],
+  "dupB": []
+ },
+ "detailDiff": [
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "rbd",
+   "A": "Q",
+   "B": "T"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "rbd",
+   "A": "Q",
+   "B": "T"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "rbd",
+   "A": "Q",
+   "B": "T"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "rbd",
+   "A": "Q",
+   "B": "T"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "rbd",
+   "A": "Q",
+   "B": "T"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "rbd",
+   "A": "Q",
+   "B": "T"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "rbd",
+   "A": "Q",
+   "B": "T"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "rbd",
+   "A": "Q",
+   "B": "T"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV386 CAI-JED 11-20T01:00>11-20T04:10 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV308 CAI-JED 11-20T03:35>11-20T06:45 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV382 CAI-JED 11-20T06:10>11-20T09:20 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV300 CAI-JED 11-20T11:45>11-20T14:55 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV330 CAI-JED 11-20T16:40>11-20T19:50 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV304 CAI-JED 11-20T17:20>11-20T20:30 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV302 CAI-JED 11-20T19:50>11-20T23:00 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV388 CAI-JED 11-20T22:30>11-21T01:40 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "rbd",
+   "A": "Q",
+   "B": "T"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV309 JED-CAI 11-27T00:55>11-27T02:15",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV309",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV383 JED-CAI 11-27T03:30>11-27T04:50",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV383",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV301 JED-CAI 11-27T09:05>11-27T10:25",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV301",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV305 JED-CAI 11-27T14:40>11-27T16:00",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV305",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "rbd",
+   "A": "Q",
+   "B": "T"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV303 JED-CAI 11-27T17:10>11-27T18:30",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV303",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV389 JED-CAI 11-27T19:50>11-27T21:10",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV389",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV387 JED-CAI 11-27T22:20>11-27T23:40",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV387",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "rbd",
+   "A": "Q",
+   "B": "V"
+  },
+  {
+   "flight": "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30 || SV335 JED-CAI 11-27T05:45>11-27T07:10",
+   "brand": "BASIC ECO/BASIC ECO/BASIC ECO",
+   "pax": "ADTx1",
+   "seg": "SV335",
+   "field": "bag",
+   "A": "2PC",
+   "B": "1PC"
+  }
+ ],
+ "bagTextDiff": 335,
+ "bagTextExamples": [
+  "1 Pieces ⇄ Number 1 Piece Allowed.",
+  "15 Kilograms ⇄ 15 Kilograms Allowed.",
+  "2 Pieces ⇄ Number 1 Piece Allowed.",
+  "30 Kilograms ⇄ 30 Kilograms Allowed."
+ ],
+ "cabinLabelPairs": [],
+ "cabins": {
+  "A": [
+   "Economy"
+  ],
+  "B": [
+   "Economy"
+  ]
+ },
+ "rbds": {
+  "A": [
+   "A",
+   "E",
+   "H",
+   "N",
+   "O",
+   "Q",
+   "T",
+   "U",
+   "V",
+   "W"
+  ],
+  "B": [
+   "A",
+   "B",
+   "E",
+   "H",
+   "N",
+   "O",
+   "Q",
+   "T",
+   "U",
+   "V",
+   "W",
+   "X"
+  ]
+ },
+ "perLeg": {
+  "A": {
+   "1": {
+    "cabins": [
+     "Economy"
+    ],
+    "rbds": [
+     "A",
+     "E",
+     "H",
+     "N",
+     "O",
+     "U",
+     "V",
+     "W"
+    ]
+   },
+   "2": {
+    "cabins": [
+     "Economy"
+    ],
+    "rbds": [
+     "A",
+     "H",
+     "O",
+     "Q",
+     "T",
+     "V"
+    ]
+   }
+  },
+  "B": {
+   "1": {
+    "cabins": [
+     "Economy"
+    ],
+    "rbds": [
+     "A",
+     "B",
+     "E",
+     "H",
+     "N",
+     "O",
+     "Q",
+     "U",
+     "V",
+     "W",
+     "X"
+    ]
+   },
+   "2": {
+    "cabins": [
+     "Economy"
+    ],
+    "rbds": [
+     "A",
+     "B",
+     "E",
+     "H",
+     "N",
+     "O",
+     "Q",
+     "T",
+     "U",
+     "V"
+    ]
+   }
+  }
+ }
+}

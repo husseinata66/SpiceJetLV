@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-16"?>
+<LowFareSearchRsp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" TraceId="b272eca2-119b-4108-b759-07ce0c00c084" TransactionId="2B1309EF0A0D6A932D7AA55803E18B44" ResponseTime="187" DistanceUnits="MI" CurrencyType="AED">
+  <FlightDetailsList xmlns="http://www.travelport.com/schema/air_v52_0">
+    <FlightDetails OriginTerminal="3" Equipment="32Q" TravelTime="560" FlightTime="120" ArrivalTime="2026-11-18T06:40:00.000+02:00" DepartureTime="2026-11-18T04:40:00.000+02:00" Destination="ATH" Origin="CAI" Key="nDOS+DTqWDKAsjmnTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" Equipment="32N" TravelTime="560" FlightTime="290" ArrivalTime="2026-11-18T16:00:00.000+04:00" DepartureTime="2026-11-18T09:10:00.000+02:00" Destination="DXB" Origin="ATH" Key="nDOS+DTqWDKAujmnTAAAAA==" />
+  </FlightDetailsList>
+  <AirSegmentList xmlns="http://www.travelport.com/schema/air_v52_0">
+    <AirSegment Key="nDOS+DTqWDKArjmnTAAAAA==" AvailabilitySource="P" Equipment="32Q" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="A3" FlightNumber="931" Origin="CAI" Destination="ATH" DepartureTime="2026-11-18T04:40:00.000+02:00" ArrivalTime="2026-11-18T06:40:00.000+02:00" FlightTime="120" Distance="688" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAsjmnTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAtjmnTAAAAA==" AvailabilitySource="P" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="A3" FlightNumber="958" Origin="ATH" Destination="DXB" DepartureTime="2026-11-18T09:10:00.000+02:00" ArrivalTime="2026-11-18T16:00:00.000+04:00" FlightTime="290" Distance="2034" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAujmnTAAAAA==" />
+    </AirSegment>
+  </AirSegmentList>
+  <FareInfoList xmlns="http://www.travelport.com/schema/air_v52_0">
+    <FareInfo EffectiveDate="2026-10-11T17:07:00.000+04:00" NegotiatedFare="false" Amount="AED800" DepartureDate="2026-11-18" Destination="ATH" Origin="CAI" PassengerTypeCode="ADT" FareBasis="ALCCFSW" Key="nDOS+DTqWDKA+jmnTAAAAA==">
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKA+jmnTAAAAA==" ProviderCode="1G">gws-eJxNjtEKwjAMRT9m3Pckk62PjZk6QYrgRPbi/3+Gt62CgSQ3nOY2OWcTm1RU838MeA8+ojwDKDCmbyvMJCUopx0iOsFvEefHC81DNZGURnvX9m6Zw9gQGnNHNbC3Gn4l68ZCT9SfUSU38BOnlbL4st2PfhE5iI72RTKDh3LrA8d+K6k=</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKAEkmnTAAAAA==" BrandID="2117882" BrandTier="0006" />
+    </FareInfo>
+    <FareInfo EffectiveDate="2026-10-11T17:07:00.000+04:00" NegotiatedFare="false" Amount="AED3900" DepartureDate="2026-11-18" Destination="DXB" Origin="ATH" PassengerTypeCode="ADT" FareBasis="AHCCFLD" Key="nDOS+DTqWDKA/jmnTAAAAA==">
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKA/jmnTAAAAA==" ProviderCode="1G">gws-eJxNjrEOwyAMRD8muv0MKEk3HNOWoUIdUqlZ+v+fUUM69CRjo8cdzjkHhlkokv814TNpRHsZ0BC8ynuDcE3xMq4HSJmh1ez2KBghIquTNujZZbwriwVvMLHlRF04xql7BX/B9Ez0r9FHd7gYGBOu1cemZX9ueidTpyoOU6Lb4bu67wtEryxQ</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKAGkmnTAAAAA==" BrandID="2009554" BrandTier="0006" />
+    </FareInfo>
+  </FareInfoList>
+  <RouteList xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Route Key="nDOS+DTqWDKACkmnTAAAAA==">
+      <Leg Key="nDOS+DTqWDKAvjmnTAAAAA==" Group="0" Origin="CAI" Destination="DXB" />
+    </Route>
+  </RouteList>
+  <AirPricingSolution Key="nDOS+DTqWDKAqjmnTAAAAA==" TotalPrice="AED5165" BasePrice="EGP64371.00" ApproximateTotalPrice="AED5165" ApproximateBasePrice="AED4700" EquivalentBasePrice="AED4700" Taxes="AED465" ApproximateTaxes="AED465" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT9H20M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKArjmnTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAtjmnTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKAvjmnTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="A3" Refundable="true" BasePrice="EGP64371.00" Key="nDOS+DTqWDKAwjmnTAAAAA==" TotalPrice="AED5165" ApproximateTotalPrice="AED5165" ApproximateBasePrice="AED4700" EquivalentBasePrice="AED4700" Taxes="AED465" ApproximateTaxes="AED465" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKA+jmnTAAAAA==" />
+      <FareInfoRef Key="nDOS+DTqWDKA/jmnTAAAAA==" />
+      <BookingInfo BookingCode="A" BookingCount="4" CabinClass="Business" FareInfoRef="nDOS+DTqWDKA+jmnTAAAAA==" SegmentRef="nDOS+DTqWDKArjmnTAAAAA==" />
+      <BookingInfo BookingCode="A" BookingCount="1" CabinClass="Business" FareInfoRef="nDOS+DTqWDKA/jmnTAAAAA==" SegmentRef="nDOS+DTqWDKAtjmnTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAxjmnTAAAAA==" />
+      <TaxInfo Amount="AED30" Category="EG" Key="nDOS+DTqWDKAyjmnTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAzjmnTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKA0jmnTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKA1jmnTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKA2jmnTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKA3jmnTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKA4jmnTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKA5jmnTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="WP" Key="nDOS+DTqWDKA6jmnTAAAAA==" />
+      <TaxInfo Amount="AED30" Category="WQ" Key="nDOS+DTqWDKA7jmnTAAAAA==" />
+      <TaxInfo Amount="AED40" Category="YQ" Key="nDOS+DTqWDKA8jmnTAAAAA==" />
+      <TaxInfo Amount="AED120" Category="YR" Key="nDOS+DTqWDKA9jmnTAAAAA==" />
+      <FareCalc>CAI A3 ATH 220.88ALCCFSW A3 DXB 1084.39AHCCFLD NUC1305.27END ROE49.316</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Percentage>0.00</Percentage>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Percentage>0.00</Percentage>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <BrandList xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Brand Carrier="A3" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKAIkmnTAAAAA==" Name="BUSINESS" BrandID="2009554">
+      <Title Type="External" LanguageCode="EN">Business</Title>
+      <Title Type="Short" LanguageCode="EN">BUSINESS</Title>
+      <Text Type="MarketingAgent" LanguageCode="EN">Aegean's Business Class offers a unique travel experience, with high level of pampering, comfort and convenience. 
+
+Fares include:
+- lounge access
+- middle seat empty
+- Free seat selection in Business Class
+- priority check in, fast track (in selected airports), boarding
+- 2 pieces of checked luggage (32kg per piece)
+- cabin baggage: 1 item up to 13kg and 1 personal item women's/men's handbag or a thin laptop case
+- 3 course meal, hot &amp; cold beverage service, alcoholic drinks 
+- Unlimited free ticket changes (No rebooking fee. Possible charge for fare fee difference)
+- mileage accrual
+- Wi-Fi onboard - free Text &amp; Surf and Stream package (on all aircraft that contain IFE system) 
+
+• Please note that if the flight is operated by another airline then the onboard product service may be different to that described above.</Text>
+      <Text Type="Strapline" LanguageCode="EN">Business</Text>
+      <ImageLocation Type="Consumer" ImageWidth="1400" ImageHeight="800">https://cdn.travelport.com/aegeanairlines/A3_general_large_330771.jpg</ImageLocation>
+      <ImageLocation Type="Agent" ImageWidth="150" ImageHeight="150">https://cdn.travelport.com/aegeanairlines/A3_general_small_361193.jpg</ImageLocation>
+    </Brand>
+    <Brand Carrier="A3" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKAKkmnTAAAAA==" Name="BUSINESS" BrandID="2117882">
+      <Title Type="External" LanguageCode="EN">Business</Title>
+      <Title Type="Short" LanguageCode="EN">BUSINESS</Title>
+      <Text Type="MarketingAgent" LanguageCode="EN">Aegean's Business Class offers a unique travel experience, with high level of pampering, comfort and convenience. 
+
+Fares include:
+- lounge access
+- middle seat empty
+- Free seat selection in Business Class
+- priority check in, fast track (in selected airports), boarding
+- 2 pieces of checked luggage (32kg per piece)
+-  cabin baggage: 1 item up to 13kg and 1 personal item women's/men's handbag or a thin laptop case
+- 3 course meal, hot &amp; cold beverage service, alcoholic drinks 
+- Unlimited free ticket changes (No rebooking fee. Possible charge for fare fee difference)
+- mileage accrual
+- Wi-Fi onboard - free Text &amp; Surf and Stream package (on all aircraft that contain IFE system) 
+
+• Please note that if the flight is operated by another airline then the onboard product service may be different to that described above.</Text>
+      <Text Type="Strapline" LanguageCode="EN">Business</Text>
+      <ImageLocation Type="Consumer" ImageWidth="1400" ImageHeight="800">https://cdn.travelport.com/aegeanairlines/A3_general_large_330771.jpg</ImageLocation>
+      <ImageLocation Type="Agent" ImageWidth="150" ImageHeight="150">https://cdn.travelport.com/aegeanairlines/A3_general_small_361193.jpg</ImageLocation>
+    </Brand>
+  </BrandList>
+</LowFareSearchRsp>

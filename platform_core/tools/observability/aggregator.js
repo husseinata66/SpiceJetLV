@@ -304,24 +304,48 @@ function aggregate({ runId, runJson = {}, events = [], testSuites = null, safety
   };
 
   // ---- Execution ---------------------------------------------------------------------------------
-  const results = events.filter((e) => e.type === 'TEST_EXECUTION_RESULT');
+  // A platform-emitted FINAL event restates a test's disposition across cycles (Phase 8.1); counting it
+  // beside the cycle events would count the test twice. Reconciliation reads it; the counts do not.
+  const results = events.filter((e) => e.type === 'TEST_EXECUTION_RESULT' && !(e.metadata && e.metadata.resultKind === 'final'));
   const byStatus = (s, list = results) => list.filter((e) => e.status === s).length;
   const firstAttempt = results.filter((e) => e.attempt === 1);
 
   // `planned` is every test case that got a recorded disposition; `executed` is the subset that
   // actually ran. A test Skipped by Execution Safety was planned and never executed, and collapsing
   // the two would make the denominator of every pass rate quietly wrong.
-  const RAN = ['Passed', 'Failed', 'Inconclusive'];
-  const ranCount = (list) => list.filter((e) => RAN.includes(e.status)).length;
+  // Canonical categories (statusMap.js, Phase 8): a status that is neither "not run" nor "not
+  // applicable" was executed. For the original five statuses this is exactly Passed + Failed +
+  // Inconclusive, as before.
+  // eslint-disable-next-line global-require
+  const { categoryOf } = require('../run_manager/testStatus');
+  const ranCount = (list) => list.filter((e) => !['not-run', 'not-applicable'].includes(categoryOf(e.status))).length;
+  const byCategory = (cat) => results.filter((e) => categoryOf(e.status) === cat).length;
+  const statusCounts = {};
+  for (const e of results) statusCounts[e.status] = (statusCounts[e.status] || 0) + 1;
 
   const execution = {
     planned: ev(results.length),
     executed: ev(ranCount(results)),
     passed: ev(byStatus('Passed')),
-    failed: ev(byStatus('Failed')),
+    // `failed` is every failure, whatever its category. A legacy `Failed` cannot say whether the
+    // application or the automation failed, so `failures` reports it as `unclassified`.
+    failed: ev(byCategory('app-failure') + byCategory('auto-failure') + byCategory('env-failure')),
+    failures: results.length ? {
+      application: measured(byStatus('Application Failure')),
+      unclassified: measured(byStatus('Failed')),
+      automation: measured(byCategory('auto-failure')),
+      environment: measured(byCategory('env-failure')),
+    } : null,
+    // Passed after a repair, or not consistently, is never a clean pass (Phase 8).
+    automationRepaired: ev(byStatus('Automation Repaired')),
+    flaky: ev(byStatus('Flaky')),
     skipped: ev(byStatus('Skipped')),
     blocked: ev(byStatus('Blocked')),
     inconclusive: ev(byStatus('Inconclusive')),
+    unverified: ev(byCategory('unverified')),
+    notExecuted: ev(byStatus('Not Executed')),
+    excluded: ev(byStatus('Excluded')),
+    byStatus: statusCounts,
     // A Safety block is NOT an application or automation failure. It is counted apart so it can never
     // be summed into a failure total (§13 of the Safety spec, §45 here).
     blockedBySafety: ev(sumCounts(events, (e) => e.type === 'SAFETY_BLOCKED')),
@@ -329,7 +353,7 @@ function aggregate({ runId, runJson = {}, events = [], testSuites = null, safety
       ? {
         executed: measured(ranCount(firstAttempt)),
         passed: measured(byStatus('Passed', firstAttempt)),
-        failed: measured(byStatus('Failed', firstAttempt)),
+        failed: measured(firstAttempt.filter((e) => ['app-failure', 'auto-failure', 'env-failure'].includes(categoryOf(e.status))).length),
       }
       : {
         executed: unavailable('No result was recorded at attempt 1. First-pass success is measured '
@@ -354,7 +378,7 @@ function aggregate({ runId, runJson = {}, events = [], testSuites = null, safety
     attempts: ev(repairSpans.length),
     successes: ev(repairSpans.filter((s) => s.status === 'Passed' || s.status === 'Succeeded').length),
     testsRepaired: ev(sumCounts(events, (e) => e.type === 'REPAIR_COMPLETED' && (e.status === 'Passed' || e.status === 'Succeeded'))),
-    remainingFailures: ev(byStatus('Failed')),
+    remainingFailures: ev(byCategory('app-failure') + byCategory('auto-failure') + byCategory('env-failure')),
     // §29: explicit counters, never a vague reworkScore.
     rework: {
       artifactsUpdatedAfterCreation: ev(countBy(events, (e) => e.type === 'ARTIFACT_UPDATED')),

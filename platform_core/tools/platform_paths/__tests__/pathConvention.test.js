@@ -104,22 +104,48 @@ test('every skill still addresses its artifacts as platform_core_data/... (uncha
 test('no skill hardcodes a Target Project path or a literal target root', () => {
   // A skill naming `tests/e2e` or `{{TARGET_ROOT}}/src` as a fixed location would defeat detection:
   // the target's layout is discovered per project and carried in platform.config.json.
+  //
+  // One deliberate, narrow exception (Phase 8.1): automation-skill §8 is the platform's approved,
+  // user-mandated Java/SHAFT package structure (added 2026-08-23, after this rule). Its Maven source
+  // sets (`src/test/java/...`) describe the layout INSIDE an automation project whose root is itself
+  // resolved — they never name where a Target Project keeps its tests. A Maven source-set path is
+  // therefore accepted only in automation-skill, and only inside §8 or on a line that cites §8; it stays
+  // forbidden everywhere else, and in every other skill. The next test pins §8.1's anchoring statement,
+  // so the exception cannot outlive the rule that justifies it.
   const forbidden = [
-    { pattern: /(?:^|[\s`(])tests\/e2e\//m, why: 'a literal target test directory' },
-    { pattern: /(?:^|[\s`(])src\/test\/java\//m, why: 'a literal Maven target test directory' },
+    { pattern: /(?:^|[\s`(])tests\/e2e\//, why: 'a literal target test directory' },
+    { pattern: /(?:^|[\s`(])src\/test\/java\//, why: 'a literal Maven target test directory', shaftStructure: true },
     { pattern: /\{\{TARGET_ROOT\}\}\/(?!<)/, why: 'a hardcoded path under the target root' },
   ];
 
+  const offences = [];
   for (const name of SKILL_NAMES) {
-    const content = readSkill(name);
-    for (const { pattern, why } of forbidden) {
-      assert.ok(
-        !pattern.test(content),
-        `${name} must not contain ${why} — the target's layout comes from detectTestDirs and ` +
-          'platform.config.json, never from a spec literal',
-      );
-    }
+    let section = null;
+    readSkill(name).split(/\r?\n/).forEach((line, i) => {
+      const top = line.match(/^# (\d+[A-Z]?)\./);
+      if (top) section = top[1];
+      for (const { pattern, why, shaftStructure } of forbidden) {
+        if (!pattern.test(line)) continue;
+        const approvedShaft = shaftStructure && name === 'automation-skill' && (section === '8' || /§8(\.\d+)?\b/.test(line));
+        if (!approvedShaft) offences.push(`${name}:${i + 1} contains ${why}`);
+      }
+    });
   }
+  assert.deepEqual(
+    offences, [],
+    'the target\'s layout comes from detectTestDirs and platform.config.json, never from a spec literal',
+  );
+});
+
+test('automation-skill §8.1 anchors the SHAFT structure to the resolved automation project root', () => {
+  // The only reason a Maven source-set path may appear in a skill (test above). Remove this statement
+  // and the exception has no basis.
+  const content = readSkill('automation-skill');
+  const s81 = content.slice(content.indexOf('## 8.1 '), content.indexOf('## 8.2 '));
+  assert.match(s81, /relative to the automation project's own root — never to the Target Project root/);
+  assert.match(s81, /always resolved, never assumed/);
+  assert.match(s81, /detectTestDirs/);
+  assert.match(s81, /automationRoot\.js/);
 });
 
 test('the pre-refactor artifacts/ paths are gone from every spec and skill', () => {

@@ -246,6 +246,36 @@ function normalizeCaseDetail(detail, path) {
   };
 }
 
+/**
+ * Assertion records of a case (pipeline.md §11.4): what was checked, against which expected value, how,
+ * and with what result. `result` is pass, fail, unchecked, or missing — a required assertion (Phase 5.8
+ * contract) with no execution record, reported apart from a failed one (✅ / ❌ accepted). `id` is the
+ * assertion's stable ID (A1, A2, …) when the case states its assertions. Optional on a case; a
+ * report that claims all-passed needs them on every passing case (normalizeModel).
+ */
+function normalizeAssertions(list, path) {
+  if (list === undefined || list === null) return null;
+  return asArray(list, path).map((a, i) => {
+    const p = `${path}[${i}]`;
+    if (!isPlainObject(a)) fail(p, 'must be an object');
+    const raw = requireString(a.result, `${p}.result`).trim().toLowerCase();
+    const result = /^(✅|pass(ed)?)$/.test(raw) ? 'pass' : /^(❌|fail(ed)?)$/.test(raw) ? 'fail' : /^(unchecked|not checked)$/.test(raw) ? 'unchecked' : /^missing$/.test(raw) ? 'missing' : null;
+    if (!result) fail(`${p}.result`, `"${a.result}" — expected pass, fail, unchecked or missing`);
+    const id = optionalString(a.id, `${p}.id`);
+    if (id && !/^A\d+$/.test(id)) fail(`${p}.id`, `"${id}" — an assertion ID is A1, A2, …`);
+    return {
+      id: id || null,
+      assertion: requireString(a.assertion, `${p}.assertion`),
+      expected: requireString(a.expected, `${p}.expected`),
+      // A missing assertion has no observation: its Actual is shown as not recorded.
+      actual: result === 'missing' ? (optionalString(a.actual, `${p}.actual`) || '—') : requireString(a.actual, `${p}.actual`),
+      check: requireString(a.check, `${p}.check`),
+      result,
+      evidence: optionalString(a.evidence, `${p}.evidence`),
+    };
+  });
+}
+
 function normalizeCase(testCase, path, statusIndex) {
   if (!isPlainObject(testCase)) fail(path, 'must be an object');
   const status = requireString(testCase.status, `${path}.status`);
@@ -259,6 +289,7 @@ function normalizeCase(testCase, path, statusIndex) {
     rows: normalizeFields(testCase.rows, `${path}.rows`),
     statusLabel: optionalString(testCase.statusLabel, `${path}.statusLabel`),
     evidence: normalizeEvidence(testCase.evidence, `${path}.evidence`),
+    assertions: normalizeAssertions(testCase.assertions, `${path}.assertions`),
     exchanges: normalizeExchanges(testCase.exchanges, `${path}.exchanges`),
     detail: normalizeCaseDetail(testCase.detail, `${path}.detail`),
   };
@@ -491,21 +522,62 @@ function normalizeModel(model) {
   const statusIndex = new Map(statuses.map((s) => [s.key, s]));
   const testCases = normalizeTestCases(model.testCases, 'testCases', statusIndex);
   const title = requireString(model.title, 'title');
+  const summary = normalizeSummary(model.summary, 'summary', testCases, statuses, statusIndex);
+  const outcomeVerdict = optionalString(model.outcomeVerdict, 'outcomeVerdict');
+
+  // A green indicator is a claim that every test passed. It is never the default (revised 2026-10-08:
+  // the default was "pass", which painted a run with failures green), and it is refused unless the
+  // model declares an `outcomeVerdict` of "all-passed" that its own counts do not contradict.
+  const statusPill = (() => {
+    const pill = normalizeRich(model.statusPill, 'statusPill');
+    if (!pill) return null;
+    return { value: pill, tone: requireTone(model.statusPillTone, 'statusPillTone', 'neutral') };
+  })();
+  if (outcomeVerdict === 'all-passed' && summary) {
+    const notPassed = summary.counts.filter((c) => c.value > 0 && !/^(pass(ed)?|excluded)$/i.test(String(c.label).trim()));
+    if (notPassed.length) {
+      fail('outcomeVerdict', `is "all-passed", but the report counts ${notPassed.map((c) => `${c.value} ${c.label}`).join(', ')}`);
+    }
+  }
+  // A passing case shows that each assertion was validated (pipeline.md §11.4): one carrying a failed or
+  // unchecked assertion is not a pass, and a report claiming all-passed shows the assertions of every
+  // passing case — a screenshot or a captured value is not proof.
+  if (testCases) {
+    testCases.categories.forEach((category, ci) => category.cases.forEach((c, i) => {
+      const p = `testCases.categories[${ci}].cases[${i}]`;
+      if (statusIndex.get(c.status).tone !== 'pass') return;
+      const bad = (c.assertions || []).filter((a) => a.result !== 'pass');
+      if (bad.length) fail(`${p}.assertions`, `the case is a pass, but assertion "${bad[0].assertion}" is ${bad[0].result}`);
+      if (outcomeVerdict === 'all-passed' && !(c.assertions || []).length) {
+        fail(`${p}.assertions`, 'outcomeVerdict is "all-passed", but this passing case records no assertions — its pass is not shown to be verified');
+      }
+    }));
+  }
+  if (statusPill && statusPill.tone === 'pass' && outcomeVerdict !== 'all-passed') {
+    fail('statusPillTone', `is "pass" (green), but outcomeVerdict is ${outcomeVerdict ? `"${outcomeVerdict}"` : 'not declared'} — a green indicator needs an all-passed outcome`);
+  }
 
   return {
     title,
     documentTitle: optionalString(model.documentTitle, 'documentTitle') || title,
-    statusPill: (() => {
-      const pill = normalizeRich(model.statusPill, 'statusPill');
-      if (!pill) return null;
-      return { value: pill, tone: requireTone(model.statusPillTone, 'statusPillTone', 'pass') };
-    })(),
+    statusPill,
+    outcomeVerdict: outcomeVerdict || null,
     meta: normalizeMeta(model.meta, 'meta'),
-    summary: normalizeSummary(model.summary, 'summary', testCases, statuses, statusIndex),
+    summary,
     statuses,
     testCases,
     sections: normalizeSections(model.sections, 'sections'),
   };
+}
+
+/**
+ * Fingerprint of a report model, embedded in the HTML it renders, so a reader can confirm the HTML was
+ * built from the JSON beside it and not an older or edited one. Canonical form: JSON.stringify of the
+ * parsed model.
+ */
+function modelFingerprint(model) {
+  // eslint-disable-next-line global-require
+  return require('crypto').createHash('sha256').update(JSON.stringify(model)).digest('hex');
 }
 
 module.exports = {
@@ -514,4 +586,5 @@ module.exports = {
   ReportModelError,
   TONES,
   normalizeModel,
+  modelFingerprint,
 };

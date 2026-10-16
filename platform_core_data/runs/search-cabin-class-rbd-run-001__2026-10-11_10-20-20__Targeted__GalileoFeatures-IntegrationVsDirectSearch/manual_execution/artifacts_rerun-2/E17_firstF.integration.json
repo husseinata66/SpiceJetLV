@@ -1,0 +1,44 @@
+{
+ "branchConfirmed": "NDC1_Ahmed Ayman (BRN287)",
+ "executedAt": "2026-10-11T10:05:05.592Z",
+ "httpStatus": 200,
+ "uiHeader": "No Flights Found",
+ "searchCriteria": {
+  "tripType": 1,
+  "noOfAdults": 1,
+  "noOfChildren": 0,
+  "noOfInfants": 0,
+  "entity": {
+   "selectedBranch": 10994
+  },
+  "filters": {
+   "isNearByAirport": false,
+   "isBaggageFareOnly": false,
+   "isUpSelling": false,
+   "isNonStop": false,
+   "isExcludeLcc": false,
+   "allianceAirline": null,
+   "preferAirlines": []
+  },
+  "routes": [
+   {
+    "cabinClass": 4,
+    "dateOfJourney": "18-11-2026",
+    "destination": {
+     "airportCode": "DXB"
+    },
+    "origins": [
+     {
+      "airportCode": "CAI"
+     }
+    ],
+    "rbd": [
+     "F"
+    ]
+   }
+  ]
+ },
+ "note": "Normalized from the flight-search/search response. Prices removed. Level: fare option x passenger type x segment.",
+ "offers": 0,
+ "flights": {}
+}

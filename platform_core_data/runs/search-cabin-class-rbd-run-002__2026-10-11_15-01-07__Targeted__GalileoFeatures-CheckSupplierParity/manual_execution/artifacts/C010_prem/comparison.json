@@ -1,0 +1,2367 @@
+{
+ "case": "TC-GCSP-010",
+ "check": "Premium Economy",
+ "criteria": {
+  "legs": [
+   {
+    "o": "CAI",
+    "d": "DXB",
+    "dt": "18/11/2026"
+   }
+  ],
+  "cabin": "Premium Economy"
+ },
+ "rule": "Prices ignored; flights by identity; fare options by flight + RBD sequence per passenger type; cabin/baggage on matched options; nothing judged at the Integration Layer → Galileo boundary (BND-03)",
+ "key": "C010_prem",
+ "rq": {
+  "trip": {
+   "expected": "One-way, 1 leg(s)",
+   "integration": "One-way, 1 leg(s)",
+   "direct": "One-way, 1 leg(s)",
+   "ok": true
+  },
+  "airports": {
+   "expected": "leg 1 CAI→DXB",
+   "integration": "leg 1 CAI→DXB",
+   "direct": "leg 1 CAI→DXB",
+   "ok": true
+  },
+  "dates": {
+   "expected": "leg 1 2026-11-18",
+   "integration": "leg 1 2026-11-18",
+   "direct": "leg 1 2026-11-18",
+   "ok": true
+  },
+  "pax": {
+   "expected": "1 Adult",
+   "integration": "1 Adult",
+   "direct": "1 Adult",
+   "ok": true
+  },
+  "cabin": {
+   "expected": "leg 1 Premium Economy",
+   "integration": "leg 1 Economy",
+   "direct": "leg 1 Premium Economy",
+   "ok": false
+  },
+  "rbd": {
+   "expected": "leg 1 none",
+   "integration": "leg 1 none",
+   "direct": "leg 1 none",
+   "ok": true
+  },
+  "confirmed": [
+   {
+    "field": "cabin",
+    "side": "Integration",
+    "expected": "leg 1 Premium Economy",
+    "actual": "leg 1 Economy"
+   }
+  ],
+  "modifiers": [
+   {
+    "path": "LowFareSearchReq/@ReturnUpsellFare",
+    "integration": "true",
+    "direct": "false",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-01"
+   },
+   {
+    "path": "LowFareSearchReq/AirPricingModifiers/@CurrencyType",
+    "integration": "(absent)",
+    "direct": "EGP",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-02"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/AirLegModifiers/@AllowDirectAccess",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-03"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/SearchDestination/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/SearchOrigin/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   }
+  ],
+  "sameModifiers": [
+   {
+    "path": "LowFareSearchReq/@SolutionResult",
+    "value": "true"
+   },
+   {
+    "path": "LowFareSearchReq/AirSearchModifiers/PreferredProviders/Provider/@Code",
+    "value": "1G"
+   },
+   {
+    "path": "LowFareSearchReq/AirPricingModifiers/@FaresIndicator",
+    "value": "AllFares"
+   }
+  ],
+  "representation": [
+   {
+    "item": "XML schema version",
+    "integration": "air_v52_0",
+    "direct": "air_v44_0"
+   },
+   {
+    "item": "SOAP envelope",
+    "integration": "no",
+    "direct": "yes"
+   },
+   {
+    "item": "namespaces, prefixes, element order, encoding",
+    "integration": "v52 common/air namespaces, utf-16 declaration",
+    "direct": "v44 namespaces with soapenv/air/com prefixes"
+   },
+   {
+    "item": "LowFareSearchReq/BillingPointOfSaleInfo/@OriginApplication",
+    "integration": "UAPI",
+    "direct": "uAPI"
+   },
+   {
+    "item": "LowFareSearchReq/SearchPassenger[1]/@Age",
+    "integration": "35",
+    "direct": "(absent)"
+   },
+   {
+    "item": "LowFareSearchReq/SearchPassenger[1]/@BookingTravelerRef",
+    "integration": "(absent)",
+    "direct": "[REDACTED]"
+   }
+  ],
+  "platformRequestsEqual": true
+ },
+ "rs": {
+  "status": [
+   {
+    "side": "Integration",
+    "http": 200,
+    "errorMessage": null,
+    "parsed": true,
+    "fault": null,
+    "kind": "ok"
+   },
+   {
+    "side": "Direct",
+    "http": 200,
+    "errorMessage": null,
+    "parsed": true,
+    "fault": null,
+    "kind": "ok"
+   }
+  ],
+  "ok": true,
+  "commError": [],
+  "businessEmpty": [],
+  "counts": {
+   "integration": {
+    "solutions": 66,
+    "flights": 35,
+    "upsellBrands": 19
+   },
+   "direct": {
+    "solutions": 12,
+    "flights": 12,
+    "upsellBrands": 0
+   }
+  },
+  "flightsOnly": [
+   {
+    "side": "Integration",
+    "flight": "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30",
+    "options": 2,
+    "availabilitySource": [
+     "KU542: P (Cached status used. Polled avail exists)",
+     "KU677: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20",
+    "options": 2,
+    "availabilitySource": [
+     "KU544: P (Cached status used. Polled avail exists)",
+     "KU671: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40",
+    "options": 2,
+    "availabilitySource": [
+     "MS901: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00",
+    "options": 2,
+    "availabilitySource": [
+     "MS905: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00",
+    "options": 2,
+    "availabilitySource": [
+     "MS912: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45",
+    "options": 2,
+    "availabilitySource": [
+     "MS910: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "SV310 CAI-RUH 2026-11-18T10:35>2026-11-18T14:10 + SV560 RUH-DXB 2026-11-18T16:05>2026-11-18T19:00",
+    "options": 2,
+    "availabilitySource": [
+     "SV310: Q (Cached status used. Polled avail exists)",
+     "SV560: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "SV302 CAI-JED 2026-11-18T19:50>2026-11-18T23:00 + SV590 JED-DXB 2026-11-19T01:10>2026-11-19T04:55",
+    "options": 2,
+    "availabilitySource": [
+     "SV302: Q (Cached status used. Polled avail exists)",
+     "SV590: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55",
+    "options": 2,
+    "availabilitySource": [
+     "QR1304: Q (Cached status used. Polled avail exists)",
+     "QR1014: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15",
+    "options": 2,
+    "availabilitySource": [
+     "EK930: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45",
+    "options": 2,
+    "availabilitySource": [
+     "EK928: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45",
+    "options": 2,
+    "availabilitySource": [
+     "EK922: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40",
+    "options": 2,
+    "availabilitySource": [
+     "EK924: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10",
+    "options": 2,
+    "availabilitySource": [
+     "EK926: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35",
+    "options": 2,
+    "availabilitySource": [
+     "RJ504: P (Cached status used. Polled avail exists)",
+     "RJ614: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45",
+    "options": 2,
+    "availabilitySource": [
+     "RJ508: P (Cached status used. Polled avail exists)",
+     "RJ610: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "VF248 CAI-SAW 2026-11-18T04:55>2026-11-18T08:25 + VF143 SAW-DXB 2026-11-18T20:55>2026-11-19T03:15",
+    "options": 2,
+    "availabilitySource": [
+     "VF248: A (No polled avail exists)",
+     "VF143: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "WY408 CAI-MCT 2026-11-18T01:15>2026-11-18T06:55 + WY603 MCT-DXB 2026-11-18T08:50>2026-11-18T10:00",
+    "options": 2,
+    "availabilitySource": [
+     "WY408: Q (Cached status used. Polled avail exists)",
+     "WY603: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "WY406 CAI-MCT 2026-11-18T18:05>2026-11-18T23:45 + WY603 MCT-DXB 2026-11-19T08:50>2026-11-19T10:00",
+    "options": 2,
+    "availabilitySource": [
+     "WY406: Q (Cached status used. Polled avail exists)",
+     "WY603: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45",
+    "options": 2,
+    "availabilitySource": [
+     "SV386: Q (Cached status used. Polled avail exists)",
+     "SV566: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF504 BAH-DXB 2026-11-18T09:40>2026-11-18T12:05",
+    "options": 2,
+    "availabilitySource": [
+     "GF80: Q (Cached status used. Polled avail exists)",
+     "GF504: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "GF70 CAI-BAH 2026-11-18T16:00>2026-11-18T20:00 + GF500 BAH-DXB 2026-11-19T01:10>2026-11-19T03:35",
+    "options": 2,
+    "availabilitySource": [
+     "GF70: Q (Cached status used. Polled avail exists)",
+     "GF500: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "A3931 CAI-ATH 2026-11-18T04:40>2026-11-18T06:40 + A3958 ATH-DXB 2026-11-18T09:10>2026-11-18T16:00",
+    "options": 2,
+    "availabilitySource": [
+     "A3931: P (Cached status used. Polled avail exists)",
+     "A3958: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "TK695 CAI-IST 2026-11-18T20:45>2026-11-19T00:20 + TK762 IST-DXB 2026-11-19T01:30>2026-11-19T06:55",
+    "options": 2,
+    "availabilitySource": [
+     "TK695: A (Polled avail exists)",
+     "TK762: A (Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30",
+    "options": 2,
+    "availabilitySource": [
+     "TK687: A (Polled avail exists)",
+     "TK764: A (Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "A3935 CAI-ATH 2026-11-18T20:50>2026-11-18T23:00 + A3958 ATH-DXB 2026-11-19T09:10>2026-11-19T16:00",
+    "options": 2,
+    "availabilitySource": [
+     "A3935: P (Cached status used. Polled avail exists)",
+     "A3958: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "AT273 CAI-CMN 2026-11-18T08:40>2026-11-18T12:35 + AT9900 CMN-DXB 2026-11-18T14:10>2026-11-19T01:40",
+    "options": 1,
+    "availabilitySource": [
+     "AT273: P (Cached status used. Polled avail exists)",
+     "AT9900: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "ET453 CAI-ADD 2026-11-18T02:20>2026-11-18T07:10 + ET602 ADD-DXB 2026-11-18T10:30>2026-11-18T15:45",
+    "options": 1,
+    "availabilitySource": [
+     "ET453: P (Cached status used. Polled avail exists)",
+     "ET602: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "ET1451 CAI-ADD 2026-11-18T22:25>2026-11-19T03:05 + ET602 ADD-DXB 2026-11-19T10:30>2026-11-19T15:45",
+    "options": 1,
+    "availabilitySource": [
+     "ET1451: P (Cached status used. Polled avail exists)",
+     "ET602: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "LH7177 CAI-MUC 2026-11-18T10:05>2026-11-18T13:10 + LH638 MUC-DXB 2026-11-18T22:35>2026-11-19T07:30",
+    "options": 1,
+    "availabilitySource": [
+     "LH7177: Q (Cached status used. Polled avail exists)",
+     "LH638: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY568 CAI-JED 2026-11-18T23:50>2026-11-19T03:05 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15",
+    "options": 1,
+    "availabilitySource": [
+     "XY568: A (No polled avail exists)",
+     "XY501: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY590 CAI-JED 2026-11-18T21:20>2026-11-19T00:30 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15",
+    "options": 1,
+    "availabilitySource": [
+     "XY590: A (No polled avail exists)",
+     "XY501: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+    "options": 1,
+    "availabilitySource": [
+     "XY264: A (No polled avail exists)",
+     "XY209: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY272 CAI-RUH 2026-11-18T19:40>2026-11-18T23:15 + XY1215 RUH-DXB 2026-11-19T02:55>2026-11-19T05:55",
+    "options": 1,
+    "availabilitySource": [
+     "XY272: A (No polled avail exists)",
+     "XY1215: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY266 CAI-RUH 2026-11-18T23:30>2026-11-19T03:05 + XY201 RUH-DXB 2026-11-19T07:40>2026-11-19T10:40",
+    "options": 1,
+    "availabilitySource": [
+     "XY266: A (No polled avail exists)",
+     "XY201: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY276 CAI-RUH 2026-11-18T16:45>2026-11-18T20:20 + XY1215 RUH-DXB 2026-11-19T02:55>2026-11-19T05:55",
+    "options": 1,
+    "availabilitySource": [
+     "XY276: A (No polled avail exists)",
+     "XY1215: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY268 CAI-RUH 2026-11-18T15:10>2026-11-18T18:45 + XY1215 RUH-DXB 2026-11-19T02:55>2026-11-19T05:55",
+    "options": 1,
+    "availabilitySource": [
+     "XY268: A (No polled avail exists)",
+     "XY1215: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   }
+  ],
+  "optionsOnly": [
+   {
+    "side": "Integration",
+    "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY207 RUH-DXB 2026-11-18T15:50>2026-11-18T18:50",
+    "rbdSequence": "ADTx1:AA",
+    "brand": "2027790/2027790",
+    "within": false,
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY207 RUH-DXB 2026-11-18T15:50>2026-11-18T18:50",
+    "rbdSequence": "ADTx1:JJ",
+    "brand": "/",
+    "within": true,
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "XY274 CAI-RUH 2026-11-18T12:10>2026-11-18T15:45 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+    "rbdSequence": "ADTx1:AA",
+    "brand": "2027790/2027790",
+    "within": false,
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY274 CAI-RUH 2026-11-18T12:10>2026-11-18T15:45 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+    "rbdSequence": "ADTx1:JJ",
+    "brand": "/",
+    "within": true,
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30",
+    "rbdSequence": "ADTx1:AA",
+    "brand": "2027790/2027790",
+    "within": false,
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30",
+    "rbdSequence": "ADTx1:JJ",
+    "brand": "/",
+    "within": true,
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15",
+    "rbdSequence": "ADTx1:AA",
+    "brand": "2027790/2027790",
+    "within": false,
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15",
+    "rbdSequence": "ADTx1:JJ",
+    "brand": "/",
+    "within": true,
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "XY895 CAI-DMM 2026-11-18T23:25>2026-11-19T03:15 + XY811 DMM-DXB 2026-11-19T08:25>2026-11-19T10:55",
+    "rbdSequence": "ADTx1:AA",
+    "brand": "2027790/2027790",
+    "within": false,
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY895 CAI-DMM 2026-11-18T23:25>2026-11-19T03:15 + XY811 DMM-DXB 2026-11-19T08:25>2026-11-19T10:55",
+    "rbdSequence": "ADTx1:JJ",
+    "brand": "/",
+    "within": true,
+    "outcome": "Confirmed Functional Mismatch"
+   }
+  ],
+  "pending": [],
+  "confirmed": [
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30",
+    "options": 2,
+    "availabilitySource": [
+     "KU542: P (Cached status used. Polled avail exists)",
+     "KU677: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20",
+    "options": 2,
+    "availabilitySource": [
+     "KU544: P (Cached status used. Polled avail exists)",
+     "KU671: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40",
+    "options": 2,
+    "availabilitySource": [
+     "MS901: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00",
+    "options": 2,
+    "availabilitySource": [
+     "MS905: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00",
+    "options": 2,
+    "availabilitySource": [
+     "MS912: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45",
+    "options": 2,
+    "availabilitySource": [
+     "MS910: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "SV310 CAI-RUH 2026-11-18T10:35>2026-11-18T14:10 + SV560 RUH-DXB 2026-11-18T16:05>2026-11-18T19:00",
+    "options": 2,
+    "availabilitySource": [
+     "SV310: Q (Cached status used. Polled avail exists)",
+     "SV560: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "SV302 CAI-JED 2026-11-18T19:50>2026-11-18T23:00 + SV590 JED-DXB 2026-11-19T01:10>2026-11-19T04:55",
+    "options": 2,
+    "availabilitySource": [
+     "SV302: Q (Cached status used. Polled avail exists)",
+     "SV590: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55",
+    "options": 2,
+    "availabilitySource": [
+     "QR1304: Q (Cached status used. Polled avail exists)",
+     "QR1014: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15",
+    "options": 2,
+    "availabilitySource": [
+     "EK930: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45",
+    "options": 2,
+    "availabilitySource": [
+     "EK928: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45",
+    "options": 2,
+    "availabilitySource": [
+     "EK922: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40",
+    "options": 2,
+    "availabilitySource": [
+     "EK924: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10",
+    "options": 2,
+    "availabilitySource": [
+     "EK926: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35",
+    "options": 2,
+    "availabilitySource": [
+     "RJ504: P (Cached status used. Polled avail exists)",
+     "RJ614: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45",
+    "options": 2,
+    "availabilitySource": [
+     "RJ508: P (Cached status used. Polled avail exists)",
+     "RJ610: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "VF248 CAI-SAW 2026-11-18T04:55>2026-11-18T08:25 + VF143 SAW-DXB 2026-11-18T20:55>2026-11-19T03:15",
+    "options": 2,
+    "availabilitySource": [
+     "VF248: A (No polled avail exists)",
+     "VF143: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "WY408 CAI-MCT 2026-11-18T01:15>2026-11-18T06:55 + WY603 MCT-DXB 2026-11-18T08:50>2026-11-18T10:00",
+    "options": 2,
+    "availabilitySource": [
+     "WY408: Q (Cached status used. Polled avail exists)",
+     "WY603: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "WY406 CAI-MCT 2026-11-18T18:05>2026-11-18T23:45 + WY603 MCT-DXB 2026-11-19T08:50>2026-11-19T10:00",
+    "options": 2,
+    "availabilitySource": [
+     "WY406: Q (Cached status used. Polled avail exists)",
+     "WY603: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45",
+    "options": 2,
+    "availabilitySource": [
+     "SV386: Q (Cached status used. Polled avail exists)",
+     "SV566: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF504 BAH-DXB 2026-11-18T09:40>2026-11-18T12:05",
+    "options": 2,
+    "availabilitySource": [
+     "GF80: Q (Cached status used. Polled avail exists)",
+     "GF504: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "GF70 CAI-BAH 2026-11-18T16:00>2026-11-18T20:00 + GF500 BAH-DXB 2026-11-19T01:10>2026-11-19T03:35",
+    "options": 2,
+    "availabilitySource": [
+     "GF70: Q (Cached status used. Polled avail exists)",
+     "GF500: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "A3931 CAI-ATH 2026-11-18T04:40>2026-11-18T06:40 + A3958 ATH-DXB 2026-11-18T09:10>2026-11-18T16:00",
+    "options": 2,
+    "availabilitySource": [
+     "A3931: P (Cached status used. Polled avail exists)",
+     "A3958: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "TK695 CAI-IST 2026-11-18T20:45>2026-11-19T00:20 + TK762 IST-DXB 2026-11-19T01:30>2026-11-19T06:55",
+    "options": 2,
+    "availabilitySource": [
+     "TK695: A (Polled avail exists)",
+     "TK762: A (Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30",
+    "options": 2,
+    "availabilitySource": [
+     "TK687: A (Polled avail exists)",
+     "TK764: A (Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "A3935 CAI-ATH 2026-11-18T20:50>2026-11-18T23:00 + A3958 ATH-DXB 2026-11-19T09:10>2026-11-19T16:00",
+    "options": 2,
+    "availabilitySource": [
+     "A3935: P (Cached status used. Polled avail exists)",
+     "A3958: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "AT273 CAI-CMN 2026-11-18T08:40>2026-11-18T12:35 + AT9900 CMN-DXB 2026-11-18T14:10>2026-11-19T01:40",
+    "options": 1,
+    "availabilitySource": [
+     "AT273: P (Cached status used. Polled avail exists)",
+     "AT9900: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "ET453 CAI-ADD 2026-11-18T02:20>2026-11-18T07:10 + ET602 ADD-DXB 2026-11-18T10:30>2026-11-18T15:45",
+    "options": 1,
+    "availabilitySource": [
+     "ET453: P (Cached status used. Polled avail exists)",
+     "ET602: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "ET1451 CAI-ADD 2026-11-18T22:25>2026-11-19T03:05 + ET602 ADD-DXB 2026-11-19T10:30>2026-11-19T15:45",
+    "options": 1,
+    "availabilitySource": [
+     "ET1451: P (Cached status used. Polled avail exists)",
+     "ET602: P (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "LH7177 CAI-MUC 2026-11-18T10:05>2026-11-18T13:10 + LH638 MUC-DXB 2026-11-18T22:35>2026-11-19T07:30",
+    "options": 1,
+    "availabilitySource": [
+     "LH7177: Q (Cached status used. Polled avail exists)",
+     "LH638: Q (Cached status used. Polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Direct",
+    "flight": "XY568 CAI-JED 2026-11-18T23:50>2026-11-19T03:05 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15",
+    "options": 1,
+    "availabilitySource": [
+     "XY568: A (No polled avail exists)",
+     "XY501: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Direct",
+    "flight": "XY590 CAI-JED 2026-11-18T21:20>2026-11-19T00:30 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15",
+    "options": 1,
+    "availabilitySource": [
+     "XY590: A (No polled avail exists)",
+     "XY501: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Direct",
+    "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+    "options": 1,
+    "availabilitySource": [
+     "XY264: A (No polled avail exists)",
+     "XY209: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Direct",
+    "flight": "XY272 CAI-RUH 2026-11-18T19:40>2026-11-18T23:15 + XY1215 RUH-DXB 2026-11-19T02:55>2026-11-19T05:55",
+    "options": 1,
+    "availabilitySource": [
+     "XY272: A (No polled avail exists)",
+     "XY1215: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Direct",
+    "flight": "XY266 CAI-RUH 2026-11-18T23:30>2026-11-19T03:05 + XY201 RUH-DXB 2026-11-19T07:40>2026-11-19T10:40",
+    "options": 1,
+    "availabilitySource": [
+     "XY266: A (No polled avail exists)",
+     "XY201: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Direct",
+    "flight": "XY276 CAI-RUH 2026-11-18T16:45>2026-11-18T20:20 + XY1215 RUH-DXB 2026-11-19T02:55>2026-11-19T05:55",
+    "options": 1,
+    "availabilitySource": [
+     "XY276: A (No polled avail exists)",
+     "XY1215: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Direct",
+    "flight": "XY268 CAI-RUH 2026-11-18T15:10>2026-11-18T18:45 + XY1215 RUH-DXB 2026-11-19T02:55>2026-11-19T05:55",
+    "options": 1,
+    "availabilitySource": [
+     "XY268: A (No polled avail exists)",
+     "XY1215: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "fare option on one side only",
+    "side": "Integration",
+    "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY207 RUH-DXB 2026-11-18T15:50>2026-11-18T18:50",
+    "rbdSequence": "ADTx1:AA",
+    "brand": "2027790/2027790",
+    "within": false
+   },
+   {
+    "kind": "fare option on one side only",
+    "side": "Direct",
+    "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY207 RUH-DXB 2026-11-18T15:50>2026-11-18T18:50",
+    "rbdSequence": "ADTx1:JJ",
+    "brand": "/",
+    "within": true
+   },
+   {
+    "kind": "fare option on one side only",
+    "side": "Integration",
+    "flight": "XY274 CAI-RUH 2026-11-18T12:10>2026-11-18T15:45 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+    "rbdSequence": "ADTx1:AA",
+    "brand": "2027790/2027790",
+    "within": false
+   },
+   {
+    "kind": "fare option on one side only",
+    "side": "Direct",
+    "flight": "XY274 CAI-RUH 2026-11-18T12:10>2026-11-18T15:45 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+    "rbdSequence": "ADTx1:JJ",
+    "brand": "/",
+    "within": true
+   },
+   {
+    "kind": "fare option on one side only",
+    "side": "Integration",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30",
+    "rbdSequence": "ADTx1:AA",
+    "brand": "2027790/2027790",
+    "within": false
+   },
+   {
+    "kind": "fare option on one side only",
+    "side": "Direct",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30",
+    "rbdSequence": "ADTx1:JJ",
+    "brand": "/",
+    "within": true
+   },
+   {
+    "kind": "fare option on one side only",
+    "side": "Integration",
+    "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15",
+    "rbdSequence": "ADTx1:AA",
+    "brand": "2027790/2027790",
+    "within": false
+   },
+   {
+    "kind": "fare option on one side only",
+    "side": "Direct",
+    "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15",
+    "rbdSequence": "ADTx1:JJ",
+    "brand": "/",
+    "within": true
+   },
+   {
+    "kind": "fare option on one side only",
+    "side": "Integration",
+    "flight": "XY895 CAI-DMM 2026-11-18T23:25>2026-11-19T03:15 + XY811 DMM-DXB 2026-11-19T08:25>2026-11-19T10:55",
+    "rbdSequence": "ADTx1:AA",
+    "brand": "2027790/2027790",
+    "within": false
+   },
+   {
+    "kind": "fare option on one side only",
+    "side": "Direct",
+    "flight": "XY895 CAI-DMM 2026-11-18T23:25>2026-11-19T03:15 + XY811 DMM-DXB 2026-11-19T08:25>2026-11-19T10:55",
+    "rbdSequence": "ADTx1:JJ",
+    "brand": "/",
+    "within": true
+   }
+  ],
+  "matched": {
+   "flights": 5,
+   "options": 0,
+   "stopsDiff": 0,
+   "cabinDiff": [],
+   "bagDiff": [],
+   "fareBasisDiffSupportingOnly": 0
+  },
+  "filter": {
+   "outside": [
+    {
+     "side": "Integration",
+     "flight": "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "KU542",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "KU677",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30",
+     "rbd": "ADTx1:TT",
+     "pax": "ADTx1",
+     "seg": "KU542",
+     "cabin": "Economy",
+     "rbdCode": "T",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30",
+     "rbd": "ADTx1:TT",
+     "pax": "ADTx1",
+     "seg": "KU677",
+     "cabin": "Economy",
+     "rbdCode": "T",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "KU544",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "KU671",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20",
+     "rbd": "ADTx1:TT",
+     "pax": "ADTx1",
+     "seg": "KU544",
+     "cabin": "Economy",
+     "rbdCode": "T",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20",
+     "rbd": "ADTx1:TT",
+     "pax": "ADTx1",
+     "seg": "KU671",
+     "cabin": "Economy",
+     "rbdCode": "T",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40",
+     "rbd": "ADTx1:S",
+     "pax": "ADTx1",
+     "seg": "MS901",
+     "cabin": "Economy",
+     "rbdCode": "S",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40",
+     "rbd": "ADTx1:K",
+     "pax": "ADTx1",
+     "seg": "MS901",
+     "cabin": "Economy",
+     "rbdCode": "K",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00",
+     "rbd": "ADTx1:S",
+     "pax": "ADTx1",
+     "seg": "MS905",
+     "cabin": "Economy",
+     "rbdCode": "S",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00",
+     "rbd": "ADTx1:K",
+     "pax": "ADTx1",
+     "seg": "MS905",
+     "cabin": "Economy",
+     "rbdCode": "K",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00",
+     "rbd": "ADTx1:S",
+     "pax": "ADTx1",
+     "seg": "MS912",
+     "cabin": "Economy",
+     "rbdCode": "S",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00",
+     "rbd": "ADTx1:K",
+     "pax": "ADTx1",
+     "seg": "MS912",
+     "cabin": "Economy",
+     "rbdCode": "K",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45",
+     "rbd": "ADTx1:S",
+     "pax": "ADTx1",
+     "seg": "MS910",
+     "cabin": "Economy",
+     "rbdCode": "S",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45",
+     "rbd": "ADTx1:K",
+     "pax": "ADTx1",
+     "seg": "MS910",
+     "cabin": "Economy",
+     "rbdCode": "K",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "SV310 CAI-RUH 2026-11-18T10:35>2026-11-18T14:10 + SV560 RUH-DXB 2026-11-18T16:05>2026-11-18T19:00",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "SV310",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "SV310 CAI-RUH 2026-11-18T10:35>2026-11-18T14:10 + SV560 RUH-DXB 2026-11-18T16:05>2026-11-18T19:00",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "SV560",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "SV310 CAI-RUH 2026-11-18T10:35>2026-11-18T14:10 + SV560 RUH-DXB 2026-11-18T16:05>2026-11-18T19:00",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "SV310",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "SV310 CAI-RUH 2026-11-18T10:35>2026-11-18T14:10 + SV560 RUH-DXB 2026-11-18T16:05>2026-11-18T19:00",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "SV560",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "SV302 CAI-JED 2026-11-18T19:50>2026-11-18T23:00 + SV590 JED-DXB 2026-11-19T01:10>2026-11-19T04:55",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "SV302",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "SV302 CAI-JED 2026-11-18T19:50>2026-11-18T23:00 + SV590 JED-DXB 2026-11-19T01:10>2026-11-19T04:55",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "SV590",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "SV302 CAI-JED 2026-11-18T19:50>2026-11-18T23:00 + SV590 JED-DXB 2026-11-19T01:10>2026-11-19T04:55",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "SV302",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "SV302 CAI-JED 2026-11-18T19:50>2026-11-18T23:00 + SV590 JED-DXB 2026-11-19T01:10>2026-11-19T04:55",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "SV590",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55",
+     "rbd": "ADTx1:NN",
+     "pax": "ADTx1",
+     "seg": "QR1304",
+     "cabin": "Economy",
+     "rbdCode": "N",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55",
+     "rbd": "ADTx1:NN",
+     "pax": "ADTx1",
+     "seg": "QR1014",
+     "cabin": "Economy",
+     "rbdCode": "N",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55",
+     "rbd": "ADTx1:SS",
+     "pax": "ADTx1",
+     "seg": "QR1304",
+     "cabin": "Economy",
+     "rbdCode": "S",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55",
+     "rbd": "ADTx1:SS",
+     "pax": "ADTx1",
+     "seg": "QR1014",
+     "cabin": "Economy",
+     "rbdCode": "S",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15",
+     "rbd": "ADTx1:Q",
+     "pax": "ADTx1",
+     "seg": "EK930",
+     "cabin": "Economy",
+     "rbdCode": "Q",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15",
+     "rbd": "ADTx1:K",
+     "pax": "ADTx1",
+     "seg": "EK930",
+     "cabin": "Economy",
+     "rbdCode": "K",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45",
+     "rbd": "ADTx1:Q",
+     "pax": "ADTx1",
+     "seg": "EK928",
+     "cabin": "Economy",
+     "rbdCode": "Q",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45",
+     "rbd": "ADTx1:K",
+     "pax": "ADTx1",
+     "seg": "EK928",
+     "cabin": "Economy",
+     "rbdCode": "K",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45",
+     "rbd": "ADTx1:Q",
+     "pax": "ADTx1",
+     "seg": "EK922",
+     "cabin": "Economy",
+     "rbdCode": "Q",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45",
+     "rbd": "ADTx1:K",
+     "pax": "ADTx1",
+     "seg": "EK922",
+     "cabin": "Economy",
+     "rbdCode": "K",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40",
+     "rbd": "ADTx1:Q",
+     "pax": "ADTx1",
+     "seg": "EK924",
+     "cabin": "Economy",
+     "rbdCode": "Q",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40",
+     "rbd": "ADTx1:K",
+     "pax": "ADTx1",
+     "seg": "EK924",
+     "cabin": "Economy",
+     "rbdCode": "K",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10",
+     "rbd": "ADTx1:Q",
+     "pax": "ADTx1",
+     "seg": "EK926",
+     "cabin": "Economy",
+     "rbdCode": "Q",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10",
+     "rbd": "ADTx1:K",
+     "pax": "ADTx1",
+     "seg": "EK926",
+     "cabin": "Economy",
+     "rbdCode": "K",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY207 RUH-DXB 2026-11-18T15:50>2026-11-18T18:50",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY264",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY207 RUH-DXB 2026-11-18T15:50>2026-11-18T18:50",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY207",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY207 RUH-DXB 2026-11-18T15:50>2026-11-18T18:50",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY264",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY207 RUH-DXB 2026-11-18T15:50>2026-11-18T18:50",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY207",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY274 CAI-RUH 2026-11-18T12:10>2026-11-18T15:45 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY274",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY274 CAI-RUH 2026-11-18T12:10>2026-11-18T15:45 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY209",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY274 CAI-RUH 2026-11-18T12:10>2026-11-18T15:45 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY274",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY274 CAI-RUH 2026-11-18T12:10>2026-11-18T15:45 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY209",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY566",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY509",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY566",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY509",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY572",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY501",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY572",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY501",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35",
+     "rbd": "ADTx1:QQ",
+     "pax": "ADTx1",
+     "seg": "RJ504",
+     "cabin": "Economy",
+     "rbdCode": "Q",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35",
+     "rbd": "ADTx1:QQ",
+     "pax": "ADTx1",
+     "seg": "RJ614",
+     "cabin": "Economy",
+     "rbdCode": "Q",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35",
+     "rbd": "ADTx1:MM",
+     "pax": "ADTx1",
+     "seg": "RJ504",
+     "cabin": "Economy",
+     "rbdCode": "M",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35",
+     "rbd": "ADTx1:MM",
+     "pax": "ADTx1",
+     "seg": "RJ614",
+     "cabin": "Economy",
+     "rbdCode": "M",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45",
+     "rbd": "ADTx1:QQ",
+     "pax": "ADTx1",
+     "seg": "RJ508",
+     "cabin": "Economy",
+     "rbdCode": "Q",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45",
+     "rbd": "ADTx1:QQ",
+     "pax": "ADTx1",
+     "seg": "RJ610",
+     "cabin": "Economy",
+     "rbdCode": "Q",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45",
+     "rbd": "ADTx1:MM",
+     "pax": "ADTx1",
+     "seg": "RJ508",
+     "cabin": "Economy",
+     "rbdCode": "M",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45",
+     "rbd": "ADTx1:MM",
+     "pax": "ADTx1",
+     "seg": "RJ610",
+     "cabin": "Economy",
+     "rbdCode": "M",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY895 CAI-DMM 2026-11-18T23:25>2026-11-19T03:15 + XY811 DMM-DXB 2026-11-19T08:25>2026-11-19T10:55",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY895",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY895 CAI-DMM 2026-11-18T23:25>2026-11-19T03:15 + XY811 DMM-DXB 2026-11-19T08:25>2026-11-19T10:55",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY811",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY895 CAI-DMM 2026-11-18T23:25>2026-11-19T03:15 + XY811 DMM-DXB 2026-11-19T08:25>2026-11-19T10:55",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY895",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "XY895 CAI-DMM 2026-11-18T23:25>2026-11-19T03:15 + XY811 DMM-DXB 2026-11-19T08:25>2026-11-19T10:55",
+     "rbd": "ADTx1:AA",
+     "pax": "ADTx1",
+     "seg": "XY811",
+     "cabin": "Economy",
+     "rbdCode": "A",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "VF248 CAI-SAW 2026-11-18T04:55>2026-11-18T08:25 + VF143 SAW-DXB 2026-11-18T20:55>2026-11-19T03:15",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "VF248",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "VF248 CAI-SAW 2026-11-18T04:55>2026-11-18T08:25 + VF143 SAW-DXB 2026-11-18T20:55>2026-11-19T03:15",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "VF143",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "VF248 CAI-SAW 2026-11-18T04:55>2026-11-18T08:25 + VF143 SAW-DXB 2026-11-18T20:55>2026-11-19T03:15",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "VF248",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "VF248 CAI-SAW 2026-11-18T04:55>2026-11-18T08:25 + VF143 SAW-DXB 2026-11-18T20:55>2026-11-19T03:15",
+     "rbd": "ADTx1:VV",
+     "pax": "ADTx1",
+     "seg": "VF143",
+     "cabin": "Economy",
+     "rbdCode": "V",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "WY408 CAI-MCT 2026-11-18T01:15>2026-11-18T06:55 + WY603 MCT-DXB 2026-11-18T08:50>2026-11-18T10:00",
+     "rbd": "ADTx1:TT",
+     "pax": "ADTx1",
+     "seg": "WY408",
+     "cabin": "Economy",
+     "rbdCode": "T",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "WY408 CAI-MCT 2026-11-18T01:15>2026-11-18T06:55 + WY603 MCT-DXB 2026-11-18T08:50>2026-11-18T10:00",
+     "rbd": "ADTx1:TT",
+     "pax": "ADTx1",
+     "seg": "WY603",
+     "cabin": "Economy",
+     "rbdCode": "T",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "WY408 CAI-MCT 2026-11-18T01:15>2026-11-18T06:55 + WY603 MCT-DXB 2026-11-18T08:50>2026-11-18T10:00",
+     "rbd": "ADTx1:TT",
+     "pax": "ADTx1",
+     "seg": "WY408",
+     "cabin": "Economy",
+     "rbdCode": "T",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "WY408 CAI-MCT 2026-11-18T01:15>2026-11-18T06:55 + WY603 MCT-DXB 2026-11-18T08:50>2026-11-18T10:00",
+     "rbd": "ADTx1:TT",
+     "pax": "ADTx1",
+     "seg": "WY603",
+     "cabin": "Economy",
+     "rbdCode": "T",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "WY406 CAI-MCT 2026-11-18T18:05>2026-11-18T23:45 + WY603 MCT-DXB 2026-11-19T08:50>2026-11-19T10:00",
+     "rbd": "ADTx1:TT",
+     "pax": "ADTx1",
+     "seg": "WY406",
+     "cabin": "Economy",
+     "rbdCode": "T",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "WY406 CAI-MCT 2026-11-18T18:05>2026-11-18T23:45 + WY603 MCT-DXB 2026-11-19T08:50>2026-11-19T10:00",
+     "rbd": "ADTx1:TT",
+     "pax": "ADTx1",
+     "seg": "WY603",
+     "cabin": "Economy",
+     "rbdCode": "T",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "WY406 CAI-MCT 2026-11-18T18:05>2026-11-18T23:45 + WY603 MCT-DXB 2026-11-19T08:50>2026-11-19T10:00",
+     "rbd": "ADTx1:TT",
+     "pax": "ADTx1",
+     "seg": "WY406",
+     "cabin": "Economy",
+     "rbdCode": "T",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "WY406 CAI-MCT 2026-11-18T18:05>2026-11-18T23:45 + WY603 MCT-DXB 2026-11-19T08:50>2026-11-19T10:00",
+     "rbd": "ADTx1:TT",
+     "pax": "ADTx1",
+     "seg": "WY603",
+     "cabin": "Economy",
+     "rbdCode": "T",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45",
+     "rbd": "ADTx1:QQ",
+     "pax": "ADTx1",
+     "seg": "SV386",
+     "cabin": "Economy",
+     "rbdCode": "Q",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45",
+     "rbd": "ADTx1:QQ",
+     "pax": "ADTx1",
+     "seg": "SV566",
+     "cabin": "Economy",
+     "rbdCode": "Q",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45",
+     "rbd": "ADTx1:QQ",
+     "pax": "ADTx1",
+     "seg": "SV386",
+     "cabin": "Economy",
+     "rbdCode": "Q",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45",
+     "rbd": "ADTx1:QQ",
+     "pax": "ADTx1",
+     "seg": "SV566",
+     "cabin": "Economy",
+     "rbdCode": "Q",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF504 BAH-DXB 2026-11-18T09:40>2026-11-18T12:05",
+     "rbd": "ADTx1:EE",
+     "pax": "ADTx1",
+     "seg": "GF80",
+     "cabin": "Economy",
+     "rbdCode": "E",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF504 BAH-DXB 2026-11-18T09:40>2026-11-18T12:05",
+     "rbd": "ADTx1:EE",
+     "pax": "ADTx1",
+     "seg": "GF504",
+     "cabin": "Economy",
+     "rbdCode": "E",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF504 BAH-DXB 2026-11-18T09:40>2026-11-18T12:05",
+     "rbd": "ADTx1:EE",
+     "pax": "ADTx1",
+     "seg": "GF80",
+     "cabin": "Economy",
+     "rbdCode": "E",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF504 BAH-DXB 2026-11-18T09:40>2026-11-18T12:05",
+     "rbd": "ADTx1:EE",
+     "pax": "ADTx1",
+     "seg": "GF504",
+     "cabin": "Economy",
+     "rbdCode": "E",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "GF70 CAI-BAH 2026-11-18T16:00>2026-11-18T20:00 + GF500 BAH-DXB 2026-11-19T01:10>2026-11-19T03:35",
+     "rbd": "ADTx1:EE",
+     "pax": "ADTx1",
+     "seg": "GF70",
+     "cabin": "Economy",
+     "rbdCode": "E",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "GF70 CAI-BAH 2026-11-18T16:00>2026-11-18T20:00 + GF500 BAH-DXB 2026-11-19T01:10>2026-11-19T03:35",
+     "rbd": "ADTx1:EE",
+     "pax": "ADTx1",
+     "seg": "GF500",
+     "cabin": "Economy",
+     "rbdCode": "E",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "GF70 CAI-BAH 2026-11-18T16:00>2026-11-18T20:00 + GF500 BAH-DXB 2026-11-19T01:10>2026-11-19T03:35",
+     "rbd": "ADTx1:EE",
+     "pax": "ADTx1",
+     "seg": "GF70",
+     "cabin": "Economy",
+     "rbdCode": "E",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "GF70 CAI-BAH 2026-11-18T16:00>2026-11-18T20:00 + GF500 BAH-DXB 2026-11-19T01:10>2026-11-19T03:35",
+     "rbd": "ADTx1:EE",
+     "pax": "ADTx1",
+     "seg": "GF500",
+     "cabin": "Economy",
+     "rbdCode": "E",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "A3931 CAI-ATH 2026-11-18T04:40>2026-11-18T06:40 + A3958 ATH-DXB 2026-11-18T09:10>2026-11-18T16:00",
+     "rbd": "ADTx1:SS",
+     "pax": "ADTx1",
+     "seg": "A3931",
+     "cabin": "Economy",
+     "rbdCode": "S",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "A3931 CAI-ATH 2026-11-18T04:40>2026-11-18T06:40 + A3958 ATH-DXB 2026-11-18T09:10>2026-11-18T16:00",
+     "rbd": "ADTx1:SS",
+     "pax": "ADTx1",
+     "seg": "A3958",
+     "cabin": "Economy",
+     "rbdCode": "S",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "A3931 CAI-ATH 2026-11-18T04:40>2026-11-18T06:40 + A3958 ATH-DXB 2026-11-18T09:10>2026-11-18T16:00",
+     "rbd": "ADTx1:SS",
+     "pax": "ADTx1",
+     "seg": "A3931",
+     "cabin": "Economy",
+     "rbdCode": "S",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "A3931 CAI-ATH 2026-11-18T04:40>2026-11-18T06:40 + A3958 ATH-DXB 2026-11-18T09:10>2026-11-18T16:00",
+     "rbd": "ADTx1:SS",
+     "pax": "ADTx1",
+     "seg": "A3958",
+     "cabin": "Economy",
+     "rbdCode": "S",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "TK695 CAI-IST 2026-11-18T20:45>2026-11-19T00:20 + TK762 IST-DXB 2026-11-19T01:30>2026-11-19T06:55",
+     "rbd": "ADTx1:EE",
+     "pax": "ADTx1",
+     "seg": "TK695",
+     "cabin": "Economy",
+     "rbdCode": "E",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "TK695 CAI-IST 2026-11-18T20:45>2026-11-19T00:20 + TK762 IST-DXB 2026-11-19T01:30>2026-11-19T06:55",
+     "rbd": "ADTx1:EE",
+     "pax": "ADTx1",
+     "seg": "TK762",
+     "cabin": "Economy",
+     "rbdCode": "E",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "TK695 CAI-IST 2026-11-18T20:45>2026-11-19T00:20 + TK762 IST-DXB 2026-11-19T01:30>2026-11-19T06:55",
+     "rbd": "ADTx1:HH",
+     "pax": "ADTx1",
+     "seg": "TK695",
+     "cabin": "Economy",
+     "rbdCode": "H",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "TK695 CAI-IST 2026-11-18T20:45>2026-11-19T00:20 + TK762 IST-DXB 2026-11-19T01:30>2026-11-19T06:55",
+     "rbd": "ADTx1:HH",
+     "pax": "ADTx1",
+     "seg": "TK762",
+     "cabin": "Economy",
+     "rbdCode": "H",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30",
+     "rbd": "ADTx1:EE",
+     "pax": "ADTx1",
+     "seg": "TK687",
+     "cabin": "Economy",
+     "rbdCode": "E",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30",
+     "rbd": "ADTx1:EE",
+     "pax": "ADTx1",
+     "seg": "TK764",
+     "cabin": "Economy",
+     "rbdCode": "E",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30",
+     "rbd": "ADTx1:HH",
+     "pax": "ADTx1",
+     "seg": "TK687",
+     "cabin": "Economy",
+     "rbdCode": "H",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30",
+     "rbd": "ADTx1:HH",
+     "pax": "ADTx1",
+     "seg": "TK764",
+     "cabin": "Economy",
+     "rbdCode": "H",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "A3935 CAI-ATH 2026-11-18T20:50>2026-11-18T23:00 + A3958 ATH-DXB 2026-11-19T09:10>2026-11-19T16:00",
+     "rbd": "ADTx1:LL",
+     "pax": "ADTx1",
+     "seg": "A3935",
+     "cabin": "Economy",
+     "rbdCode": "L",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "A3935 CAI-ATH 2026-11-18T20:50>2026-11-18T23:00 + A3958 ATH-DXB 2026-11-19T09:10>2026-11-19T16:00",
+     "rbd": "ADTx1:LL",
+     "pax": "ADTx1",
+     "seg": "A3958",
+     "cabin": "Economy",
+     "rbdCode": "L",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "A3935 CAI-ATH 2026-11-18T20:50>2026-11-18T23:00 + A3958 ATH-DXB 2026-11-19T09:10>2026-11-19T16:00",
+     "rbd": "ADTx1:LL",
+     "pax": "ADTx1",
+     "seg": "A3935",
+     "cabin": "Economy",
+     "rbdCode": "L",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "A3935 CAI-ATH 2026-11-18T20:50>2026-11-18T23:00 + A3958 ATH-DXB 2026-11-19T09:10>2026-11-19T16:00",
+     "rbd": "ADTx1:LL",
+     "pax": "ADTx1",
+     "seg": "A3958",
+     "cabin": "Economy",
+     "rbdCode": "L",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "AT273 CAI-CMN 2026-11-18T08:40>2026-11-18T12:35 + AT9900 CMN-DXB 2026-11-18T14:10>2026-11-19T01:40",
+     "rbd": "ADTx1:NT",
+     "pax": "ADTx1",
+     "seg": "AT273",
+     "cabin": "Economy",
+     "rbdCode": "N",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "AT273 CAI-CMN 2026-11-18T08:40>2026-11-18T12:35 + AT9900 CMN-DXB 2026-11-18T14:10>2026-11-19T01:40",
+     "rbd": "ADTx1:NT",
+     "pax": "ADTx1",
+     "seg": "AT9900",
+     "cabin": "Economy",
+     "rbdCode": "T",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "ET453 CAI-ADD 2026-11-18T02:20>2026-11-18T07:10 + ET602 ADD-DXB 2026-11-18T10:30>2026-11-18T15:45",
+     "rbd": "ADTx1:HH",
+     "pax": "ADTx1",
+     "seg": "ET453",
+     "cabin": "Economy",
+     "rbdCode": "H",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "ET453 CAI-ADD 2026-11-18T02:20>2026-11-18T07:10 + ET602 ADD-DXB 2026-11-18T10:30>2026-11-18T15:45",
+     "rbd": "ADTx1:HH",
+     "pax": "ADTx1",
+     "seg": "ET602",
+     "cabin": "Economy",
+     "rbdCode": "H",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "ET1451 CAI-ADD 2026-11-18T22:25>2026-11-19T03:05 + ET602 ADD-DXB 2026-11-19T10:30>2026-11-19T15:45",
+     "rbd": "ADTx1:SS",
+     "pax": "ADTx1",
+     "seg": "ET1451",
+     "cabin": "Economy",
+     "rbdCode": "S",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "ET1451 CAI-ADD 2026-11-18T22:25>2026-11-19T03:05 + ET602 ADD-DXB 2026-11-19T10:30>2026-11-19T15:45",
+     "rbd": "ADTx1:SS",
+     "pax": "ADTx1",
+     "seg": "ET602",
+     "cabin": "Economy",
+     "rbdCode": "S",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "LH7177 CAI-MUC 2026-11-18T10:05>2026-11-18T13:10 + LH638 MUC-DXB 2026-11-18T22:35>2026-11-19T07:30",
+     "rbd": "ADTx1:YW",
+     "pax": "ADTx1",
+     "seg": "LH7177",
+     "cabin": "Economy",
+     "rbdCode": "Y",
+     "expected": "Premium Economy"
+    },
+    {
+     "side": "Integration",
+     "flight": "LH7177 CAI-MUC 2026-11-18T10:05>2026-11-18T13:10 + LH638 MUC-DXB 2026-11-18T22:35>2026-11-19T07:30",
+     "rbd": "ADTx1:YW",
+     "pax": "ADTx1",
+     "seg": "LH638",
+     "cabin": "Economy",
+     "rbdCode": "W",
+     "expected": "Premium Economy"
+    }
+   ],
+   "paxBad": [],
+   "emptyA": false,
+   "emptyB": false
+  },
+  "representation": [
+   {
+    "item": "cabin names normalized (e.g. PremiumEconomy = Premium Economy)",
+    "note": "compared after normalization"
+   }
+  ]
+ },
+ "readback": [
+  {
+   "side": "A",
+   "ok": true,
+   "rb": {
+    "branch": "NDC1_Ahmed Ayman (BRN287)",
+    "branchBeforeCheck": "NDC1_Ahmed Ayman (BRN287)",
+    "suppliersListed": [
+     "NDCGal"
+    ],
+    "supplierSelected": "NDCGal",
+    "credentialsListed": [
+     "NdcGalileoSTG EGY"
+    ],
+    "credentialSelected": "NdcGalileoSTG EGY"
+   }
+  },
+  {
+   "side": "B",
+   "ok": true,
+   "rb": {
+    "branch": "ahmed ayman (BRN632)",
+    "branchBeforeCheck": "ahmed ayman (BRN632)",
+    "suppliersListed": [
+     "Galileo"
+    ],
+    "supplierSelected": "Galileo",
+    "credentialsListed": [
+     "GalileoLiveSTAGING"
+    ],
+    "credentialSelected": "GalileoLiveSTAGING"
+   }
+  }
+ ],
+ "boundary": [
+  {
+   "side": "A",
+   "ok": true,
+   "b": {
+    "reportedBy": "platform back end (BND-04) — not a network capture",
+    "credentialHost": "ndc-integration-stg-ne-3.azurewebsites.net",
+    "schema": "52",
+    "soapEnvelope": false
+   }
+  },
+  {
+   "side": "B",
+   "ok": true,
+   "b": {
+    "reportedBy": "platform back end (BND-04) — not a network capture",
+    "credentialHost": "emea.universal-api.pp.travelport.com",
+    "schema": "44",
+    "soapEnvelope": true
+   }
+  }
+ ],
+ "searchCalled": 0
+}

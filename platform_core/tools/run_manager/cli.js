@@ -37,7 +37,62 @@
 //   node .../cli.js rename-runs [--assign "<run>=<owner>,<run>=<owner>"] [--json]       # plan only
 //   node .../cli.js rename-runs ... --apply --approved-by "<name>" --reason "..." [--no-rewrite-refs]
 //   node .../cli.js stage "<Stage>" --status <Approved|...> [--reviewer R] [--revisions N]
-//                                               # record a stage checkpoint in the Run Manifest
+//                                               # record a stage checkpoint in the Run Manifest ONLY
+//                                               # (display; never an approval in the run state model)
+//
+//   # run & stage state model (runState.js, run_manager.md §8.1) — every write accepts
+//   # [--run <r>] [--by "<name>"] [--expected-revision N] [--json]
+//   node .../cli.js state show [<stage>]                         # run + stage state (read-only)
+//   node .../cli.js state verify <stage>                         # re-check approval against headers (exit 2 = not verified)
+//   node .../cli.js state gate <stage> --invocation <...> [gate options]      # entry gate, read-only (exit 2 = blocked)
+//   node .../cli.js state start <stage> --invocation <Pipeline|Direct|Direct (degraded)> [--instruction "..."] [gate options]
+//                                               # runs the entry gate first; refuses (exit 2) when it blocks
+//     gate options: [--modules a,b] [--module-feature F] [--accept-stale-by "<name>"] [--scope-items a,b --by "<name>"]
+//                   [--environment-supplied] [--named-test-cases] [--external-reports]
+//   node .../cli.js state approve-scope --artifact <path> --approved-by "<name>"  # record a partial (item-level) approval of a Mixed artifact
+//   node .../cli.js state preflight <4M|5A|5H> --environment <env> --target-url <url> --execution-type <browser|api|database|batch|other>
+//                    [--execution-mode Headed|Headless] --operations <ops.json|JSON> --confirmed-by "<name>"
+//                                              # the mandatory Safety Preflight before real execution (Phase 9.2)
+//   node .../cli.js state attest-legacy-approval --artifact <path> --legacy-run <folder> --approved-by "<name>" --reason "..."
+//                                              # carry a pre-state-model approval forward: a named human attests it,
+//                                              # backed by committed legacy-run evidence (legacyProvenance.js, Phase 9.1)
+//   node .../cli.js state workflow <full-manual|full-automation|specific-stage> [--stage <ID>] --by "<name>" [--reason "..."]
+//   node .../cli.js state plan [--json]       # every stage: done / pending / blocked / skipped, revalidation, next action
+//   node .../cli.js state next [--json]       # the next action only (exit 0 = a stage may start, 3 = Human Decision, 4 = nothing left)
+//   node .../cli.js state status [--json]     # workflow completion, test outcome and approvals — reported apart
+//   node .../cli.js state outcome <4M|5A|5H> --from-results      # read the result files (all cycles) — the normal path
+//   node .../cli.js state outcome <4M|5A|5H> --passed N [--failed N --blocked N ...] [--source <path>]   # typed counts
+//   node .../cli.js state history <4M|5A|5H> [--json]               # every cycle, final + first-attempt status per test
+//   node .../cli.js state report-path [--json]                      # where the next Final QA Report goes (rev-N, never over one)
+//   node .../cli.js state report-check --model <m.report.json> [--md <m.md>] [--html <m.html>]  # exit 2 if they disagree
+//   node .../cli.js state recover <stage> --by "<name>" --reason "..."   # a stage left Running by an interrupted session -> Failed, then retry
+//   node .../cli.js state trace [--json]                            # Requirement → Finding → Test Case → Automation → Execution → Report, gaps, conflicts
+//   node .../cli.js state reuse                                     # whether each scope's approved Project Context can be reused as it is
+//   node .../cli.js state impact --artifact <path> (--base <git-rev> | --changed a,b) [--json]
+//        [--record --decision approved|rejected --by "<name>" --reason "..." [--approved-modules a,b] [--approved-suppliers x,y]]
+//   node .../cli.js state conflicts [--json]  ·  state conflict-decision --id CF-… --decision "..." --by "<name>"
+//   node .../cli.js state duplicates --story <file> | --suite <existing.md> --proposed <proposed.md> | --finding "<text>" --module <m>
+//   node .../cli.js state reconcile                                # replay run-state events the Manifest is missing
+//   # Stage 5H repair governance (repairGovernance.js) — every step named, recorded, refusable
+//   node .../cli.js state heal open --tests TC-1,TC-2 --environment QA --reason "..." --by "<name>"
+//   node .../cli.js state heal classify --test TC-1 --class automation|application|environment|infrastructure|test-data|unknown --evidence "..." --by "<name>"
+//   node .../cli.js state heal propose --test TC-1 --strategy "..." --reason "..." --patch <runs/…/x.diff> --root-cause-confidence High --factors "observed-root-cause:55:<cite>;…" [--novel] --by "<name>"
+//   node .../cli.js state heal batch-approve --by "<name>"  ·  heal approve --test TC-1 --attempt N --by "<name>"   (Medium/Low)
+//   node .../cli.js state heal apply --test TC-1 --attempt N [--restore-point <commit>] --by "<name>"
+//   node .../cli.js state heal validate --test TC-1 --attempt N --rerun <rerun-N.md> [--regression TC-2@<rerun.md>,…] [--mutating] --by "<name>"
+//   node .../cli.js state heal prod-access --scope "..." --read-only --by "<name>"  ·  heal promote --test TC-1 --attempt N --title … --body … --by "<name>"
+//   node .../cli.js state heal grant-budget --test TC-1 --basis changed-failure|new-run --reason "..." --by "<name>"
+//   node .../cli.js state heal close --by "<name>"  ·  heal report [--json]
+//   node .../cli.js state artifact <stage> --artifacts a,b [--kind checkpoint|output|evidence]
+//   node .../cli.js state request-approval <stage> [--artifacts a,b]  # Running -> Waiting For Approval
+//   node .../cli.js state correct-checkpoint <stage> --artifact <path> --as output|evidence --by "<name>" --reason "..."
+//                                               # a checkpoint registered in error; a waiting stage goes back to Blocked
+//   node .../cli.js state approve <stage> --approved-by "<name>"      # refused unless every header reads Approved
+//   node .../cli.js state reject <stage> --rejected-by "<name>" --feedback "..."
+//   node .../cli.js state complete <stage>                       # 5A / 6A only (no checkpoint)
+//   node .../cli.js state block <stage> --reason "..."  |  state fail <stage> --reason "..."
+//   node .../cli.js state reopen <stage> --by "<name>" --reason "..."
+//   node .../cli.js state run <pause|resume|complete|fail|cancel> [--by "<name>"] [--reason "..."]
 //   node .../cli.js manifest [--json]           # read the stage ledger ("where are we right now?")
 //   node .../cli.js manifest --gap "..." --why "..."          # declare a gap
 //   node .../cli.js manifest --reuse <artifact> --from <run>  # record cross-run reuse
@@ -87,9 +142,11 @@ const {
   refreshActiveRun,
 } = require('./activeRun');
 
+const runState = require('./runState');
+
 const VERBS = new Set([
   'name', 'active', 'use', 'list', 'refresh', 'clear', 'refine', 'drift',
-  'new', 'stage', 'manifest', 'anchor', 'scope-change', 'rename-runs',
+  'new', 'stage', 'manifest', 'anchor', 'scope-change', 'rename-runs', 'state',
 ]);
 
 function argValue(args, key) {
@@ -563,6 +620,7 @@ function cmdNew(args) {
       ...(args['created-by'] && args['created-by'] !== true ? { createdBy: args['created-by'] } : {}),
       extraRunJson: scopeFieldsFromArgs(args),
       activate: !args['no-activate'],
+      requireRegisteredScope: true,
     });
   } catch (err) {
     if (err instanceof CreateRunError) {
@@ -578,7 +636,8 @@ function cmdNew(args) {
     return;
   }
   console.log(`Created ${res.folderName}`);
-  console.log(`  path:      platform_core_data/runs/${res.folderName}`);
+  // The folder as created — under --runs-dir when one was given (audit finding #10).
+  console.log(`  path:      ${path.relative(process.cwd(), path.join(runsDir, res.folderName)).replace(/\\/g, '/') || '.'}`);
   console.log(`  targetRef: ${res.anchor.targetRef ? res.anchor.targetRef.slice(0, 7) : 'null'} (${res.anchor.targetRefReason})`);
   console.log(`  manifest:  metadata/RunManifest.md`);
   console.log(res.activated ? '  active:    yes' : '  active:    no (--no-activate)');
@@ -625,13 +684,504 @@ function cmdStage(args) {
     });
   } catch (err) {
     if (err instanceof ManifestError) {
-      console.error(err.message);
+      console.error(err.code ? `${err.code}: ${err.message}` : err.message);
       process.exitCode = 1;
       return;
     }
     throw err;
   }
   console.log(`${folderName}: ${stage} -> ${status}`);
+  if (status === 'Approved') {
+    console.error(
+      'Note: this records the Run Manifest row only. It does not approve the stage in the run state ' +
+      'model — that is `cli.js state approve <stage> --approved-by "<name>"`, which checks the ' +
+      'artifact header first.'
+    );
+  }
+}
+
+/** Prints a run-state result as JSON or as a short human summary. */
+function printState(state, args, extra = {}) {
+  if (args.json) {
+    console.log(JSON.stringify({ ...extra, ...state }, null, 2));
+    return;
+  }
+  console.log(`Run: ${state.folderName}${state.legacy ? '  (legacy — predates the run state model)' : ''}`);
+  console.log(`Status: ${state.status}${state.legacy ? `  (recorded: ${state.recordedStatus ?? 'none'})` : ''}` +
+    `${state.revision !== null ? `  · revision ${state.revision}` : ''}`);
+  if (state.statusReason) console.log(`Reason: ${state.statusReason}`);
+  for (const id of runState.STAGE_IDS) {
+    const s = state.stages[id];
+    const approval = s.approval?.status ? `  [${s.approval.status}${s.approval.approvedBy ? ` by ${s.approval.approvedBy}` : ''}]` : '';
+    console.log(`  ${id.padEnd(3)} ${s.name.padEnd(34)} ${String(s.status).padEnd(21)}${approval}${s.reason ? `  — ${s.reason}` : ''}`);
+  }
+  if (extra.manifest && extra.manifest.synced === false) {
+    console.error(`Warning: run.json was updated, but the Run Manifest was not: ${extra.manifest.reason}`);
+  }
+}
+
+/** Prints a plan / next / status result for a human. */
+function printPlan(res, sub) {
+  console.log(`Run: ${res.folderName}`);
+  if (res.workflow) console.log(`Workflow: ${res.workflow.type} (${res.workflow.stages.join(' → ')}), selected by ${res.workflow.selectedBy}`);
+  console.log(`Workflow status: ${res.workflowStatus}${res.runStatus ? `   ·   run: ${res.runStatus}` : ''}`);
+  if (res.testOutcome) console.log(`Test outcome: ${res.testOutcome.overall}   (${Object.entries(res.testOutcome.byStage).map(([k, v]) => `${k}: ${v}`).join(', ') || 'none recorded'})`);
+  if (res.approvals) console.log(`Approvals: approved [${res.approvals.approved.join(', ')}] · needs revalidation [${(res.approvals.needsRevalidation || []).join(', ')}] · pending [${res.approvals.pending.join(', ')}] · rejected [${res.approvals.rejected.join(', ')}] · partial scope [${res.approvals.partialScope.join(', ')}]`);
+  if (sub === 'plan') {
+    for (const s of res.stages) {
+      console.log(`  ${s.stageId.padEnd(3)} ${s.name.padEnd(34)} ${s.category.padEnd(19)} ${s.status}${s.approval ? ` [${s.approval}]` : ''}`);
+      for (const i of s.issues || []) console.log(`        ! ${i}`);
+    }
+  }
+  const n = res.next;
+  console.log(`Next: ${n.action}${n.stageId ? ` (Stage ${n.stageId})` : ''}${n.humanDecision ? '  — HUMAN DECISION' : ''}`);
+  console.log(`  ${n.reason}`);
+  if (n.command) console.log(`  command: ${n.command}`);
+  for (const o of n.options || []) console.log(`  option:  ${o}`);
+  for (const b of n.blockers || []) console.log(`  blocked: ${b}`);
+}
+
+/** Prints an entry-gate result: the decision, then why. */
+function printGate(gate, args) {
+  if (args.json) {
+    console.log(JSON.stringify(gate, null, 2));
+    return;
+  }
+  console.log(`Entry gate — Stage ${gate.stageId} (${gate.invocationPath || 'no invocation path'}): ${gate.decision.toUpperCase()}`);
+  if (gate.scope && gate.scope.length) console.log(`  scope: ${gate.scope.join(', ')}`);
+  for (const c of gate.checks) {
+    console.log(`  [${c.result}] Stage ${c.stage} · ${c.scope}${c.artifact ? ` · ${c.artifact}` : ''}${c.detail ? ` — ${c.detail}` : ''}`);
+  }
+  for (const g of gate.gaps) console.log(`  gap (declared, degraded): ${g}`);
+  for (const w of gate.warnings || []) console.log(`  warning: ${w}`);
+  if (gate.partialScope) console.log(`  partial scope: ${gate.partialScope.items.length} requested item(s), closure ${gate.partialScope.closure.length}, ${gate.partialScope.proven ? 'proven independent' : 'NOT proven'}`);
+  if (gate.suggestedScope) console.log(`  provably independent approved items (a human decides whether to use them): ${gate.suggestedScope.join(',')}`);
+  for (const b of gate.blockers) console.error(`  BLOCKED: ${b}`);
+}
+
+/** `state` — read and record the run & stage state model (runState.js). */
+function cmdState(args) {
+  const runsDir = resolveRunsDir(args);
+  if (!runsDir) return;
+  const folderName = (args.run && args.run !== true)
+    ? resolveRunFolder(runsDir, args.run)
+    : resolveActiveRunFolder(runsDir);
+  if (!folderName) {
+    console.error('No run. Pass --run <run>, or set an active run first.');
+    process.exitCode = 1;
+    return;
+  }
+
+  const sub = args._[1] || 'show';
+  const stageId = args._[2];
+  const list = (key) => (argValue(args, key) ? argValue(args, key).split(',').map((x) => x.trim()).filter(Boolean) : []);
+  const gateOpts = {
+    ...(list('modules').length ? { modules: list('modules') } : {}),
+    ...(argValue(args, 'module-feature') ? { moduleFeature: argValue(args, 'module-feature') } : {}),
+    ...(argValue(args, 'accept-stale-by') ? { acceptStaleBy: argValue(args, 'accept-stale-by') } : {}),
+    ...(list('scope-items').length ? { scopeItems: list('scope-items') } : {}),
+    conditions: {
+      ...(args['environment-supplied'] ? { environmentSupplied: true } : {}),
+      ...(args['named-test-cases'] ? { namedTestCases: true } : {}),
+      ...(args['external-reports'] ? { externalReports: true } : {}),
+    },
+  };
+  const common = {
+    now: new Date(),
+    ...(argValue(args, 'by') ? { by: argValue(args, 'by') } : {}),
+    ...(argValue(args, 'expected-revision') !== undefined ? { expectedRevision: Number(argValue(args, 'expected-revision')) } : {}),
+  };
+
+  try {
+    if (sub === 'heal') {
+      // Stage 5H repair governance (repairGovernance.js, Phase 6). Each verb records one step and refuses
+      // a step that breaks a rule; none of them edits code, runs a test, or invokes Stage 5H.
+      // eslint-disable-next-line global-require
+      const heal = require('./repairGovernance');
+      const action = args._[2];
+      const test = argValue(args, 'test');
+      const attempt = argValue(args, 'attempt') !== undefined ? Number(argValue(args, 'attempt')) : undefined;
+      // --factors "observed-root-cause:55:trace step 4;targets-root-cause:15:locator swap"
+      const factors = (argValue(args, 'factors') || '').split(';').map((x) => x.trim()).filter(Boolean).map((x) => {
+        const [factor, value, ...rest] = x.split(':');
+        return { factor: factor.trim(), ...(value && value.trim() ? { value: Number(value) } : {}), citation: rest.join(':').trim() };
+      });
+      const ops = {
+        open: () => heal.openRepairOperation(runsDir, folderName, { ...common, tests: list('tests'), environment: argValue(args, 'environment'), reason: argValue(args, 'reason') }),
+        classify: () => heal.classifyFailure(runsDir, folderName, { ...common, testCaseId: test, class: argValue(args, 'class'), evidence: argValue(args, 'evidence') }),
+        propose: () => heal.proposeRepair(runsDir, folderName, { ...common, testCaseId: test, strategy: argValue(args, 'strategy'), reason: argValue(args, 'reason'), patch: argValue(args, 'patch'), factors, novel: Boolean(args.novel), rootCauseConfidence: argValue(args, 'root-cause-confidence') }),
+        'batch-approve': () => heal.batchApprove(runsDir, folderName, common),
+        approve: () => heal.approveRepair(runsDir, folderName, { ...common, testCaseId: test, attempt }),
+        apply: () => heal.applyRepair(runsDir, folderName, { ...common, testCaseId: test, attempt, restorePoint: argValue(args, 'restore-point') }),
+        validate: () => heal.validateRepair(runsDir, folderName, { ...common, testCaseId: test, attempt, rerun: argValue(args, 'rerun'), regression: list('regression'), mutating: Boolean(args.mutating) }),
+        'prod-access': () => heal.approveProductionAccess(runsDir, folderName, { ...common, scope: argValue(args, 'scope'), readOnly: Boolean(args['read-only']) }),
+        promote: () => heal.promoteRepairKnowledge(runsDir, folderName, { ...common, testCaseId: test, attempt, title: argValue(args, 'title'), body: argValue(args, 'body') }),
+        close: () => heal.closeRepairOperation(runsDir, folderName, common),
+        'grant-budget': () => heal.grantRepairBudget(runsDir, folderName, { ...common, testCaseId: test, basis: argValue(args, 'basis'), reason: argValue(args, 'reason') }),
+      };
+      if (action === 'report') {
+        const rep = heal.repairReport(runsDir, folderName);
+        if (args.json) { console.log(JSON.stringify(rep, null, 2)); return; }
+        if (!rep.length) { console.log('No repair operation recorded in this run.'); return; }
+        for (const op of rep) {
+          console.log(`${op.id} (${op.status}) — invoked by ${op.invokedBy} at ${op.invokedAt} on ${op.environment}: ${op.reason}`);
+          for (const t of op.tests) {
+            console.log(`  ${t.testCaseId}  recorded ${t.recorded} · class ${t.classification.class}${t.classification.confirmed ? ' (confirmed)' : ''} · ${t.finalStatus} · attempts ${t.cumulative.counted}/${t.cumulative.of}`);
+            for (const a of t.attempts) {
+              console.log(`    attempt ${a.n}: ${a.strategy} — ${a.confidence.band} ${a.confidence.score} · ${a.status}${a.result ? ` (${a.result})` : ''} · files ${a.filesChanged.join(', ')}${a.beforeAfter ? ` · before ${a.beforeAfter.before} → after ${a.beforeAfter.after}` : ''}${a.regression.length ? ` · regression ${a.regression.map((r) => `${r.testCaseId} ${r.status}`).join(', ')}` : ''}`);
+            }
+          }
+          for (const d of op.decisions) console.log(`  decision  ${d.at}  ${d.by}: ${d.decision}${d.detail ? ` — ${d.detail}` : ''}`);
+        }
+        return;
+      }
+      if (!ops[action]) {
+        console.error(`Usage: cli.js state heal <${[...Object.keys(ops), 'report'].join('|')}> …`);
+        process.exitCode = 1;
+        return;
+      }
+      const res = ops[action]();
+      printState(res.state, args);
+      return;
+    }
+    if (sub === 'show') {
+      const state = runState.readRunState(runsDir, folderName);
+      if (stageId && !args.json) {
+        console.log(JSON.stringify(state.stages[runState.normalizeStageId(stageId)], null, 2));
+        return;
+      }
+      printState(state, args);
+      return;
+    }
+    if (sub === 'plan' || sub === 'next' || sub === 'status') {
+      // eslint-disable-next-line global-require
+      const planner = require('./workflowPlanner');
+      const roots = resolveRoots(args);
+      const popts = { now: new Date(), ...(roots && roots.targetRoot ? { targetRoot: roots.targetRoot, execFileSync } : {}) };
+      const res = sub === 'plan' ? planner.planWorkflow(runsDir, folderName, popts)
+        : sub === 'next' ? planner.nextStep(runsDir, folderName, popts) : planner.workflowStatus(runsDir, folderName, popts);
+      if (args.json) console.log(JSON.stringify(res, null, 2));
+      else printPlan(res, sub);
+      if (sub === 'next') process.exitCode = ['none', 'complete-run'].includes(res.next.action) ? 4 : res.next.humanDecision ? 3 : 0;
+      return;
+    }
+    if (sub === 'trace' || sub === 'conflicts') {
+      // eslint-disable-next-line global-require
+      const { buildTraceGraph } = require('./traceGraph');
+      const g = buildTraceGraph(runsDir, folderName, gateOpts);
+      const decided = new Map(runState.readRunState(runsDir, folderName).conflictDecisions.map((d) => [d.conflictId, d]));
+      const conflicts = g.conflicts.map((c) => ({ ...c, decision: decided.get(c.id) || null }));
+      if (args.json) {
+        console.log(JSON.stringify(sub === 'conflicts' ? conflicts : {
+          roots: g.roots, problem: g.problem, gaps: g.gaps, conflicts,
+          graphs: g.graphs.map((x) => ({ scope: x.root.label, testCases: Object.values(x.testCases), findings: [...x.findings], runs: x.runs, reports: x.reports })),
+        }, null, 2));
+        return;
+      }
+      if (g.problem) console.error(`Scope: ${g.problem}`);
+      if (sub === 'trace') {
+        for (const x of g.graphs) {
+          const cases = Object.values(x.testCases);
+          console.log(`${x.root.label}: ${cases.length} case(s), ${x.findings.size} finding(s), ${cases.filter((c) => c.automationDecision).length} automation decision(s), ${x.runs.length} run(s), ${x.reports.length} report(s)`);
+        }
+        const kinds = {};
+        for (const gp of g.gaps) kinds[gp.kind] = (kinds[gp.kind] || 0) + 1;
+        console.log(`Gaps: ${Object.entries(kinds).map(([k, v]) => `${k} ${v}`).join(', ') || 'none'}`);
+        for (const gp of g.gaps.slice(0, 40)) console.log(`  - [${gp.scope}] ${gp.detail}`);
+      }
+      console.log(`Conflicts: ${conflicts.length}`);
+      for (const c of conflicts) console.log(`  ${c.id} [${c.kind}] ${c.decision ? `DECIDED by ${c.decision.by}: ${c.decision.decision}` : 'UNDECIDED'} — ${c.detail}`);
+      return;
+    }
+    if (sub === 'reuse') {
+      // eslint-disable-next-line global-require
+      const res = require('./traceGraph').contextReuse(runsDir, folderName);
+      if (args.json) console.log(JSON.stringify(res, null, 2));
+      else for (const x of res) console.log(`${x.scope}: ${x.reusable ? 'REUSABLE' : 'not reusable'} — ${x.detail}`);
+      return;
+    }
+    if (sub === 'impact') {
+      // eslint-disable-next-line global-require
+      const { analyzeImpact } = require('./changeImpact');
+      const analysis = analyzeImpact(runsDir, {
+        artifact: argValue(args, 'artifact'),
+        ...(list('changed').length ? { changed: list('changed') } : {}),
+        ...(argValue(args, 'base') ? { base: argValue(args, 'base'), execFileSync } : {}),
+      });
+      if (args.record) {
+        const res = runState.recordImpactDecision(runsDir, folderName, {
+          ...common, analysis, decision: argValue(args, 'decision'), reason: argValue(args, 'reason'),
+          approvedModules: list('approved-modules'), approvedSuppliers: list('approved-suppliers'),
+        });
+        console.log(args.json ? JSON.stringify(res.changeRequest, null, 2) : `Recorded ${res.changeRequest.id}: ${res.changeRequest.decision} (${res.changeRequest.classification}) for ${analysis.artifact}`);
+        return;
+      }
+      if (args.json) { console.log(JSON.stringify(analysis, null, 2)); return; }
+      const a = analysis.affected;
+      console.log(`Impact ${analysis.id} — ${analysis.artifact} — ${analysis.classification.toUpperCase()}${analysis.crossModule ? ' · CROSS-MODULE' : ''}  (HUMAN DECISION)`);
+      console.log(`  changed: ${analysis.delta.changed.join(', ') || '—'}   added: ${analysis.delta.added.join(', ') || '—'}   removed: ${analysis.delta.removed.join(', ') || '—'}   (basis: ${analysis.delta.basis})`);
+      console.log(`  modules: ${a.modules.join(', ') || '—'}   suppliers: ${a.suppliers.join(', ') || '—'}   findings: ${a.findings.join(', ') || '—'}`);
+      console.log(`  test cases: ${a.testCases.length} (approved ${a.approvedTestCases.length})   automation: ${a.automation.length}   executions: ${a.executions.length}   reports: ${a.reports.length}`);
+      for (const why of analysis.reasons) console.log(`  - ${why}`);
+      console.log(`  record a decision: state impact --artifact ${analysis.artifact} ... --record --decision approved|rejected --by "<name>" --reason "..."${analysis.crossModule ? ` --approved-modules ${a.modules.join(',')}` : ''}`);
+      return;
+    }
+    if (sub === 'duplicates') {
+      // eslint-disable-next-line global-require
+      const dup = require('./duplicates');
+      const dataRoot = path.dirname(runsDir);
+      let res;
+      if (argValue(args, 'story')) {
+        res = dup.findDuplicateStories(fs.readFileSync(path.resolve(argValue(args, 'story')), 'utf8'), path.join(dataRoot, 'knowledge_base', 'requirements', 'user_stories'));
+      } else if (argValue(args, 'proposed')) {
+        res = dup.planSuiteUpdate(fs.readFileSync(path.resolve(argValue(args, 'suite')), 'utf8'), fs.readFileSync(path.resolve(argValue(args, 'proposed')), 'utf8'));
+      } else if (argValue(args, 'finding')) {
+        res = dup.findDuplicateFindings(argValue(args, 'finding'), path.join(dataRoot, 'modules', argValue(args, 'module') || '', 'discovery', 'findings'));
+      } else {
+        console.error('Usage: state duplicates --story <file> | --suite <existing.md> --proposed <proposed.md> | --finding "<text>" --module <m>');
+        process.exitCode = 1;
+        return;
+      }
+      console.log(JSON.stringify(res, null, 2));
+      return;
+    }
+    if (sub === 'history') {
+      // eslint-disable-next-line global-require
+      const h = require('./executionHistory').buildHistory(runsDir, folderName, runState.normalizeStageId(stageId));
+      if (args.json) { console.log(JSON.stringify(h, null, 2)); return; }
+      console.log(`Stage ${h.stageId} — ${h.cycles.length} cycle(s): ${h.cycles.map((c) => `${c.cycle}=${c.file.split('/').pop()}${c.producedBy ? ` (${c.producedBy})` : ''}`).join(', ')}`);
+      console.log(`Final:         ${JSON.stringify(h.counts)}`);
+      console.log(`First attempt: ${JSON.stringify(h.firstAttemptCounts)}`);
+      const as = h.assertionSummary || {};
+      const cv = h.assertionCoverage || {};
+      console.log(`Assertion coverage of verified passes (textual lower bound): complete ${cv.complete || 0} · partial ${cv.partial || 0} · unknown ${cv.unknown || 0}`);
+      for (const u of cv.unmapped || []) console.log(`  unmapped  ${u.testCaseId}: ${u.clauses.map((c) => `"${c}"`).join(', ')}`);
+      console.log(`Recorded Passed, by assertion evidence: verified ${as.verified || 0} · unverified ${as.unverified || 0} · no records ${as.none || 0} · inconclusive ${as.inconclusive || 0} · failed assertion ${as.failed || 0} · contradiction ${as.contradiction || 0}`);
+      for (const e of h.evidenceIssues || []) console.log(`  evidence  ${e.testCaseId} (cycle ${e.cycle}): "${e.ref}" ${e.status}`);
+      for (const b of h.blocked) console.log(`  blocked   ${b.testCaseId}: ${b.reason || 'no reason recorded'}${b.blockedBy && b.blockedBy.length ? ` (by ${b.blockedBy.join(', ')})` : ''}`);
+      for (const c of h.conflicts) console.log(`  CONFLICT  ${c.testCaseId}: ${c.detail}`);
+      for (const u of h.unattributed) console.log(`  unattributed ${u.testCaseId}: ${u.detail}`);
+      for (const u of h.unrecognized) console.log(`  unrecognized ${u.testCaseId}: "${u.raw}" in ${u.file}`);
+      return;
+    }
+    if (sub === 'report-path') {
+      // eslint-disable-next-line global-require
+      const rp = require('./reportIntegrity').reportRevisionPath(runsDir, folderName);
+      console.log(args.json ? JSON.stringify(rp, null, 2) : `Next Final QA Report: ${rp.md}${rp.revision ? ` (revision ${rp.revision}; earlier reports are kept: ${rp.previous.join(', ')})` : ''}`);
+      return;
+    }
+    if (sub === 'report-check') {
+      // eslint-disable-next-line global-require
+      const { checkReportConsistency, authoritativeOutcome, contractPosition } = require('./reportIntegrity');
+      // The same outcome the 6A completion gate checks against (reportIntegrity.authoritativeOutcome).
+      const found = authoritativeOutcome(JSON.parse(fs.readFileSync(runState.runJsonPath(runsDir, folderName), 'utf8')));
+      // Paths resolve against the data root, like every other artifact argument; one outside it is refused
+      // (audit finding #15).
+      const dataRoot = path.dirname(runsDir);
+      const inData = (ref) => {
+        if (!ref) return undefined;
+        const prefix = `${path.basename(dataRoot)}/`;
+        const rel = String(ref).replace(/\\/g, '/');
+        const abs = path.isAbsolute(ref) ? path.resolve(ref) : path.resolve(dataRoot, rel.startsWith(prefix) ? rel.slice(prefix.length) : rel);
+        const r = path.relative(dataRoot, abs);
+        if (r.startsWith('..') || path.isAbsolute(r)) throw new runState.RunStateError(`${ref} is outside the data root (${dataRoot}); report files are read only from there.`, 'OUTSIDE_DATA_ROOT');
+        return abs;
+      };
+      const res = checkReportConsistency({
+        md: inData(argValue(args, 'md')), json: inData(argValue(args, 'model')), html: inData(argValue(args, 'html')),
+        outcome: found ? found.outcome : undefined,
+        contract: contractPosition(runsDir, folderName),
+        // eslint-disable-next-line global-require
+        evidence: require('./resultsIntegrity').checkResultsIntegrity(runsDir, folderName),
+      });
+      if (args.json) console.log(JSON.stringify(res, null, 2));
+      else console.log(res.ok ? 'Report renderings agree with each other and with the recorded outcome.' : res.issues.map((i) => `  - ${i}`).join('\n'));
+      if (!res.ok) process.exitCode = 2;
+      return;
+    }
+    if (sub === 'gate') {
+      // eslint-disable-next-line global-require
+      const gate = require('./stageGate').checkStageEntry(runsDir, folderName, {
+        ...gateOpts, stageId, invocationPath: argValue(args, 'invocation'), now: new Date(),
+      });
+      printGate(gate, args);
+      if (gate.decision === 'blocked') process.exitCode = 2;
+      return;
+    }
+    if (sub === 'reconcile') {
+      const res = runState.reconcileManifest(runsDir, folderName, { now: new Date() });
+      if (args.json) console.log(JSON.stringify(res, null, 2));
+      else if (res.manifest.synced) console.log(`Run Manifest reconciled: events ${res.before} → ${res.after} of ${res.lastEventSeq}.`);
+      else { console.error(`Run Manifest NOT reconciled: ${res.manifest.reason}`); process.exitCode = 1; }
+      return;
+    }
+    if (sub === 'verify') {
+      const res = runState.verifyStageApproval(runsDir, folderName, stageId);
+      if (args.json) console.log(JSON.stringify(res, null, 2));
+      else {
+        console.log(`Stage ${res.stageId}: ${res.verified ? 'VERIFIED' : 'NOT verified'} — ${res.reason}`);
+        for (const c of res.upstreamChanges) console.log(`  needs revalidation: it was built on ${c.artifact}, which ${c.detail}`);
+      }
+      // Exit 2 when the approval no longer holds OR the stage was built on upstream content that has
+      // changed since — the same condition the planner reports as revalidation.
+      if (!res.current) process.exitCode = 2;
+      return;
+    }
+
+    let res;
+    switch (sub) {
+      case 'start':
+        res = runState.startStage(runsDir, folderName, {
+          ...common, ...gateOpts, stageId, invocationPath: argValue(args, 'invocation'),
+          ...(argValue(args, 'instruction') ? { instruction: argValue(args, 'instruction') } : {}),
+        });
+        break;
+      case 'artifact':
+        res = runState.recordStageArtifacts(runsDir, folderName, {
+          ...common, stageId, artifacts: list('artifacts').map((p) => ({ path: p, kind: argValue(args, 'kind') || 'output' })),
+        });
+        break;
+      case 'correct-checkpoint':
+        res = runState.correctCheckpointRegistration(runsDir, folderName, {
+          ...common, stageId, artifact: argValue(args, 'artifact'), kind: argValue(args, 'as'), reason: argValue(args, 'reason'),
+        });
+        break;
+      case 'request-approval':
+        res = runState.requestApproval(runsDir, folderName, { ...common, stageId, artifacts: list('artifacts') });
+        break;
+      case 'workflow':
+        res = runState.selectWorkflow(runsDir, folderName, {
+          ...common, type: args._[2], ...(argValue(args, 'stage') ? { stageId: argValue(args, 'stage') } : {}),
+          ...(argValue(args, 'reason') ? { reason: argValue(args, 'reason') } : {}),
+        });
+        break;
+      case 'outcome': {
+        if (args['from-results']) {
+          res = runState.recordOutcomeFromResults(runsDir, folderName, { ...common, stageId });
+          // Canonical execution telemetry (Phase 8.1): mirror what the results files prove into the run's
+          // event stream — once per piece of evidence (deduplicated), never failing the outcome itself.
+          try {
+            // eslint-disable-next-line global-require
+            const tel = require('../observability/emitExecution').emitExecutionTelemetry({ dataRoot: path.dirname(runsDir), runFolder: folderName, stageId: runState.normalizeStageId(stageId), now: new Date() });
+            for (const w of tel.warnings) console.error(`telemetry warning: ${w}`);
+          } catch (err) { console.error(`telemetry warning: execution telemetry not recorded (${String(err.message).split('\n')[0]}) — the outcome is recorded`); }
+          break;
+        }
+        const counts = {};
+        for (const status of runState.OUTCOME_STATUSES) {
+          const flag = status.toLowerCase().replace(/ /g, '-');
+          if (argValue(args, flag) !== undefined) counts[status] = Number(argValue(args, flag));
+        }
+        res = runState.recordOutcome(runsDir, folderName, { ...common, stageId, counts, ...(argValue(args, 'source') ? { source: argValue(args, 'source') } : {}) });
+        {
+          const o = res.state.stages[runState.normalizeStageId(stageId)].outcome;
+          console.error(`WARNING: typed counts recorded as UNVERIFIED diagnostics (verdict ${o.verdict}; claimed ${o.claimedVerdict}). ` +
+            `They are not evidence and never approve or complete Stage ${runState.normalizeStageId(stageId)} — record the outcome with --from-results.`);
+        }
+        break;
+      }
+      case 'recover':
+        res = runState.recoverStage(runsDir, folderName, { ...common, stageId, reason: argValue(args, 'reason') });
+        break;
+      case 'conflict-decision':
+        res = runState.recordConflictDecision(runsDir, folderName, { ...common, conflictId: argValue(args, 'id'), decision: argValue(args, 'decision') });
+        break;
+      case 'approve-scope':
+        res = runState.approveScope(runsDir, folderName, { ...common, artifact: argValue(args, 'artifact'), approvedBy: argValue(args, 'approved-by') });
+        break;
+      case 'preflight': {
+        // Phase 9.2, F-16. --operations takes a JSON file or an inline JSON array.
+        const opsArg = argValue(args, 'operations');
+        let operations = [];
+        if (opsArg) {
+          try { operations = JSON.parse(fs.existsSync(path.resolve(opsArg)) ? fs.readFileSync(path.resolve(opsArg), 'utf8') : opsArg); } catch (err) { throw new runState.RunStateError(`--operations is neither a readable JSON file nor a JSON array (${err.message})`, 'INVALID_ARGUMENT'); }
+          if (!Array.isArray(operations)) operations = operations.operations || [];
+        }
+        try {
+          res = runState.recordSafetyPreflight(runsDir, folderName, {
+            ...common, stageId, environment: argValue(args, 'environment'), targetUrl: argValue(args, 'target-url'),
+            executionType: argValue(args, 'execution-type'), executionMode: argValue(args, 'execution-mode'),
+            operations, confirmedBy: argValue(args, 'confirmed-by'),
+          });
+        } catch (err) {
+          if (err.code === 'PREFLIGHT_REFUSED') { console.error(`${err.code}: ${err.message}`); process.exitCode = 1; return; }
+          throw err;
+        }
+        const r = res.safetyPreflight;
+        console.log(`Safety Preflight ${r.id} CONFIRMED for Stage ${r.stageId} by ${r.confirmedBy}: ${r.environment} (${r.environmentClass}), ${r.targetUrl}, ${r.executionType}${r.executionMode ? ` ${r.executionMode}` : ''}; ${r.operations.length} operation(s), ${r.operations.filter((o) => o.mutating).length} mutating; binding ${r.binding.fingerprint.slice(0, 12)}`);
+        return;
+      }
+      case 'attest-legacy-approval':
+        res = runState.attestLegacyApproval(runsDir, folderName, {
+          ...common, artifact: argValue(args, 'artifact'), legacyRun: argValue(args, 'legacy-run'),
+          approvedBy: argValue(args, 'approved-by'), reason: argValue(args, 'reason'),
+        });
+        break;
+      case 'approve':
+        res = runState.approveStage(runsDir, folderName, { ...common, stageId, approvedBy: argValue(args, 'approved-by') });
+        break;
+      case 'reject':
+        res = runState.rejectStage(runsDir, folderName, {
+          ...common, stageId, rejectedBy: argValue(args, 'rejected-by'), feedback: argValue(args, 'feedback'),
+        });
+        break;
+      case 'complete':
+        res = runState.completeStage(runsDir, folderName, { ...common, stageId });
+        break;
+      case 'block':
+        res = runState.blockStage(runsDir, folderName, { ...common, stageId, reason: argValue(args, 'reason') });
+        break;
+      case 'fail':
+        res = runState.failStage(runsDir, folderName, { ...common, stageId, reason: argValue(args, 'reason') });
+        break;
+      case 'reopen':
+        res = runState.reopenStage(runsDir, folderName, {
+          ...common, stageId, reason: argValue(args, 'reason'),
+          ...(argValue(args, 'invocation') ? { invocationPath: argValue(args, 'invocation') } : {}),
+        });
+        break;
+      case 'run': {
+        const op = args._[2];
+        const runOps = {
+          pause: runState.pauseRun, resume: runState.resumeRun, complete: runState.completeRun,
+          fail: runState.failRun, cancel: runState.cancelRun,
+        };
+        if (!runOps[op]) {
+          console.error('Usage: cli.js state run <pause|resume|complete|fail|cancel> [--by "<name>"] [--reason "..."]');
+          process.exitCode = 1;
+          return;
+        }
+        res = runOps[op](runsDir, folderName, { ...common, ...(argValue(args, 'reason') ? { reason: argValue(args, 'reason') } : {}) });
+        break;
+      }
+      default:
+        console.error(`Unknown state subcommand "${sub}". See the usage header of cli.js.`);
+        process.exitCode = 1;
+        return;
+    }
+    // Non-blocking notes from the Stage 3 assertion contract (new or changed cases only). On stderr, so
+    // --json output stays parseable.
+    for (const a of res.advisories || []) console.error(`advisory: ${a}`);
+    printState(res.state, args, { manifest: res.manifest });
+  } catch (err) {
+    if (err instanceof runState.RunStateError) {
+      if (err.code === 'GATE_BLOCKED' && err.gate) {
+        printGate(err.gate, args);
+        if (err.recorded) console.error(`Stage ${err.gate.stageId} recorded as Blocked, with these reasons.`);
+        process.exitCode = 2;
+        return;
+      }
+      console.error(`${err.code}: ${err.message}`);
+      process.exitCode = 1;
+      return;
+    }
+    if (err && err.name === 'LockError') {
+      console.error(`${err.code}: ${err.message}`);
+      process.exitCode = 1;
+      return;
+    }
+    throw err;
+  }
 }
 
 /** `manifest` — read the Run Manifest's stage ledger back as data ("where are we right now?"). */
@@ -782,7 +1332,7 @@ function cmdScopeChange(args) {
   }
 
   try {
-    const res = changeSupplierFeatureRunScope(runsDir, folderName, { now: new Date(), approvedBy, reason, changes });
+    const res = changeSupplierFeatureRunScope(runsDir, folderName, { now: new Date(), approvedBy, reason, changes, requireRegisteredScope: true });
     if (args.json) {
       console.log(JSON.stringify(res, null, 2));
       return;
@@ -820,7 +1370,9 @@ function cmdList(args) {
   for (const run of runs) {
     const marker = run.folderName === active ? '*' : ' ';
     const owner = run.runOwner ? `${run.runOwner.padEnd(18)} ` : `${'(unowned)'.padEnd(18)} `;
-    const status = run.status ? ` [${run.status}]` : '';
+    // A run without the state model reads as Unknown, as `state show` says (audit finding #14).
+    const shown = run.stateModel === false ? 'Unknown' : run.status;
+    const status = shown ? ` [${shown}]` : '';
     const stages = run.stagesPresent.length ? `  (${run.stagesPresent.join(', ')})` : '  (no stages yet)';
     console.log(`${marker} ${owner} ${run.folderName}${status}${stages}`);
   }
@@ -953,6 +1505,7 @@ function main() {
     case 'anchor': return cmdAnchor(args);
     case 'scope-change': return cmdScopeChange(args);
     case 'rename-runs': return cmdRenameRuns(args);
+    case 'state': return cmdState(args);
     default: return cmdName(args);
   }
 }

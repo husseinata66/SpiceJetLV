@@ -1,0 +1,246 @@
+{
+ "offers": {
+  "A": 59,
+  "B": 34
+ },
+ "flights": {
+  "A": 34,
+  "B": 34
+ },
+ "flightsOnlyA": [],
+ "flightsOnlyB": [],
+ "matched": 34,
+ "stopsDiff": [],
+ "fareOpt": {
+  "matchedOptions": 34,
+  "onlyA": [
+   {
+    "flight": "KU542 CAI-KWI 11-18T20:25>11-18T23:50 + KU677 KWI-DXB 11-19T00:35>11-19T03:30",
+    "brand": "BUSINESS PLUS/BUSINESS PLUS",
+    "detail": "ADTx1:Business|P|2PC,Business|P|2PC"
+   },
+   {
+    "flight": "KU544 CAI-KWI 11-18T02:40>11-18T06:05 + KU671 KWI-DXB 11-18T09:25>11-18T12:20",
+    "brand": "BUSINESS PLUS/BUSINESS PLUS",
+    "detail": "ADTx1:Business|P|2PC,Business|P|2PC"
+   },
+   {
+    "flight": "KU546 CAI-KWI 11-18T11:25>11-18T14:50 + KU675 KWI-DXB 11-18T19:00>11-18T21:55",
+    "brand": "BUSINESS PLUS/BUSINESS PLUS",
+    "detail": "ADTx1:Business|P|2PC,Business|P|2PC"
+   },
+   {
+    "flight": "SV310 CAI-RUH 11-18T10:35>11-18T14:10 + SV560 RUH-DXB 11-18T16:05>11-18T19:00",
+    "brand": "FLEX BUS/FLEX BUS",
+    "detail": "ADTx1:Business|I|2PC,Business|I|2PC"
+   },
+   {
+    "flight": "SV310 CAI-RUH 11-18T10:35>11-18T14:10 + SV552 RUH-DXB 11-18T18:05>11-18T21:00",
+    "brand": "FLEX BUS/FLEX BUS",
+    "detail": "ADTx1:Business|I|2PC,Business|I|2PC"
+   },
+   {
+    "flight": "SV312 CAI-RUH 11-18T19:55>11-18T23:30 + SV562 RUH-DXB 11-19T06:30>11-19T09:25",
+    "brand": "FLEX BUS/FLEX BUS",
+    "detail": "ADTx1:Business|I|2PC,Business|I|2PC"
+   },
+   {
+    "flight": "SV386 CAI-JED 11-18T01:00>11-18T04:10 + SV566 JED-DXB 11-18T06:00>11-18T09:45",
+    "brand": "FLEX BUS/FLEX BUS",
+    "detail": "ADTx1:Business|I|2PC,Business|I|2PC"
+   },
+   {
+    "flight": "SV302 CAI-JED 11-18T19:50>11-18T23:00 + SV590 JED-DXB 11-19T01:10>11-19T04:55",
+    "brand": "FLEX BUS/FLEX BUS",
+    "detail": "ADTx1:Business|I|2PC,Business|I|2PC"
+   },
+   {
+    "flight": "SV308 CAI-JED 11-18T03:35>11-18T06:45 + SV568 JED-DXB 11-18T09:15>11-18T13:00",
+    "brand": "FLEX BUS/FLEX BUS",
+    "detail": "ADTx1:Business|I|2PC,Business|I|2PC"
+   },
+   {
+    "flight": "MS901 CAI-DXB 11-18T04:20>11-18T09:40",
+    "brand": "BUSINESS PLATINUM",
+    "detail": "ADTx1:Business|D|2PC"
+   },
+   {
+    "flight": "MS905 CAI-DXB 11-18T13:40>11-18T19:00",
+    "brand": "BUSINESS PLATINUM",
+    "detail": "ADTx1:Business|D|2PC"
+   },
+   {
+    "flight": "MS910 CAI-DXB 11-18T22:25>11-19T03:45",
+    "brand": "BUSINESS PLATINUM",
+    "detail": "ADTx1:Business|D|2PC"
+   },
+   {
+    "flight": "WY408 CAI-MCT 11-18T01:15>11-18T06:55 + WY603 MCT-DXB 11-18T08:50>11-18T10:00",
+    "brand": "BUSINESS FLEX/BUSINESS FLEX",
+    "detail": "ADTx1:FirstClass|P|50KG,FirstClass|P|50KG"
+   },
+   {
+    "flight": "GF80 CAI-BAH 11-18T04:20>11-18T08:20 + GF504 BAH-DXB 11-18T09:40>11-18T12:05",
+    "brand": "FALCON GOLD FLEX/FALCON GOLD FLEX",
+    "detail": "ADTx1:Business|D|50KG,Business|D|50KG"
+   },
+   {
+    "flight": "GF70 CAI-BAH 11-18T16:00>11-18T20:00 + GF500 BAH-DXB 11-19T01:10>11-19T03:35",
+    "brand": "FALCON GOLD FLEX/FALCON GOLD FLEX",
+    "detail": "ADTx1:Business|D|50KG,Business|D|50KG"
+   },
+   {
+    "flight": "GF80 CAI-BAH 11-18T04:20>11-18T08:20 + GF508 BAH-DXB 11-18T15:50>11-18T18:15",
+    "brand": "FALCON GOLD FLEX/FALCON GOLD FLEX",
+    "detail": "ADTx1:Business|D|50KG,Business|D|50KG"
+   },
+   {
+    "flight": "MS912 CAI-DXB 11-18T09:40>11-18T15:00",
+    "brand": "BUSINESS PLATINUM",
+    "detail": "ADTx1:Business|D|2PC"
+   },
+   {
+    "flight": "TK695 CAI-IST 11-18T20:45>11-19T00:20 + TK762 IST-DXB 11-19T01:30>11-19T06:55",
+    "brand": "BUSINESS FLEX/BUSINESS FLEX",
+    "detail": "ADTx1:Business|Z|2PC,Business|Z|2PC"
+   },
+   {
+    "flight": "TK687 CAI-IST 11-18T02:20>11-18T05:45 + TK764 IST-DXB 11-18T07:55>11-18T13:30",
+    "brand": "BUSINESS FLEX/BUSINESS FLEX",
+    "detail": "ADTx1:Business|Z|2PC,Business|Z|2PC"
+   },
+   {
+    "flight": "EK930 CAI-DXB 11-18T08:00>11-18T13:15",
+    "brand": "Business Flex Plus",
+    "detail": "ADTx1:Business|C|2PC"
+   },
+   {
+    "flight": "EK928 CAI-DXB 11-18T12:30>11-18T17:45",
+    "brand": "Business Flex Plus",
+    "detail": "ADTx1:Business|C|2PC"
+   },
+   {
+    "flight": "EK922 CAI-DXB 11-18T16:30>11-18T21:45",
+    "brand": "Business Flex Plus",
+    "detail": "ADTx1:Business|C|2PC"
+   },
+   {
+    "flight": "EK924 CAI-DXB 11-18T19:25>11-19T00:40",
+    "brand": "Business Flex Plus",
+    "detail": "ADTx1:Business|C|2PC"
+   },
+   {
+    "flight": "EK926 CAI-DXB 11-18T00:50>11-18T06:10",
+    "brand": "Business Flex Plus",
+    "detail": "ADTx1:Business|C|2PC"
+   },
+   {
+    "flight": "WY406 CAI-MCT 11-18T18:05>11-18T23:45 + WY603 MCT-DXB 11-19T08:50>11-19T10:00",
+    "brand": "BUSINESS FLEX/BUSINESS FLEX",
+    "detail": "ADTx1:Business|D|50KG,Business|D|50KG"
+   }
+  ],
+  "onlyB": [],
+  "dupA": [],
+  "dupB": []
+ },
+ "detailDiff": [
+  {
+   "flight": "WY408 CAI-MCT 11-18T01:15>11-18T06:55 + WY603 MCT-DXB 11-18T08:50>11-18T10:00",
+   "brand": "BUSINESS COMFORT/BUSINESS COMFORT",
+   "pax": "ADTx1",
+   "seg": "WY408",
+   "field": "cabin",
+   "A": "FirstClass",
+   "B": "First"
+  },
+  {
+   "flight": "WY408 CAI-MCT 11-18T01:15>11-18T06:55 + WY603 MCT-DXB 11-18T08:50>11-18T10:00",
+   "brand": "BUSINESS COMFORT/BUSINESS COMFORT",
+   "pax": "ADTx1",
+   "seg": "WY603",
+   "field": "cabin",
+   "A": "FirstClass",
+   "B": "First"
+  }
+ ],
+ "bagTextDiff": 59,
+ "bagTextExamples": [
+  "2 Pieces ⇄ Number 2 Piece Allowed.",
+  "3 Pieces ⇄ Number 3 Piece Allowed.",
+  "40 Kilograms ⇄ 40 Kilograms Allowed."
+ ],
+ "cabinLabelPairs": [
+  "FirstClass ⇄ First"
+ ],
+ "cabins": {
+  "A": [
+   "Business",
+   "FirstClass"
+  ],
+  "B": [
+   "Business",
+   "First"
+  ]
+ },
+ "rbds": {
+  "A": [
+   "C",
+   "D",
+   "I",
+   "J",
+   "K",
+   "P",
+   "S",
+   "Z"
+  ],
+  "B": [
+   "C",
+   "D",
+   "I",
+   "J",
+   "K",
+   "P",
+   "S",
+   "Z"
+  ]
+ },
+ "perLeg": {
+  "A": {
+   "1": {
+    "cabins": [
+     "Business",
+     "FirstClass"
+    ],
+    "rbds": [
+     "C",
+     "D",
+     "I",
+     "J",
+     "K",
+     "P",
+     "S",
+     "Z"
+    ]
+   }
+  },
+  "B": {
+   "1": {
+    "cabins": [
+     "Business",
+     "First"
+    ],
+    "rbds": [
+     "C",
+     "D",
+     "I",
+     "J",
+     "K",
+     "P",
+     "S",
+     "Z"
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,1804 @@
+{
+ "case": "TC-GCSP-003",
+ "criteria": {
+  "trip": "Round-trip",
+  "legs": [
+   {
+    "o": "CAI",
+    "d": "DXB",
+    "dt": "18/11/2026",
+    "ret": "25/11/2026"
+   }
+  ]
+ },
+ "rule": "Prices ignored; flights by identity; fare options by flight + RBD sequence per passenger type; cabin/baggage on matched options; nothing judged at the Integration Layer → Galileo boundary (BND-03)",
+ "key": "C003",
+ "rq": {
+  "trip": {
+   "expected": "Round-trip, 2 leg(s)",
+   "integration": "Round-trip, 2 leg(s)",
+   "direct": "Round-trip, 2 leg(s)",
+   "ok": true
+  },
+  "airports": {
+   "expected": "leg 1 CAI→DXB · leg 2 DXB→CAI",
+   "integration": "leg 1 CAI→DXB · leg 2 DXB→CAI",
+   "direct": "leg 1 CAI→DXB · leg 2 DXB→CAI",
+   "ok": true
+  },
+  "dates": {
+   "expected": "leg 1 2026-11-18 · leg 2 2026-11-25",
+   "integration": "leg 1 2026-11-18 · leg 2 2026-11-25",
+   "direct": "leg 1 2026-11-18 · leg 2 2026-11-25",
+   "ok": true
+  },
+  "pax": {
+   "expected": "1 Adult",
+   "integration": "1 Adult",
+   "direct": "1 Adult",
+   "ok": true
+  },
+  "cabin": {
+   "expected": "leg 1 Economy · leg 2 Economy",
+   "integration": "leg 1 Economy · leg 2 Economy",
+   "direct": "leg 1 Economy · leg 2 Economy",
+   "ok": true
+  },
+  "rbd": {
+   "expected": "leg 1 none · leg 2 none",
+   "integration": "leg 1 none · leg 2 none",
+   "direct": "leg 1 none · leg 2 none",
+   "ok": true
+  },
+  "confirmed": [],
+  "modifiers": [
+   {
+    "path": "LowFareSearchReq/@ReturnUpsellFare",
+    "integration": "true",
+    "direct": "false",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-01"
+   },
+   {
+    "path": "LowFareSearchReq/AirPricingModifiers/@CurrencyType",
+    "integration": "(absent)",
+    "direct": "EGP",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-02"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/AirLegModifiers/@AllowDirectAccess",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-03"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/SearchDestination/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/SearchOrigin/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[2]/AirLegModifiers/@AllowDirectAccess",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-03"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[2]/SearchDestination/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[2]/SearchOrigin/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   }
+  ],
+  "sameModifiers": [
+   {
+    "path": "LowFareSearchReq/@SolutionResult",
+    "value": "true"
+   },
+   {
+    "path": "LowFareSearchReq/AirSearchModifiers/PreferredProviders/Provider/@Code",
+    "value": "1G"
+   },
+   {
+    "path": "LowFareSearchReq/AirPricingModifiers/@FaresIndicator",
+    "value": "AllFares"
+   }
+  ],
+  "representation": [
+   {
+    "item": "XML schema version",
+    "integration": "air_v52_0",
+    "direct": "air_v44_0"
+   },
+   {
+    "item": "SOAP envelope",
+    "integration": "no",
+    "direct": "yes"
+   },
+   {
+    "item": "namespaces, prefixes, element order, encoding",
+    "integration": "v52 common/air namespaces, utf-16 declaration",
+    "direct": "v44 namespaces with soapenv/air/com prefixes"
+   },
+   {
+    "item": "LowFareSearchReq/BillingPointOfSaleInfo/@OriginApplication",
+    "integration": "UAPI",
+    "direct": "uAPI"
+   },
+   {
+    "item": "LowFareSearchReq/SearchPassenger[1]/@Age",
+    "integration": "35",
+    "direct": "(absent)"
+   },
+   {
+    "item": "LowFareSearchReq/SearchPassenger[1]/@BookingTravelerRef",
+    "integration": "(absent)",
+    "direct": "[REDACTED]"
+   }
+  ],
+  "platformRequestsEqual": true
+ },
+ "rs": {
+  "status": [
+   {
+    "side": "Integration",
+    "http": 200,
+    "errorMessage": null,
+    "parsed": true,
+    "fault": null,
+    "kind": "ok"
+   },
+   {
+    "side": "Direct",
+    "http": 200,
+    "errorMessage": null,
+    "parsed": true,
+    "fault": null,
+    "kind": "ok"
+   }
+  ],
+  "ok": true,
+  "commError": [],
+  "businessEmpty": [],
+  "counts": {
+   "integration": {
+    "solutions": 221,
+    "flights": 111,
+    "upsellBrands": 39
+   },
+   "direct": {
+    "solutions": 98,
+    "flights": 98,
+    "upsellBrands": 0
+   }
+  },
+  "flightsOnly": [
+   {
+    "side": "Integration",
+    "flight": "SV302 CAI-JED 2026-11-18T19:50>2026-11-18T23:00 + SV590 JED-DXB 2026-11-19T01:10>2026-11-19T04:55 || SV551 DXB-JED 2026-11-25T21:00>2026-11-25T23:10 + SV309 JED-CAI 2026-11-26T00:55>2026-11-26T02:15",
+    "options": 2,
+    "availabilitySource": [
+     "SV302: Q (Cached status used. Polled avail exists)",
+     "SV590: Q (Cached status used. Polled avail exists)",
+     "SV551: S (Polled avail used)",
+     "SV309: S (Polled avail used)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45 || SV597 DXB-RUH 2026-11-25T13:20>2026-11-25T14:25 + SV313 RUH-CAI 2026-11-25T16:30>2026-11-25T18:35",
+    "options": 2,
+    "availabilitySource": [
+     "SV386: Q (Cached status used. Polled avail exists)",
+     "SV566: Q (Cached status used. Polled avail exists)",
+     "SV597: S (Polled avail used)",
+     "SV313: S (Polled avail used)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "SV308 CAI-JED 2026-11-18T03:35>2026-11-18T06:45 + SV568 JED-DXB 2026-11-18T09:15>2026-11-18T13:00 || SV597 DXB-RUH 2026-11-25T13:20>2026-11-25T14:25 + SV313 RUH-CAI 2026-11-25T16:30>2026-11-25T18:35",
+    "options": 2,
+    "availabilitySource": [
+     "SV308: S (Polled avail used)",
+     "SV568: S (Polled avail used)",
+     "SV597: S (Polled avail used)",
+     "SV313: S (Polled avail used)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30 || XY202 DXB-RUH 2026-11-25T11:30>2026-11-25T12:40 + XY275 RUH-CAI 2026-11-25T13:55>2026-11-25T15:55",
+    "options": 2,
+    "availabilitySource": [
+     "XY566: A (No polled avail exists)",
+     "XY509: A (No polled avail exists)",
+     "XY202: A (No polled avail exists)",
+     "XY275: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15 || XY202 DXB-RUH 2026-11-25T11:30>2026-11-25T12:40 + XY275 RUH-CAI 2026-11-25T13:55>2026-11-25T15:55",
+    "options": 2,
+    "availabilitySource": [
+     "XY572: A (No polled avail exists)",
+     "XY501: A (No polled avail exists)",
+     "XY202: A (No polled avail exists)",
+     "XY275: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30 || XY216 DXB-RUH 2026-11-25T07:05>2026-11-25T08:15 + XY269 RUH-CAI 2026-11-25T10:35>2026-11-25T12:35",
+    "options": 2,
+    "availabilitySource": [
+     "XY566: A (No polled avail exists)",
+     "XY509: A (No polled avail exists)",
+     "XY216: A (No polled avail exists)",
+     "XY269: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15 || XY216 DXB-RUH 2026-11-25T07:05>2026-11-25T08:15 + XY269 RUH-CAI 2026-11-25T10:35>2026-11-25T12:35",
+    "options": 2,
+    "availabilitySource": [
+     "XY572: A (No polled avail exists)",
+     "XY501: A (No polled avail exists)",
+     "XY216: A (No polled avail exists)",
+     "XY269: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30 || XY206 DXB-RUH 2026-11-25T16:15>2026-11-25T17:25 + XY265 RUH-CAI 2026-11-25T20:00>2026-11-25T22:20",
+    "options": 2,
+    "availabilitySource": [
+     "XY566: A (No polled avail exists)",
+     "XY509: A (No polled avail exists)",
+     "XY206: A (No polled avail exists)",
+     "XY265: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15 || XY206 DXB-RUH 2026-11-25T16:15>2026-11-25T17:25 + XY265 RUH-CAI 2026-11-25T20:00>2026-11-25T22:20",
+    "options": 2,
+    "availabilitySource": [
+     "XY572: A (No polled avail exists)",
+     "XY501: A (No polled avail exists)",
+     "XY206: A (No polled avail exists)",
+     "XY265: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30 || XY502 DXB-JED 2026-11-25T12:20>2026-11-25T14:55 + XY589 JED-CAI 2026-11-25T19:00>2026-11-25T20:30",
+    "options": 2,
+    "availabilitySource": [
+     "XY566: A (No polled avail exists)",
+     "XY509: A (No polled avail exists)",
+     "XY502: A (No polled avail exists)",
+     "XY589: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15 || XY502 DXB-JED 2026-11-25T12:20>2026-11-25T14:55 + XY589 JED-CAI 2026-11-25T19:00>2026-11-25T20:30",
+    "options": 2,
+    "availabilitySource": [
+     "XY572: A (No polled avail exists)",
+     "XY501: A (No polled avail exists)",
+     "XY502: A (No polled avail exists)",
+     "XY589: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45 || SV551 DXB-JED 2026-11-25T21:00>2026-11-25T23:10 + SV309 JED-CAI 2026-11-26T00:55>2026-11-26T02:15",
+    "options": 2,
+    "availabilitySource": [
+     "SV386: Q (Cached status used. Polled avail exists)",
+     "SV566: Q (Cached status used. Polled avail exists)",
+     "SV551: S (Polled avail used)",
+     "SV309: S (Polled avail used)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Integration",
+    "flight": "SV308 CAI-JED 2026-11-18T03:35>2026-11-18T06:45 + SV568 JED-DXB 2026-11-18T09:15>2026-11-18T13:00 || SV551 DXB-JED 2026-11-25T21:00>2026-11-25T23:10 + SV309 JED-CAI 2026-11-26T00:55>2026-11-26T02:15",
+    "options": 2,
+    "availabilitySource": [
+     "SV308: S (Polled avail used)",
+     "SV568: S (Polled avail used)",
+     "SV551: S (Polled avail used)",
+     "SV309: S (Polled avail used)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   }
+  ],
+  "optionsOnly": [
+   {
+    "side": "Integration",
+    "flight": "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30 || KU678 DXB-KWI 2026-11-25T04:30>2026-11-25T05:10 + KU545 KWI-CAI 2026-11-25T08:05>2026-11-25T09:55",
+    "rbdSequence": "ADTx1:TTTT",
+    "brand": "2154964/2154964/2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20 || KU678 DXB-KWI 2026-11-25T04:30>2026-11-25T05:10 + KU545 KWI-CAI 2026-11-25T08:05>2026-11-25T09:55",
+    "rbdSequence": "ADTx1:TTTT",
+    "brand": "2154964/2154964/2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "KU546 CAI-KWI 2026-11-18T11:25>2026-11-18T14:50 + KU675 KWI-DXB 2026-11-18T19:00>2026-11-18T21:55 || KU678 DXB-KWI 2026-11-25T04:30>2026-11-25T05:10 + KU545 KWI-CAI 2026-11-25T08:05>2026-11-25T09:55",
+    "rbdSequence": "ADTx1:TTTT",
+    "brand": "2154964/2154964/2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30 || KU672 DXB-KWI 2026-11-25T13:20>2026-11-25T14:00 + KU541 KWI-CAI 2026-11-25T17:05>2026-11-25T18:55",
+    "rbdSequence": "ADTx1:TTTT",
+    "brand": "2154964/2154964/2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20 || KU672 DXB-KWI 2026-11-25T13:20>2026-11-25T14:00 + KU541 KWI-CAI 2026-11-25T17:05>2026-11-25T18:55",
+    "rbdSequence": "ADTx1:TTTT",
+    "brand": "2154964/2154964/2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "KU546 CAI-KWI 2026-11-18T11:25>2026-11-18T14:50 + KU675 KWI-DXB 2026-11-18T19:00>2026-11-18T21:55 || KU672 DXB-KWI 2026-11-25T13:20>2026-11-25T14:00 + KU541 KWI-CAI 2026-11-25T17:05>2026-11-25T18:55",
+    "rbdSequence": "ADTx1:TTTT",
+    "brand": "2154964/2154964/2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40 || MS902 DXB-CAI 2026-11-25T10:40>2026-11-25T12:45",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00 || MS902 DXB-CAI 2026-11-25T10:40>2026-11-25T12:45",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40 || MS906 DXB-CAI 2026-11-25T20:00>2026-11-25T22:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00 || MS906 DXB-CAI 2026-11-25T20:00>2026-11-25T22:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40 || MS911 DXB-CAI 2026-11-25T05:00>2026-11-25T07:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00 || MS911 DXB-CAI 2026-11-25T05:00>2026-11-25T07:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40 || MS913 DXB-CAI 2026-11-25T16:20>2026-11-25T18:30",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00 || MS913 DXB-CAI 2026-11-25T16:20>2026-11-25T18:30",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00 || MS902 DXB-CAI 2026-11-25T10:40>2026-11-25T12:45",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45 || MS902 DXB-CAI 2026-11-25T10:40>2026-11-25T12:45",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00 || MS906 DXB-CAI 2026-11-25T20:00>2026-11-25T22:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45 || MS906 DXB-CAI 2026-11-25T20:00>2026-11-25T22:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00 || MS911 DXB-CAI 2026-11-25T05:00>2026-11-25T07:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45 || MS911 DXB-CAI 2026-11-25T05:00>2026-11-25T07:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00 || MS913 DXB-CAI 2026-11-25T16:20>2026-11-25T18:30",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45 || MS913 DXB-CAI 2026-11-25T16:20>2026-11-25T18:30",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15 || EK925 DXB-CAI 2026-11-25T20:55>2026-11-25T23:10",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45 || EK925 DXB-CAI 2026-11-25T20:55>2026-11-25T23:10",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45 || EK925 DXB-CAI 2026-11-25T20:55>2026-11-25T23:10",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40 || EK925 DXB-CAI 2026-11-25T20:55>2026-11-25T23:10",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10 || EK925 DXB-CAI 2026-11-25T20:55>2026-11-25T23:10",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15 || EK929 DXB-CAI 2026-11-25T04:00>2026-11-25T06:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45 || EK929 DXB-CAI 2026-11-25T04:00>2026-11-25T06:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45 || EK929 DXB-CAI 2026-11-25T04:00>2026-11-25T06:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40 || EK929 DXB-CAI 2026-11-25T04:00>2026-11-25T06:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10 || EK929 DXB-CAI 2026-11-25T04:00>2026-11-25T06:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15 || EK921 DXB-CAI 2026-11-25T12:00>2026-11-25T14:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45 || EK921 DXB-CAI 2026-11-25T12:00>2026-11-25T14:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45 || EK921 DXB-CAI 2026-11-25T12:00>2026-11-25T14:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40 || EK921 DXB-CAI 2026-11-25T12:00>2026-11-25T14:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10 || EK921 DXB-CAI 2026-11-25T12:00>2026-11-25T14:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15 || EK923 DXB-CAI 2026-11-25T15:00>2026-11-25T17:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45 || EK923 DXB-CAI 2026-11-25T15:00>2026-11-25T17:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45 || EK923 DXB-CAI 2026-11-25T15:00>2026-11-25T17:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40 || EK923 DXB-CAI 2026-11-25T15:00>2026-11-25T17:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10 || EK923 DXB-CAI 2026-11-25T15:00>2026-11-25T17:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15 || EK927 DXB-CAI 2026-11-25T08:10>2026-11-25T10:25",
+    "rbdSequence": "ADTx1:KX",
+    "brand": "1380518/1380522",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45 || EK927 DXB-CAI 2026-11-25T08:10>2026-11-25T10:25",
+    "rbdSequence": "ADTx1:KX",
+    "brand": "1380518/1380522",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45 || EK927 DXB-CAI 2026-11-25T08:10>2026-11-25T10:25",
+    "rbdSequence": "ADTx1:KX",
+    "brand": "1380518/1380522",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40 || EK927 DXB-CAI 2026-11-25T08:10>2026-11-25T10:25",
+    "rbdSequence": "ADTx1:KX",
+    "brand": "1380518/1380522",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10 || EK927 DXB-CAI 2026-11-25T08:10>2026-11-25T10:25",
+    "rbdSequence": "ADTx1:KX",
+    "brand": "1380518/1380522",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55 || QR1023 DXB-DOH 2026-11-25T13:10>2026-11-25T13:25 + QR1301 DOH-CAI 2026-11-25T15:00>2026-11-25T17:35",
+    "rbdSequence": "ADTx1:SSSS",
+    "brand": "2110862/2110862/2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1018 DOH-DXB 2026-11-18T18:55>2026-11-18T21:15 || QR1023 DXB-DOH 2026-11-25T13:10>2026-11-25T13:25 + QR1301 DOH-CAI 2026-11-25T15:00>2026-11-25T17:35",
+    "rbdSequence": "ADTx1:SSSS",
+    "brand": "2110862/2110862/2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55 || QR1023 DXB-DOH 2026-11-25T13:10>2026-11-25T13:25 + QR1307 DOH-CAI 2026-11-25T15:45>2026-11-25T18:20",
+    "rbdSequence": "ADTx1:SSSS",
+    "brand": "2110862/2110862/2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1018 DOH-DXB 2026-11-18T18:55>2026-11-18T21:15 || QR1023 DXB-DOH 2026-11-25T13:10>2026-11-25T13:25 + QR1307 DOH-CAI 2026-11-25T15:45>2026-11-25T18:20",
+    "rbdSequence": "ADTx1:SSSS",
+    "brand": "2110862/2110862/2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55 || QR1007 DXB-DOH 2026-11-25T11:55>2026-11-25T12:10 + QR1301 DOH-CAI 2026-11-25T15:00>2026-11-25T17:35",
+    "rbdSequence": "ADTx1:SSSS",
+    "brand": "2110862/2110862/2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1018 DOH-DXB 2026-11-18T18:55>2026-11-18T21:15 || QR1007 DXB-DOH 2026-11-25T11:55>2026-11-25T12:10 + QR1301 DOH-CAI 2026-11-25T15:00>2026-11-25T17:35",
+    "rbdSequence": "ADTx1:SSSS",
+    "brand": "2110862/2110862/2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35 || RJ611 DXB-AMM 2026-11-25T13:45>2026-11-25T16:20 + RJ505 AMM-CAI 2026-11-25T18:20>2026-11-25T18:55",
+    "rbdSequence": "ADTx1:MMMM",
+    "brand": "2114763/2114763/2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45 || RJ611 DXB-AMM 2026-11-25T13:45>2026-11-25T16:20 + RJ505 AMM-CAI 2026-11-25T18:20>2026-11-25T18:55",
+    "rbdSequence": "ADTx1:MMMM",
+    "brand": "2114763/2114763/2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ506 CAI-AMM 2026-11-18T19:55>2026-11-18T22:15 + RJ612 AMM-DXB 2026-11-19T00:10>2026-11-19T04:15 || RJ611 DXB-AMM 2026-11-25T13:45>2026-11-25T16:20 + RJ505 AMM-CAI 2026-11-25T18:20>2026-11-25T18:55",
+    "rbdSequence": "ADTx1:MMMM",
+    "brand": "2114763/2114763/2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35 || RJ613 DXB-AMM 2026-11-25T06:45>2026-11-25T09:20 + RJ503 AMM-CAI 2026-11-25T12:30>2026-11-25T13:05",
+    "rbdSequence": "ADTx1:MMMM",
+    "brand": "2114763/2114763/2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45 || RJ613 DXB-AMM 2026-11-25T06:45>2026-11-25T09:20 + RJ503 AMM-CAI 2026-11-25T12:30>2026-11-25T13:05",
+    "rbdSequence": "ADTx1:MMMM",
+    "brand": "2114763/2114763/2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ506 CAI-AMM 2026-11-18T19:55>2026-11-18T22:15 + RJ612 AMM-DXB 2026-11-19T00:10>2026-11-19T04:15 || RJ613 DXB-AMM 2026-11-25T06:45>2026-11-25T09:20 + RJ503 AMM-CAI 2026-11-25T12:30>2026-11-25T13:05",
+    "rbdSequence": "ADTx1:MMMM",
+    "brand": "2114763/2114763/2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30 || TK761 DXB-IST 2026-11-25T02:50>2026-11-25T06:55 + TK690 IST-CAI 2026-11-25T07:55>2026-11-25T09:20",
+    "rbdSequence": "ADTx1:HHHH",
+    "brand": "2138616/2138616/2138616/2138616",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30 || TK765 DXB-IST 2026-11-25T15:05>2026-11-25T19:15 + TK686 IST-CAI 2026-11-25T22:25>2026-11-25T23:55",
+    "rbdSequence": "ADTx1:HHHH",
+    "brand": "2138616/2138616/2138616/2138616",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30 || TK759 DXB-IST 2026-11-25T09:30>2026-11-25T13:40 + TK694 IST-CAI 2026-11-25T18:20>2026-11-25T19:50",
+    "rbdSequence": "ADTx1:HHHH",
+    "brand": "2138616/2138616/2138616/2138616",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   }
+  ],
+  "pending": [
+   {
+    "side": "Integration",
+    "flight": "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30 || KU678 DXB-KWI 2026-11-25T04:30>2026-11-25T05:10 + KU545 KWI-CAI 2026-11-25T08:05>2026-11-25T09:55",
+    "rbdSequence": "ADTx1:TTTT",
+    "brand": "2154964/2154964/2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20 || KU678 DXB-KWI 2026-11-25T04:30>2026-11-25T05:10 + KU545 KWI-CAI 2026-11-25T08:05>2026-11-25T09:55",
+    "rbdSequence": "ADTx1:TTTT",
+    "brand": "2154964/2154964/2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "KU546 CAI-KWI 2026-11-18T11:25>2026-11-18T14:50 + KU675 KWI-DXB 2026-11-18T19:00>2026-11-18T21:55 || KU678 DXB-KWI 2026-11-25T04:30>2026-11-25T05:10 + KU545 KWI-CAI 2026-11-25T08:05>2026-11-25T09:55",
+    "rbdSequence": "ADTx1:TTTT",
+    "brand": "2154964/2154964/2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30 || KU672 DXB-KWI 2026-11-25T13:20>2026-11-25T14:00 + KU541 KWI-CAI 2026-11-25T17:05>2026-11-25T18:55",
+    "rbdSequence": "ADTx1:TTTT",
+    "brand": "2154964/2154964/2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20 || KU672 DXB-KWI 2026-11-25T13:20>2026-11-25T14:00 + KU541 KWI-CAI 2026-11-25T17:05>2026-11-25T18:55",
+    "rbdSequence": "ADTx1:TTTT",
+    "brand": "2154964/2154964/2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "KU546 CAI-KWI 2026-11-18T11:25>2026-11-18T14:50 + KU675 KWI-DXB 2026-11-18T19:00>2026-11-18T21:55 || KU672 DXB-KWI 2026-11-25T13:20>2026-11-25T14:00 + KU541 KWI-CAI 2026-11-25T17:05>2026-11-25T18:55",
+    "rbdSequence": "ADTx1:TTTT",
+    "brand": "2154964/2154964/2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40 || MS902 DXB-CAI 2026-11-25T10:40>2026-11-25T12:45",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00 || MS902 DXB-CAI 2026-11-25T10:40>2026-11-25T12:45",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40 || MS906 DXB-CAI 2026-11-25T20:00>2026-11-25T22:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00 || MS906 DXB-CAI 2026-11-25T20:00>2026-11-25T22:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40 || MS911 DXB-CAI 2026-11-25T05:00>2026-11-25T07:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00 || MS911 DXB-CAI 2026-11-25T05:00>2026-11-25T07:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40 || MS913 DXB-CAI 2026-11-25T16:20>2026-11-25T18:30",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00 || MS913 DXB-CAI 2026-11-25T16:20>2026-11-25T18:30",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00 || MS902 DXB-CAI 2026-11-25T10:40>2026-11-25T12:45",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45 || MS902 DXB-CAI 2026-11-25T10:40>2026-11-25T12:45",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00 || MS906 DXB-CAI 2026-11-25T20:00>2026-11-25T22:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45 || MS906 DXB-CAI 2026-11-25T20:00>2026-11-25T22:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00 || MS911 DXB-CAI 2026-11-25T05:00>2026-11-25T07:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45 || MS911 DXB-CAI 2026-11-25T05:00>2026-11-25T07:05",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00 || MS913 DXB-CAI 2026-11-25T16:20>2026-11-25T18:30",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45 || MS913 DXB-CAI 2026-11-25T16:20>2026-11-25T18:30",
+    "rbdSequence": "ADTx1:WW",
+    "brand": "1730061/1730061",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15 || EK925 DXB-CAI 2026-11-25T20:55>2026-11-25T23:10",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45 || EK925 DXB-CAI 2026-11-25T20:55>2026-11-25T23:10",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45 || EK925 DXB-CAI 2026-11-25T20:55>2026-11-25T23:10",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40 || EK925 DXB-CAI 2026-11-25T20:55>2026-11-25T23:10",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10 || EK925 DXB-CAI 2026-11-25T20:55>2026-11-25T23:10",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15 || EK929 DXB-CAI 2026-11-25T04:00>2026-11-25T06:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45 || EK929 DXB-CAI 2026-11-25T04:00>2026-11-25T06:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45 || EK929 DXB-CAI 2026-11-25T04:00>2026-11-25T06:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40 || EK929 DXB-CAI 2026-11-25T04:00>2026-11-25T06:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10 || EK929 DXB-CAI 2026-11-25T04:00>2026-11-25T06:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15 || EK921 DXB-CAI 2026-11-25T12:00>2026-11-25T14:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45 || EK921 DXB-CAI 2026-11-25T12:00>2026-11-25T14:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45 || EK921 DXB-CAI 2026-11-25T12:00>2026-11-25T14:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40 || EK921 DXB-CAI 2026-11-25T12:00>2026-11-25T14:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10 || EK921 DXB-CAI 2026-11-25T12:00>2026-11-25T14:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15 || EK923 DXB-CAI 2026-11-25T15:00>2026-11-25T17:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45 || EK923 DXB-CAI 2026-11-25T15:00>2026-11-25T17:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45 || EK923 DXB-CAI 2026-11-25T15:00>2026-11-25T17:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40 || EK923 DXB-CAI 2026-11-25T15:00>2026-11-25T17:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10 || EK923 DXB-CAI 2026-11-25T15:00>2026-11-25T17:15",
+    "rbdSequence": "ADTx1:KK",
+    "brand": "1380518/1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15 || EK927 DXB-CAI 2026-11-25T08:10>2026-11-25T10:25",
+    "rbdSequence": "ADTx1:KX",
+    "brand": "1380518/1380522",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45 || EK927 DXB-CAI 2026-11-25T08:10>2026-11-25T10:25",
+    "rbdSequence": "ADTx1:KX",
+    "brand": "1380518/1380522",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45 || EK927 DXB-CAI 2026-11-25T08:10>2026-11-25T10:25",
+    "rbdSequence": "ADTx1:KX",
+    "brand": "1380518/1380522",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40 || EK927 DXB-CAI 2026-11-25T08:10>2026-11-25T10:25",
+    "rbdSequence": "ADTx1:KX",
+    "brand": "1380518/1380522",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10 || EK927 DXB-CAI 2026-11-25T08:10>2026-11-25T10:25",
+    "rbdSequence": "ADTx1:KX",
+    "brand": "1380518/1380522",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55 || QR1023 DXB-DOH 2026-11-25T13:10>2026-11-25T13:25 + QR1301 DOH-CAI 2026-11-25T15:00>2026-11-25T17:35",
+    "rbdSequence": "ADTx1:SSSS",
+    "brand": "2110862/2110862/2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1018 DOH-DXB 2026-11-18T18:55>2026-11-18T21:15 || QR1023 DXB-DOH 2026-11-25T13:10>2026-11-25T13:25 + QR1301 DOH-CAI 2026-11-25T15:00>2026-11-25T17:35",
+    "rbdSequence": "ADTx1:SSSS",
+    "brand": "2110862/2110862/2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55 || QR1023 DXB-DOH 2026-11-25T13:10>2026-11-25T13:25 + QR1307 DOH-CAI 2026-11-25T15:45>2026-11-25T18:20",
+    "rbdSequence": "ADTx1:SSSS",
+    "brand": "2110862/2110862/2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1018 DOH-DXB 2026-11-18T18:55>2026-11-18T21:15 || QR1023 DXB-DOH 2026-11-25T13:10>2026-11-25T13:25 + QR1307 DOH-CAI 2026-11-25T15:45>2026-11-25T18:20",
+    "rbdSequence": "ADTx1:SSSS",
+    "brand": "2110862/2110862/2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55 || QR1007 DXB-DOH 2026-11-25T11:55>2026-11-25T12:10 + QR1301 DOH-CAI 2026-11-25T15:00>2026-11-25T17:35",
+    "rbdSequence": "ADTx1:SSSS",
+    "brand": "2110862/2110862/2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1018 DOH-DXB 2026-11-18T18:55>2026-11-18T21:15 || QR1007 DXB-DOH 2026-11-25T11:55>2026-11-25T12:10 + QR1301 DOH-CAI 2026-11-25T15:00>2026-11-25T17:35",
+    "rbdSequence": "ADTx1:SSSS",
+    "brand": "2110862/2110862/2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35 || RJ611 DXB-AMM 2026-11-25T13:45>2026-11-25T16:20 + RJ505 AMM-CAI 2026-11-25T18:20>2026-11-25T18:55",
+    "rbdSequence": "ADTx1:MMMM",
+    "brand": "2114763/2114763/2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45 || RJ611 DXB-AMM 2026-11-25T13:45>2026-11-25T16:20 + RJ505 AMM-CAI 2026-11-25T18:20>2026-11-25T18:55",
+    "rbdSequence": "ADTx1:MMMM",
+    "brand": "2114763/2114763/2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ506 CAI-AMM 2026-11-18T19:55>2026-11-18T22:15 + RJ612 AMM-DXB 2026-11-19T00:10>2026-11-19T04:15 || RJ611 DXB-AMM 2026-11-25T13:45>2026-11-25T16:20 + RJ505 AMM-CAI 2026-11-25T18:20>2026-11-25T18:55",
+    "rbdSequence": "ADTx1:MMMM",
+    "brand": "2114763/2114763/2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35 || RJ613 DXB-AMM 2026-11-25T06:45>2026-11-25T09:20 + RJ503 AMM-CAI 2026-11-25T12:30>2026-11-25T13:05",
+    "rbdSequence": "ADTx1:MMMM",
+    "brand": "2114763/2114763/2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45 || RJ613 DXB-AMM 2026-11-25T06:45>2026-11-25T09:20 + RJ503 AMM-CAI 2026-11-25T12:30>2026-11-25T13:05",
+    "rbdSequence": "ADTx1:MMMM",
+    "brand": "2114763/2114763/2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ506 CAI-AMM 2026-11-18T19:55>2026-11-18T22:15 + RJ612 AMM-DXB 2026-11-19T00:10>2026-11-19T04:15 || RJ613 DXB-AMM 2026-11-25T06:45>2026-11-25T09:20 + RJ503 AMM-CAI 2026-11-25T12:30>2026-11-25T13:05",
+    "rbdSequence": "ADTx1:MMMM",
+    "brand": "2114763/2114763/2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30 || TK761 DXB-IST 2026-11-25T02:50>2026-11-25T06:55 + TK690 IST-CAI 2026-11-25T07:55>2026-11-25T09:20",
+    "rbdSequence": "ADTx1:HHHH",
+    "brand": "2138616/2138616/2138616/2138616",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30 || TK765 DXB-IST 2026-11-25T15:05>2026-11-25T19:15 + TK686 IST-CAI 2026-11-25T22:25>2026-11-25T23:55",
+    "rbdSequence": "ADTx1:HHHH",
+    "brand": "2138616/2138616/2138616/2138616",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30 || TK759 DXB-IST 2026-11-25T09:30>2026-11-25T13:40 + TK694 IST-CAI 2026-11-25T18:20>2026-11-25T19:50",
+    "rbdSequence": "ADTx1:HHHH",
+    "brand": "2138616/2138616/2138616/2138616",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   }
+  ],
+  "confirmed": [
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "SV302 CAI-JED 2026-11-18T19:50>2026-11-18T23:00 + SV590 JED-DXB 2026-11-19T01:10>2026-11-19T04:55 || SV551 DXB-JED 2026-11-25T21:00>2026-11-25T23:10 + SV309 JED-CAI 2026-11-26T00:55>2026-11-26T02:15",
+    "options": 2,
+    "availabilitySource": [
+     "SV302: Q (Cached status used. Polled avail exists)",
+     "SV590: Q (Cached status used. Polled avail exists)",
+     "SV551: S (Polled avail used)",
+     "SV309: S (Polled avail used)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45 || SV597 DXB-RUH 2026-11-25T13:20>2026-11-25T14:25 + SV313 RUH-CAI 2026-11-25T16:30>2026-11-25T18:35",
+    "options": 2,
+    "availabilitySource": [
+     "SV386: Q (Cached status used. Polled avail exists)",
+     "SV566: Q (Cached status used. Polled avail exists)",
+     "SV597: S (Polled avail used)",
+     "SV313: S (Polled avail used)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "SV308 CAI-JED 2026-11-18T03:35>2026-11-18T06:45 + SV568 JED-DXB 2026-11-18T09:15>2026-11-18T13:00 || SV597 DXB-RUH 2026-11-25T13:20>2026-11-25T14:25 + SV313 RUH-CAI 2026-11-25T16:30>2026-11-25T18:35",
+    "options": 2,
+    "availabilitySource": [
+     "SV308: S (Polled avail used)",
+     "SV568: S (Polled avail used)",
+     "SV597: S (Polled avail used)",
+     "SV313: S (Polled avail used)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30 || XY202 DXB-RUH 2026-11-25T11:30>2026-11-25T12:40 + XY275 RUH-CAI 2026-11-25T13:55>2026-11-25T15:55",
+    "options": 2,
+    "availabilitySource": [
+     "XY566: A (No polled avail exists)",
+     "XY509: A (No polled avail exists)",
+     "XY202: A (No polled avail exists)",
+     "XY275: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15 || XY202 DXB-RUH 2026-11-25T11:30>2026-11-25T12:40 + XY275 RUH-CAI 2026-11-25T13:55>2026-11-25T15:55",
+    "options": 2,
+    "availabilitySource": [
+     "XY572: A (No polled avail exists)",
+     "XY501: A (No polled avail exists)",
+     "XY202: A (No polled avail exists)",
+     "XY275: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30 || XY216 DXB-RUH 2026-11-25T07:05>2026-11-25T08:15 + XY269 RUH-CAI 2026-11-25T10:35>2026-11-25T12:35",
+    "options": 2,
+    "availabilitySource": [
+     "XY566: A (No polled avail exists)",
+     "XY509: A (No polled avail exists)",
+     "XY216: A (No polled avail exists)",
+     "XY269: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15 || XY216 DXB-RUH 2026-11-25T07:05>2026-11-25T08:15 + XY269 RUH-CAI 2026-11-25T10:35>2026-11-25T12:35",
+    "options": 2,
+    "availabilitySource": [
+     "XY572: A (No polled avail exists)",
+     "XY501: A (No polled avail exists)",
+     "XY216: A (No polled avail exists)",
+     "XY269: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30 || XY206 DXB-RUH 2026-11-25T16:15>2026-11-25T17:25 + XY265 RUH-CAI 2026-11-25T20:00>2026-11-25T22:20",
+    "options": 2,
+    "availabilitySource": [
+     "XY566: A (No polled avail exists)",
+     "XY509: A (No polled avail exists)",
+     "XY206: A (No polled avail exists)",
+     "XY265: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15 || XY206 DXB-RUH 2026-11-25T16:15>2026-11-25T17:25 + XY265 RUH-CAI 2026-11-25T20:00>2026-11-25T22:20",
+    "options": 2,
+    "availabilitySource": [
+     "XY572: A (No polled avail exists)",
+     "XY501: A (No polled avail exists)",
+     "XY206: A (No polled avail exists)",
+     "XY265: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30 || XY502 DXB-JED 2026-11-25T12:20>2026-11-25T14:55 + XY589 JED-CAI 2026-11-25T19:00>2026-11-25T20:30",
+    "options": 2,
+    "availabilitySource": [
+     "XY566: A (No polled avail exists)",
+     "XY509: A (No polled avail exists)",
+     "XY502: A (No polled avail exists)",
+     "XY589: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "XY572 CAI-JED 2026-11-18T20:05>2026-11-18T23:20 + XY501 JED-DXB 2026-11-19T07:15>2026-11-19T11:15 || XY502 DXB-JED 2026-11-25T12:20>2026-11-25T14:55 + XY589 JED-CAI 2026-11-25T19:00>2026-11-25T20:30",
+    "options": 2,
+    "availabilitySource": [
+     "XY572: A (No polled avail exists)",
+     "XY501: A (No polled avail exists)",
+     "XY502: A (No polled avail exists)",
+     "XY589: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45 || SV551 DXB-JED 2026-11-25T21:00>2026-11-25T23:10 + SV309 JED-CAI 2026-11-26T00:55>2026-11-26T02:15",
+    "options": 2,
+    "availabilitySource": [
+     "SV386: Q (Cached status used. Polled avail exists)",
+     "SV566: Q (Cached status used. Polled avail exists)",
+     "SV551: S (Polled avail used)",
+     "SV309: S (Polled avail used)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Integration",
+    "flight": "SV308 CAI-JED 2026-11-18T03:35>2026-11-18T06:45 + SV568 JED-DXB 2026-11-18T09:15>2026-11-18T13:00 || SV551 DXB-JED 2026-11-25T21:00>2026-11-25T23:10 + SV309 JED-CAI 2026-11-26T00:55>2026-11-26T02:15",
+    "options": 2,
+    "availabilitySource": [
+     "SV308: S (Polled avail used)",
+     "SV568: S (Polled avail used)",
+     "SV551: S (Polled avail used)",
+     "SV309: S (Polled avail used)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   }
+  ],
+  "matched": {
+   "flights": 98,
+   "options": 98,
+   "stopsDiff": 0,
+   "cabinDiff": [],
+   "bagDiff": [],
+   "fareBasisDiffSupportingOnly": 0
+  },
+  "filter": {
+   "outside": [],
+   "paxBad": [],
+   "emptyA": false,
+   "emptyB": false
+  },
+  "representation": [
+   {
+    "item": "cabin names normalized (e.g. PremiumEconomy = Premium Economy)",
+    "note": "compared after normalization"
+   }
+  ]
+ },
+ "readback": [
+  {
+   "side": "A",
+   "ok": true,
+   "rb": {
+    "branch": "NDC1_Ahmed Ayman (BRN287)",
+    "branchBeforeCheck": "NDC1_Ahmed Ayman (BRN287)",
+    "suppliersListed": [
+     "NDCGal"
+    ],
+    "supplierSelected": "NDCGal",
+    "credentialsListed": [
+     "NdcGalileoSTG EGY"
+    ],
+    "credentialSelected": "NdcGalileoSTG EGY"
+   }
+  },
+  {
+   "side": "B",
+   "ok": true,
+   "rb": {
+    "branch": "ahmed ayman (BRN632)",
+    "branchBeforeCheck": "ahmed ayman (BRN632)",
+    "suppliersListed": [
+     "Galileo"
+    ],
+    "supplierSelected": "Galileo",
+    "credentialsListed": [
+     "GalileoLiveSTAGING"
+    ],
+    "credentialSelected": "GalileoLiveSTAGING"
+   }
+  }
+ ],
+ "boundary": [
+  {
+   "side": "A",
+   "ok": true,
+   "b": {
+    "reportedBy": "platform back end (BND-04) — not a network capture",
+    "credentialHost": "ndc-integration-stg-ne-3.azurewebsites.net",
+    "schema": "52",
+    "soapEnvelope": false
+   }
+  },
+  {
+   "side": "B",
+   "ok": true,
+   "b": {
+    "reportedBy": "platform back end (BND-04) — not a network capture",
+    "credentialHost": "emea.universal-api.pp.travelport.com",
+    "schema": "44",
+    "soapEnvelope": true
+   }
+  }
+ ],
+ "searchCalled": 0
+}

@@ -28,6 +28,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { assertApproverName } = require('../run_manager/approverIdentity');
 
 const {
   MODULE_STAGES,
@@ -157,6 +158,22 @@ function requireFeature(featureModulesDir, featureSlug, registry) {
 }
 
 /**
+ * requireFeature, and the Feature must be APPROVED (Active) — Phase 9.2, F-12. A Supplier is approved or
+ * scaffolded only under an approved Supplier Feature; a still-Proposed (or Superseded/Archived) Feature has
+ * no approved scope to put a Supplier in.
+ */
+function requireApprovedFeature(featureModulesDir, featureSlug, what) {
+  const f = requireFeature(featureModulesDir, featureSlug);
+  if (f.status !== 'Active') {
+    throw new SupplierRegistryError(
+      `${what} refused: Supplier Feature "${featureSlug}" is ${f.status || 'not approved'}, not approved (Active). ` +
+      'Approve the Feature first (`cli.js supplier-feature feature approve`) — a separate, human-approved step.'
+    );
+  }
+  return f;
+}
+
+/**
  * Registers a proposed Supplier under a Feature. Proposed, never scaffolded — same rule as every
  * other entity in this platform: a folder on disk reads as approval.
  *
@@ -227,10 +244,12 @@ function proposeSupplier(featureModulesDir, featureSlug, supplier, opts = {}) {
  * @returns {{approved: object[], feature: object}}
  */
 function approveSuppliers(featureModulesDir, featureSlug, slugs = [], opts = {}) {
+  requireApprovedFeature(featureModulesDir, featureSlug, 'Supplier approval');
   const { now, approvedBy } = opts;
   if (!(now instanceof Date) || Number.isNaN(now.getTime())) {
     throw new SupplierRegistryError('approveSuppliers requires an explicit valid `now` Date.');
   }
+  if (approvedBy && String(approvedBy).trim()) assertApproverName(approvedBy, 'Supplier Features approval');
   if (!approvedBy || !String(approvedBy).trim()) {
     throw new SupplierRegistryError(
       'approveSuppliers requires `approvedBy` — an approval record with no approver is not an approval.'
@@ -363,6 +382,7 @@ function setSupplierCapabilities(featureModulesDir, featureSlug, supplierSlug, v
   if (!(now instanceof Date) || Number.isNaN(now.getTime())) {
     throw new SupplierRegistryError('setSupplierCapabilities requires an explicit valid `now` Date.');
   }
+  if (setBy && String(setBy).trim()) assertApproverName(setBy, 'Supplier answer');
   if (!setBy || !String(setBy).trim()) {
     throw new SupplierRegistryError('setSupplierCapabilities requires `setBy` — who gave the answer.');
   }
@@ -430,6 +450,7 @@ function setSupplierRules(featureModulesDir, featureSlug, supplierSlug, rules = 
   if (!(now instanceof Date) || Number.isNaN(now.getTime())) {
     throw new SupplierRegistryError('setSupplierRules requires an explicit valid `now` Date.');
   }
+  if (setBy && String(setBy).trim()) assertApproverName(setBy, 'Supplier answer');
   if (!setBy || !String(setBy).trim()) {
     throw new SupplierRegistryError('setSupplierRules requires `setBy` — who gave the answer.');
   }
@@ -482,6 +503,7 @@ function scaffoldSupplier(featureModulesDir, featureSlug, supplierSlug, opts = {
   }
   assertValidModuleSlug(featureSlug);
   assertValidModuleSlug(supplierSlug);
+  requireApprovedFeature(featureModulesDir, featureSlug, 'Supplier scaffold');
 
   const dir = supplierDir(featureModulesDir, featureSlug, supplierSlug);
   const exists = fs.existsSync(dir);
@@ -566,3 +588,6 @@ module.exports = {
   resolveSupplier,
   scaffoldSupplier,
 };
+
+// Concurrency (Phase 9.4): each read-modify-write below holds the registry lock (registryLock.js).
+require('./registryLock').lockExports(module.exports, ['proposeSupplier', 'approveSuppliers', 'recordSupplierStage', 'setSupplierCapabilities', 'setSupplierRules', 'scaffoldSupplier']);

@@ -1,0 +1,37 @@
+{
+ "offers": {
+  "A": 0,
+  "B": 0
+ },
+ "flights": {
+  "A": 0,
+  "B": 0
+ },
+ "flightsOnlyA": [],
+ "flightsOnlyB": [],
+ "matched": 0,
+ "stopsDiff": [],
+ "fareOpt": {
+  "matchedOptions": 0,
+  "onlyA": [],
+  "onlyB": [],
+  "dupA": [],
+  "dupB": []
+ },
+ "detailDiff": [],
+ "bagTextDiff": 0,
+ "bagTextExamples": [],
+ "cabinLabelPairs": [],
+ "cabins": {
+  "A": [],
+  "B": []
+ },
+ "rbds": {
+  "A": [],
+  "B": []
+ },
+ "perLeg": {
+  "A": {},
+  "B": {}
+ }
+}

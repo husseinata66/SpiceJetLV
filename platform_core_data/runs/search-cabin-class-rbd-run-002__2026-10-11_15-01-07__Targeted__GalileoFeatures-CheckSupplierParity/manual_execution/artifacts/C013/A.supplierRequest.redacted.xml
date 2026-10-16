@@ -1,0 +1,32 @@
+<SOAP-ENV:Envelope xmlns:com="http://www.travelport.com/schema/common_v52_0" xmlns:air="http://www.travelport.com/schema/air_v52_0" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP-ENV:Header />
+  <SOAP-ENV:Body>
+    <air:LowFareSearchReq TraceId="61c78670-9960-4b4f-8f37-6cdc3ebd0c89" AuthorizedBy="[REDACTED]" TargetBranch="[REDACTED]" SolutionResult="true" ReturnUpsellFare="true">
+      <com:BillingPointOfSaleInfo OriginApplication="UAPI" />
+      <air:SearchAirLeg>
+        <air:SearchOrigin>
+          <com:CityOrAirport Code="CAI" PreferCity="true" />
+        </air:SearchOrigin>
+        <air:SearchDestination>
+          <com:CityOrAirport Code="DXB" PreferCity="true" />
+        </air:SearchDestination>
+        <air:SearchDepTime PreferredTime="2026-11-18" />
+        <air:AirLegModifiers AllowDirectAccess="true">
+          <air:PreferredCabins>
+            <com:CabinClass Type="Economy" />
+          </air:PreferredCabins>
+          <air:PreferredBookingCodes>
+            <air:BookingCode Code="J" />
+          </air:PreferredBookingCodes>
+        </air:AirLegModifiers>
+      </air:SearchAirLeg>
+      <air:AirSearchModifiers>
+        <air:PreferredProviders>
+          <com:Provider Code="1G" />
+        </air:PreferredProviders>
+      </air:AirSearchModifiers>
+      <com:SearchPassenger Code="ADT" Age="35" />
+      <air:AirPricingModifiers FaresIndicator="AllFares" />
+    </air:LowFareSearchReq>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

@@ -1,11 +1,11 @@
 ---
 name: reporting-skill
-description: Stage 6A (terminal stage) of the Agentic AI Testing Platform's Automation Pipeline. Synthesizes automation Execution Results, the Traceability Matrix, the Project Context, and any Stage 5H Repair Summary into a stakeholder-facing Final QA Report — Requirement Coverage, Automation Coverage, defects, and resolved assumptions/risks. Serves the Automation branch only: the Manual branch self-reports at Stage 4M. Use when producing the final QA report after an automation execution run.
+description: "Stage 6A (terminal stage) of the Agentic AI Testing Platform's Automation Pipeline. Synthesizes automation Execution Results, the Traceability Matrix, the Project Context, and any Stage 5H Repair Summary into a stakeholder-facing Final QA Report — Requirement Coverage, Automation Coverage, defects, and resolved assumptions/risks. Serves the Automation branch only: the Manual branch self-reports at Stage 4M. Use when producing the final QA report after an automation execution run."
 inputs:
   - name: execution_results
     type: file_path
     required: true
-    description: "`platform_core_data/runs/{{RUN_FOLDER}}/execution/ExecutionResults.md` — sole source of pass/fail/skip outcomes."
+    description: "`platform_core_data/runs/{{RUN_FOLDER}}/execution/ExecutionResults.md` — first-attempt outcomes. Together with any `ExecutionResults.rerun-N.md`, the sole source of pass/fail/skip outcomes."
   - name: manual_test_suites
     type: file_path
     required: true
@@ -18,19 +18,32 @@ inputs:
     type: file_path
     required: true
     description: "`platform_core_data/modules/{{MODULE_SLUG}}/context/ProjectContext.md` — for resolving carried-forward assumptions/risks."
+  - name: rerun_execution_results
+    type: file_path
+    required: false
+    description: "`platform_core_data/runs/{{RUN_FOLDER}}/execution/ExecutionResults.rerun-N.md` — post-repair reruns written by Stage 5H. Present only where 5H ran; read for the latest verified outcome of each rerun test (§7A)."
+  - name: repair_summary
+    type: file_path
+    required: false
+    description: "`platform_core_data/modules/{{MODULE_SLUG}}/healing/` — Repair Summary, Before/After Comparison, Quarantine Register. Present only where 5H ran; used to label results Automation Repaired / Quarantined (§7 Rules 9–10)."
 outputs:
   - name: final_qa_report
     type: file_path
     location: "platform_core_data/runs/{{RUN_FOLDER}}/reporting/Final_QA_Report.md"
     description: "Stakeholder-facing report — Executive Summary, Requirement Coverage, Automation Coverage, Defect Summary, Risks, Recommendations."
-dependencies:
-  - automation-execution-skill, test-design-skill, project-context-skill (upstream skills)
-  - "platform_core/knowledge/patterns/reporting/ (Platform Knowledge patterns, if any promoted)"
----
   - name: final_qa_report_html
     type: file_path
     location: "platform_core_data/runs/{{RUN_FOLDER}}/reporting/Final_QA_Report.html"
     description: HTML companion of the Final QA Report, in the platform's shared report design (§8A, pipeline.md §17) — generated from Final_QA_Report.report.json by report_builder. A rendering for stakeholders, never the approved artifact.
+  - name: final_qa_report_revision
+    type: file_path
+    location: "platform_core_data/runs/{{RUN_FOLDER}}/reporting/Final_QA_Report.rev-N.md"
+    description: "A new revision of the Final QA Report, written only when Stage 5H ran after a Final QA Report already existed (§7A). Built from the latest verified results, with its own .rev-N.report.json and .rev-N.html. The original report and every earlier revision are never edited."
+dependencies:
+  - automation-execution-skill, test-design-skill, project-context-skill (upstream skills)
+  - self-healing-skill (OPTIONAL upstream, Stage 5H — read only where a human ran it)
+  - "platform_core/knowledge/patterns/reporting/ (Platform Knowledge patterns, if any promoted)"
+---
 
 > **Pipeline position:** Stage `6A` — the **Automation Pipeline's** terminal stage. Consumes automation Execution Results, produces the Final QA Report.
 > **Branch:** Automation only. **The Manual branch never reaches this stage** — Stage `4M` self-reports its own Manual QA Report and Test Results CSV (`workflows_and_pipelines/pipeline/pipeline.md` §3.3). A run that took only the Manual branch has no Final QA Report, and that is correct rather than a gap.
@@ -59,7 +72,7 @@ The Reporting skill is the final stage of the pipeline. It synthesizes the raw E
 
 # 3. Responsibilities
 
-- Read the Execution Results as the sole source of pass/fail/skip/error outcomes — never fabricate or estimate a result not present there.
+- Read the Execution Results (`ExecutionResults.md`, plus any `ExecutionResults.rerun-N.md` from Stage `5H`, §7A) as the sole source of pass/fail/skip/error outcomes — never fabricate or estimate a result not present there.
 - Read the Manual Test Suites and Traceability Matrix to compute two distinct coverage measures:
   - **Requirement Coverage** — what fraction of Project Context requirements have at least one traced, executed test case
   - **Automation Coverage** — what fraction of designed manual test cases were successfully automated and executed. **Three distinct things must never be conflated here** (`test-design-skill` §6.3): the **Review decision** (was the case accepted?), the **Automation selection decision** (`Automation = Approved` — was it chosen for automation?), and the **execution result** (did the automated test pass?). `Automation = Approved` means *selected*, never *passed*: `Review = Approved`, `Automation = Approved`, `Execution Result = Failed` is a perfectly valid and important state. A case at `Automation = Rejected` is manual **by decision** and is **not** an automation coverage gap — report it as deliberately out of automation scope, separately from cases that were selected but could not be automated
@@ -74,7 +87,9 @@ The Reporting skill is the final stage of the pipeline. It synthesizes the raw E
 
 | Input | Role | Required? | Description |
 |---|---|---|---|
-| Execution Results | Primary | Required | `platform_core_data/runs/{{RUN_FOLDER}}/execution/ExecutionResults.md` |
+| Execution Results | Primary | Required | `platform_core_data/runs/{{RUN_FOLDER}}/execution/ExecutionResults.md` — the first-attempt results |
+| Rerun Execution Results | Primary, where present | Optional | `platform_core_data/runs/{{RUN_FOLDER}}/execution/ExecutionResults.rerun-N.md` — Stage `5H` post-repair reruns (§7A) |
+| Repair Summary, Before/After Comparison, Quarantine Register | Secondary, where present | Optional | `platform_core_data/modules/{{MODULE_SLUG}}/healing/` — only where Stage `5H` ran (§7 Rules 9–10) |
 | Manual Test Suites | Required | Required | `platform_core_data/modules/{{MODULE_SLUG}}/test_design/TestCases_*.md` (Markdown and/or Excel) |
 | Traceability Matrix | Required | Required | `platform_core_data/modules/{{MODULE_SLUG}}/test_design/TraceabilityMatrix.md` |
 | Project Context | Required | Required | `platform_core_data/modules/{{MODULE_SLUG}}/context/ProjectContext.md` |
@@ -121,17 +136,29 @@ The Reporting skill is the final stage of the pipeline. It synthesizes the raw E
 5. Must not recommend a specific code fix as if already applied — findings are reported as needing developer investigation.
 6. Must not re-run any test or modify upstream artifacts (Execution Results, test cases, Project Context, PRD).
 7. Must group defects by module and assign severity based only on evidence present in the Execution Results.
-8. **Must report the three health figures separately** — Application Health, Automation Health, Environment Health — exactly as the Execution Results record them (`automation-execution-skill` §25.2). **Never merge them into one "failed" count**: an automation-authoring gap and a genuine application defect are different facts about different systems, and a stakeholder acting on a merged figure is acting on a number that describes neither.
+8. **Must report the health dimensions separately** — the three execution figures (Application Health, Automation Health, Environment Health) and, from Run Health (`pipeline.md` §15.1a), Coverage, Contract and Workflow Health. None is ever merged into another or into an overall figure. The three execution figures are reported exactly as the Execution Results record them (`automation-execution-skill` §25.2). **Never merge them into one "failed" count**: an automation-authoring gap and a genuine application defect are different facts about different systems, and a stakeholder acting on a merged figure is acting on a number that describes neither.
 9. **Must never present an `Automation Repaired` result as a clean `Passed`** (`pipeline.md` §4, Stage `6A`). Where Stage `5H` ran, the report distinguishes first-attempt passes from repaired ones, cites the Repair Summary, and states how many tests required a fix — coverage achieved only after repair is real coverage, but a reader must be able to see that it needed repair.
 10. **Must report quarantined tests** (`self-healing-skill` §14), where a Quarantine Register exists, as coverage that is *not currently verified* — never omitted, and never counted as passing.
 11. **Must report Automation coverage only, and never substitute Manual Execution results for it** (`pipeline.md` §3.3). Manual coverage is reported by Stage `4M`'s own QA Report. Where both branches ran the same scope, comparing them is a human's synthesis across two independent deliveries — this report never claims manual coverage as its own.
 12. **Must run the Simple English Communication Standard check on the Final QA Report before delivering it** (`pipeline.md` §6 Rule 10): short, direct sentences; any hard word replaced with an easier one where meaning stays the same; every necessary technical term briefly explained; a figure taken directly from Execution Results kept visibly separate from a resolved assumption or risk judgment; and a first-read check for whether a manager or product owner, not just a QA specialist, could understand the report's headline outcome. Test Case IDs, Requirement IDs, and Result Classification values are never altered by this check.
+
+# 7A. Report revisions after Self-Healing (added 2026-10-08, user-mandated)
+
+**When a human runs Stage `5H` after this stage has already produced a Final QA Report for the run, the original report is kept and a new revision is written.** A report is evidence of what was known when it was written (`pipeline.md` §6 Rule 7b), so a later repair never rewrites it.
+
+1. **Trigger.** A Final QA Report already exists for this run, and Stage `5H` has since written at least one `ExecutionResults.rerun-N.md` that the latest report does not cite. Producing the revision is never automatic — it happens when a human invokes `/reporting-skill` (Stage `5H`'s closing message recommends it). If Stage `5H` ran *before* any Final QA Report existed, there is nothing to revise: the first report reads the reruns directly, under the same rules.
+2. **The original is never touched.** `Final_QA_Report.md`, its `.report.json` and `.html`, and every earlier revision stay exactly as written. The new revision is `Final_QA_Report.rev-N.md` (N = the next free number, starting at 1), with its own `Final_QA_Report.rev-N.report.json` and `Final_QA_Report.rev-N.html` built by `report_builder` (§8A).
+3. **Built from the latest verified results.** For each test case, the outcome is taken from the most recent execution that actually ran it: the highest-numbered `ExecutionResults.rerun-N.md` that includes it, otherwise `ExecutionResults.md`. Only an execution result counts as verified — a Repair Summary's claim that something was fixed is never an outcome by itself. A test that passed only after repair is `Automation Repaired`, never `Passed` (Rule 9). A quarantined test is not currently verified (Rule 10).
+4. **It states its basis and what changed.** The revision's header names: its revision number; the report it supersedes (and that the original is preserved, with its path); every results file it read, with each one's Execution ID; the Repair Summaries it read; and the reason for the revision. It includes a short change table: each test whose outcome changed, first-attempt outcome → latest verified outcome, citing the Execution ID of each.
+5. **Application Health is never improved by a repair.** Repairs address automation only (`self-healing-skill` §8). If Application Failures were reported in the original, they stay in the revision unless a later execution actually ran that test and recorded a different outcome. Even then, the change is shown in the change table, never silently.
+6. **No checkpoint, same as the original.** A revision is delivered to stakeholders like the original report (`pipeline.md` §4, Stage `6A`). The original stays the record of the first-attempt result; the newest revision is the current picture.
 
 # 8. Expected Artifacts
 
 | Artifact | Path | Template |
 |---|---|---|
 | Final QA Report | `platform_core_data/runs/{{RUN_FOLDER}}/reporting/Final_QA_Report.md` | [`platform_core/templates/stage_6a_reporting/Final_QA_Report.md`](../../../platform_core/templates/stage_6a_reporting/Final_QA_Report.md) |
+| Final QA Report — revision (§7A) | `platform_core_data/runs/{{RUN_FOLDER}}/reporting/Final_QA_Report.rev-N.md` — only where Stage `5H` ran after a report existed | Same template, plus the §7A revision header and change table |
 
 **Document structure is defined by the template, not restated here.** Render the report by copying the
 template and filling its `{{PLACEHOLDER}}` tokens; its section order is mandatory and its inline
@@ -162,7 +189,7 @@ node platform_core/tools/report_builder/cli.js build    --model platform_core_da
 
 **Every separation this stage exists to preserve must survive into the HTML.** The model makes each of them a distinct, visible element — none may be merged for a tidier page:
 
-- **The three health figures stay three figures** (§7 Rule 8). Application Health, Automation Health, and Environment Health each get their own stat card or their own `notes` block. **Never one merged "failed" count** — the executive summary donut is computed over result statuses, and the health figures are reported beside it, not folded into it.
+- **The health figures stay separate figures** (§7 Rule 8). Coverage, Contract and Workflow Health, read from Run Health, also each get their own entry. Application Health, Automation Health, and Environment Health each get their own stat card or their own `notes` block. **Never one merged "failed" count** — the executive summary donut is computed over result statuses, and the health figures are reported beside it, not folded into it.
 - **`Review`, `Automation`, and Execution Safety stay three independent facts** (§7 Rules 4a, 4d). A case excluded because a human set `Automation = Rejected` is reported as *deliberately manual*, with its own status key — never as a coverage gap.
 - **A policy-blocked test uses `Skipped`/`Blocked` with reason `Execution Safety Policy`** (§7 Rule 4b), declared with tone `warning` or `neutral` — **never `fail`**. A governance decision coloured as a defect is exactly the misreading Rule 4b forbids.
 - **An `Automation Repaired` result is its own declared status** (§7 Rule 9), never folded into `Passed`. Quarantined tests (§7 Rule 10) are their own status too, reported as coverage that is *not currently verified*.
@@ -237,7 +264,9 @@ Stage 6A complete — Final QA Report (Automation branch)
 Next step — either:
   1. Regenerate with different emphasis:  /reporting-skill <your focus>
   2. Fill a declared gap first:           /automation-execution-skill   (then re-report)
-  3. Heal remaining failures:             /self-healing-skill           (then re-report)
+  3. Heal remaining failures:             /self-healing-skill           (then /reporting-skill → a new
+                                                                         Final_QA_Report.rev-N.md; this
+                                                                         report stays as written, §7A)
 ```
 
 # 13. Observability — what this stage emits
@@ -414,3 +443,29 @@ node platform_core/tools/run_manager/cli.js drift --json    # machine-readable, 
   not be computed — treat inherited conclusions as unverified, never as confirmed.
 - **A refinement targets today's project state.** The prior run described the app at its own
   `targetRef`; this run describes it now. Never carry forward a conclusion that drift contradicts.
+
+# Run State Integration (pipeline.md §5.3.2 — added 2026-10-08)
+
+This stage (`6A`) records its lifecycle in the run state model. These commands are mechanical. They never replace a reviewer's decision and never skip a gate. The full rule, and every stage's row, is `pipeline.md` §5.3.2.
+
+1. **Entry — before any work:** `node platform_core/tools/run_manager/cli.js state start 6A --invocation <Pipeline|Direct|Direct (degraded)> [--instruction "..."]`. This runs the entry gate. **Exit code 2 means blocked:** do not start. Show the human the reasons, request what is missing (`pipeline.md` §5.3.1 #4), and name the next command. Any absent input: start with `--invocation "Direct (degraded)"` and report each one as a declared gap (§12), never as a favourable result.
+2. **Artifacts:** `node platform_core/tools/run_manager/cli.js state artifact 6A --artifacts <path[,path]> [--kind checkpoint|output|evidence]` for what this stage writes — at minimum `platform_core_data/runs/{{RUN_FOLDER}}/reporting/Final_QA_Report.md` (or the `.rev-N.md` revision, §7A).
+3. **Exit — this stage has no checkpoint:** run `node platform_core/tools/run_manager/cli.js state report-check --model <Final_QA_Report.report.json> --md <Final_QA_Report.md> --html <Final_QA_Report.html>` (exit 2 = the renderings disagree with each other, with the recorded outcome, or the HTML is not exactly what the model renders — rebuild, never hand-edit), register the output, then `node platform_core/tools/run_manager/cli.js state complete 6A`, which runs the same check strictly. It is refused unless a registered output exists on disk.
+4. **Blocked or failed:** `state block 6A --reason "..."` or `state fail 6A --reason "..."`, so the run records what it is waiting on.
+
+**Reading the history and writing the report (`pipeline.md` §17.5, §7A).** Read outcomes from `node platform_core/tools/run_manager/cli.js state history 5A` and `state history 5H` (every cycle, final and first-attempt status, blocked dependencies, Quarantine and Before/After sources) and the recorded `state status`; never from a single results file. Get the report path from `state report-path` — it is `Final_QA_Report.md` the first time and `Final_QA_Report.rev-N.md` after, and never an existing file. Set the model's `outcomeVerdict` to the recorded verdict; a green `statusPillTone` is refused unless it is `all-passed`. Copy each passing case's assertion records into its `assertions` list (`report_builder/README.md`) — never write them for the report; a model claiming `all-passed` is refused while a passing case shows none. Give each its `id` (A1, A2 …) when the case states its assertions, and list a required assertion with no execution record as `result: "missing"` — shown apart from a failed one; read them from `state history` (Phase 5.8). Report Application, Automation, Environment and Coverage health separately. Before completing, `state report-check --model <…report.json> --md <…md> --html <…html>` must pass.
+
+**Run Health (Phase 8, `pipeline.md` §15.1a).** Before writing the Final QA Report, read `node platform_core/tools/observability/cli.js health --run {{RUN_FOLDER}}`. Use its figures, never a recount:
+
+- the verdict, the canonical status counts, the six health dimensions, the repairs and the contract position;
+- Automation Repaired stays apart from Passed;
+- a dimension that is Unavailable is stated as Unavailable;
+- there is no overall health figure.
+
+The Final QA Report's "API contract position" must match the contract tool now: `state report-check` refuses a mismatch, and a green report while a contract blocker is open.
+
+**API contract position (Phase 7, `pipeline.md` §8.2).** When any scope of the run has an API contract registry (`<scope>/discovery/api_contracts/registry.json`), add the section from `api_contract/report.js` `finalReportSection([...])` (built from `api_contract/cli.js status --scope … --json`) to the Final QA Report model. It lists unresolved contract blockers and warnings.
+
+- **It is status, not a result.** Never count contract drift as a pass or a failure.
+- **Mock-only conformance is not real validation.** Say so wherever mock evidence is cited.
+- **The per-analysis drift report is not this report.** It is `api_contract/cli.js report`, written in the scope's `discovery/api_contracts/reports/`.

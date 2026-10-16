@@ -246,7 +246,7 @@ function findAuthorization(authorizations, req) {
  * @param {object}  req.policy          a validated policy document (see policyLoader.js)
  * @param {string}  req.action          e.g. 'UPDATE' — anything unrecognised becomes OTHER_MUTATION
  * @param {string}  [req.ownership]     e.g. 'Shared' — anything unrecognised becomes Unknown
- * @param {string}  [req.environment]   defaults to the policy's own environment
+ * @param {string}  [req.environment]   required for a decision — omitted means Unknown, never defaulted
  * @param {string}  [req.module]        module slug, for module-scoped overrides
  * @param {string}  [req.entity]        entity name, for entity-scoped overrides
  * @param {string}  [req.runId]         required for a run-scoped authorization to apply
@@ -273,11 +273,16 @@ function evaluate(req) {
       + '— evaluated as Unknown. Unknown is never treated as SelfCreated.');
   }
 
-  const requested = req.environment === undefined || req.environment === null || req.environment === ''
-    ? policy.environment
-    : req.environment;
+  // Never defaulted (Phase 9.3, F-22): an omitted environment is Unknown, not the policy's own environment.
+  // Taking the policy's environment would answer "is this allowed in Staging?" for a request that never
+  // said where it runs — the silent assumption the environment gate exists to prevent.
+  const omitted = req.environment === undefined || req.environment === null || String(req.environment).trim() === '';
+  const requested = omitted ? '' : req.environment;
   const { environment, recognised: envOk } = normalizeEnvironment(requested, policy);
-  if (!envOk) {
+  if (omitted) {
+    warnings.push(`No environment was supplied — evaluated as Unknown, never defaulted to the policy's environment (${policy.environment}). `
+      + 'Name the environment explicitly; its identity comes from run configuration, never from the URL.');
+  } else if (!envOk) {
     warnings.push(`Environment "${requested}" is not a known environment — evaluated as Unknown. `
       + 'Environment identity comes from run configuration, never from the URL.');
   }

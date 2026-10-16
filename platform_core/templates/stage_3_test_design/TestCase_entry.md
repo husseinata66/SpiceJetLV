@@ -9,8 +9,9 @@ mandatory for the pipeline's traceability guarantee — but they are recorded in
 Matrix and Coverage Report (keyed by Test Case ID), NOT as inline fields here. Adding a Requirement
 Reference / Risk / Category field to this block is a spec violation, not extra rigour.
 
-ONE BUSINESS BEHAVIOUR PER TEST CASE. A case chaining unrelated actions must be split. One behaviour
-exercised across several data points (matrix-style) is still one behaviour, parameterized.
+ONE BUSINESS BEHAVIOUR PER TEST CASE. A case chaining unrelated actions must be split. When several
+data sets each need their own pass/fail and evidence, write one case per data set — execution records
+one result per (Test Case ID, Assertion ID), not per data set (§6.0).
 
 Readability Check — apply before finalizing (§6.0):
   1. Can a new QA engineer execute it without help?
@@ -81,15 +82,51 @@ Result is unexecutable, so that warning is never cosmetic.
 
 1. {{STEP}}
 
-**Expected Result:** {{EXPECTED_RESULT}}
-<!-- The specific, OBSERVABLE outcome that constitutes a pass. One verification point per statement.
-     Complete but minimal — not a hedge, not a value judgment.
+**Expected Result:**
+
+1. [A1] {{EXPECTED_POINT}}
+<!-- A NUMBERED LIST, one measurable verification point per line, each tagged with its Assertion ID
+     (§6.1 Expected Result Rules). No paragraphs. Every point has exactly one Assertions row below.
+     Name the exact value / message / status / count; quote UI text and values in `backticks`.
+     Every point comes from a requirement, contract or confirmed business rule — never from what the
+     system was observed doing.
      For a regression test derived from a Finding (§5.3), state the CORRECTED behaviour — never a
      restatement of the bug.
 
-     Good: "The system displays a validation message indicating that Product Access is required."
+     UI:   1. [A1] The message `Product Access is required` is shown.
+           2. [A2] The Agency is not saved.
+     API:  1. [A1] Status code is `404`.
+           2. [A2] `$.error.code` is `USER_NOT_FOUND`.
      Bad:  "The application should ideally validate according to the business rules and prevent the
             user from proceeding." -->
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | {{EXPECTED_VALUE}} | {{EXPECTED_SOURCE}} | {{CHECK}} | {{REQUIREMENT_REF}} |
+<!-- REQUIRED on every NEW or MATERIALLY UPDATED case (Phase 5.8 — test-design-skill §6.1a). One row per
+     verification point the Expected Result states, so execution records each one against its ID:
+       Assertion ID    — A1, A2, … stable within this case. Never renumber; a removed assertion's ID is
+                         not reused. (Test Case ID, Assertion ID) is the identity execution reports against.
+       Expected        — the expected value or condition itself (`404`, count(A) = count(B), `Account
+                         locked`) — never a description such as "number of flights"
+       Expected Source — where the value comes from: a requirement ID (AC-3, FR-12, BR-4), an API
+                         contract (`API contract GET /users/{id} 404 $.status`), `Test Data`, or a
+                         platform artifact by path — never an observation. "Expected Result" is still
+                         accepted but points back at this case; name the real source instead.
+       Check           — equals · contains · matches <pattern> · within ±N · ≥ / ≤ / > / < · present ·
+                         absent · not equals · classification = …
+       Requirement     — the requirement it verifies (AC-3, PO-24, §2.4 …); must also appear in this
+                         case's TraceabilityMatrix.md row
+     One row per point that can fail on its own; never merge two such points, never add a row that
+     always passes or fails with another. Sibling cases checking the same thing use the same rows.
+     OPTIONAL 6th column `Rule`: the Shared Definition sub-check this row applies (e.g. VR-01.2, §6.1b).
+     Add it only when the case cites a validation rule. -->
+<!-- PRECONDITIONS / STEPS may cite Shared Definitions by ID ("SETUP-1.", "Apply VR-01.") instead of
+     copying shared setup or comparison logic (§6.1b).
+     Stage 3 approval is refused for a new or changed case without a valid table. An UNCHANGED legacy case
+     needs none and is never rewritten to gain one. -->
 
 **Priority:** {{PRIORITY}}
 <!-- P1–P4 — how urgently this case should run relative to others. -->
@@ -110,7 +147,9 @@ Result is unexecutable, so that warning is never cosmetic.
 **Notes:** {{NOTES}}
 <!-- OPTIONAL — genuinely helpful execution context only. NEVER move essential execution information
      (a step, a value, the actual expected outcome) into Notes to keep Steps short: that is hiding
-     required content, not simplifying. Omit the field entirely when there is nothing to add. -->
+     required content, not simplifying. NEVER traceability (Requirement / Discovery / Finding /
+     Evidence references) — that lives in TraceabilityMatrix.md. Omit the field entirely when there is
+     nothing to add. -->
 
 **Review:** Pending
 <!-- LIFECYCLE COLUMN (added 2026-08-01, user-mandated). The HUMAN review status of this test case

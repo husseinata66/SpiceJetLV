@@ -66,6 +66,8 @@ dependencies:
 >
 > **Revision note (2026-07-27, user-mandated):** each artifact is **one file, edited in place**: no `.vN` suffixes, and **no duplicate "final" copy is ever written on approval**. Refinement edits the same file the reviewer read. Git is the version history. See `workflows_and_pipelines/pipeline/pipeline.md` §7.
 >
+> **Revision note (2026-10-08, user-mandated):** **editing in place never overwrites a recorded result** (`pipeline.md` §6 Rule 7b). A reviewer may have this stage correct an artifact's wording in place during its own review, but a recorded outcome (a result row, its status, its timestamps) and its evidence are never changed or deleted. **A re-run of cases** (e.g. `/manual-execution-skill re-run {IDs}`) **writes new files beside the originals** — `ManualExecutionResults.rerun-N.md`, `ManualTestResults.rerun-N.csv`, `ManualQAReport.rerun-N.md`, and `artifacts_rerun-N/` — following the existing `ExecutionResults.rerun-N.md` convention (`pipeline.md` §4, Stage `5H`). The first cycle stays exactly as recorded.
+>
 > **Revision note (2026-07-29, user-mandated):** **input paths only — this stage's outputs are unchanged.** Its test suites now resolve from the module workspace (`platform_core_data/modules/{module}/test_design/`) rather than a run folder, and its results continue to land in `platform_core_data/runs/{{RUN_FOLDER}}/manual_execution/`, immutable once written. That asymmetry is the point: a test suite is something the next run starts from, and a result is evidence of one execution (`pipeline.md` §7). **A multi-module run reads each module's suite and writes one consolidated result set**, with every result citing its module — splitting results per module would break the run's single record of what happened. This stage writes nothing under `modules/`.
 
 # 1. Skill Name
@@ -257,7 +259,7 @@ Forbidden          → do not execute
 
 **The decision is not interpreted from prose.** This skill calls `platform_core/tools/execution_safety/` and uses what it returns. It does not read `run_configuration.md`'s Environment Constraints and decide for itself what "marked safe" means — two skills reading the same sentence is how two stages reach different conclusions about the same action.
 
-**Before executing anything, this skill runs the Safety Preflight** (`preflight()`), writes it to `runs/{{RUN_FOLDER}}/metadata/SafetyPreflight.md`, and resolves every required authorization **first**. Discovering that step 7 of case 12 is `Forbidden` when step 7 of case 12 is attempted is too late to be useful to anyone.
+**Before executing anything, this skill runs the Safety Preflight** — record it with `node platform_core/tools/run_manager/cli.js state preflight 4M --environment <env> --target-url <url> --execution-type <browser|api|database|batch|other> [--execution-mode Headed|Headless] --operations <ops.json> --confirmed-by "<name>"` **before** `state start 4M` — the Run Manager writes `metadata/SafetyPreflight.md` itself and its entry gate refuses to start 4M without a confirmed, current preflight (Phase 9.2/9.3; never hand-write that file) — and resolves every required authorization **first**. Discovering that step 7 of case 12 is `Forbidden` when step 7 of case 12 is attempted is too late to be useful to anyone.
 
 **Approvals are batched by scope, never asked per test case.** Twelve cases that all perform `UPDATE` on `Shared` `agency` records are **one** question (`execution_safety` README §7). Asking twelve times trains a reviewer to stop reading them.
 
@@ -300,7 +302,7 @@ Every test case executed gets exactly one classification:
 
 | Status | Meaning |
 |---|---|
-| **Passed** | The test case executed and its Expected Result was observed exactly as stated — **every** assertion recorded with its Expected, Actual, Check, and Result (§7, `pipeline.md` §11.4). A case with any assertion left unchecked is `Inconclusive`. |
+| **Passed** | The test case executed and its Expected Result was observed exactly as stated — **every** assertion recorded with its Expected, Actual, Check, and Result (§7, `pipeline.md` §11.4). A case with any assertion left unchecked is `Inconclusive`. The rows go in the results file's **§3.1 Assertion Records** table; the Run Manager counts a `Passed` without verified rows as `Unverified` (Phase 5.6B). Expected values are checked against the suite version this stage consumed; quote them from the test case, or cite a consumed artifact by path — an external source cannot be version-verified (Phase 5.7). When the case states its assertions (its **Assertions:** table), record **every** assertion once against its **Assertion ID**, with the approved Expected and Check unchanged, the observed Actual, and the Result — a case is `Passed` only when all of them pass; a missing one is reported as missing, never as passed (Phase 5.8). A case that cites a Shared Definition (`SETUP-n`, `VR-n` — test-design-skill §6.1b) is executed with the cited text from the same suite file; the definition adds steps, never assertions — results are still recorded per Assertion ID. |
 | **Failed** | The test case executed and the observed result did not match the Expected Result — a genuine, reproducible discrepancy. |
 | **Blocked** | A stated Precondition (§5) could not be established — distinct from Skipped (a deliberate decision) and from Failed (it ran and didn't pass). |
 | **Skipped** | The test case was deliberately not executed (e.g., its mutating action is not authorized for this environment, per §6) — a decision, not a failure. |
@@ -348,7 +350,7 @@ The stakeholder-facing Markdown report contains, at minimum:
 | 4 | **Requirement Coverage** | Per requirement from the Traceability Matrix: which test cases covered it, and its resolved verification state (verified / failed / not verified, with the reason) |
 | 5 | **Defect Register** | Every `Failed`/`Inconclusive` case as a table row — ID, title, severity, priority, category — each linking to its full §10.1 write-up in the Results |
 | 6 | **Assumptions & Risks Resolved** | Every Test Design "Assumption-based test" tag carried to a resolved state (confirmed / refuted / unverified) |
-| 7 | **Known Limitations** | What this run could not verify and why — Blocked preconditions, Skipped mutating actions, headless fallback (§11.1) |
+| 7 | **Known Limitations** | What this run could not verify and why — Blocked preconditions, Skipped mutating actions, a human-chosen headless run (§11.1) |
 | 8 | **Recommendations** | The smallest corrective action per blocked/failed item (§19) |
 
 **Coverage is computed from the Traceability Matrix, never asserted.** A requirement with no executed test case is reported as *not verified*, never omitted — an absent row reads as "nothing to say," which is the opposite of the truth.
@@ -544,7 +546,7 @@ For an **Inconclusive** case where no defect was actually confirmed, most Classi
 | **`playwright` MCP server** | The server must be started **without** the `--headless` flag for this stage. Where the repo-root `.mcp.json` hard-codes `--headless`, a tool call cannot override it at runtime — a headed run requires a human operator to remove that flag and restart the server. **This skill must never edit `.mcp.json` itself** (outside its write scope, §11). |
 | **`playwright` MCP server** (fallback only, per §11) | The server is registered in the repo-root `.mcp.json` with a hard-coded `--headless` flag, which a tool call cannot override at runtime. A headed MCP run therefore requires a human operator to remove `--headless` from `.mcp.json` and restart the MCP server. This skill must not edit `.mcp.json` itself — that file is outside this skill's write scope (§11 "Not permitted"). |
 
-**When headed is genuinely unavailable** — no display/session is attached (a CI runner, a headless container), or the operator has not removed `--headless` — this skill does **not** halt. It proceeds headless and records the fact explicitly in the Execution Metadata (§10 #1) and in Known Limitations (§10 #6), naming why. Evidence capture is unaffected either way (screenshots, DOM, console, and network are captured identically), so a headless fallback changes no result's Status (§8) — the only thing lost is live human observation, which is exactly what the Known Limitations entry must say.
+**When headed is genuinely unavailable** — no display/session is attached (a CI runner, a headless container), or the operator has not removed `--headless` — this skill never switches to headless on its own *(revised 2026-10-08, `pipeline.md` §6 Rule 11)*. It says headed is unavailable and why, inside the Headed/Headless question, and runs headless only if the human explicitly chooses it. If headed was already chosen and turns out to be unavailable when the browser opens, it stops and asks again. When the human chooses headless, record it in the Execution Metadata (§10 #1) and in Known Limitations (§10 #6), naming why. Evidence capture is unaffected either way (screenshots, DOM, console, and network are captured identically), so a headless run changes no result's Status (§8) — the only thing lost is live human observation, which is exactly what the Known Limitations entry must say.
 
 # 12. Execution Rules
 
@@ -552,7 +554,7 @@ For an **Inconclusive** case where no defect was actually confirmed, most Classi
 2. **Must validate every stated Precondition before executing a test case's Steps** (§5) — an unmet precondition is `Blocked`, never force-run.
 3. Must confirm the target environment matches the Project Context before executing anything; halt and report on mismatch.
 4. **Must evaluate every mutating action against the Execution Safety policy before performing it** (§6.1), through `platform_core/tools/execution_safety/` — never by interpreting the constraint prose itself. `Forbidden` is not executed; `Approval Required` pauses **before** the mutation and waits for a scoped human authorization. A blocked action is `Skipped` with reason `Execution Safety Policy` and the matched rule named — never `Failed`, and never an Application/Automation/Environment Failure.
-4a. **Must run the Safety Preflight before executing anything** (§6.1), write it to the run's `metadata/`, and resolve every required authorization up front — never discover a `Forbidden` by attempting it.
+4a. **Must record the Safety Preflight before executing anything** (§6.1) with `state preflight 4M … --confirmed-by "<name>"` — never by writing a file — and resolve every required authorization up front — never discover a `Forbidden` by attempting it.
 4b. **Must record the exact record touched by every mutating action** (§6.1). The authorization is class-scoped; the evidence is per-record, and without it a later action cannot prove it stayed inside the approved scope.
 4c. **Must never treat a test case's `Review`/`Automation` values as an execution authorization, or a safety `Allowed` as test-case eligibility** (§4.1, §6.1). Three independent gates; none substitutes for another.
 5. Must record every test case's outcome — no silent omissions. A test case that cannot run must be logged with an explicit reason.
@@ -569,7 +571,7 @@ For an **Inconclusive** case where no defect was actually confirmed, most Classi
 16. Must never execute an automated test suite or write automation code — that is exclusively the Automation skill's (generation) and Automation Execution skill's (running) responsibility.
 17. **Must never read the PRD directly.** Only Stage 1 may do so (`workflows_and_pipelines/pipeline/pipeline.md` §6 Rule 4).
 18. **Must never consume an input artifact that is not itself `Approved`** at its own pipeline checkpoint (§4).
-19. **Must run the browser headed, so each interaction is visible live** (§11.1) — the skill's normal behaviour, not an opt-in. Where headed is genuinely unavailable (no display attached, or `--headless` not removed by an operator), proceed headless rather than halting, and state it in Execution Metadata (§10 #1) and Known Limitations (§10 #6).
+19. **Must recommend headed, so each interaction is visible live, and must confirm the mode with the human before every execution** (§11.1, `pipeline.md` §6 Rule 11). Where headed is genuinely unavailable (no display attached, or `--headless` not removed by an operator), say so in the question and run headless only on the human's explicit choice — never as a silent fallback — then state it in Execution Metadata (§10 #1) and Known Limitations (§10 #6).
 20. **Must compute the QA Report's coverage from the Traceability Matrix**, reporting an uncovered requirement as *not verified* rather than omitting it (§9.1).
 21. **Must emit one CSV row per test case in the suite**, including Blocked/Skipped/Not Executed/Excluded, so the pass rate is never computed against a silently shrunken denominator (§9.2).
 22. **Must execute only test cases whose `Review` column reads `Approved`** (§4.1). A `Pending` or `Rejected` case is recorded `Excluded` with its reason and is never executed "just to see" — an unreviewed case's failure cannot distinguish an application defect from a defective test case. The `Automation` column is never read by this stage.
@@ -725,7 +727,7 @@ This is the Manual pipeline's terminal stage — approving it releases the deliv
 
 Next step — either:
   1. Approve and deliver:      "approved"
-  2. Re-run failed cases:      /manual-execution-skill re-run {IDs}
+  2. Re-run failed cases:      /manual-execution-skill re-run {IDs}   (new .rerun-N files; this run's results stay as recorded)
   3. Revise the test cases:    /test-design-skill <your feedback>
   4. Also automate this scope: /automation-skill   (independent branch — takes its
                                scope from Stage 3, not from this stage's results)
@@ -898,3 +900,20 @@ node platform_core/tools/run_manager/cli.js drift --json    # machine-readable, 
   not be computed — treat inherited conclusions as unverified, never as confirmed.
 - **A refinement targets today's project state.** The prior run described the app at its own
   `targetRef`; this run describes it now. Never carry forward a conclusion that drift contradicts.
+
+# Browser launch (Phase 9.4)
+
+The stage's Safety Preflight (`state preflight 4M`) also authorizes the browser itself: pass `headless` (the human's answer) and `preflight: { runsDir, run, stage: '4M', id: 'SP-n' }` to `BrowserDriver.authenticate()` / the Browser Provider. A launch without it, for a stage that is not Running, in a different mode, or with credentials for another environment or a base URL on another host than the preflight confirmed, is refused (`PREFLIGHT_REQUIRED` / `STAGE_NOT_RUNNING` / `MODE_MISMATCH` / `ENVIRONMENT_MISMATCH` / `TARGET_MISMATCH`).
+
+# Run State Integration (pipeline.md §5.3.2 — added 2026-10-08)
+
+This stage (`4M`) records its lifecycle in the run state model. These commands are mechanical. They never replace a reviewer's decision and never skip a gate. The full rule, and every stage's row, is `pipeline.md` §5.3.2.
+
+0. **Safety Preflight — before entry:** record it with `node platform_core/tools/run_manager/cli.js state preflight 4M --environment <env> --target-url <url> --execution-type <browser|api|database|batch|other> [--execution-mode Headed|Headless] --operations <ops.json> --confirmed-by "<name>"` **before** `state start 4M` — the Run Manager writes `metadata/SafetyPreflight.md` itself and its entry gate refuses to start 4M without a confirmed, current preflight (Phase 9.2/9.3; never hand-write that file).
+1. **Entry — before any work:** `node platform_core/tools/run_manager/cli.js state start 4M --invocation <Pipeline|Direct|Direct (degraded)> [--instruction "..."]`. This runs the entry gate. **Exit code 2 means blocked:** do not start. Show the human the reasons, request what is missing (`pipeline.md` §5.3.1 #4), and name the next command. No approved Manual Test Suite blocks. Without a Project Context, start with `--invocation "Direct (degraded)" --environment-supplied` only when the environment and credentials were given in the invocation.
+2. **Artifacts:** `node platform_core/tools/run_manager/cli.js state artifact 4M --artifacts <path[,path]> [--kind checkpoint|output|evidence]` for what this stage writes.
+3. **Exit — this stage has a checkpoint:** `node platform_core/tools/run_manager/cli.js state request-approval 4M --artifacts <checkpoint artifact>`. Its checkpoint artifact is `platform_core_data/runs/{{RUN_FOLDER}}/manual_execution/ManualExecutionSummary.md` (its `| Status |` row). Finishing the work never marks the stage Completed.
+4. **Approval:** only after the named reviewer approves and the artifact's own Status header reads `Approved`: `node platform_core/tools/run_manager/cli.js state approve 4M --approved-by "<reviewer>"`. It is refused if the header says anything else, or if the artifact is missing. A rejection: `state reject 4M --rejected-by "<reviewer>" --feedback "..."`.
+5. **Blocked or failed:** `state block 4M --reason "..."` or `state fail 4M --reason "..."`, so the run records what it is waiting on.
+
+**Recording the outcome (`pipeline.md` §17.5).** After the results are written, record them from the files — `node platform_core/tools/run_manager/cli.js state outcome 4M --from-results`. Never type the counts. A re-run of cases writes `ManualExecutionResults.rerun-N.md` (with its CSV and report) beside the original and registers it with `state artifact 4M`; the first cycle is never edited, and a recording refuses (`RESULTS_MODIFIED`) if it was. A `Blocked` result names what it depended on in its Reason ("Blocked — depends on TC-…") so it is never counted as an independent failure. A `Passed` row cites its evidence; one that does not reads `Unverified`, not `Passed`.

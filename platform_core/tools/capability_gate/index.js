@@ -178,6 +178,12 @@ function renderPlan(plan, meta) {
   const lines = [
     `# Capability Plan — ${meta.feature} / ${meta.supplier}`,
     '',
+    // Machine-readable binding (Phase 9.2, F-13): the exact run, Feature, Supplier, capability answers and
+    // suite this plan was computed for. The entry gate refuses a plan whose binding does not match.
+    ...(meta.binding ? [`<!-- capability-binding: ${JSON.stringify(meta.binding)} -->`, '',
+      '| Bound to | Value |', '|---|---|',
+      `| Run | \`${meta.binding.run || '—'}\` |`, `| Feature | \`${meta.binding.feature}\` |`, `| Supplier | \`${meta.binding.supplier}\` |`,
+      `| Capability fingerprint | \`${meta.binding.capabilities.slice(0, 16)}…\` |`, `| Suite fingerprint | \`${String(meta.binding.suite || '—').slice(0, 16)}…\` |`, ''] : []),
     `Generated ${meta.generatedAt} by \`platform_core/tools/capability_gate\` from \`${meta.suite}\`.`,
     'Only the cases under **Will run** are executed. Excluded cases are reported with their reason and',
     'kept out of executable scope and pass rate (manual-execution-skill §4.2).',
@@ -211,7 +217,29 @@ function renderPlan(plan, meta) {
   return `${lines.join('\n')}\n`;
 }
 
+/**
+ * The capability fingerprint of a Supplier (Phase 9.2, F-13): its recorded capability answers and Supplier
+ * rules, canonically ordered. A plan made before either changed is stale.
+ */
+function capabilityFingerprint(supplier) {
+  // eslint-disable-next-line global-require
+  const crypto = require('crypto');
+  const caps = capabilitiesOf(supplier);
+  const canonical = JSON.stringify({ capabilities: SUPPLIER_CAPABILITIES.map((c) => [c.key, caps[c.key]]), rules: [...((supplier && supplier.supplierRules) || [])].sort() });
+  return crypto.createHash('sha256').update(canonical).digest('hex');
+}
+
+const BINDING_RE = /<!--\s*capability-binding:\s*(\{[\s\S]*?\})\s*-->/;
+/** The binding a plan file carries, or null (a plan written before Phase 9.2, or by hand). */
+function readPlanBinding(text) {
+  const m = String(text || '').match(BINDING_RE);
+  if (!m) return null;
+  try { return JSON.parse(m[1]); } catch { return null; }
+}
+
 module.exports = {
+  capabilityFingerprint,
+  readPlanBinding,
   CapabilityGateError,
   parseRequires,
   capabilitiesOf,

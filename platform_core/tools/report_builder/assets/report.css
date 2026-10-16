@@ -145,6 +145,11 @@
   .vtc-p{ color:var(--ink-2); overflow-wrap:anywhere; }
   .vtc-steps{ margin:0; padding-left:18px; color:var(--ink-2); }
   .vtc-steps li{ margin-bottom:4px; overflow-wrap:anywhere; }
+  .assertions{ margin-top:6px; overflow-x:auto; }
+  .assertions table{ border-collapse:collapse; font-size:12px; width:100%; }
+  .assertions th, .assertions td{ text-align:left; padding:4px 8px; border-bottom:1px solid var(--surface-2); vertical-align:top; overflow-wrap:anywhere; }
+  .assertions tr.as-fail td{ color:var(--fail, #b42318); }
+  .assertions tr.as-missing td{ color:var(--warning, #b54708); font-style:italic; }
   details.evidence, details.hops{ margin-top:6px; }
   details.evidence summary, details.hops summary{ cursor:pointer; font-size:12px; color:var(--accent-ink); }
   details.evidence .ev-body{ margin-top:4px; padding:8px 10px; background:var(--surface-2); border-radius:6px; font-size:12px; overflow-wrap:anywhere; }

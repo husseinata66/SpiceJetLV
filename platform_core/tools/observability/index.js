@@ -56,6 +56,7 @@ module.exports = {
   makeEventId: recorder.makeEventId,
   makeSpanId: recorder.makeSpanId,
   recordEvent: recorder.recordEvent,
+  appendEvents: recorder.appendEvents,
   startSpan: recorder.startSpan,
   endSpan: recorder.endSpan,
   readEvents: recorder.readEvents,
@@ -90,4 +91,11 @@ module.exports = {
   // Presentation
   renderReport: report.renderReport,
   renderDashboard: dashboard.renderDashboard,
+
+  // Run Health (Phase 8) — the authoritative sources, read side by side
+  ...require('./statusMap'),
+  buildRunHealth: require('./runHealth').buildRunHealth,
+  HEALTH_DEFINITIONS: require('./runHealth').HEALTH_DEFINITIONS,
+  writeRunHealth: require('./runHealthReport').writeRunHealth,
+  checkRunHealth: require('./runHealthReport').checkRunHealth,
 };

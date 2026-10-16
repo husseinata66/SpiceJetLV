@@ -1,0 +1,1626 @@
+{
+ "integration": {
+  "request": {
+   "trip": "One-way",
+   "legs": [
+    {
+     "o": "CAI",
+     "d": "DXB",
+     "dt": "2026-11-18",
+     "cabins": [
+      "Economy"
+     ],
+     "rbd": [
+      "Q"
+     ]
+    }
+   ],
+   "pax": {
+    "Adult": 1
+   }
+  },
+  "response": {
+   "solutions": 35,
+   "flights": {
+    "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK930",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QSSOPEG1",
+          "brand": "1380516",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK928",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QSSOPEG1",
+          "brand": "1380516",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK922",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QSSOPEG1",
+          "brand": "1380516",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK924",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QSSOPEG1",
+          "brand": "1380516",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK926",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QSSOPEG1",
+          "brand": "1380516",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ504",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         },
+         {
+          "seg": "RJ614",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ508",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         },
+         {
+          "seg": "RJ610",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ506 CAI-AMM 2026-11-18T19:55>2026-11-18T22:15 + RJ612 AMM-DXB 2026-11-19T00:10>2026-11-19T04:15": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ506",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         },
+         {
+          "seg": "RJ612",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ502 CAI-AMM 2026-11-18T08:40>2026-11-18T11:00 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ502",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         },
+         {
+          "seg": "RJ614",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV386",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         },
+         {
+          "seg": "SV566",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV386",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGF4",
+          "brand": "2142231",
+          "journey": 0
+         },
+         {
+          "seg": "SV566",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGF4",
+          "brand": "2142231",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV302 CAI-JED 2026-11-18T19:50>2026-11-18T23:00 + SV590 JED-DXB 2026-11-19T01:10>2026-11-19T04:55": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV302",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         },
+         {
+          "seg": "SV590",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV302",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGF4",
+          "brand": "2142231",
+          "journey": 0
+         },
+         {
+          "seg": "SV590",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGF4",
+          "brand": "2142231",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV308 CAI-JED 2026-11-18T03:35>2026-11-18T06:45 + SV568 JED-DXB 2026-11-18T09:15>2026-11-18T13:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV308",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         },
+         {
+          "seg": "SV568",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV308",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGF4",
+          "brand": "2142231",
+          "journey": 0
+         },
+         {
+          "seg": "SV568",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGF4",
+          "brand": "2142231",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV300 CAI-JED 2026-11-18T11:45>2026-11-18T14:55 + SV594 JED-DXB 2026-11-18T17:45>2026-11-18T21:30": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV300",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         },
+         {
+          "seg": "SV594",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV300",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGF4",
+          "brand": "2142231",
+          "journey": 0
+         },
+         {
+          "seg": "SV594",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGF4",
+          "brand": "2142231",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF504 BAH-DXB 2026-11-18T09:40>2026-11-18T12:05": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         },
+         {
+          "seg": "GF504",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "40KG",
+          "fareBasis": "QBSMR3EG",
+          "brand": "2135499",
+          "journey": 0
+         },
+         {
+          "seg": "GF504",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "40KG",
+          "fareBasis": "QBSMR3EG",
+          "brand": "2135499",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF70 CAI-BAH 2026-11-18T16:00>2026-11-18T20:00 + GF500 BAH-DXB 2026-11-19T01:10>2026-11-19T03:35": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF70",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         },
+         {
+          "seg": "GF500",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF70",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "40KG",
+          "fareBasis": "QBSMR3EG",
+          "brand": "2135499",
+          "journey": 0
+         },
+         {
+          "seg": "GF500",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "40KG",
+          "fareBasis": "QBSMR3EG",
+          "brand": "2135499",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF508 BAH-DXB 2026-11-18T15:50>2026-11-18T18:15": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         },
+         {
+          "seg": "GF508",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "40KG",
+          "fareBasis": "QBSMR3EG",
+          "brand": "2135499",
+          "journey": 0
+         },
+         {
+          "seg": "GF508",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "40KG",
+          "fareBasis": "QBSMR3EG",
+          "brand": "2135499",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF510 BAH-DXB 2026-11-18T18:10>2026-11-18T20:35": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         },
+         {
+          "seg": "GF510",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "40KG",
+          "fareBasis": "QBSMR3EG",
+          "brand": "2135499",
+          "journey": 0
+         },
+         {
+          "seg": "GF510",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "40KG",
+          "fareBasis": "QBSMR3EG",
+          "brand": "2135499",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "WY408 CAI-MCT 2026-11-18T01:15>2026-11-18T06:55 + WY603 MCT-DXB 2026-11-18T08:50>2026-11-18T10:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "WY408",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "30KG",
+          "fareBasis": "QCMOEG",
+          "brand": "2070937",
+          "journey": 0
+         },
+         {
+          "seg": "WY603",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "30KG",
+          "fareBasis": "QCMOEG",
+          "brand": "2070937",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "WY408",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "40KG",
+          "fareBasis": "QFXOEG",
+          "brand": "2070936",
+          "journey": 0
+         },
+         {
+          "seg": "WY603",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "40KG",
+          "fareBasis": "QFXOEG",
+          "brand": "2070936",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "WY406 CAI-MCT 2026-11-18T18:05>2026-11-18T23:45 + WY603 MCT-DXB 2026-11-19T08:50>2026-11-19T10:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "WY406",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "30KG",
+          "fareBasis": "QCMOEG",
+          "brand": "2070937",
+          "journey": 0
+         },
+         {
+          "seg": "WY603",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "30KG",
+          "fareBasis": "QCMOEG",
+          "brand": "2070937",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "WY406",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "40KG",
+          "fareBasis": "QFXOEG",
+          "brand": "2070936",
+          "journey": 0
+         },
+         {
+          "seg": "WY603",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "40KG",
+          "fareBasis": "QFXOEG",
+          "brand": "2070936",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS901",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QREEGO",
+          "brand": "1730060",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS905",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QREEGO",
+          "brand": "1730060",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS912",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QREEGO",
+          "brand": "1730060",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS910",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QREEGO",
+          "brand": "1730060",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "A3931 CAI-ATH 2026-11-18T04:40>2026-11-18T06:40 + A3958 ATH-DXB 2026-11-18T09:10>2026-11-18T16:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "A3931",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "0PC",
+          "fareBasis": "QNFLXLC",
+          "brand": "2117885",
+          "journey": 0
+         },
+         {
+          "seg": "A3958",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "0PC",
+          "fareBasis": "QNFLXLC",
+          "brand": "2117885",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "A3931",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "1PC",
+          "fareBasis": "QNCMFLC",
+          "brand": "2117884",
+          "journey": 0
+         },
+         {
+          "seg": "A3958",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "1PC",
+          "fareBasis": "QNCMFLC",
+          "brand": "2117884",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "upsellBrands": 4
+  }
+ },
+ "direct": {
+  "request": {
+   "trip": "One-way",
+   "legs": [
+    {
+     "o": "CAI",
+     "d": "DXB",
+     "dt": "2026-11-18",
+     "cabins": [
+      "Economy"
+     ],
+     "rbd": [
+      "Q"
+     ]
+    }
+   ],
+   "pax": {
+    "Adult": 1
+   }
+  },
+  "response": {
+   "solutions": 24,
+   "flights": {
+    "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK930",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QSSOPEG1",
+          "brand": "1380516",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK928",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QSSOPEG1",
+          "brand": "1380516",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK922",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QSSOPEG1",
+          "brand": "1380516",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK924",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QSSOPEG1",
+          "brand": "1380516",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK926",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QSSOPEG1",
+          "brand": "1380516",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ504",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         },
+         {
+          "seg": "RJ614",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ508",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         },
+         {
+          "seg": "RJ610",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ506 CAI-AMM 2026-11-18T19:55>2026-11-18T22:15 + RJ612 AMM-DXB 2026-11-19T00:10>2026-11-19T04:15": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ506",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         },
+         {
+          "seg": "RJ612",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ502 CAI-AMM 2026-11-18T08:40>2026-11-18T11:00 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ502",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         },
+         {
+          "seg": "RJ614",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QLANEG1",
+          "brand": "2114764",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV386",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         },
+         {
+          "seg": "SV566",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV302 CAI-JED 2026-11-18T19:50>2026-11-18T23:00 + SV590 JED-DXB 2026-11-19T01:10>2026-11-19T04:55": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV302",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         },
+         {
+          "seg": "SV590",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV308 CAI-JED 2026-11-18T03:35>2026-11-18T06:45 + SV568 JED-DXB 2026-11-18T09:15>2026-11-18T13:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV308",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         },
+         {
+          "seg": "SV568",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV300 CAI-JED 2026-11-18T11:45>2026-11-18T14:55 + SV594 JED-DXB 2026-11-18T17:45>2026-11-18T21:30": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV300",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         },
+         {
+          "seg": "SV594",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QAOXEGB4",
+          "brand": "2142233",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF504 BAH-DXB 2026-11-18T09:40>2026-11-18T12:05": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         },
+         {
+          "seg": "GF504",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF70 CAI-BAH 2026-11-18T16:00>2026-11-18T20:00 + GF500 BAH-DXB 2026-11-19T01:10>2026-11-19T03:35": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF70",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         },
+         {
+          "seg": "GF500",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF508 BAH-DXB 2026-11-18T15:50>2026-11-18T18:15": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         },
+         {
+          "seg": "GF508",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF510 BAH-DXB 2026-11-18T18:10>2026-11-18T20:35": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         },
+         {
+          "seg": "GF510",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "35KG",
+          "fareBasis": "QBLIT3EG",
+          "brand": "2135500",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "WY408 CAI-MCT 2026-11-18T01:15>2026-11-18T06:55 + WY603 MCT-DXB 2026-11-18T08:50>2026-11-18T10:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "WY408",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "30KG",
+          "fareBasis": "QCMOEG",
+          "brand": "2070937",
+          "journey": 0
+         },
+         {
+          "seg": "WY603",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "30KG",
+          "fareBasis": "QCMOEG",
+          "brand": "2070937",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "WY406 CAI-MCT 2026-11-18T18:05>2026-11-18T23:45 + WY603 MCT-DXB 2026-11-19T08:50>2026-11-19T10:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "WY406",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "30KG",
+          "fareBasis": "QCMOEG",
+          "brand": "2070937",
+          "journey": 0
+         },
+         {
+          "seg": "WY603",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "30KG",
+          "fareBasis": "QCMOEG",
+          "brand": "2070937",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS905",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QREEGO",
+          "brand": "1730060",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS901",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QREEGO",
+          "brand": "1730060",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS912",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QREEGO",
+          "brand": "1730060",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:Q",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS910",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "2PC",
+          "fareBasis": "QREEGO",
+          "brand": "1730060",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "A3931 CAI-ATH 2026-11-18T04:40>2026-11-18T06:40 + A3958 ATH-DXB 2026-11-18T09:10>2026-11-18T16:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:QQ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "A3931",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "0PC",
+          "fareBasis": "QNFLXLC",
+          "brand": "2117885",
+          "journey": 0
+         },
+         {
+          "seg": "A3958",
+          "cabin": "Economy",
+          "rbd": "Q",
+          "bag": "0PC",
+          "fareBasis": "QNFLXLC",
+          "brand": "2117885",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "upsellBrands": 0
+  }
+ },
+ "expectedFromTestData": {
+  "trip": "One-way",
+  "legs": [
+   {
+    "o": "CAI",
+    "d": "DXB",
+    "dt": "2026-11-18",
+    "cabin": "Economy",
+    "rbd": [
+     "Q"
+    ]
+   }
+  ],
+  "pax": {
+   "Adult": 1
+  }
+ }
+}

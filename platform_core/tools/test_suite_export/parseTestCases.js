@@ -15,6 +15,8 @@
 
 'use strict';
 
+const { parseSharedDefinitions, linkCases } = require('./sharedDefinitions');
+
 /**
  * The Manual Test Suite field list, in §6.1's mandated order ("exactly these fields, in this order —
  * no more"). This array is the single ordering authority for both the workbook columns and the
@@ -44,6 +46,13 @@ const FIELDS = [
   // platform_core/tools/capability_gate, which excludes a case the Supplier cannot support.
   { key: 'requires', label: 'Requires', width: 22 },
   { key: 'supplierRule', label: 'Supplier Rule', width: 20 },
+  // ── Structured assertions (added 2026-10-09, Phase 5.8) ─────────────────────────────────────
+  // Appended last, so no existing column moves. The case's `**Assertions:**` table — one row per
+  // assertion its Expected Result makes (Assertion ID · Expected · Expected Source · Check ·
+  // Requirement) — kept as written, table lines and all. Required for a new or materially updated
+  // case (run_manager assertionContract.js); a legacy case without it stays valid. Without this entry
+  // the table would be appended to whichever field was open before it — usually Expected Result.
+  { key: 'assertions', label: 'Assertions', width: 60 },
 ];
 
 /** Fields whose absence makes a case unexecutable at Stage 4, so it is reported, never inferred. */
@@ -328,7 +337,13 @@ function parseTestCases(markdown, options = {}) {
 
   if (!cases.length) warnings.push(`${source}no test cases found — expected headings like "## TC-XXX-001"`);
 
-  return { cases, warnings };
+  // Shared Definitions (§6.1b): a case that cites SETUP-n / VR-n gets the cited text attached as
+  // `sharedDefinitions`, so it is fingerprinted with the case. A case citing none is left untouched.
+  const shared = parseSharedDefinitions(markdown, { sourceLabel: options.sourceLabel });
+  const linked = linkCases(cases, shared.definitions, { sourceLabel: options.sourceLabel });
+  warnings.push(...shared.warnings, ...linked.warnings);
+
+  return { cases, warnings, definitions: shared.definitions, definitionUsage: linked.usedBy };
 }
 
 /** Records -> rows, header first, in §6.1 field order. Absent optional fields become ''. */

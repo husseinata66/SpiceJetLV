@@ -1,0 +1,185 @@
+{
+ "branchConfirmed": "ahmed ayman (BRN632)",
+ "executedAt": "2026-10-11T10:05:57.850Z",
+ "httpStatus": 200,
+ "uiHeader": "5 options | 3 time slots",
+ "searchCriteria": {
+  "tripType": 1,
+  "noOfAdults": 1,
+  "noOfChildren": 0,
+  "noOfInfants": 0,
+  "entity": {
+   "selectedBranch": 11703
+  },
+  "filters": {
+   "isNearByAirport": false,
+   "isBaggageFareOnly": false,
+   "isUpSelling": false,
+   "isNonStop": false,
+   "isExcludeLcc": false,
+   "allianceAirline": null,
+   "preferAirlines": []
+  },
+  "routes": [
+   {
+    "cabinClass": 2,
+    "dateOfJourney": "18-11-2026",
+    "destination": {
+     "airportCode": "DXB"
+    },
+    "origins": [
+     {
+      "airportCode": "CAI"
+     }
+    ],
+    "rbd": [
+     "J"
+    ]
+   }
+  ]
+ },
+ "note": "Normalized from the flight-search/search response. Prices removed. Level: fare option x passenger type x segment.",
+ "offers": 5,
+ "flights": {
+  "XY566 CAI-JED 11-18T08:20>11-18T11:30 + XY509 JED-DXB 11-18T14:30>11-18T18:30": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:JJ",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY566",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed."
+       },
+       {
+        "seg": "XY509",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed."
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY264 CAI-RUH 11-18T10:50>11-18T13:35 + XY207 RUH-DXB 11-18T15:50>11-18T18:50": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:JJ",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY264",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed."
+       },
+       {
+        "seg": "XY207",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed."
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY274 CAI-RUH 11-18T12:10>11-18T15:45 + XY209 RUH-DXB 11-18T17:45>11-18T20:45": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:JJ",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY274",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed."
+       },
+       {
+        "seg": "XY209",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed."
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY264 CAI-RUH 11-18T10:50>11-18T13:35 + XY209 RUH-DXB 11-18T17:45>11-18T20:45": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:JJ",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY264",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed."
+       },
+       {
+        "seg": "XY209",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed."
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY895 CAI-DMM 11-18T23:25>11-19T03:15 + XY811 DMM-DXB 11-19T08:25>11-19T10:55": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:JJ",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY895",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed."
+       },
+       {
+        "seg": "XY811",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed."
+       }
+      ]
+     }
+    }
+   ]
+  }
+ }
+}

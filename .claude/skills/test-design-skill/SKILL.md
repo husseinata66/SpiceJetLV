@@ -27,15 +27,15 @@ outputs:
     type: file_path
     location: "platform_core_data/modules/{{MODULE_SLUG}}/test_design/CoverageReport.md"
     description: Requirement Coverage and Finding Coverage accounting, structured per the Standard Output Contract (§18).
+  - name: coverage_report_html
+    type: file_path
+    location: "platform_core_data/modules/{{MODULE_SLUG}}/test_design/CoverageReport.html"
+    description: HTML companion of the Coverage Report, in the platform's shared report design (§12A, pipeline.md §17) — generated from CoverageReport.report.json by report_builder. A rendering for stakeholders, never the approved artifact.
 dependencies:
   - project-context-skill (upstream skill)
   - explorer-skill (upstream skill)
   - platform_core/tools/test_suite_export (renders the authored Markdown suites to Excel — §9.1)
 ---
-  - name: coverage_report_html
-    type: file_path
-    location: "platform_core_data/modules/{{MODULE_SLUG}}/test_design/CoverageReport.html"
-    description: HTML companion of the Coverage Report, in the platform's shared report design (§12A, pipeline.md §17) — generated from CoverageReport.report.json by report_builder. A rendering for stakeholders, never the approved artifact.
 
 > **Pipeline position:** Stage 3 — **shared by both pipelines, and the point at which they diverge.** Consumes the Project Context (primary) and Discovery Artifacts, Findings, Evidence Packages, and the QA Assessment Report (secondary); produces Manual Test Suites.
 > **Both branches consume this stage's approved output directly and independently** — Stage `4M` executes these test cases by hand, Stage `4A` generates automation from them. Neither depends on the other (`workflows_and_pipelines/pipeline/pipeline.md` §3.3).
@@ -173,7 +173,14 @@ These two additional fields extend, and never substitute for, the four mandatory
 
 **The purpose of a test case is to verify one business behavior — not to document the entire application workflow.**
 
-- **One business behavior per test case.** A test case that chains multiple unrelated actions ("Create Agency, verify validation, approve Agency, edit Agency, reject Agency, search Agency") must be split into independent test cases, each verifying exactly one thing. This is distinct from a single behavior exercised across several data points (e.g., "every Mandatory field blocks empty submission" tested field-by-field in one matrix-style case, §7) — that is still one behavior, parameterized, not several behaviors chained. Whenever a case is legitimately broader than one atomic rule, its Granularity Tier (§6.0.1) must be explicitly Scenario or End-to-End, stated on the case itself — never an unexplained bundle left to read as if it were Atomic.
+- **One business behavior per test case.** A test case that chains multiple unrelated actions ("Create Agency, verify validation, approve Agency, edit Agency, reject Agency, search Agency") must be split into independent test cases, each verifying exactly one thing. Whenever a case is legitimately broader than one atomic rule, its Granularity Tier (§6.0.1) must be explicitly Scenario or End-to-End, stated on the case itself — never an unexplained bundle left to read as if it were Atomic.
+- **One verdict per data set.** Execution records one result per `(Test Case ID, Assertion ID)`, so a case cannot yet carry a separate result for each of several data sets. When the same behavior must be checked with several data sets that each need their own pass/fail and evidence (e.g. each Mandatory field left empty, each Cabin Class), write **one case per data set**, each kept short by citing shared setup and rules (§6.1b). A single case with one combined verdict over a list of values is allowed only when the requirement itself is about the list as a whole (e.g. "the dropdown offers exactly these five options"). *(Parameterized cases with a result per data set are a planned, not yet supported, extension.)*
+- **A tester should understand the test within 30 seconds**, and be able to execute it without reading additional documentation outside the suite file. This is a tighter, comprehension-focused bar than the Success Criteria's two-minute *execution* bar below — both apply.
+- **Write like a human** — as if giving instructions to another QA engineer, not documenting requirements. Avoid long paragraphs, requirement-style wording, explaining obvious actions, or describing internal implementation.
+- **Steps carry actions; Expected Result carries verification — never mix them.** "Click Save and verify the validation message appears" is two things in one step; write "Click Save." as the step and put the validation message in Expected Result.
+- **Don't repeat shared setup in Steps.** Setup that only prepares the case goes in Preconditions as a state ("User is on Flight Search as Admin."), not as numbered steps repeated in every case. Setup or comparison logic shared by several cases is written once as a Shared Definition (§6.1b) and cited by ID.
+- **Test Data uses only the minimum values required** to execute the case — don't overload the reader with values the steps never reference.
+- **Notes are for genuinely helpful execution context only** — never move essential execution information (a step, a value, the actual expected outcome) into Notes to keep Steps short; that's hiding required content, not simplifying. **Notes never carry traceability** — no Requirement, Discovery, Finding, or Evidence references; those belong in the Traceability Matrix (§6.2).
 
 ### 6.0.1 Test Case Granularity (Canonical)
 
@@ -192,11 +199,6 @@ Before creating or modifying a test case, determine its intended scope. Every te
 - Focus on verifying the overall journey rather than re-asserting every individual validation already covered at the Atomic/Scenario tier.
 
 **Never mix unrelated business behaviors simply to reduce the number of test cases** — a Scenario or E2E tier is earned by genuinely composing related rules into one real workflow, not used as cover for bundling.
-- **A tester should understand the test within 30 seconds**, and be able to execute it without reading additional documentation. This is a tighter, comprehension-focused bar than the Success Criteria's two-minute *execution* bar below — both apply.
-- **Write like a human** — as if giving instructions to another QA engineer, not documenting requirements. Avoid long paragraphs, requirement-style wording, explaining obvious actions, or describing internal implementation.
-- **Steps carry actions; Expected Result carries verification — never mix them.** "Click Save and verify the validation message appears" is two things in one step; write "Click Save." as the step and put the validation message in Expected Result.
-- **Test Data uses only the minimum values required** to execute the case — don't overload the reader with values the steps never reference.
-- **Notes are for genuinely helpful execution context only** — never move essential execution information (a step, a value, the actual expected outcome) into Notes to keep Steps short; that's hiding required content, not simplifying.
 
 **Readability Check — apply before finalizing every test case:**
 1. Can a new QA engineer execute it without help?
@@ -204,8 +206,9 @@ Before creating or modifying a test case, determine its intended scope. Every te
 3. Is every step necessary?
 4. Is there any redundant wording?
 5. Does it verify only one business rule?
+6. Does every expected point name a measurable value and come from a stated source (§6.1a)?
 
-If any answer is "No," rewrite the test case.
+If any answer is "No" (or "Yes" to question 4), rewrite the test case.
 
 **Golden Rule: if removing a sentence does not change how the test is executed, remove it.** Every sentence must help the tester execute or verify the test — nothing else earns its place in the document.
 
@@ -219,7 +222,7 @@ Every Test Case in the Manual Test Suite (Markdown/Excel) contains exactly these
 - **Preconditions** — only what's required immediately before execution (e.g., "User is logged in as Admin.")
 - **Test Data** — the specific input values used, kept simple (e.g., `Agency Name: QA_AGENCY_001`), including, for negative tests, the exact boundary/invalid value being exercised (§7); omit this field entirely when a case has no test data
 - **Steps** — a numbered list, one user action per step (see Step Writing Rules below)
-- **Expected Result** — the specific, observable outcome that constitutes a pass, one verification point per statement (see Expected Result Rules below) — for a regression test derived from a Finding (§5.3), this is the *corrected* behavior, never a restatement of the bug
+- **Expected Result** — the specific, observable outcome that constitutes a pass, as a numbered list with one verification point per line (see Expected Result Rules below) — for a regression test derived from a Finding (§5.3), this is the *corrected* behavior, never a restatement of the bug
 - **Priority** — execution priority (P1–P4), reflecting how urgently this case should run relative to others
 - **Tags** — short labels only, always including the Granularity Tier (`Atomic`/`Scenario`/`E2E`, §6.0.1, mandatory on every case), plus e.g. `Smoke`, `Regression`, `Negative-InvalidInputs` — the compact, at-a-glance categorization that replaces what used to be separate Category/Test Type fields on the test case itself; never a paragraph. **The `AutomationCandidate` tag is retired** (2026-08-01) — the `Automation` column below is now the single authoritative automation decision, so a tag that could disagree with it no longer exists
 - **Notes** *(optional)* — anywhere additional explanation is genuinely needed, so Steps/Expected Result never grow long carrying it instead (see "If additional explanation is needed" below)
@@ -227,6 +230,7 @@ Every Test Case in the Manual Test Suite (Markdown/Excel) contains exactly these
 - **Automation** — whether this approved case should be automated. `Pending` | `Approved` | `Rejected`, default **`Pending`** (§6.3)
 - **Requires** — the Supplier capabilities this case cannot run without. `None` | one or more of `Hold`, `Pay after Hold`, `Meal`, `Baggage`, `Seat`, `Bundle` joined with `+` | `Not <capability>`, default **`None`** (§6.2a)
 - **Supplier Rule** — the Supplier-specific rule this case tests, as its slug (e.g. `ladies-only-seats`); empty for a case that applies to every Supplier (§6.2a)
+- **Assertions** — the case's structured assertions: one row per verification point of its Expected Result, `Assertion ID · Expected · Expected Source · Check · Requirement`. **Required on every new or materially updated case** (§6.1a); an unchanged legacy case keeps its existing form
 
 ### Step Writing Rules
 
@@ -237,10 +241,31 @@ Every Test Case in the Manual Test Suite (Markdown/Excel) contains exactly these
 
 ### Expected Result Rules
 
-Write only what the tester should verify — a complete but minimal statement, not a hedge or a value judgment.
+Write only what the tester should verify — complete but minimal, never a hedge or a value judgment.
 
-- Good: "The system displays a validation message indicating that Product Access is required."
-- Bad: "The application should ideally validate according to the business rules and prevent the user from proceeding."
+- **A numbered list, one verification point per line.** No paragraphs. A single-point result may stay one line.
+- **Tag each point with its Assertion ID** — `1. [A1] …` — so the reader sees which assertion records each point. Every point has exactly one row in the Assertions table (§6.1a), and every row has a point.
+- **Measurable.** Name the exact value, message, status, count, or state. Quote UI text and values in `backticks`.
+- **From a source, never from observation** — every point comes from a requirement, an API contract, or a confirmed business rule (§6.1a). What the system was seen doing in Discovery may sharpen the wording, but is never the reason a value is expected.
+
+Good:
+```
+1. [A1] Status code is `404`.
+2. [A2] `$.error.code` is `USER_NOT_FOUND`.
+```
+Bad: "The application should ideally validate according to the business rules and prevent the user from proceeding."
+
+### Steps, Test Data and Expected Result by test type
+
+The schema is the same for every test type; only the vocabulary changes.
+
+| Test type | Steps are | Test Data is | Expected Result checks |
+|---|---|---|---|
+| UI | user actions on named screens/controls | field values | messages, field/screen state, displayed values |
+| API | requests: method, endpoint, headers/auth, body | path/query/body values | status code, body fields by JSON path, headers |
+| Integration / parity | trigger the flow on each side, capture both outputs | the shared input | source vs. target values, field by field |
+| Batch / queue | load input, run the job or publish the message | input data set / message | output data, side effects, consumer state |
+| E2E | one step per screen/service hand-off | the journey's data | the journey's end state (per-rule checks stay in Atomic cases) |
 
 ### Title Rules
 
@@ -276,6 +301,53 @@ The following are still mandatory pipeline outputs — nothing here is dropped, 
 - **Risk** (Level + one-line statement, derived from a populated Finding's own Business/Technical Risk where applicable) — recorded in the Traceability Matrix's Risk column, aggregated in the Coverage Report's Risks section (§18 #9).
 - **Category** (Positive/Negative-{subtype}/Exploratory/etc., §7) and **Test Type** (Smoke/Regression) — recorded as compact Tags on the test case (§6.1) *and* rolled up in the Coverage Report's Test Scenarios section (§18 #5) for at-a-glance breakdown.
 - **Automation decision** — **no longer recorded here.** *(Revised 2026-08-01.)* It is now the `Automation` column on the test case itself (§6.3), a **binding** decision rather than the advisory `AutomationCandidate` tag and Coverage Report listing it replaces. Stage `4A` consumes a case only when `Review = Approved AND Automation = Approved` (§6.3.2). The `Automation` column alone is never read by Stage `4M` — but `Review` is, by both branches (§6.3.2).
+
+## 6.1a Structured Assertions — the assertion contract (Phase 5.8)
+
+**Every new or materially updated case states its assertions**, written directly after its Expected Result (`TestCase_entry.md`):
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | Sign-in is refused | Expected Result | present | AC-1 |
+| A2 | `Account locked` | Expected Result | equals | AC-1 |
+
+- **One row per verification point** the Expected Result makes — nothing it does not make. A row is never invented to fill a table; a verification point that cannot be stated as a checkable expectation is rewritten in the Expected Result first.
+- **No redundant rows.** Two rows that would always pass or fail together are one row. But never merge two points that can fail independently — each keeps its own row, result, and evidence.
+- **Assertion IDs are stable.** `A1`, `A2`, … within the case; never renumbered, and a removed assertion's ID is not reused. Stages 4M and 5A record each result against `(Test Case ID, Assertion ID)`.
+- **Expected** is the value or condition itself (`404`, `count(A) = count(B)`, `` `Account locked` ``) — never a description of what is being looked at ("number of flights").
+- **Expected Source names where the value comes from**, never an observation. Use one of: a requirement ID (`AC-3`, `FR-12`, `BR-4`), an API contract (below), `Test Data` (the value is the input echoed back), or a platform artifact by path. `Expected Result` points back at the case itself; it is still accepted, but new cases name the real source.
+- **Check** names the comparison (`equals`, `contains`, `matches …`, `within ±N`, `≥`/`≤`, `present`, `absent`, …); **Requirement** names what it verifies. Every Requirement ID here must appear in the case's Traceability Matrix row (§6.2).
+- **Same check, same shape.** Sibling cases that verify the same thing (e.g. the same comparison for different inputs) use the same rows in the same order, so results can be compared across cases.
+- **Approval is gated.** `cli.js state approve 3` (and `approve-scope` for the cases it approves) is refused — `ASSERTIONS_REQUIRED` — while a case that is new or materially changed since the suite was last approved (anything but its Review / Automation decision) has no valid table. **Unchanged legacy cases are never required to gain one, and are never rewritten automatically.** Test Case IDs never change.
+- **Non-blocking checks.** At approval, a new or changed case whose Expected Source is `Expected Result` gets an `advisory:` line (never a refusal; unchanged cases get none). `run_manager/cli.js state trace` reports `assertion-requirement-not-traced` when an assertion's Requirement ID is missing from the case's Traceability Matrix row (Matrix ranges such as `SRCH-02…09` count). The Matrix stays the single source of traceability; fix the gap there.
+- The table is exported to the workbook as the last column, `Assertions` (§9.1), so the two renderings stay identical.
+
+**Assertions that come from an API contract (Phase 7, `pipeline.md` §8.2).** Write the **Expected Source** as `API contract <METHOD> <path> [<status>] [<$.json.path>]`, or `API contract <operationId> [<status>] [<$.json.path>]`, e.g. `API contract GET /users/{id} 200 $.status`. The Expected value still comes from the approved contract or the requirement, never from an observed response.
+
+- **The JSON path is authoritative.** A change to `$.category.name` reaches `$.category` and `$.category.name`, never `$.tags[].name`.
+- **Name a field whenever there is one.** An assertion that names only the endpoint is reported as ambiguous potential impact, for a human to resolve.
+
+- **Why it matters:** contract impact analysis (`api_contract`) can then mark exactly this assertion as **confirmed** when that field, status code or enum value changes.
+- **A case that mentions an endpoint only in its Steps** is reported as **potential** impact.
+- **When an accepted contract change reaches an approved case,** a named human records one decision for it: `api_contract/cli.js impact-decision … --decision no-change-needed|update-required|updated|retire`.
+- **This Skill never updates a case because a contract changed.** The update is made here, as a normal change to approved work (impact analysis, then re-approval). `updated` can be recorded only after the case really changed and is Approved again.
+- **Assertion IDs are never renumbered for it.**
+
+## 6.1b Shared Definitions — setup and validation rules written once
+
+When several cases share the same setup or the same comparison logic, write it **once** in an optional `## Shared Definitions` section at the top of the suite (before the Case Index) and cite it by ID. Each case still names everything it needs; it just names it instead of copying it.
+
+| Definition | Heading | Body | Cited from |
+|---|---|---|---|
+| **Setup** | `### SETUP-n — Title` | numbered steps that reach a ready state | Preconditions: `SETUP-1.` |
+| **Validation Rule** | `### VR-n — Title` | `**Source:**` line (mandatory), then the procedure, one sub-check per line (`VR-n.1`, `VR-n.2` …), what is ignored, and when the result is Inconclusive | Steps: `Apply VR-01.` · Assertions `Rule` column: `VR-01.2` |
+
+- **A Validation Rule's Source is a requirement, contract, or confirmed business rule** — never an observation (§6.1a).
+- **A case that cites a rule still has its own Expected Result and Assertions rows**, one per sub-check it relies on, with the sub-check in an optional `Rule` column. Execution still records each `(Test Case ID, Assertion ID)` separately.
+- **Only extract what is genuinely shared.** A step used by one case stays in that case. Do not create definitions to look tidy.
+- **Changing a definition changes every case that cites it.** The cited text is part of each citing case's fingerprint, so those cases — and only those — count as materially changed: their Assertions are re-checked at approval, and an approved citing case follows the §6.3.1 rewrite rule.
+- **Mechanically checked by `test_suite_export`** (`--check`): every cited ID exists, every cited sub-check is defined, every definition is used, every rule has a Source. The section is exported as its own `Shared Definitions` sheet after the cases sheet, so Excel readers see it too.
+- **Legacy suites need nothing.** A suite without the section parses, exports, and fingerprints exactly as before.
 
 ## 6.2a The Supplier Columns — Requires and Supplier Rule
 
@@ -755,9 +827,11 @@ Next step — approve, then choose a branch (or both):
 
   Then, independently:
      Manual delivery:          /manual-execution-skill
-                               executes by hand, headed → results, defects, CSV, QA report
+                               executes by hand (headed recommended; mode confirmed before the run)
+                               → results, defects, CSV, QA report
      Automation delivery:      /automation-skill
-                               live-verifies selectors, headless → suite → /automation-execution-skill
+                               live-verifies selectors (headless recommended; mode confirmed)
+                               → suite → /automation-execution-skill
 
   Or revise this stage:        /test-design-skill <your feedback>
 ```
@@ -923,3 +997,15 @@ node platform_core/tools/run_manager/cli.js drift --json    # machine-readable, 
   not be computed — treat inherited conclusions as unverified, never as confirmed.
 - **A refinement targets today's project state.** The prior run described the app at its own
   `targetRef`; this run describes it now. Never carry forward a conclusion that drift contradicts.
+
+# Run State Integration (pipeline.md §5.3.2 — added 2026-10-08)
+
+This stage (`3`) records its lifecycle in the run state model. These commands are mechanical. They never replace a reviewer's decision and never skip a gate. The full rule, and every stage's row, is `pipeline.md` §5.3.2.
+
+1. **Entry — before any work:** `node platform_core/tools/run_manager/cli.js state start 3 --invocation <Pipeline|Direct|Direct (degraded)> [--instruction "..."]`. This runs the entry gate. **Exit code 2 means blocked:** do not start. Show the human the reasons, request what is missing (`pipeline.md` §5.3.1 #4), and name the next command. Without Discovery, start with `--invocation "Direct (degraded)"`. Without an approved Project Context the gate blocks — this Skill cannot degrade around it.
+2. **Artifacts:** `node platform_core/tools/run_manager/cli.js state artifact 3 --artifacts <path[,path]> [--kind checkpoint|output|evidence]` for what this stage writes.
+3. **Exit — this stage has a checkpoint:** `node platform_core/tools/run_manager/cli.js state request-approval 3 --artifacts <checkpoint artifact>`. Its checkpoint artifact is `platform_core_data/modules/{{MODULE_SLUG}}/test_design/TestCases_{Module}.md`. Finishing the work never marks the stage Completed.
+4. **Approval:** only after the named reviewer approves and the artifact's own Status header reads `Approved`: `node platform_core/tools/run_manager/cli.js state approve 3 --approved-by "<reviewer>"`. It is refused if the header says anything else, or if the artifact is missing. A rejection: `state reject 3 --rejected-by "<reviewer>" --feedback "..."`.
+5. **Blocked or failed:** `state block 3 --reason "..."` or `state fail 3 --reason "..."`, so the run records what it is waiting on.
+
+**Changing approved work (`pipeline.md` §8.1).** Before modifying an approved test suite, run `node platform_core/tools/run_manager/cli.js state impact --artifact <path> --base <git revision>` (or `--changed <ids>`) and show the result to a human. The impact lists every dependent finding, case, automation, execution and report, and whether the change is blocking. The human records the decision with `--record --decision approved|rejected --by "<name>" --reason "..."`. A change reaching several modules or Suppliers is approved only by naming each one. Re-approving the changed artifact is refused without that decision. Never regenerate a suite: plan the change with `state duplicates --suite <TestCases_X.md> --proposed <draft.md>`, which keeps every existing Test Case ID, gives new cases the next free ID, and lists any case the draft omits for a human — a case is never deleted silently. `state trace` lists traceability gaps; `state conflicts` lists approved cases still citing superseded requirements, which block execution until a human decides.

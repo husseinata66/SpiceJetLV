@@ -1,0 +1,1837 @@
+{
+ "integration": {
+  "request": {
+   "trip": "One-way",
+   "legs": [
+    {
+     "o": "CAI",
+     "d": "DXB",
+     "dt": "2026-11-18",
+     "cabins": [
+      "Business"
+     ],
+     "rbd": [
+      "J"
+     ]
+    }
+   ],
+   "pax": {
+    "Adult": 1
+   }
+  },
+  "response": {
+   "solutions": 38,
+   "flights": {
+    "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "KU542",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOWEG1",
+          "brand": "2154960",
+          "journey": 0
+         },
+         {
+          "seg": "KU677",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOWEG1",
+          "brand": "2154960",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "KU544",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOWEG1",
+          "brand": "2154960",
+          "journey": 0
+         },
+         {
+          "seg": "KU671",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOWEG1",
+          "brand": "2154960",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "KU546 CAI-KWI 2026-11-18T11:25>2026-11-18T14:50 + KU675 KWI-DXB 2026-11-18T19:00>2026-11-18T21:55": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "KU546",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOWEG1",
+          "brand": "2154960",
+          "journey": 0
+         },
+         {
+          "seg": "KU675",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOWEG1",
+          "brand": "2154960",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ504",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JLOWEG",
+          "brand": "2114760",
+          "journey": 0
+         },
+         {
+          "seg": "RJ614",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JLOWEG",
+          "brand": "2114760",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ508",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JLOWEG",
+          "brand": "2114760",
+          "journey": 0
+         },
+         {
+          "seg": "RJ610",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JLOWEG",
+          "brand": "2114760",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ506 CAI-AMM 2026-11-18T19:55>2026-11-18T22:15 + RJ612 AMM-DXB 2026-11-19T00:10>2026-11-19T04:15": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ506",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JLOWEG",
+          "brand": "2114760",
+          "journey": 0
+         },
+         {
+          "seg": "RJ612",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JLOWEG",
+          "brand": "2114760",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS901",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JREEGO",
+          "brand": "1730057",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS905",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JREEGO",
+          "brand": "1730057",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS910",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JREEGO",
+          "brand": "1730057",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS912",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JREEGO",
+          "brand": "1730057",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV310 CAI-RUH 2026-11-18T10:35>2026-11-18T14:10 + SV560 RUH-DXB 2026-11-18T16:05>2026-11-18T19:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV310",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         },
+         {
+          "seg": "SV560",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV310",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGF5",
+          "brand": "2142228",
+          "journey": 0
+         },
+         {
+          "seg": "SV560",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGF5",
+          "brand": "2142228",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV310 CAI-RUH 2026-11-18T10:35>2026-11-18T14:10 + SV552 RUH-DXB 2026-11-18T18:05>2026-11-18T21:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV310",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         },
+         {
+          "seg": "SV552",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV310",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGF5",
+          "brand": "2142228",
+          "journey": 0
+         },
+         {
+          "seg": "SV552",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGF5",
+          "brand": "2142228",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV312 CAI-RUH 2026-11-18T19:55>2026-11-18T23:30 + SV562 RUH-DXB 2026-11-19T06:30>2026-11-19T09:25": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV312",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         },
+         {
+          "seg": "SV562",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV312",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGF5",
+          "brand": "2142228",
+          "journey": 0
+         },
+         {
+          "seg": "SV562",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGF5",
+          "brand": "2142228",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV386",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         },
+         {
+          "seg": "SV566",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV386",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGF5",
+          "brand": "2142228",
+          "journey": 0
+         },
+         {
+          "seg": "SV566",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGF5",
+          "brand": "2142228",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV302 CAI-JED 2026-11-18T19:50>2026-11-18T23:00 + SV590 JED-DXB 2026-11-19T01:10>2026-11-19T04:55": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV302",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         },
+         {
+          "seg": "SV590",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV302",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGF5",
+          "brand": "2142228",
+          "journey": 0
+         },
+         {
+          "seg": "SV590",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGF5",
+          "brand": "2142228",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV308 CAI-JED 2026-11-18T03:35>2026-11-18T06:45 + SV568 JED-DXB 2026-11-18T09:15>2026-11-18T13:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV308",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         },
+         {
+          "seg": "SV568",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV308",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGF5",
+          "brand": "2142228",
+          "journey": 0
+         },
+         {
+          "seg": "SV568",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGF5",
+          "brand": "2142228",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF504 BAH-DXB 2026-11-18T09:40>2026-11-18T12:05": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JBSMR3EG",
+          "brand": "2135497",
+          "journey": 0
+         },
+         {
+          "seg": "GF504",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JBSMR3EG",
+          "brand": "2135497",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "50KG",
+          "fareBasis": "JBFLX3EG",
+          "brand": "2135496",
+          "journey": 0
+         },
+         {
+          "seg": "GF504",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "50KG",
+          "fareBasis": "JBFLX3EG",
+          "brand": "2135496",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF70 CAI-BAH 2026-11-18T16:00>2026-11-18T20:00 + GF500 BAH-DXB 2026-11-19T01:10>2026-11-19T03:35": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF70",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JBSMR3EG",
+          "brand": "2135497",
+          "journey": 0
+         },
+         {
+          "seg": "GF500",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JBSMR3EG",
+          "brand": "2135497",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF70",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "50KG",
+          "fareBasis": "JBFLX3EG",
+          "brand": "2135496",
+          "journey": 0
+         },
+         {
+          "seg": "GF500",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "50KG",
+          "fareBasis": "JBFLX3EG",
+          "brand": "2135496",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF508 BAH-DXB 2026-11-18T15:50>2026-11-18T18:15": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JBSMR3EG",
+          "brand": "2135497",
+          "journey": 0
+         },
+         {
+          "seg": "GF508",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JBSMR3EG",
+          "brand": "2135497",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "50KG",
+          "fareBasis": "JBFLX3EG",
+          "brand": "2135496",
+          "journey": 0
+         },
+         {
+          "seg": "GF508",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "50KG",
+          "fareBasis": "JBFLX3EG",
+          "brand": "2135496",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK930",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOOWFEG1",
+          "brand": "1380519",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK928",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOOWFEG1",
+          "brand": "1380519",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK922",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOOWFEG1",
+          "brand": "1380519",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK924",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOOWFEG1",
+          "brand": "1380519",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK926",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOOWFEG1",
+          "brand": "1380519",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "WY408 CAI-MCT 2026-11-18T01:15>2026-11-18T06:55 + WY603 MCT-DXB 2026-11-18T08:50>2026-11-18T10:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "WY408",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JCFOEG",
+          "brand": "2070935",
+          "journey": 0
+         },
+         {
+          "seg": "WY603",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JCFOEG",
+          "brand": "2070935",
+          "journey": 0
+         }
+        ]
+       }
+      },
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "WY408",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "50KG",
+          "fareBasis": "JFLOEG",
+          "brand": "2070934",
+          "journey": 0
+         },
+         {
+          "seg": "WY603",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "50KG",
+          "fareBasis": "JFLOEG",
+          "brand": "2070934",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "ET453 CAI-ADD 2026-11-18T02:20>2026-11-18T07:10 + ET602 ADD-DXB 2026-11-18T10:30>2026-11-18T15:45": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "ET453",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "3PC",
+          "fareBasis": "JOWEG",
+          "journey": 0
+         },
+         {
+          "seg": "ET602",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "3PC",
+          "fareBasis": "JOWEG",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "AT273 CAI-CMN 2026-11-18T08:40>2026-11-18T12:35 + AT9900 CMN-DXB 2026-11-18T14:10>2026-11-19T01:40": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "AT273",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "3PC",
+          "fareBasis": "JA0RE6MA",
+          "brand": "1975460",
+          "journey": 0
+         },
+         {
+          "seg": "AT9900",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "3PC",
+          "fareBasis": "JA0RE62A",
+          "brand": "1975460",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "LH7177 CAI-MUC 2026-11-18T10:05>2026-11-18T13:10 + LH638 MUC-DXB 2026-11-18T22:35>2026-11-19T07:30": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "LH7177",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JFF77WW",
+          "brand": "2127851",
+          "journey": 0
+         },
+         {
+          "seg": "LH638",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JX0XJCNC",
+          "brand": "2128063",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "upsellBrands": 3
+  }
+ },
+ "direct": {
+  "request": {
+   "trip": "One-way",
+   "legs": [
+    {
+     "o": "CAI",
+     "d": "DXB",
+     "dt": "2026-11-18",
+     "cabins": [
+      "Business"
+     ],
+     "rbd": [
+      "J"
+     ]
+    }
+   ],
+   "pax": {
+    "Adult": 1
+   }
+  },
+  "response": {
+   "solutions": 28,
+   "flights": {
+    "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "KU542",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOWEG1",
+          "brand": "2154960",
+          "journey": 0
+         },
+         {
+          "seg": "KU677",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOWEG1",
+          "brand": "2154960",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "KU544",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOWEG1",
+          "brand": "2154960",
+          "journey": 0
+         },
+         {
+          "seg": "KU671",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOWEG1",
+          "brand": "2154960",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "KU546 CAI-KWI 2026-11-18T11:25>2026-11-18T14:50 + KU675 KWI-DXB 2026-11-18T19:00>2026-11-18T21:55": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "KU546",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOWEG1",
+          "brand": "2154960",
+          "journey": 0
+         },
+         {
+          "seg": "KU675",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOWEG1",
+          "brand": "2154960",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ504",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JLOWEG",
+          "brand": "2114760",
+          "journey": 0
+         },
+         {
+          "seg": "RJ614",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JLOWEG",
+          "brand": "2114760",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ508",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JLOWEG",
+          "brand": "2114760",
+          "journey": 0
+         },
+         {
+          "seg": "RJ610",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JLOWEG",
+          "brand": "2114760",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "RJ506 CAI-AMM 2026-11-18T19:55>2026-11-18T22:15 + RJ612 AMM-DXB 2026-11-19T00:10>2026-11-19T04:15": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "RJ506",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JLOWEG",
+          "brand": "2114760",
+          "journey": 0
+         },
+         {
+          "seg": "RJ612",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JLOWEG",
+          "brand": "2114760",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS905",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JREEGO",
+          "brand": "1730057",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS901",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JREEGO",
+          "brand": "1730057",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS910",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JREEGO",
+          "brand": "1730057",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "MS912",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JREEGO",
+          "brand": "1730057",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV310 CAI-RUH 2026-11-18T10:35>2026-11-18T14:10 + SV560 RUH-DXB 2026-11-18T16:05>2026-11-18T19:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV310",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         },
+         {
+          "seg": "SV560",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV310 CAI-RUH 2026-11-18T10:35>2026-11-18T14:10 + SV552 RUH-DXB 2026-11-18T18:05>2026-11-18T21:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV310",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         },
+         {
+          "seg": "SV552",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV312 CAI-RUH 2026-11-18T19:55>2026-11-18T23:30 + SV562 RUH-DXB 2026-11-19T06:30>2026-11-19T09:25": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV312",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         },
+         {
+          "seg": "SV562",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV386 CAI-JED 2026-11-18T01:00>2026-11-18T04:10 + SV566 JED-DXB 2026-11-18T06:00>2026-11-18T09:45": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV386",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         },
+         {
+          "seg": "SV566",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV302 CAI-JED 2026-11-18T19:50>2026-11-18T23:00 + SV590 JED-DXB 2026-11-19T01:10>2026-11-19T04:55": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV302",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         },
+         {
+          "seg": "SV590",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "SV308 CAI-JED 2026-11-18T03:35>2026-11-18T06:45 + SV568 JED-DXB 2026-11-18T09:15>2026-11-18T13:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "SV308",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         },
+         {
+          "seg": "SV568",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JAOXEGB5",
+          "brand": "2142230",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF504 BAH-DXB 2026-11-18T09:40>2026-11-18T12:05": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JBSMR3EG",
+          "brand": "2135497",
+          "journey": 0
+         },
+         {
+          "seg": "GF504",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JBSMR3EG",
+          "brand": "2135497",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF70 CAI-BAH 2026-11-18T16:00>2026-11-18T20:00 + GF500 BAH-DXB 2026-11-19T01:10>2026-11-19T03:35": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF70",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JBSMR3EG",
+          "brand": "2135497",
+          "journey": 0
+         },
+         {
+          "seg": "GF500",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JBSMR3EG",
+          "brand": "2135497",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "GF80 CAI-BAH 2026-11-18T04:20>2026-11-18T08:20 + GF508 BAH-DXB 2026-11-18T15:50>2026-11-18T18:15": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "GF80",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JBSMR3EG",
+          "brand": "2135497",
+          "journey": 0
+         },
+         {
+          "seg": "GF508",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JBSMR3EG",
+          "brand": "2135497",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK930",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOOWFEG1",
+          "brand": "1380519",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK928",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOOWFEG1",
+          "brand": "1380519",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK922",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOOWFEG1",
+          "brand": "1380519",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK924",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOOWFEG1",
+          "brand": "1380519",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10": {
+     "stops": "0",
+     "options": [
+      {
+       "rbdKey": "ADTx1:J",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "EK926",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JOOWFEG1",
+          "brand": "1380519",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "WY408 CAI-MCT 2026-11-18T01:15>2026-11-18T06:55 + WY603 MCT-DXB 2026-11-18T08:50>2026-11-18T10:00": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "WY408",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JCFOEG",
+          "brand": "2070935",
+          "journey": 0
+         },
+         {
+          "seg": "WY603",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "40KG",
+          "fareBasis": "JCFOEG",
+          "brand": "2070935",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "ET453 CAI-ADD 2026-11-18T02:20>2026-11-18T07:10 + ET602 ADD-DXB 2026-11-18T10:30>2026-11-18T15:45": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "ET453",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "3PC",
+          "fareBasis": "JOWEG",
+          "journey": 0
+         },
+         {
+          "seg": "ET602",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "3PC",
+          "fareBasis": "JOWEG",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "AT273 CAI-CMN 2026-11-18T08:40>2026-11-18T12:35 + AT9900 CMN-DXB 2026-11-18T14:10>2026-11-19T01:40": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "AT273",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "3PC",
+          "fareBasis": "JA0RE6MA",
+          "brand": "1975460",
+          "journey": 0
+         },
+         {
+          "seg": "AT9900",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "3PC",
+          "fareBasis": "JA0RE62A",
+          "brand": "1975460",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "LH7177 CAI-MUC 2026-11-18T10:05>2026-11-18T13:10 + LH638 MUC-DXB 2026-11-18T22:35>2026-11-19T07:30": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "LH7177",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JFF77WW",
+          "brand": "2127851",
+          "journey": 0
+         },
+         {
+          "seg": "LH638",
+          "cabin": "Business",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JX0XJCNC",
+          "brand": "2128063",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "upsellBrands": 0
+  }
+ },
+ "expectedFromTestData": {
+  "trip": "One-way",
+  "legs": [
+   {
+    "o": "CAI",
+    "d": "DXB",
+    "dt": "2026-11-18",
+    "cabin": "Business",
+    "rbd": [
+     "J"
+    ]
+   }
+  ],
+  "pax": {
+   "Adult": 1
+  }
+ }
+}

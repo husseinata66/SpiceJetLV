@@ -89,6 +89,39 @@ immutability depends on it staying that way (module_architecture.md §8.2).
 |---|---|---|---|---|---|---|
 | {{TEST_CASE_ID}} | {{SCRIPT_ID}} | {{STATUS}} | {{EXECUTION_TIME}} | {{ATTEMPTS}} | {{FAILURE_DETAIL}} | {{EVIDENCE_REFS}} |
 
+### 3.1 Assertion Records — every Passed case (`pipeline.md` §11.4)
+
+<!-- A Passed result shows that EACH assertion in the case's Expected Result was validated. One row per
+     assertion; the platform reads this table (run_manager executionHistory.js / assertionEvidence.js):
+       Test Case ID     — the case (`module:TC-…` when the run spans several modules)
+       Assertion ID     — the case's own assertion ID (A1, A2 …) from its **Assertions:** table. When the case
+                          states its assertions, EVERY one of them gets exactly one row here: a missing one
+                          keeps the case from a verified Passed, an ID it does not define is reported as extra.
+                          Expected and Check are the approved ones, unchanged. (A legacy case with no table:
+                          leave it — —, and its rows are checked against the Expected Result text.)
+       Assertion        — what is checked, in the case's words
+       Expected         — taken from the approved test case (or the contract it cites) — NEVER from what
+                          was observed
+       Expected Source  — optional when Expected is quoted from the test case; otherwise name the
+                          platform artifact it comes from by path ("modules/<m>/context/ProjectContext.md §3").
+                          Either is verified against the version this stage CONSUMED (snapshotted when it
+                          started). An external contract or a calculation cannot be version-verified, so its
+                          row reads Unverified; "observed" is refused.
+       Actual           — the value observed, exactly
+       Check            — equals · contains · matches <pattern> · within ±N · ≥ / ≤ / > / < · present · absent
+                          · not equals · classification = … (§A9). A normalization or tolerance is stated.
+       Result           — ✅ / ❌ / Not checked
+       Evidence         — optional file under `execution/artifacts/` (must exist inside this run folder); the Actual value
+                          is itself the evidence of a UI/text assertion
+     Consequences: no rows → the case counts Unverified; a ❌, a "Not checked", or a Result the Expected
+     and Actual contradict → Inconclusive, with a conflict; a missing or unsourced Expected, an unknown
+     Check, a quoted literal of the Expected Result that no row checks, or a cited file that does not
+     exist → Unverified. A screenshot, log or captured value alone is never proof of a pass. -->
+
+| Test Case ID | Assertion ID | Assertion | Expected | Expected Source | Actual | Check | Result | Evidence |
+|---|---|---|---|---|---|---|---|---|
+| {{TEST_CASE_ID}} | {{ASSERTION_ID}} | {{ASSERTION}} | {{EXPECTED}} | {{EXPECTED_SOURCE}} | {{ACTUAL}} | {{CHECK}} | {{RESULT}} | {{EVIDENCE_REF}} |
+
 ## 4. Evidence Inventory
 
 <!-- §18 #4 — the consolidated list per §16: every evidence type captured, PER TEST, with paths, and

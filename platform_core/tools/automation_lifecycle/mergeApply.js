@@ -62,8 +62,13 @@ function releaseLock(lockPath, { fs: fsImpl = fs } = {}) {
  * @param {string} [module] - the source module's slug
  * @returns {string}
  */
-function buildCommitMessage(project, packageName, runFolder, plan, module) {
-  const source = module ? `module ${module}, approved in ${runFolder}` : `${runFolder}`;
+function buildCommitMessage(project, packageName, runFolder, plan, module, approval) {
+  // The message REPORTS the Module Manager's recorded approval (Phase 9.1, F-04); it is never itself proof
+  // of one. Without a recorded approver it claims none.
+  const approvedBy = approval && approval.approvedBy;
+  const source = module
+    ? `module ${module}${approvedBy ? `, Automation Approval by ${approvedBy}${approval.approvedAt ? ` at ${approval.approvedAt}` : ''}` : ''}, run ${runFolder}`
+    : `${runFolder}`;
   return `Automation Merge: ${project}/${packageName} from ${source} `
     + `(+${plan.added.length}/~${plan.modified.length}/-${plan.deleted.length}/`
     + `→${plan.renamed.length})`;
@@ -96,7 +101,7 @@ function applyMerge(baselineAbsPath, workingCopyAbsPath, plan, identity, deps) {
   const fsImpl = deps.fs || fs;
   const apply = Boolean(deps.apply);
   const commitMessage = buildCommitMessage(
-    identity.project, identity.packageName, identity.runFolder, plan, identity.module,
+    identity.project, identity.packageName, identity.runFolder, plan, identity.module, identity.approval,
   );
   const degradedMode = plan.degradedMode || null;
 

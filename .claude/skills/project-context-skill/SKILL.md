@@ -8,8 +8,8 @@ inputs:
     description: Approved Product Requirements Document at `platform_core_data/knowledge_base/PRD.md`. This is the only skill in the pipeline permitted to read it directly.
   - name: run_configuration
     type: markdown
-    required: true
-    description: Modules in scope for this run, target environment URL, environment constraints, and available credentials/roles.
+    required: false
+    description: "Optional. Modules in scope for this run, target environment URL, environment constraints, and available credentials/roles. When absent or partial, every missing value is recorded as `Open Question — Requires Run Configuration` and resolved by the stage that needs it before that stage proceeds (pipeline.md §4 Stage 1, §5.4) — never guessed."
 outputs:
   - name: project_context
     type: file_path
@@ -18,7 +18,7 @@ outputs:
   - name: module_decomposition
     type: file_path
     location: "platform_core_data/modules/modules.json"
-    description: The proposed list of modules derived from the PRD, each with a name, a one-line scope statement, and the PRD sections it derives from. Written via the Module Manager with `status: Proposed`; scaffolded only after a human approves it at this stage's gate.
+    description: "The proposed list of modules derived from the PRD, each with a name, a one-line scope statement, and the PRD sections it derives from. Written via the Module Manager with `status: Proposed`; scaffolded only after a human approves it at this stage's gate."
 dependencies:
   - Read, Write, Glob (file tools only — no browser automation, no code execution)
   - Bash, restricted to `platform_core/tools/module_manager/cli.js` and `platform_core/tools/run_manager/cli.js` (resolving and recording module/run state — never application code)
@@ -146,7 +146,7 @@ What this stage refreshes, and nothing beyond it:
 | Input | Required? | Description |
 |---|---|---|
 | Product Requirements Document | Required | `platform_core_data/knowledge_base/PRD.md` |
-| Run configuration | Required | Modules in scope for this run, target environment URL, environment constraints, available credentials/roles |
+| Run configuration | Optional | Modules in scope for this run, target environment URL, environment constraints, available credentials/roles. Missing values are declared as Open Questions, never guessed (Direct Invocation, "Missing run configuration → run degraded") |
 
 Run configuration keys, supplied alongside the invocation: `{{MODULES_IN_SCOPE}}`, `{{APP_URL}}`, `{{ENVIRONMENT_NOTES}}`, and credentials `{{ROLE}}` / `{{USERNAME}}` / `{{PASSWORD}}`.
 
@@ -437,3 +437,17 @@ node platform_core/tools/run_manager/cli.js drift --json    # machine-readable, 
   not be computed — treat inherited conclusions as unverified, never as confirmed.
 - **A refinement targets today's project state.** The prior run described the app at its own
   `targetRef`; this run describes it now. Never carry forward a conclusion that drift contradicts.
+
+# Run State Integration (pipeline.md §5.3.2 — added 2026-10-08)
+
+This stage (`1`) records its lifecycle in the run state model. These commands are mechanical. They never replace a reviewer's decision and never skip a gate. The full rule, and every stage's row, is `pipeline.md` §5.3.2.
+
+1. **Entry — before any work:** `node platform_core/tools/run_manager/cli.js state start 1 --invocation <Pipeline|Direct|Direct (degraded)> [--instruction "..."]`. This runs the entry gate. **Exit code 2 means blocked:** do not start. Show the human the reasons, request what is missing (`pipeline.md` §5.3.1 #4), and name the next command. Stage 1 has no upstream stage, so the gate always proceeds; a missing PRD remains this Skill's own halt (Execution Rule 1).
+2. **Artifacts:** `node platform_core/tools/run_manager/cli.js state artifact 1 --artifacts <path[,path]> [--kind checkpoint|output|evidence]` for what this stage writes.
+3. **Exit — this stage has a checkpoint:** `node platform_core/tools/run_manager/cli.js state request-approval 1 --artifacts <checkpoint artifact>`. Its checkpoint artifact is `platform_core_data/modules/{{MODULE_SLUG}}/context/ProjectContext.md` (one per module). Finishing the work never marks the stage Completed.
+4. **Approval:** only after the named reviewer approves and the artifact's own Status header reads `Approved`: `node platform_core/tools/run_manager/cli.js state approve 1 --approved-by "<reviewer>"`. It is refused if the header says anything else, or if the artifact is missing. A rejection: `state reject 1 --rejected-by "<reviewer>" --feedback "..."`.
+5. **Blocked or failed:** `state block 1 --reason "..."` or `state fail 1 --reason "..."`, so the run records what it is waiting on.
+
+**Partial approval (optional, `pipeline.md` §5.3.2).** When the reviewer approves only part of the Project Context, the reviewer — never this Skill — adds the template's optional `## Approval Scope` table (Item · Status · Depends On · Affects) and records it with `node platform_core/tools/run_manager/cli.js state approve-scope --artifact <path> --approved-by "<reviewer>"`. This Skill writes the Status header and the content as before; it never fills in the table, never sets an item's status, and never treats a partly approved artifact as approved. Existing artifacts without the table are unchanged and keep their whole-artifact approval rules.
+
+**Changing approved work (`pipeline.md` §8.1).** Before modifying an approved Project Context, run `node platform_core/tools/run_manager/cli.js state impact --artifact <path> --base <git revision>` (or `--changed <ids>`) and show the result to a human. The impact lists every dependent finding, case, automation, execution and report, and whether the change is blocking. The human records the decision with `--record --decision approved|rejected --by "<name>" --reason "..."`. A change reaching several modules or Suppliers is approved only by naming each one. Re-approving the changed artifact is refused without that decision. Reuse an approved Project Context that `node platform_core/tools/run_manager/cli.js state reuse` reports reusable. Compare a new User Story with existing ones (`state duplicates --story <file>`) alongside the Module Manager's `inspect-scope` — similarity is a candidate for a human, never a verdict.

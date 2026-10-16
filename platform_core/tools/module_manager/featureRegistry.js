@@ -27,6 +27,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { assertApproverName } = require('../run_manager/approverIdentity');
 
 const {
   MODULE_STAGES,
@@ -273,6 +274,7 @@ function approveFeatures(modulesDir, moduleSlug, slugs = [], opts = {}) {
   if (!(now instanceof Date) || Number.isNaN(now.getTime())) {
     throw new FeatureRegistryError('approveFeatures requires an explicit valid `now` Date.');
   }
+  if (approvedBy && String(approvedBy).trim()) assertApproverName(approvedBy, 'Feature approval');
   if (!approvedBy || !String(approvedBy).trim()) {
     throw new FeatureRegistryError(
       'approveFeatures requires `approvedBy` — an approval record with no approver is not an approval.'
@@ -289,12 +291,28 @@ function approveFeatures(modulesDir, moduleSlug, slugs = [], opts = {}) {
   const approved = [];
 
   const updatedFeatures = features.map((f) => {
-    if (!targets.includes(f.slug)) return f;
-    const next = { ...f, status: 'Active', approvedAt: timestamp, approvedBy, updatedAt: timestamp };
+    if (!targets.includes(f.slug) || f.status !== 'Proposed') return f; // F-20: an Active Feature keeps its own approval record
+    const next = { ...f, status: 'Active', approvedAt: timestamp, approvedBy, approvals: [...(f.approvals || []), { approvedBy, approvedAt: timestamp }], updatedAt: timestamp };
     approved.push(next);
     return next;
   });
 
+  // Phase 9.2, F-12: a Feature (or a Supplier Feature's shared scope) is approved only under an APPROVED parent.
+  {
+    // eslint-disable-next-line global-require
+    const { readRegistry: readParents } = require('./moduleRegistry');
+    const parent = (readParents(modulesDir).modules || []).find((m) => m.slug === moduleSlug);
+    if (parent && parent.status !== 'Active') {
+      throw new FeatureRegistryError(`Approval refused: the parent "${moduleSlug}" is ${parent.status}, not approved (Active). Approve the parent first.`);
+    }
+  }
+  // Phase 9.2, F-20: a Superseded or Archived Feature is never reactivated by approval.
+  for (const slug of targets) {
+    const f = features.find((x) => x.slug === slug);
+    if (f && f.status !== 'Proposed' && f.status !== 'Active') {
+      throw new FeatureRegistryError(`Feature "${slug}" under module "${moduleSlug}" is ${f.status} — approval never reactivates it. Propose a new Feature instead.`);
+    }
+  }
   for (const slug of targets) {
     if (!features.some((f) => f.slug === slug)) {
       throw new FeatureRegistryError(
@@ -492,3 +510,6 @@ module.exports = {
   findScopeOverlap,
   normalizeStoryId,
 };
+
+// Concurrency (Phase 9.4): each read-modify-write below holds the registry lock (registryLock.js).
+require('./registryLock').lockExports(module.exports, ['proposeFeature', 'approveFeatures', 'recordFeatureStage']);

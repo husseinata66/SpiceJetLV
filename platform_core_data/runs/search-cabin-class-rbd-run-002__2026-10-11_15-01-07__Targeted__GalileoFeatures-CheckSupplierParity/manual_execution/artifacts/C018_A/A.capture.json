@@ -1,0 +1,83 @@
+{
+ "side": "Integration",
+ "at": "2026-10-11T13:07:10.316Z",
+ "secs": 4.987,
+ "httpStatus": 200,
+ "responseCaptured": true,
+ "readBack": {
+  "branch": "NDC1_Ahmed Ayman (BRN287)",
+  "branchBeforeCheck": "NDC1_Ahmed Ayman (BRN287)",
+  "suppliersListed": [
+   "NDCGal"
+  ],
+  "supplierSelected": "NDCGal",
+  "credentialsListed": [
+   "NdcGalileoSTG EGY"
+  ],
+  "credentialSelected": "NdcGalileoSTG EGY"
+ },
+ "formAsEntered": "Flight Search | Branch selected. | NDC1_Ahmed Ayman (BRN287) | Branch | * | NDC1_Ahmed Ayman (BRN287) | Agency | Agency | Agent | Agent | One-way | Round-trip | Multi-city | CAI | DXB | First Class | A | 1 | Nearby Airport | Baggage Fare Only | Up-selling | Advanced | Check Supplier | Search",
+ "passengers": null,
+ "platformRequestToCheckSupplier": {
+  "flightRequestDto": {
+   "tripType": 1,
+   "noOfAdults": 1,
+   "noOfChildren": 0,
+   "noOfInfants": 0,
+   "entity": {
+    "selectedBranch": 10994
+   },
+   "filters": {
+    "isNearByAirport": false,
+    "isBaggageFareOnly": false,
+    "isUpSelling": false,
+    "isNonStop": false,
+    "isExcludeLcc": false,
+    "allianceAirline": null,
+    "preferAirlines": []
+   },
+   "routes": [
+    {
+     "cabinClass": 4,
+     "dateOfJourney": "18-11-2026",
+     "destination": {
+      "airportCode": "DXB"
+     },
+     "origins": [
+      {
+       "airportCode": "CAI"
+      }
+     ],
+     "rbd": [
+      "A"
+     ]
+    }
+   ]
+  },
+  "supplierId": 162,
+  "pccId": 320
+ },
+ "errorMessage": null,
+ "parseError": null,
+ "searchCallsDuringCheck": [],
+ "payloadLength": {
+  "supplierRequest": 1598,
+  "supplierResponse": 9975
+ },
+ "sha256OfRawPayload": {
+  "supplierRequest": "606c5704156c641dc43745b84a2552dea54964715dd713dadffa21446eb4d366",
+  "supplierResponse": "4f2e28aab5ad01fcfc841a5e4403157487bbb79b023e8f9cc55f4f6b88a452bb"
+ },
+ "redactions": {
+  "supplierRequest": 2,
+  "supplierResponse": 0,
+  "supplierConfig": 0,
+  "total": 2
+ },
+ "boundary": {
+  "reportedBy": "platform back end (BND-04) — not a network capture",
+  "credentialHost": "ndc-integration-stg-ne-3.azurewebsites.net",
+  "schema": "52",
+  "soapEnvelope": false
+ }
+}

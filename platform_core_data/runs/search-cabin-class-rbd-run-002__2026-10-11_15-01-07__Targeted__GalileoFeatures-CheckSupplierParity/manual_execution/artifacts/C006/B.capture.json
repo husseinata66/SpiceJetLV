@@ -1,0 +1,81 @@
+{
+ "side": "Direct",
+ "at": "2026-10-11T12:56:46.038Z",
+ "secs": 4.429,
+ "httpStatus": 200,
+ "responseCaptured": true,
+ "readBack": {
+  "branch": "ahmed ayman (BRN632)",
+  "branchBeforeCheck": "ahmed ayman (BRN632)",
+  "suppliersListed": [
+   "Galileo"
+  ],
+  "supplierSelected": "Galileo",
+  "credentialsListed": [
+   "GalileoLiveSTAGING"
+  ],
+  "credentialSelected": "GalileoLiveSTAGING"
+ },
+ "formAsEntered": "Flight Search | Branch selected. | ahmed ayman (BRN632) | Branch | * | ahmed ayman (BRN632) | Agency | Agency | Agent | Agent | One-way | Round-trip | Multi-city | CAI | DXB | Premium Economy | RBD | 1 | Nearby Airport | Baggage Fare Only | Up-selling | Advanced | Check Supplier | Search",
+ "passengers": null,
+ "platformRequestToCheckSupplier": {
+  "flightRequestDto": {
+   "tripType": 1,
+   "noOfAdults": 1,
+   "noOfChildren": 0,
+   "noOfInfants": 0,
+   "entity": {
+    "selectedBranch": 11703
+   },
+   "filters": {
+    "isNearByAirport": false,
+    "isBaggageFareOnly": false,
+    "isUpSelling": false,
+    "isNonStop": false,
+    "isExcludeLcc": false,
+    "allianceAirline": null,
+    "preferAirlines": []
+   },
+   "routes": [
+    {
+     "cabinClass": 2,
+     "dateOfJourney": "18-11-2026",
+     "destination": {
+      "airportCode": "DXB"
+     },
+     "origins": [
+      {
+       "airportCode": "CAI"
+      }
+     ],
+     "rbd": []
+    }
+   ]
+  },
+  "supplierId": 119,
+  "pccId": 598
+ },
+ "errorMessage": null,
+ "parseError": null,
+ "searchCallsDuringCheck": [],
+ "payloadLength": {
+  "supplierRequest": 1406,
+  "supplierResponse": 47715
+ },
+ "sha256OfRawPayload": {
+  "supplierRequest": "02c9b411bccf8f1789d1cda5c42715bb41601a0dbd7b74a37ace8e9aaf0d5675",
+  "supplierResponse": "46d28ac28a0833810926685fe4bc87af585f9aec0c946ac7366cd2a1ae87eeaf"
+ },
+ "redactions": {
+  "supplierRequest": 2,
+  "supplierResponse": 0,
+  "supplierConfig": 1,
+  "total": 3
+ },
+ "boundary": {
+  "reportedBy": "platform back end (BND-04) — not a network capture",
+  "credentialHost": "emea.universal-api.pp.travelport.com",
+  "schema": "44",
+  "soapEnvelope": true
+ }
+}

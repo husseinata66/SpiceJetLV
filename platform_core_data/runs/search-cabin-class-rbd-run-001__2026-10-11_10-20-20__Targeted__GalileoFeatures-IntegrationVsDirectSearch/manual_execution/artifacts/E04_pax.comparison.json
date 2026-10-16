@@ -1,0 +1,260 @@
+{
+ "offers": {
+  "A": 64,
+  "B": 35
+ },
+ "flights": {
+  "A": 35,
+  "B": 35
+ },
+ "flightsOnlyA": [],
+ "flightsOnlyB": [],
+ "matched": 35,
+ "stopsDiff": [],
+ "fareOpt": {
+  "matchedOptions": 35,
+  "onlyA": [
+   {
+    "flight": "KU542 CAI-KWI 11-18T20:25>11-18T23:50 + KU677 KWI-DXB 11-19T00:35>11-19T03:30",
+    "brand": "ECONOMY SAVER/ECONOMY SAVER",
+    "detail": "ADTx2:Economy|T|1PC,Economy|T|1PC;CHDx1:Economy|T|1PC,Economy|T|1PC;INFx1:Economy|T|1PC,Economy|T|1PC"
+   },
+   {
+    "flight": "KU544 CAI-KWI 11-18T02:40>11-18T06:05 + KU671 KWI-DXB 11-18T09:25>11-18T12:20",
+    "brand": "ECONOMY SAVER/ECONOMY SAVER",
+    "detail": "ADTx2:Economy|T|1PC,Economy|T|1PC;CHDx1:Economy|T|1PC,Economy|T|1PC;INFx1:Economy|T|1PC,Economy|T|1PC"
+   },
+   {
+    "flight": "MS901 CAI-DXB 11-18T04:20>11-18T09:40",
+    "brand": "ECONOMY GOOD DEAL",
+    "detail": "ADTx2:Economy|K|2PC;CHDx1:Economy|K|2PC;INFx1:Economy|K|1PC"
+   },
+   {
+    "flight": "MS905 CAI-DXB 11-18T13:40>11-18T19:00",
+    "brand": "ECONOMY GOOD DEAL",
+    "detail": "ADTx2:Economy|K|2PC;CHDx1:Economy|K|2PC;INFx1:Economy|K|1PC"
+   },
+   {
+    "flight": "SV310 CAI-RUH 11-18T10:35>11-18T14:10 + SV560 RUH-DXB 11-18T16:05>11-18T19:00",
+    "brand": "FLEX ECO/FLEX ECO",
+    "detail": "ADTx2:Economy|V|2PC,Economy|V|2PC;CHDx1:Economy|V|2PC,Economy|V|2PC;INFx1:Economy|V|1PC,Economy|V|1PC"
+   },
+   {
+    "flight": "SV302 CAI-JED 11-18T19:50>11-18T23:00 + SV590 JED-DXB 11-19T01:10>11-19T04:55",
+    "brand": "FLEX ECO/FLEX ECO",
+    "detail": "ADTx2:Economy|V|2PC,Economy|V|2PC;CHDx1:Economy|V|2PC,Economy|V|2PC;INFx1:Economy|V|1PC,Economy|V|1PC"
+   },
+   {
+    "flight": "MS912 CAI-DXB 11-18T09:40>11-18T15:00",
+    "brand": "ECONOMY GOOD DEAL",
+    "detail": "ADTx2:Economy|K|2PC;CHDx1:Economy|K|2PC;INFx1:Economy|K|1PC"
+   },
+   {
+    "flight": "MS910 CAI-DXB 11-18T22:25>11-19T03:45",
+    "brand": "ECONOMY GOOD DEAL",
+    "detail": "ADTx2:Economy|K|2PC;CHDx1:Economy|K|2PC;INFx1:Economy|K|1PC"
+   },
+   {
+    "flight": "EK930 CAI-DXB 11-18T08:00>11-18T13:15",
+    "brand": "Economy Flex",
+    "detail": "ADTx2:Economy|K|2PC;CHDx1:Economy|K|2PC;INFx1:Economy|K|1PC"
+   },
+   {
+    "flight": "EK928 CAI-DXB 11-18T12:30>11-18T17:45",
+    "brand": "Economy Flex",
+    "detail": "ADTx2:Economy|K|2PC;CHDx1:Economy|K|2PC;INFx1:Economy|K|1PC"
+   },
+   {
+    "flight": "EK922 CAI-DXB 11-18T16:30>11-18T21:45",
+    "brand": "Economy Flex",
+    "detail": "ADTx2:Economy|K|2PC;CHDx1:Economy|K|2PC;INFx1:Economy|K|1PC"
+   },
+   {
+    "flight": "EK924 CAI-DXB 11-18T19:25>11-19T00:40",
+    "brand": "Economy Flex",
+    "detail": "ADTx2:Economy|K|2PC;CHDx1:Economy|K|2PC;INFx1:Economy|K|1PC"
+   },
+   {
+    "flight": "EK926 CAI-DXB 11-18T00:50>11-18T06:10",
+    "brand": "Economy Flex",
+    "detail": "ADTx2:Economy|K|2PC;CHDx1:Economy|K|2PC;INFx1:Economy|K|1PC"
+   },
+   {
+    "flight": "QR1304 CAI-DOH 11-18T13:05>11-18T17:10 + QR1014 DOH-DXB 11-18T18:35>11-18T20:55",
+    "brand": "ECONOMY CONVENIENCE/ECONOMY CONVENIENCE",
+    "detail": "ADTx2:Economy|S|2PC,Economy|S|2PC;CHDx1:Economy|S|2PC,Economy|S|2PC;INFx1:Economy|S|1PC,Economy|S|1PC"
+   },
+   {
+    "flight": "RJ504 CAI-AMM 11-18T14:05>11-18T16:25 + RJ614 AMM-DXB 11-18T17:25>11-18T21:35",
+    "brand": "ECONOMY FLEX/ECONOMY FLEX",
+    "detail": "ADTx2:Economy|M|2PC,Economy|M|2PC;CHDx1:Economy|M|2PC,Economy|M|2PC;INFx1:Economy|M|10KG,Economy|M|10KG"
+   },
+   {
+    "flight": "RJ508 CAI-AMM 11-18T05:05>11-18T07:25 + RJ610 AMM-DXB 11-18T08:40>11-18T12:45",
+    "brand": "ECONOMY FLEX/ECONOMY FLEX",
+    "detail": "ADTx2:Economy|M|2PC,Economy|M|2PC;CHDx1:Economy|M|2PC,Economy|M|2PC;INFx1:Economy|M|10KG,Economy|M|10KG"
+   },
+   {
+    "flight": "XY264 CAI-RUH 11-18T10:50>11-18T13:35 + XY207 RUH-DXB 11-18T15:50>11-18T18:50",
+    "brand": "VAL/VAL",
+    "detail": "ADTx2:Economy|A|30KG,Economy|A|30KG;CHDx1:Economy|A|30KG,Economy|A|30KG;INFx1:Economy|A|0PC,Economy|A|0PC"
+   },
+   {
+    "flight": "XY274 CAI-RUH 11-18T12:10>11-18T15:45 + XY209 RUH-DXB 11-18T17:45>11-18T20:45",
+    "brand": "VAL/VAL",
+    "detail": "ADTx2:Economy|A|30KG,Economy|A|30KG;CHDx1:Economy|A|30KG,Economy|A|30KG;INFx1:Economy|A|0PC,Economy|A|0PC"
+   },
+   {
+    "flight": "XY566 CAI-JED 11-18T08:20>11-18T11:30 + XY509 JED-DXB 11-18T14:30>11-18T18:30",
+    "brand": "VAL/VAL",
+    "detail": "ADTx2:Economy|A|30KG,Economy|A|30KG;CHDx1:Economy|A|30KG,Economy|A|30KG;INFx1:Economy|A|0PC,Economy|A|0PC"
+   },
+   {
+    "flight": "XY572 CAI-JED 11-18T20:05>11-18T23:20 + XY501 JED-DXB 11-19T07:15>11-19T11:15",
+    "brand": "VAL/VAL",
+    "detail": "ADTx2:Economy|A|30KG,Economy|A|30KG;CHDx1:Economy|A|30KG,Economy|A|30KG;INFx1:Economy|A|0PC,Economy|A|0PC"
+   },
+   {
+    "flight": "VF248 CAI-SAW 11-18T04:55>11-18T08:25 + VF143 SAW-DXB 11-18T20:55>11-19T03:15",
+    "brand": "ECOJET/ECOJET",
+    "detail": "ADTx2:Economy|V|30KG,Economy|V|30KG;CHDx1:Economy|V|30KG,Economy|V|30KG;INFx1:Economy|V|10KG,Economy|V|10KG"
+   },
+   {
+    "flight": "SV386 CAI-JED 11-18T01:00>11-18T04:10 + SV566 JED-DXB 11-18T06:00>11-18T09:45",
+    "brand": "FLEX ECO/FLEX ECO",
+    "detail": "ADTx2:Economy|Q|2PC,Economy|Q|2PC;CHDx1:Economy|Q|2PC,Economy|Q|2PC;INFx1:Economy|Q|1PC,Economy|Q|1PC"
+   },
+   {
+    "flight": "XY895 CAI-DMM 11-18T23:25>11-19T03:15 + XY811 DMM-DXB 11-19T08:25>11-19T10:55",
+    "brand": "VAL/VAL",
+    "detail": "ADTx2:Economy|A|30KG,Economy|A|30KG;CHDx1:Economy|A|30KG,Economy|A|30KG;INFx1:Economy|A|0PC,Economy|A|0PC"
+   },
+   {
+    "flight": "WY408 CAI-MCT 11-18T01:15>11-18T06:55 + WY603 MCT-DXB 11-18T08:50>11-18T10:00",
+    "brand": "ECONOMY FLEX/ECONOMY FLEX",
+    "detail": "ADTx2:Economy|T|40KG,Economy|T|40KG;CHDx1:Economy|T|40KG,Economy|T|40KG;INFx1:Economy|T|10KG,Economy|T|10KG"
+   },
+   {
+    "flight": "WY406 CAI-MCT 11-18T18:05>11-18T23:45 + WY603 MCT-DXB 11-19T08:50>11-19T10:00",
+    "brand": "ECONOMY FLEX/ECONOMY FLEX",
+    "detail": "ADTx2:Economy|T|40KG,Economy|T|40KG;CHDx1:Economy|T|40KG,Economy|T|40KG;INFx1:Economy|T|10KG,Economy|T|10KG"
+   },
+   {
+    "flight": "GF80 CAI-BAH 11-18T04:20>11-18T08:20 + GF504 BAH-DXB 11-18T09:40>11-18T12:05",
+    "brand": "ECONOMY SMART/ECONOMY SMART",
+    "detail": "ADTx2:Economy|E|40KG,Economy|E|40KG;CHDx1:Economy|E|40KG,Economy|E|40KG;INFx1:Economy|E|10KG,Economy|E|10KG"
+   },
+   {
+    "flight": "GF70 CAI-BAH 11-18T16:00>11-18T20:00 + GF500 BAH-DXB 11-19T01:10>11-19T03:35",
+    "brand": "ECONOMY SMART/ECONOMY SMART",
+    "detail": "ADTx2:Economy|E|40KG,Economy|E|40KG;CHDx1:Economy|E|40KG,Economy|E|40KG;INFx1:Economy|E|10KG,Economy|E|10KG"
+   },
+   {
+    "flight": "TK695 CAI-IST 11-18T20:45>11-19T00:20 + TK762 IST-DXB 11-19T01:30>11-19T06:55",
+    "brand": "FLEXIBLE/FLEXIBLE",
+    "detail": "ADTx2:Economy|H|2PC,Economy|H|2PC;CHDx1:Economy|H|2PC,Economy|H|2PC;INFx1:Economy|H|1PC,Economy|H|1PC"
+   },
+   {
+    "flight": "TK687 CAI-IST 11-18T02:20>11-18T05:45 + TK764 IST-DXB 11-18T07:55>11-18T13:30",
+    "brand": "FLEXIBLE/FLEXIBLE",
+    "detail": "ADTx2:Economy|H|2PC,Economy|H|2PC;CHDx1:Economy|H|2PC,Economy|H|2PC;INFx1:Economy|H|1PC,Economy|H|1PC"
+   }
+  ],
+  "onlyB": [],
+  "dupA": [],
+  "dupB": []
+ },
+ "detailDiff": [],
+ "bagTextDiff": 183,
+ "bagTextExamples": [
+  "0 Pieces ⇄ Number 0 Piece Allowed.",
+  "1 Pieces ⇄ Number 1 Piece Allowed.",
+  "10 Kilograms ⇄ 10 Kilograms Allowed.",
+  "2 Pieces ⇄ Number 2 Piece Allowed.",
+  "20 Kilograms ⇄ 20 Kilograms Allowed.",
+  "30 Kilograms ⇄ 30 Kilograms Allowed."
+ ],
+ "cabinLabelPairs": [],
+ "cabins": {
+  "A": [
+   "Economy"
+  ],
+  "B": [
+   "Economy"
+  ]
+ },
+ "rbds": {
+  "A": [
+   "A",
+   "E",
+   "H",
+   "K",
+   "L",
+   "M",
+   "N",
+   "Q",
+   "S",
+   "T",
+   "V",
+   "W",
+   "Y"
+  ],
+  "B": [
+   "A",
+   "E",
+   "H",
+   "L",
+   "N",
+   "Q",
+   "S",
+   "T",
+   "V",
+   "W",
+   "Y"
+  ]
+ },
+ "perLeg": {
+  "A": {
+   "1": {
+    "cabins": [
+     "Economy"
+    ],
+    "rbds": [
+     "A",
+     "E",
+     "H",
+     "K",
+     "L",
+     "M",
+     "N",
+     "Q",
+     "S",
+     "T",
+     "V",
+     "W",
+     "Y"
+    ]
+   }
+  },
+  "B": {
+   "1": {
+    "cabins": [
+     "Economy"
+    ],
+    "rbds": [
+     "A",
+     "E",
+     "H",
+     "L",
+     "N",
+     "Q",
+     "S",
+     "T",
+     "V",
+     "W",
+     "Y"
+    ]
+   }
+  }
+ }
+}

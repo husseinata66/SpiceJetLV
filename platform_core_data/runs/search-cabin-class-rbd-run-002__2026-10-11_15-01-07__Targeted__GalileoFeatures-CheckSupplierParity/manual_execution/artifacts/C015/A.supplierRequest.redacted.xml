@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-16"?>
+<LowFareSearchReq xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" TraceId="d4c4d646-01dd-4c09-a1c8-a54ec564a0f2" AuthorizedBy="[REDACTED]" TargetBranch="[REDACTED]" SolutionResult="true" ReturnUpsellFare="true">
+  <BillingPointOfSaleInfo OriginApplication="UAPI" xmlns="http://www.travelport.com/schema/common_v52_0" />
+  <SearchAirLeg xmlns="http://www.travelport.com/schema/air_v52_0">
+    <SearchOrigin>
+      <CityOrAirport Code="CAI" PreferCity="true" xmlns="http://www.travelport.com/schema/common_v52_0" />
+    </SearchOrigin>
+    <SearchDestination>
+      <CityOrAirport Code="JED" PreferCity="true" xmlns="http://www.travelport.com/schema/common_v52_0" />
+    </SearchDestination>
+    <SearchDepTime PreferredTime="2026-11-20" />
+    <AirLegModifiers AllowDirectAccess="true">
+      <PreferredCabins>
+        <CabinClass Type="Economy" xmlns="http://www.travelport.com/schema/common_v52_0" />
+      </PreferredCabins>
+    </AirLegModifiers>
+  </SearchAirLeg>
+  <AirSearchModifiers xmlns="http://www.travelport.com/schema/air_v52_0">
+    <PreferredProviders>
+      <Provider Code="1G" xmlns="http://www.travelport.com/schema/common_v52_0" />
+    </PreferredProviders>
+  </AirSearchModifiers>
+  <SearchPassenger Code="ADT" Age="35" xmlns="http://www.travelport.com/schema/common_v52_0" />
+  <AirPricingModifiers FaresIndicator="AllFares" xmlns="http://www.travelport.com/schema/air_v52_0" />
+</LowFareSearchReq>

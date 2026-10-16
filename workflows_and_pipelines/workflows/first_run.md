@@ -91,7 +91,7 @@ Before any Agent runs, two pointers must resolve: **which module** and **which r
 3. **Launch Stage 1** — hand off to the Project Context Skill, having set run Status to `Running`. As each stage completes or a checkpoint resolves, record it in **both** ledgers:
 
    ```bash
-   node platform_core/tools/run_manager/cli.js stage "<Stage>" --status <status> --reviewer <who>
+   node platform_core/tools/run_manager/cli.js state <start|request-approval|approve|complete> <stage> ...   # the Run Manifest follows
    node platform_core/tools/module_manager/cli.js stage login <context|discovery|test_design> \
      --status <status> --artifact <path> --run <run-folder>
    ```

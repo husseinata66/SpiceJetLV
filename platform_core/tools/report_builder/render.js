@@ -3,7 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const { normalizeModel } = require('./model');
+const { normalizeModel, modelFingerprint } = require('./model');
+const { sanitizeHtml } = require('./sanitize');
 
 const ASSETS_DIR = path.join(__dirname, 'assets');
 
@@ -20,7 +21,8 @@ function esc(value) {
 /** A normalised rich value: `{text}` is escaped, `{html}` is trusted verbatim. */
 function rich(value) {
   if (!value) return '';
-  return value.html !== null ? value.html : esc(value.text);
+  // Rich text from a model is untrusted (it often comes from test evidence): sanitized, never verbatim (Phase 9.2, F-17).
+  return value.html !== null ? sanitizeHtml(value.html) : esc(value.text);
 }
 
 function readAsset(name) {
@@ -198,6 +200,18 @@ function renderCaseDetail(detail) {
     + `<div class="view-tc-body">${body}</div></details></div>`;
 }
 
+const ASSERTION_MARK = { pass: '✅', fail: '❌', unchecked: 'Not checked', missing: 'Missing — not recorded' };
+
+/** A case's assertion records (pipeline.md §11.4): one row per assertion. */
+function renderAssertions(assertions) {
+  if (!assertions || !assertions.length) return '';
+  const withIds = assertions.some((a) => a.id);
+  const rows = assertions.map((a) => `<tr class="as-${a.result}">${withIds ? `<td class="mono">${esc(a.id || '—')}</td>` : ''}<td>${esc(a.assertion)}</td><td class="mono">${esc(a.expected)}</td>`
+    + `<td class="mono">${esc(a.actual)}</td><td>${esc(a.check)}</td><td>${ASSERTION_MARK[a.result]}</td><td>${esc(a.evidence || '—')}</td></tr>`).join('');
+  return `<div class="assertions"><table><thead><tr>${withIds ? '<th>ID</th>' : ''}<th>Assertion</th><th>Expected</th><th>Actual</th><th>Check</th><th>Result</th><th>Evidence</th></tr></thead>`
+    + `<tbody>${rows}</tbody></table></div>`;
+}
+
 function renderCase(testCase, statusIndex) {
   const status = statusIndex.get(testCase.status);
   const label = esc(testCase.statusLabel || status.key);
@@ -214,6 +228,8 @@ function renderCase(testCase, statusIndex) {
   parts.push(
     `<div class="row tc-status-row"><b>Status:</b> ${badge}<span class="tc-reqres-anchor"></span></div>`,
   );
+  const assertions = renderAssertions(testCase.assertions);
+  if (assertions) parts.push(assertions);
   const evidence = renderEvidence(testCase.evidence);
   if (evidence) parts.push(evidence);
   const exchanges = renderExchanges(testCase.exchanges);
@@ -357,6 +373,34 @@ function renderHeader(model) {
 }
 
 /**
+ * Does `html` hold exactly what this builder renders from `rawModel`? (Phase 9.3, F-28.)
+ *
+ * Rendering is deterministic, so the whole document is compared with a fresh render — not only the
+ * `report-model-sha256` meta tag, which proves what the page CLAIMS to be built from while its visible body
+ * could have been edited by hand. Line endings are normalized (git may convert them). A page built by an
+ * older report_builder also differs: it is reported as such, and the remedy is the same — rebuild it.
+ * @returns {{ok: boolean, reason: string|null, firstDifference: number|null}}
+ */
+function verifyHtml(html, rawModel) {
+  const norm = (s) => String(s).replace(/\r\n/g, '\n');
+  const got = norm(html);
+  let want;
+  try { want = norm(renderReport(rawModel)); } catch (err) { return { ok: false, reason: `the model does not render (${err.message})`, firstDifference: null }; }
+  if (got === want) return { ok: true, reason: null, firstDifference: null };
+  let i = 0;
+  while (i < got.length && i < want.length && got[i] === want[i]) i += 1;
+  const tag = got.match(/<meta name="report-model-sha256" content="([0-9a-f]{64})">/);
+  const claimed = tag && tag[1] === modelFingerprint(rawModel);
+  return {
+    ok: false,
+    firstDifference: i,
+    reason: claimed
+      ? `its content differs from a fresh render of the model it names (from character ${i}) — edited by hand after it was built, or built by an older report_builder; rebuild it from the model`
+      : 'it was not built from this model — rebuild it from the model',
+  };
+}
+
+/**
  * Render a report model to a single self-contained HTML document.
  * The model is validated first; an invalid model throws ReportModelError.
  */
@@ -371,22 +415,30 @@ function renderReport(rawModel) {
     ...model.sections.map(renderSection),
   ].filter(Boolean).join('\n');
 
+  // Content-Security-Policy (Phase 9.2, F-17): the one script that runs is the report's own, allowed by the
+  // SHA-256 of its exact text; nothing loads from anywhere, nothing navigates a form, no base URL is taken.
+  // Inline styles stay allowed (the summary donut), which cannot execute script; url() loads are blocked.
+  const script = `
+${readAsset('report.js')}
+`;
+  const scriptHash = require('crypto').createHash('sha256').update(script, 'utf8').digest('base64');
+  const csp = `default-src 'none'; script-src 'sha256-${scriptHash}'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'`;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="${csp}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="report-model-sha256" content="${modelFingerprint(rawModel)}">
 <title>${esc(model.documentTitle)}</title>
 <style>
 ${readAsset('report.css')}
 </style>
 </head><body><div class="wrap">
 ${body}
-</div><script>
-${readAsset('report.js')}
-</script>
+</div><script>${script}</script>
 </body></html>
 `;
 }
 
-module.exports = { esc, renderReport };
+module.exports = { esc, renderReport, verifyHtml };

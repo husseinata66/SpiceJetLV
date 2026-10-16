@@ -17,7 +17,7 @@ const path = require('path');
 const { findSupplier } = require('../module_manager/supplierRegistry');
 const { CapabilityGateError, loadCases, planExecution, renderPlan } = require('./index');
 
-const KNOWN = new Set(['suite', 'feature', 'supplier', 'run', 'out', 'json', 'supplier-features-dir', 'help']);
+const KNOWN = new Set(['suite', 'feature', 'supplier', 'run', 'out', 'json', 'supplier-features-dir', 'runs-dir', 'data-root', 'help']);
 
 function parseArgs(argv) {
   const args = { _: [] };
@@ -36,18 +36,59 @@ function dataRoot() {
   return require('../platform_paths/paths').resolveRoots().dataRoot;
 }
 
+/**
+ * Fills --feature, --supplier and --suite from the run itself, so the documented form
+ * `cli.js plan --run <run>` (CLAUDE.md, ndc_execution_rules.md §A15, manual-execution-skill) works:
+ * the Feature and Supplier come from the run's run.json; the suite is the Supplier scope's one
+ * TestCases_*.md. An explicit flag always wins. Anything ambiguous is refused, never guessed.
+ */
+function fillFromRun(args, root) {
+  if (!args.run || args.run === true || (args.suite && args.feature && args.supplier)) return args;
+  const runsDir = args['runs-dir'] && args['runs-dir'] !== true ? path.resolve(args['runs-dir']) : path.join(root, 'runs');
+  let meta;
+  try {
+    meta = JSON.parse(fs.readFileSync(path.join(runsDir, args.run, 'metadata', 'run.json'), 'utf8'));
+  } catch {
+    throw new CapabilityGateError(`Run "${args.run}" has no readable metadata/run.json.`);
+  }
+  if (meta.scopeFamily !== 'supplier-feature' || !meta.feature) {
+    throw new CapabilityGateError(`Run "${args.run}" is not a Supplier-Feature run — the capability gate applies only to Supplier runs (ndc_execution_rules.md §A15).`);
+  }
+  if (!meta.supplier && !args.supplier) {
+    throw new CapabilityGateError(`Run "${args.run}" is a shared-scope run (${meta.sharedScope}); name the Supplier with --supplier.`);
+  }
+  const out = { ...args, feature: args.feature || meta.feature, supplier: args.supplier || meta.supplier };
+  if (!out.suite) {
+    const dir = path.join(root, 'supplier-features', out.feature, 'suppliers', out.supplier, 'test_design');
+    let suites = [];
+    try { suites = fs.readdirSync(dir).filter((n) => /^TestCases_.+\.md$/.test(n)); } catch { /* none */ }
+    if (suites.length !== 1) {
+      throw new CapabilityGateError(
+        `Cannot pick the suite for ${out.feature}/${out.supplier}: found ${suites.length} TestCases_*.md in ${dir}. Pass --suite.`
+      );
+    }
+    out.suite = path.join(dir, suites[0]);
+  }
+  return out;
+}
+
 function main(argv) {
-  const args = parseArgs(argv);
+  let args = parseArgs(argv);
+  if (!args.help && args._[0] === 'plan' && args.run && args.run !== true) {
+    const root = args['data-root'] && args['data-root'] !== true ? path.resolve(args['data-root']) : dataRoot();
+    args = { ...fillFromRun(args, root), _root: root };
+  }
   if (args.help || args._[0] !== 'plan' || !args.suite || !args.feature || !args.supplier) {
     console.error(
-      'Usage: cli.js plan --suite <TestCases.md|sheet.xlsx> --feature <feature> --supplier <supplier> '
+      'Usage: cli.js plan --run <run-folder> [--json]\n'
+      + '   or: cli.js plan --suite <TestCases.md|sheet.xlsx> --feature <feature> --supplier <supplier> '
       + '[--run <run-folder> | --out <file.md>] [--json]'
     );
     return args.help ? 0 : 1;
   }
   const sfDir = args['supplier-features-dir'] && args['supplier-features-dir'] !== true
     ? path.resolve(args['supplier-features-dir'])
-    : path.join(dataRoot(), 'supplier-features');
+    : path.join(args._root || dataRoot(), 'supplier-features');
   const supplier = findSupplier(sfDir, args.feature, args.supplier);
   if (!supplier) {
     throw new CapabilityGateError(
@@ -56,18 +97,33 @@ function main(argv) {
   }
 
   const suite = path.resolve(args.suite);
+  // Phase 9.2, F-13: a plan written into a run is for THAT run's Feature and Supplier — never another's.
+  if (args.run && args.run !== true) {
+    const runsDir0 = args['runs-dir'] && args['runs-dir'] !== true ? path.resolve(args['runs-dir']) : path.join(args._root || dataRoot(), 'runs');
+    let meta = null;
+    try { meta = JSON.parse(fs.readFileSync(path.join(runsDir0, args.run, 'metadata', 'run.json'), 'utf8')); } catch { meta = null; }
+    if (!meta) throw new CapabilityGateError(`Run "${args.run}" has no readable metadata/run.json.`);
+    if (meta.scopeFamily !== 'supplier-feature' || !meta.feature) throw new CapabilityGateError(`Run "${args.run}" is not a Supplier-Feature run — the capability gate applies only to Supplier runs.`);
+    if (meta.feature !== args.feature) throw new CapabilityGateError(`Refused: run "${args.run}" is bound to Feature "${meta.feature}", not "${args.feature}" — a plan is written only for the run's own Feature.`);
+    if (meta.supplier && meta.supplier !== args.supplier) throw new CapabilityGateError(`Refused: run "${args.run}" is bound to Supplier "${meta.supplier}", not "${args.supplier}" — another Supplier's capabilities never decide this run's scope.`);
+  }
   const plan = planExecution(loadCases(suite), supplier);
+  // eslint-disable-next-line global-require
+  const { capabilityFingerprint } = require('./index');
+  const suiteSha = (() => { try { return require('crypto').createHash('sha256').update(fs.readFileSync(suite)).digest('hex'); } catch { return null; } })();
+  const binding = { run: args.run && args.run !== true ? args.run : null, feature: args.feature, supplier: args.supplier, capabilities: capabilityFingerprint(supplier), suite: suiteSha, suitePath: path.basename(suite) };
   const rules = !supplier.supplierRulesSetAt
     ? 'not yet recorded'
     : ((supplier.supplierRules || []).join(', ') || 'None');
   const markdown = renderPlan(plan, {
     feature: args.feature, supplier: args.supplier, suite: args.suite, rules,
-    generatedAt: new Date().toISOString(),
+    generatedAt: new Date().toISOString(), binding,
   });
 
   let outFile = null;
   if (args.run && args.run !== true) {
-    outFile = path.join(dataRoot(), 'runs', args.run, 'metadata', 'CapabilityPlan.md');
+    const runsDir = args['runs-dir'] && args['runs-dir'] !== true ? path.resolve(args['runs-dir']) : path.join(args._root || dataRoot(), 'runs');
+    outFile = path.join(runsDir, args.run, 'metadata', 'CapabilityPlan.md');
     if (!fs.existsSync(path.dirname(path.dirname(outFile)))) {
       throw new CapabilityGateError(`Run folder "${args.run}" does not exist.`);
     }
@@ -107,4 +163,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { main, parseArgs };
+module.exports = { main, parseArgs, fillFromRun };

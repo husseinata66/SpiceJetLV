@@ -1,0 +1,49 @@
+{
+ "criteria": "Multi-city CAI→DXB 18/11/2026 Economy RBD Q + DXB→JED 22/11/2026 Economy no RBD, 1 ADT",
+ "attempts": [
+  {
+   "attempt": 1,
+   "side": "integration",
+   "branch": "NDC1_Ahmed Ayman (BRN287)",
+   "at": "2026-10-11T09:37:13.155Z",
+   "url": "http://192.168.1.210/booking/flight-search",
+   "searchRequests": [],
+   "console": [],
+   "uiMessages": [],
+   "form": "Flight Search | Branch selected. | NDC1_Ahmed Ayman (BRN287) | Branch | * | NDC1_Ahmed Ayman (BRN287) | Agency | Agency | Agent | Agent | One-way | Round-trip | Multi-city | CAI | DXB | Economy | Q | DXB | JED | Economy | RBD | Add flight | 1 | Baggage Fare Only | Check Supplier | Search"
+  },
+  {
+   "attempt": 1,
+   "side": "direct",
+   "branch": "ahmed ayman (BRN632)",
+   "at": "2026-10-11T09:38:13.463Z",
+   "url": "http://192.168.1.210/booking/flight-search",
+   "searchRequests": [],
+   "console": [],
+   "uiMessages": [],
+   "form": "Flight Search | Branch selected. | ahmed ayman (BRN632) | Branch | * | ahmed ayman (BRN632) | Agency | Agency | Agent | Agent | One-way | Round-trip | Multi-city | CAI | DXB | Economy | Q | DXB | JED | Economy | RBD | Add flight | 1 | Baggage Fare Only | Check Supplier | Search"
+  },
+  {
+   "attempt": 2,
+   "side": "integration",
+   "branch": "NDC1_Ahmed Ayman (BRN287)",
+   "at": "2026-10-11T09:39:17.800Z",
+   "url": "http://192.168.1.210/booking/flight-search",
+   "searchRequests": [],
+   "console": [],
+   "uiMessages": [],
+   "form": "Flight Search | Branch selected. | NDC1_Ahmed Ayman (BRN287) | Branch | * | NDC1_Ahmed Ayman (BRN287) | Agency | Agency | Agent | Agent | One-way | Round-trip | Multi-city | CAI | DXB | Economy | Q | DXB | JED | Economy | RBD | Add flight | 1 | Baggage Fare Only | Check Supplier | Search"
+  },
+  {
+   "attempt": 2,
+   "side": "direct",
+   "branch": "ahmed ayman (BRN632)",
+   "at": "2026-10-11T09:40:25.655Z",
+   "url": "http://192.168.1.210/booking/flight-search",
+   "searchRequests": [],
+   "console": [],
+   "uiMessages": [],
+   "form": "Flight Search | Branch selected. | ahmed ayman (BRN632) | Branch | * | ahmed ayman (BRN632) | Agency | Agency | Agent | Agent | One-way | Round-trip | Multi-city | CAI | DXB | Economy | Q | DXB | JED | Economy | RBD | Add flight | 1 | Baggage Fare Only | Check Supplier | Search"
+  }
+ ]
+}

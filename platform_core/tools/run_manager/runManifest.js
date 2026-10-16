@@ -23,6 +23,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const { writeFileAtomic } = require('./atomicFile');
+
 const MANIFEST_FILENAME = 'RunManifest.md';
 
 /**
@@ -141,6 +143,7 @@ function renderRunManifest({ runJson, now }) {
     '| # | Timestamp | Stage | Transition | Decided By | Feedback / Reason |',
     '|---|---|---|---|---|---|',
     `| 1 | ${ts} | — | Run created (\`Preparing\`) | ${fmt(runJson.createdBy, 'Run Manager')} | ${runJson.workflow && runJson.workflow !== 'unversioned' ? `via ${runJson.workflow}` : 'ad hoc run'} |`,
+    eventsMarker(0),
     '',
     '## 5. Declared Gaps',
     '',
@@ -196,8 +199,22 @@ function renderRunManifest({ runJson, now }) {
     '`… validate` to check the stream is complete. **A metric is never recorded here by hand** — every',
     'number is derived from the event stream, and one typed in would have no evidence behind it.',
     '',
+    ...ARTIFACTS_SECTION,
   ].join('\n');
 }
+
+/** pipeline.md §7 / run_manager.md §7 `moduleArtifactRefs[]` — rendered from run.json, one row per revision consumed. */
+const ARTIFACTS_SECTION = [
+  '## 8. Module Artifacts Consumed',
+  '',
+  '<!-- Which revision of each module / Feature / Supplier artifact this run consumed, at which stage —',
+  '     from run.json `moduleArtifactRefs[]`, written by the Run Manager at each stage start. -->',
+  '',
+  '| Stage | Artifact | Upstream stage | Header | Integrity | Fingerprint | Consumed at |',
+  '|---|---|---|---|---|---|---|',
+  '| _(nothing consumed yet)_ | | | | | | |',
+  '',
+];
 
 /** Splits a manifest into ordered sections keyed by heading, preserving everything verbatim. */
 function parseSections(text) {
@@ -256,6 +273,43 @@ function insertTableRow(lines, row, headerRe) {
   lines.splice(sepIdx + 1, end - (sepIdx + 1), ...kept, row);
 }
 
+const LEDGER_HEADER = /^\| Stage \|/;
+
+/**
+ * One row per stage: replaces `stage`'s row in place if the ledger already has one, else inserts it.
+ * @param {{lines: string[]}} ledger - the Stage Ledger section, mutated in place
+ * @returns {{priorStatus: string|null, replaced: boolean}}
+ */
+function upsertLedgerRow(ledger, stage, row) {
+  let priorStatus = null;
+  let replaced = false;
+  for (let i = 0; i < ledger.lines.length; i++) {
+    const line = ledger.lines[i];
+    if (!/^\|/.test(line) || /^\|\s*-+/.test(line) || LEDGER_HEADER.test(line) || isPlaceholderRow(line)) continue;
+    const cells = line.split('|').map((c) => c.trim());
+    if (cells[1] === stage) {
+      priorStatus = cells[4] || null;
+      ledger.lines[i] = row;
+      replaced = true;
+      break;
+    }
+  }
+  if (!replaced) insertTableRow(ledger.lines, row, LEDGER_HEADER);
+  else {
+    // Still drop any placeholder left over from the fresh render.
+    ledger.lines = ledger.lines.filter((l) => !isPlaceholderRow(l));
+  }
+  return { priorStatus, replaced };
+}
+
+function ledgerRowText({ stage, artifactName, artifactPath, checkpointStatus, reviewer, revisions, invocationPath, instruction }, ts) {
+  const artifactCell = artifactPath
+    ? `[${artifactName || path.basename(artifactPath)}](${artifactPath})`
+    : fmt(artifactName);
+  return `| ${stage} | ${artifactCell} | ${ts} | ${fmt(checkpointStatus)} | ${fmt(reviewer)} | ` +
+    `${fmt(revisions, '0')} | ${fmt(invocationPath)} | ${fmt(instruction)} |`;
+}
+
 /**
  * Records a stage's state in the Stage Ledger (§2), adding a row or updating the existing one for that
  * stage. Also appends a Checkpoint History (§4) entry when the checkpoint status changes.
@@ -272,16 +326,32 @@ function insertTableRow(lines, row, headerRe) {
  * @param {string} [entry.invocationPath] - one of INVOCATION_PATHS
  * @param {string} [entry.instruction]
  * @param {string} [entry.feedback] - required in spirit for a Rejected transition
+ * @param {boolean} [entry.history=true] - append a Checkpoint History row on a status change. The
+ *   run state model (runState.js) passes false and writes its own single row per transition through
+ *   recordStateEvent(), so one transition never produces two history rows.
  * @param {Date} entry.now
  * @returns {{updated: boolean, created: boolean}}
  */
 function recordStage(runsDir, folderName, entry = {}) {
   const {
     stage, artifactName, artifactPath, checkpointStatus, reviewer, revisions,
-    invocationPath, instruction, feedback, now,
+    invocationPath, instruction, feedback, now, history: writeHistory = true,
   } = entry;
 
   if (!stage) throw new ManifestError('recordStage requires a `stage`.');
+  // On a run inside the run state model, run.json is the record and the ledger only displays it. A row
+  // written here would claim an approval or completion that no recorded transition backs (audit
+  // finding #9), so it is refused; the state commands record the stage and the Manifest follows.
+  let runMeta = null;
+  try { runMeta = JSON.parse(fs.readFileSync(path.join(runsDir, folderName, 'metadata', 'run.json'), 'utf8')); } catch { /* no run.json: not a state-model run */ }
+  if (runMeta && runMeta.stateSchemaVersion) {
+    const err = new ManifestError(
+      `Run "${folderName}" is tracked by the run state model: its Stage Ledger is a display of run.json, never written on its own. ` +
+      'Record the stage with the state commands (cli.js state start / request-approval / approve / complete …); the Manifest follows them.'
+    );
+    err.code = 'MANIFEST_ONLY_REFUSED';
+    throw err;
+  }
   if (!(now instanceof Date) || Number.isNaN(now.getTime())) {
     throw new ManifestError('recordStage requires an explicit valid `now` Date.');
   }
@@ -321,30 +391,11 @@ function recordStage(runsDir, folderName, entry = {}) {
   const row = `| ${stage} | ${artifactCell} | ${ts} | ${fmt(checkpointStatus)} | ${fmt(reviewer)} | ` +
     `${fmt(revisions, '0')} | ${fmt(invocationPath)} | ${fmt(instruction)} |`;
 
-  // One row per stage: replace this stage's row in place if it already has one, else insert a new row.
-  const HEADER = /^\| Stage \|/;
-  let priorStatus = null;
-  let replaced = false;
-  for (let i = 0; i < ledger.lines.length; i++) {
-    const line = ledger.lines[i];
-    if (!/^\|/.test(line) || /^\|\s*-+/.test(line) || HEADER.test(line) || isPlaceholderRow(line)) continue;
-    const cells = line.split('|').map((c) => c.trim());
-    if (cells[1] === stage) {
-      priorStatus = cells[4] || null;
-      ledger.lines[i] = row;
-      replaced = true;
-      break;
-    }
-  }
-  if (!replaced) insertTableRow(ledger.lines, row, HEADER);
-  else {
-    // Still drop any placeholder left over from the fresh render.
-    ledger.lines = ledger.lines.filter((l) => !isPlaceholderRow(l));
-  }
+  const { priorStatus, replaced } = upsertLedgerRow(ledger, stage, row);
 
   // Append a Checkpoint History entry when the status actually changed — re-recording the same status
   // is bookkeeping, not a decision, and padding history with it makes the real transitions harder to find.
-  if (checkpointStatus && checkpointStatus !== priorStatus) {
+  if (writeHistory && checkpointStatus && checkpointStatus !== priorStatus) {
     const history = findSection(sections, '4. Checkpoint History');
     if (history) {
       let n = 0;
@@ -365,7 +416,7 @@ function recordStage(runsDir, folderName, entry = {}) {
 
   let next = sections.map((s) => s.lines.join(eol)).join(eol);
   next = next.replace(/^\| Last updated \| .*$/m, `| Last updated | ${ts} |`);
-  fs.writeFileSync(file, next, 'utf8');
+  writeFileAtomic(file, next);
   return { updated: replaced, created: !replaced };
 }
 
@@ -417,7 +468,7 @@ function recordReuse(runsDir, folderName, entry = {}) {
 
   let next = sections.map((s) => s.lines.join(eol)).join(eol);
   next = next.replace(/^\| Last updated \| .*$/m, `| Last updated | ${now.toISOString()} |`);
-  fs.writeFileSync(file, next, 'utf8');
+  writeFileAtomic(file, next);
   return { recorded: true };
 }
 
@@ -451,8 +502,136 @@ function recordGap(runsDir, folderName, entry = {}) {
 
   let next = sections.map((s) => s.lines.join(eol)).join(eol);
   next = next.replace(/^\| Last updated \| .*$/m, `| Last updated | ${now.toISOString()} |`);
-  fs.writeFileSync(file, next, 'utf8');
+  writeFileAtomic(file, next);
   return { recorded: true };
+}
+
+/** Marker recording how many run-state events (run.json `stateEvents`) this Manifest already shows. */
+const EVENTS_MARKER_RE = /^<!-- run-state-events-applied: (\d+) -->$/m;
+const eventsMarker = (n) => `<!-- run-state-events-applied: ${n} -->`;
+
+/**
+ * Brings the Manifest up to date with the run state model, in ONE atomic write.
+ *
+ * run.json is the record. Its `stateEvents` list is an append-only outbox numbered by `seq`; the
+ * Manifest carries a marker saying which `seq` it has already shown. This function appends a history
+ * row for every event after the marker, rewrites the given ledger rows, moves the marker, and updates
+ * the Status row — all in one write. So:
+ *   - a write that failed (or a process that died) leaves the Manifest exactly as it was, and the next
+ *     call shows the missed events: nothing is lost;
+ *   - running it again after success finds nothing past the marker: nothing is duplicated.
+ * A Manifest with no marker yet is treated as having shown none.
+ *
+ * @param {string} runsDir
+ * @param {string} folderName
+ * @param {{events: Array<{seq: number, at: string, stage?: string, transition: string, by?: string, reason?: string}>,
+ *          ledgerRows?: object[], runStatus?: string, now: Date}} entry
+ * @returns {{appliedEvents: number, appliedSeq: number}}
+ */
+function applyStateEvents(runsDir, folderName, entry = {}) {
+  const { events = [], ledgerRows = [], runStatus, now, artifactRefs = [], absentStages = [] } = entry;
+  if (!(now instanceof Date) || Number.isNaN(now.getTime())) {
+    throw new ManifestError('applyStateEvents requires an explicit valid `now` Date.');
+  }
+  const file = manifestPath(runsDir, folderName);
+  let text;
+  try {
+    text = fs.readFileSync(file, 'utf8');
+  } catch {
+    throw new ManifestError(`No Run Manifest at ${file}.`);
+  }
+  const eol = text.includes('\r\n') ? '\r\n' : '\n';
+  const sections = parseSections(text);
+  const ledger = findSection(sections, '2. Stage Ledger');
+  const history = findSection(sections, '4. Checkpoint History');
+  if (!ledger || !history) throw new ManifestError('Run Manifest is missing its Stage Ledger or Checkpoint History section.');
+
+  const ts = now.toISOString();
+  for (const r of ledgerRows) upsertLedgerRow(ledger, r.stage, ledgerRowText(r, ts));
+  // A ledger row for a stage the run state has no record of was written on its own (a Manifest-only
+  // record, before those were refused). It is shown as what the run state says — Not Started — and the
+  // reset is logged in the Checkpoint History, so what the row used to say stays readable.
+  const reconciled = [];
+  for (let i = 0; i < ledger.lines.length; i++) {
+    const line = ledger.lines[i];
+    if (!/^\|/.test(line) || /^\|\s*-+/.test(line) || LEDGER_HEADER.test(line) || isPlaceholderRow(line)) continue;
+    const cells = line.split('|').map((c) => c.trim());
+    if (!absentStages.includes(cells[1]) || !cells[4] || cells[4] === '—' || cells[4] === 'Not Started') continue;
+    reconciled.push({ stage: cells[1], was: cells[4], reviewer: cells[5] });
+    ledger.lines[i] = ledgerRowText({ stage: cells[1], checkpointStatus: 'Not Started' }, ts);
+  }
+
+  const markerIdx = history.lines.findIndex((l) => EVENTS_MARKER_RE.test(l));
+  const applied = markerIdx === -1 ? 0 : Number(history.lines[markerIdx].match(EVENTS_MARKER_RE)[1]);
+  const pending = events.filter((e) => e.seq > applied).sort((a, b) => a.seq - b.seq);
+
+  let n = 0;
+  for (const line of history.lines) {
+    const m = line.match(/^\|\s*(\d+)\s*\|/);
+    if (m) n = Math.max(n, Number(m[1]));
+  }
+  // Pipes inside a cell would split the row; replace them so the table stays intact.
+  const cell = (v, dash) => fmt(v, dash).replace(/\|/g, '/').replace(/\r?\n/g, ' ');
+  const rows = pending.map((e) => {
+    n += 1;
+    return `| ${n} | ${e.at} | ${cell(e.stage)} | ${cell(e.transition)} | ${cell(e.by, 'Run Manager')} | ${cell(e.reason)} |`;
+  });
+  let insertAt = history.lines.length;
+  for (let i = history.lines.length - 1; i >= 0; i--) {
+    if (/^\|/.test(history.lines[i]) && !/^\|\s*-+/.test(history.lines[i])) { insertAt = i + 1; break; }
+  }
+  for (const r of reconciled) {
+    n += 1;
+    rows.push(`| ${n} | ${ts} | ${cell(r.stage)} | ledger reconciled with the run state: it read "${cell(r.was)}"${r.reviewer && r.reviewer !== '—' ? ` (reviewer ${cell(r.reviewer)})` : ''}, but the run state records no such transition — shown as Not Started | Run Manager | Manifest-only record, not backed by run.json |`);
+  }
+  history.lines.splice(insertAt, 0, ...rows);
+
+  const appliedSeq = Math.max(applied, ...pending.map((e) => e.seq));
+  const idx = history.lines.findIndex((l) => EVENTS_MARKER_RE.test(l));
+  if (idx === -1) {
+    // Place the marker straight after the table, before any blank lines that end the section.
+    let at = history.lines.length;
+    while (at > 0 && history.lines[at - 1].trim() === '') at -= 1;
+    history.lines.splice(at, 0, eventsMarker(appliedSeq));
+  } else {
+    history.lines[idx] = eventsMarker(appliedSeq);
+  }
+
+  if (artifactRefs.length) {
+    let consumed = findSection(sections, '8. Module Artifacts Consumed');
+    if (!consumed) {
+      // A Manifest written before this section existed gains it at its end.
+      consumed = { heading: '8. Module Artifacts Consumed', lines: [...ARTIFACTS_SECTION] };
+      const last = sections[sections.length - 1];
+      if (last.lines.length && last.lines[last.lines.length - 1].trim() !== '') last.lines.push('');
+      sections.push(consumed);
+    }
+    for (const ref of artifactRefs) {
+      const short = String(ref.sha256 || '').slice(0, 12);
+      if (consumed.lines.some((l) => l.includes(`\`${ref.artifact}\``) && l.includes(short))) continue;
+      insertTableRow(consumed.lines,
+        `| ${ref.stage} | \`${ref.artifact}\` | ${fmt(ref.upstreamStage)} | ${fmt(ref.header)} | ${fmt(ref.integrity)} | \`${short || '—'}\` | ${ref.at} |`,
+        /^\| Stage \| Artifact \|/);
+    }
+  }
+
+  let next = sections.map((s) => s.lines.join(eol)).join(eol);
+  if (runStatus) next = next.replace(/^\| Status \| .*$/m, `| Status | ${runStatus} |`);
+  next = next.replace(/^\| Last updated \| .*$/m, `| Last updated | ${ts} |`);
+  writeFileAtomic(file, next);
+  return { appliedEvents: pending.length, appliedSeq };
+}
+
+/** The `seq` of the last run-state event this Manifest shows; null when there is no Manifest. */
+function readAppliedEventSeq(runsDir, folderName) {
+  let text;
+  try {
+    text = fs.readFileSync(manifestPath(runsDir, folderName), 'utf8');
+  } catch {
+    return null;
+  }
+  const m = text.match(EVENTS_MARKER_RE);
+  return m ? Number(m[1]) : 0;
 }
 
 /**
@@ -496,5 +675,7 @@ module.exports = {
   recordStage,
   recordReuse,
   recordGap,
+  applyStateEvents,
+  readAppliedEventSeq,
   readManifest,
 };

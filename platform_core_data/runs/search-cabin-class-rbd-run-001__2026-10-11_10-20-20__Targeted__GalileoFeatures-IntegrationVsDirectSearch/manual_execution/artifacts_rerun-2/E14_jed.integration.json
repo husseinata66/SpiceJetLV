@@ -1,0 +1,1645 @@
+{
+ "branchConfirmed": "NDC1_Ahmed Ayman (BRN287)",
+ "executedAt": "2026-10-11T10:04:03.144Z",
+ "httpStatus": 200,
+ "uiHeader": "75 options | 4 time slots",
+ "searchCriteria": {
+  "tripType": 1,
+  "noOfAdults": 1,
+  "noOfChildren": 0,
+  "noOfInfants": 0,
+  "entity": {
+   "selectedBranch": 10994
+  },
+  "filters": {
+   "isNearByAirport": false,
+   "isBaggageFareOnly": false,
+   "isUpSelling": false,
+   "isNonStop": false,
+   "isExcludeLcc": false,
+   "allianceAirline": null,
+   "preferAirlines": []
+  },
+  "routes": [
+   {
+    "cabinClass": 1,
+    "dateOfJourney": "20-11-2026",
+    "destination": {
+     "airportCode": "JED"
+    },
+    "origins": [
+     {
+      "airportCode": "CAI"
+     }
+    ],
+    "rbd": []
+   }
+  ]
+ },
+ "note": "Normalized from the flight-search/search response. Prices removed. Level: fare option x passenger type x segment.",
+ "offers": 75,
+ "flights": {
+  "NP127 CAI-JED 11-20T11:45>11-20T15:00": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:O",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "NP127",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "O",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:E",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "NP127",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "E",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV386 CAI-JED 11-20T01:00>11-20T04:10": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV386",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV386",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV308 CAI-JED 11-20T03:35>11-20T06:45": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV308",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV308",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV382 CAI-JED 11-20T06:10>11-20T09:20": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV382",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV382",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV300 CAI-JED 11-20T11:45>11-20T14:55": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV300",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV300",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV330 CAI-JED 11-20T16:40>11-20T19:50": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV330",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV330",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV304 CAI-JED 11-20T17:20>11-20T20:30": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV304",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV304",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV302 CAI-JED 11-20T19:50>11-20T23:00": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV302",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV302",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV388 CAI-JED 11-20T22:30>11-21T01:40": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV388",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:V",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV388",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "MS665 CAI-JED 11-20T02:25>11-20T05:40": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:U",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "MS665",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "U",
+        "bag": "0PC",
+        "bagText": "0 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "MS661 CAI-JED 11-20T07:10>11-20T10:25": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:U",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "MS661",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "U",
+        "bag": "0PC",
+        "bagText": "0 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "MS671 CAI-JED 11-20T14:15>11-20T17:30": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:U",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "MS671",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "U",
+        "bag": "0PC",
+        "bagText": "0 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "MS669 CAI-JED 11-20T18:25>11-20T21:40": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:U",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "MS669",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "U",
+        "bag": "0PC",
+        "bagText": "0 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "MS663 CAI-JED 11-20T23:00>11-21T02:15": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:U",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "MS663",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "U",
+        "bag": "0PC",
+        "bagText": "0 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "KU546 CAI-KWI 11-20T11:25>11-20T14:50 + KU785 KWI-JED 11-20T16:20>11-20T18:40": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:VV",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "KU546",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "0PC",
+        "bagText": "0 Pieces"
+       },
+       {
+        "seg": "KU785",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "0PC",
+        "bagText": "0 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:TT",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "KU546",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "T",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       },
+       {
+        "seg": "KU785",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "T",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "KU544 CAI-KWI 11-20T02:40>11-20T06:05 + KU787 KWI-JED 11-20T08:45>11-20T11:05": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:VV",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "KU544",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "0PC",
+        "bagText": "0 Pieces"
+       },
+       {
+        "seg": "KU787",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "0PC",
+        "bagText": "0 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:TT",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "KU544",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "T",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       },
+       {
+        "seg": "KU787",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "T",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY566 CAI-JED 11-20T08:20>11-20T11:30": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY566",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "15KG",
+        "bagText": "15 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY566",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY584 CAI-JED 11-20T09:25>11-20T12:35": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY584",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "15KG",
+        "bagText": "15 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY584",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY570 CAI-JED 11-20T17:40>11-20T20:50": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY570",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "15KG",
+        "bagText": "15 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY570",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY590 CAI-JED 11-20T21:20>11-21T00:30": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY590",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "15KG",
+        "bagText": "15 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY590",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY578 CAI-JED 11-20T11:40>11-20T14:55": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY578",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "15KG",
+        "bagText": "15 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY578",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY572 CAI-JED 11-20T20:05>11-20T23:20": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY572",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "15KG",
+        "bagText": "15 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY572",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY568 CAI-JED 11-20T23:50>11-21T03:05": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY568",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "15KG",
+        "bagText": "15 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:A",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY568",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV310 CAI-RUH 11-20T10:35>11-20T14:10 + SV1039 RUH-JED 11-20T16:00>11-20T17:55": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:VH",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV310",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       },
+       {
+        "seg": "SV1039",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "H",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:VH",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV310",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "SV1039",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "H",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV380 CAI-MED 11-20T20:55>11-20T23:45 + SV1421 MED-JED 11-21T03:45>11-21T04:55": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:VH",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV380",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       },
+       {
+        "seg": "SV1421",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "H",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:VH",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV380",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "SV1421",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "H",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "MS643 CAI-JED 11-20T20:40>11-20T23:55": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:W",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "MS643",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "W",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:K",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "MS643",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "K",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV390 CAI-MED 11-20T04:30>11-20T07:20 + SV1425 MED-JED 11-20T10:20>11-20T11:30": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:NH",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV390",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "N",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       },
+       {
+        "seg": "SV1425",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "H",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:NH",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV390",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "N",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "SV1425",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "H",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "MS673 CAI-JED 11-20T01:00>11-20T04:15": {
+   "stops": "0",
+   "options": [
+    {
+     "rbdKey": "ADTx1:E",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "MS673",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "E",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:K",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "MS673",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "K",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "QR1304 CAI-DOH 11-20T13:05>11-20T17:10 + QR1188 DOH-JED 11-20T17:55>11-20T20:35": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:NN",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "QR1304",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "N",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "QR1188",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "N",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:SS",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "QR1304",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "S",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "QR1188",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "S",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "QR1302 CAI-DOH 11-20T19:35>11-20T23:40 + QR1184 DOH-JED 11-21T01:00>11-21T03:40": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:NN",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "QR1302",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "N",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "QR1184",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "N",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:SS",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "QR1302",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "S",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "QR1184",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "S",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "RJ504 CAI-AMM 11-20T14:05>11-20T16:25 + RJ706 AMM-JED 11-20T17:50>11-20T20:00": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:QO",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "RJ504",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Q",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       },
+       {
+        "seg": "RJ706",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "O",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "RJ506 CAI-AMM 11-20T19:55>11-20T22:15 + RJ704 AMM-JED 11-21T01:35>11-21T03:45": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:QO",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "RJ506",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Q",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       },
+       {
+        "seg": "RJ704",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "O",
+        "bag": "1PC",
+        "bagText": "1 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY264 CAI-RUH 11-20T10:50>11-20T13:35 + XY33 RUH-JED 11-20T16:35>11-20T18:35": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:AA",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY264",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "15KG",
+        "bagText": "15 Kilograms"
+       },
+       {
+        "seg": "XY33",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "15KG",
+        "bagText": "15 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:AA",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY264",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       },
+       {
+        "seg": "XY33",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY270 CAI-RUH 11-20T13:25>11-20T17:00 + XY51 RUH-JED 11-20T19:15>11-20T21:15": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:AA",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY270",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "15KG",
+        "bagText": "15 Kilograms"
+       },
+       {
+        "seg": "XY51",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "15KG",
+        "bagText": "15 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:AA",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY270",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       },
+       {
+        "seg": "XY51",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY268 CAI-RUH 11-20T15:10>11-20T18:45 + XY23 RUH-JED 11-20T21:00>11-20T23:00": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:AA",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY268",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "15KG",
+        "bagText": "15 Kilograms"
+       },
+       {
+        "seg": "XY23",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "15KG",
+        "bagText": "15 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:AA",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY268",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       },
+       {
+        "seg": "XY23",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "A",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "ME305 CAI-BEY 11-20T14:10>11-20T15:30 + ME368 BEY-JED 11-20T17:45>11-20T21:15": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:VV",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "ME305",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "ME368",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "V",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:NN",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "ME305",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "N",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "ME368",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "N",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "GF80 CAI-BAH 11-20T04:20>11-20T08:20 + GF171 BAH-JED 11-20T10:05>11-20T12:40": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:EE",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "GF80",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "E",
+        "bag": "35KG",
+        "bagText": "35 Kilograms"
+       },
+       {
+        "seg": "GF171",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "E",
+        "bag": "35KG",
+        "bagText": "35 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:EE",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "GF80",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "E",
+        "bag": "40KG",
+        "bagText": "40 Kilograms"
+       },
+       {
+        "seg": "GF171",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "E",
+        "bag": "40KG",
+        "bagText": "40 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "WY5483 CAI-MCT 11-20T14:30>11-20T20:10 + WY673 MCT-JED 11-20T21:30>11-21T00:05": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:OO",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "WY5483",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "O",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       },
+       {
+        "seg": "WY673",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "O",
+        "bag": "30KG",
+        "bagText": "30 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:OO",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "WY5483",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "O",
+        "bag": "40KG",
+        "bagText": "40 Kilograms"
+       },
+       {
+        "seg": "WY673",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "O",
+        "bag": "40KG",
+        "bagText": "40 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "EK930 CAI-DXB 11-20T08:00>11-20T13:15 + EK803 DXB-JED 11-20T15:45>11-20T18:00": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:KK",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "EK930",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "K",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "EK803",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "K",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:XX",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "EK930",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "X",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "EK803",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "X",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "TK7880 CAI-IST 11-20T14:20>11-20T17:50 + TK122 IST-JED 11-20T19:20>11-20T23:05": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:EE",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "TK7880",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "E",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "TK122",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "E",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:HH",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "TK7880",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "H",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "TK122",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "H",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "GF6120 CAI-BAH 11-20T19:55>11-20T23:35 + GF181 BAH-JED 11-21T01:35>11-21T04:10": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:XX",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "GF6120",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "X",
+        "bag": "35KG",
+        "bagText": "35 Kilograms"
+       },
+       {
+        "seg": "GF181",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "X",
+        "bag": "35KG",
+        "bagText": "35 Kilograms"
+       }
+      ]
+     }
+    },
+    {
+     "rbdKey": "ADTx1:XX",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "GF6120",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "X",
+        "bag": "40KG",
+        "bagText": "40 Kilograms"
+       },
+       {
+        "seg": "GF181",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "X",
+        "bag": "40KG",
+        "bagText": "40 Kilograms"
+       }
+      ]
+     }
+    }
+   ]
+  }
+ }
+}

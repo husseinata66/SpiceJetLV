@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "activeRun": {
+    "folderName": "search-cabin-class-rbd-run-001__2026-10-11_10-20-20__Targeted__GalileoFeatures-IntegrationVsDirectSearch",
+    "index": 1,
+    "runOwner": "search-cabin-class-rbd",
+    "scope": "Targeted",
+    "target": "GalileoFeatures-IntegrationVsDirectSearch",
+    "status": "Preparing",
+    "title": null,
+    "startedTime": "2026-10-11T07:20:20.494Z",
+    "stagesPresent": [],
+    "path": "platform_core_data/runs/search-cabin-class-rbd-run-001__2026-10-11_10-20-20__Targeted__GalileoFeatures-IntegrationVsDirectSearch"
+  },
+  "switchedAt": "2026-10-11T07:20:20.494Z",
+  "setBy": "Run Manager",
+  "previousRun": null
+}

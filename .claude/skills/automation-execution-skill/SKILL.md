@@ -1,6 +1,6 @@
 ---
 name: automation-execution-skill
-description: Stage 5A of the Agentic AI Testing Platform's Automation Pipeline. A pure mechanical runner — executes an approved automation suite against a target environment and records raw, structured Execution Results (pass/fail/evidence, full cause-based Result Classification, and separated Application/Automation/Environment Health figures). It never diagnoses, repairs, or modifies automation code: that is the optional Stage 5H self-healing-skill's exclusive responsibility. Use when running an approved automation package against an environment.
+description: "Stage 5A of the Agentic AI Testing Platform's Automation Pipeline. A pure mechanical runner — executes an approved automation suite against a target environment and records raw, structured Execution Results (pass/fail/evidence, full cause-based Result Classification, and separated Application/Automation/Environment Health figures). It never diagnoses, repairs, or modifies automation code: that is the optional Stage 5H self-healing-skill's exclusive responsibility. Use when running an approved automation package against an environment."
 inputs:
   - name: automation_suite
     type: file_path
@@ -122,7 +122,7 @@ The Automation Execution skill runs the automated test suite produced by Stage `
 | Environment Configuration | Required (embedded) | The named environment (§14) this run targets, drawn from the Project Context's Environment Constraints — not a hidden default, and never inferred from where this skill itself happens to be running. |
 | Execution scope / Execution Parameters | Optional | Which subset of the suite to run (defaults to the full suite); for a Selective Re-run or Failed Test Re-run (§13), this is the specific test case ID list or "previously Failed" filter. |
 | Evidence Locations | Required (fixed convention) | `platform_core_data/runs/{{RUN_FOLDER}}/execution/artifacts/` — not configurable per run; named explicitly here so it's a stated input/convention rather than an implicit assumption. |
-| Execution History | Optional — required only for Resume/Selective Re-run/Failed Test Re-run (§5.5, §13) | Prior Execution Results artifact(s) for this run (`ExecutionResults_{Execution ID}.md`), consulted only to determine what to resume or re-run — never edited, never treated as this run's own result. |
+| Execution History | Optional — required only for Resume/Selective Re-run/Failed Test Re-run (§5.5, §13) | Prior Execution Results artifact(s) for this run (`ExecutionResults.md` and any `ExecutionResults.rerun-N.md`), consulted only to determine what to resume or re-run — never edited, never treated as this run's own result. |
 
 # 5. Execution Mode
 
@@ -171,6 +171,7 @@ A separate axis from Execution Mode (§5.1) — concurrency determines *how many
 
 - Where a prior execution was interrupted (environment failure, timeout, manual stop) before completing the full suite/scope, this skill may **Resume** rather than restart from zero — reading Execution History (§4) to determine which tests already have a recorded outcome and running only the remainder.
 - A Resume is still a distinct Execution ID (§8 Rule 9) whose Execution Metadata states `"Resumed From": "{prior Execution ID}"` and whose final Execution Results for the full logical run is the union of the prior recorded outcomes plus this session's — never a silent merge that loses which outcomes came from which execution.
+- **Every Resume, Selective Re-run and Failed Test Re-run writes a new file** *(added 2026-10-08, `pipeline.md` §6 Rule 7b)*: `ExecutionResults.rerun-N.md` with its own `artifacts_rerun-N/`, beside the originals — the same convention Stage `5H` reruns already use (`pipeline.md` §4, Stage `5H`). `ExecutionResults.md` and every earlier `rerun-N` file are never edited or deleted. A union view is presented in the new file, with every outcome citing the Execution ID that produced it.
 - Resume is only valid within the same Run — it never carries results forward across a new Run Scope or a new Automation Package version (§21).
 
 ## 5.6 Dry Run (future capability — not yet implemented)
@@ -186,7 +187,7 @@ A **Dry Run** mode — validating that the suite *would* execute (environment re
 - Shell/Bash (to install dependencies and invoke the test runner using whatever command the Automation Summary's Execution Instructions state, per §15 — never a hardcoded assumption of a specific framework's CLI)
 - File tools: Read (automation suite, Automation Summary, Project Context), Write (execution results, logs)
 - The test framework's own automation layer (browser, API client, mobile driver, or other, per whichever framework Stage 4A selected), as invoked by the test runner itself — not ad hoc manual interaction
-- A direct means of asking the user a question and waiting for their answer, used strictly for the Execution Mode determination in §5.1 when the Run Configuration does not already define one — not used to ask about anything else within this skill's scope
+- A direct means of asking the user a question and waiting for their answer — used for the Execution Mode confirmation in §5.1 before every execution (a Run Configuration value is stated back as a proposal, never used unconfirmed), and for the approvals §14A requires. Not used to ask about anything else within this skill's scope
 - **`context7` MCP server** — **not used by this stage.** It was previously permitted here only inside the Automation Repair Loop; with the repair engine moved to Stage `5H` (§25), diagnosis-time documentation lookup moved with it. A pure runner has no question to ask a documentation server: it runs the suite as the Automation Summary's Execution Instructions specify, and records what happened.
 
 **Not permitted:** editing test scripts to change their logic or expected assertions, editing the PRD/Project Context/test cases, or running any test the Project Context has not authorized for the target environment.
@@ -195,11 +196,11 @@ A **Dry Run** mode — validating that the suite *would* execute (environment re
 
 1. Must confirm the target environment matches the Project Context before running anything; halt and report on mismatch.
 2. **Must confirm an explicit Execution Mode with the human before running anything** (§5.1) — Headless, Headed, or Debug, asked immediately before each execution and never inferred or reused (`pipeline.md` §6 Rule 11).
-3. **Must never assume a default Execution Mode.** If the Run Configuration does not define one, this skill must halt and request it from the user, and must not proceed until an explicit answer is given.
+3. **Must never assume a default Execution Mode.** Whether or not the Run Configuration names one, this skill halts and asks the human (§5.1), and does not proceed until an explicit answer is given. A configured value is only stated back as a proposal to confirm. If the chosen mode cannot be provided, it stops and asks again — it never switches mode silently (`pipeline.md` §6 Rule 11).
 4. **Must record the determined Execution Mode in the Execution Metadata** (§5.2, §9) on every Execution Results artifact — an artifact missing this field is incomplete, per the same standard already applied to the other required fields in Rule 8 below.
 5. Must not modify automation scripts to force a pass or hide a failure.
 6. **Must evaluate every declared operation against the Execution Safety policy before invoking the runner** (§14A), through `platform_core/tools/execution_safety/` — never by interpreting constraint prose itself. A test whose operations resolve `Forbidden`, or whose `Approval Required` was refused, is **deselected from the invocation** and recorded `Skipped` with reason `Execution Safety Policy`.
-6a. **Must write the Safety Preflight to the run's `metadata/` before executing anything** (§14A.2), and resolve every required authorization up front — one scoped question per policy scope, never one per test.
+6a. **Must record the Safety Preflight before executing anything** (§14A.2) with `state preflight 5A … --confirmed-by "<name>"` — the Run Manager writes it to the run's `metadata/`, never this Skill — and resolve every required authorization up front — one scoped question per policy scope, never one per test.
 6b. **Must state the actual enforcement strength in Known Limitations on every run** (§14A.1) — suite-preflight and per-test, **not** per-operation, because the runner is an opaque external process. Claiming operation-level enforcement this stage does not have is a specification violation of the same category as assuming a framework's invocation syntax (Rule 11).
 6c. **Must never record a policy block as an Application, Automation, Environment, Infrastructure, or Configuration Failure** (§14A.3, §25.2) — none of those occurred, and doing so corrupts the health separation Rule 20 exists to protect.
 6d. **Must never treat `Automation = Approved` as authorization for the business mutations the suite performs** (§14A) — generation permission and execution permission are decided by different mechanisms.
@@ -318,7 +319,7 @@ Input:
   EXECUTION_MODE   = (not defined in Run Configuration)
 ```
 
-Hypothetical result: this skill confirms the target environment matches the Project Context, then checks the Run Configuration for an Execution Mode — finds none defined — and halts, asking: *"No Execution Mode is defined in the Run Configuration. Please choose one: Headless, Headed, or Debug."* Only after the user answers, say, "Headed," does this skill proceed to run `npx playwright test --headed`, and the resulting `platform_core_data/runs/{{RUN_FOLDER}}/execution/ExecutionResults.md` records `"Execution Mode": "Headed"` in its run-identity header alongside the usual per-test outcomes — e.g., "36 tests executed — 31 Passed, 3 Failed (TC-PIM-013 → `pim.spec.ts::AddEmployee_MissingName`, TC-PIM-014, TC-LEA-013 — validation messages not shown as expected), 2 Skipped (destructive Maintenance actions not authorized against the shared demo)," with each row showing its Test Case ID, Automation Script ID, Execution Time, and linked Screenshots/Logs under `platform_core_data/runs/{{RUN_FOLDER}}/execution/artifacts/`.
+Hypothetical result: this skill confirms the target environment matches the Project Context, then halts and asks the human for the Execution Mode before running anything — whether or not the Run Configuration names one: *"Which Execution Mode for this run: Headless, Headed, or Debug? (The Run Configuration proposes Headless.)"* Only after the user answers, say, "Headed," does this skill proceed to run `npx playwright test --headed`, and the resulting `platform_core_data/runs/{{RUN_FOLDER}}/execution/ExecutionResults.md` records `"Execution Mode": "Headed"` in its run-identity header alongside the usual per-test outcomes — e.g., "36 tests executed — 31 Passed, 3 Failed (TC-PIM-013 → `pim.spec.ts::AddEmployee_MissingName`, TC-PIM-014, TC-LEA-013 — validation messages not shown as expected), 2 Skipped (destructive Maintenance actions not authorized against the shared demo)," with each row showing its Test Case ID, Automation Script ID, Execution Time, and linked Screenshots/Logs under `platform_core_data/runs/{{RUN_FOLDER}}/execution/artifacts/`.
 
 # 12. Architecture Principle
 
@@ -494,7 +495,7 @@ The Execution Results artifact (§9 — same file, no new artifact path) must co
 |---|---|---|
 | 1 | **Execution Metadata** | Execution ID, Run Scope/Run Type (§13), environment (§14), framework used, Execution Mode, Concurrency Mode, Retry Policy, timestamps |
 | 2 | **Execution Summary** | One-paragraph narrative: what was executed, overall outcome, headline pass/fail figures |
-| 3 | **Execution Results** | Per-test detail: Test Case ID, Automation Script ID, Status (§17), Execution Time, Evidence Inventory references, failure detail where applicable |
+| 3 | **Execution Results** | Per-test detail: Test Case ID, Automation Script ID, Status (§17), Execution Time, Evidence Inventory references, failure detail where applicable — and **§3.1 Assertion Records** for every `Passed` case: one row per assertion the case's Expected Result makes (Expected from the approved test case, never from the run's output; Actual; Check; Result; optional evidence file inside the run folder), taken from the framework's own assertion results. A `Passed` with no verified rows counts as `Unverified`; a failed or contradicted assertion makes it `Inconclusive` (`pipeline.md` §11.4, Phase 5.6B). A screenshot, trace or log is evidence, never the proof of a pass. Expected values are checked against the suite version Stage 4A was built on (Phase 5.7). Each record carries the case's **Assertion ID** (A1, A2 …) from its **Assertions:** table; every required assertion is recorded exactly once, with the approved Expected and Check — the generated test asserts exactly those (Phase 5.8). |
 | 4 | **Evidence Inventory** | The consolidated list per §16 — every evidence type captured, per test, with paths, and every gap with a reason |
 | 5 | **Execution Statistics** | The Metrics from §22 — duration, pass/fail/skip rates, retry count, evidence count, flaky count, stability |
 | 6 | **Health Summary (§25.2)** | **Application Health, Automation Health, and Environment Health reported as three separate figures — never one merged "Failed" counter.** `Inconclusive`/`Flaky` reported as their own line, folded into neither. |
@@ -511,7 +512,7 @@ This skill recognizes the following named conditions. Recognizing one is never, 
 |---|---|---|
 | **Missing Automation Package** | Global | Halt — there is nothing to execute. Report the gap; recommend confirming Stage 4A completed and its output is `Approved`. |
 | **Missing Framework** (the Automation Summary doesn't state one, and none can be inferred) | Global | Halt — per §15, this skill never selects a framework itself. Recommend re-running the Automation skill to produce a complete Automation Summary. |
-| **Missing Execution Configuration** (no Execution Mode, and the Run Configuration provides no way to obtain one) | Global | Per existing Rule 3: halt and ask the user directly — never default. |
+| **Missing Execution Configuration** (no explicit Execution Mode answer from the human for this execution) | Global | Per Rule 3: halt and ask the user directly — never default, and never take a Run Configuration value as the answer. |
 | **Invalid Run Configuration** (e.g., an Execution Mode value other than Headless/Headed/Debug, or a Retry Policy that doesn't parse) | Global | Halt and report the specific invalid value — never silently coerce it to a nearest-guess valid value. |
 | **Environment Unavailable** (target URL unreachable, application down) | Global | Halt; recommend validating the environment (§20) before retrying — never repeatedly retry against a genuinely down target as if that were a flaky-test problem. |
 | **Authentication Failure** (the Project Context's credentials don't work) | Global | Halt; this is a credential/environment problem, not a test defect — classify any in-flight test as Environment Failure (§17), not Application Failure. |
@@ -648,7 +649,7 @@ Where at least one `Automation Failure` exists, this stage **states that self-he
 
 This skill is independently invocable — `/automation-execution-skill`, optionally with a run-scoped instruction (e.g. `/automation-execution-skill run the Login spec only, headed`). Full rules: `workflows_and_pipelines/pipeline/pipeline.md` §5.3.1.
 
-- **Instruction prompts are run-scoped, never spec-overriding** (§5.3.1 #3). An instruction may set the Execution Scope (a subset, a failed-test re-run) and may supply the Execution Mode explicitly — supplying it in the invocation is a valid answer to Rule 3's question, and is recorded in the run-identity header exactly as a Run Configuration value would be. An instruction never authorizes assuming a *default* mode when none is given anywhere (Rule 3's halt stands), proceeding against an environment that mismatches the Project Context (Rule 1), running destructive actions the Project Context does not authorize, executing against a Workspace Automation Baseline instead of this run's working copy (§22), or repairing anything at all — repair is Stage `5H`'s exclusive responsibility (§25), and no instruction to this skill authorizes it. `/automation-execution-skill repair ...` is not a valid invocation; the correct command is `/self-healing-skill`.
+- **Instruction prompts are run-scoped, never spec-overriding** (§5.3.1 #3). An instruction may set the Execution Scope (a subset, a failed-test re-run) and may supply the Execution Mode explicitly — a mode the human types in the invocation that starts this execution is a valid answer to Rule 3's question for that one execution only (`pipeline.md` §6 Rule 11), and is recorded in the run-identity header. It never carries over to a later rerun. An instruction never authorizes assuming a *default* mode when none is given (Rule 3's halt stands), proceeding against an environment that mismatches the Project Context (Rule 1), running destructive actions the Project Context does not authorize, executing any root other than the one `automation_lifecycle/cli.js resolve-root` returns (§9), or repairing anything at all — repair is Stage `5H`'s exclusive responsibility (§25), and no instruction to this skill authorizes it. `/automation-execution-skill repair ...` is not a valid invocation; the correct command is `/self-healing-skill`.
 - **Upstream `Pending Automation Approval` → request approval, then recommend** (§5.3.1 #4). This is the strictest gate in the pipeline (§5.2): approving it authorizes code to run against a real environment. A direct invocation never substitutes for it. Report it and offer both paths (approve → `/automation-execution-skill`, or revise → `/automation-skill <feedback>`).
 - **Missing upstream → run degraded** (§5.3.1 #5):
   - *No Automation Package:* nothing to execute — existing §19 Stop Condition stands. This skill never generates what it would then run.
@@ -673,7 +674,7 @@ Next step — either:
   1. Produce the final report:   /reporting-skill
   2. Heal automation failures:   /self-healing-skill            (optional, Stage 5H)
                                  /self-healing-skill {module}   (scoped to named modules)
-  3. Re-run as-is, no changes:   /automation-execution-skill re-run failed
+  3. Re-run as-is, no changes:   /automation-execution-skill re-run failed   (writes ExecutionResults.rerun-N.md; this file stays as recorded)
 ```
 
 # 31. Observability — what this stage emits
@@ -818,7 +819,7 @@ node platform_core/tools/run_manager/cli.js list     # every run, newest first, 
 - **The pointer is sticky.** It stays on the same run across invocations until someone switches it, so a multi-stage session keeps writing into one run without restating which.
 - **Switching runs is the human's call.** This stage never rewrites the pointer to redirect its own output. Working on a different run means the switch happens first, as an explicit step (`cli.js use <run>`).
 
-This stage never creates a run. It executes the active run's own working copy — never the Workspace Automation Baseline — and writes Execution Results into that same run.
+This stage never creates a run. It executes the suite at the module's resolved root (§9: the module project for a `Draft` module; the baseline's module-scoped suite for a `Promoted` module; the assembled baseline for a `full-project` run) and writes Execution Results into the active run. It never modifies code at either location.
 
 ## Inherited artifacts and code drift
 
@@ -842,3 +843,19 @@ node platform_core/tools/run_manager/cli.js drift --json    # machine-readable, 
   not be computed — treat inherited conclusions as unverified, never as confirmed.
 - **A refinement targets today's project state.** The prior run described the app at its own
   `targetRef`; this run describes it now. Never carry forward a conclusion that drift contradicts.
+
+# Browser launch (Phase 9.4)
+
+The stage's Safety Preflight (`state preflight 5A`) also authorizes the browser itself: pass `headless` (the human's answer) and `preflight: { runsDir, run, stage: '5A', id: 'SP-n' }` to `BrowserDriver.authenticate()` / the Browser Provider or `runSuite({ …, mode, preflight, environment, baseUrl })`. A launch without it, for a stage that is not Running, in a different mode, or with credentials for another environment or a base URL on another host than the preflight confirmed, is refused (`PREFLIGHT_REQUIRED` / `STAGE_NOT_RUNNING` / `MODE_MISMATCH` / `ENVIRONMENT_MISMATCH` / `TARGET_MISMATCH`).
+
+# Run State Integration (pipeline.md §5.3.2 — added 2026-10-08)
+
+This stage (`5A`) records its lifecycle in the run state model. These commands are mechanical. They never replace a reviewer's decision and never skip a gate. The full rule, and every stage's row, is `pipeline.md` §5.3.2.
+
+0. **Safety Preflight — before entry:** record it with `node platform_core/tools/run_manager/cli.js state preflight 5A --environment <env> --target-url <url> --execution-type <browser|api|database|batch|other> [--execution-mode Headed|Headless] --operations <ops.json> --confirmed-by "<name>"` **before** `state start 5A` — the Run Manager writes `metadata/SafetyPreflight.md` itself and its entry gate refuses to start 5A without a confirmed, current preflight (Phase 9.2/9.3; never hand-write that file).
+1. **Entry — before any work:** `node platform_core/tools/run_manager/cli.js state start 5A --invocation <Pipeline|Direct|Direct (degraded)> [--instruction "..."]`. This runs the entry gate. **Exit code 2 means blocked:** do not start. Show the human the reasons, request what is missing (`pipeline.md` §5.3.1 #4), and name the next command. No approved automation (Stage `4A`) blocks — there is nothing to run. Without a Project Context, start with `--invocation "Direct (degraded)" --environment-supplied` only when the environment was given in the invocation.
+2. **Artifacts:** `node platform_core/tools/run_manager/cli.js state artifact 5A --artifacts <path[,path]> [--kind checkpoint|output|evidence]` for what this stage writes — at minimum `platform_core_data/runs/{{RUN_FOLDER}}/execution/ExecutionResults.md`.
+3. **Exit — this stage has no checkpoint:** register the output, then `node platform_core/tools/run_manager/cli.js state complete 5A`. It is refused unless a registered output exists on disk.
+4. **Blocked or failed:** `state block 5A --reason "..."` or `state fail 5A --reason "..."`, so the run records what it is waiting on.
+
+**Capability gate, then the outcome (`pipeline.md` §17.5, `ndc_execution_rules.md` §A15).** On a Supplier run, before execution: `node platform_core/tools/capability_gate/cli.js plan --run <run>` — it writes `metadata/CapabilityPlan.md`, and the entry gate refuses to start Stage 5A without it. Cases it excludes are not executed; they are reported `Excluded` (not supported by supplier), outside the pass-rate denominator, never as failures. After the run: `node platform_core/tools/run_manager/cli.js state outcome 5A --from-results`. A failed-only re-run writes `ExecutionResults.rerun-N.md` and registers it with `state artifact 5A`; `ExecutionResults.md` is never edited. A pass after a failure with no repair reads `Flaky`.

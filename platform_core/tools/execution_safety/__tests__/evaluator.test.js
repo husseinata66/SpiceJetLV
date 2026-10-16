@@ -14,8 +14,11 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 
 const {
-  evaluate, explain, resolveRule, tierOf, findAuthorization,
+  evaluate: evaluateAny, explain, resolveRule, tierOf, findAuthorization,
 } = require('../evaluator');
+// F-22 (Phase 9.3): the evaluator never defaults the environment. These tests exercise rule resolution,
+// so every request names the environment its policy governs — explicitly, here.
+const evaluate = (req) => evaluateAny({ environment: req && req.policy ? req.policy.environment : undefined, ...req });
 const { validatePolicy, assertValidPolicy, PolicyError } = require('../schema');
 
 // ---------------------------------------------------------------------------------------------
@@ -180,8 +183,15 @@ test('an unrecognised environment becomes Unknown and is refused, not guessed', 
   assert.match(r.warnings.join('\n'), /never from the URL/);
 });
 
-test('omitting the environment evaluates against the policy\'s own environment', () => {
-  assert.equal(evaluate({ policy: basePolicy(), action: 'READ' }).environment, 'Staging');
+test('omitting the environment is Unknown and refused — never the policy\'s own environment (F-22)', () => {
+  for (const environment of [undefined, null, '', '   ']) {
+    const r = evaluateAny({ policy: basePolicy(), action: 'READ', ownership: 'Shared', environment });
+    assert.equal(r.environment, 'Unknown');
+    assert.equal(r.decision, 'Forbidden');
+    assert.ok(r.warnings.some((w) => /No environment was supplied[\s\S]*never defaulted to the policy's environment \(Staging\)/.test(w)));
+  }
+  // An unknown name is Unknown too — never Staging.
+  assert.equal(evaluateAny({ policy: basePolicy(), action: 'READ', environment: 'uat-2' }).environment, 'Unknown');
 });
 
 // ---------------------------------------------------------------------------------------------

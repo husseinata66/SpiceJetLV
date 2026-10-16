@@ -1,0 +1,2638 @@
+{
+  "folderName": "search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity",
+  "index": 2,
+  "runOwner": "search-cabin-class-rbd",
+  "scope": "Targeted",
+  "target": "GalileoFeatures-CheckSupplierParity",
+  "workflow": "unversioned",
+  "targetRef": "7d272cdcd21a5e8844a0c31b24a450ca13f6f3e0",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-10-11T12:01:07.492Z",
+  "targetRepoRoot": "E:/Projects/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at E:/Projects/agentic-ai-testing-platform",
+  "createdBy": "Run Manager",
+  "startedTime": "2026-10-11T12:01:07.492Z",
+  "stateSchemaVersion": 1,
+  "stateRevision": 16,
+  "status": "Waiting For Approval",
+  "statusReason": null,
+  "statusHistory": [
+    {
+      "at": "2026-10-11T12:01:07.492Z",
+      "from": null,
+      "to": "Preparing",
+      "by": "Run Manager",
+      "reason": "run created"
+    },
+    {
+      "at": "2026-10-11T12:04:02.621Z",
+      "from": "Preparing",
+      "to": "Running",
+      "by": "Ahmed Ayman",
+      "reason": null
+    },
+    {
+      "at": "2026-10-11T12:04:02.825Z",
+      "from": "Running",
+      "to": "Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-11T12:04:30.854Z",
+      "from": "Waiting For Approval",
+      "to": "Running",
+      "by": "Ahmed Ayman",
+      "reason": null
+    },
+    {
+      "at": "2026-10-11T12:16:36.120Z",
+      "from": "Running",
+      "to": "Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-11T12:28:54.280Z",
+      "from": "Waiting For Approval",
+      "to": "Running",
+      "by": "Ahmed Ayman",
+      "reason": null
+    },
+    {
+      "at": "2026-10-11T13:13:39.761Z",
+      "from": "Running",
+      "to": "Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null
+    }
+  ],
+  "stages": {
+    "1": {
+      "stageId": "1",
+      "name": "Stage 1 — Project Context",
+      "checkpoint": "Human Review",
+      "status": "Completed",
+      "startedAt": "2026-10-11T12:04:02.621Z",
+      "lastStartedAt": "2026-10-11T12:04:02.621Z",
+      "completedAt": "2026-10-11T12:04:30.854Z",
+      "updatedAt": "2026-10-11T12:04:30.854Z",
+      "attempts": 1,
+      "resumes": 0,
+      "revisions": 0,
+      "invocationPath": "Direct",
+      "instruction": "Context rev 3: Check Supplier Request/Response Parity scope (IA-83965c75d868)",
+      "artifacts": [
+        {
+          "path": "platform_core_data/supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md",
+          "kind": "checkpoint",
+          "recordedAt": "2026-10-11T12:04:02.724Z"
+        }
+      ],
+      "reason": null,
+      "approval": {
+        "status": "Approved",
+        "approvedBy": "Ahmed Ayman",
+        "approvedAt": "2026-10-11T12:04:30.854Z",
+        "rejectedBy": null,
+        "rejectedAt": null,
+        "feedback": null,
+        "headerEvidence": [
+          {
+            "path": "platform_core_data/supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md",
+            "status": "Approved",
+            "raw": "Approved",
+            "source": "markdown-table",
+            "sha256": "098b2ff91c12dfb011048945a65adebb6fb906f1d9f5f9d22e361779cd6530ab"
+          }
+        ],
+        "previous": []
+      },
+      "history": [
+        {
+          "at": "2026-10-11T12:04:02.621Z",
+          "from": "Not Started",
+          "to": "Running",
+          "by": "Ahmed Ayman",
+          "reason": null
+        },
+        {
+          "at": "2026-10-11T12:04:02.825Z",
+          "from": "Running",
+          "to": "Waiting For Approval",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-11T12:04:30.854Z",
+          "from": "Waiting For Approval",
+          "to": "Completed",
+          "by": "Ahmed Ayman",
+          "reason": "approved"
+        }
+      ],
+      "entryGate": {
+        "decision": "proceed",
+        "checkedAt": "2026-10-11T12:04:02.621Z",
+        "invocationPath": "Direct",
+        "scope": [],
+        "gaps": [],
+        "warnings": [],
+        "checks": []
+      },
+      "entryGateHistory": [
+        {
+          "decision": "proceed",
+          "checkedAt": "2026-10-11T12:04:02.621Z",
+          "invocationPath": "Direct",
+          "scope": [],
+          "gaps": [],
+          "warnings": [],
+          "checks": []
+        }
+      ]
+    },
+    "3": {
+      "stageId": "3",
+      "name": "Stage 3 — Test Design",
+      "checkpoint": "Human Review",
+      "status": "Completed",
+      "startedAt": "2026-10-11T12:12:34.879Z",
+      "lastStartedAt": "2026-10-11T12:12:34.879Z",
+      "completedAt": "2026-10-11T12:28:54.280Z",
+      "updatedAt": "2026-10-11T12:28:54.280Z",
+      "attempts": 1,
+      "resumes": 0,
+      "revisions": 0,
+      "invocationPath": "Direct (degraded)",
+      "instruction": "Companion suite: Check Supplier Request/Response Parity (TC-GCSP-001..021); Stage 2 not run by agreement (search-only parity scope)",
+      "artifacts": [
+        {
+          "path": "platform_core_data/supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo_CheckSupplierParity.md",
+          "kind": "checkpoint",
+          "recordedAt": "2026-10-11T12:16:35.933Z"
+        },
+        {
+          "path": "platform_core_data/supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TraceabilityMatrix_CheckSupplierParity.md",
+          "kind": "output",
+          "recordedAt": "2026-10-11T12:16:36.028Z"
+        },
+        {
+          "path": "platform_core_data/supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/CoverageReport_CheckSupplierParity.md",
+          "kind": "output",
+          "recordedAt": "2026-10-11T12:16:36.028Z"
+        },
+        {
+          "path": "platform_core_data/supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo_CheckSupplierParity.xlsx",
+          "kind": "output",
+          "recordedAt": "2026-10-11T12:16:36.028Z"
+        }
+      ],
+      "reason": null,
+      "approval": {
+        "status": "Approved",
+        "approvedBy": "Ahmed Ayman",
+        "approvedAt": "2026-10-11T12:28:54.280Z",
+        "rejectedBy": null,
+        "rejectedAt": null,
+        "feedback": null,
+        "headerEvidence": [
+          {
+            "path": "platform_core_data/supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo_CheckSupplierParity.md",
+            "status": "Approved",
+            "raw": "Approved",
+            "source": "markdown-table",
+            "sha256": "80b850ce2579106f3bde1345f9274b53497945f2c86edccb31b59a71ff005bf0"
+          }
+        ],
+        "previous": []
+      },
+      "history": [
+        {
+          "at": "2026-10-11T12:12:34.879Z",
+          "from": "Not Started",
+          "to": "Running",
+          "by": "Ahmed Ayman",
+          "reason": null
+        },
+        {
+          "at": "2026-10-11T12:16:36.120Z",
+          "from": "Running",
+          "to": "Waiting For Approval",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-11T12:28:54.280Z",
+          "from": "Waiting For Approval",
+          "to": "Completed",
+          "by": "Ahmed Ayman",
+          "reason": "approved"
+        }
+      ],
+      "entryGate": {
+        "decision": "degraded",
+        "checkedAt": "2026-10-11T12:12:34.879Z",
+        "invocationPath": "Direct (degraded)",
+        "scope": [
+          "search-cabin-class-rbd/galileo"
+        ],
+        "gaps": [
+          "search-cabin-class-rbd/galileo: Stage 2 absent"
+        ],
+        "warnings": [],
+        "checks": [
+          {
+            "stage": "1",
+            "scope": "search-cabin-class-rbd/galileo",
+            "artifact": "supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md",
+            "result": "ok",
+            "integrity": "verified"
+          },
+          {
+            "stage": "2",
+            "scope": "search-cabin-class-rbd/galileo",
+            "result": "missing"
+          }
+        ]
+      },
+      "entryGateHistory": [
+        {
+          "decision": "degraded",
+          "checkedAt": "2026-10-11T12:12:34.879Z",
+          "invocationPath": "Direct (degraded)",
+          "scope": [
+            "search-cabin-class-rbd/galileo"
+          ],
+          "gaps": [
+            "search-cabin-class-rbd/galileo: Stage 2 absent"
+          ],
+          "warnings": [],
+          "checks": [
+            {
+              "stage": "1",
+              "scope": "search-cabin-class-rbd/galileo",
+              "artifact": "supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md",
+              "result": "ok",
+              "integrity": "verified"
+            },
+            {
+              "stage": "2",
+              "scope": "search-cabin-class-rbd/galileo",
+              "result": "missing"
+            }
+          ]
+        }
+      ]
+    },
+    "4M": {
+      "stageId": "4M",
+      "name": "Stage 4M — Manual Execution",
+      "checkpoint": "Human Review",
+      "status": "Waiting For Approval",
+      "startedAt": "2026-10-11T12:48:33.567Z",
+      "lastStartedAt": "2026-10-11T12:48:33.567Z",
+      "completedAt": null,
+      "updatedAt": "2026-10-11T13:13:39.761Z",
+      "attempts": 1,
+      "resumes": 0,
+      "revisions": 0,
+      "invocationPath": "Direct",
+      "instruction": "Check Supplier Request/Response Parity — 18 TC-GCSP cases, Headed, two isolated sessions",
+      "artifacts": [
+        {
+          "path": "platform_core_data/runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+          "kind": "output",
+          "recordedAt": "2026-10-11T13:13:39.671Z"
+        },
+        {
+          "path": "platform_core_data/runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualTestResults.csv",
+          "kind": "output",
+          "recordedAt": "2026-10-11T13:13:39.671Z"
+        },
+        {
+          "path": "platform_core_data/runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualQAReport.md",
+          "kind": "output",
+          "recordedAt": "2026-10-11T13:13:39.671Z"
+        },
+        {
+          "path": "platform_core_data/runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualQAReport.html",
+          "kind": "output",
+          "recordedAt": "2026-10-11T13:13:39.671Z"
+        },
+        {
+          "path": "platform_core_data/runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualQAReport.report.json",
+          "kind": "output",
+          "recordedAt": "2026-10-11T13:13:39.671Z"
+        },
+        {
+          "path": "platform_core_data/runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionSummary.md",
+          "kind": "checkpoint",
+          "recordedAt": "2026-10-11T13:13:39.761Z"
+        }
+      ],
+      "reason": null,
+      "approval": {
+        "status": "Pending Review",
+        "approvedBy": null,
+        "approvedAt": null,
+        "rejectedBy": null,
+        "rejectedAt": null,
+        "feedback": null,
+        "headerEvidence": [],
+        "previous": []
+      },
+      "history": [
+        {
+          "at": "2026-10-11T12:48:33.567Z",
+          "from": "Not Started",
+          "to": "Running",
+          "by": "Ahmed Ayman",
+          "reason": null
+        },
+        {
+          "at": "2026-10-11T13:13:39.761Z",
+          "from": "Running",
+          "to": "Waiting For Approval",
+          "by": "Run Manager",
+          "reason": null
+        }
+      ],
+      "entryGate": {
+        "decision": "proceed",
+        "checkedAt": "2026-10-11T12:48:33.567Z",
+        "invocationPath": "Direct",
+        "scope": [
+          "search-cabin-class-rbd/galileo"
+        ],
+        "executableScope": {
+          "basis": "approved-suite",
+          "cases": [
+            "TC-GCSP-001",
+            "TC-GCSP-002",
+            "TC-GCSP-003",
+            "TC-GCSP-004",
+            "TC-GCSP-005",
+            "TC-GCSP-006",
+            "TC-GCSP-007",
+            "TC-GCSP-010",
+            "TC-GCSP-011",
+            "TC-GCSP-012",
+            "TC-GCSP-013",
+            "TC-GCSP-015",
+            "TC-GCSP-016",
+            "TC-GCSP-017",
+            "TC-GCSP-018",
+            "TC-GCSP-019",
+            "TC-GCSP-020",
+            "TC-GCSP-021"
+          ],
+          "qualified": [
+            "search-cabin-class-rbd/galileo:TC-GCSP-001",
+            "search-cabin-class-rbd/galileo:TC-GCSP-002",
+            "search-cabin-class-rbd/galileo:TC-GCSP-003",
+            "search-cabin-class-rbd/galileo:TC-GCSP-004",
+            "search-cabin-class-rbd/galileo:TC-GCSP-005",
+            "search-cabin-class-rbd/galileo:TC-GCSP-006",
+            "search-cabin-class-rbd/galileo:TC-GCSP-007",
+            "search-cabin-class-rbd/galileo:TC-GCSP-010",
+            "search-cabin-class-rbd/galileo:TC-GCSP-011",
+            "search-cabin-class-rbd/galileo:TC-GCSP-012",
+            "search-cabin-class-rbd/galileo:TC-GCSP-013",
+            "search-cabin-class-rbd/galileo:TC-GCSP-015",
+            "search-cabin-class-rbd/galileo:TC-GCSP-016",
+            "search-cabin-class-rbd/galileo:TC-GCSP-017",
+            "search-cabin-class-rbd/galileo:TC-GCSP-018",
+            "search-cabin-class-rbd/galileo:TC-GCSP-019",
+            "search-cabin-class-rbd/galileo:TC-GCSP-020",
+            "search-cabin-class-rbd/galileo:TC-GCSP-021"
+          ],
+          "notApproved": {},
+          "suites": [
+            "supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo_CheckSupplierParity.md"
+          ],
+          "suiteBinding": [
+            {
+              "scope": "search-cabin-class-rbd/galileo",
+              "basis": "run-approved",
+              "reason": "bound to the 1 suite(s) this run's Stage 3 approved",
+              "unbound": [
+                "supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo.md"
+              ]
+            }
+          ]
+        },
+        "gaps": [],
+        "warnings": [],
+        "checks": [
+          {
+            "stage": "4M",
+            "result": "ok"
+          },
+          {
+            "stage": "3",
+            "scope": "search-cabin-class-rbd/galileo",
+            "result": "not-bound"
+          },
+          {
+            "stage": "3",
+            "scope": "search-cabin-class-rbd/galileo",
+            "artifact": "supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo_CheckSupplierParity.md",
+            "result": "ok",
+            "integrity": "verified"
+          },
+          {
+            "stage": "1",
+            "scope": "search-cabin-class-rbd/galileo",
+            "artifact": "supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md",
+            "result": "ok",
+            "integrity": "verified"
+          },
+          {
+            "stage": "capability",
+            "scope": "this run",
+            "result": "ok"
+          }
+        ]
+      },
+      "entryGateHistory": [
+        {
+          "decision": "proceed",
+          "checkedAt": "2026-10-11T12:48:33.567Z",
+          "invocationPath": "Direct",
+          "scope": [
+            "search-cabin-class-rbd/galileo"
+          ],
+          "executableScope": {
+            "basis": "approved-suite",
+            "cases": [
+              "TC-GCSP-001",
+              "TC-GCSP-002",
+              "TC-GCSP-003",
+              "TC-GCSP-004",
+              "TC-GCSP-005",
+              "TC-GCSP-006",
+              "TC-GCSP-007",
+              "TC-GCSP-010",
+              "TC-GCSP-011",
+              "TC-GCSP-012",
+              "TC-GCSP-013",
+              "TC-GCSP-015",
+              "TC-GCSP-016",
+              "TC-GCSP-017",
+              "TC-GCSP-018",
+              "TC-GCSP-019",
+              "TC-GCSP-020",
+              "TC-GCSP-021"
+            ],
+            "qualified": [
+              "search-cabin-class-rbd/galileo:TC-GCSP-001",
+              "search-cabin-class-rbd/galileo:TC-GCSP-002",
+              "search-cabin-class-rbd/galileo:TC-GCSP-003",
+              "search-cabin-class-rbd/galileo:TC-GCSP-004",
+              "search-cabin-class-rbd/galileo:TC-GCSP-005",
+              "search-cabin-class-rbd/galileo:TC-GCSP-006",
+              "search-cabin-class-rbd/galileo:TC-GCSP-007",
+              "search-cabin-class-rbd/galileo:TC-GCSP-010",
+              "search-cabin-class-rbd/galileo:TC-GCSP-011",
+              "search-cabin-class-rbd/galileo:TC-GCSP-012",
+              "search-cabin-class-rbd/galileo:TC-GCSP-013",
+              "search-cabin-class-rbd/galileo:TC-GCSP-015",
+              "search-cabin-class-rbd/galileo:TC-GCSP-016",
+              "search-cabin-class-rbd/galileo:TC-GCSP-017",
+              "search-cabin-class-rbd/galileo:TC-GCSP-018",
+              "search-cabin-class-rbd/galileo:TC-GCSP-019",
+              "search-cabin-class-rbd/galileo:TC-GCSP-020",
+              "search-cabin-class-rbd/galileo:TC-GCSP-021"
+            ],
+            "notApproved": {},
+            "suites": [
+              "supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo_CheckSupplierParity.md"
+            ],
+            "suiteBinding": [
+              {
+                "scope": "search-cabin-class-rbd/galileo",
+                "basis": "run-approved",
+                "reason": "bound to the 1 suite(s) this run's Stage 3 approved",
+                "unbound": [
+                  "supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo.md"
+                ]
+              }
+            ]
+          },
+          "gaps": [],
+          "warnings": [],
+          "checks": [
+            {
+              "stage": "4M",
+              "result": "ok"
+            },
+            {
+              "stage": "3",
+              "scope": "search-cabin-class-rbd/galileo",
+              "result": "not-bound"
+            },
+            {
+              "stage": "3",
+              "scope": "search-cabin-class-rbd/galileo",
+              "artifact": "supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo_CheckSupplierParity.md",
+              "result": "ok",
+              "integrity": "verified"
+            },
+            {
+              "stage": "1",
+              "scope": "search-cabin-class-rbd/galileo",
+              "artifact": "supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md",
+              "result": "ok",
+              "integrity": "verified"
+            },
+            {
+              "stage": "capability",
+              "scope": "this run",
+              "result": "ok"
+            }
+          ]
+        }
+      ],
+      "outcome": {
+        "at": "2026-10-11T13:13:16.576Z",
+        "source": "results",
+        "basis": "results",
+        "by": "Run Manager",
+        "counts": {
+          "Passed": 1,
+          "Failed": 8,
+          "Inconclusive": 6,
+          "Blocked": 3
+        },
+        "verdict": "failures",
+        "firstAttemptCounts": {
+          "Passed": 1,
+          "Failed": 8,
+          "Inconclusive": 6,
+          "Blocked": 3
+        },
+        "firstAttemptVerdict": "failures",
+        "health": {
+          "application": {
+            "failures": 8,
+            "executed": 15,
+            "independentFailures": 8
+          },
+          "automation": {
+            "failures": 0,
+            "repaired": 0,
+            "executed": 15
+          },
+          "environment": {
+            "failures": 0,
+            "executed": 15
+          },
+          "coverage": {
+            "executed": 15,
+            "executable": 18,
+            "notRun": 3,
+            "notApplicable": 0,
+            "unverified": 6
+          }
+        },
+        "cycles": [
+          {
+            "cycle": 1,
+            "rerun": null,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "producedBy": "4M",
+            "sha256": "e155d28110ce2f0e78c26092eade45e8b6fd34b083de15d0451b46f9d02c43bf",
+            "results": 18
+          }
+        ],
+        "tests": [
+          {
+            "testCaseId": "TC-GCSP-001",
+            "first": "Passed",
+            "final": "Passed",
+            "cycles": [
+              "1:Passed"
+            ],
+            "assertions": {
+              "state": "verified",
+              "recorded": 7,
+              "passed": 7,
+              "failed": 0,
+              "unchecked": 0,
+              "coverage": {
+                "mode": "structured",
+                "state": "complete",
+                "required": 7,
+                "verified": 7,
+                "clauses": 7,
+                "covered": 7,
+                "missing": [],
+                "failed": [],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot"
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-002",
+            "first": "Failed",
+            "final": "Failed",
+            "reason": "Confirmed Functional Mismatch: A13 (C002). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05",
+            "cycles": [
+              "1:Failed"
+            ],
+            "assertions": {
+              "state": "failed",
+              "recorded": 20,
+              "passed": 19,
+              "failed": 1,
+              "unchecked": 0,
+              "coverage": {
+                "mode": "structured",
+                "state": "partial",
+                "required": 20,
+                "verified": 19,
+                "clauses": 20,
+                "covered": 19,
+                "missing": [],
+                "failed": [
+                  "A13"
+                ],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-003",
+            "first": "Failed",
+            "final": "Failed",
+            "reason": "Confirmed Functional Mismatch: A13 (C003). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05",
+            "cycles": [
+              "1:Failed"
+            ],
+            "assertions": {
+              "state": "failed",
+              "recorded": 20,
+              "passed": 19,
+              "failed": 1,
+              "unchecked": 0,
+              "coverage": {
+                "mode": "structured",
+                "state": "partial",
+                "required": 20,
+                "verified": 19,
+                "clauses": 20,
+                "covered": 19,
+                "missing": [],
+                "failed": [
+                  "A13"
+                ],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-004",
+            "first": "Inconclusive",
+            "final": "Inconclusive",
+            "reason": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Pending Parity Clarification",
+            "cycles": [
+              "1:Inconclusive"
+            ],
+            "assertions": {
+              "state": "unverified",
+              "recorded": 20,
+              "passed": 20,
+              "failed": 0,
+              "unchecked": 0,
+              "coverage": {
+                "mode": "structured",
+                "state": "complete",
+                "required": 20,
+                "verified": 20,
+                "clauses": 20,
+                "covered": 20,
+                "missing": [],
+                "failed": [],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-005",
+            "first": "Failed",
+            "final": "Failed",
+            "reason": "Confirmed Functional Mismatch: A18 (C005). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05",
+            "cycles": [
+              "1:Failed"
+            ],
+            "assertions": {
+              "state": "failed",
+              "recorded": 20,
+              "passed": 19,
+              "failed": 1,
+              "unchecked": 0,
+              "coverage": {
+                "mode": "structured",
+                "state": "partial",
+                "required": 20,
+                "verified": 19,
+                "clauses": 20,
+                "covered": 19,
+                "missing": [],
+                "failed": [
+                  "A18"
+                ],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-006",
+            "first": "Failed",
+            "final": "Failed",
+            "reason": "Confirmed Functional Mismatch: A7 (C006); A9 (C006); A13 (C006); A15 (C006); A18 (C006). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+            "cycles": [
+              "1:Failed"
+            ],
+            "assertions": {
+              "state": "failed",
+              "recorded": 20,
+              "passed": 13,
+              "failed": 5,
+              "unchecked": 2,
+              "coverage": {
+                "mode": "structured",
+                "state": "partial",
+                "required": 20,
+                "verified": 13,
+                "clauses": 20,
+                "covered": 13,
+                "missing": [],
+                "failed": [
+                  "A7",
+                  "A9",
+                  "A13",
+                  "A15",
+                  "A18"
+                ],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-007",
+            "first": "Failed",
+            "final": "Failed",
+            "reason": "Confirmed Functional Mismatch: A7 (C007); A9 (C007); A13 (C007); A15 (C007); A18 (C007). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+            "cycles": [
+              "1:Failed"
+            ],
+            "assertions": {
+              "state": "failed",
+              "recorded": 20,
+              "passed": 13,
+              "failed": 5,
+              "unchecked": 2,
+              "coverage": {
+                "mode": "structured",
+                "state": "partial",
+                "required": 20,
+                "verified": 13,
+                "clauses": 20,
+                "covered": 13,
+                "missing": [],
+                "failed": [
+                  "A7",
+                  "A9",
+                  "A13",
+                  "A15",
+                  "A18"
+                ],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-010",
+            "first": "Failed",
+            "final": "Failed",
+            "reason": "Confirmed Functional Mismatch: A7 (Premium Economy, First Class); A9 (Premium Economy, First Class); A13 (Premium Economy, First Class); A15 (Premium Economy, First Class); A18 (Premium Economy, Business, First Class). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05",
+            "cycles": [
+              "1:Failed"
+            ],
+            "assertions": {
+              "state": "failed",
+              "recorded": 20,
+              "passed": 13,
+              "failed": 5,
+              "unchecked": 2,
+              "coverage": {
+                "mode": "structured",
+                "state": "partial",
+                "required": 20,
+                "verified": 13,
+                "clauses": 20,
+                "covered": 13,
+                "missing": [],
+                "failed": [
+                  "A7",
+                  "A9",
+                  "A13",
+                  "A15",
+                  "A18"
+                ],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-011",
+            "first": "Inconclusive",
+            "final": "Inconclusive",
+            "reason": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Passed",
+            "cycles": [
+              "1:Inconclusive"
+            ],
+            "assertions": {
+              "state": "unverified",
+              "recorded": 20,
+              "passed": 20,
+              "failed": 0,
+              "unchecked": 0,
+              "coverage": {
+                "mode": "structured",
+                "state": "complete",
+                "required": 20,
+                "verified": 20,
+                "clauses": 20,
+                "covered": 20,
+                "missing": [],
+                "failed": [],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-012",
+            "first": "Blocked",
+            "final": "Blocked",
+            "reason": "Execution error: Integration returned a supplier communication error in C012_C (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+            "cycles": [
+              "1:Blocked"
+            ],
+            "assertions": {
+              "state": "failed",
+              "recorded": 20,
+              "passed": 11,
+              "failed": 1,
+              "unchecked": 8,
+              "coverage": {
+                "mode": "structured",
+                "state": "partial",
+                "required": 20,
+                "verified": 11,
+                "clauses": 20,
+                "covered": 11,
+                "missing": [],
+                "failed": [
+                  "A12"
+                ],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-013",
+            "first": "Inconclusive",
+            "final": "Inconclusive",
+            "reason": "Test design discrepancy (flagged to Stage 3): both branches returned the same business fault \"UNABLE TO FARE QUOTE\" — the same outcome the case's Expected Result accepts — but A12 requires errorMessage empty and a parsed LowFareSearchRsp. No Confirmed Functional Mismatch. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+            "cycles": [
+              "1:Inconclusive"
+            ],
+            "assertions": {
+              "state": "failed",
+              "recorded": 20,
+              "passed": 17,
+              "failed": 1,
+              "unchecked": 2,
+              "coverage": {
+                "mode": "structured",
+                "state": "partial",
+                "required": 20,
+                "verified": 17,
+                "clauses": 20,
+                "covered": 17,
+                "missing": [],
+                "failed": [
+                  "A12"
+                ],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-015",
+            "first": "Inconclusive",
+            "final": "Inconclusive",
+            "reason": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Pending Parity Clarification",
+            "cycles": [
+              "1:Inconclusive"
+            ],
+            "assertions": {
+              "state": "unverified",
+              "recorded": 20,
+              "passed": 20,
+              "failed": 0,
+              "unchecked": 0,
+              "coverage": {
+                "mode": "structured",
+                "state": "complete",
+                "required": 20,
+                "verified": 20,
+                "clauses": 20,
+                "covered": 20,
+                "missing": [],
+                "failed": [],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-016",
+            "first": "Blocked",
+            "final": "Blocked",
+            "reason": "Execution error: Integration returned a supplier communication error in C016 (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+            "cycles": [
+              "1:Blocked"
+            ],
+            "assertions": {
+              "state": "failed",
+              "recorded": 20,
+              "passed": 11,
+              "failed": 1,
+              "unchecked": 8,
+              "coverage": {
+                "mode": "structured",
+                "state": "partial",
+                "required": 20,
+                "verified": 11,
+                "clauses": 20,
+                "covered": 11,
+                "missing": [],
+                "failed": [
+                  "A12"
+                ],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot"
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-017",
+            "first": "Inconclusive",
+            "final": "Inconclusive",
+            "reason": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Passed",
+            "cycles": [
+              "1:Inconclusive"
+            ],
+            "assertions": {
+              "state": "unverified",
+              "recorded": 20,
+              "passed": 20,
+              "failed": 0,
+              "unchecked": 0,
+              "coverage": {
+                "mode": "structured",
+                "state": "complete",
+                "required": 20,
+                "verified": 20,
+                "clauses": 20,
+                "covered": 20,
+                "missing": [],
+                "failed": [],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-018",
+            "first": "Failed",
+            "final": "Failed",
+            "reason": "Confirmed Functional Mismatch: A7 (F, A); A9 (F, A); A12 (F); A13 (F, A); A18 (F, A). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+            "cycles": [
+              "1:Failed"
+            ],
+            "assertions": {
+              "state": "failed",
+              "recorded": 20,
+              "passed": 13,
+              "failed": 5,
+              "unchecked": 2,
+              "coverage": {
+                "mode": "structured",
+                "state": "partial",
+                "required": 20,
+                "verified": 13,
+                "clauses": 20,
+                "covered": 13,
+                "missing": [],
+                "failed": [
+                  "A7",
+                  "A9",
+                  "A12",
+                  "A13",
+                  "A18"
+                ],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-019",
+            "first": "Failed",
+            "final": "Failed",
+            "reason": "Confirmed Functional Mismatch: A7 (C019); A9 (C019); A12 (C019); A13 (C019); A18 (C019). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+            "cycles": [
+              "1:Failed"
+            ],
+            "assertions": {
+              "state": "failed",
+              "recorded": 20,
+              "passed": 13,
+              "failed": 5,
+              "unchecked": 2,
+              "coverage": {
+                "mode": "structured",
+                "state": "partial",
+                "required": 20,
+                "verified": 13,
+                "clauses": 20,
+                "covered": 13,
+                "missing": [],
+                "failed": [
+                  "A7",
+                  "A9",
+                  "A12",
+                  "A13",
+                  "A18"
+                ],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-020",
+            "first": "Inconclusive",
+            "final": "Inconclusive",
+            "reason": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Pending Parity Clarification",
+            "cycles": [
+              "1:Inconclusive"
+            ],
+            "assertions": {
+              "state": "unverified",
+              "recorded": 20,
+              "passed": 20,
+              "failed": 0,
+              "unchecked": 0,
+              "coverage": {
+                "mode": "structured",
+                "state": "complete",
+                "required": 20,
+                "verified": 20,
+                "clauses": 20,
+                "covered": 20,
+                "missing": [],
+                "failed": [],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot",
+              "issues": [
+                "evidence \"comparison.json\" (A19): missing"
+              ]
+            }
+          },
+          {
+            "testCaseId": "TC-GCSP-021",
+            "first": "Blocked",
+            "final": "Blocked",
+            "reason": "Execution error: Integration returned a supplier communication error in C021 (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+            "cycles": [
+              "1:Blocked"
+            ],
+            "assertions": {
+              "state": "failed",
+              "recorded": 20,
+              "passed": 11,
+              "failed": 1,
+              "unchecked": 8,
+              "coverage": {
+                "mode": "structured",
+                "state": "partial",
+                "required": 20,
+                "verified": 11,
+                "clauses": 20,
+                "covered": 11,
+                "missing": [],
+                "failed": [
+                  "A12"
+                ],
+                "extra": [],
+                "unmapped": []
+              },
+              "sourceVersion": "snapshot"
+            }
+          }
+        ],
+        "assertionSummary": {
+          "verified": 1,
+          "unverified": 0,
+          "inconclusive": 0,
+          "failed": 0,
+          "contradiction": 0,
+          "none": 0
+        },
+        "assertionCoverage": {
+          "complete": 1,
+          "partial": 0,
+          "unknown": 0,
+          "unmapped": [],
+          "missing": [],
+          "failed": [],
+          "extra": [],
+          "structured": 1,
+          "textual": 0
+        },
+        "framework": {
+          "reports": 0,
+          "verified": 0,
+          "contradicted": 0,
+          "absent": 0,
+          "noReport": 18
+        },
+        "sourceVersions": [
+          {
+            "suite": "supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo_CheckSupplierParity.md",
+            "basis": "snapshot",
+            "source": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/metadata/consumed/80b850ce2579106f3bde1345f9274b53497945f2c86edccb31b59a71ff005bf0.md"
+          }
+        ],
+        "evidenceIssues": [
+          {
+            "testCaseId": "TC-GCSP-002",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-003",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-004",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-005",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-006",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-007",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-010",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-011",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-012",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-013",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-015",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-017",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-018",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-019",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          },
+          {
+            "testCaseId": "TC-GCSP-020",
+            "cycle": 1,
+            "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+            "ref": "comparison.json",
+            "status": "missing",
+            "assertion": "A19"
+          }
+        ],
+        "identity": {
+          "qualified": false,
+          "suites": [
+            "supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo_CheckSupplierParity.md"
+          ],
+          "binding": [
+            {
+              "scope": "search-cabin-class-rbd/galileo",
+              "basis": "run-approved",
+              "reason": "bound to the 1 suite(s) this run's Stage 3 approved",
+              "unbound": [
+                "supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo.md"
+              ]
+            }
+          ]
+        },
+        "blocked": [
+          {
+            "testCaseId": "TC-GCSP-012",
+            "reason": "Execution error: Integration returned a supplier communication error in C012_C (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+            "blockedBy": []
+          },
+          {
+            "testCaseId": "TC-GCSP-016",
+            "reason": "Execution error: Integration returned a supplier communication error in C016 (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+            "blockedBy": []
+          },
+          {
+            "testCaseId": "TC-GCSP-021",
+            "reason": "Execution error: Integration returned a supplier communication error in C021 (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+            "blockedBy": []
+          }
+        ],
+        "dependentFailures": [],
+        "conflicts": [],
+        "unrecognized": [],
+        "unattributed": [],
+        "scope": {
+          "basis": "approved-suite",
+          "cases": 18,
+          "recordedBy": "4M"
+        },
+        "capability": {
+          "plan": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/metadata/CapabilityPlan.md",
+          "excluded": []
+        },
+        "sources": {
+          "quarantineRegisters": [],
+          "beforeAfterComparisons": []
+        }
+      },
+      "outcomeHistory": [
+        {
+          "at": "2026-10-11T13:13:16.576Z",
+          "source": "results",
+          "basis": "results",
+          "by": "Run Manager",
+          "counts": {
+            "Passed": 1,
+            "Failed": 8,
+            "Inconclusive": 6,
+            "Blocked": 3
+          },
+          "verdict": "failures",
+          "firstAttemptCounts": {
+            "Passed": 1,
+            "Failed": 8,
+            "Inconclusive": 6,
+            "Blocked": 3
+          },
+          "firstAttemptVerdict": "failures",
+          "health": {
+            "application": {
+              "failures": 8,
+              "executed": 15,
+              "independentFailures": 8
+            },
+            "automation": {
+              "failures": 0,
+              "repaired": 0,
+              "executed": 15
+            },
+            "environment": {
+              "failures": 0,
+              "executed": 15
+            },
+            "coverage": {
+              "executed": 15,
+              "executable": 18,
+              "notRun": 3,
+              "notApplicable": 0,
+              "unverified": 6
+            }
+          },
+          "cycles": [
+            {
+              "cycle": 1,
+              "rerun": null,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "producedBy": "4M",
+              "sha256": "e155d28110ce2f0e78c26092eade45e8b6fd34b083de15d0451b46f9d02c43bf",
+              "results": 18
+            }
+          ],
+          "tests": [
+            {
+              "testCaseId": "TC-GCSP-001",
+              "first": "Passed",
+              "final": "Passed",
+              "cycles": [
+                "1:Passed"
+              ],
+              "assertions": {
+                "state": "verified",
+                "recorded": 7,
+                "passed": 7,
+                "failed": 0,
+                "unchecked": 0,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "complete",
+                  "required": 7,
+                  "verified": 7,
+                  "clauses": 7,
+                  "covered": 7,
+                  "missing": [],
+                  "failed": [],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot"
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-002",
+              "first": "Failed",
+              "final": "Failed",
+              "reason": "Confirmed Functional Mismatch: A13 (C002). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05",
+              "cycles": [
+                "1:Failed"
+              ],
+              "assertions": {
+                "state": "failed",
+                "recorded": 20,
+                "passed": 19,
+                "failed": 1,
+                "unchecked": 0,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "partial",
+                  "required": 20,
+                  "verified": 19,
+                  "clauses": 20,
+                  "covered": 19,
+                  "missing": [],
+                  "failed": [
+                    "A13"
+                  ],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-003",
+              "first": "Failed",
+              "final": "Failed",
+              "reason": "Confirmed Functional Mismatch: A13 (C003). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05",
+              "cycles": [
+                "1:Failed"
+              ],
+              "assertions": {
+                "state": "failed",
+                "recorded": 20,
+                "passed": 19,
+                "failed": 1,
+                "unchecked": 0,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "partial",
+                  "required": 20,
+                  "verified": 19,
+                  "clauses": 20,
+                  "covered": 19,
+                  "missing": [],
+                  "failed": [
+                    "A13"
+                  ],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-004",
+              "first": "Inconclusive",
+              "final": "Inconclusive",
+              "reason": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Pending Parity Clarification",
+              "cycles": [
+                "1:Inconclusive"
+              ],
+              "assertions": {
+                "state": "unverified",
+                "recorded": 20,
+                "passed": 20,
+                "failed": 0,
+                "unchecked": 0,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "complete",
+                  "required": 20,
+                  "verified": 20,
+                  "clauses": 20,
+                  "covered": 20,
+                  "missing": [],
+                  "failed": [],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-005",
+              "first": "Failed",
+              "final": "Failed",
+              "reason": "Confirmed Functional Mismatch: A18 (C005). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05",
+              "cycles": [
+                "1:Failed"
+              ],
+              "assertions": {
+                "state": "failed",
+                "recorded": 20,
+                "passed": 19,
+                "failed": 1,
+                "unchecked": 0,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "partial",
+                  "required": 20,
+                  "verified": 19,
+                  "clauses": 20,
+                  "covered": 19,
+                  "missing": [],
+                  "failed": [
+                    "A18"
+                  ],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-006",
+              "first": "Failed",
+              "final": "Failed",
+              "reason": "Confirmed Functional Mismatch: A7 (C006); A9 (C006); A13 (C006); A15 (C006); A18 (C006). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+              "cycles": [
+                "1:Failed"
+              ],
+              "assertions": {
+                "state": "failed",
+                "recorded": 20,
+                "passed": 13,
+                "failed": 5,
+                "unchecked": 2,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "partial",
+                  "required": 20,
+                  "verified": 13,
+                  "clauses": 20,
+                  "covered": 13,
+                  "missing": [],
+                  "failed": [
+                    "A7",
+                    "A9",
+                    "A13",
+                    "A15",
+                    "A18"
+                  ],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-007",
+              "first": "Failed",
+              "final": "Failed",
+              "reason": "Confirmed Functional Mismatch: A7 (C007); A9 (C007); A13 (C007); A15 (C007); A18 (C007). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+              "cycles": [
+                "1:Failed"
+              ],
+              "assertions": {
+                "state": "failed",
+                "recorded": 20,
+                "passed": 13,
+                "failed": 5,
+                "unchecked": 2,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "partial",
+                  "required": 20,
+                  "verified": 13,
+                  "clauses": 20,
+                  "covered": 13,
+                  "missing": [],
+                  "failed": [
+                    "A7",
+                    "A9",
+                    "A13",
+                    "A15",
+                    "A18"
+                  ],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-010",
+              "first": "Failed",
+              "final": "Failed",
+              "reason": "Confirmed Functional Mismatch: A7 (Premium Economy, First Class); A9 (Premium Economy, First Class); A13 (Premium Economy, First Class); A15 (Premium Economy, First Class); A18 (Premium Economy, Business, First Class). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05",
+              "cycles": [
+                "1:Failed"
+              ],
+              "assertions": {
+                "state": "failed",
+                "recorded": 20,
+                "passed": 13,
+                "failed": 5,
+                "unchecked": 2,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "partial",
+                  "required": 20,
+                  "verified": 13,
+                  "clauses": 20,
+                  "covered": 13,
+                  "missing": [],
+                  "failed": [
+                    "A7",
+                    "A9",
+                    "A13",
+                    "A15",
+                    "A18"
+                  ],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-011",
+              "first": "Inconclusive",
+              "final": "Inconclusive",
+              "reason": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Passed",
+              "cycles": [
+                "1:Inconclusive"
+              ],
+              "assertions": {
+                "state": "unverified",
+                "recorded": 20,
+                "passed": 20,
+                "failed": 0,
+                "unchecked": 0,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "complete",
+                  "required": 20,
+                  "verified": 20,
+                  "clauses": 20,
+                  "covered": 20,
+                  "missing": [],
+                  "failed": [],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-012",
+              "first": "Blocked",
+              "final": "Blocked",
+              "reason": "Execution error: Integration returned a supplier communication error in C012_C (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+              "cycles": [
+                "1:Blocked"
+              ],
+              "assertions": {
+                "state": "failed",
+                "recorded": 20,
+                "passed": 11,
+                "failed": 1,
+                "unchecked": 8,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "partial",
+                  "required": 20,
+                  "verified": 11,
+                  "clauses": 20,
+                  "covered": 11,
+                  "missing": [],
+                  "failed": [
+                    "A12"
+                  ],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-013",
+              "first": "Inconclusive",
+              "final": "Inconclusive",
+              "reason": "Test design discrepancy (flagged to Stage 3): both branches returned the same business fault \"UNABLE TO FARE QUOTE\" — the same outcome the case's Expected Result accepts — but A12 requires errorMessage empty and a parsed LowFareSearchRsp. No Confirmed Functional Mismatch. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+              "cycles": [
+                "1:Inconclusive"
+              ],
+              "assertions": {
+                "state": "failed",
+                "recorded": 20,
+                "passed": 17,
+                "failed": 1,
+                "unchecked": 2,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "partial",
+                  "required": 20,
+                  "verified": 17,
+                  "clauses": 20,
+                  "covered": 17,
+                  "missing": [],
+                  "failed": [
+                    "A12"
+                  ],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-015",
+              "first": "Inconclusive",
+              "final": "Inconclusive",
+              "reason": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Pending Parity Clarification",
+              "cycles": [
+                "1:Inconclusive"
+              ],
+              "assertions": {
+                "state": "unverified",
+                "recorded": 20,
+                "passed": 20,
+                "failed": 0,
+                "unchecked": 0,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "complete",
+                  "required": 20,
+                  "verified": 20,
+                  "clauses": 20,
+                  "covered": 20,
+                  "missing": [],
+                  "failed": [],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-016",
+              "first": "Blocked",
+              "final": "Blocked",
+              "reason": "Execution error: Integration returned a supplier communication error in C016 (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+              "cycles": [
+                "1:Blocked"
+              ],
+              "assertions": {
+                "state": "failed",
+                "recorded": 20,
+                "passed": 11,
+                "failed": 1,
+                "unchecked": 8,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "partial",
+                  "required": 20,
+                  "verified": 11,
+                  "clauses": 20,
+                  "covered": 11,
+                  "missing": [],
+                  "failed": [
+                    "A12"
+                  ],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot"
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-017",
+              "first": "Inconclusive",
+              "final": "Inconclusive",
+              "reason": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Passed",
+              "cycles": [
+                "1:Inconclusive"
+              ],
+              "assertions": {
+                "state": "unverified",
+                "recorded": 20,
+                "passed": 20,
+                "failed": 0,
+                "unchecked": 0,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "complete",
+                  "required": 20,
+                  "verified": 20,
+                  "clauses": 20,
+                  "covered": 20,
+                  "missing": [],
+                  "failed": [],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-018",
+              "first": "Failed",
+              "final": "Failed",
+              "reason": "Confirmed Functional Mismatch: A7 (F, A); A9 (F, A); A12 (F); A13 (F, A); A18 (F, A). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+              "cycles": [
+                "1:Failed"
+              ],
+              "assertions": {
+                "state": "failed",
+                "recorded": 20,
+                "passed": 13,
+                "failed": 5,
+                "unchecked": 2,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "partial",
+                  "required": 20,
+                  "verified": 13,
+                  "clauses": 20,
+                  "covered": 13,
+                  "missing": [],
+                  "failed": [
+                    "A7",
+                    "A9",
+                    "A12",
+                    "A13",
+                    "A18"
+                  ],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-019",
+              "first": "Failed",
+              "final": "Failed",
+              "reason": "Confirmed Functional Mismatch: A7 (C019); A9 (C019); A12 (C019); A13 (C019); A18 (C019). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+              "cycles": [
+                "1:Failed"
+              ],
+              "assertions": {
+                "state": "failed",
+                "recorded": 20,
+                "passed": 13,
+                "failed": 5,
+                "unchecked": 2,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "partial",
+                  "required": 20,
+                  "verified": 13,
+                  "clauses": 20,
+                  "covered": 13,
+                  "missing": [],
+                  "failed": [
+                    "A7",
+                    "A9",
+                    "A12",
+                    "A13",
+                    "A18"
+                  ],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-020",
+              "first": "Inconclusive",
+              "final": "Inconclusive",
+              "reason": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Pending Parity Clarification",
+              "cycles": [
+                "1:Inconclusive"
+              ],
+              "assertions": {
+                "state": "unverified",
+                "recorded": 20,
+                "passed": 20,
+                "failed": 0,
+                "unchecked": 0,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "complete",
+                  "required": 20,
+                  "verified": 20,
+                  "clauses": 20,
+                  "covered": 20,
+                  "missing": [],
+                  "failed": [],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot",
+                "issues": [
+                  "evidence \"comparison.json\" (A19): missing"
+                ]
+              }
+            },
+            {
+              "testCaseId": "TC-GCSP-021",
+              "first": "Blocked",
+              "final": "Blocked",
+              "reason": "Execution error: Integration returned a supplier communication error in C021 (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+              "cycles": [
+                "1:Blocked"
+              ],
+              "assertions": {
+                "state": "failed",
+                "recorded": 20,
+                "passed": 11,
+                "failed": 1,
+                "unchecked": 8,
+                "coverage": {
+                  "mode": "structured",
+                  "state": "partial",
+                  "required": 20,
+                  "verified": 11,
+                  "clauses": 20,
+                  "covered": 11,
+                  "missing": [],
+                  "failed": [
+                    "A12"
+                  ],
+                  "extra": [],
+                  "unmapped": []
+                },
+                "sourceVersion": "snapshot"
+              }
+            }
+          ],
+          "assertionSummary": {
+            "verified": 1,
+            "unverified": 0,
+            "inconclusive": 0,
+            "failed": 0,
+            "contradiction": 0,
+            "none": 0
+          },
+          "assertionCoverage": {
+            "complete": 1,
+            "partial": 0,
+            "unknown": 0,
+            "unmapped": [],
+            "missing": [],
+            "failed": [],
+            "extra": [],
+            "structured": 1,
+            "textual": 0
+          },
+          "framework": {
+            "reports": 0,
+            "verified": 0,
+            "contradicted": 0,
+            "absent": 0,
+            "noReport": 18
+          },
+          "sourceVersions": [
+            {
+              "suite": "supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo_CheckSupplierParity.md",
+              "basis": "snapshot",
+              "source": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/metadata/consumed/80b850ce2579106f3bde1345f9274b53497945f2c86edccb31b59a71ff005bf0.md"
+            }
+          ],
+          "evidenceIssues": [
+            {
+              "testCaseId": "TC-GCSP-002",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-003",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-004",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-005",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-006",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-007",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-010",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-011",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-012",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-013",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-015",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-017",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-018",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-019",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            },
+            {
+              "testCaseId": "TC-GCSP-020",
+              "cycle": 1,
+              "file": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/manual_execution/ManualExecutionResults.md",
+              "ref": "comparison.json",
+              "status": "missing",
+              "assertion": "A19"
+            }
+          ],
+          "identity": {
+            "qualified": false,
+            "suites": [
+              "supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo_CheckSupplierParity.md"
+            ],
+            "binding": [
+              {
+                "scope": "search-cabin-class-rbd/galileo",
+                "basis": "run-approved",
+                "reason": "bound to the 1 suite(s) this run's Stage 3 approved",
+                "unbound": [
+                  "supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo.md"
+                ]
+              }
+            ]
+          },
+          "blocked": [
+            {
+              "testCaseId": "TC-GCSP-012",
+              "reason": "Execution error: Integration returned a supplier communication error in C012_C (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+              "blockedBy": []
+            },
+            {
+              "testCaseId": "TC-GCSP-016",
+              "reason": "Execution error: Integration returned a supplier communication error in C016 (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+              "blockedBy": []
+            },
+            {
+              "testCaseId": "TC-GCSP-021",
+              "reason": "Execution error: Integration returned a supplier communication error in C021 (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04",
+              "blockedBy": []
+            }
+          ],
+          "dependentFailures": [],
+          "conflicts": [],
+          "unrecognized": [],
+          "unattributed": [],
+          "scope": {
+            "basis": "approved-suite",
+            "cases": 18,
+            "recordedBy": "4M"
+          },
+          "capability": {
+            "plan": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/metadata/CapabilityPlan.md",
+            "excluded": []
+          },
+          "sources": {
+            "quarantineRegisters": [],
+            "beforeAfterComparisons": []
+          }
+        }
+      ]
+    }
+  },
+  "stateEventSeq": 12,
+  "stateEvents": [
+    {
+      "seq": 1,
+      "at": "2026-10-11T12:01:25.043Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "impact CR-1 approved for supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md (blocking)",
+      "by": "Ahmed Ayman",
+      "reason": "Context rev 3: Check Supplier Request/Response Parity scope (additions only); approved by Ahmed Ayman 2026-10-11",
+      "runStatus": "Preparing"
+    },
+    {
+      "seq": 2,
+      "at": "2026-10-11T12:04:02.621Z",
+      "stageId": "1",
+      "stage": "Stage 1 — Project Context",
+      "transition": "Stage 1: Not Started → Running (Direct); run Preparing → Running",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 3,
+      "at": "2026-10-11T12:04:02.825Z",
+      "stageId": "1",
+      "stage": "Stage 1 — Project Context",
+      "transition": "Stage 1: Running → Waiting For Approval (Pending Review); run Running → Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 4,
+      "at": "2026-10-11T12:04:30.565Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "impact CR-2 approved for supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md (blocking)",
+      "by": "Ahmed Ayman",
+      "reason": "Context rev 3 as approved by Ahmed Ayman 2026-10-11 (same change as IA-83965c75d868). Re-recorded because CR-1 was bound to the rev 2 content by mistake.",
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 5,
+      "at": "2026-10-11T12:04:30.854Z",
+      "stageId": "1",
+      "stage": "Stage 1 — Project Context",
+      "transition": "Stage 1: Waiting For Approval → Completed (Approved); run Waiting For Approval → Running",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 6,
+      "at": "2026-10-11T12:12:34.879Z",
+      "stageId": "3",
+      "stage": "Stage 3 — Test Design",
+      "transition": "Stage 3: Not Started → Running (Direct (degraded), degraded)",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 7,
+      "at": "2026-10-11T12:16:36.120Z",
+      "stageId": "3",
+      "stage": "Stage 3 — Test Design",
+      "transition": "Stage 3: Running → Waiting For Approval (Pending Review); run Running → Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 8,
+      "at": "2026-10-11T12:28:54.280Z",
+      "stageId": "3",
+      "stage": "Stage 3 — Test Design",
+      "transition": "Stage 3: Waiting For Approval → Completed (Approved); run Waiting For Approval → Running",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 9,
+      "at": "2026-10-11T12:48:23.034Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "Stage 4M: Safety Preflight SP-1 confirmed (Staging, browser Headed)",
+      "by": "Ahmed Ayman (Headed confirmed 2026-10-11; environment classified Staging by Ahmed Ayman)",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 10,
+      "at": "2026-10-11T12:48:33.567Z",
+      "stageId": "4M",
+      "stage": "Stage 4M — Manual Execution",
+      "transition": "Stage 4M: Not Started → Running (Direct)",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 11,
+      "at": "2026-10-11T13:13:16.576Z",
+      "stageId": "4M",
+      "stage": "Stage 4M — Manual Execution",
+      "transition": "Stage 4M: test outcome recorded from 1 result cycle(s) (failures; first attempt failures)",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 12,
+      "at": "2026-10-11T13:13:39.761Z",
+      "stageId": "4M",
+      "stage": "Stage 4M — Manual Execution",
+      "transition": "Stage 4M: Running → Waiting For Approval (Pending Review); run Running → Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    }
+  ],
+  "scopeFamily": "supplier-feature",
+  "feature": "search-cabin-class-rbd",
+  "supplier": "galileo",
+  "sharedScope": null,
+  "testingLayerScope": null,
+  "scopeHistory": [],
+  "changeRequests": [
+    {
+      "id": "CR-1",
+      "analysisId": "IA-83965c75d868",
+      "at": "2026-10-11T12:01:25.043Z",
+      "by": "Ahmed Ayman",
+      "decision": "approved",
+      "reason": "Context rev 3: Check Supplier Request/Response Parity scope (additions only); approved by Ahmed Ayman 2026-10-11",
+      "artifact": "supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md",
+      "artifactSha256": "350d3c17c0b9272f0b7043400518162e7fb4c1907dcf73add3f9e25c01662999",
+      "classification": "blocking",
+      "delta": {
+        "changed": [
+          "CSP-01",
+          "CSP-02",
+          "CSP-03",
+          "CSP-04",
+          "BND-01",
+          "BND-02",
+          "BND-03",
+          "BND-04",
+          "CMP-08",
+          "CMP-09",
+          "CMP-10",
+          "CMP-11",
+          "CMP-12",
+          "CMP-13",
+          "OBS-01",
+          "OBS-02",
+          "OBS-03",
+          "OBS-04",
+          "OBS-05",
+          "OBS-06"
+        ],
+        "added": [],
+        "removed": [],
+        "basis": "stated"
+      },
+      "affected": {
+        "modules": [],
+        "suppliers": [
+          "galileo"
+        ],
+        "testCases": 0,
+        "approvedTestCases": [],
+        "automation": 0,
+        "executions": 0,
+        "reports": 0,
+        "findings": []
+      },
+      "approvedModules": [],
+      "approvedSuppliers": [
+        "galileo"
+      ],
+      "reasons": [
+        "supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md is Approved — an approved artifact is changing"
+      ]
+    },
+    {
+      "id": "CR-2",
+      "analysisId": "IA-51636cf21600",
+      "at": "2026-10-11T12:04:30.565Z",
+      "by": "Ahmed Ayman",
+      "decision": "approved",
+      "reason": "Context rev 3 as approved by Ahmed Ayman 2026-10-11 (same change as IA-83965c75d868). Re-recorded because CR-1 was bound to the rev 2 content by mistake.",
+      "artifact": "supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md",
+      "artifactSha256": "098b2ff91c12dfb011048945a65adebb6fb906f1d9f5f9d22e361779cd6530ab",
+      "classification": "blocking",
+      "delta": {
+        "changed": [
+          "CSP-01",
+          "CSP-02",
+          "CSP-03",
+          "CSP-04",
+          "BND-01",
+          "BND-02",
+          "BND-03",
+          "BND-04",
+          "CMP-08",
+          "CMP-09",
+          "CMP-10",
+          "CMP-11",
+          "CMP-12",
+          "CMP-13",
+          "OBS-01",
+          "OBS-02",
+          "OBS-03",
+          "OBS-04",
+          "OBS-05",
+          "OBS-06"
+        ],
+        "added": [],
+        "removed": [],
+        "basis": "stated"
+      },
+      "affected": {
+        "modules": [],
+        "suppliers": [
+          "galileo"
+        ],
+        "testCases": 0,
+        "approvedTestCases": [],
+        "automation": 0,
+        "executions": 0,
+        "reports": 0,
+        "findings": []
+      },
+      "approvedModules": [],
+      "approvedSuppliers": [
+        "galileo"
+      ],
+      "reasons": [
+        "supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md is Approved — an approved artifact is changing"
+      ]
+    }
+  ],
+  "moduleArtifactRefs": [
+    {
+      "stage": "3",
+      "artifact": "supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md",
+      "upstreamStage": "1",
+      "scope": "search-cabin-class-rbd/galileo",
+      "header": "Approved",
+      "integrity": "verified",
+      "sha256": "098b2ff91c12dfb011048945a65adebb6fb906f1d9f5f9d22e361779cd6530ab",
+      "snapshot": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/metadata/consumed/098b2ff91c12dfb011048945a65adebb6fb906f1d9f5f9d22e361779cd6530ab.md",
+      "at": "2026-10-11T12:12:34.879Z"
+    },
+    {
+      "stage": "4M",
+      "artifact": "supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo_CheckSupplierParity.md",
+      "upstreamStage": "3",
+      "scope": "search-cabin-class-rbd/galileo",
+      "header": "Approved",
+      "integrity": "verified",
+      "sha256": "80b850ce2579106f3bde1345f9274b53497945f2c86edccb31b59a71ff005bf0",
+      "snapshot": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/metadata/consumed/80b850ce2579106f3bde1345f9274b53497945f2c86edccb31b59a71ff005bf0.md",
+      "at": "2026-10-11T12:48:33.567Z"
+    },
+    {
+      "stage": "4M",
+      "artifact": "supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md",
+      "upstreamStage": "1",
+      "scope": "search-cabin-class-rbd/galileo",
+      "header": "Approved",
+      "integrity": "verified",
+      "sha256": "098b2ff91c12dfb011048945a65adebb6fb906f1d9f5f9d22e361779cd6530ab",
+      "snapshot": "runs/search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity/metadata/consumed/098b2ff91c12dfb011048945a65adebb6fb906f1d9f5f9d22e361779cd6530ab.md",
+      "at": "2026-10-11T12:48:33.567Z"
+    }
+  ],
+  "safetyPreflights": [
+    {
+      "id": "SP-1",
+      "stageId": "4M",
+      "at": "2026-10-11T12:48:23.034Z",
+      "decision": "confirmed",
+      "refusals": [],
+      "confirmedBy": "Ahmed Ayman (Headed confirmed 2026-10-11; environment classified Staging by Ahmed Ayman)",
+      "environment": "Staging",
+      "requestedEnvironment": "Staging",
+      "environmentClass": "non-production",
+      "policy": {
+        "id": "ndc-admin-portal-stg",
+        "version": 2,
+        "environment": "Staging",
+        "hash": "sha256:51a687067064c789a5479fc87f6e736e",
+        "file": "knowledge_base/execution_safety_policy.json"
+      },
+      "targetUrl": "http://192.168.1.210/",
+      "declaredTarget": "http://192.168.1.210/ — one environment, two branches (§4)",
+      "executionType": "browser",
+      "executionMode": "Headed",
+      "operations": [
+        {
+          "action": "SEARCH",
+          "ownership": "Shared",
+          "module": "search-cabin-class-rbd",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        }
+      ],
+      "readOnly": true,
+      "binding": {
+        "static": {
+          "run": "search-cabin-class-rbd-run-002__2026-10-11_15-01-07__Targeted__GalileoFeatures-CheckSupplierParity",
+          "stageId": "4M",
+          "environment": "Staging",
+          "targetUrl": "http://192.168.1.210/",
+          "executionType": "browser",
+          "executionMode": "Headed",
+          "operations": "fa50b91fb54a3d4a7302b8c79bb7ed323437189b88115d6ae0ac41a7f30c2833"
+        },
+        "dynamic": {
+          "policyHash": "sha256:51a687067064c789a5479fc87f6e736e",
+          "authorizations": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "scope": "95495e3dd4ceef9e09db17e206efcac06a7a7c416dbc2ca9e072cd1250881009",
+          "suites": "9792047d4794a0751dbde630fe12fc1e4bc7ace7b7c604b2ffb4a6d7a416f4e1",
+          "capabilityPlan": "29bf16edb5804ab8fdd475af335933f7a64bd3a61670fce809dc8511db9931b1"
+        },
+        "fingerprint": "b7448554e442820439ef429678dc58f0573a0c5fbfac65ae7a4b9ac1c276f4bb"
+      }
+    }
+  ]
+}

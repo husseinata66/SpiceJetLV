@@ -471,6 +471,7 @@ are unverified against current code** (§5.9 Rule 4) — stated once per manifes
 mechanically.
 
 ```bash
+# legacy runs only — refused on a run inside the run state model (Phase 5.7), whose ledger follows run.json
 node platform_core/tools/run_manager/cli.js stage "Stage 1 — Project Context" \
   --status Approved --reviewer <name> --revisions 2 --invocation Pipeline
 node platform_core/tools/run_manager/cli.js manifest            # the stage ledger, as data
@@ -599,6 +600,7 @@ platform_core_data/runs/{{RUN_FOLDER}}/metadata/run.json
 | `finishedTime` | Timestamp the run reached a terminal status (`Completed`, `Failed`, or `Cancelled`); absent while the run is still active |
 | `duration` | `finishedTime − startedTime`; absent while the run is still active |
 | `status` | The run's current value from the Execution Status enum (§8) |
+| `stateSchemaVersion`, `stateRevision`, `statusReason`, `statusHistory`, `stages` | *(added 2026-10-08, runs created from then on)* The run & stage state model (§8.1). Absent on earlier runs, which read as `Unknown` |
 
 Notes:
 - A "version identifier" for a component that does not yet carry an explicit version tag is recorded as `unversioned` rather than invented — the Run Manager records what exists, it does not assign version numbers to specs that don't declare one.
@@ -612,14 +614,151 @@ Every run's status is exactly one of the following values at any given time:
 | Status | Meaning |
 |---|---|
 | **Preparing** | The Run Manager has generated the run's folder name (§5) and is creating the Run Workspace and initial `run.json`; no Agent has started yet. |
-| **Running** | At least one Agent stage is actively executing for this run. |
+| **Running** | The run is in progress: a stage is executing, or the previous stage finished or was approved and the next has not started yet. Which one is shown per stage (§8.1). *(Revised 2026-10-08 — previously "at least one Agent stage is actively executing", which left no status for the time between stages.)* |
 | **Paused** | Execution has been deliberately suspended (not a checkpoint — a manual pause) and is expected to resume. |
 | **Waiting For Approval** | The run is stopped at one of the Human Review / Automation Approval checkpoints defined in `workflows_and_pipelines/pipeline/pipeline.md` §5, awaiting a reviewer decision. |
-| **Completed** | The run reached its branch's terminal stage — `4M` for the Manual branch, `6A` (Reporting) for the Automation branch — and finished successfully. |
-| **Failed** | The run stopped due to an error condition (e.g., an Agent could not complete its stage) rather than a deliberate pause or rejection. |
+| **Blocked** | *(added 2026-10-08)* A stage cannot proceed without a human: it is blocked (e.g. a missing input), it failed, or its output was rejected and must be revised. The reason is recorded. |
+| **Completed** | The run reached its branch's terminal stage — `4M` for the Manual branch, `6A` (Reporting) for the Automation branch — and finished successfully. This is *workflow* completion; it says nothing about whether the tests passed. |
+| **Failed** | The run stopped due to an error condition (e.g., an Agent could not complete its stage) rather than a deliberate pause or rejection. Set by an explicit decision — a failed *stage* makes the run `Blocked`, so it can be retried. |
 | **Cancelled** | The run was deliberately terminated before reaching a terminal stage, by explicit human decision. |
 
 The Run Manager transitions a run's status based on mechanical signals (an Agent stage starting/finishing, a checkpoint opening per `workflows_and_pipelines/pipeline/pipeline.md` §5.3, an error being raised, an explicit pause/cancel instruction) — never based on its own interpretation of whether the Agents' output is good or correct.
+
+## 8.1 Run & Stage State Model (added 2026-10-08)
+
+**Implemented in `platform_core/tools/run_manager/runState.js`.** It is the mechanical record of where a run is. It decides nothing: it never picks or starts the next stage. It records signals and refuses invalid ones.
+
+**Where it lives.** In `metadata/run.json`, beside the fields §7 already defines: `stateSchemaVersion`, `stateRevision`, `status`, `statusReason`, `statusHistory[]`, `finishedTime`, and `stages{}` keyed by the canonical stage IDs `1`, `2`, `3`, `4M`, `4A`, `5A`, `5H`, `6A`. Every change is mirrored into the Run Manifest: the Stage Ledger row, one Checkpoint History row, and the header's Status row. `run.json` is the record; the Manifest is its readable rendering.
+
+**Per stage it records:** stage ID and name, current status, `startedAt` / `lastStartedAt` / `completedAt`, approval status, approver and `approvedAt` (or rejecter, time and feedback), the header evidence checked at approval, Invocation Path and run-scoped instruction, artifact references (`checkpoint` / `output` / `evidence`), the failure or blocking reason, attempts, resumes, revisions, and its own transition history.
+
+**Stage transitions** (`Not Started` is never stored — no record means not started):
+
+| From | To | Through |
+|---|---|---|
+| Not Started | Running · Blocked | `start` · `block` |
+| Running | Waiting For Approval | `request-approval` — checkpointed stages only, needs a checkpoint artifact |
+| Running | Completed | `complete` — **5A and 6A only**; a checkpointed stage never completes without approval |
+| Running | Paused · Blocked · Failed | `run pause` · `block` · `fail` |
+| Waiting For Approval | Completed | `approve` — needs a named approver **and** every checkpoint artifact's header reading `Approved` |
+| Waiting For Approval | Blocked | `reject` — needs the reviewer and their feedback |
+| Paused · Blocked · Failed | Running | `start` (resume / revise / retry) |
+| Completed | Running | `reopen` — needs a named person and a reason; the earlier approval is kept |
+
+**Run status** is derived from the stages after every change: any stage Running → `Running`; else any Waiting For Approval → `Waiting For Approval`; else any Blocked or Failed → `Blocked`; else `Running` (between stages), or `Preparing` before any stage. `Paused`, `Completed`, `Failed` and `Cancelled` are explicit (`state run pause|complete|fail|cancel`). `Completed` is refused unless `4M` is approved or `6A` is complete and no stage is still open. A terminal run accepts no further changes.
+
+**The artifact header stays authoritative.** `approve` reads each checkpoint artifact's own `status` header (`artifactHeader.js`: the `| Status |` header row, frontmatter `status:`, or `.module_automation_state.json`) and refuses unless it already reads `Approved`. A Run Manifest row reading `Approved` — including one written by the older `cli.js stage` verb — never approves a stage. `state verify <stage>` re-reads the headers at any time and reports an approval as unverified if a header has since moved.
+
+**Safe writes.** Each change is one read-validate-write of `run.json` under an exclusive lock (`metadata/.run_state.lock`), with an atomic replace. The lock waits up to 10 s, and a lock older than 2 minutes is treated as left behind by a crashed process and recovered. `backfillTargetRef` and `changeSupplierFeatureRunScope` take the same lock. A caller may pass `--expected-revision N` to refuse acting on a state that changed since it was read.
+
+**Historical runs are never changed.** A run without `stateSchemaVersion` reads as `Unknown` for the run and every stage — never assumed `Completed` or `Approved` — with its recorded status kept as `recordedStatus` and its old Manifest ledger shown for information only. Every write to it is refused (`LEGACY_RUN`). This is prospective only, like §14.6 and §15.7 of `pipeline.md`.
+
+**CLI** (`cli.js state …`, full usage in the file header): `show`, `gate`, `verify`, `start`, `artifact`, `request-approval`, `approve`, `reject`, `complete`, `block`, `fail`, `reopen`, `reconcile`, `run pause|resume|complete|fail|cancel`.
+
+### Entry gate, integrity and exit checks *(added 2026-10-08, Phase 2)*
+
+- **Entry gate.** `state start` runs `stageGate.js` first, on every start (first, resume, retry, revision). It checks each required upstream stage's authoritative artifact for presence, a header reading `Approved`, integrity, staleness, and this run's own progress, and it enforces the invocation path (`pipeline.md` §5.3.2 has the full table). A blocked start exits 2. A stage that had not started is recorded `Blocked`, with the gate's reasons. The gate's decision and what it checked are kept on the stage as `entryGate`. Skipping the gate is an API-only option the CLI never offers; a skip is recorded as `not-checked`.
+- **Approval integrity.** A header cannot show an edit made after approval — it still reads `Approved`. So `approve` stores a SHA-256 fingerprint of each checkpoint artifact (line endings normalized). The gate, and `state verify`, compare the current content against the most recent fingerprint recorded for that artifact in any run inside the model. A mismatch blocks: the artifact must pass its gate again. An approval with no record (`unrecorded`) or no fingerprint (`unverifiable`) blocks — a header alone never authorizes (Phase 9.1, F-01); a pre-model approval passes only through `state attest-legacy-approval` (see Phase 9.1 below). The automation state file is the one exception: it is read by its `state`, not pinned to its bytes, because it changes legitimately after approval.
+- **Exit checks.** `request-approval` is refused when a checkpoint artifact does not exist. `complete` (5A, 6A only) is refused unless a registered output exists on disk.
+- **Manifest consistency.** Every transition is first written to `run.json` as a numbered event (`stateEvents[]`, `stateEventSeq`), in the same atomic write as the state change it describes. The Manifest records how many events it shows (`<!-- run-state-events-applied: N -->`). Each mirror appends exactly the events after that number, rewrites the ledger rows, and moves the marker, in one atomic write. A failed or interrupted Manifest write therefore loses nothing — the next change, or `state reconcile`, replays the missed events — and a retry never duplicates one. `state show --json` reports `manifest.pendingEvents`. A lock held by a process that has died is reclaimed at once.
+
+### Gate hardening *(added 2026-10-08, Phase 2.1)*
+
+- **Partial approvals block.** A Status header that records both an approval and an open item reads `Mixed` (template guidance comments are ignored).
+- **Approval history, not just the header.** The gate reads every decision the model recorded for an artifact — approved (with fingerprint), withdrawn by a reopen, rejected, approval still requested — and the latest one decides. A header changed by hand cannot restore a withdrawn or rejected approval, or close an open review. An approval with no record blocks (Phase 9.1, F-01); a module's automation state counts only with a named approver and an Approved entry in its own history.
+- **Automation approval cross-check.** The Module Manager's `.module_automation_state.json` is the authority; the `AutomationPlan` header must agree with it, and the `module.json` cache is checked for staleness (warning). Approving `4A` / `5H` is refused (`APPROVAL_CONFLICT`) unless the Module Manager recorded the module's Automation Approval — or, for a `Promoted` module, a `recordBaselineUpdate()` — after the stage last started.
+- **No bypass.** `reopen` runs the entry gate. The `entryGate: false` and `dataRoot` write options were removed (`INVALID_ARGUMENT`). Test hooks, including the gate skip, are refused outside `node --test`. A scoped run refuses a `--modules` override.
+- **Evidence is appended.** Each gate result goes to `entryGateHistory`; a repeated block appends to the stage history and the Manifest instead of replacing the earlier reason.
+
+### Run-bound Stage 3 suites *(added 2026-10-11, PE-03)*
+
+Several runs can share one scope folder (`<root>/test_design/`). Which suites a run consumes is decided by `suiteBinding.runBoundSuites`.
+
+**run-approved.** The run's **own** Stage 3 is Completed and Approved.
+- The run is bound to exactly the `TestCases_*.md` that approval recorded in `approval.headerEvidence`. One or more suites are allowed.
+- Every other suite in the folder appears in the gate as `not-bound`. It is not consumed, not checked and never counted as passed.
+
+**folder-fallback.** The run has no approved Stage 3 of its own: it consumes another run's approval, is still reviewing its own, or predates this rule.
+- Every `TestCases_*.md` in the folder is required, as before.
+- The gate states this with a `folder-fallback` check line.
+
+**Where the binding is used.** The same binding applies to:
+- the entry gate's Stage 3 checks and requirement conflicts;
+- `entryGate.executableScope` (with `suiteBinding`);
+- partial-scope resolution;
+- execution history (`identity.binding`);
+- the Safety Preflight binding: the bound suites, their matrices and the run's own Stage 3 Markdown. Another run's edits never invalidate it.
+- `state trace`.
+
+**Traceability Matrix per suite (`suiteBinding.resolveSuiteMatrix`).**
+- **Which matrix:** the `TraceabilityMatrix*.md` that a run's Stage 3 recorded with that suite. The selected run's own record wins.
+- **Ambiguous:** several candidates and no deciding record. No matrix is used and dependencies count as unknown. It is reported as a `traceability-matrix-ambiguous` trace gap, and as a gate warning for a bound suite.
+- **Legacy default:** `TraceabilityMatrix.md` is used only when it is the folder's only matrix and no run recorded one.
+- **Impact analysis** still reaches every suite in the folder, each with its own matrix.
+
+### Scope-aware partial approval *(added 2026-10-08, Phase 2.2)*
+
+`scopeApproval.js` reads item-level status from structured sources only (test cases' `Review` / `Automation` plus the Traceability Matrix; otherwise an `## Approval Scope` table). `state approve-scope` records a named reviewer's partial approval of a `Mixed` artifact in `run.json` `scopeApprovals[]`: `id`, `at`, `approvedBy`, `scope`, `artifact`, `kind`, per-item `status` / `dependsOn` / `affects`, `summary`, and `fingerprints` of every source file. `state start … --scope-items <ids> --by "<name>"` lets the entry gate resolve that scope: it proves the whole dependency closure is approved and unaffected by any unresolved item, then records `entryGate.partialScope` (`items`, `closure`, `records`, `proven`, `requestedBy`). Full rules: `pipeline.md` §5.3.2.
+
+### Workflow planner and smart resume *(added 2026-10-08, Phase 3)*
+
+- **Workflow selection** — `state workflow …` stores `workflowPlan` (`type`, `stages`, `selectedBy`, `selectedAt`, `reason`, `history[]`). `full-manual` = 1, 2, 3, `4M`; `full-automation` = 1, 2, 3, `4A`, `5A`, `6A`; `specific-stage` = one named stage. `5H` is in no Full workflow. With a workflow selected, `state run complete` needs every stage of that workflow done.
+- **Planner** — `workflowPlanner.js` (`planWorkflow`, `nextStep`, `workflowStatus`; CLI `state plan` / `next` / `status`) is read-only. It never writes, starts, approves or invokes anything. Its rules are in `pipeline.md` §5.4.2.
+- **Test outcome** — `state outcome <4M|5A|5H> --from-results` records the outcome from the stage's results files (`outcome`, plus `outcomeHistory[]`). Typed counts (`--passed N --failed N …`) are kept as **unverified diagnostics only** (Phase 9.1, F-02): `basis: typed`, `verified: false`, the claimed verdict in `claimedVerdict`, and a recorded verdict that is never a pass (`failures` or `incomplete`). 4M is approved and 5A/5H complete only with an outcome from results. The verdict is derived worst-first: any failure → `failures`; any Blocked, Inconclusive or Quarantined → `incomplete`; a repaired pass → `passed-after-repair`, never a clean pass; nothing recorded → `not-recorded`. The combined outcome is the worst of all recorded stages, so a later repair never hides a first-attempt failure.
+- **Interruption** — `state recover <stage> --by --reason` moves a stage left `Running` to `Failed` ("Interrupted: …"). Its retry passes the entry gate again. Pause and resume are `state run pause|resume`.
+
+### Execution results and reporting integrity *(added 2026-10-08, Phase 4)*
+
+- **History** — `executionHistory.js` reads every results file of a stage: `ExecutionResults.md` / `ManualExecutionResults.md` is cycle 1, legacy or not; each `*.rerun-N.md` is a later cycle, ordered numerically. It reads each file's per-test table, the Capability Plan's exclusions, and the module's Quarantine Register and Before/After Comparison. Per test it keeps every cycle's status, the first-attempt status and the final status. The rules for deriving the final status are in `pipeline.md` §17.5. A rerun counts as a repair only when the run state registers it as a `5H` artifact; a legacy rerun with no producer recorded stays as recorded and is listed as `unattributed`.
+- **Outcome** — `state outcome <4M|5A|5H> --from-results` records `outcome` from the files. It stores final and first-attempt counts and verdicts; application, automation, environment and coverage health; blocked tests with their dependencies; dependent failures; conflicts; and a fingerprint per cycle. A cycle fingerprinted earlier that has since changed or gone is refused (`RESULTS_MODIFIED`). No results file, or no per-test table, records nothing (`NO_RESULTS`).
+- **Outputs are written once** — `complete` fingerprints a stage's outputs. A later completion is refused if one of them changed (`OUTPUT_OVERWRITTEN`): a new report is a `Final_QA_Report.rev-N.md` from `state report-path`.
+- **Report agreement** — `state report-check` confirms that the HTML was built from the JSON beside it (an embedded model fingerprint), that the JSON's and the Markdown's status counts equal the recorded outcome, and that no green indicator sits on an outcome that is not `all-passed`.
+- **Capability gate** — on a Supplier run, `4M` / `5A` do not start without `metadata/CapabilityPlan.md` (`capability_gate/cli.js plan --run <run>`).
+
+### Change management and traceability *(added 2026-10-08, Phase 5)*
+
+New `run.json` fields, every one append-only:
+- **`moduleArtifactRefs[]`** — per stage start: `stage`, `artifact`, `upstreamStage`, `scope`, `header`, `integrity`, `sha256`, `at`. Mirrored to the Manifest's "## 8. Module Artifacts Consumed".
+- **`changeRequests[]`** — a human's decision on an impact analysis: `id`, `analysisId`, `by`, `decision`, `reason`, `artifact`, `artifactSha256`, `classification`, the changed items, an affected summary, `approvedModules`, `approvedSuppliers`.
+- **`conflictDecisions[]`** — `conflictId`, `by`, `decision`.
+
+The rules — impact before change, reuse before regeneration, conflicts decided by a human — are in `pipeline.md` §8.1. Tools: `traceGraph.js`, `changeImpact.js`, `duplicates.js`.
+
+### Integration remediation *(added 2026-10-08, Phase 5.6A)*
+
+- **6A completes only with a verified report** — `complete 6A` (CLI and API alike) runs the report check on the latest registered `Final_QA_Report[.rev-N].md`: its `.report.json` and `.html` must exist, the HTML must be built from that JSON, and the Markdown and JSON counts and the JSON's `outcomeVerdict` must equal the run's authoritative outcome (the most recently recorded 4M / 5A / 5H outcome — `state report-check` uses the same one). Otherwise `REPORT_NOT_REGISTERED` or `REPORT_UNVERIFIED`; the stage stays Running. The check is kept on the completion (`completions[].reportCheck`). Earlier revisions are not re-checked and are never rewritten.
+- **Revalidation follows what a stage consumed** — each stage's `moduleArtifactRefs[]` (now recorded per stage) is compared with the artifacts as they are now. A stage built on content that has since changed — even if it was re-approved — or whose upstream was approved again after it started, needs revalidation. The planner reports it (`upstream-changed`, `upstream-reapproved`); `state verify` reports it beside the stage's own approval and exits 2; the next stage's entry gate blocks on it like staleness (a named `--accept-stale-by` may accept it, and is recorded). Nothing is reopened or rerun automatically.
+- **Every checkpoint artifact of an upstream approval is gated** — not only one representative file: the Traceability Matrix with the suite, the Automation Plan with the Module Manager's automation state, and so on. The approval is this run's own, or the latest recorded one for that scope in another run.
+- **Results are compared with the exact approved scope** — `4M` / `5A` record `entryGate.executableScope` when they start: the partial scope requested (and its proven closure), or every case whose Review is Approved (for 5A, Automation too). Outcome recording counts any other result as `Excluded` with an `outside-approved-scope` conflict — the verdict is then at best `incomplete`. 5H uses 5A's scope. The result files are never changed; each cycle's recorded status stays in the outcome. A stage started without a recorded scope (before this change) records `scope.basis: not-recorded` and is not reclassified.
+
+### Assertion evidence and result integrity *(added 2026-10-08, Phase 5.6B)*
+
+- **A Passed is verified by its assertion records** (`assertionEvidence.js`, `pipeline.md` §11.4) — the results file's §3.1 table, one row per assertion. It counts as `Passed` only when every row is complete, its Expected is in the approved test case or its source is cited (never "observed"), its Check is recognized, its Result agrees with Expected vs Actual wherever that can be recomputed, every quoted literal of the case's Expected Result is checked, and every cited file exists. No rows or anything incomplete → `Unverified`; a ❌, `Not checked` or a contradiction → `Inconclusive` with a conflict (`assertion-failed-but-passed`, `assertion-contradiction`). The recorded status stays in `history[].status`; the counted one is `history[].effective`. Outcomes carry `assertionSummary` and per-test `assertions`.
+- **Result identity** — two rows for one case in one cycle are a `duplicate-result-row` conflict and the case is `Inconclusive` (both rows kept). A case not in the approved suite is `Excluded` (`outside-approved-scope`, or `not-in-approved-suite` when no scope was recorded). In a run spanning several modules, results are identified as `<module>:<ID>` — from the Module column or a `module:ID` qualifier; an ID two modules share with no module named is `ambiguous-case-id` → `Inconclusive`. Single-module runs keep bare IDs.
+- **Capability Plan exclusions** — a case the plan excludes is `Excluded` even when a result was recorded; that result is kept as evidence with an `unsupported-capability-executed` conflict, never counted as an application failure.
+- **Evidence references** — a cited file is resolved against the results file's folder and the run folder and must exist inside the run folder. Missing, `..` paths, absolute paths, links leading outside, ambiguous and unreadable references are listed in `evidenceIssues`; a refused one is also a conflict. A file that exists proves only that it exists.
+- Any of these conflicts caps the verdict at `incomplete`. Result files are never changed.
+
+### Final integration hardening *(added 2026-10-08, Phase 5.7)*
+
+- **Checkpoint registration** — an artifact registered as a checkpoint (by `state artifact --kind checkpoint` or `state request-approval`) must carry a Status header the platform reads, else `INVALID_CHECKPOINT`. One registered in error is corrected with `state correct-checkpoint <stage> --artifact <path> --as output|evidence --by "<name>" --reason "..."` before the stage completes: the registration keeps its `recordedAt` and gains `corrections[]`; the stage gains `registrationHistory[]`; approval history is untouched. A stage Waiting For Approval goes to Blocked, and re-enters through its entry gate before approval is requested again.
+- **The Manifest follows the run state** — on a run inside the state model, the Manifest-only `stage` verb is refused (`MANIFEST_ONLY_REFUSED`). On the next state change, a ledger row that no run-state record backs is reset to `Not Started`, and a Checkpoint History row records what it used to say. A stage with no checkpoint (5A, 6A) shows its own status in the ledger, e.g. `Completed`.
+- **Display** — `new` prints the folder it created (under `--runs-dir` when given); `state status` shows an approval whose stage needs revalidation under *needs revalidation*, not *approved*; `list` shows a legacy run as `Unknown`; `state report-check` resolves its paths against the data root and refuses one outside it (`OUTSIDE_DATA_ROOT`).
+- **Consumed versions** — each stage start snapshots the Markdown artifacts it consumed to `runs/<run>/metadata/consumed/<sha256>.md` (the reference gains `snapshot`). `consumedVersions.js` returns the content behind a recorded fingerprint from the snapshot, the unchanged file, or a git commit with the same fingerprint — or `unavailable` / `unrecorded`, never a substitute. Outcomes record `sourceVersions` and each assertion's `sourceVersion`.
+- **Assertion coverage** — outcomes record `assertionCoverage` (complete · partial · unknown, with the unmapped clauses); a green report indicator is refused while it is not complete.
+
+### Self-Healing governance *(added 2026-10-09, Phase 6)*
+
+- `run.json` `stages['5H'].repairOperations[]` — one per human invocation (`state heal open`): `invokedBy`, `reason`, `environment`, `scope` (each named failed test with its recorded status and the fingerprint of the cycle that recorded it), `classifications`, `attempts` (per test: patch + fingerprint, files, shared components, confidence with cited factors and band, approvals, apply, validation with before/after and regression, result), `batchApprovals`, `productionAccess`, `promotions`, `decisions`. Append-only; it persists across an interrupted and resumed stage.
+- `state start 5H` needs `--by`; the planner never proposes 5H. The rules and refusals: self-healing-skill "Repair Governance". `state heal report [--json]` reports every operation per test.
+- **Phase 6.1** — `stages['5H'].repairQuarantine[]` and `repairBudgetGrants[]` (append-only). Attempts count across every operation of the run and of earlier runs of the same scope, until a recorded grant; three unsuccessful attempts quarantine the test. An attempt records its patch plan (each file's before/after fingerprint and preserved original) and the fingerprints of the automation scope it touches; `apply` verifies the disk against them (`repairPatch.js`). Each operation records `environmentCheck` (`verified` · `unverified` · `inconsistent`, its sources, `restricted`). Shared components come from `.baseline_ownership.json` where it covers a path.
+
+### Structured assertion contract *(added 2026-10-09, Phase 5.8)*
+
+- **Design** — a test case's `**Assertions:**` table (`assertionContract.js`): `Assertion ID` (A1, A2 …, stable within the case) · `Expected` · `Expected Source` · `Check` · `Requirement`. `state approve 3` and `state approve-scope` refuse (`ASSERTIONS_REQUIRED`) while a new or materially updated case — compared with the suite as last approved (read back by fingerprint from any run's snapshot or git), else its committed version, else nothing — has no valid table (missing, duplicate or malformed IDs, a missing field, an unknown Check, an observation as source). Unchanged legacy cases pass as they are. Approved checkpoints are snapshotted to `runs/<run>/metadata/approved/<sha256>.md`.
+- **Execution** — results' assertion records carry `Assertion ID`. For a case whose consumed version states its assertions, every required one must have exactly one record with the approved Expected and Check; per test the outcome records `assertions.coverage` (`mode: structured`, `required`, `verified`, `missing`, `failed`, `extra`). Conflicts: `assertion-expected-changed`, `duplicate-assertion-record`. Outcome `assertionCoverage` lists `missing`, `failed` and `extra` apart. A legacy case keeps the textual checks (`mode: textual`).
+- **Reporting** — a report model's assertion may carry `id` and `result: "missing"`; a passing case with a missing assertion is refused, as is a green indicator while coverage is incomplete.
+- **Export** — `test_suite_export` reads the field and writes it as the workbook's last column, `Assertions`; the import of lifecycle decisions is unaffected.
 
 # 9. Run Summary
 
@@ -805,3 +944,84 @@ Hypothetical `run_summary.md` (abbreviated):
 ```
 
 Both examples are illustrative only, shown to make the schema concrete — no run was executed and no such files were generated as part of this specification.
+
+### Phase 9.1 — blocking governance and integrity controls
+
+Each control below is enforced by the tool, with a regression test (`run_manager/__tests__/phase91Integrity.test.js`, `automation_lifecycle/__tests__/phase91Lifecycle.test.js`).
+
+| Finding | Control | Refusal |
+|---|---|---|
+| F-01 approval provenance | A downstream gate accepts an upstream artifact only with a recorded, named approval whose fingerprint matches — or a legacy attestation (`state attest-legacy-approval`, `legacyProvenance.js`) backed by committed legacy-run evidence and recorded in the new run. | `unrecorded` / `unverifiable` / `modified` blocker; attestation: `RECORDED_HISTORY_EXISTS`, `NOT_LEGACY`, `NO_LEGACY_EVIDENCE`, `PROVENANCE_UNVERIFIABLE` |
+| F-02 evidence-backed outcomes | Typed counts are unverified diagnostics; 4M approval and 5A/5H completion need an outcome recorded from results. | `OUTCOME_NOT_FROM_RESULTS` |
+| F-03 execution evidence integrity | Every recorded results cycle is re-fingerprinted (`resultsIntegrity.js`) at stage approval/completion, `state verify`, every stage entry gate of the run, Run Health (`evidence.results`, dimensions `evidence-modified`), telemetry emission and Final QA Report verification (`report-check`, the 6A gate). A results cycle written after the outcome makes it stale. Evidence is never rewritten by the check. | `RESULTS_MODIFIED`, `OUTCOME_STALE` |
+| F-07 artifact path isolation | Artifact registration, approval requests, approval, partial approval, approval snapshots and consumed versions resolve inside the data root (`pathBoundary.js`): no `..` segment, no absolute outside path, no symbolic-link/junction escape. Outside content is never copied into run metadata. | `OUTSIDE_DATA_ROOT` |
+
+F-04 (workspace merge safety) and F-05 (safe retirement) are lifecycle controls — `pipeline.md` §12.
+
+### Phase 9.2 — security, scope isolation and execution safety
+
+Each control is enforced by the tool and covered by `run_manager/__tests__/phase92Security.test.js`.
+
+| Finding | Control | Refusal / signal |
+|---|---|---|
+| F-08 framework evidence | Automated results are compared with the raw framework report (Surefire/JUnit XML, Playwright JSON) cited by the results file, or found in a single-cycle stage folder (`frameworkEvidence.js`). Raw failure beats a normalized Passed; a Passed missing from an existing report is Unverified; identity and count mismatches are conflicts; with no report a result is `no-report`, never claimed as framework-verified. | conflicts `framework-contradiction`, `framework-identity-mismatch`, `framework-count-mismatch`, `framework-report-unattributed`; `outcome.framework` |
+| F-09 evidence paths | Assertion evidence cells keep their underscores; traversal/outside/junction protections unchanged. | — |
+| F-10 telemetry | Platform-emitted canonical statuses (incl. `Unverified`) are compared by name; other sources stay conservative. | — |
+| F-11 registered scope | `new` and `scope-change` bind a run only to registered, Active modules, module Features, Supplier Features, Suppliers and shared scopes (`scopeRegistration.js`). | run not created |
+| F-12 parent approval | A Supplier or shared scope is approved/scaffolded only under an Active Supplier Feature. | registry error |
+| F-13 capability plan | `CapabilityPlan.md` carries a binding (run, Feature, Supplier, capability fingerprint, suite); `plan --run` refuses another Feature/Supplier; the gate refuses an unbound, mismatched or stale plan. | gate blocker |
+| F-14 checkpoint scope | A checkpoint must sit in the run's scope roots or its own run folder. | `OUT_OF_SCOPE` |
+| F-15 approver names | Approvals, rejections, attestations, authorizations and confirmations refuse empty, one-character, placeholder and agent-shaped names (`approverIdentity.js`). **A name is recorded, not authenticated.** | `INVALID_APPROVER` |
+| F-16 Safety Preflight | `state preflight` (see `pipeline.md` §14) — mandatory, bound, enforced at the 4M/5A/5H entry gate and at completion; the planner proposes `confirm-preflight`. | `SAFETY_PREFLIGHT` blocker, `PREFLIGHT_REFUSED`, `PREFLIGHT_STALE`, `STAGE_NEVER_STARTED` |
+| F-17 report HTML | `html` model values sanitized; a CSP allows only the report's own script by hash (dashboard: no script at all). | — |
+| F-20 module lifecycle | Approval moves Proposed → Active only; Superseded/Archived are refused; approver recorded per entity. | registry error |
+| F-21 packaging | `bin/agentic-testing.js` restored; the leak guard checks only files that would be published. | `verifyPackable` |
+
+### Phase 9.3 — final hardening and workflow enforcement
+
+Each control is enforced by the tool and covered by `run_manager/__tests__/phase93Hardening.test.js` (plus the suites named).
+
+| Finding / area | Control | Refusal / signal |
+|---|---|---|
+| F-18 telemetry | Execution telemetry is appended in one locked batch (`recorder.appendEvents`): one read of the stream, duplicates decided against what is on disk, every record numbered and schema-checked before one append. Byte-identical to one-by-one recording; concurrent emitters add evidence once. | invalid event → whole batch refused |
+| F-19 Self-Healing | Root Cause Confidence High (with a cited observed root cause) to propose; "mutating" from the 5H Safety Preflight's policy-evaluated operations; budget three attempts (as approved). | `DIAGNOSIS_ONLY`, `PRODUCTION_WRITE_REFUSED` |
+| F-22 environment | Execution Safety never defaults the environment; omitted = Unknown = refused. | Forbidden (environment gate) |
+| F-23 link escapes | Observability writes into a run only when the real path stays inside it. | `OUTSIDE_RUN` |
+| F-24 data roots | `--data-root` on every observability command, validated once; `--run` is a folder name. | exit 1 |
+| F-25 merge topology | `merge` / `plan-merge` refuse a package outside the baseline's work tree before any git read; no lifecycle command ends in a raw stack. | `MERGE_TOPOLOGY` |
+| F-26 run creation | Naming and claiming a run folder under one lock on `runs/` (atomic non-recursive mkdir); the active-run pointer (and module registry) written with unique temp files and retries, the pointer update under its own lock. | — (no refusals under contention) |
+| F-27 packaging | Playwright declared `^1.61.1` (documented, verified, Node ≥ 18 like `engines`), lock restored to match; the optional peer is declared. | — |
+| F-28 Feature pointer / HTML | `test_suite_export` follows an active Feature pointer, refuses a stale one; report HTML must equal a fresh render of its model (`report_builder verify`, report-check, 6A gate). | export error; report issue |
+| Workflow: execution | The browser driver and providers refuse to launch without an explicit Headed/Headless choice — before any profile or credential is read. | `MODE_REQUIRED` |
+| Workflow: Self-Healing | A 5H rerun pass is Automation Repaired only with a validated repair attempt for that test and rerun. | `repair-not-governed` conflict, `Flaky` |
+| Workflow: approvals | `workflow`, `reopen`, `recover`, `correct-checkpoint` and `--accept-stale-by` take a valid person's name (F-15 rule); a scope override on a scope-less run must be registered and Active. | `INVALID_APPROVER`; gate blocker |
+| Workflow: promotion | `cleanup --scope all-accounted` deletes only paths of the module's recorded, governed merge (assembly + merge manifest). | `CLEANUP_UNVERIFIED` |
+
+### Phase 9.4 — controlled mutation boundaries
+
+Covered by `run_manager/__tests__/phase94Mutation.test.js`. All writes go through `run_manager/fileMutation.js`: containment by real path, a before-fingerprint check (`STALE_TARGET`), a journal before the first write, backups, rollback on failure (`ROLLED_BACK`), and recovery of an interrupted journal (`INTERRUPTED` until recovered).
+
+| Area | Control | Refusal / signal |
+|---|---|---|
+| Target / Reference writes | `target_write/cli.js`: `register-root` (named, never the platform or its data) → `plan` (scope paths, ownership, Execution Safety: create = CREATE/SelfCreated, replace/delete = UPDATE/DELETE on Shared, environment named) → `approve` (named, fingerprint-bound) → `apply` (re-checked) → `recover`. `run.json` `targetWritePlans[]` / `targetWriteLedger[]`, `metadata/TargetWriteLedger.md`. | `PLAN_REFUSED`, `APPROVAL_REQUIRED`, `FINGERPRINT_MISMATCH`, `STALE_PLAN`, `ROLLED_BACK`, `INTERRUPTED` |
+| Baseline updates | `plan-baseline-update` / `record-baseline-update`: git diff from the module's restore point; owned paths only; shared paths need an approved shared change; named approval; disk must equal the planned commit; restore point and rollback command kept; an interrupted record finishes once. | `UPDATE_REFUSED`, `STALE_UPDATE`, `TAMPERED`, `ALREADY_RECORDED` |
+| Shared assets | `plan-shared-change` (declared shared only, impact analysis) → `approve-shared-change` → `apply-shared-change`; a merge or baseline update may consume an approval for exactly its content, once. | `NOT_SHARED`, `APPROVAL_REQUIRED`, `TAMPERED`; merge refusal |
+| Platform Knowledge | `knowledge_promotion/cli.js` propose (validated-fixed attempt, unchanged entry fingerprint, no secret-shaped content) → review (named) → apply (new file only) → verify. | `UNVERIFIED_KNOWLEDGE`, `NO_FINGERPRINT`, `SOURCE_MODIFIED`, `SECRET_FOUND`; verify exit 2 |
+| Registry concurrency | Module Manager writes hold a reentrant lock per registry folder (`registryLock.js`). | — (no lost updates) |
+| Live browser activity | `state preflight 2|4A` allowed; every driver launch / `runSuite` needs the stage's confirmed browser preflight in the same mode. | `PREFLIGHT_REQUIRED`, `MODE_MISMATCH` |
+| Other writers | `copy-in` only into the named module's empty folder, never a Promoted module; `report_builder build --out` only `.html`, never over a non-report file; `rename-runs` approver rule. | `OUTSIDE_MODULE`, `DESTINATION_NOT_EMPTY` |
+
+### Phase 9.5 — re-audit defect remediation
+
+Covered by `run_manager/__tests__/phase95Remediation.test.js`.
+
+| Finding | Control | Refusal |
+|---|---|---|
+| R-01 browser session | A launch names the exact preflight (`preflight: { runsDir, run, stage, id }`) of a stage that is Running; before the browser starts, the session's credentials environment (through the policy's names and aliases) and base URL origin must equal the preflight's environment and target URL. `runSuite` also takes `environment` and `baseUrl` and passes them to the suite (`TEST_ENVIRONMENT`, `BASE_URL`). | `PREFLIGHT_REQUIRED`, `STAGE_NOT_RUNNING`, `ENVIRONMENT_MISMATCH`, `TARGET_MISMATCH` |
+| R-02 `.git` | Any case, trailing dots/spaces, `:` streams, and any canonical path into `.git` (8.3 names, junctions, links). | `OUTSIDE_ROOT` |
+| R-03 other writers | Shared-asset changes and baseline updates only inside `<data root>/automation_baseline/`; Platform Knowledge only to the platform folder or a registered `platform-knowledge` root; reports (`report_builder build`, `observability --out-dir`) only inside the data root or a registered `report-output` root. | `NOT_A_BASELINE`, `NOT_PERMITTED_ROOT`, exit 1 |
+| R-04 concurrent writes | A per-target-project lock across runs around revalidation and write. | stale refusal |
+| R-05 recovery | Conflict-aware recovery; evidence kept; named `keep-current` / `restore-approved`. | `RECOVERY_CONFLICT` |
+| R-06 secrets | Private-key blocks (PEM, OpenSSH, encrypted, PGP, cut-off, PuTTY). | `SECRET_FOUND` |
+| R-09 roots | Validated roots only (git work tree top for target/reference; no drive/system/home/broad/temp/.git). | `UNSAFE_ROOT` |
+| R-15 backups | Target-file backups and evidence in git-ignored `<data root>/.recovery/`. | `BACKUP_NOT_IGNORED` |

@@ -1,0 +1,83 @@
+{
+ "side": "Direct",
+ "at": "2026-10-11T13:01:00.723Z",
+ "secs": 5.582,
+ "httpStatus": 200,
+ "responseCaptured": true,
+ "readBack": {
+  "branch": "ahmed ayman (BRN632)",
+  "branchBeforeCheck": "ahmed ayman (BRN632)",
+  "suppliersListed": [
+   "Galileo"
+  ],
+  "supplierSelected": "Galileo",
+  "credentialsListed": [
+   "GalileoLiveSTAGING"
+  ],
+  "credentialSelected": "GalileoLiveSTAGING"
+ },
+ "formAsEntered": "Flight Search | Branch selected. | ahmed ayman (BRN632) | Branch | * | ahmed ayman (BRN632) | Agency | Agency | Agent | Agent | One-way | Round-trip | Multi-city | CAI | DXB | Economy | K | 1 | Nearby Airport | Baggage Fare Only | Up-selling | Advanced | Check Supplier | Search",
+ "passengers": null,
+ "platformRequestToCheckSupplier": {
+  "flightRequestDto": {
+   "tripType": 1,
+   "noOfAdults": 1,
+   "noOfChildren": 0,
+   "noOfInfants": 0,
+   "entity": {
+    "selectedBranch": 11703
+   },
+   "filters": {
+    "isNearByAirport": false,
+    "isBaggageFareOnly": false,
+    "isUpSelling": false,
+    "isNonStop": false,
+    "isExcludeLcc": false,
+    "allianceAirline": null,
+    "preferAirlines": []
+   },
+   "routes": [
+    {
+     "cabinClass": 1,
+     "dateOfJourney": "18-11-2026",
+     "destination": {
+      "airportCode": "DXB"
+     },
+     "origins": [
+      {
+       "airportCode": "CAI"
+      }
+     ],
+     "rbd": [
+      "K"
+     ]
+    }
+   ]
+  },
+  "supplierId": 119,
+  "pccId": 598
+ },
+ "errorMessage": null,
+ "parseError": null,
+ "searchCallsDuringCheck": [],
+ "payloadLength": {
+  "supplierRequest": 1469,
+  "supplierResponse": 137339
+ },
+ "sha256OfRawPayload": {
+  "supplierRequest": "3a7661a55ea57a931d96170da4dd7d2eff838aafc46bd7a95a52da2c149b46c0",
+  "supplierResponse": "c3b6310f5fdebe746b774a766babbaacf18f310d25ceacb0265db07198a7d3a2"
+ },
+ "redactions": {
+  "supplierRequest": 2,
+  "supplierResponse": 0,
+  "supplierConfig": 1,
+  "total": 3
+ },
+ "boundary": {
+  "reportedBy": "platform back end (BND-04) — not a network capture",
+  "credentialHost": "emea.universal-api.pp.travelport.com",
+  "schema": "44",
+  "soapEnvelope": true
+ }
+}

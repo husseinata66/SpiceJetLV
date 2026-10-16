@@ -1,0 +1,101 @@
+{
+ "id": "E02_eco",
+ "offers": [
+  64,
+  34
+ ],
+ "flights": [
+  34,
+  34
+ ],
+ "onlyA": [],
+ "onlyB": [],
+ "matched": 34,
+ "stopsDiff": 0,
+ "opt": {
+  "matched": 34,
+  "onlyA": [
+   "KU542 CAI-KWI 11-18T20:25>11-18T23:50 + KU677 KWI-DXB 11-19T00:35>11-19T03:30 :: ADTx1:TT",
+   "KU544 CAI-KWI 11-18T02:40>11-18T06:05 + KU671 KWI-DXB 11-18T09:25>11-18T12:20 :: ADTx1:TT",
+   "MS901 CAI-DXB 11-18T04:20>11-18T09:40 :: ADTx1:K",
+   "MS905 CAI-DXB 11-18T13:40>11-18T19:00 :: ADTx1:K",
+   "MS912 CAI-DXB 11-18T09:40>11-18T15:00 :: ADTx1:K",
+   "MS910 CAI-DXB 11-18T22:25>11-19T03:45 :: ADTx1:K",
+   "QR1304 CAI-DOH 11-18T13:05>11-18T17:10 + QR1014 DOH-DXB 11-18T18:35>11-18T20:55 :: ADTx1:SS",
+   "EK930 CAI-DXB 11-18T08:00>11-18T13:15 :: ADTx1:K",
+   "EK928 CAI-DXB 11-18T12:30>11-18T17:45 :: ADTx1:K",
+   "EK922 CAI-DXB 11-18T16:30>11-18T21:45 :: ADTx1:K",
+   "EK924 CAI-DXB 11-18T19:25>11-19T00:40 :: ADTx1:K",
+   "EK926 CAI-DXB 11-18T00:50>11-18T06:10 :: ADTx1:K",
+   "RJ504 CAI-AMM 11-18T14:05>11-18T16:25 + RJ614 AMM-DXB 11-18T17:25>11-18T21:35 :: ADTx1:MM",
+   "RJ508 CAI-AMM 11-18T05:05>11-18T07:25 + RJ610 AMM-DXB 11-18T08:40>11-18T12:45 :: ADTx1:MM",
+   "TK695 CAI-IST 11-18T20:45>11-19T00:20 + TK762 IST-DXB 11-19T01:30>11-19T06:55 :: ADTx1:HH",
+   "TK687 CAI-IST 11-18T02:20>11-18T05:45 + TK764 IST-DXB 11-18T07:55>11-18T13:30 :: ADTx1:HH"
+  ],
+  "onlyB": [],
+  "dupA": 1,
+  "dupB": 0
+ },
+ "cabinDiff": [],
+ "bagDiff": [],
+ "bagTextDiff": 59,
+ "bagTextEx": "\"0 Pieces\" vs \"Number 0 Piece Allowed.\"",
+ "paxSets": [
+  [
+   "ADTx1"
+  ],
+  [
+   "ADTx1"
+  ]
+ ],
+ "cabins": [
+  [
+   "Economy"
+  ],
+  [
+   "Economy"
+  ]
+ ],
+ "rbds": [
+  [
+   "A",
+   "E",
+   "H",
+   "K",
+   "L",
+   "M",
+   "N",
+   "Q",
+   "S",
+   "T",
+   "V",
+   "W",
+   "Y"
+  ],
+  [
+   "A",
+   "E",
+   "H",
+   "L",
+   "N",
+   "Q",
+   "S",
+   "T",
+   "V",
+   "W",
+   "Y"
+  ]
+ ],
+ "legCabins": [
+  {
+   "1": [
+    "Economy"
+   ]
+  },
+  {
+   "1": [
+    "Economy"
+   ]
+  }
+ ]
+}

@@ -11,7 +11,7 @@
 //
 //   node .../cli.js validate                        # schema-check the project policy
 //   node .../cli.js summary                         # the standing decisions, at a glance
-//   node .../cli.js preflight --operations ops.json [--run <folder>] [--out]
+//   node .../cli.js preflight --operations ops.json --environment <env> [--run <folder>] [--out]
 //
 // Common flags:
 //   --file <path>     a policy other than the project's own (fixtures, review)
@@ -51,7 +51,7 @@ const USAGE = `Execution Safety — read-only policy evaluation.
              [--environment <env>] [--run <run-folder>] [--target <id>] [--json]
   validate   [--file <policy.json>] [--json]
   summary    [--module <slug>] [--json]
-  preflight  --operations <ops.json> [--run <run-folder>] [--out] [--json]
+  preflight  --operations <ops.json> --environment <env> [--run <run-folder>] [--out] [--json]
 
 Actions:    ${ACTIONS.join(', ')}
 Ownership:  ${OWNERSHIPS.join(', ')}
@@ -139,7 +139,8 @@ function cmdSummary(args) {
   const { policy, policyHash, policyPath: file } = loadPolicy({ file: typeof args.file === 'string' ? args.file : undefined });
   const mod = typeof args.module === 'string' ? args.module : undefined;
   const rows = SUMMARY_PROBES.map(([action, ownership]) => {
-    const r = evaluate({ policy, action, ownership, module: mod, authorizations: authorizationsFor(args) });
+    // The summary describes the policy's OWN rules, so it names the policy's environment explicitly.
+    const r = evaluate({ policy, action, ownership, module: mod, environment: policy.environment, authorizations: authorizationsFor(args) });
     return {
       action, ownership, decision: r.decision, absolute: r.absolute, matchedRule: r.matchedRule,
     };
@@ -183,7 +184,8 @@ function cmdPreflight(args) {
     return EXIT.error;
   }
   const runId = typeof args.run === 'string' ? args.run : undefined;
-  const result = preflight({ policy, operations, runId, authorizations: authorizationsFor(args) });
+  // The environment is named, never defaulted (Phase 9.3, F-22): without it every operation is evaluated as Unknown.
+  const result = preflight({ policy, operations, runId, environment: typeof args.environment === 'string' ? args.environment : undefined, authorizations: authorizationsFor(args) });
 
   if (args.json) console.log(JSON.stringify({ ...result, policyHash }, null, 2));
   else console.log(renderPreflight(result, { policyHash }));

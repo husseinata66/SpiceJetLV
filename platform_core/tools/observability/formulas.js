@@ -177,7 +177,7 @@ const FORMULAS = [
   {
     id: 'EXECUTION_PASS_RATE',
     name: 'Execution Pass Rate',
-    expression: 'Passed / (Passed + Failed)',
+    expression: 'Passed / (Passed + Failed) — Failed is every failure category (application, automation, environment)',
     notes: 'Skipped and Blocked are excluded from BOTH sides. A test blocked by Execution Safety was '
       + 'never run, and counting it as a failure would turn a correctly-governed run into a failing one.',
     compute: (m) => {
@@ -188,6 +188,19 @@ const FORMULAS = [
       return ratio(e.passed.value, e.passed.value + e.failed.value, {
         reason: 'No test produced a pass-or-fail outcome.',
       });
+    },
+  },
+  {
+    id: 'VERIFIED_PASS_RATE',
+    name: 'Verified Pass Rate',
+    expression: 'Passed / Executed — Executed counts every result that ran, including Automation Repaired, Flaky, Inconclusive, Quarantined and Unverified',
+    notes: 'Phase 8. Only a canonical Passed counts as a pass: a repaired, flaky or unverified result ran but is not a clean, '
+      + 'evidenced pass. Not-run (Blocked, Skipped, Not Executed) and Excluded results are outside the denominator. '
+      + 'EXECUTION_PASS_RATE is kept unchanged so earlier metrics keep their meaning.',
+    compute: (m) => {
+      const e = m.execution;
+      if (!isAvailable(e.passed) || !isAvailable(e.executed)) return unavailable('No execution telemetry was recorded for this run.');
+      return ratio(e.passed.value, e.executed.value, { reason: 'No test was executed.' });
     },
   },
   {

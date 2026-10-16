@@ -31,6 +31,14 @@ function writeModel(dir, model, name = 'run.report.json') {
   return file;
 }
 
+// A disposable platform data root (runs/ + knowledge_base/): since Phase 9.5 (R-03) a report is written only
+// inside a data root or a registered report-output root.
+function dataRootDir() {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'report-builder-root-'));
+  fs.mkdirSync(path.join(dir, 'runs')); fs.mkdirSync(path.join(dir, 'knowledge_base'));
+  return dir;
+}
+
 const MINIMAL = {
   title: 'QA Execution Report',
   testCases: { categories: [{ key: 'positive', cases: [{ title: 'A', status: 'PASS' }] }] },
@@ -54,21 +62,21 @@ test('validate exits 2 with a path-shaped message on an invalid model', () => {
 });
 
 test('build writes the HTML to the requested path, creating the directory', () => {
-  const dir = tempDir();
+  const dir = dataRootDir();
   const file = writeModel(dir, MINIMAL);
   const out = path.join(dir, 'nested', 'report.html');
 
-  runCli(['build', '--model', file, '--out', out]);
+  runCli(['build', '--model', file, '--out', out, '--data-root', dir]);
   const html = fs.readFileSync(out, 'utf8');
   assert.match(html, /^<!DOCTYPE html>/);
   assert.ok(html.includes('QA Execution Report'));
 });
 
 test('build defaults the output next to the model, dropping the .report.json suffix', () => {
-  const dir = tempDir();
+  const dir = dataRootDir();
   const file = writeModel(dir, MINIMAL, 'ManualQAReport.report.json');
 
-  runCli(['build', '--model', file]);
+  runCli(['build', '--model', file, '--data-root', dir]);
   assert.ok(fs.existsSync(path.join(dir, 'ManualQAReport.html')));
 });
 
@@ -82,11 +90,11 @@ test('build --stdout writes the document without touching the filesystem', () =>
 });
 
 test('build --json reports where it wrote and how large the document is', () => {
-  const dir = tempDir();
+  const dir = dataRootDir();
   const file = writeModel(dir, MINIMAL);
   const out = path.join(dir, 'report.html');
 
-  const { stdout } = runCli(['build', '--model', file, '--out', out, '--json']);
+  const { stdout } = runCli(['build', '--model', file, '--out', out, '--json', '--data-root', dir]);
   const result = JSON.parse(stdout);
   assert.equal(result.ok, true);
   assert.equal(result.out, out);

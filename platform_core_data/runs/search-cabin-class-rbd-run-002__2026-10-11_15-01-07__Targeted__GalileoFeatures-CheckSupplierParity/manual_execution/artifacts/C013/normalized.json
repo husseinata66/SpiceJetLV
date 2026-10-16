@@ -1,0 +1,67 @@
+{
+ "integration": {
+  "request": {
+   "trip": "One-way",
+   "legs": [
+    {
+     "o": "CAI",
+     "d": "DXB",
+     "dt": "2026-11-18",
+     "cabins": [
+      "Economy"
+     ],
+     "rbd": [
+      "J"
+     ]
+    }
+   ],
+   "pax": {
+    "Adult": 1
+   }
+  },
+  "response": {
+   "error": "UNABLE TO FARE QUOTE"
+  }
+ },
+ "direct": {
+  "request": {
+   "trip": "One-way",
+   "legs": [
+    {
+     "o": "CAI",
+     "d": "DXB",
+     "dt": "2026-11-18",
+     "cabins": [
+      "Economy"
+     ],
+     "rbd": [
+      "J"
+     ]
+    }
+   ],
+   "pax": {
+    "Adult": 1
+   }
+  },
+  "response": {
+   "error": "UNABLE TO FARE QUOTE"
+  }
+ },
+ "expectedFromTestData": {
+  "trip": "One-way",
+  "legs": [
+   {
+    "o": "CAI",
+    "d": "DXB",
+    "dt": "2026-11-18",
+    "cabin": "Economy",
+    "rbd": [
+     "J"
+    ]
+   }
+  ],
+  "pax": {
+   "Adult": 1
+  }
+ }
+}

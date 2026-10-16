@@ -1,0 +1,81 @@
+{
+ "side": "Integration",
+ "at": "2026-10-11T12:56:10.203Z",
+ "secs": 6.999,
+ "httpStatus": 200,
+ "responseCaptured": true,
+ "readBack": {
+  "branch": "NDC1_Ahmed Ayman (BRN287)",
+  "branchBeforeCheck": "NDC1_Ahmed Ayman (BRN287)",
+  "suppliersListed": [
+   "NDCGal"
+  ],
+  "supplierSelected": "NDCGal",
+  "credentialsListed": [
+   "NdcGalileoSTG EGY"
+  ],
+  "credentialSelected": "NdcGalileoSTG EGY"
+ },
+ "formAsEntered": "Flight Search | Branch selected. | NDC1_Ahmed Ayman (BRN287) | Branch | * | NDC1_Ahmed Ayman (BRN287) | Agency | Agency | Agent | Agent | One-way | Round-trip | Multi-city | CAI | DXB | Business | RBD | 1 | Nearby Airport | Baggage Fare Only | Up-selling | Advanced | Check Supplier | Search",
+ "passengers": null,
+ "platformRequestToCheckSupplier": {
+  "flightRequestDto": {
+   "tripType": 1,
+   "noOfAdults": 1,
+   "noOfChildren": 0,
+   "noOfInfants": 0,
+   "entity": {
+    "selectedBranch": 10994
+   },
+   "filters": {
+    "isNearByAirport": false,
+    "isBaggageFareOnly": false,
+    "isUpSelling": false,
+    "isNonStop": false,
+    "isExcludeLcc": false,
+    "allianceAirline": null,
+    "preferAirlines": []
+   },
+   "routes": [
+    {
+     "cabinClass": 3,
+     "dateOfJourney": "18-11-2026",
+     "destination": {
+      "airportCode": "DXB"
+     },
+     "origins": [
+      {
+       "airportCode": "CAI"
+      }
+     ],
+     "rbd": []
+    }
+   ]
+  },
+  "supplierId": 162,
+  "pccId": 320
+ },
+ "errorMessage": null,
+ "parseError": null,
+ "searchCallsDuringCheck": [],
+ "payloadLength": {
+  "supplierRequest": 1504,
+  "supplierResponse": 239381
+ },
+ "sha256OfRawPayload": {
+  "supplierRequest": "5ffdd02fc1f5cbd3d205d4f8fb4148684e192a4523383eca9325b4da7628c642",
+  "supplierResponse": "325fe3f36a854e309ddff48c17b9907a5eb1ad1e51b48eda66f8ff59d44e95a4"
+ },
+ "redactions": {
+  "supplierRequest": 2,
+  "supplierResponse": 0,
+  "supplierConfig": 0,
+  "total": 2
+ },
+ "boundary": {
+  "reportedBy": "platform back end (BND-04) — not a network capture",
+  "credentialHost": "ndc-integration-stg-ne-3.azurewebsites.net",
+  "schema": "52",
+  "soapEnvelope": false
+ }
+}

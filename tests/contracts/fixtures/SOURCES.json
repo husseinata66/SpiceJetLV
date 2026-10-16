@@ -1,0 +1,62 @@
+{
+  "description": "Real-world, publicly published API contracts used as regression fixtures (Phase 7.1). Every file is the original, byte for byte, as fetched from the pinned reference below; sha256 is of the file's bytes with CRLF normalized to LF (all originals are LF). Never edit these files: a fixture that changes is a different fixture.",
+  "fetchedAt": "2026-10-09",
+  "sources": [
+    {
+      "id": "oai-openapi-specification",
+      "project": "OAI/OpenAPI-Specification (examples)",
+      "repository": "https://github.com/OAI/OpenAPI-Specification",
+      "license": "Apache-2.0",
+      "licenseFile": "oai-openapi-specification/LICENSE",
+      "files": [
+        { "path": "oai-openapi-specification/v3.0/petstore.yaml", "ref": "tag 3.0.3", "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/3.0.3/examples/v3.0/petstore.yaml", "sha256": "ab60f59da478d4ac312cd9fabcc6cbd06f8f975ab8a1a0c2029b2a41f65fedd5", "bytes": 2573 },
+        { "path": "oai-openapi-specification/v3.0/petstore-expanded.yaml", "ref": "tag 3.0.3", "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/3.0.3/examples/v3.0/petstore-expanded.yaml", "sha256": "65d1a5f7ea52cbb220d99d6fbe9125b9c1f9c54caf7303eadd82d774661b2a49", "bytes": 5479 },
+        { "path": "oai-openapi-specification/v3.0/uspto.yaml", "ref": "tag 3.0.3", "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/3.0.3/examples/v3.0/uspto.yaml", "sha256": "19973722fcb551687bd70b4336838e9326a8484769018c840932f9af82545a15", "bytes": 7744 },
+        { "path": "oai-openapi-specification/v3.0/link-example.yaml", "ref": "tag 3.0.3", "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/3.0.3/examples/v3.0/link-example.yaml", "sha256": "4b7b29d7bda1cf95f8c027500c86a9eb3761dfee42f1a8aeb095c5c0b5ccde3b", "bytes": 5280 },
+        { "path": "oai-openapi-specification/v3.0/callback-example.yaml", "ref": "tag 3.0.3", "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/3.0.3/examples/v3.0/callback-example.yaml", "sha256": "42174fc75c21436e3ffd10960c483c4374469059f652c1fdc4542854233ab15d", "bytes": 2158 },
+        { "path": "oai-openapi-specification/v3.0/api-with-examples.yaml", "ref": "tag 3.0.3", "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/3.0.3/examples/v3.0/api-with-examples.yaml", "sha256": "4893d2be16291b15fda9b6bea4acefce423139912675a058718029d5d262e26e", "bytes": 6337, "note": "Strict YAML 1.2 parsers (yaml 2.5.1) reject this file: a closing flow brace is under-indented. The platform reader accepts it — flow collections are delimited, so its meaning is unambiguous." },
+        { "path": "oai-openapi-specification/v2.0/petstore-expanded.json", "ref": "tag 3.0.3", "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/3.0.3/examples/v2.0/json/petstore-expanded.json", "sha256": "5c44b147cc401deb074b0cd9f5cc3b638b07fcd5b17a76206d977eb898e7d375", "bytes": 6441 },
+        { "path": "oai-openapi-specification/v2.0/petstore-expanded.yaml", "ref": "tag 3.0.3", "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/3.0.3/examples/v2.0/yaml/petstore-expanded.yaml", "sha256": "0cc54991bbc2da80b068a437df2c78c7403684e6421028da4842a26a09d1f220", "bytes": 3454, "note": "Not identical to the JSON example of the same name (its descriptions differ); not used as a YAML/JSON twin." },
+        { "path": "oai-openapi-specification/v2.0/uber.json", "ref": "tag 3.0.3", "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/3.0.3/examples/v2.0/json/uber.json", "sha256": "4372f3f6fa7d56f5baade386429f4f9b5e8950ddaf30574b966461300f4480af", "bytes": 11679 },
+        { "path": "oai-openapi-specification/v3.1/webhook-example.yaml", "ref": "tag 3.1.0", "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/3.1.0/examples/v3.1/webhook-example.yaml", "sha256": "f9301bd9c561f94b7745415ca501a76d5ad6cd2137286f732fd130e48ce720fb", "bytes": 930 }
+      ]
+    },
+    {
+      "id": "swagger-petstore",
+      "project": "swagger-api/swagger-petstore (OpenAPI 3.0.4, info.version 1.0.29-SNAPSHOT)",
+      "repository": "https://github.com/swagger-api/swagger-petstore",
+      "license": "Apache-2.0",
+      "licenseFile": "swagger-petstore/LICENSE",
+      "files": [
+        { "path": "swagger-petstore/openapi.yaml", "ref": "commit d57941e8fe959e508796b27469b1e8bba73392dc", "url": "https://raw.githubusercontent.com/swagger-api/swagger-petstore/d57941e8fe959e508796b27469b1e8bba73392dc/src/main/resources/openapi.yaml", "sha256": "e1a2480ffa440e44b981db5b038374214c532ffc92026fd51fb957c88bfbdd88", "bytes": 23165 }
+      ]
+    },
+    {
+      "id": "postman-collection",
+      "project": "postmanlabs/postman-collection (examples)",
+      "repository": "https://github.com/postmanlabs/postman-collection",
+      "license": "Apache-2.0",
+      "licenseFile": "postman-collection/LICENSE.md",
+      "files": [
+        { "path": "postman-collection/nested-v2-collection.json", "ref": "commit 8801e7f4989e90128cd235ea37e238663a479804", "url": "https://raw.githubusercontent.com/postmanlabs/postman-collection/8801e7f4989e90128cd235ea37e238663a479804/examples/nested-v2-collection.json", "sha256": "a67c8210eaaf8bdc5cd337eca0846cb54802adee82dc34b269d86619161c5b95", "bytes": 5765 }
+      ]
+    },
+    {
+      "id": "newman",
+      "project": "postmanlabs/newman (examples)",
+      "repository": "https://github.com/postmanlabs/newman",
+      "license": "Apache-2.0",
+      "licenseFile": "newman/LICENSE.md",
+      "files": [
+        { "path": "newman/sample-collection.json", "ref": "tag v6.1.3", "url": "https://raw.githubusercontent.com/postmanlabs/newman/v6.1.3/examples/sample-collection.json", "sha256": "f50a0e6e26290b87a999939a86dddb8bf4ea252c29346c6ea25d9afc26f40965", "bytes": 1670 },
+        { "path": "newman/v1-collection.json", "originalName": "v1.postman_collection.json", "ref": "tag v6.1.3", "url": "https://raw.githubusercontent.com/postmanlabs/newman/v6.1.3/examples/v1.postman_collection.json", "sha256": "09c99e8367f4a7b2c3ed721848726b7bd6cb1a3eb9eb0fcfbd33a6b6c2b4685c", "bytes": 1683, "note": "Renamed only: the repository ignores *.postman_collection.json (collections can carry live credentials). This one carries none; its content is unchanged. A Postman v1 collection — kept to prove it is refused explicitly." }
+      ]
+    }
+  ],
+  "excluded": [
+    { "file": "postmanlabs/newman v6.1.3 test/integration/echo-v2.postman_collection.json", "why": "contains credential-shaped values (a Bearer token, an OAuth consumerSecret, demo passwords) — public demo values, but credential-shaped content is not committed. Exercised by the opt-in external suite instead." },
+    { "file": "postmanlabs/newman v6.1.3 test/integration/inherited-entities/inherited-entities.postman_collection.json", "why": "contains demo passwords; external suite only." },
+    { "file": "postmanlabs/postman-collection 8801e7f examples/collection-v2.json", "why": "contains a demo password and auth key; external suite only." },
+    { "file": "GitHub REST API description, Stripe OpenAPI, Kubernetes swagger.json", "why": "3–13 MB each; pinned and verified by the opt-in external suite (tests/contracts/external.js), not committed." }
+  ]
+}

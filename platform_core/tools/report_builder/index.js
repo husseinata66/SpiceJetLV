@@ -23,5 +23,7 @@ module.exports = {
   ReportModelError: model.ReportModelError,
   TONES: model.TONES,
   normalizeModel: model.normalizeModel,
+  modelFingerprint: model.modelFingerprint,
   renderReport: render.renderReport,
+  verifyHtml: render.verifyHtml,
 };

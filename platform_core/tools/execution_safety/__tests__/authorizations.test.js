@@ -18,7 +18,10 @@ const path = require('path');
 
 const { createAuthorization, saveAuthorizations, renderAuthorizationsDoc } = require('../authorizations');
 const { loadAuthorizations, authorizationsPath, hashPolicy, stableStringify } = require('../policyLoader');
-const { evaluate } = require('../evaluator');
+const { evaluate: evaluateAny } = require('../evaluator');
+// F-22 (Phase 9.3): the evaluator never defaults the environment. These tests exercise rule resolution,
+// so every request names the environment its policy governs — explicitly, here.
+const evaluate = (req) => evaluateAny({ environment: req && req.policy ? req.policy.environment : undefined, ...req });
 
 const POLICY = {
   policyId: 'test-policy',

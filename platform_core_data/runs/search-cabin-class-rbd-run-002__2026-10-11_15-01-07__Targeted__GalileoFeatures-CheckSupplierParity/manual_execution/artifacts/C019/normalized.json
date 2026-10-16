@@ -1,0 +1,210 @@
+{
+ "integration": {
+  "request": {
+   "trip": "One-way",
+   "legs": [
+    {
+     "o": "CAI",
+     "d": "DXB",
+     "dt": "2026-11-18",
+     "cabins": [
+      "Economy"
+     ],
+     "rbd": [
+      "J"
+     ]
+    }
+   ],
+   "pax": {
+    "Adult": 1
+   }
+  },
+  "response": {
+   "error": "UNABLE TO FARE QUOTE"
+  }
+ },
+ "direct": {
+  "request": {
+   "trip": "One-way",
+   "legs": [
+    {
+     "o": "CAI",
+     "d": "DXB",
+     "dt": "2026-11-18",
+     "cabins": [
+      "Premium Economy"
+     ],
+     "rbd": [
+      "J"
+     ]
+    }
+   ],
+   "pax": {
+    "Adult": 1
+   }
+  },
+  "response": {
+   "solutions": 5,
+   "flights": {
+    "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "XY566",
+          "cabin": "PremiumEconomy",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JCFAREOW",
+          "journey": 0
+         },
+         {
+          "seg": "XY509",
+          "cabin": "PremiumEconomy",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JCFAREOW",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY207 RUH-DXB 2026-11-18T15:50>2026-11-18T18:50": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "XY264",
+          "cabin": "PremiumEconomy",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JCFAREOW",
+          "journey": 0
+         },
+         {
+          "seg": "XY207",
+          "cabin": "PremiumEconomy",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JCFAREOW",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "XY274 CAI-RUH 2026-11-18T12:10>2026-11-18T15:45 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "XY274",
+          "cabin": "PremiumEconomy",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JCFAREOW",
+          "journey": 0
+         },
+         {
+          "seg": "XY209",
+          "cabin": "PremiumEconomy",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JCFAREOW",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "XY264",
+          "cabin": "PremiumEconomy",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JCFAREOW",
+          "journey": 0
+         },
+         {
+          "seg": "XY209",
+          "cabin": "PremiumEconomy",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JCFAREOW",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "XY895 CAI-DMM 2026-11-18T23:25>2026-11-19T03:15 + XY811 DMM-DXB 2026-11-19T08:25>2026-11-19T10:55": {
+     "stops": "1",
+     "options": [
+      {
+       "rbdKey": "ADTx1:JJ",
+       "pax": {
+        "ADTx1": [
+         {
+          "seg": "XY895",
+          "cabin": "PremiumEconomy",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JCFAREOW",
+          "journey": 0
+         },
+         {
+          "seg": "XY811",
+          "cabin": "PremiumEconomy",
+          "rbd": "J",
+          "bag": "2PC",
+          "fareBasis": "JCFAREOW",
+          "journey": 0
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   "upsellBrands": 0
+  }
+ },
+ "expectedFromTestData": {
+  "trip": "One-way",
+  "legs": [
+   {
+    "o": "CAI",
+    "d": "DXB",
+    "dt": "2026-11-18",
+    "cabin": "Premium Economy",
+    "rbd": [
+     "J"
+    ]
+   }
+  ],
+  "pax": {
+   "Adult": 1
+  }
+ }
+}

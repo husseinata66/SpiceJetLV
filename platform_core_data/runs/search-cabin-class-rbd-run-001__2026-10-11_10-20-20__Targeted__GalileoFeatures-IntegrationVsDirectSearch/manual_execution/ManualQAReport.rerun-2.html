@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tX0UHH3XbFYmffjMbihbOAQjIqdW/Z8z9jDmAQc17D8='; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="report-model-sha256" content="4044334a726d74cfad01167146b918b0ece3828518cb152787d020c5a03ed5b5">
+<title>Manual QA Report rerun-2 — Galileo</title>
+<style>
+  :root{
+    color-scheme: light;
+    --paper:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAEEF4;
+    --ink:#10151F; --ink-2:#45536B; --ink-muted:#7C8AA0;
+    --line:#DDE3EC; --line-strong:#C6CEDC;
+    --accent:#2A78D6; --accent-ink:#1C5CAB; --accent-wash:#E4EEFA;
+    --good:#0CA30C; --warning:#C98A17; --serious:#D9673C; --critical:#D03B3B;
+    --good-wash:rgba(12,163,12,0.12); --warning-wash:rgba(250,178,25,0.16);
+    --serious-wash:rgba(236,131,90,0.14); --critical-wash:rgba(208,59,59,0.12);
+    --shadow:rgba(16,21,31,0.08);
+    --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --font-mono:ui-monospace,"SF Mono","Cascadia Code","Roboto Mono",Consolas,"Courier New",monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --paper:#0A0E15; --surface:#111826; --surface-2:#16202F;
+      --ink:#EDF1F7; --ink-2:#B7C2D1; --ink-muted:#8290A6;
+      --line:#232E40; --line-strong:#324058;
+      --accent:#3987E5; --accent-ink:#8FBBEF; --accent-wash:#152A45;
+      --good:#35C24A; --warning:#E3A730; --serious:#E88A5E; --critical:#EA5B5B;
+      --good-wash:rgba(53,194,74,0.16); --warning-wash:rgba(227,167,48,0.16);
+      --serious-wash:rgba(232,138,94,0.16); --critical-wash:rgba(234,91,91,0.18);
+      --shadow:rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --paper:#0A0E15; --surface:#111826; --surface-2:#16202F;
+    --ink:#EDF1F7; --ink-2:#B7C2D1; --ink-muted:#8290A6;
+    --line:#232E40; --line-strong:#324058;
+    --accent:#3987E5; --accent-ink:#8FBBEF; --accent-wash:#152A45;
+    --good:#35C24A; --warning:#E3A730; --serious:#E88A5E; --critical:#EA5B5B;
+    --good-wash:rgba(53,194,74,0.16); --warning-wash:rgba(227,167,48,0.16);
+    --serious-wash:rgba(232,138,94,0.16); --critical-wash:rgba(234,91,91,0.18);
+    --shadow:rgba(0,0,0,0.5);
+  }
+  :root[data-theme="light"]{
+    color-scheme: light;
+    --paper:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAEEF4;
+    --ink:#10151F; --ink-2:#45536B; --ink-muted:#7C8AA0;
+    --line:#DDE3EC; --line-strong:#C6CEDC;
+    --accent:#2A78D6; --accent-ink:#1C5CAB; --accent-wash:#E4EEFA;
+    --good:#0CA30C; --warning:#C98A17; --serious:#D9673C; --critical:#D03B3B;
+    --good-wash:rgba(12,163,12,0.12); --warning-wash:rgba(250,178,25,0.16);
+    --serious-wash:rgba(236,131,90,0.14); --critical-wash:rgba(208,59,59,0.12);
+    --shadow:rgba(16,21,31,0.08);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--paper); color:var(--ink); font-family:var(--font-sans);
+        font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation-duration:.001ms !important; transition-duration:.001ms !important; } }
+  a{ color:var(--accent-ink); }
+  .wrap{ max-width:960px; margin:0 auto; padding:32px 20px 80px; }
+  .dashboard-card{ background:var(--surface); border:1px solid var(--line-strong); border-radius:24px; padding:24px; }
+  code,.mono{ font-family:var(--font-mono); font-size:.92em; }
+  .header{ display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:24px; }
+  .header-main{ flex:1 1 auto; min-width:280px; }
+  .header h1{ font-size:32px; font-weight:800; margin:0 0 8px; }
+  .header .meta{ color:var(--ink-muted); font-size:13px; }
+  .pill{ display:inline-flex; align-items:center; gap:6px; padding:6px 18px; border-radius:999px; font-size:12px; font-weight:700; letter-spacing:.03em; border:1px solid transparent; }
+  .pill-complete{ background:var(--good-wash); color:var(--good); border-color:var(--good); }
+  .pill-interrupted{ background:var(--critical-wash); color:var(--critical); }
+  .section-num{ font-size:17px; font-weight:700; color:var(--ink); margin:32px 0 14px; text-transform:none; letter-spacing:normal; border-bottom:none; padding-bottom:0; }
+  .summary-layout{ display:flex; align-items:center; gap:36px; flex-wrap:wrap; margin-bottom:28px; }
+  .donut-block{ display:flex; align-items:center; gap:20px; flex-shrink:0; }
+  .stats-block{ flex:1 1 360px; min-width:280px; display:flex; flex-direction:column; gap:14px; }
+  .scard{ text-align:center; }
+  .scard .lbl{ font-size:15px; font-weight:700; color:var(--ink-muted); margin-top:4px; }
+  .scard .val{ font-size:24px; font-weight:700; color:var(--ink); }
+  .scard .val.pass{ color:var(--good); }
+  .scard .val.fail{ color:var(--critical); }
+  .scard .val.blocked{ color:var(--serious); }
+  .scard .val.accent{ color:var(--accent-ink); }
+  .scard-total .lbl{ font-size:17px; margin-top:6px; }
+  .scard-total .val{ font-size:28px; }
+  summary.section-summary-flex > .section-count-badges,
+  summary.section-summary-flex > .section-count-badge{ float:right; }
+  .section-count-badge{ display:flex; flex-direction:column; align-items:center; justify-content:center;
+      background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; padding:6px 20px;
+      text-transform:none; letter-spacing:normal; flex-shrink:0; }
+  .section-count-badge .scb-val{ font-size:20px; font-weight:700; color:var(--accent-ink); line-height:1.2; }
+  .section-count-badge .scb-lbl{ font-size:11px; color:var(--ink-muted); margin-top:1px; }
+  .section-count-badges{ display:flex; gap:10px; flex-shrink:0; }
+  .scb-val.serious{ color:var(--serious); }
+  .scb-val.accent{ color:var(--accent-ink); }
+  .summary-cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; }
+  .donut{ width:280px; height:280px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .donut-hole{ width:190px; height:190px; border-radius:50%; background:var(--paper); display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .donut-pct{ font-size:34px; font-weight:800; color:var(--ink); }
+  .donut-sub{ font-size:15px; color:var(--ink-muted); }
+  .donut-legend{ display:flex; flex-direction:column; gap:10px; }
+  .litem{ display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-2); white-space:nowrap; }
+  .litem .lcount{ margin-left:4px; color:var(--ink-muted); }
+  .swatch{ width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+  .swatch.pass{ background:var(--good); }
+  .swatch.fail{ background:var(--critical); }
+  .swatch.blocked{ background:var(--serious); }
+  h2{ font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-2);
+      border-bottom:1px solid var(--line); padding-bottom:6px; margin:32px 0 12px; }
+  .section-collapse{ margin:0; }
+  .section-collapse > summary{ font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-2);
+      border-bottom:1px solid var(--line); padding-bottom:6px; margin:32px 0 12px; cursor:pointer; }
+  .section-collapse > summary::-webkit-details-marker{ color:var(--ink-muted); }
+  .tc-section > summary{ margin-top:0; }
+  .tc-category{ background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; margin-bottom:10px; }
+  .tc-category > summary{ display:flex; align-items:center; gap:10px; padding:14px 16px; cursor:pointer; list-style:none; }
+  .tc-category > summary::-webkit-details-marker{ display:none; }
+  .cat-icon{ font-size:16px; flex-shrink:0; width:22px; display:inline-flex; align-items:center; justify-content:center; }
+  .cat-name{ font-weight:700; color:var(--ink); flex-shrink:0; }
+  .cat-counts{ display:flex; gap:14px; margin-left:auto; font-size:12px; }
+  .cc{ font-weight:600; }
+  .cc.pass{ color:var(--good); }
+  .cc.fail{ color:var(--critical); }
+  .cc.blocked{ color:var(--serious); }
+  .cat-chev{ display:inline-block; width:9px; flex-shrink:0; color:var(--ink-muted); font-size:10px; transition:transform .15s ease; }
+  .cat-chev::before{ content:'\25B8'; }
+  details.tc-category[open] > summary .cat-chev{ transform:rotate(90deg); }
+  .tc-category-body{ padding:0 16px 16px; }
+  .tc-category.cat-empty{ display:none; }
+  .tc-subhead{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:14px 0 8px; padding-bottom:4px; border-bottom:1px solid var(--line); }
+  .tc-subhead:first-child{ margin-top:4px; }
+  .tc-subhead-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+  .tc-subhead-label.pos{ color:var(--good); }
+  .tc-subhead-label.neg{ color:var(--critical); }
+  .tc-subhead-counts{ display:flex; gap:12px; font-size:11px; }
+  .tc{ background:var(--surface); border:1px solid var(--line-strong); border-left-width:4px; border-radius:12px; padding:16px 18px; margin-bottom:8px; }
+  .tc.PASS{ border-left-color:var(--good); }
+  .tc.FAIL{ border-left-color:var(--critical); }
+  .tc.BLOCKED{ border-left-color:var(--serious); }
+  .tc-head{ display:flex; justify-content:space-between; gap:10px; font-weight:600; }
+  .badge{ font-size:11px; font-weight:700; padding:2px 8px; border-radius:5px; }
+  .badge.PASS{ background:var(--good-wash); color:var(--good); }
+  .badge.FAIL{ background:var(--critical-wash); color:var(--critical); }
+  .badge.BLOCKED{ background:var(--serious-wash); color:var(--serious); }
+  .tc .row{ margin-top:6px; font-size:13px; color:var(--ink-2); overflow-wrap:anywhere; }
+  .tc .row b{ color:var(--ink); }
+  .view-tc-wrap{ margin-top:10px; }
+  .view-tc > summary{ display:block; text-align:right; color:var(--accent-ink); text-decoration:underline; cursor:pointer; font-size:12px; font-weight:600; list-style:none; }
+  .view-tc > summary::-webkit-details-marker{ display:none; }
+  .view-tc-body{ margin-top:8px; padding:14px 16px; background:var(--surface-2); border:1px solid var(--line); border-radius:8px; font-size:13px; }
+  .vtc-h{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-muted); margin:12px 0 4px; }
+  .vtc-h:first-child{ margin-top:0; }
+  .vtc-p{ color:var(--ink-2); overflow-wrap:anywhere; }
+  .vtc-steps{ margin:0; padding-left:18px; color:var(--ink-2); }
+  .vtc-steps li{ margin-bottom:4px; overflow-wrap:anywhere; }
+  .assertions{ margin-top:6px; overflow-x:auto; }
+  .assertions table{ border-collapse:collapse; font-size:12px; width:100%; }
+  .assertions th, .assertions td{ text-align:left; padding:4px 8px; border-bottom:1px solid var(--surface-2); vertical-align:top; overflow-wrap:anywhere; }
+  .assertions tr.as-fail td{ color:var(--fail, #b42318); }
+  .assertions tr.as-missing td{ color:var(--warning, #b54708); font-style:italic; }
+  details.evidence, details.hops{ margin-top:6px; }
+  details.evidence summary, details.hops summary{ cursor:pointer; font-size:12px; color:var(--accent-ink); }
+  details.evidence .ev-body{ margin-top:4px; padding:8px 10px; background:var(--surface-2); border-radius:6px; font-size:12px; overflow-wrap:anywhere; }
+  .hop{ padding:6px 0; border-top:1px solid var(--line); font-size:12px; }
+  .hop:first-child{ border-top:none; }
+  .hop-endpoint{ font-weight:600; color:var(--ink); }
+  .hop .hd{ color:var(--ink-muted); margin-top:2px; overflow-wrap:anywhere; }
+  .hop .hd.hop-reqres.js-hidden{ display:none; }
+  .hop-reqres-toggle{ margin-left:8px; font-size:11px; font-weight:600; color:var(--accent-ink); text-decoration:underline; cursor:pointer; }
+  .hop-reqres-panel{ margin-top:10px; display:flex; flex-direction:column; gap:18px; }
+  .hop-reqres-panel.js-hidden{ display:none; }
+  .rr-title{ font-size:15px; font-weight:700; color:var(--ink); margin-bottom:6px; }
+  .rr-line{ font-size:13px; color:var(--ink-2); margin-bottom:10px; font-family:var(--font-mono); overflow-wrap:anywhere; }
+  .rr-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-muted); margin:10px 0 6px; }
+  .rr-box{ background:#0B0E15; color:#D7DEE8; border-radius:10px; padding:14px 16px; font-family:var(--font-mono); font-size:12.5px; overflow:auto; }
+  .rr-headers-box .rr-h-line{ margin-bottom:14px; white-space:pre-wrap; overflow-wrap:anywhere; }
+  .rr-headers-box .rr-h-line:last-child{ margin-bottom:0; }
+  .rr-body-box{ max-height:340px; }
+  .rr-body-box pre{ margin:0; white-space:pre; }
+  .rr-redacted{ color:#8290A6; }
+  .rr-note{ font-size:11px; color:var(--ink-muted); font-style:italic; margin-top:6px; }
+  .tc-status-row{ display:flex; align-items:center; gap:10px; }
+  .tc-reqres-toggle{ margin-left:auto; }
+  .tc-reqres-panel{ margin-top:10px; display:flex; flex-direction:column; gap:18px; }
+  .tc-reqres-panel.js-hidden{ display:none; }
+  .rr-attempt-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--accent-ink); margin:0 0 4px; }
+  .finding{ border-radius:12px; padding:10px 12px; margin-bottom:8px; font-size:13px; overflow-wrap:anywhere; }
+  .finding.defect{ background:var(--serious-wash); border:1px solid var(--serious); }
+  .finding.unknown_resolution{ background:var(--accent-wash); border:1px solid var(--accent); }
+  .finding .kind{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; }
+  .cleanup{ background:var(--warning-wash); border:1px solid var(--warning); border-radius:12px; padding:12px 14px; }
+  .cleanup ul{ margin:6px 0 0; padding-left:18px; }
+  .cleanup li{ margin-bottom:6px; overflow-wrap:anywhere; }
+  .empty{ color:var(--ink-muted); font-size:13px; font-style:italic; }
+.meta-card{ margin-top:8px; }
+.fields{ display:flex; flex-direction:column; gap:4px; margin:4px 0 6px; }
+.fields.run-meta{ margin-top:10px; padding-top:10px; border-top:1px solid var(--line); }
+.field-row{ display:flex; flex-wrap:wrap; gap:4px 28px; }
+.field{ font-size:14px; display:flex; gap:6px; }
+.field .k{ color:var(--ink-2); font-weight:700; font-size:15px; letter-spacing:normal; text-transform:none; flex-shrink:0; }
+.field .k::after{ content:':'; }
+.field .v{ color:var(--ink); }
+.tc-actions{ display:flex; justify-content:flex-end; gap:8px; margin:32px 0 8px; }
+.tc-actions button{ padding:7px 12px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:12px; font-weight:600; cursor:pointer; }
+.tc-cat-actions{ display:flex; justify-content:flex-end; gap:8px; margin:4px 0 10px; }
+.tc-cat-actions button{ padding:5px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:11px; font-weight:600; cursor:pointer; }
+.tc-cat-actions button:hover{ background:var(--surface-2); }
+.tc-actions button:hover{ background:var(--surface-2); }
+.tc-toolbar{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:0 0 14px; position:sticky; top:0; z-index:5; }
+.tc-toolbar input[type="search"]{ flex:1 1 240px; min-width:180px; padding:7px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); font-size:13px; }
+.tc-toolbar select{ padding:7px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); font-size:13px; }
+.tc-toolbar button{ padding:7px 12px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:12px; font-weight:600; cursor:pointer; }
+.tc-toolbar button:hover{ background:var(--surface-2); }
+#tcResetFilters{ color:var(--critical); border-color:var(--critical); }
+#tcResetFilters:hover{ background:var(--critical-wash); }
+.tc-toolbar .tc-count{ font-size:12px; color:var(--ink-muted); margin-left:auto; white-space:nowrap; }
+details.tc > summary.tc-head{ cursor:pointer; list-style:none; }
+details.tc > summary.tc-head::-webkit-details-marker{ display:none; }
+.tc-head .chev{ display:inline-block; width:9px; flex-shrink:0; color:var(--ink-muted); font-size:10px; transition:transform .15s ease; align-self:center; }
+.tc-head .chev::before{ content:'\25B8'; }
+details.tc[open] > summary.tc-head .chev{ transform:rotate(90deg); }
+details.tc.js-hidden{ display:none; }
+.tc-no-results{ padding:28px 20px; text-align:center; color:var(--critical); font-size:18px; font-weight:700; background:var(--critical-wash); border:1px solid var(--critical); border-radius:12px; margin-bottom:10px; }
+.tc-no-results.js-hidden{ display:none; }
+
+/* --- Generated-report status tones ---------------------------------------
+   The reference report hardcoded PASS/FAIL/BLOCKED. Generated reports declare
+   their own status vocabulary and map each status to one of these tones, so a
+   Stage 5A "ERROR" or a Stage 6A "PARTIAL" colours correctly without new CSS. */
+.tc.tone-pass{ border-left-color:var(--good); }
+.tc.tone-fail{ border-left-color:var(--critical); }
+.tc.tone-blocked{ border-left-color:var(--serious); }
+.tc.tone-warning{ border-left-color:var(--warning); }
+.tc.tone-accent{ border-left-color:var(--accent); }
+.tc.tone-neutral{ border-left-color:var(--line-strong); }
+.badge.tone-pass{ background:var(--good-wash); color:var(--good); }
+.badge.tone-fail{ background:var(--critical-wash); color:var(--critical); }
+.badge.tone-blocked{ background:var(--serious-wash); color:var(--serious); }
+.badge.tone-warning{ background:var(--warning-wash); color:var(--warning); }
+.badge.tone-accent{ background:var(--accent-wash); color:var(--accent-ink); }
+.badge.tone-neutral{ background:var(--surface-2); color:var(--ink-muted); }
+.swatch.tone-pass{ background:var(--good); }
+.swatch.tone-fail{ background:var(--critical); }
+.swatch.tone-blocked{ background:var(--serious); }
+.swatch.tone-warning{ background:var(--warning); }
+.swatch.tone-accent{ background:var(--accent); }
+.swatch.tone-neutral{ background:var(--line-strong); }
+.cc.tone-pass{ color:var(--good); }
+.cc.tone-fail{ color:var(--critical); }
+.cc.tone-blocked{ color:var(--serious); }
+.cc.tone-warning{ color:var(--warning); }
+.cc.tone-accent{ color:var(--accent-ink); }
+.cc.tone-neutral{ color:var(--ink-muted); }
+.scard .val.tone-pass{ color:var(--good); }
+.scard .val.tone-fail{ color:var(--critical); }
+.scard .val.tone-blocked{ color:var(--serious); }
+.scard .val.tone-warning{ color:var(--warning); }
+.scard .val.tone-accent{ color:var(--accent-ink); }
+.scard .val.tone-neutral{ color:var(--ink); }
+.scb-val.tone-pass{ color:var(--good); }
+.scb-val.tone-fail{ color:var(--critical); }
+.scb-val.tone-blocked{ color:var(--serious); }
+.scb-val.tone-warning{ color:var(--warning); }
+.scb-val.tone-accent{ color:var(--accent-ink); }
+.scb-val.tone-neutral{ color:var(--ink-muted); }
+.finding.tone-fail{ background:var(--critical-wash); border:1px solid var(--critical); }
+.finding.tone-blocked{ background:var(--serious-wash); border:1px solid var(--serious); }
+.finding.tone-warning{ background:var(--warning-wash); border:1px solid var(--warning); }
+.finding.tone-accent{ background:var(--accent-wash); border:1px solid var(--accent); }
+.finding.tone-pass{ background:var(--good-wash); border:1px solid var(--good); }
+.finding.tone-neutral{ background:var(--surface-2); border:1px solid var(--line-strong); }
+.finding .fkv{ margin-top:4px; }
+.finding .fkv b{ color:var(--ink); }
+.notes-block{ font-size:13px; color:var(--ink-2); }
+.notes-block p{ margin:0 0 8px; overflow-wrap:anywhere; }
+.notes-block ul{ margin:0 0 8px; padding-left:18px; }
+.notes-block li{ margin-bottom:4px; overflow-wrap:anywhere; }
+.rr-attempt-label + .rr-title{ margin-top:0; }
+.rr-response-title{ margin-top:18px; }
+.pill.tone-pass{ background:var(--good-wash); color:var(--good); border-color:var(--good); }
+.pill.tone-fail{ background:var(--critical-wash); color:var(--critical); border-color:var(--critical); }
+.pill.tone-blocked{ background:var(--serious-wash); color:var(--serious); border-color:var(--serious); }
+.pill.tone-warning{ background:var(--warning-wash); color:var(--warning); border-color:var(--warning); }
+.pill.tone-accent{ background:var(--accent-wash); color:var(--accent-ink); border-color:var(--accent); }
+.pill.tone-neutral{ background:var(--surface-2); color:var(--ink-muted); border-color:var(--line-strong); }
+</style>
+</head><body><div class="wrap">
+<div class="header"><div class="header-main">
+<h1>Galileo Features — rerun-2 final reconciliation</h1>
+</div><div><span class="pill tone-warning">PENDING REVIEW</span></div></div>
+<div class="meta-card dashboard-card">
+<div class="fields">
+<div class="field-row"><div class="field"><span class="k">Run</span><span class="v"><span class="mono">search-cabin-class-rbd-run-001__2026-10-11_10-20-20__Targeted__GalileoFeatures-IntegrationVsDirectSearch</span></span></div>
+<div class="field"><span class="k">Mode</span><span class="v">Headed</span></div></div>
+<div class="field-row"><div class="field"><span class="k">Integration</span><span class="v">NDC1_Ahmed Ayman (BRN287) · NDCGal</span></div>
+<div class="field"><span class="k">Direct</span><span class="v">ahmed ayman (BRN632) · Galileo</span></div></div>
+<div class="field"><span class="k">Scope</span><span class="v">Flight Search only — CAI routes, 2026-11-18…25; prices ignored; compared per fare option × passenger type × segment</span></div>
+<div class="field"><span class="k">Cycles</span><span class="v">cycle 1 + rerun-1 + rerun-2 (all kept as recorded); verified 5 · unverified 0</span></div>
+</div>
+</div>
+<h2 class="section-num">1. Outcome</h2>
+<div class="summary-layout">
+<div class="donut-block">
+<div class="donut" style="background:conic-gradient(var(--good) 0% 22.22%, var(--critical) 22.22% 88.89%, var(--accent) 88.89% 94.44%, var(--warning) 94.44% 100%)">
+<div class="donut-hole"><div class="donut-pct">22%</div><div class="donut-sub">pass rate (executable scope 18, final)</div></div>
+</div>
+<div class="donut-legend">
+<div class="litem"><span class="swatch tone-pass"></span>Passed <span class="lcount">4 / 18</span></div>
+<div class="litem"><span class="swatch tone-fail"></span>Failed <span class="lcount">12 / 18</span></div>
+<div class="litem"><span class="swatch tone-blocked"></span>Blocked <span class="lcount">0 / 18</span></div>
+<div class="litem"><span class="swatch tone-warning"></span>Skipped <span class="lcount">0 / 18</span></div>
+<div class="litem"><span class="swatch tone-neutral"></span>Not Executed <span class="lcount">0 / 18</span></div>
+<div class="litem"><span class="swatch tone-accent"></span>Inconclusive <span class="lcount">1 / 18</span></div>
+<div class="litem"><span class="swatch tone-neutral"></span>Excluded <span class="lcount">0 / 18</span></div>
+<div class="litem"><span class="swatch tone-warning"></span>Flaky <span class="lcount">1 / 18</span></div>
+</div>
+</div>
+<div class="stats-block">
+<div class="scard scard-total dashboard-card"><div class="val">18</div><div class="lbl">Suite Total</div></div>
+<div class="summary-cards">
+<div class="scard dashboard-card"><div class="val tone-pass">4</div><div class="lbl">Passed</div></div>
+<div class="scard dashboard-card"><div class="val tone-fail">12</div><div class="lbl">Failed</div></div>
+<div class="scard dashboard-card"><div class="val tone-blocked">0</div><div class="lbl">Blocked</div></div>
+<div class="scard dashboard-card"><div class="val tone-warning">0</div><div class="lbl">Skipped</div></div>
+<div class="scard dashboard-card"><div class="val tone-neutral">0</div><div class="lbl">Not Executed</div></div>
+<div class="scard dashboard-card"><div class="val tone-accent">1</div><div class="lbl">Inconclusive</div></div>
+<div class="scard dashboard-card"><div class="val tone-neutral">0</div><div class="lbl">Excluded</div></div>
+<div class="scard dashboard-card"><div class="val tone-warning">1</div><div class="lbl">Flaky</div></div>
+</div>
+</div>
+</div>
+<div class="tc-actions">
+<button type="button" id="tcExpandAll">Expand all</button>
+<button type="button" id="tcCollapseAll">Collapse all</button>
+</div>
+<details class="section-collapse tc-section" open>
+<summary>Per-test results</summary>
+<div class="tc-toolbar dashboard-card">
+<input type="search" id="tcSearch" placeholder="Search test cases...">
+<select id="tcStatusFilter">
+<option value="">All statuses</option>
+<option value="Passed">Passed</option>
+<option value="Failed">Failed</option>
+<option value="Blocked">Blocked</option>
+<option value="Skipped">Skipped</option>
+<option value="Not Executed">Not Executed</option>
+<option value="Inconclusive">Inconclusive</option>
+<option value="Excluded">Excluded</option>
+<option value="Flaky">Flaky</option>
+</select>
+<select id="tcCategoryFilter">
+<option value="">All categories</option>
+<option value="all">Search – Cabin Class &amp; RBD / Galileo</option>
+</select>
+<button type="button" id="tcResetFilters">Reset</button>
+<span id="tcCount" class="tc-count"></span>
+</div>
+<div id="tcNoResults" class="tc-no-results js-hidden">No test cases match your search. Try a different keyword, or clear the search/filters above.</div>
+<details class="tc-category" data-cat="all" open>
+<summary><span class="cat-icon">•</span><span class="cat-name">Search – Cabin Class &amp; RBD / Galileo</span><span class="cat-counts"><span class="cc tone-pass">4 passed</span><span class="cc tone-fail">12 failed</span><span class="cc tone-blocked">0 blocked</span><span class="cc tone-warning">0 skipped</span><span class="cc tone-neutral">0 not executed</span><span class="cc tone-accent">1 inconclusive</span><span class="cc tone-neutral">0 excluded</span><span class="cc tone-warning">1 flaky</span></span><span class="cat-chev"></span></summary>
+<div class="tc-category-body">
+<div class="tc-cat-actions"><button type="button" class="tc-cat-expand">Expand all</button><button type="button" class="tc-cat-collapse">Collapse all</button></div>
+<details class="tc tone-accent" data-status="Inconclusive">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-001</span> - Correct branch and supplier in each session</span><span class="badge tone-accent">Inconclusive</span></summary>
+<div class="row"><b>Rev 3:</b> Reload step removed (CR-1); Review reset to Pending; not re-executed; cycle-1 result kept</div>
+<div class="row"><b>Classification:</b> Observation — test-case wording; Stage 3 change proposed</div>
+<div class="row"><b>Execution time:</b> 40s</div>
+<div class="row"><b>Reason:</b> All 5 assertions passed. The Expected Result also says the branch stays selected after a page reload; it does not (cleared in both sessions, identically). No requirement defines that, so this is a test-case wording issue, not an application failure — flagged to Stage 3.</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-accent">Inconclusive</span><span class="tc-reqres-anchor"></span></div>
+<div class="assertions"><table><thead><tr><th>Assertion</th><th>Expected</th><th>Actual</th><th>Check</th><th>Result</th><th>Evidence</th></tr></thead><tbody><tr class="as-pass"><td>A1 — Session A branch</td><td class="mono">`NDC1_Ahmed Ayman (BRN287)`</td><td class="mono">NDC1_Ahmed Ayman (BRN287)</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A2 — Session B branch</td><td class="mono">`ahmed ayman (BRN632)`</td><td class="mono">ahmed ayman (BRN632)</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A3 — Session A supplier list</td><td class="mono">`NDCGal`</td><td class="mono">NDCGal</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A4 — Session B supplier list</td><td class="mono">`Galileo`</td><td class="mono">Galileo</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A5 — Branch selection in one session does not change the other</td><td class="mono">present</td><td class="mono">After B selected its branch, A still showed &quot;NDC1_Ahmed Ayman (BRN287)&quot;; separate JSESSIONID per browser</td><td>present</td><td>✅</td><td>—</td></tr></tbody></table></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/TC001.sessions.json</div></details>
+</details>
+<details class="tc tone-fail" data-status="Failed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-002</span> - Parity — one-way, Economy, CAI→DXB</span><span class="badge tone-fail">Failed</span></summary>
+<div class="row"><b>Final (rerun-2):</b> Failed — fresh execution; records in ManualExecutionResults.rerun-2.md</div>
+<div class="row"><b>Execution time:</b> 7s</div>
+<div class="row"><b>Reason:</b> A6: Integration returns 30 extra fare options (higher fare brands) on 30 of 34 flights. Flights, segments, times, stops, Cabin, RBD and baggage allowance of every matched fare option are equal.</div>
+<div class="row"><b>Defects:</b> DEF-03</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">Failed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">rerun-2: artifacts_rerun-2/ — artifacts/E02_eco.comparison.json; artifacts/E02_eco.integration.json; artifacts/E02_eco.direct.json; artifacts/E02_eco.integration.png; artifacts/E02_eco.direct.png</div></details>
+</details>
+<details class="tc tone-fail" data-status="Failed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-003</span> - Parity — round-trip, Economy, CAI⇄DXB</span><span class="badge tone-fail">Failed</span></summary>
+<div class="row"><b>Final (rerun-2):</b> Failed — fresh execution; records in ManualExecutionResults.rerun-2.md</div>
+<div class="row"><b>Execution time:</b> 9s</div>
+<div class="row"><b>Reason:</b> A1/A2: 13 outbound+return combinations only on Integration. A6: 83 fare options only on Integration, 5 (Emirates &quot;Economy Flex&quot;, RBD L/K) only on Direct. Integration returned exactly 200 offers — possibly capped.</div>
+<div class="row"><b>Defects:</b> DEF-03, DEF-04</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">Failed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">rerun-2: artifacts_rerun-2/ — artifacts/E03_rt.comparison.json; artifacts/E03_rt.integration.json; artifacts/E03_rt.direct.json; artifacts/E03_rt.integration.png; artifacts/E03_rt.direct.png</div></details>
+</details>
+<details class="tc tone-fail" data-status="Failed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-004</span> - Parity — mixed passengers (Adult, Child, Infant)</span><span class="badge tone-fail">Failed</span></summary>
+<div class="row"><b>Final (rerun-2):</b> Failed — fresh execution; records in ManualExecutionResults.rerun-2.md</div>
+<div class="row"><b>Execution time:</b> 7s</div>
+<div class="row"><b>Reason:</b> A6: Integration returns 29 extra fare options. Everything else equal, per passenger type.</div>
+<div class="row"><b>Defects:</b> DEF-03</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">Failed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">rerun-2: artifacts_rerun-2/ — artifacts/E04_pax.comparison.json; artifacts/E04_pax.integration.json; artifacts/E04_pax.direct.json; artifacts/E04_pax.integration.png; artifacts/E04_pax.direct.png</div></details>
+</details>
+<details class="tc tone-fail" data-status="Failed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-005</span> - Parity — Business, CAI→DXB</span><span class="badge tone-fail">Failed</span></summary>
+<div class="row"><b>Final (rerun-2):</b> Failed — fresh execution; records in ManualExecutionResults.rerun-2.md</div>
+<div class="row"><b>Execution time:</b> 7s</div>
+<div class="row"><b>Reason:</b> A4: 25 extra fare options on Integration. A5: the Oman Air &quot;BUSINESS COMFORT&quot; option (WY408+WY603) is labelled `FirstClass` on Integration and `First` on Direct.</div>
+<div class="row"><b>Defects:</b> DEF-03, DEF-05</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">Failed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">rerun-2: artifacts_rerun-2/ — artifacts/E05_bus.comparison.json; artifacts/E05_bus.integration.json; artifacts/E05_bus.direct.json; artifacts/E05_bus.integration.png; artifacts/E05_bus.direct.png</div></details>
+</details>
+<details class="tc tone-fail" data-status="Failed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-006</span> - Parity — Premium Economy, CAI→DXB</span><span class="badge tone-fail">Failed</span></summary>
+<div class="row"><b>Final (rerun-2):</b> Failed — fresh execution; records in ManualExecutionResults.rerun-2.md</div>
+<div class="row"><b>Execution time:</b> 8s</div>
+<div class="row"><b>Reason:</b> Integration ignores Premium Economy: it returns the same 34 flights as an Economy search, all in Economy. Direct returns 12 Premium Economy flights (RBD J).</div>
+<div class="row"><b>Defects:</b> DEF-01</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">Failed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">rerun-2: artifacts_rerun-2/ — artifacts/E06_prem.comparison.json; artifacts/E06_prem.integration.json; artifacts/E06_prem.direct.json; artifacts/E06_prem.integration.png; artifacts/E06_prem.direct.png</div></details>
+</details>
+<details class="tc tone-fail" data-status="Failed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-007</span> - Parity — First Class, CAI→DXB</span><span class="badge tone-fail">Failed</span></summary>
+<div class="row"><b>Final (rerun-2):</b> Failed — fresh execution; records in ManualExecutionResults.rerun-2.md</div>
+<div class="row"><b>Execution time:</b> 7s</div>
+<div class="row"><b>Reason:</b> Integration ignores First Class: it returns the same 34 flights as a Business search. Direct returns 10 First Class flights.</div>
+<div class="row"><b>Defects:</b> DEF-02</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">Failed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">rerun-2: artifacts_rerun-2/ — artifacts/E07_first.comparison.json; artifacts/E07_first.integration.json; artifacts/E07_first.direct.json; artifacts/E07_first.integration.png; artifacts/E07_first.direct.png</div></details>
+</details>
+<details class="tc tone-fail" data-status="Failed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-010</span> - Cabin Class filter returns only the selected cabin</span><span class="badge tone-fail">Failed</span></summary>
+<div class="row"><b>Final (rerun-2):</b> Failed — fresh execution; records in ManualExecutionResults.rerun-2.md</div>
+<div class="row"><b>Execution time:</b> 29s</div>
+<div class="row"><b>Reason:</b> Premium Economy and First Class are not applied on Integration (DEF-01, DEF-02). A Business search returns one Oman Air option whose segments are in First cabin, on both branches (DEF-06).</div>
+<div class="row"><b>Defects:</b> DEF-01, DEF-02, DEF-06</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">Failed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">rerun-2: artifacts_rerun-2/ — artifacts/E02_eco.comparison.json; artifacts/E02_eco.integration.json; artifacts/E02_eco.direct.json; artifacts/E05_bus.comparison.json; artifacts/E05_bus.integration.json; artifacts/E05_bus.direct.json; artifacts/E06_prem.comparison.json; artifacts/E06_prem.integration.json; artifacts/E06_prem.direct.json; artifacts/E07_first.comparison.json; artifacts/E07_first.integration.json; artifacts/E07_first.direct.json; artifacts/E06_prem.integration.png; artifacts/E06_prem.direct.png; artifacts/E07_first.integration.png; artifacts/E07_first.direct.png; artifacts/E05_bus.integration.png; artifacts/E05_bus.direct.png</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-011</span> - RBD filter — Economy (Q, K, Y)</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Execution time:</b> 21s</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<div class="assertions"><table><thead><tr><th>Assertion</th><th>Expected</th><th>Actual</th><th>Check</th><th>Result</th><th>Evidence</th></tr></thead><tbody><tr class="as-pass"><td>A1 — `Q`: result set not empty</td><td class="mono">≥ 1, both branches</td><td class="mono">Integration 35 offers (35 options), Direct 24 (24 options)</td><td>≥ 1</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A2 — `Q`: every segment RBD in {Q}, cabin Economy</td><td class="mono">RBD Q, Economy</td><td class="mono">Integration RBD [Q] cabin [Economy]; Direct RBD [Q] cabin [Economy]</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A3 — `Q`: same flights on both branches</td><td class="mono">equal</td><td class="mono">24 matched; 0 only Integration; 0 only Direct (fare options: 11 extra on Integration — not asserted here)</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A4 — `K`: result set not empty</td><td class="mono">≥ 1, both branches</td><td class="mono">Integration 43 offers (43 options), Direct 31 (31 options)</td><td>≥ 1</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A5 — `K`: every segment RBD in {K}, cabin Economy</td><td class="mono">RBD K, Economy</td><td class="mono">Integration RBD [K] cabin [Economy]; Direct RBD [K] cabin [Economy]</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A6 — `K`: same flights on both branches</td><td class="mono">equal</td><td class="mono">31 matched; 0 only Integration; 0 only Direct (fare options: 12 extra on Integration — not asserted here)</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A7 — `Y`: result set not empty</td><td class="mono">≥ 1, both branches</td><td class="mono">Integration 49 offers (49 options), Direct 35 (35 options)</td><td>≥ 1</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A8 — `Y`: every segment RBD in {Y}, cabin Economy</td><td class="mono">RBD Y, Economy</td><td class="mono">Integration RBD [Y] cabin [Economy]; Direct RBD [Y] cabin [Economy]</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A9 — `Y`: same flights on both branches</td><td class="mono">equal</td><td class="mono">35 matched; 0 only Integration; 0 only Direct (fare options: 14 extra on Integration — not asserted here)</td><td>equals</td><td>✅</td><td>—</td></tr></tbody></table></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/E08_ecoQ.comparison.json; artifacts/E08_ecoQ.integration.json; artifacts/E08_ecoQ.direct.json; artifacts/E09_ecoK.comparison.json; artifacts/E09_ecoK.integration.json; artifacts/E09_ecoK.direct.json; artifacts/E10_ecoY.comparison.json; artifacts/E10_ecoY.integration.json; artifacts/E10_ecoY.direct.json</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-012</span> - RBD filter — Business (J, C)</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Execution time:</b> 18s</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<div class="assertions"><table><thead><tr><th>Assertion</th><th>Expected</th><th>Actual</th><th>Check</th><th>Result</th><th>Evidence</th></tr></thead><tbody><tr class="as-pass"><td>A1 — `J`: result set not empty</td><td class="mono">≥ 1, both branches</td><td class="mono">Integration 38 offers (38 options), Direct 28 (28 options)</td><td>≥ 1</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A2 — `J`: every segment RBD in {J}, cabin Business</td><td class="mono">RBD J, Business</td><td class="mono">Integration RBD [J] cabin [Business]; Direct RBD [J] cabin [Business]</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A3 — `J`: same flights on both branches</td><td class="mono">equal</td><td class="mono">28 matched; 0 only Integration; 0 only Direct (fare options: 10 extra on Integration — not asserted here)</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A4 — `C`: result set not empty</td><td class="mono">≥ 1, both branches</td><td class="mono">Integration 39 offers (39 options), Direct 29 (29 options)</td><td>≥ 1</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A5 — `C`: every segment RBD in {C}, cabin Business</td><td class="mono">RBD C, Business</td><td class="mono">Integration RBD [C] cabin [Business]; Direct RBD [C] cabin [Business]</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A6 — `C`: same flights on both branches</td><td class="mono">equal</td><td class="mono">29 matched; 0 only Integration; 0 only Direct (fare options: 10 extra on Integration — not asserted here)</td><td>equals</td><td>✅</td><td>—</td></tr></tbody></table></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/E11_busJ.comparison.json; artifacts/E11_busJ.integration.json; artifacts/E11_busJ.direct.json; artifacts/E12_busC.comparison.json; artifacts/E12_busC.integration.json; artifacts/E12_busC.direct.json</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-013</span> - Parity — Cabin Class and RBD that do not match</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Execution time:</b> 6s</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<div class="assertions"><table><thead><tr><th>Assertion</th><th>Expected</th><th>Actual</th><th>Check</th><th>Result</th><th>Evidence</th></tr></thead><tbody><tr class="as-pass"><td>A1 — Outcome type, Integration vs Direct</td><td class="mono">same</td><td class="mono">Integration &quot;No Flights Found&quot;, Direct &quot;No Flights Found&quot; (0/0 offers, HTTP 200/200)</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A2 — Message text</td><td class="mono">same</td><td class="mono">Both: &quot;No Flights Found — We couldn’t find any flights matching your search.&quot;</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A3 — Fare options, Cabin and RBD when results are shown</td><td class="mono">same</td><td class="mono">No results on either branch — condition not met</td><td>equals</td><td>✅</td><td>—</td></tr></tbody></table></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/E13_ecoJ.comparison.json; artifacts/E13_ecoJ.integration.json; artifacts/E13_ecoJ.direct.json</div></details>
+</details>
+<details class="tc tone-fail" data-status="Failed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-015</span> - Parity — one-way, Economy, CAI→JED</span><span class="badge tone-fail">Failed</span></summary>
+<div class="row"><b>Final (rerun-2):</b> Failed — fresh execution; records in ManualExecutionResults.rerun-2.md</div>
+<div class="row"><b>Execution time:</b> 7s</div>
+<div class="row"><b>Reason:</b> A4: 34 extra fare options on Integration. Flights and fare details equal.</div>
+<div class="row"><b>Defects:</b> DEF-03</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">Failed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">rerun-2: artifacts_rerun-2/ — artifacts/E14_jed.comparison.json; artifacts/E14_jed.integration.json; artifacts/E14_jed.direct.json; artifacts/E14_jed.integration.png; artifacts/E14_jed.direct.png</div></details>
+</details>
+<details class="tc tone-fail" data-status="Failed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-016</span> - Parity — Multi-City, Economy</span><span class="badge tone-fail">Failed</span></summary>
+<div class="row"><b>Final (rerun-2):</b> Failed — fresh execution; records in ManualExecutionResults.rerun-2.md</div>
+<div class="row"><b>Execution time:</b> 9s</div>
+<div class="row"><b>Reason:</b> A1/A2: 14 leg-1+leg-2 combinations only on Integration. A4: 64 extra fare options on Integration. Integration returned exactly 200 offers — possibly capped.</div>
+<div class="row"><b>Defects:</b> DEF-03, DEF-04</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">Failed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">rerun-2: artifacts_rerun-2/ — artifacts/E15_mc.comparison.json; artifacts/E15_mc.integration.json; artifacts/E15_mc.direct.json; artifacts/E15_mc.integration.png; artifacts/E15_mc.direct.png</div></details>
+</details>
+<details class="tc tone-warning" data-status="Flaky">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-017</span> - Parity — Multi-City, different Cabin per leg</span><span class="badge tone-warning">Flaky</span></summary>
+<div class="row"><b>Investigation:</b> Direct returned ET600 as Business/D in 2 of 5 identical searches; cause unknown — stays Flaky</div>
+<div class="row"><b>Final:</b> Failed in cycle 1, Passed in rerun-1 — DEF-07 not reproduced</div>
+<div class="row"><b>Execution time:</b> 9s</div>
+<div class="row"><b>Reason:</b> A1/A2: 4 combinations only on Integration. A3/A5: on Direct, leg-1 segment ET600 (Economy requested) comes back as Business / RBD D; Integration returns it as Economy / RBD V.</div>
+<div class="row"><b>Defects:</b> DEF-04, DEF-07</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-warning">Flaky</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/E16_mcbus.comparison.json; artifacts/E16_mcbus.integration.json; artifacts/E16_mcbus.direct.json; artifacts/E16_mcbus.integration.png; artifacts/E16_mcbus.direct.png</div></details>
+</details>
+<details class="tc tone-fail" data-status="Failed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-018</span> - RBD filter — First Class (F, A)</span><span class="badge tone-fail">Failed</span></summary>
+<div class="row"><b>Final (rerun-2):</b> Failed — fresh execution; records in ManualExecutionResults.rerun-2.md</div>
+<div class="row"><b>Execution time:</b> 11s</div>
+<div class="row"><b>Reason:</b> Integration returns no First Class fares: RBD F → No Flights Found (Direct 10); RBD A → 1 offer whose segments are Business (Direct 10 First).</div>
+<div class="row"><b>Defects:</b> DEF-02</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">Failed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">rerun-2: artifacts_rerun-2/ — artifacts/E17_firstF.comparison.json; artifacts/E17_firstF.integration.json; artifacts/E17_firstF.direct.json; artifacts/E18_firstA.comparison.json; artifacts/E18_firstA.integration.json; artifacts/E18_firstA.direct.json; artifacts/E17_firstF.integration.png; artifacts/E17_firstF.direct.png; artifacts/E18_firstA.integration.png; artifacts/E18_firstA.direct.png</div></details>
+</details>
+<details class="tc tone-fail" data-status="Failed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-019</span> - RBD filter — Premium Economy (J)</span><span class="badge tone-fail">Failed</span></summary>
+<div class="row"><b>Final (rerun-2):</b> Failed — fresh execution; records in ManualExecutionResults.rerun-2.md</div>
+<div class="row"><b>Execution time:</b> 6s</div>
+<div class="row"><b>Reason:</b> Integration returns No Flights Found; Direct returns 5 Premium Economy flights in RBD J.</div>
+<div class="row"><b>Defects:</b> DEF-01</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">Failed</span><span class="tc-reqres-anchor"></span></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">rerun-2: artifacts_rerun-2/ — artifacts/E19_premJ.comparison.json; artifacts/E19_premJ.integration.json; artifacts/E19_premJ.direct.json; artifacts/E19_premJ.integration.png; artifacts/E19_premJ.direct.png</div></details>
+</details>
+<details class="tc tone-pass" data-status="Passed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-020</span> - RBD filter — several RBDs selected together (Q + K)</span><span class="badge tone-pass">Passed</span></summary>
+<div class="row"><b>Execution time:</b> 7s</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-pass">Passed</span><span class="tc-reqres-anchor"></span></div>
+<div class="assertions"><table><thead><tr><th>Assertion</th><th>Expected</th><th>Actual</th><th>Check</th><th>Result</th><th>Evidence</th></tr></thead><tbody><tr class="as-pass"><td>A1 — `Q|K`: result set not empty</td><td class="mono">≥ 1, both branches</td><td class="mono">Integration 51 offers (51 options), Direct 30 (30 options)</td><td>≥ 1</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A2 — `Q|K`: every segment RBD in {Q|K}, cabin Economy</td><td class="mono">RBD Q|K, Economy</td><td class="mono">Integration RBD [K,Q] cabin [Economy]; Direct RBD [K,Q] cabin [Economy]</td><td>matches</td><td>✅</td><td>—</td></tr><tr class="as-pass"><td>A3 — `Q|K`: same flights on both branches</td><td class="mono">equal</td><td class="mono">30 matched; 0 only Integration; 0 only Direct (fare options: 21 extra on Integration — not asserted here)</td><td>equals</td><td>✅</td><td>—</td></tr></tbody></table></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/E20_ecoQK.comparison.json; artifacts/E20_ecoQK.integration.json; artifacts/E20_ecoQK.direct.json</div></details>
+</details>
+<details class="tc tone-fail" data-status="Failed">
+<summary class="tc-head"><span><span class="chev"></span><span class="mono">TC-GSRCH-021</span> - RBD filter — on one Multi-City leg only</span><span class="badge tone-fail">Failed</span></summary>
+<div class="row"><b>Execution time:</b> 10m</div>
+<div class="row"><b>Reason:</b> Search does nothing on both branches when an RBD is set on leg 1 only: no request is sent and no message is shown (seen 2 times per branch). Control checks: no RBD on any leg → search runs; RBD on both legs → search runs; RBD on leg 2 only → no request.</div>
+<div class="row"><b>Defects:</b> DEF-08</div>
+<div class="row tc-status-row"><b>Status:</b> <span class="badge tone-fail">Failed</span><span class="tc-reqres-anchor"></span></div>
+<div class="assertions"><table><thead><tr><th>Assertion</th><th>Expected</th><th>Actual</th><th>Check</th><th>Result</th><th>Evidence</th></tr></thead><tbody><tr class="as-fail"><td>A1 — Result set not empty</td><td class="mono">≥ 1, both branches</td><td class="mono">No search request sent on either branch (waited 300 s, then retried once with network capture: 0 requests, 0 console messages, 0 UI messages)</td><td>≥ 1</td><td>❌</td><td>—</td></tr><tr class="as-unchecked"><td>A2 — Every leg 1 segment RBD = Q</td><td class="mono">RBD Q</td><td class="mono">Not evaluable — no results</td><td>equals</td><td>Not checked</td><td>—</td></tr><tr class="as-pass"><td>A3 — Same combinations on both branches</td><td class="mono">equal</td><td class="mono">Same outcome on both branches: search silently not submitted</td><td>equals</td><td>✅</td><td>—</td></tr><tr class="as-unchecked"><td>A4 — Leg 2 RBDs, Integration vs Direct</td><td class="mono">equal</td><td class="mono">Not evaluable — no results</td><td>equals</td><td>Not checked</td><td>—</td></tr></tbody></table></div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">artifacts/E21_mcQ.integration.png; artifacts/E21_mcQ.direct.png; artifacts/E21_mcQ.integration.json; artifacts/E21_mcQ.direct.json</div></details>
+</details>
+</div>
+</details>
+</details>
+<details class="section-collapse" id="section-final-reconciliation" open>
+<summary>Final reconciliation</summary>
+<div class="notes-block">
+<ul>
+<li>Final: Passed 4 · Flaky 1 · Failed 12 · Inconclusive 1 (executable scope 18).</li>
+<li>Assertions: rerun-1 31 records (28 pass, 1 fail, 2 not checked); rerun-2 73 records (35 pass, 32 fail, 6 not checked); 0 conflicts, 0 self-contradictions. Cycle-1 conflicts kept as history.</li>
+<li>Confirmed: DEF-01, DEF-02 (High), DEF-08 (Medium). Pending clarification: DEF-03, DEF-04, DEF-06. Observations: DEF-05, baggage wording. TC-017 Flaky (DEF-07 intermittent on Direct).</li>
+<li>TC-001: suite rev 3 waiting for approval; not re-executed, not marked Passed.</li>
+</ul>
+</div>
+</details>
+</div><script>
+(function(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll('details.tc'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('details.section-collapse'));
+  var categories = Array.prototype.slice.call(document.querySelectorAll('details.tc-category'));
+  var search = document.getElementById('tcSearch');
+  var statusSel = document.getElementById('tcStatusFilter');
+  var categorySel = document.getElementById('tcCategoryFilter');
+  var countEl = document.getElementById('tcCount');
+  var noResultsEl = document.getElementById('tcNoResults');
+  var resetBtn = document.getElementById('tcResetFilters');
+  var expandBtn = document.getElementById('tcExpandAll');
+  var collapseBtn = document.getElementById('tcCollapseAll');
+
+  var hasToolbar = !!(search && statusSel && categorySel && countEl && noResultsEl);
+
+  function applyFilter(){
+    if (!hasToolbar) return;
+    var q = search.value.trim().toLowerCase();
+    var status = statusSel.value;
+    var category = categorySel.value;
+    var visible = 0;
+    cards.forEach(function(card){
+      var matchesStatus = !status || card.getAttribute('data-status') === status;
+      var matchesText = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
+      var matchesCategory = !category || card.closest('details.tc-category').getAttribute('data-cat') === category;
+      var show = matchesStatus && matchesText && matchesCategory;
+      card.classList.toggle('js-hidden', !show);
+      if (show) visible++;
+      if (show && q) card.open = true;
+    });
+    categories.forEach(function(cat){
+      var anyVisible = cat.querySelector('details.tc:not(.js-hidden)');
+      var matchesCategory = !category || cat.getAttribute('data-cat') === category;
+      cat.classList.toggle('cat-empty', !anyVisible || !matchesCategory);
+      if (anyVisible && matchesCategory && (q || status || category)) cat.open = true;
+    });
+    countEl.textContent = visible + ' / ' + cards.length + ' shown';
+    noResultsEl.classList.toggle('js-hidden', visible !== 0);
+  }
+
+  if (hasToolbar) {
+    search.addEventListener('input', applyFilter);
+    statusSel.addEventListener('change', applyFilter);
+    categorySel.addEventListener('change', applyFilter);
+  }
+  if (resetBtn) resetBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    search.value = '';
+    statusSel.value = '';
+    categorySel.value = '';
+    applyFilter();
+  });
+  if (expandBtn) expandBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    cards.forEach(function(c){ c.open = true; });
+    sections.forEach(function(s){ s.open = true; });
+    categories.forEach(function(c){ c.open = true; });
+  });
+  if (collapseBtn) collapseBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    cards.forEach(function(c){ c.open = false; });
+    sections.forEach(function(s){ s.open = false; });
+    categories.forEach(function(c){ c.open = false; });
+  });
+
+  categories.forEach(function(cat){
+    var catCards = Array.prototype.slice.call(cat.querySelectorAll('details.tc'));
+    var catExpandBtn = cat.querySelector('.tc-cat-expand');
+    var catCollapseBtn = cat.querySelector('.tc-cat-collapse');
+    if (catExpandBtn) catExpandBtn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      catCards.forEach(function(c){ c.open = true; });
+    });
+    if (catCollapseBtn) catCollapseBtn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      catCards.forEach(function(c){ c.open = false; });
+    });
+  });
+
+  applyFilter();
+
+  Array.prototype.slice.call(document.querySelectorAll('.hop')).forEach(function(hop){
+    var panel = hop.querySelector('.hop-reqres-panel');
+    var endpointSpan = hop.querySelector('.hop-endpoint');
+    var toggle = document.createElement('a');
+    toggle.href = '#';
+    toggle.className = 'hop-reqres-toggle';
+    toggle.textContent = 'View req & response';
+
+    if (panel) {
+      panel.classList.add('js-hidden');
+      toggle.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var hidden = panel.classList.toggle('js-hidden');
+        toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+      });
+      endpointSpan.parentNode.insertBefore(toggle, endpointSpan.nextSibling);
+      return;
+    }
+
+    var hds = Array.prototype.slice.call(hop.querySelectorAll('.hd'));
+    var reqEl = hds[0];
+    var resEl = hds[1];
+    if (!reqEl || !resEl) return;
+    reqEl.classList.add('hop-reqres', 'js-hidden');
+    resEl.classList.add('hop-reqres', 'js-hidden');
+    toggle.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var hidden = reqEl.classList.toggle('js-hidden');
+      resEl.classList.toggle('js-hidden', hidden);
+      toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+    });
+    endpointSpan.parentNode.insertBefore(toggle, endpointSpan.nextSibling);
+  });
+
+  Array.prototype.slice.call(document.querySelectorAll('.tc-reqres-anchor')).forEach(function(anchor){
+    var card = anchor.closest('details.tc');
+    var panel = card ? card.querySelector(':scope > .tc-reqres-panel') : null;
+    if (!panel) return;
+    panel.classList.add('js-hidden');
+    var toggle = document.createElement('a');
+    toggle.href = '#';
+    toggle.className = 'hop-reqres-toggle tc-reqres-toggle';
+    toggle.textContent = 'View req & response';
+    toggle.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var hidden = panel.classList.toggle('js-hidden');
+      toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+    });
+    anchor.parentNode.insertBefore(toggle, anchor.nextSibling);
+  });
+})();
+</script>
+</body></html>

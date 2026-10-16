@@ -13,6 +13,9 @@ the shareable view for stakeholders.
 ## Use it
 
 ```bash
+node platform_core/tools/report_builder/cli.js verify --model <artifact>.report.json   # the HTML is exactly what the model renders (Phase 9.3)
+# build writes only inside the platform data root (or --data-root <a data root with runs/ and knowledge_base/>),
+# or a registered report-output root; elsewhere use --stdout (Phase 9.5)
 node platform_core/tools/report_builder/cli.js validate --model <model.json>
 node platform_core/tools/report_builder/cli.js build    --model <model.json> --out <report.html>
 node platform_core/tools/report_builder/cli.js schema
@@ -61,7 +64,8 @@ const html = renderReport(model);   // throws ReportModelError on a bad model
   "title": "QA Execution Report",          // required — the <h1>
   "documentTitle": "Agency - QA Report",   // optional — the browser tab; defaults to title
   "statusPill": "COMPLETE",                // optional — pill beside the title
-  "statusPillTone": "pass",                // optional — defaults to "pass"
+  "statusPillTone": "neutral",             // optional — defaults to "neutral"; "pass" (green) is refused unless outcomeVerdict is "all-passed"
+  "outcomeVerdict": "failures",            // optional — the run's test verdict; "all-passed" must agree with the counts
 
   "statuses":  [ /* status */ ],           // optional — defaults to PASS/FAIL/BLOCKED
   "meta":      { /* meta */ },             // optional
@@ -112,7 +116,7 @@ Anywhere a `value` / `body` / step is accepted, you may pass:
 
 - a **string** — escaped, always safe;
 - `{ "text": "..." }` — the same thing, spelled out;
-- `{ "html": "<b>US-4222</b>" }` — emitted **verbatim**.
+- `{ "html": "<b>US-4222</b>" }` — **sanitized** (Phase 9.2, F-17, `sanitize.js`): formatting elements survive; scripts, event handlers, styles, embedded objects, forms and any `javascript:`/external-load URL are removed, and an element outside the allow-list is shown as text. Every report also carries a Content-Security-Policy that allows only its own script (by SHA-256) and loads nothing.
 
 Use `html` only for markup you generated yourself. Never pass application
 output, a captured response, or anything a tester typed through `html`.
@@ -170,6 +174,7 @@ once `testCases` is present.
   "statusLabel": "Passed (retry)",   // optional — overrides the status' own label on this card
   "rows": [ { "label": "Expected", "value": "..." } ],
   "evidence": "Live GetSeatMap response for GulfAir/KSA ...",
+  "assertions": [ /* assertion — one per checked expectation */ ],
   "exchanges": [ /* exchange */ ],
   "detail": { /* detail */ }
 }
@@ -181,6 +186,20 @@ stage reports. `Status:` is appended automatically.
 
 `evidence` may also be `{ "summary": "Evidence (screenshots)", "body": "..." }`
 when the default `Evidence` toggle wording is not the right one.
+
+### `assertions` — what a pass was checked against
+
+One entry per assertion the case's Expected Result makes (`pipeline.md` §11.4), copied from the
+results file's assertion records — never written for the report:
+
+```jsonc
+{ "assertion": "New name persists", "expected": "Commercial Name = QA Travel Ltd",
+  "actual": "Commercial Name = QA Travel Ltd", "check": "equals", "result": "pass", "evidence": "optional" }
+```
+
+`result` is `pass`, `fail` or `unchecked` (`✅` / `❌` accepted). Validation refuses a passing case
+that carries a failed or unchecked assertion, and a model whose `outcomeVerdict` is `all-passed` while
+a passing case records no assertions. A screenshot or a captured value is evidence, not proof of a pass.
 
 ### `exchanges` — request/response capture
 

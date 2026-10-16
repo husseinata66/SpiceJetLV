@@ -1,0 +1,627 @@
+{
+  "title": "Manual QA Report — Check Supplier Request/Response Parity / Galileo",
+  "documentTitle": "Galileo Features — Check Supplier Parity run-002",
+  "statusPill": "PENDING REVIEW",
+  "statusPillTone": "warning",
+  "statuses": [
+    {
+      "key": "Passed",
+      "label": "Passed",
+      "tone": "pass"
+    },
+    {
+      "key": "Failed",
+      "label": "Failed",
+      "tone": "fail"
+    },
+    {
+      "key": "Blocked",
+      "label": "Blocked",
+      "tone": "blocked"
+    },
+    {
+      "key": "Skipped",
+      "label": "Skipped",
+      "tone": "warning"
+    },
+    {
+      "key": "Not Executed",
+      "label": "Not Executed",
+      "tone": "neutral"
+    },
+    {
+      "key": "Inconclusive",
+      "label": "Inconclusive",
+      "tone": "accent"
+    },
+    {
+      "key": "Excluded",
+      "label": "Excluded",
+      "tone": "neutral"
+    }
+  ],
+  "meta": {
+    "fields": [
+      [
+        {
+          "label": "Scope",
+          "value": "search-cabin-class-rbd / galileo",
+          "mono": true
+        },
+        {
+          "label": "Run",
+          "value": "run-002",
+          "mono": true
+        }
+      ],
+      {
+        "label": "Comparison",
+        "value": "Check Supplier request and response — Integration (NDC1_Ahmed Ayman / NDCGal) vs Direct (ahmed ayman / Galileo); search only, prices ignored"
+      },
+      {
+        "label": "Environment",
+        "value": "Staging (classified by Ahmed Ayman) · Headed · Safety Preflight SP-1"
+      }
+    ]
+  },
+  "summary": {
+    "title": "1. Outcome",
+    "total": 18,
+    "totalLabel": "Executable scope",
+    "donut": {
+      "focus": "Passed",
+      "label": "pass rate (executable scope 18)"
+    }
+  },
+  "testCases": {
+    "title": "Test cases",
+    "categories": [
+      {
+        "key": "setup",
+        "name": "Setup / Configuration",
+        "items": [],
+        "cases": [
+          {
+            "id": "TC-GCSP-001",
+            "title": "Setup — branch, supplier and credential read back in each session",
+            "status": "Passed",
+            "rows": [
+              {
+                "label": "Pending (PC)",
+                "value": "—"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "—"
+              },
+              {
+                "label": "Reason",
+                "value": "—"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "parity",
+        "name": "Check Supplier Request/Response Parity",
+        "items": [],
+        "cases": [
+          {
+            "id": "TC-GCSP-002",
+            "title": "Request/Response parity — one-way, Economy, CAI→DXB",
+            "status": "Failed",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Failed"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04, PC-05"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "A13"
+              },
+              {
+                "label": "Reason",
+                "value": "Confirmed Functional Mismatch: A13 (C002). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-003",
+            "title": "Request/Response parity — round-trip, Economy, CAI⇄DXB",
+            "status": "Failed",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Failed"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04, PC-05"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "A13"
+              },
+              {
+                "label": "Reason",
+                "value": "Confirmed Functional Mismatch: A13 (C003). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-004",
+            "title": "Request/Response parity — mixed passengers (Adult, Child, Infant)",
+            "status": "Inconclusive",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04, PC-05"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "—"
+              },
+              {
+                "label": "Reason",
+                "value": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Pending Parity Clarification"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-005",
+            "title": "Request/Response parity — Business, CAI→DXB",
+            "status": "Failed",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Failed"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04, PC-05"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "A18"
+              },
+              {
+                "label": "Reason",
+                "value": "Confirmed Functional Mismatch: A18 (C005). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-006",
+            "title": "Request/Response parity — Premium Economy, CAI→DXB",
+            "status": "Failed",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Failed"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Failed"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "A7, A9, A13, A15, A18"
+              },
+              {
+                "label": "Reason",
+                "value": "Confirmed Functional Mismatch: A7 (C006); A9 (C006); A13 (C006); A15 (C006); A18 (C006). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-007",
+            "title": "Request/Response parity — First Class, CAI→DXB",
+            "status": "Failed",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Failed"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Failed"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "A7, A9, A13, A15, A18"
+              },
+              {
+                "label": "Reason",
+                "value": "Confirmed Functional Mismatch: A7 (C007); A9 (C007); A13 (C007); A15 (C007); A18 (C007). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-010",
+            "title": "Request/Response parity — Cabin Class sent and returned per selected cabin",
+            "status": "Failed",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Failed"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Failed"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04, PC-05"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "A7, A9, A13, A15, A18"
+              },
+              {
+                "label": "Reason",
+                "value": "Confirmed Functional Mismatch: A7 (Premium Economy, First Class); A9 (Premium Economy, First Class); A13 (Premium Economy, First Class); A15 (Premium Economy, First Class); A18 (Premium Economy, Business, First Class). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-011",
+            "title": "Request/Response parity — RBD — Economy (Q, K, Y)",
+            "status": "Inconclusive",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Passed"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "—"
+              },
+              {
+                "label": "Reason",
+                "value": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Passed"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-012",
+            "title": "Request/Response parity — RBD — Business (J, C)",
+            "status": "Blocked",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Blocked — supplier communication error"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "A12"
+              },
+              {
+                "label": "Reason",
+                "value": "Execution error: Integration returned a supplier communication error in C012_C (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-013",
+            "title": "Request/Response parity — Cabin Class and RBD that do not match",
+            "status": "Inconclusive",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Inconclusive — test design discrepancy (A12)"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "A12"
+              },
+              {
+                "label": "Reason",
+                "value": "Test design discrepancy (flagged to Stage 3): both branches returned the same business fault \"UNABLE TO FARE QUOTE\" — the same outcome the case's Expected Result accepts — but A12 requires errorMessage empty and a parsed LowFareSearchRsp. No Confirmed Functional Mismatch. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-015",
+            "title": "Request/Response parity — one-way, Economy, CAI→JED",
+            "status": "Inconclusive",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04, PC-05"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "—"
+              },
+              {
+                "label": "Reason",
+                "value": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Pending Parity Clarification"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-016",
+            "title": "Request/Response parity — Multi-City, Economy",
+            "status": "Blocked",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Blocked — supplier communication error"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "A12"
+              },
+              {
+                "label": "Reason",
+                "value": "Execution error: Integration returned a supplier communication error in C016 (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-017",
+            "title": "Request/Response parity — Multi-City, different Cabin per leg",
+            "status": "Inconclusive",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Passed"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "—"
+              },
+              {
+                "label": "Reason",
+                "value": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Passed"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-018",
+            "title": "Request/Response parity — RBD — First Class (F, A)",
+            "status": "Failed",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Failed"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Failed"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "A7, A9, A12, A13, A18"
+              },
+              {
+                "label": "Reason",
+                "value": "Confirmed Functional Mismatch: A7 (F, A); A9 (F, A); A12 (F); A13 (F, A); A18 (F, A). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-019",
+            "title": "Request/Response parity — RBD — Premium Economy (J)",
+            "status": "Failed",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Failed"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Failed"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "A7, A9, A12, A13, A18"
+              },
+              {
+                "label": "Reason",
+                "value": "Confirmed Functional Mismatch: A7 (C019); A9 (C019); A12 (C019); A13 (C019); A18 (C019). Also Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-020",
+            "title": "Request/Response parity — RBD — several RBDs together (Q + K)",
+            "status": "Inconclusive",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04, PC-05"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "—"
+              },
+              {
+                "label": "Reason",
+                "value": "Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04, PC-05 — no Confirmed Functional Mismatch; RQ Pending Parity Clarification, RS Pending Parity Clarification"
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-021",
+            "title": "Request/Response parity — RBD on one Multi-City leg only",
+            "status": "Blocked",
+            "rows": [
+              {
+                "label": "Request (RQ)",
+                "value": "Inconclusive — Pending Parity Clarification"
+              },
+              {
+                "label": "Response (RS)",
+                "value": "Blocked — supplier communication error"
+              },
+              {
+                "label": "Pending (PC)",
+                "value": "PC-01, PC-02, PC-03, PC-04"
+              },
+              {
+                "label": "Failed assertions",
+                "value": "A12"
+              },
+              {
+                "label": "Reason",
+                "value": "Execution error: Integration returned a supplier communication error in C021 (\"Non-Specified Internal Communication Error\", HTTP 500 from Travelport PP relayed by the Integration Layer) — response not compared (A12 failed; A13, A14, A15, A16, A17, A18, A19, A20 not checked). Request group judged: Inconclusive — Pending Parity Clarification. Pending Parity Clarification: PC-01, PC-02, PC-03, PC-04"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "type": "notes",
+      "title": "Confirmed Functional Mismatches",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "CFM-01 (RS, Integration): flight on one side only — cases 002, 003, 006, 007, 010, 018; 135 instance(s)",
+            "CFM-02 (RS, Integration): Returned segments outside the requested Cabin/RBD (A18) — cases 005, 010; 8 instance(s)",
+            "CFM-03 (RS, Direct): Returned segments outside the requested Cabin/RBD (A18) — cases 005, 010; 4 instance(s)",
+            "CFM-04 (RQ, Integration): Request cabin: sends \"leg 1 Economy\" where the Test Data is \"leg 1 Premium Economy\" — cases 006, 010, 019; 3 instance(s)",
+            "CFM-05 (RS, Direct): flight on one side only — cases 006, 007, 010, 018, 019; 51 instance(s)",
+            "CFM-06 (RS, Integration): fare option on one side only — cases 006, 007, 010; 26 instance(s)",
+            "CFM-07 (RS, Direct): fare option on one side only — cases 006, 007, 010; 18 instance(s)",
+            "CFM-08 (RS, Integration): Returned segments outside the requested Cabin/RBD (A18) — cases 006, 010; 228 instance(s)",
+            "CFM-09 (RQ, Integration): Request cabin: sends \"leg 1 Business\" where the Test Data is \"leg 1 First\" — cases 007, 010, 018; 4 instance(s)",
+            "CFM-10 (RS, Integration): Returned segments outside the requested Cabin/RBD (A18) — cases 007, 010; 192 instance(s)",
+            "CFM-11 (RS, Integration): Returned segments outside the requested Cabin/RBD (A18) — cases 018; 2 instance(s)"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Pending Parity Clarifications",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "PC-01 (RQ): Search modifier ReturnUpsellFare (OBS-01) — Should the Integration request ask for upsell fares (ReturnUpsellFare=\"true\") when the platform request says isUpSelling=false and the Direct request sends \"false\"? [17 case(s)]",
+            "PC-02 (RQ): Pricing modifier CurrencyType (OBS-04) — Should the Integration request carry a currency (Direct sends EGP)? Prices are not compared. [17 case(s)]",
+            "PC-03 (RQ): Leg modifier AllowDirectAccess (OBS-03) — Is AllowDirectAccess=\"true\" on the Integration request expected, and does it change availability? [17 case(s)]",
+            "PC-04 (RQ): Search modifier PreferCity on origin/destination (OBS-02) — Should the Integration request set city-level airport preference that the Direct request does not? [17 case(s)]",
+            "PC-05 (RS): P-UPSELL — extra fare options on the side that requested upsell (OBS-01, DEF-03) — Should the Integration path return upsell fare options that the Direct path does not request? [7 case(s)]"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Evidence and limitations",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "120 sensitive values redacted; leak scan 0 leaks.",
+            "Integration Layer → Galileo boundary not observable (BND-03); payloads back-end reported (BND-04).",
+            "Full records in ManualExecutionResults.md."
+          ]
+        }
+      ]
+    }
+  ]
+}

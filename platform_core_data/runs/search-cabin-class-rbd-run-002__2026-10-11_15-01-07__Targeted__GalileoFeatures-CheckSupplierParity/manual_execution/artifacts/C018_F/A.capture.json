@@ -1,0 +1,83 @@
+{
+ "side": "Integration",
+ "at": "2026-10-11T13:06:32.609Z",
+ "secs": 7.417,
+ "httpStatus": 200,
+ "responseCaptured": true,
+ "readBack": {
+  "branch": "NDC1_Ahmed Ayman (BRN287)",
+  "branchBeforeCheck": "NDC1_Ahmed Ayman (BRN287)",
+  "suppliersListed": [
+   "NDCGal"
+  ],
+  "supplierSelected": "NDCGal",
+  "credentialsListed": [
+   "NdcGalileoSTG EGY"
+  ],
+  "credentialSelected": "NdcGalileoSTG EGY"
+ },
+ "formAsEntered": "Flight Search | Branch selected. | NDC1_Ahmed Ayman (BRN287) | Branch | * | NDC1_Ahmed Ayman (BRN287) | Agency | Agency | Agent | Agent | One-way | Round-trip | Multi-city | CAI | DXB | First Class | F | 1 | Nearby Airport | Baggage Fare Only | Up-selling | Advanced | Check Supplier | Search",
+ "passengers": null,
+ "platformRequestToCheckSupplier": {
+  "flightRequestDto": {
+   "tripType": 1,
+   "noOfAdults": 1,
+   "noOfChildren": 0,
+   "noOfInfants": 0,
+   "entity": {
+    "selectedBranch": 10994
+   },
+   "filters": {
+    "isNearByAirport": false,
+    "isBaggageFareOnly": false,
+    "isUpSelling": false,
+    "isNonStop": false,
+    "isExcludeLcc": false,
+    "allianceAirline": null,
+    "preferAirlines": []
+   },
+   "routes": [
+    {
+     "cabinClass": 4,
+     "dateOfJourney": "18-11-2026",
+     "destination": {
+      "airportCode": "DXB"
+     },
+     "origins": [
+      {
+       "airportCode": "CAI"
+      }
+     ],
+     "rbd": [
+      "F"
+     ]
+    }
+   ]
+  },
+  "supplierId": 162,
+  "pccId": 320
+ },
+ "errorMessage": "CheckSupplierErrorMsg {\ncorrelationId : PgtQQ8gM0aVmjbUxL9cZkwk6aLM_JovX_Ur0um8P\ntimestamp : 2026-10-11T13:06:35.568Z\nmessage : status-code:409 Conflict-4413-No fares found for the specified request. - UNABLE TO FARE QUOTE\nerrorDescription : No fares found for the specified request. - UNABLE TO FARE QUOTE\n====================\n\n}",
+ "parseError": null,
+ "searchCallsDuringCheck": [],
+ "payloadLength": {
+  "supplierRequest": 1470,
+  "supplierResponse": 757
+ },
+ "sha256OfRawPayload": {
+  "supplierRequest": "3cbb9d197177a33ced8c3eef91c4c2aa3fcc5dffbe15aac7b26f3f41a77b0a0b",
+  "supplierResponse": "b56f09aaf819d4d3cfe9f92d1a4d05738f16c2efe4f95b321005c844f1b97636"
+ },
+ "redactions": {
+  "supplierRequest": 2,
+  "supplierResponse": 0,
+  "supplierConfig": 0,
+  "total": 2
+ },
+ "boundary": {
+  "reportedBy": "platform back end (BND-04) — not a network capture",
+  "credentialHost": "ndc-integration-stg-ne-3.azurewebsites.net",
+  "schema": "52",
+  "soapEnvelope": true
+ }
+}

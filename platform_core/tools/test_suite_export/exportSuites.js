@@ -12,6 +12,7 @@ const path = require('path');
 
 const { parseTestCases, toRows, FIELDS } = require('./parseTestCases');
 const { buildWorkbook } = require('./xlsxWriter');
+const { definitionRows, DEFINITION_COLUMN_WIDTHS } = require('./sharedDefinitions');
 
 class ExportError extends Error {}
 
@@ -65,8 +66,9 @@ function exportSuite(markdownPath, options = {}) {
     throw new ExportError(`Cannot read ${markdownPath}: ${err.message}`);
   }
 
-  const { cases, warnings } = parseTestCases(markdown, { sourceLabel: base });
+  const { cases, warnings, definitions, definitionUsage } = parseTestCases(markdown, { sourceLabel: base });
   const rows = toRows(cases);
+  const defRows = definitionRows(definitions, definitionUsage);
   const xlsxPath = markdownPath.replace(/\.md$/, '.xlsx');
 
   let bytes = 0;
@@ -75,6 +77,9 @@ function exportSuite(markdownPath, options = {}) {
       sheetName: options.sheetName || defaultSheetName(moduleName),
       rows,
       columnWidths: FIELDS.map((f) => f.width),
+      // Shared Definitions get their own sheet after the cases, so Excel readers see the setup and
+      // rules a case cites. Sheet 1 stays the cases — the only sheet --import-lifecycle reads.
+      ...(defRows ? { extraSheets: [{ sheetName: 'Shared Definitions', rows: defRows, columnWidths: DEFINITION_COLUMN_WIDTHS }] } : {}),
       ...(options.modified ? { modified: options.modified } : {}),
     });
     fs.writeFileSync(xlsxPath, buffer);
@@ -86,6 +91,7 @@ function exportSuite(markdownPath, options = {}) {
     markdownPath,
     xlsxPath,
     caseCount: cases.length,
+    definitionCount: definitions.length,
     warnings,
     written: !options.dryRun,
     bytes,

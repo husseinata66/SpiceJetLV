@@ -164,8 +164,13 @@ const DECISION_CATEGORIES = [
 ];
 const DECISION_CATEGORY_FALLBACK = 'Other';
 
-/** Test execution outcomes. The platform's existing vocabulary — no new status is introduced. */
-const EXECUTION_STATUSES = ['Passed', 'Failed', 'Skipped', 'Blocked', 'Inconclusive'];
+/**
+ * Test execution outcomes: the canonical model (run_manager/testStatus.js), so telemetry and execution
+ * history speak one vocabulary (Phase 8). The original five (Passed, Failed, Skipped, Blocked,
+ * Inconclusive) are a subset, so every event already recorded stays valid. `Unrecognized` is never
+ * accepted on write — an event must state a real status.
+ */
+const EXECUTION_STATUSES = Object.keys(require('../run_manager/testStatus').STATUSES).filter((s) => s !== 'Unrecognized'); // eslint-disable-line global-require
 
 /** What a validation was checking. Kept separate from application test outcomes (§30). */
 const VALIDATION_KINDS = [

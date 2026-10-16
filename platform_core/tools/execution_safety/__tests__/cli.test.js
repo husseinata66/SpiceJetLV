@@ -49,33 +49,33 @@ function run(args) {
 const POLICY_FILE = tmpFile('policy.json', FIXTURE);
 
 test('exit code 0 means Allowed', () => {
-  const r = run(['evaluate', '--action', 'READ', '--ownership', 'Shared', '--file', POLICY_FILE]);
+  const r = run(['evaluate', '--action', 'READ', '--ownership', 'Shared', '--environment', 'Staging', '--file', POLICY_FILE]);
   assert.equal(r.code, EXIT.ok);
   assert.match(r.out, /Decision: Allowed/);
 });
 
 test('exit code 2 means Approval Required, not a failure', () => {
-  const r = run(['evaluate', '--action', 'UPDATE', '--ownership', 'Shared', '--file', POLICY_FILE]);
+  const r = run(['evaluate', '--action', 'UPDATE', '--ownership', 'Shared', '--environment', 'Staging', '--file', POLICY_FILE]);
   assert.equal(r.code, EXIT.approval);
   assert.match(r.out, /Decision: Approval Required/);
 });
 
 test('exit code 3 means Forbidden', () => {
-  const r = run(['evaluate', '--action', 'PAYMENT', '--ownership', 'Shared', '--file', POLICY_FILE]);
+  const r = run(['evaluate', '--action', 'PAYMENT', '--ownership', 'Shared', '--environment', 'Staging', '--file', POLICY_FILE]);
   assert.equal(r.code, EXIT.forbidden);
   assert.match(r.out, /Decision: Forbidden/);
 });
 
 test('every evaluation states that nothing was executed', () => {
   for (const action of ['READ', 'UPDATE', 'DELETE', 'PAYMENT']) {
-    const r = run(['evaluate', '--action', action, '--ownership', 'Shared', '--file', POLICY_FILE]);
+    const r = run(['evaluate', '--action', action, '--ownership', 'Shared', '--environment', 'Staging', '--file', POLICY_FILE]);
     assert.match(r.out, /No operation was executed\./, action);
   }
 });
 
 test('--json emits a parseable explanation with every axis', () => {
   const r = run(['evaluate', '--action', 'UPDATE', '--ownership', 'Shared', '--module', 'agency',
-    '--target', 'AGN2', '--file', POLICY_FILE, '--json']);
+    '--target', 'AGN2', '--environment', 'Staging', '--file', POLICY_FILE, '--json']);
   const parsed = JSON.parse(r.out);
   assert.equal(parsed.decision, 'Approval Required');
   assert.equal(parsed.matchedRule, 'policy.categories.mutation.Shared');
@@ -134,14 +134,14 @@ test('preflight groups a plan and exits on the strictest decision present', () =
     { action: 'READ', ownership: 'Shared', testCaseId: 'TC-2' },
     { action: 'UPDATE', ownership: 'Shared', testCaseId: 'TC-3' },
   ]);
-  const r = run(['preflight', '--operations', ops, '--file', POLICY_FILE]);
+  const r = run(['preflight', '--operations', ops, '--environment', 'Staging', '--file', POLICY_FILE]);
   assert.equal(r.code, EXIT.approval);
   assert.match(r.out, /2 occurrences/);
   assert.match(r.out, /1 authorization question to answer before execution/);
   assert.match(r.out, /This preflight is read-only/);
 
   const ops2 = tmpFile('ops2.json', [{ action: 'PAYMENT', ownership: 'Shared' }]);
-  assert.equal(run(['preflight', '--operations', ops2, '--file', POLICY_FILE]).code, EXIT.forbidden);
+  assert.equal(run(['preflight', '--operations', ops2, '--environment', 'Staging', '--file', POLICY_FILE]).code, EXIT.forbidden);
 });
 
 test('preflight without --operations refuses rather than assuming an empty plan', () => {
@@ -161,4 +161,13 @@ test('--help lists the vocabulary a caller needs', () => {
   assert.match(r.out, /Actions:/);
   assert.match(r.out, /Ownership:/);
   assert.match(r.out, /Exit codes: 0 Allowed\/valid/);
+});
+
+test('F-22: evaluate and preflight with no --environment are refused as Unknown — never the policy\'s Staging', () => {
+  const r = run(['evaluate', '--action', 'READ', '--ownership', 'Shared', '--file', POLICY_FILE]);
+  assert.equal(r.code, EXIT.forbidden);
+  assert.match(r.out, /Unknown/);
+  const ops = tmpFile('ops-noenv.json', [{ action: 'READ', ownership: 'Shared' }]);
+  assert.equal(run(['preflight', '--operations', ops, '--file', POLICY_FILE]).code, EXIT.forbidden);
+  assert.equal(run(['preflight', '--operations', ops, '--environment', 'Staging', '--file', POLICY_FILE]).code, EXIT.ok);
 });

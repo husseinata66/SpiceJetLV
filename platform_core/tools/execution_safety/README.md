@@ -106,6 +106,8 @@ An unrecognised or absent ownership value becomes `Unknown`, and is reported.
 environment". A policy governs exactly one named environment and **refuses to decide** for any
 other — evaluating a QA request against the Staging policy would answer a question nobody asked.
 
+**The environment is never defaulted (Phase 9.3, F-22).** A request that names no environment is evaluated as `Unknown` — never as the policy's own environment — and the environment gate refuses it. `evaluate` and `preflight` take `--environment <env>`; `summary` describes the policy's own rules and says so.
+
 ## 4. Policy shape
 
 ```jsonc
@@ -237,7 +239,7 @@ node platform_core/tools/execution_safety/cli.js evaluate \
 
 node platform_core/tools/execution_safety/cli.js validate
 node platform_core/tools/execution_safety/cli.js summary
-node platform_core/tools/execution_safety/cli.js preflight --operations ops.json --run <folder> --out
+node platform_core/tools/execution_safety/cli.js preflight --operations ops.json --environment <env> --run <folder> --out
 ```
 
 Common flags on every subcommand: `--file <path>` for a policy other than the project's own,

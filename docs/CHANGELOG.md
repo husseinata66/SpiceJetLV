@@ -14,6 +14,64 @@ record it; a redundant entry costs nothing, a silent gap defeats the point of th
 
 ---
 
+## 2026-10-11 — PE-03: run-bound Stage 3 suites and per-suite Traceability Matrix
+
+Platform defect fix, approved by Ahmed Ayman. It was found when run-002 of `search-cabin-class-rbd/galileo` was blocked at its 4M
+gate by run-001's pending suite in the same folder.
+
+- **New `run_manager/suiteBinding.js`.**
+  - `runBoundSuites`: a run whose **own Stage 3 is Completed and Approved** is bound to exactly the suites that approval recorded (`approval.headerEvidence`). Any other run's suites in the folder are listed as `not-bound`; they are never consumed and never counted as passed.
+  - A run without an approved Stage 3 of its own keeps the **folder-wide** rule. The gate says so with a `folder-fallback` check line.
+- **The same binding is used everywhere a run reads its suites:**
+  - the 4M/4A/5A entry gate's Stage 3 checks and requirement-conflict check;
+  - `executableScope` (which now also records `suiteBinding`);
+  - partial-scope `scopeIndex`;
+  - `executionHistory.suiteIndex` (exposed as `identity.binding`);
+  - the Safety Preflight's `scopeFacts`, which hashes the bound suites, their matrices and the run's own Stage 3 Markdown;
+  - `traceGraph.buildTraceGraph`.
+- **Matrix per suite (`resolveSuiteMatrix`).** Each suite is read with the `TraceabilityMatrix*.md` that a run's Stage 3 recorded with it, and the selected run's own record wins.
+  - **Ambiguous:** several matrices with nothing to decide between them. No matrix is used, so dependencies are unknown rather than borrowed. This is reported as a `traceability-matrix-ambiguous` trace gap and a gate warning.
+  - **Legacy:** `TraceabilityMatrix.md` is used only when it is the folder's only matrix.
+  - Applies to `scopeApproval.buildScopeItems` (including `approve-scope`) and `traceGraph.rootGraph`.
+  - Impact analysis still reads every suite in the folder, each with its own matrix.
+- **Unchanged:** no approval, fingerprint, preflight, capability or contract check was relaxed.
+- **Tests:** `__tests__/runBoundSuites.test.js` adds 11 tests, covering T1–T9, ambiguous matrices and legacy fallback. 8 of them fail on the previous code.
+
+---
+
+## 2026-10-11 — Test case design quality (Phases 1–3)
+
+User-mandated, platform-wide (all test types, not one project). **Applies to new or materially changed
+cases only — no existing suite was edited and no Review status was reset.**
+
+- **Phase 1 — writing standard (`test-design-skill` §6, `TestCase_entry.md`).** Expected Result is a
+  numbered list, one measurable point per line, tagged with its Assertion ID. Assertions: Expected is a
+  value, not a description; Expected Source names a requirement, contract, `Test Data` or artifact
+  (`Expected Result` still accepted); no redundant rows, never merged independent points; same check,
+  same shape across sibling cases. One case per data set while execution records one result per
+  `(Test Case ID, Assertion ID)` — the matrix-style allowance is withdrawn. Notes never carry
+  traceability. A Steps / Test Data / Expected Result vocabulary table per test type (UI, API,
+  Integration, Batch/queue, E2E). The orphaned §6.0 bullets were moved back under §6.0.
+- **Phase 2 — Shared Definitions (`test-design-skill` §6.1b, `test_suite_export/sharedDefinitions.js`).**
+  Optional `## Shared Definitions` section per suite: `SETUP-n` setup and `VR-n` validation rules
+  (mandatory `**Source:**`, sub-checks `VR-n.m`), cited by ID from cases and from an optional Assertions
+  `Rule` column. The cited text is attached to each citing case's parsed record (`sharedDefinitions`), so
+  it is part of the material fingerprint — editing a rule re-opens review for exactly the citing cases.
+  Exported as a second workbook sheet; sheet 1 and `--import-lifecycle` unchanged; a suite without the
+  section exports byte-identically. `--check` warns on undefined/unused/source-less definitions.
+  `api_contract` impact scans cited definitions for endpoint mentions. One line each in
+  `manual-execution-skill` and `automation-skill`. Verified: all 8 existing suites (583 cases) parse with
+  identical warnings and fingerprints.
+- **Phase 3 — grounding checks, warnings only (`run_manager`).** `assertionContract.designGate` returns
+  `advisories` for new or changed cases whose Expected Source is `Expected Result`; `state approve 3` /
+  `approve-scope` print them as `advisory:` on stderr and never refuse for them. `state trace` gains the
+  gap `assertion-requirement-not-traced` (an assertion's Requirement ID absent from the case's Matrix
+  row). `scopeApproval.dependenciesFromTraceRow` adds a `covers` field that expands Matrix ranges
+  (`SRCH-02…09`) for this check only — `dependsOn` reads exactly as before. On current data the check
+  finds 5 real gaps in the Galileo Search suite (reported, not fixed) and none elsewhere.
+
+---
+
 ## 2026-10-08 — Screenshots only for Findings and defects
 
 User-mandated, to cut token consumption. Browser stages were capturing a screenshot per case and per

@@ -1,0 +1,124 @@
+{
+ "offers": {
+  "A": 35,
+  "B": 24
+ },
+ "flights": {
+  "A": 24,
+  "B": 24
+ },
+ "flightsOnlyA": [],
+ "flightsOnlyB": [],
+ "matched": 24,
+ "stopsDiff": [],
+ "fareOpt": {
+  "matchedOptions": 24,
+  "onlyA": [
+   {
+    "flight": "SV386 CAI-JED 11-18T01:00>11-18T04:10 + SV566 JED-DXB 11-18T06:00>11-18T09:45",
+    "brand": "FLEX ECO/FLEX ECO",
+    "detail": "ADTx1:Economy|Q|2PC,Economy|Q|2PC"
+   },
+   {
+    "flight": "SV302 CAI-JED 11-18T19:50>11-18T23:00 + SV590 JED-DXB 11-19T01:10>11-19T04:55",
+    "brand": "FLEX ECO/FLEX ECO",
+    "detail": "ADTx1:Economy|Q|2PC,Economy|Q|2PC"
+   },
+   {
+    "flight": "SV308 CAI-JED 11-18T03:35>11-18T06:45 + SV568 JED-DXB 11-18T09:15>11-18T13:00",
+    "brand": "FLEX ECO/FLEX ECO",
+    "detail": "ADTx1:Economy|Q|2PC,Economy|Q|2PC"
+   },
+   {
+    "flight": "SV300 CAI-JED 11-18T11:45>11-18T14:55 + SV594 JED-DXB 11-18T17:45>11-18T21:30",
+    "brand": "FLEX ECO/FLEX ECO",
+    "detail": "ADTx1:Economy|Q|2PC,Economy|Q|2PC"
+   },
+   {
+    "flight": "GF80 CAI-BAH 11-18T04:20>11-18T08:20 + GF504 BAH-DXB 11-18T09:40>11-18T12:05",
+    "brand": "ECONOMY SMART/ECONOMY SMART",
+    "detail": "ADTx1:Economy|Q|40KG,Economy|Q|40KG"
+   },
+   {
+    "flight": "GF70 CAI-BAH 11-18T16:00>11-18T20:00 + GF500 BAH-DXB 11-19T01:10>11-19T03:35",
+    "brand": "ECONOMY SMART/ECONOMY SMART",
+    "detail": "ADTx1:Economy|Q|40KG,Economy|Q|40KG"
+   },
+   {
+    "flight": "GF80 CAI-BAH 11-18T04:20>11-18T08:20 + GF508 BAH-DXB 11-18T15:50>11-18T18:15",
+    "brand": "ECONOMY SMART/ECONOMY SMART",
+    "detail": "ADTx1:Economy|Q|40KG,Economy|Q|40KG"
+   },
+   {
+    "flight": "GF80 CAI-BAH 11-18T04:20>11-18T08:20 + GF510 BAH-DXB 11-18T18:10>11-18T20:35",
+    "brand": "ECONOMY SMART/ECONOMY SMART",
+    "detail": "ADTx1:Economy|Q|40KG,Economy|Q|40KG"
+   },
+   {
+    "flight": "WY408 CAI-MCT 11-18T01:15>11-18T06:55 + WY603 MCT-DXB 11-18T08:50>11-18T10:00",
+    "brand": "ECONOMY FLEX/ECONOMY FLEX",
+    "detail": "ADTx1:Economy|Q|40KG,Economy|Q|40KG"
+   },
+   {
+    "flight": "WY406 CAI-MCT 11-18T18:05>11-18T23:45 + WY603 MCT-DXB 11-19T08:50>11-19T10:00",
+    "brand": "ECONOMY FLEX/ECONOMY FLEX",
+    "detail": "ADTx1:Economy|Q|40KG,Economy|Q|40KG"
+   },
+   {
+    "flight": "A3931 CAI-ATH 11-18T04:40>11-18T06:40 + A3958 ATH-DXB 11-18T09:10>11-18T16:00",
+    "brand": "COMFORTFLEX/COMFORTFLEX",
+    "detail": "ADTx1:Economy|Q|1PC,Economy|Q|1PC"
+   }
+  ],
+  "onlyB": [],
+  "dupA": [],
+  "dupB": []
+ },
+ "detailDiff": [],
+ "bagTextDiff": 39,
+ "bagTextExamples": [
+  "0 Pieces ⇄ Number 0 Piece Allowed.",
+  "2 Pieces ⇄ Number 2 Piece Allowed.",
+  "30 Kilograms ⇄ 30 Kilograms Allowed.",
+  "35 Kilograms ⇄ 35 Kilograms Allowed."
+ ],
+ "cabinLabelPairs": [],
+ "cabins": {
+  "A": [
+   "Economy"
+  ],
+  "B": [
+   "Economy"
+  ]
+ },
+ "rbds": {
+  "A": [
+   "Q"
+  ],
+  "B": [
+   "Q"
+  ]
+ },
+ "perLeg": {
+  "A": {
+   "1": {
+    "cabins": [
+     "Economy"
+    ],
+    "rbds": [
+     "Q"
+    ]
+   }
+  },
+  "B": {
+   "1": {
+    "cabins": [
+     "Economy"
+    ],
+    "rbds": [
+     "Q"
+    ]
+   }
+  }
+ }
+}

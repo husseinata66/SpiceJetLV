@@ -1,0 +1,2022 @@
+<?xml version="1.0" encoding="utf-16"?>
+<LowFareSearchRsp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" TraceId="52c677cc-d36e-476c-920a-1d8287d83902" TransactionId="2B0D6AEC0A0D6A932D7AA5585A581405" ResponseTime="680" DistanceUnits="MI" CurrencyType="AED">
+  <FlightDetailsList xmlns="http://www.travelport.com/schema/air_v52_0">
+    <FlightDetails DestinationTerminal="4" OriginTerminal="2" Equipment="77W" TravelTime="305" FlightTime="145" ArrivalTime="2026-11-18T23:50:00.000+03:00" DepartureTime="2026-11-18T20:25:00.000+02:00" Destination="KWI" Origin="CAI" Key="nDOS+DTqWDKA6Z4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="4" Equipment="32N" TravelTime="305" FlightTime="115" ArrivalTime="2026-11-19T03:30:00.000+04:00" DepartureTime="2026-11-19T00:35:00.000+03:00" Destination="DXB" Origin="KWI" Key="nDOS+DTqWDKA8Z4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="4" OriginTerminal="2" Equipment="77W" TravelTime="460" FlightTime="145" ArrivalTime="2026-11-18T06:05:00.000+03:00" DepartureTime="2026-11-18T02:40:00.000+02:00" Destination="KWI" Origin="CAI" Key="nDOS+DTqWDKAta4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="4" Equipment="32N" TravelTime="460" FlightTime="115" ArrivalTime="2026-11-18T12:20:00.000+04:00" DepartureTime="2026-11-18T09:25:00.000+03:00" Destination="DXB" Origin="KWI" Key="nDOS+DTqWDKAva4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="4" OriginTerminal="2" Equipment="77W" TravelTime="510" FlightTime="145" ArrivalTime="2026-11-18T14:50:00.000+03:00" DepartureTime="2026-11-18T11:25:00.000+02:00" Destination="KWI" Origin="CAI" Key="nDOS+DTqWDKAla4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="4" Equipment="32N" TravelTime="510" FlightTime="115" ArrivalTime="2026-11-18T21:55:00.000+04:00" DepartureTime="2026-11-18T19:00:00.000+03:00" Destination="DXB" Origin="KWI" Key="nDOS+DTqWDKAoa4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="3" OriginTerminal="2" Equipment="77W" TravelTime="195" FlightTime="195" ArrivalTime="2026-11-18T13:15:00.000+04:00" DepartureTime="2026-11-18T08:00:00.000+02:00" Destination="DXB" Origin="CAI" Key="nDOS+DTqWDKAHb4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="3" OriginTerminal="2" Equipment="388" TravelTime="195" FlightTime="195" ArrivalTime="2026-11-18T17:45:00.000+04:00" DepartureTime="2026-11-18T12:30:00.000+02:00" Destination="DXB" Origin="CAI" Key="nDOS+DTqWDKAlb4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="3" OriginTerminal="2" Equipment="77W" TravelTime="195" FlightTime="195" ArrivalTime="2026-11-18T21:45:00.000+04:00" DepartureTime="2026-11-18T16:30:00.000+02:00" Destination="DXB" Origin="CAI" Key="nDOS+DTqWDKA0b4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="3" OriginTerminal="2" Equipment="388" TravelTime="195" FlightTime="195" ArrivalTime="2026-11-19T00:40:00.000+04:00" DepartureTime="2026-11-18T19:25:00.000+02:00" Destination="DXB" Origin="CAI" Key="nDOS+DTqWDKADc4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="3" OriginTerminal="2" Equipment="388" TravelTime="260" FlightTime="260" ArrivalTime="2026-11-18T06:10:00.000+04:00" DepartureTime="2026-11-18T00:50:00.000+02:00" Destination="DXB" Origin="CAI" Key="nDOS+DTqWDKAhb4mTAAAAA==" />
+    <FlightDetails OriginTerminal="2" Equipment="32N" TravelTime="330" FlightTime="80" ArrivalTime="2026-11-18T16:25:00.000+03:00" DepartureTime="2026-11-18T14:05:00.000+02:00" Destination="AMM" Origin="CAI" Key="nDOS+DTqWDKATc4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" Equipment="32Q" TravelTime="330" FlightTime="190" ArrivalTime="2026-11-18T21:35:00.000+04:00" DepartureTime="2026-11-18T17:25:00.000+03:00" Destination="DXB" Origin="AMM" Key="nDOS+DTqWDKAVc4mTAAAAA==" />
+    <FlightDetails OriginTerminal="2" Equipment="32N" TravelTime="340" FlightTime="80" ArrivalTime="2026-11-18T07:25:00.000+03:00" DepartureTime="2026-11-18T05:05:00.000+02:00" Destination="AMM" Origin="CAI" Key="nDOS+DTqWDKA9c4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" Equipment="32Q" TravelTime="340" FlightTime="185" ArrivalTime="2026-11-18T12:45:00.000+04:00" DepartureTime="2026-11-18T08:40:00.000+03:00" Destination="DXB" Origin="AMM" Key="nDOS+DTqWDKA/c4mTAAAAA==" />
+    <FlightDetails OriginTerminal="2" Equipment="32N" TravelTime="380" FlightTime="80" ArrivalTime="2026-11-18T22:15:00.000+03:00" DepartureTime="2026-11-18T19:55:00.000+02:00" Destination="AMM" Origin="CAI" Key="nDOS+DTqWDKA1c4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" Equipment="32Q" TravelTime="380" FlightTime="185" ArrivalTime="2026-11-19T04:15:00.000+04:00" DepartureTime="2026-11-19T00:10:00.000+03:00" Destination="DXB" Origin="AMM" Key="nDOS+DTqWDKA4c4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="2" OriginTerminal="2" Equipment="330" TravelTime="385" FlightTime="155" ArrivalTime="2026-11-18T14:10:00.000+03:00" DepartureTime="2026-11-18T10:35:00.000+02:00" Destination="RUH" Origin="CAI" Key="nDOS+DTqWDKATd4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="2" Equipment="321" TravelTime="385" FlightTime="115" ArrivalTime="2026-11-18T19:00:00.000+04:00" DepartureTime="2026-11-18T16:05:00.000+03:00" Destination="DXB" Origin="RUH" Key="nDOS+DTqWDKAVd4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="2" Equipment="330" TravelTime="405" FlightTime="130" ArrivalTime="2026-11-18T04:10:00.000+03:00" DepartureTime="2026-11-18T01:00:00.000+02:00" Destination="JED" Origin="CAI" Key="nDOS+DTqWDKA9d4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="1" Equipment="321" TravelTime="405" FlightTime="165" ArrivalTime="2026-11-18T09:45:00.000+04:00" DepartureTime="2026-11-18T06:00:00.000+03:00" Destination="DXB" Origin="JED" Key="nDOS+DTqWDKA/d4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="2" Equipment="330" TravelTime="425" FlightTime="130" ArrivalTime="2026-11-18T23:00:00.000+03:00" DepartureTime="2026-11-18T19:50:00.000+02:00" Destination="JED" Origin="CAI" Key="nDOS+DTqWDKASe4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="1" Equipment="321" TravelTime="425" FlightTime="165" ArrivalTime="2026-11-19T04:55:00.000+04:00" DepartureTime="2026-11-19T01:10:00.000+03:00" Destination="DXB" Origin="JED" Key="nDOS+DTqWDKAUe4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="2" Equipment="330" TravelTime="445" FlightTime="130" ArrivalTime="2026-11-18T06:45:00.000+03:00" DepartureTime="2026-11-18T03:35:00.000+02:00" Destination="JED" Origin="CAI" Key="nDOS+DTqWDKA1d4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="1" Equipment="321" TravelTime="445" FlightTime="165" ArrivalTime="2026-11-18T13:00:00.000+04:00" DepartureTime="2026-11-18T09:15:00.000+03:00" Destination="DXB" Origin="JED" Key="nDOS+DTqWDKA4d4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="3" Equipment="32N" TravelTime="200" FlightTime="200" ArrivalTime="2026-11-18T09:40:00.000+04:00" DepartureTime="2026-11-18T04:20:00.000+02:00" Destination="DXB" Origin="CAI" Key="nDOS+DTqWDKAoe4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="3" Equipment="738" TravelTime="200" FlightTime="200" ArrivalTime="2026-11-18T19:00:00.000+04:00" DepartureTime="2026-11-18T13:40:00.000+02:00" Destination="DXB" Origin="CAI" Key="nDOS+DTqWDKAIf4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="3" Equipment="359" TravelTime="200" FlightTime="200" ArrivalTime="2026-11-18T15:00:00.000+04:00" DepartureTime="2026-11-18T09:40:00.000+02:00" Destination="DXB" Origin="CAI" Key="nDOS+DTqWDKAYf4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="3" Equipment="7M8" TravelTime="200" FlightTime="200" ArrivalTime="2026-11-19T03:45:00.000+04:00" DepartureTime="2026-11-18T22:25:00.000+02:00" Destination="DXB" Origin="CAI" Key="nDOS+DTqWDKAEf4mTAAAAA==" />
+    <FlightDetails OriginTerminal="2" Equipment="32Q" TravelTime="345" FlightTime="180" ArrivalTime="2026-11-18T08:20:00.000+03:00" DepartureTime="2026-11-18T04:20:00.000+02:00" Destination="BAH" Origin="CAI" Key="nDOS+DTqWDKApf4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" Equipment="32N" TravelTime="345" FlightTime="85" ArrivalTime="2026-11-18T12:05:00.000+04:00" DepartureTime="2026-11-18T09:40:00.000+03:00" Destination="DXB" Origin="BAH" Key="nDOS+DTqWDKArf4mTAAAAA==" />
+    <FlightDetails OriginTerminal="3" Equipment="32Q" TravelTime="560" FlightTime="120" ArrivalTime="2026-11-18T06:40:00.000+02:00" DepartureTime="2026-11-18T04:40:00.000+02:00" Destination="ATH" Origin="CAI" Key="nDOS+DTqWDKA/f4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" Equipment="32N" TravelTime="560" FlightTime="290" ArrivalTime="2026-11-18T16:00:00.000+04:00" DepartureTime="2026-11-18T09:10:00.000+02:00" Destination="DXB" Origin="ATH" Key="nDOS+DTqWDKABg4mTAAAAA==" />
+    <FlightDetails OriginTerminal="2" Equipment="77W" TravelTime="350" FlightTime="185" ArrivalTime="2026-11-18T17:10:00.000+03:00" DepartureTime="2026-11-18T13:05:00.000+02:00" Destination="DOH" Origin="CAI" Key="nDOS+DTqWDKAVg4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" Equipment="359" TravelTime="350" FlightTime="80" ArrivalTime="2026-11-18T20:55:00.000+04:00" DepartureTime="2026-11-18T18:35:00.000+03:00" Destination="DXB" Origin="DOH" Key="nDOS+DTqWDKAXg4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" Equipment="77W" TravelTime="370" FlightTime="80" ArrivalTime="2026-11-18T21:15:00.000+04:00" DepartureTime="2026-11-18T18:55:00.000+03:00" Destination="DXB" Origin="DOH" Key="nDOS+DTqWDKA8g4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="1" Equipment="32N" TravelTime="490" FlightTime="130" ArrivalTime="2026-11-18T11:30:00.000+03:00" DepartureTime="2026-11-18T08:20:00.000+02:00" Destination="JED" Origin="CAI" Key="nDOS+DTqWDKADh4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="1" Equipment="32N" TravelTime="490" FlightTime="180" ArrivalTime="2026-11-18T18:30:00.000+04:00" DepartureTime="2026-11-18T14:30:00.000+03:00" Destination="DXB" Origin="JED" Key="nDOS+DTqWDKAFh4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="3" Equipment="32N" TravelTime="360" FlightTime="105" ArrivalTime="2026-11-18T13:35:00.000+03:00" DepartureTime="2026-11-18T10:50:00.000+02:00" Destination="RUH" Origin="CAI" Key="nDOS+DTqWDKAah4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="1" Equipment="32N" TravelTime="360" FlightTime="120" ArrivalTime="2026-11-18T18:50:00.000+04:00" DepartureTime="2026-11-18T15:50:00.000+03:00" Destination="DXB" Origin="RUH" Key="nDOS+DTqWDKAch4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="3" Equipment="32N" TravelTime="395" FlightTime="155" ArrivalTime="2026-11-18T15:45:00.000+03:00" DepartureTime="2026-11-18T12:10:00.000+02:00" Destination="RUH" Origin="CAI" Key="nDOS+DTqWDKAGi4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="1" Equipment="32N" TravelTime="395" FlightTime="120" ArrivalTime="2026-11-18T20:45:00.000+04:00" DepartureTime="2026-11-18T17:45:00.000+03:00" Destination="DXB" Origin="RUH" Key="nDOS+DTqWDKAIi4mTAAAAA==" />
+    <FlightDetails OriginTerminal="3" Equipment="32N" TravelTime="570" FlightTime="170" ArrivalTime="2026-11-19T03:15:00.000+03:00" DepartureTime="2026-11-18T23:25:00.000+02:00" Destination="DMM" Origin="CAI" Key="nDOS+DTqWDKA+h4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" Equipment="32N" TravelTime="570" FlightTime="90" ArrivalTime="2026-11-19T10:55:00.000+04:00" DepartureTime="2026-11-19T08:25:00.000+03:00" Destination="DXB" Origin="DMM" Key="nDOS+DTqWDKABi4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="2" OriginTerminal="3" Equipment="788" TravelTime="685" FlightTime="230" ArrivalTime="2026-11-18T07:10:00.000+03:00" DepartureTime="2026-11-18T02:20:00.000+02:00" Destination="ADD" Origin="CAI" Key="nDOS+DTqWDKAvi4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" OriginTerminal="2" Equipment="77W" TravelTime="685" FlightTime="255" ArrivalTime="2026-11-18T15:45:00.000+04:00" DepartureTime="2026-11-18T10:30:00.000+03:00" Destination="DXB" Origin="ADD" Key="nDOS+DTqWDKAxi4mTAAAAA==" />
+    <FlightDetails OriginTerminal="2" Equipment="7M8" TravelTime="405" FlightTime="220" ArrivalTime="2026-11-18T06:55:00.000+04:00" DepartureTime="2026-11-18T01:15:00.000+02:00" Destination="MCT" Origin="CAI" Key="nDOS+DTqWDKAGj4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="1" Equipment="7M8" TravelTime="405" FlightTime="70" ArrivalTime="2026-11-18T10:00:00.000+04:00" DepartureTime="2026-11-18T08:50:00.000+04:00" Destination="DXB" Origin="MCT" Key="nDOS+DTqWDKAIj4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="2" OriginTerminal="2" Equipment="7M8" TravelTime="900" FlightTime="355" ArrivalTime="2026-11-18T12:35:00.000+01:00" DepartureTime="2026-11-18T08:40:00.000+02:00" Destination="CMN" Origin="CAI" Key="nDOS+DTqWDKAej4mTAAAAA==" />
+    <FlightDetails DestinationTerminal="3" OriginTerminal="2" Equipment="388" TravelTime="900" FlightTime="450" ArrivalTime="2026-11-19T01:40:00.000+04:00" DepartureTime="2026-11-18T14:10:00.000+01:00" Destination="DXB" Origin="CMN" Key="nDOS+DTqWDKAgj4mTAAAAA==" />
+  </FlightDetailsList>
+  <AirSegmentList xmlns="http://www.travelport.com/schema/air_v52_0">
+    <AirSegment Key="nDOS+DTqWDKA5Z4mTAAAAA==" AvailabilitySource="P" Equipment="77W" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="KU" FlightNumber="542" Origin="CAI" Destination="KWI" DepartureTime="2026-11-18T20:25:00.000+02:00" ArrivalTime="2026-11-18T23:50:00.000+03:00" FlightTime="145" Distance="997" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA6Z4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKA7Z4mTAAAAA==" AvailabilitySource="P" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="KU" FlightNumber="677" Origin="KWI" Destination="DXB" DepartureTime="2026-11-19T00:35:00.000+03:00" ArrivalTime="2026-11-19T03:30:00.000+04:00" FlightTime="115" Distance="531" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA8Z4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAsa4mTAAAAA==" AvailabilitySource="P" Equipment="77W" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="KU" FlightNumber="544" Origin="CAI" Destination="KWI" DepartureTime="2026-11-18T02:40:00.000+02:00" ArrivalTime="2026-11-18T06:05:00.000+03:00" FlightTime="145" Distance="997" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAta4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAua4mTAAAAA==" AvailabilitySource="P" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="KU" FlightNumber="671" Origin="KWI" Destination="DXB" DepartureTime="2026-11-18T09:25:00.000+03:00" ArrivalTime="2026-11-18T12:20:00.000+04:00" FlightTime="115" Distance="531" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAva4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAka4mTAAAAA==" AvailabilitySource="P" Equipment="77W" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="KU" FlightNumber="546" Origin="CAI" Destination="KWI" DepartureTime="2026-11-18T11:25:00.000+02:00" ArrivalTime="2026-11-18T14:50:00.000+03:00" FlightTime="145" Distance="997" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAla4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAna4mTAAAAA==" AvailabilitySource="P" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="KU" FlightNumber="675" Origin="KWI" Destination="DXB" DepartureTime="2026-11-18T19:00:00.000+03:00" ArrivalTime="2026-11-18T21:55:00.000+04:00" FlightTime="115" Distance="531" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAoa4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAGb4mTAAAAA==" AvailabilitySource="Q" Equipment="77W" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="EK" FlightNumber="930" Origin="CAI" Destination="DXB" DepartureTime="2026-11-18T08:00:00.000+02:00" ArrivalTime="2026-11-18T13:15:00.000+04:00" FlightTime="195" Distance="1499" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAHb4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAkb4mTAAAAA==" AvailabilitySource="Q" Equipment="388" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="EK" FlightNumber="928" Origin="CAI" Destination="DXB" DepartureTime="2026-11-18T12:30:00.000+02:00" ArrivalTime="2026-11-18T17:45:00.000+04:00" FlightTime="195" Distance="1499" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAlb4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAzb4mTAAAAA==" AvailabilitySource="Q" Equipment="77W" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="EK" FlightNumber="922" Origin="CAI" Destination="DXB" DepartureTime="2026-11-18T16:30:00.000+02:00" ArrivalTime="2026-11-18T21:45:00.000+04:00" FlightTime="195" Distance="1499" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA0b4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKACc4mTAAAAA==" AvailabilitySource="Q" Equipment="388" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="EK" FlightNumber="924" Origin="CAI" Destination="DXB" DepartureTime="2026-11-18T19:25:00.000+02:00" ArrivalTime="2026-11-19T00:40:00.000+04:00" FlightTime="195" Distance="1499" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKADc4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAgb4mTAAAAA==" AvailabilitySource="Q" Equipment="388" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="EK" FlightNumber="926" Origin="CAI" Destination="DXB" DepartureTime="2026-11-18T00:50:00.000+02:00" ArrivalTime="2026-11-18T06:10:00.000+04:00" FlightTime="260" Distance="1499" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAhb4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKASc4mTAAAAA==" AvailabilitySource="P" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="RJ" FlightNumber="504" Origin="CAI" Destination="AMM" DepartureTime="2026-11-18T14:05:00.000+02:00" ArrivalTime="2026-11-18T16:25:00.000+03:00" FlightTime="80" Distance="295" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKATc4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAUc4mTAAAAA==" AvailabilitySource="P" Equipment="32Q" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="RJ" FlightNumber="614" Origin="AMM" Destination="DXB" DepartureTime="2026-11-18T17:25:00.000+03:00" ArrivalTime="2026-11-18T21:35:00.000+04:00" FlightTime="190" Distance="1255" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAVc4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKA8c4mTAAAAA==" AvailabilitySource="P" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="RJ" FlightNumber="508" Origin="CAI" Destination="AMM" DepartureTime="2026-11-18T05:05:00.000+02:00" ArrivalTime="2026-11-18T07:25:00.000+03:00" FlightTime="80" Distance="295" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA9c4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKA+c4mTAAAAA==" AvailabilitySource="P" Equipment="32Q" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="RJ" FlightNumber="610" Origin="AMM" Destination="DXB" DepartureTime="2026-11-18T08:40:00.000+03:00" ArrivalTime="2026-11-18T12:45:00.000+04:00" FlightTime="185" Distance="1255" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA/c4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKA0c4mTAAAAA==" AvailabilitySource="P" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="RJ" FlightNumber="506" Origin="CAI" Destination="AMM" DepartureTime="2026-11-18T19:55:00.000+02:00" ArrivalTime="2026-11-18T22:15:00.000+03:00" FlightTime="80" Distance="295" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA1c4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKA3c4mTAAAAA==" AvailabilitySource="P" Equipment="32Q" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="RJ" FlightNumber="612" Origin="AMM" Destination="DXB" DepartureTime="2026-11-19T00:10:00.000+03:00" ArrivalTime="2026-11-19T04:15:00.000+04:00" FlightTime="185" Distance="1255" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA4c4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKASd4mTAAAAA==" AvailabilitySource="Q" Equipment="330" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="SV" FlightNumber="310" Origin="CAI" Destination="RUH" DepartureTime="2026-11-18T10:35:00.000+02:00" ArrivalTime="2026-11-18T14:10:00.000+03:00" FlightTime="155" Distance="1003" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKATd4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAUd4mTAAAAA==" AvailabilitySource="Q" Equipment="321" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="SV" FlightNumber="560" Origin="RUH" Destination="DXB" DepartureTime="2026-11-18T16:05:00.000+03:00" ArrivalTime="2026-11-18T19:00:00.000+04:00" FlightTime="115" Distance="536" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAVd4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKA8d4mTAAAAA==" AvailabilitySource="Q" Equipment="330" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="SV" FlightNumber="386" Origin="CAI" Destination="JED" DepartureTime="2026-11-18T01:00:00.000+02:00" ArrivalTime="2026-11-18T04:10:00.000+03:00" FlightTime="130" Distance="769" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA9d4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKA+d4mTAAAAA==" AvailabilitySource="Q" Equipment="321" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="SV" FlightNumber="566" Origin="JED" Destination="DXB" DepartureTime="2026-11-18T06:00:00.000+03:00" ArrivalTime="2026-11-18T09:45:00.000+04:00" FlightTime="165" Distance="1048" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA/d4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKARe4mTAAAAA==" AvailabilitySource="Q" Equipment="330" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="SV" FlightNumber="302" Origin="CAI" Destination="JED" DepartureTime="2026-11-18T19:50:00.000+02:00" ArrivalTime="2026-11-18T23:00:00.000+03:00" FlightTime="130" Distance="769" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKASe4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKATe4mTAAAAA==" AvailabilitySource="Q" Equipment="321" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="SV" FlightNumber="590" Origin="JED" Destination="DXB" DepartureTime="2026-11-19T01:10:00.000+03:00" ArrivalTime="2026-11-19T04:55:00.000+04:00" FlightTime="165" Distance="1048" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAUe4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKA0d4mTAAAAA==" AvailabilitySource="Q" Equipment="330" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="SV" FlightNumber="308" Origin="CAI" Destination="JED" DepartureTime="2026-11-18T03:35:00.000+02:00" ArrivalTime="2026-11-18T06:45:00.000+03:00" FlightTime="130" Distance="769" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA1d4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKA3d4mTAAAAA==" AvailabilitySource="Q" Equipment="321" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="SV" FlightNumber="568" Origin="JED" Destination="DXB" DepartureTime="2026-11-18T09:15:00.000+03:00" ArrivalTime="2026-11-18T13:00:00.000+04:00" FlightTime="165" Distance="1048" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA4d4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAne4mTAAAAA==" AvailabilitySource="P" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="MS" FlightNumber="901" Origin="CAI" Destination="DXB" DepartureTime="2026-11-18T04:20:00.000+02:00" ArrivalTime="2026-11-18T09:40:00.000+04:00" FlightTime="200" Distance="1499" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAoe4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAHf4mTAAAAA==" AvailabilitySource="P" Equipment="738" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="MS" FlightNumber="905" Origin="CAI" Destination="DXB" DepartureTime="2026-11-18T13:40:00.000+02:00" ArrivalTime="2026-11-18T19:00:00.000+04:00" FlightTime="200" Distance="1499" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAIf4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAXf4mTAAAAA==" AvailabilitySource="P" Equipment="359" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="MS" FlightNumber="912" Origin="CAI" Destination="DXB" DepartureTime="2026-11-18T09:40:00.000+02:00" ArrivalTime="2026-11-18T15:00:00.000+04:00" FlightTime="200" Distance="1499" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAYf4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKADf4mTAAAAA==" AvailabilitySource="P" Equipment="7M8" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="MS" FlightNumber="910" Origin="CAI" Destination="DXB" DepartureTime="2026-11-18T22:25:00.000+02:00" ArrivalTime="2026-11-19T03:45:00.000+04:00" FlightTime="200" Distance="1499" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAEf4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAof4mTAAAAA==" AvailabilitySource="Q" Equipment="32Q" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="GF" FlightNumber="80" Origin="CAI" Destination="BAH" DepartureTime="2026-11-18T04:20:00.000+02:00" ArrivalTime="2026-11-18T08:20:00.000+03:00" FlightTime="180" Distance="1200" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKApf4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAqf4mTAAAAA==" AvailabilitySource="Q" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="GF" FlightNumber="504" Origin="BAH" Destination="DXB" DepartureTime="2026-11-18T09:40:00.000+03:00" ArrivalTime="2026-11-18T12:05:00.000+04:00" FlightTime="85" Distance="300" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKArf4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKA+f4mTAAAAA==" AvailabilitySource="P" Equipment="32Q" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="A3" FlightNumber="931" Origin="CAI" Destination="ATH" DepartureTime="2026-11-18T04:40:00.000+02:00" ArrivalTime="2026-11-18T06:40:00.000+02:00" FlightTime="120" Distance="688" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA/f4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAAg4mTAAAAA==" AvailabilitySource="P" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="A3" FlightNumber="958" Origin="ATH" Destination="DXB" DepartureTime="2026-11-18T09:10:00.000+02:00" ArrivalTime="2026-11-18T16:00:00.000+04:00" FlightTime="290" Distance="2034" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKABg4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAUg4mTAAAAA==" AvailabilitySource="Q" Equipment="77W" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="QR" FlightNumber="1304" Origin="CAI" Destination="DOH" DepartureTime="2026-11-18T13:05:00.000+02:00" ArrivalTime="2026-11-18T17:10:00.000+03:00" FlightTime="185" Distance="1279" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAVg4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAWg4mTAAAAA==" AvailabilitySource="Q" Equipment="359" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="QR" FlightNumber="1014" Origin="DOH" Destination="DXB" DepartureTime="2026-11-18T18:35:00.000+03:00" ArrivalTime="2026-11-18T20:55:00.000+04:00" FlightTime="80" Distance="229" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAXg4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKA7g4mTAAAAA==" AvailabilitySource="Q" Equipment="77W" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="QR" FlightNumber="1018" Origin="DOH" Destination="DXB" DepartureTime="2026-11-18T18:55:00.000+03:00" ArrivalTime="2026-11-18T21:15:00.000+04:00" FlightTime="80" Distance="229" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA8g4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKACh4mTAAAAA==" AvailabilitySource="A" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="XY" FlightNumber="566" Origin="CAI" Destination="JED" DepartureTime="2026-11-18T08:20:00.000+02:00" ArrivalTime="2026-11-18T11:30:00.000+03:00" FlightTime="130" Distance="769" ParticipantLevel="Secure Sell" PolledAvailabilityOption="No polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKADh4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAEh4mTAAAAA==" AvailabilitySource="A" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="XY" FlightNumber="509" Origin="JED" Destination="DXB" DepartureTime="2026-11-18T14:30:00.000+03:00" ArrivalTime="2026-11-18T18:30:00.000+04:00" FlightTime="180" Distance="1048" ParticipantLevel="Secure Sell" PolledAvailabilityOption="No polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAFh4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAZh4mTAAAAA==" AvailabilitySource="A" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="XY" FlightNumber="264" Origin="CAI" Destination="RUH" DepartureTime="2026-11-18T10:50:00.000+02:00" ArrivalTime="2026-11-18T13:35:00.000+03:00" FlightTime="105" Distance="1003" ParticipantLevel="Secure Sell" PolledAvailabilityOption="No polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAah4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAbh4mTAAAAA==" AvailabilitySource="A" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="XY" FlightNumber="207" Origin="RUH" Destination="DXB" DepartureTime="2026-11-18T15:50:00.000+03:00" ArrivalTime="2026-11-18T18:50:00.000+04:00" FlightTime="120" Distance="536" ParticipantLevel="Secure Sell" PolledAvailabilityOption="No polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAch4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAFi4mTAAAAA==" AvailabilitySource="A" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="XY" FlightNumber="274" Origin="CAI" Destination="RUH" DepartureTime="2026-11-18T12:10:00.000+02:00" ArrivalTime="2026-11-18T15:45:00.000+03:00" FlightTime="155" Distance="1003" ParticipantLevel="Secure Sell" PolledAvailabilityOption="No polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAGi4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAHi4mTAAAAA==" AvailabilitySource="A" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="XY" FlightNumber="209" Origin="RUH" Destination="DXB" DepartureTime="2026-11-18T17:45:00.000+03:00" ArrivalTime="2026-11-18T20:45:00.000+04:00" FlightTime="120" Distance="536" ParticipantLevel="Secure Sell" PolledAvailabilityOption="No polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAIi4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKA9h4mTAAAAA==" AvailabilitySource="A" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="XY" FlightNumber="895" Origin="CAI" Destination="DMM" DepartureTime="2026-11-18T23:25:00.000+02:00" ArrivalTime="2026-11-19T03:15:00.000+03:00" FlightTime="170" Distance="1147" ParticipantLevel="Secure Sell" PolledAvailabilityOption="No polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKA+h4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAAi4mTAAAAA==" AvailabilitySource="A" Equipment="32N" OptionalServicesIndicator="false" ETicketability="Yes" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="XY" FlightNumber="811" Origin="DMM" Destination="DXB" DepartureTime="2026-11-19T08:25:00.000+03:00" ArrivalTime="2026-11-19T10:55:00.000+04:00" FlightTime="90" Distance="353" ParticipantLevel="Secure Sell" PolledAvailabilityOption="No polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKABi4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAui4mTAAAAA==" AvailabilitySource="P" Equipment="788" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="ET" FlightNumber="453" Origin="CAI" Destination="ADD" DepartureTime="2026-11-18T02:20:00.000+02:00" ArrivalTime="2026-11-18T07:10:00.000+03:00" FlightTime="230" Distance="1538" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAvi4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAwi4mTAAAAA==" AvailabilitySource="P" Equipment="77W" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="ET" FlightNumber="602" Origin="ADD" Destination="DXB" DepartureTime="2026-11-18T10:30:00.000+03:00" ArrivalTime="2026-11-18T15:45:00.000+04:00" FlightTime="255" Distance="1552" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAxi4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAFj4mTAAAAA==" AvailabilitySource="Q" Equipment="7M8" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="WY" FlightNumber="408" Origin="CAI" Destination="MCT" DepartureTime="2026-11-18T01:15:00.000+02:00" ArrivalTime="2026-11-18T06:55:00.000+04:00" FlightTime="220" Distance="1728" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAGj4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAHj4mTAAAAA==" AvailabilitySource="Q" Equipment="7M8" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="WY" FlightNumber="603" Origin="MCT" Destination="DXB" DepartureTime="2026-11-18T08:50:00.000+04:00" ArrivalTime="2026-11-18T10:00:00.000+04:00" FlightTime="70" Distance="230" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAIj4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAdj4mTAAAAA==" AvailabilitySource="P" Equipment="7M8" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="AT" FlightNumber="273" Origin="CAI" Destination="CMN" DepartureTime="2026-11-18T08:40:00.000+02:00" ArrivalTime="2026-11-18T12:35:00.000+01:00" FlightTime="355" Distance="2289" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAej4mTAAAAA==" />
+    </AirSegment>
+    <AirSegment Key="nDOS+DTqWDKAfj4mTAAAAA==" AvailabilitySource="P" Equipment="388" OptionalServicesIndicator="false" ETicketability="Yes" LinkAvailability="true" AvailabilityDisplayType="Fare Shop/Optimal Shop" Group="0" Carrier="AT" FlightNumber="9900" Origin="CMN" Destination="DXB" DepartureTime="2026-11-18T14:10:00.000+01:00" ArrivalTime="2026-11-19T01:40:00.000+04:00" FlightTime="450" Distance="3777" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Cached status used. Polled avail exists">
+      <CodeshareInfo OperatingCarrier="EK" OperatingFlightNumber="752">EMIRATES AIRLINES</CodeshareInfo>
+      <AirAvailInfo ProviderCode="1G" />
+      <FlightDetailsRef Key="nDOS+DTqWDKAgj4mTAAAAA==" />
+    </AirSegment>
+  </AirSegmentList>
+  <FareInfoList xmlns="http://www.travelport.com/schema/air_v52_0">
+    <FareInfo NotValidAfter="2026-11-19" NotValidBefore="2026-11-19" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED610" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KOWEG1" Key="nDOS+DTqWDKAQa4mTAAAAA==">
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAQa4mTAAAAA==" ProviderCode="1G">gws-eJxNTkEOgzAMewzyPS6iZbd2pbAJqbsMbVz2/2csDUxapMSOnDiJMTpxnkLG/+jw6dYNdctAhdOc3lfQh/ECardDhAnr41UWwizIUYVq4oG0sTzkoIBZZh5SC+xWc7o3J/MVJWiH0ahu4EfKTWlN07MsQul7R5HBn6IE6Ke69wUPOiwM</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKALn4mTAAAAA==" BrandID="2154962" BrandTier="0005" />
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED940" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KSSOSEG1" Key="nDOS+DTqWDKATb4mTAAAAA==">
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKATb4mTAAAAA==" ProviderCode="1G">gws-eJxNTkEOwzAIe0zlO1Bl2TFZmq5VpeyQTVov+/8z5iSaNCTAYDCEEEzsoqIa/m3CZ8oHyisBBUZf3jeYcyJQVidENOKo9VHzXdFFVK+kSqdH1j6YXPJMWHWVQTXD2WOKO7mhLBRFO40G2cAP5I2wxOXJYyLz7G2Mt+jBT7n1BRDXLAM=</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKANn4mTAAAAA==" BrandID="1380518" BrandTier="0003" />
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED540" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KLPXEG1" Key="nDOS+DTqWDKAkc4mTAAAAA==">
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAkc4mTAAAAA==" ProviderCode="1G">gws-eJxNTssOwjAM+5jJd7uDlWNHW8ZL1YRA2i78/2eQdiARKYkTJ05CCI5uEKXwbx3e3eOK8opAgTNPyxHaDSRk1QpSI273ecmT0DSkgzGlsVtWm4v76C0h+ZM2qhrWFuN4qVJNmAZQL6NCa+AH8tlgGdMzT7PY96RzX4oe9qhtfQDgyCvl</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKAPn4mTAAAAA==" BrandID="2114763" BrandTier="0004" />
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED940" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KAOXEGB4" Key="nDOS+DTqWDKAkd4mTAAAAA==">
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAkd4mTAAAAA==" ProviderCode="1G">gws-eJxNjksKwzAMRA8TZi/ZSdPu7Cjph4K76Idkk/sfo2OZQgWWRjxp5JRSkHBQUU3/0WHvnh+UtwEFgW9eJ4QhniKU3QYRzbjnx7pcph5uonokKo5bVR+0wUYWWDj3DdXA5tnyjaw5C01RT6NKbuAnlitlyfOrXpMYfbIhGcGfcusLHoUsPQ==</FareRuleKey>
+      <Brand Key="nDOS+DTqWDKARn4mTAAAAA==" BrandID="2142233" BrandTier="0014" UpSellBrandID="2142231">
+        <UpsellBrand FareBasis="KAOXEGF4" FareInfoRef="nDOS+DTqWDKABk4mTAAAAA==" />
+      </Brand>
+    </FareInfo>
+    <FareInfo PseudoCityCode="8JY1" NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" TourCode="SOTOAE47" NegotiatedFare="false" PrivateFare="AirlinePrivateFare" Amount="AED830" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KREEGO" Key="nDOS+DTqWDKA1e4mTAAAAA==">
+      <FareTicketDesignator Value="COMM" />
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKA1e4mTAAAAA==" ProviderCode="1G">gws-eJxNT8sOwyAM+5jK94TQArd2lG7dg0l7aVz2/5+xQKVpRiQSDo49jqMhMzAxj//ogKIH83t3XpHB0OIHw84J4I+lPRDrTDqgNp1EnubHSwLJlKwjYlJICM4Gb42V/qfQBJRkdJc78jNWNaO3qhghY1QzqyqJdzjdUtpf0Ywye33OjdxqXU4UOfbasNjFbVQFSs4lI06rcpvuthUfTVjtERTENoQaBC1Ccy/SWGIXfA2qPvXXF5fJQas=</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKATn4mTAAAAA==" BrandID="1730060" BrandTier="0003" />
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED1310" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KBLIT3EG" Key="nDOS+DTqWDKA5f4mTAAAAA==">
+      <FareSurcharge Key="nDOS+DTqWDKA6f4mTAAAAA==" Type="Other" Amount="NUC25.00" />
+      <BaggageAllowance>
+        <MaxWeight Value="35" Unit="Kilograms" />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKA5f4mTAAAAA==" ProviderCode="1G">gws-eJxNjksOwjAMRA9Tzd6O5RZ2+RIqUBaoSHTD/Y+Bk4KEpcRjv7ET770jNzMx+/+Y8J7qBe2ZgAZnJ78iRJgIbNUOIg64xfu6SakYS5hPhtrAR+ZhTJoWS0gunw/UA/u4U1iNic5mIFuK/jS6tAZ+olxNtpC3UuODRFSVqnwhLbC/2twHXrkslw==</FareRuleKey>
+      <Brand Key="nDOS+DTqWDKAVn4mTAAAAA==" BrandID="2135500" BrandTier="0002" UpSellBrandID="2135499">
+        <UpsellBrand FareBasis="KBSMR3EG" FareInfoRef="nDOS+DTqWDKAFl4mTAAAAA==" />
+      </Brand>
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED1480" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KNFLXLC" Key="nDOS+DTqWDKAQg4mTAAAAA==">
+      <BaggageAllowance>
+        <NumberOfPieces>0</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAQg4mTAAAAA==" ProviderCode="1G">gws-eJxNjsEOAiEMRD9mM/cWFvQIghuNm3rRZPfi/3+GA6yJTUoHXjslpeTERRXV9B8TPlP2sHcBDI5ZtwtmleihvO0Q0YyHLeu2FnQP1TOJdTqq9r4aa2BBmZcwUAvs/Sz5TjaMhZ5om9EkJ/AT1xul5fp6Wg3ifeBj1gPKCfwq574tZywu</FareRuleKey>
+      <Brand Key="nDOS+DTqWDKAXn4mTAAAAA==" BrandID="2117885" BrandTier="0003" UpSellBrandID="2117884">
+        <UpsellBrand FareBasis="KNCMFLC" FareInfoRef="nDOS+DTqWDKAXl4mTAAAAA==" />
+      </Brand>
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED1390" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KLR0R1SI" Key="nDOS+DTqWDKAog4mTAAAAA==">
+      <FareSurcharge Key="nDOS+DTqWDKA9g4mTAAAAA==" Type="Other" Amount="NUC5.00" />
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAog4mTAAAAA==" ProviderCode="1G">gws-eJxNjtEKwjAMRT9m3PekBbu9ta4Tx0bBqGBf/P/P8LZTMNDmNuc2SYzRiTupqMb/GPAebobynIECx5NfZ/jgRKB8VYhowrabmN5X9CaqI1Hp+MjajXlaRibk6SIHaoHa7zmtZD4EGoRN0UajSRbwE8uVsqT8sGp0e9bcF0kAN+WvDx1+LF0=</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKAZn4mTAAAAA==" BrandID="2110862" BrandTier="0003" />
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED1690" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KVALOWC" Key="nDOS+DTqWDKAVh4mTAAAAA==">
+      <BaggageAllowance>
+        <MaxWeight Value="30" Unit="Kilograms" />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAVh4mTAAAAA==" ProviderCode="1G">gws-eJxNjk0OAiEMhQ8zefsWHIclWEjGaOrGH9h4/2NYQBOblD742ldijI7ckYk5/seC91Ib9CGAwlnmesJhDURguzUQccLlma63l2B4MAcjOuisPPrE59UKylbCRD3QxinpbGwak3mib0aX9oCfKLtJTfkuWht5b90s+oW0wb5qcx9l+C0F</FareRuleKey>
+      <Brand Key="nDOS+DTqWDKAbn4mTAAAAA==" BrandID="2027789" BrandTier="0002" UpSellBrandID="2027788">
+        <UpsellBrand FareBasis="KPLUOWC" FareInfoRef="nDOS+DTqWDKAql4mTAAAAA==" />
+      </Brand>
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-19" NotValidBefore="2026-11-19" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED1870" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KVALOWC" Key="nDOS+DTqWDKAsh4mTAAAAA==">
+      <BaggageAllowance>
+        <MaxWeight Value="30" Unit="Kilograms" />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAsh4mTAAAAA==" ProviderCode="1G">gws-eJxNjk0OQiEMhA/zMvsW8oQlWEg0mrrxBzbe/xgW0MQmbQc+mDal5MgdmJjTf2x4b61DHwIonGVpR+wUiMB26iDijMszX28vwfRgjkZ00tV5vhNfdmuoocaFRqDPKvlsbBmTeWJMxpB2gZ+oJ5Oay120dfI+EjnRL6QAW9X+fQBhoCz8</FareRuleKey>
+      <Brand Key="nDOS+DTqWDKAdn4mTAAAAA==" BrandID="2027789" BrandTier="0002" UpSellBrandID="2027788">
+        <UpsellBrand FareBasis="KPLUOWC" FareInfoRef="nDOS+DTqWDKA9l4mTAAAAA==" />
+      </Brand>
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED2360" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KOWEG" Key="nDOS+DTqWDKAAj4mTAAAAA==">
+      <FareSurcharge Key="nDOS+DTqWDKABj4mTAAAAA==" Type="Other" Amount="NUC42.86" />
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAAj4mTAAAAA==" ProviderCode="1G">gws-eJxNTssOwjAM+5jJ9yRVO44tXTQQUrkMwS78/2fgdiARKbET55VzNrGkopr/bcJ78g3tUYEGoy+vM5JaiFBmO0S04HZ/+oqxQfXEehvagTq6aqyRAOJ8SN2wj1jLlVqK0ZQoin4XnXICP+IX0laWzd1XCSGwOH81Ev7JsQ+ujyur</FareRuleKey>
+      <Brand UpSellBrandFound="false" BrandFound="false" Key="nDOS+DTqWDKAfn4mTAAAAA==" />
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED2880" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KCMOEG" Key="nDOS+DTqWDKAYj4mTAAAAA==">
+      <FareSurcharge Key="nDOS+DTqWDKAZj4mTAAAAA==" Type="Other" Amount="NUC20.00" />
+      <BaggageAllowance>
+        <MaxWeight Value="30" Unit="Kilograms" />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAYj4mTAAAAA==" ProviderCode="1G">gws-eJxNjs0OAiEMhB9mM/cpxGW9gV2CxoiJP9G97Ps/hoXVxCZtBz6YNsbo6EahSPyPAevwWlCfClQ4y/l9QBg9CbHTAlISznq55oJuITIZqB1uXfoz3WmwBg3ZbagFll41nYyFqfnSLNEGo0m7wE/ko8ma5kcu5U7vPR1v+y9kgG1q/z4cDyx3</FareRuleKey>
+      <Brand Key="nDOS+DTqWDKAhn4mTAAAAA==" BrandID="2070937" BrandTier="0001" UpSellBrandID="2070936">
+        <UpsellBrand FareBasis="KFXOEG" FareInfoRef="nDOS+DTqWDKAGn4mTAAAAA==" />
+      </Brand>
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED1350" DepartureDate="2026-11-18" Destination="CMN" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KA0RE2MA" Key="nDOS+DTqWDKAuj4mTAAAAA==">
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAuj4mTAAAAA==" ProviderCode="1G">gws-eJxNjrEOwjAMRD+muv2clpYxVtoKhJIBlaEL//8ZXBKQsOT4omefHWMMDLPRLP7HgPfgB8orAQVBmXLBuIwXwvQ7QdqMh/O5hexoJmZXodJwr9Ya1ymZCnbu1lENnO1NfhfrzpQp6mpUqQn8xHaTLL4e2WnkpHv5RVygSzX1Ae8lK8Q=</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKAjn4mTAAAAA==" BrandID="1975462" BrandTier="0003" />
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED2490" DepartureDate="2026-11-18" Destination="DXB" Origin="CMN" PassengerTypeCode="ADT" FareBasis="KA0RE22A" Key="nDOS+DTqWDKAvj4mTAAAAA==">
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAvj4mTAAAAA==" ProviderCode="1G">gws-eJxNjsEKwyAQRD8mzH12a21602pCoMRDSaG59P8/o6umkAHdkbc7awhBqV4oEs4a8B3ihvJOQIHayZ8H/N1dxvbaQYrHM/I1qUa0EJHRUGm4V2mN2SWxgpmzdlSFvd1pLcZ6Mi0UdTWqtQn8zbSYLTFva6SS7mo6EG+wn9rUD/J+K+c=</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKAln4mTAAAAA==" BrandID="1975462" BrandTier="0003" />
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED1360" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KAOXEGF4" Key="nDOS+DTqWDKABk4mTAAAAA==">
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKABk4mTAAAAA==" ProviderCode="1G">gws-eJxNjksOwyAMRA8Tzd6GhmQJddKPKtFFP0o2vf8xOhhVqiXwoDcek3MOEpKKav6vAZ/h8UZ9GVAReJbtiJhmHaF87RDRglu5b+v5dICHqM5E1XHv6kYbbWKDJTodtcLut5UrWU8WhqKtRpOcwE+sF8palmfbJjG6syOZwJ9y6gsjaSxL</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKAnn4mTAAAAA==" BrandID="2142231" BrandTier="0016" />
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED1380" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KBSMR3EG" Key="nDOS+DTqWDKAFl4mTAAAAA==">
+      <BaggageAllowance>
+        <MaxWeight Value="40" Unit="Kilograms" />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAFl4mTAAAAA==" ProviderCode="1G">gws-eJxNjksOwjAMRA9Tzd6OFQK7fAkIkUUBiW64/zHqpFSqJXsmeYlt770hc2Ji9seY8JvqFe2TgAajmb8RYokIrKcFRBzwiK/nLKViNGE+K2oDb8rjYbLJqSCZfNlQDyyjpnBXJk5bqxKjj0a3eoHdlJvaFvK71DiTiLWWqvwhOeiu+m8FZJQsog==</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKApn4mTAAAAA==" BrandID="2135499" BrandTier="0003" />
+    </FareInfo>
+    <FareInfo EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED1610" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KNCMFLC" Key="nDOS+DTqWDKAXl4mTAAAAA==">
+      <BaggageAllowance>
+        <NumberOfPieces>1</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAXl4mTAAAAA==" ProviderCode="1G">gws-eJxNjkEOAjEIRQ8z+Xso7eiylTpxMoobTZyN9z+GtNVEEuCTV37JOQcKMxNz/o8J76kI7KmAIXjW1wkxpihgn3YQccFmeluuiu7BfHRinY7O/V2da/IGjYsM1AJ7r1pWZ8OY3BPtZzTpG/iJ88Wllfq4WxUSSUSp8BfSAX6q730AJ1ksJw==</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKArn4mTAAAAA==" BrandID="2117884" BrandTier="0004" />
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED1690" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KPLUOWC" Key="nDOS+DTqWDKAql4mTAAAAA==">
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAql4mTAAAAA==" ProviderCode="1G">gws-eJxNjsEOAiEMRD9mM/cOqMsR7GI0GvTgxuXi/3+GBTSxSenAa6fEGJ24A4WM/zHhPW0VZVWgwFku2xG7fRAB7VYhwoTr47beX4ruQQYjpdNR2fvUn2gFec5hoBao/dR0MTaMxTzRNqNJe8BP5LPJkpancqvivXVTyxfKDPuqzX0AaZss9A==</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKAtn4mTAAAAA==" BrandID="2027788" BrandTier="0003" />
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-19" NotValidBefore="2026-11-19" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED1870" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KPLUOWC" Key="nDOS+DTqWDKA9l4mTAAAAA==">
+      <BaggageAllowance>
+        <NumberOfPieces>2</NumberOfPieces>
+        <MaxWeight />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKA9l4mTAAAAA==" ProviderCode="1G">gws-eJxNjsEOAiEMRD9mM/cpROEIsmw0GvTgRrj4/59hAU1s0nbgwbQhBENzFIqE/1jwXmpD2RNQYDTXesKBjoToqYGUiOvjtt9fCcNDxCspg84u412ym2hDdtlP1ANt1BQvyqYx1RN9MrrUC/xEPqsscX0mqY3WetKk8oV00FX13wdlQyzr</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKAvn4mTAAAAA==" BrandID="2027788" BrandTier="0003" />
+    </FareInfo>
+    <FareInfo NotValidAfter="2026-11-18" NotValidBefore="2026-11-18" EffectiveDate="2026-10-11T17:01:00.000+04:00" NegotiatedFare="false" Amount="AED3350" DepartureDate="2026-11-18" Destination="DXB" Origin="CAI" PassengerTypeCode="ADT" FareBasis="KFXOEG" Key="nDOS+DTqWDKAGn4mTAAAAA==">
+      <BaggageAllowance>
+        <MaxWeight Value="40" Unit="Kilograms" />
+      </BaggageAllowance>
+      <FareRuleKey FareInfoRef="nDOS+DTqWDKAGn4mTAAAAA==" ProviderCode="1G">gws-eJxNjs0OAiEMhB9mM/cpRFluIItoTDDxJy4X3/8xLKwmNmk78MG0IQRDsxeKhP+Y8J5eDfWZgAqjuawHzF5IiJ4aSIm4HNdrLhgWIrOCOuDWZTxLu+S0IblsNtQDbdQUz8q8dF+qJfpgdKkX+Il8Ulnj8sil3GmtpeHNfyEddFP99wEjCiyA</FareRuleKey>
+      <Brand UpSellBrandFound="false" Key="nDOS+DTqWDKAxn4mTAAAAA==" BrandID="2070936" BrandTier="0002" />
+    </FareInfo>
+  </FareInfoList>
+  <RouteList xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Route Key="nDOS+DTqWDKAJn4mTAAAAA==">
+      <Leg Key="nDOS+DTqWDKA9Z4mTAAAAA==" Group="0" Origin="CAI" Destination="DXB" />
+    </Route>
+  </RouteList>
+  <AirPricingSolution Key="nDOS+DTqWDKA4Z4mTAAAAA==" TotalPrice="AED1065" BasePrice="EGP8280.00" ApproximateTotalPrice="AED1065" ApproximateBasePrice="AED610" EquivalentBasePrice="AED610" Taxes="AED455" ApproximateTaxes="AED455" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT5H5M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKA5Z4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKA7Z4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="KU" Refundable="true" BasePrice="EGP8280.00" Key="nDOS+DTqWDKA+Z4mTAAAAA==" TotalPrice="AED1065" ApproximateTotalPrice="AED1065" ApproximateBasePrice="AED610" EquivalentBasePrice="AED610" Taxes="AED455" ApproximateTaxes="AED455" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAQa4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAQa4mTAAAAA==" SegmentRef="nDOS+DTqWDKA5Z4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAQa4mTAAAAA==" SegmentRef="nDOS+DTqWDKA7Z4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKA/Z4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAAa4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKABa4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKACa4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKADa4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAEa4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAFa4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAGa4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAHa4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="GZ" Key="nDOS+DTqWDKAIa4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="L2" Key="nDOS+DTqWDKAJa4mTAAAAA==" />
+      <TaxInfo Amount="AED40" Category="N4" Key="nDOS+DTqWDKAKa4mTAAAAA==" />
+      <TaxInfo Amount="AED30" Category="W6" Key="nDOS+DTqWDKALa4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="Y1" Key="nDOS+DTqWDKAMa4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="YX" Key="nDOS+DTqWDKANa4mTAAAAA==" />
+      <TaxInfo Amount="AED60" Category="YR" Key="nDOS+DTqWDKAOa4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="6H" Key="nDOS+DTqWDKAPa4mTAAAAA==" />
+      <FareCalc>CAI KU X/KWI KU DXB 167.89KOWEG1 NUC167.89END ROE49.316</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Before Departure">
+        <Amount>AED80.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Before Departure">
+        <Amount>AED180.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAra4mTAAAAA==" TotalPrice="AED1065" BasePrice="EGP8280.00" ApproximateTotalPrice="AED1065" ApproximateBasePrice="AED610" EquivalentBasePrice="AED610" Taxes="AED455" ApproximateTaxes="AED455" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT7H40M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAsa4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAua4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="KU" Refundable="true" BasePrice="EGP8280.00" Key="nDOS+DTqWDKAwa4mTAAAAA==" TotalPrice="AED1065" ApproximateTotalPrice="AED1065" ApproximateBasePrice="AED610" EquivalentBasePrice="AED610" Taxes="AED455" ApproximateTaxes="AED455" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAQa4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAQa4mTAAAAA==" SegmentRef="nDOS+DTqWDKAsa4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAQa4mTAAAAA==" SegmentRef="nDOS+DTqWDKAua4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAxa4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAya4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAza4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKA0a4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKA1a4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKA2a4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKA3a4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKA4a4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKA5a4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="GZ" Key="nDOS+DTqWDKA6a4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="L2" Key="nDOS+DTqWDKA7a4mTAAAAA==" />
+      <TaxInfo Amount="AED40" Category="N4" Key="nDOS+DTqWDKA8a4mTAAAAA==" />
+      <TaxInfo Amount="AED30" Category="W6" Key="nDOS+DTqWDKA9a4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="Y1" Key="nDOS+DTqWDKA+a4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="YX" Key="nDOS+DTqWDKA/a4mTAAAAA==" />
+      <TaxInfo Amount="AED60" Category="YR" Key="nDOS+DTqWDKAAb4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="6H" Key="nDOS+DTqWDKABb4mTAAAAA==" />
+      <FareCalc>CAI KU X/KWI KU DXB 167.89KOWEG1 NUC167.89END ROE49.316</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Before Departure">
+        <Amount>AED80.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Before Departure">
+        <Amount>AED180.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAEb4mTAAAAA==" TotalPrice="AED1065" BasePrice="EGP8280.00" ApproximateTotalPrice="AED1065" ApproximateBasePrice="AED610" EquivalentBasePrice="AED610" Taxes="AED455" ApproximateTaxes="AED455" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT8H30M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAka4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAna4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="KU" Refundable="true" BasePrice="EGP8280.00" Key="nDOS+DTqWDKARa4mTAAAAA==" TotalPrice="AED1065" ApproximateTotalPrice="AED1065" ApproximateBasePrice="AED610" EquivalentBasePrice="AED610" Taxes="AED455" ApproximateTaxes="AED455" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAQa4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAQa4mTAAAAA==" SegmentRef="nDOS+DTqWDKAka4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAQa4mTAAAAA==" SegmentRef="nDOS+DTqWDKAna4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKASa4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKATa4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAUa4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAVa4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAWa4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAXa4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAYa4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAZa4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAaa4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="GZ" Key="nDOS+DTqWDKAba4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="L2" Key="nDOS+DTqWDKAca4mTAAAAA==" />
+      <TaxInfo Amount="AED40" Category="N4" Key="nDOS+DTqWDKAda4mTAAAAA==" />
+      <TaxInfo Amount="AED30" Category="W6" Key="nDOS+DTqWDKAea4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="Y1" Key="nDOS+DTqWDKAfa4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="YX" Key="nDOS+DTqWDKAga4mTAAAAA==" />
+      <TaxInfo Amount="AED60" Category="YR" Key="nDOS+DTqWDKAha4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="6H" Key="nDOS+DTqWDKAia4mTAAAAA==" />
+      <FareCalc>CAI KU X/KWI KU DXB 167.89KOWEG1 NUC167.89END ROE49.316</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Before Departure">
+        <Amount>AED80.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Before Departure">
+        <Amount>AED180.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAFb4mTAAAAA==" TotalPrice="AED1325" BasePrice="USD255.00" ApproximateTotalPrice="AED1325" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED385" ApproximateTaxes="AED385" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT3H15M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAGb4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="EK" Refundable="true" BasePrice="USD255.00" Key="nDOS+DTqWDKAIb4mTAAAAA==" TotalPrice="AED1325" ApproximateTotalPrice="AED1325" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED385" ApproximateTaxes="AED385" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKATb4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKATb4mTAAAAA==" SegmentRef="nDOS+DTqWDKAGb4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAJb4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAKb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKALb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAMb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKANb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAOb4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAPb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAQb4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKARb4mTAAAAA==" />
+      <TaxInfo Amount="AED190" Category="YQ" Key="nDOS+DTqWDKASb4mTAAAAA==" />
+      <FareCalc>CAI EK DXB 255.00KSSOSEG1 NUC255.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED100.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED190.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAjb4mTAAAAA==" TotalPrice="AED1325" BasePrice="USD255.00" ApproximateTotalPrice="AED1325" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED385" ApproximateTaxes="AED385" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT3H15M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAkb4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="EK" Refundable="true" BasePrice="USD255.00" Key="nDOS+DTqWDKAmb4mTAAAAA==" TotalPrice="AED1325" ApproximateTotalPrice="AED1325" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED385" ApproximateTaxes="AED385" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKATb4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKATb4mTAAAAA==" SegmentRef="nDOS+DTqWDKAkb4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAnb4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAob4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKApb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAqb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKArb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAsb4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAtb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAub4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAvb4mTAAAAA==" />
+      <TaxInfo Amount="AED190" Category="YQ" Key="nDOS+DTqWDKAwb4mTAAAAA==" />
+      <FareCalc>CAI EK DXB 255.00KSSOSEG1 NUC255.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED100.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED190.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAyb4mTAAAAA==" TotalPrice="AED1325" BasePrice="USD255.00" ApproximateTotalPrice="AED1325" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED385" ApproximateTaxes="AED385" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT3H15M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAzb4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="EK" Refundable="true" BasePrice="USD255.00" Key="nDOS+DTqWDKA1b4mTAAAAA==" TotalPrice="AED1325" ApproximateTotalPrice="AED1325" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED385" ApproximateTaxes="AED385" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKATb4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKATb4mTAAAAA==" SegmentRef="nDOS+DTqWDKAzb4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKA2b4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKA3b4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKA4b4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKA5b4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKA6b4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKA7b4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKA8b4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKA9b4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKA+b4mTAAAAA==" />
+      <TaxInfo Amount="AED190" Category="YQ" Key="nDOS+DTqWDKA/b4mTAAAAA==" />
+      <FareCalc>CAI EK DXB 255.00KSSOSEG1 NUC255.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED100.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED190.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKABc4mTAAAAA==" TotalPrice="AED1325" BasePrice="USD255.00" ApproximateTotalPrice="AED1325" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED385" ApproximateTaxes="AED385" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT3H15M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKACc4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="EK" Refundable="true" BasePrice="USD255.00" Key="nDOS+DTqWDKAEc4mTAAAAA==" TotalPrice="AED1325" ApproximateTotalPrice="AED1325" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED385" ApproximateTaxes="AED385" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKATb4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKATb4mTAAAAA==" SegmentRef="nDOS+DTqWDKACc4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAFc4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAGc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAHc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAIc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAJc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAKc4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKALc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAMc4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKANc4mTAAAAA==" />
+      <TaxInfo Amount="AED190" Category="YQ" Key="nDOS+DTqWDKAOc4mTAAAAA==" />
+      <FareCalc>CAI EK DXB 255.00KSSOSEG1 NUC255.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED100.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED190.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAQc4mTAAAAA==" TotalPrice="AED1325" BasePrice="USD255.00" ApproximateTotalPrice="AED1325" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED385" ApproximateTaxes="AED385" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT3H20M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAgb4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="EK" Refundable="true" BasePrice="USD255.00" Key="nDOS+DTqWDKAUb4mTAAAAA==" TotalPrice="AED1325" ApproximateTotalPrice="AED1325" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED385" ApproximateTaxes="AED385" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKATb4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKATb4mTAAAAA==" SegmentRef="nDOS+DTqWDKAgb4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAVb4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAWb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAXb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAYb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAZb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAab4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAbb4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAcb4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAdb4mTAAAAA==" />
+      <TaxInfo Amount="AED190" Category="YQ" Key="nDOS+DTqWDKAeb4mTAAAAA==" />
+      <FareCalc>CAI EK DXB 255.00KSSOSEG1 NUC255.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED100.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED190.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKARc4mTAAAAA==" TotalPrice="AED1415" BasePrice="USD146.00" ApproximateTotalPrice="AED1415" ApproximateBasePrice="AED540" EquivalentBasePrice="AED540" Taxes="AED875" ApproximateTaxes="AED875" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT5H30M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKASc4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAUc4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="RJ" Refundable="true" BasePrice="USD146.00" Key="nDOS+DTqWDKAWc4mTAAAAA==" TotalPrice="AED1415" ApproximateTotalPrice="AED1415" ApproximateBasePrice="AED540" EquivalentBasePrice="AED540" Taxes="AED875" ApproximateTaxes="AED875" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAkc4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkc4mTAAAAA==" SegmentRef="nDOS+DTqWDKASc4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkc4mTAAAAA==" SegmentRef="nDOS+DTqWDKAUc4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAXc4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAYc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAZc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAac4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAbc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAcc4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAdc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAec4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAfc4mTAAAAA==" />
+      <TaxInfo Amount="AED40" Category="KJ" Key="nDOS+DTqWDKAgc4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="O7" Key="nDOS+DTqWDKAhc4mTAAAAA==" />
+      <TaxInfo Amount="AED30" Category="YQ" Key="nDOS+DTqWDKAic4mTAAAAA==" />
+      <TaxInfo Amount="AED590" Category="YR" Key="nDOS+DTqWDKAjc4mTAAAAA==" />
+      <FareCalc>CAI RJ X/AMM RJ DXB 146.00KLPXEG1 NUC146.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Percentage>0.00</Percentage>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Percentage>0.00</Percentage>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKA7c4mTAAAAA==" TotalPrice="AED1415" BasePrice="USD146.00" ApproximateTotalPrice="AED1415" ApproximateBasePrice="AED540" EquivalentBasePrice="AED540" Taxes="AED875" ApproximateTaxes="AED875" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT5H40M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKA8c4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKA+c4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="RJ" Refundable="true" BasePrice="USD146.00" Key="nDOS+DTqWDKAAd4mTAAAAA==" TotalPrice="AED1415" ApproximateTotalPrice="AED1415" ApproximateBasePrice="AED540" EquivalentBasePrice="AED540" Taxes="AED875" ApproximateTaxes="AED875" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAkc4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkc4mTAAAAA==" SegmentRef="nDOS+DTqWDKA8c4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkc4mTAAAAA==" SegmentRef="nDOS+DTqWDKA+c4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKABd4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKACd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKADd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAEd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAFd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAGd4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAHd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAId4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAJd4mTAAAAA==" />
+      <TaxInfo Amount="AED40" Category="KJ" Key="nDOS+DTqWDKAKd4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="O7" Key="nDOS+DTqWDKALd4mTAAAAA==" />
+      <TaxInfo Amount="AED30" Category="YQ" Key="nDOS+DTqWDKAMd4mTAAAAA==" />
+      <TaxInfo Amount="AED590" Category="YR" Key="nDOS+DTqWDKANd4mTAAAAA==" />
+      <FareCalc>CAI RJ X/AMM RJ DXB 146.00KLPXEG1 NUC146.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Percentage>0.00</Percentage>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Percentage>0.00</Percentage>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAQd4mTAAAAA==" TotalPrice="AED1415" BasePrice="USD146.00" ApproximateTotalPrice="AED1415" ApproximateBasePrice="AED540" EquivalentBasePrice="AED540" Taxes="AED875" ApproximateTaxes="AED875" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT6H20M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKA0c4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKA3c4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="RJ" Refundable="true" BasePrice="USD146.00" Key="nDOS+DTqWDKAlc4mTAAAAA==" TotalPrice="AED1415" ApproximateTotalPrice="AED1415" ApproximateBasePrice="AED540" EquivalentBasePrice="AED540" Taxes="AED875" ApproximateTaxes="AED875" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAkc4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkc4mTAAAAA==" SegmentRef="nDOS+DTqWDKA0c4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkc4mTAAAAA==" SegmentRef="nDOS+DTqWDKA3c4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAmc4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAnc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAoc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKApc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAqc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKArc4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAsc4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAtc4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAuc4mTAAAAA==" />
+      <TaxInfo Amount="AED40" Category="KJ" Key="nDOS+DTqWDKAvc4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="O7" Key="nDOS+DTqWDKAwc4mTAAAAA==" />
+      <TaxInfo Amount="AED30" Category="YQ" Key="nDOS+DTqWDKAxc4mTAAAAA==" />
+      <TaxInfo Amount="AED590" Category="YR" Key="nDOS+DTqWDKAyc4mTAAAAA==" />
+      <FareCalc>CAI RJ X/AMM RJ DXB 146.00KLPXEG1 NUC146.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Percentage>0.00</Percentage>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Percentage>0.00</Percentage>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKARd4mTAAAAA==" TotalPrice="AED1425" BasePrice="USD254.00" ApproximateTotalPrice="AED1425" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED485" ApproximateTaxes="AED485" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT6H25M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKASd4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAUd4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="SV" Refundable="true" BasePrice="USD254.00" Key="nDOS+DTqWDKAWd4mTAAAAA==" TotalPrice="AED1425" ApproximateTotalPrice="AED1425" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED485" ApproximateTaxes="AED485" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAkd4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkd4mTAAAAA==" SegmentRef="nDOS+DTqWDKASd4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkd4mTAAAAA==" SegmentRef="nDOS+DTqWDKAUd4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAXd4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAYd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAZd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAad4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAbd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAcd4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAdd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAed4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAfd4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAgd4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKAhd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAid4mTAAAAA==" />
+      <TaxInfo Amount="AED190" Category="YR" Key="nDOS+DTqWDKAjd4mTAAAAA==" />
+      <FareCalc>CAI SV X/RUH SV DXB 253.93KAOXEGB4 NUC253.93END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Before Departure">
+        <Amount>AED250.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Before Departure">
+        <Amount>AED400.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKA7d4mTAAAAA==" TotalPrice="AED1425" BasePrice="USD254.00" ApproximateTotalPrice="AED1425" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED485" ApproximateTaxes="AED485" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT6H45M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKA8d4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKA+d4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="SV" Refundable="true" BasePrice="USD254.00" Key="nDOS+DTqWDKAAe4mTAAAAA==" TotalPrice="AED1425" ApproximateTotalPrice="AED1425" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED485" ApproximateTaxes="AED485" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAkd4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkd4mTAAAAA==" SegmentRef="nDOS+DTqWDKA8d4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkd4mTAAAAA==" SegmentRef="nDOS+DTqWDKA+d4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKABe4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKACe4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKADe4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAEe4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAFe4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAGe4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAHe4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAIe4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAJe4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAKe4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKALe4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAMe4mTAAAAA==" />
+      <TaxInfo Amount="AED190" Category="YR" Key="nDOS+DTqWDKANe4mTAAAAA==" />
+      <FareCalc>CAI SV X/JED SV DXB 253.93KAOXEGB4 NUC253.93END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Before Departure">
+        <Amount>AED250.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Before Departure">
+        <Amount>AED400.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAQe4mTAAAAA==" TotalPrice="AED1425" BasePrice="USD254.00" ApproximateTotalPrice="AED1425" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED485" ApproximateTaxes="AED485" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT7H5M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKARe4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKATe4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="SV" Refundable="true" BasePrice="USD254.00" Key="nDOS+DTqWDKAVe4mTAAAAA==" TotalPrice="AED1425" ApproximateTotalPrice="AED1425" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED485" ApproximateTaxes="AED485" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAkd4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkd4mTAAAAA==" SegmentRef="nDOS+DTqWDKARe4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkd4mTAAAAA==" SegmentRef="nDOS+DTqWDKATe4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAWe4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAXe4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAYe4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAZe4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAae4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAbe4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAce4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAde4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAee4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAfe4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKAge4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAhe4mTAAAAA==" />
+      <TaxInfo Amount="AED190" Category="YR" Key="nDOS+DTqWDKAie4mTAAAAA==" />
+      <FareCalc>CAI SV X/JED SV DXB 253.93KAOXEGB4 NUC253.93END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Before Departure">
+        <Amount>AED250.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Before Departure">
+        <Amount>AED400.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAle4mTAAAAA==" TotalPrice="AED1425" BasePrice="USD254.00" ApproximateTotalPrice="AED1425" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED485" ApproximateTaxes="AED485" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT7H25M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKA0d4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKA3d4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="SV" Refundable="true" BasePrice="USD254.00" Key="nDOS+DTqWDKAld4mTAAAAA==" TotalPrice="AED1425" ApproximateTotalPrice="AED1425" ApproximateBasePrice="AED940" EquivalentBasePrice="AED940" Taxes="AED485" ApproximateTaxes="AED485" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAkd4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkd4mTAAAAA==" SegmentRef="nDOS+DTqWDKA0d4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAkd4mTAAAAA==" SegmentRef="nDOS+DTqWDKA3d4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAmd4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAnd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAod4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKApd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAqd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKArd4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAsd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAtd4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAud4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAvd4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKAwd4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAxd4mTAAAAA==" />
+      <TaxInfo Amount="AED190" Category="YR" Key="nDOS+DTqWDKAyd4mTAAAAA==" />
+      <FareCalc>CAI SV X/JED SV DXB 253.93KAOXEGB4 NUC253.93END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Before Departure">
+        <Amount>AED250.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Before Departure">
+        <Amount>AED400.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAme4mTAAAAA==" TotalPrice="AED1465" BasePrice="EGP11354.00" ApproximateTotalPrice="AED1465" ApproximateBasePrice="AED830" EquivalentBasePrice="AED830" Taxes="AED635" ApproximateTaxes="AED635" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT3H20M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAne4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="GuaranteedUsingAirlinePrivateFare" ETicketability="Yes" PlatingCarrier="MS" Refundable="true" TotalNetPrice="AED1465" BasePrice="EGP11354.00" Key="nDOS+DTqWDKApe4mTAAAAA==" TotalPrice="AED1465" ApproximateTotalPrice="AED1465" ApproximateBasePrice="AED830" EquivalentBasePrice="AED830" Taxes="AED635" ApproximateTaxes="AED635" ProviderCode="1G" Cat35Indicator="true">
+      <FareInfoRef Key="nDOS+DTqWDKA1e4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA1e4mTAAAAA==" SegmentRef="nDOS+DTqWDKAne4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAqe4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAre4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAse4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAte4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAue4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAve4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAwe4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAxe4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAye4mTAAAAA==" />
+      <TaxInfo Amount="AED120" Category="YQ" Key="nDOS+DTqWDKAze4mTAAAAA==" />
+      <TaxInfo Amount="AED320" Category="YR" Key="nDOS+DTqWDKA0e4mTAAAAA==" />
+      <FareCalc>CAI MS DXB 230.22KREEGO/COMM NUC230.22END ROE49.316</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED80.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED110.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAGf4mTAAAAA==" TotalPrice="AED1465" BasePrice="EGP11354.00" ApproximateTotalPrice="AED1465" ApproximateBasePrice="AED830" EquivalentBasePrice="AED830" Taxes="AED635" ApproximateTaxes="AED635" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT3H20M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAHf4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="GuaranteedUsingAirlinePrivateFare" ETicketability="Yes" PlatingCarrier="MS" Refundable="true" TotalNetPrice="AED1465" BasePrice="EGP11354.00" Key="nDOS+DTqWDKAJf4mTAAAAA==" TotalPrice="AED1465" ApproximateTotalPrice="AED1465" ApproximateBasePrice="AED830" EquivalentBasePrice="AED830" Taxes="AED635" ApproximateTaxes="AED635" ProviderCode="1G" Cat35Indicator="true">
+      <FareInfoRef Key="nDOS+DTqWDKA1e4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA1e4mTAAAAA==" SegmentRef="nDOS+DTqWDKAHf4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAKf4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKALf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAMf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKANf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAOf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAPf4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAQf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKARf4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKASf4mTAAAAA==" />
+      <TaxInfo Amount="AED120" Category="YQ" Key="nDOS+DTqWDKATf4mTAAAAA==" />
+      <TaxInfo Amount="AED320" Category="YR" Key="nDOS+DTqWDKAUf4mTAAAAA==" />
+      <FareCalc>CAI MS DXB 230.22KREEGO/COMM NUC230.22END ROE49.316</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED80.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED110.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAWf4mTAAAAA==" TotalPrice="AED1505" BasePrice="EGP11354.00" ApproximateTotalPrice="AED1505" ApproximateBasePrice="AED830" EquivalentBasePrice="AED830" Taxes="AED675" ApproximateTaxes="AED675" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT3H20M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAXf4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="GuaranteedUsingAirlinePrivateFare" ETicketability="Yes" PlatingCarrier="MS" Refundable="true" TotalNetPrice="AED1505" BasePrice="EGP11354.00" Key="nDOS+DTqWDKAZf4mTAAAAA==" TotalPrice="AED1505" ApproximateTotalPrice="AED1505" ApproximateBasePrice="AED830" EquivalentBasePrice="AED830" Taxes="AED675" ApproximateTaxes="AED675" ProviderCode="1G" Cat35Indicator="true">
+      <FareInfoRef Key="nDOS+DTqWDKA1e4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA1e4mTAAAAA==" SegmentRef="nDOS+DTqWDKAXf4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAaf4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAbf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAcf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAdf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAef4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAff4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAgf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAhf4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAif4mTAAAAA==" />
+      <TaxInfo Amount="AED160" Category="YQ" Key="nDOS+DTqWDKAjf4mTAAAAA==" />
+      <TaxInfo Amount="AED320" Category="YR" Key="nDOS+DTqWDKAkf4mTAAAAA==" />
+      <FareCalc>CAI MS DXB 230.22KREEGO/COMM NUC230.22END ROE49.316</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED80.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED110.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAmf4mTAAAAA==" TotalPrice="AED1505" BasePrice="EGP11354.00" ApproximateTotalPrice="AED1505" ApproximateBasePrice="AED830" EquivalentBasePrice="AED830" Taxes="AED675" ApproximateTaxes="AED675" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT3H20M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKADf4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="GuaranteedUsingAirlinePrivateFare" ETicketability="Yes" PlatingCarrier="MS" Refundable="true" TotalNetPrice="AED1505" BasePrice="EGP11354.00" Key="nDOS+DTqWDKA2e4mTAAAAA==" TotalPrice="AED1505" ApproximateTotalPrice="AED1505" ApproximateBasePrice="AED830" EquivalentBasePrice="AED830" Taxes="AED675" ApproximateTaxes="AED675" ProviderCode="1G" Cat35Indicator="true">
+      <FareInfoRef Key="nDOS+DTqWDKA1e4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA1e4mTAAAAA==" SegmentRef="nDOS+DTqWDKADf4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKA3e4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKA4e4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKA5e4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKA6e4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKA7e4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKA8e4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKA9e4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKA+e4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKA/e4mTAAAAA==" />
+      <TaxInfo Amount="AED160" Category="YQ" Key="nDOS+DTqWDKAAf4mTAAAAA==" />
+      <TaxInfo Amount="AED320" Category="YR" Key="nDOS+DTqWDKABf4mTAAAAA==" />
+      <FareCalc>CAI MS DXB 230.22KREEGO/COMM NUC230.22END ROE49.316</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED80.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED110.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAnf4mTAAAAA==" TotalPrice="AED1815" BasePrice="USD356.00" ApproximateTotalPrice="AED1815" ApproximateBasePrice="AED1310" EquivalentBasePrice="AED1310" Taxes="AED505" ApproximateTaxes="AED505" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT5H45M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAof4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAqf4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="GF" Refundable="true" BasePrice="USD356.00" Key="nDOS+DTqWDKAsf4mTAAAAA==" TotalPrice="AED1815" ApproximateTotalPrice="AED1815" ApproximateBasePrice="AED1310" EquivalentBasePrice="AED1310" Taxes="AED505" ApproximateTaxes="AED505" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKA5f4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="7" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA5f4mTAAAAA==" SegmentRef="nDOS+DTqWDKAof4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="7" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA5f4mTAAAAA==" SegmentRef="nDOS+DTqWDKAqf4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAtf4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAuf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAvf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAwf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAxf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAyf4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAzf4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKA0f4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKA1f4mTAAAAA==" />
+      <TaxInfo Amount="AED60" Category="BH" Key="nDOS+DTqWDKA2f4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="HM" Key="nDOS+DTqWDKA3f4mTAAAAA==" />
+      <TaxInfo Amount="AED240" Category="YQ" Key="nDOS+DTqWDKA4f4mTAAAAA==" />
+      <FareCalc>CAI GF X/BAH GF DXB 331.00KBLIT3EG Q CAIDXB25.00NUC356.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED370.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED630.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKA9f4mTAAAAA==" TotalPrice="AED1935" BasePrice="EGP20251.00" ApproximateTotalPrice="AED1935" ApproximateBasePrice="AED1480" EquivalentBasePrice="AED1480" Taxes="AED455" ApproximateTaxes="AED455" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT9H20M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKA+f4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAAg4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="A3" Refundable="true" BasePrice="EGP20251.00" Key="nDOS+DTqWDKACg4mTAAAAA==" TotalPrice="AED1935" ApproximateTotalPrice="AED1935" ApproximateBasePrice="AED1480" EquivalentBasePrice="AED1480" Taxes="AED455" ApproximateTaxes="AED455" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAQg4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAQg4mTAAAAA==" SegmentRef="nDOS+DTqWDKA+f4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAQg4mTAAAAA==" SegmentRef="nDOS+DTqWDKAAg4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKADg4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAEg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAFg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAGg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAHg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAIg4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAJg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAKg4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKALg4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="WP" Key="nDOS+DTqWDKAMg4mTAAAAA==" />
+      <TaxInfo Amount="AED30" Category="WQ" Key="nDOS+DTqWDKANg4mTAAAAA==" />
+      <TaxInfo Amount="AED40" Category="YQ" Key="nDOS+DTqWDKAOg4mTAAAAA==" />
+      <TaxInfo Amount="AED120" Category="YR" Key="nDOS+DTqWDKAPg4mTAAAAA==" />
+      <FareCalc>CAI A3 X/ATH A3 DXB 410.63KNFLXLC NUC410.63END ROE49.316</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Before Departure">
+        <Percentage>0.00</Percentage>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED340.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKATg4mTAAAAA==" TotalPrice="AED2175" BasePrice="USD377.00" ApproximateTotalPrice="AED2175" ApproximateBasePrice="AED1390" EquivalentBasePrice="AED1390" Taxes="AED785" ApproximateTaxes="AED785" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT5H50M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAUg4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAWg4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="QR" Refundable="true" BasePrice="USD377.00" Key="nDOS+DTqWDKAYg4mTAAAAA==" TotalPrice="AED2175" ApproximateTotalPrice="AED2175" ApproximateBasePrice="AED1390" EquivalentBasePrice="AED1390" Taxes="AED785" ApproximateTaxes="AED785" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAog4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAog4mTAAAAA==" SegmentRef="nDOS+DTqWDKAUg4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAog4mTAAAAA==" SegmentRef="nDOS+DTqWDKAWg4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAZg4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAag4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAbg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAcg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAdg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAeg4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAfg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAgg4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAhg4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="G4" Key="nDOS+DTqWDKAig4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="PZ" Key="nDOS+DTqWDKAjg4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="QA" Key="nDOS+DTqWDKAkg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="R9" Key="nDOS+DTqWDKAlg4mTAAAAA==" />
+      <TaxInfo Amount="AED330" Category="YQ" Key="nDOS+DTqWDKAmg4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKAng4mTAAAAA==" />
+      <FareCalc>CAI QR X/DOH QR DXB Q CAIDXB5.00 372.00KLR0R1SI NUC377.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED100.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED220.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAAh4mTAAAAA==" TotalPrice="AED2175" BasePrice="USD377.00" ApproximateTotalPrice="AED2175" ApproximateBasePrice="AED1390" EquivalentBasePrice="AED1390" Taxes="AED785" ApproximateTaxes="AED785" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT6H10M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAUg4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKA7g4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="QR" Refundable="true" BasePrice="USD377.00" Key="nDOS+DTqWDKApg4mTAAAAA==" TotalPrice="AED2175" ApproximateTotalPrice="AED2175" ApproximateBasePrice="AED1390" EquivalentBasePrice="AED1390" Taxes="AED785" ApproximateTaxes="AED785" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAog4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAog4mTAAAAA==" SegmentRef="nDOS+DTqWDKAUg4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAog4mTAAAAA==" SegmentRef="nDOS+DTqWDKA7g4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAqg4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKArg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAsg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAtg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAug4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAvg4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAwg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAxg4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAyg4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="G4" Key="nDOS+DTqWDKAzg4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="PZ" Key="nDOS+DTqWDKA0g4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="QA" Key="nDOS+DTqWDKA1g4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="R9" Key="nDOS+DTqWDKA2g4mTAAAAA==" />
+      <TaxInfo Amount="AED330" Category="YQ" Key="nDOS+DTqWDKA3g4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKA4g4mTAAAAA==" />
+      <FareCalc>CAI QR X/DOH QR DXB Q CAIDXB5.00 372.00KLR0R1SI NUC377.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED100.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED220.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKABh4mTAAAAA==" TotalPrice="AED2505" BasePrice="USD458.00" ApproximateTotalPrice="AED2505" ApproximateBasePrice="AED1690" EquivalentBasePrice="AED1690" Taxes="AED815" ApproximateTaxes="AED815" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT8H10M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKACh4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAEh4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="XY" Refundable="true" BasePrice="USD458.00" Key="nDOS+DTqWDKAGh4mTAAAAA==" TotalPrice="AED2505" ApproximateTotalPrice="AED2505" ApproximateBasePrice="AED1690" EquivalentBasePrice="AED1690" Taxes="AED815" ApproximateTaxes="AED815" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAVh4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAVh4mTAAAAA==" SegmentRef="nDOS+DTqWDKACh4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAVh4mTAAAAA==" SegmentRef="nDOS+DTqWDKAEh4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAHh4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAIh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAJh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAKh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKALh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAMh4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKANh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAOh4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAPh4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAQh4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKARh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKASh4mTAAAAA==" />
+      <TaxInfo Amount="AED420" Category="YQ" Key="nDOS+DTqWDKATh4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKAUh4mTAAAAA==" />
+      <FareCalc>CAI XY X/JED XY DXB 458.00KVALOWC NUC458.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED190.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED300.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAYh4mTAAAAA==" TotalPrice="AED2685" BasePrice="USD507.00" ApproximateTotalPrice="AED2685" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED815" ApproximateTaxes="AED815" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT6H0M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAZh4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAbh4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="XY" Refundable="true" BasePrice="USD507.00" Key="nDOS+DTqWDKAdh4mTAAAAA==" TotalPrice="AED2685" ApproximateTotalPrice="AED2685" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED815" ApproximateTaxes="AED815" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAsh4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAsh4mTAAAAA==" SegmentRef="nDOS+DTqWDKAZh4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAsh4mTAAAAA==" SegmentRef="nDOS+DTqWDKAbh4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAeh4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAfh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAgh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAhh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAih4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAjh4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAkh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAlh4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAmh4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAnh4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKAoh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAph4mTAAAAA==" />
+      <TaxInfo Amount="AED420" Category="YQ" Key="nDOS+DTqWDKAqh4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKArh4mTAAAAA==" />
+      <FareCalc>CAI XY X/RUH XY DXB 507.00KVALOWC NUC507.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED190.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED300.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAEi4mTAAAAA==" TotalPrice="AED2685" BasePrice="USD507.00" ApproximateTotalPrice="AED2685" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED815" ApproximateTaxes="AED815" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT6H35M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAFi4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAHi4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="XY" Refundable="true" BasePrice="USD507.00" Key="nDOS+DTqWDKAJi4mTAAAAA==" TotalPrice="AED2685" ApproximateTotalPrice="AED2685" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED815" ApproximateTaxes="AED815" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAsh4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAsh4mTAAAAA==" SegmentRef="nDOS+DTqWDKAFi4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAsh4mTAAAAA==" SegmentRef="nDOS+DTqWDKAHi4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAKi4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKALi4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAMi4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKANi4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAOi4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAPi4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAQi4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKARi4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKASi4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKATi4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKAUi4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAVi4mTAAAAA==" />
+      <TaxInfo Amount="AED420" Category="YQ" Key="nDOS+DTqWDKAWi4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKAXi4mTAAAAA==" />
+      <FareCalc>CAI XY X/RUH XY DXB 507.00KVALOWC NUC507.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED190.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED300.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAai4mTAAAAA==" TotalPrice="AED2685" BasePrice="USD507.00" ApproximateTotalPrice="AED2685" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED815" ApproximateTaxes="AED815" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT7H55M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAZh4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAHi4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="XY" Refundable="true" BasePrice="USD507.00" Key="nDOS+DTqWDKAbi4mTAAAAA==" TotalPrice="AED2685" ApproximateTotalPrice="AED2685" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED815" ApproximateTaxes="AED815" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAsh4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAsh4mTAAAAA==" SegmentRef="nDOS+DTqWDKAZh4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAsh4mTAAAAA==" SegmentRef="nDOS+DTqWDKAHi4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAci4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAdi4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAei4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAfi4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAgi4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAhi4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAii4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAji4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAki4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAli4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKAmi4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAni4mTAAAAA==" />
+      <TaxInfo Amount="AED420" Category="YQ" Key="nDOS+DTqWDKAoi4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKApi4mTAAAAA==" />
+      <FareCalc>CAI XY X/RUH XY DXB 507.00KVALOWC NUC507.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED190.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED300.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAsi4mTAAAAA==" TotalPrice="AED2685" BasePrice="USD508.00" ApproximateTotalPrice="AED2685" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED815" ApproximateTaxes="AED815" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT9H30M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKA9h4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAAi4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="XY" Refundable="true" BasePrice="USD508.00" Key="nDOS+DTqWDKAth4mTAAAAA==" TotalPrice="AED2685" ApproximateTotalPrice="AED2685" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED815" ApproximateTaxes="AED815" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAsh4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAsh4mTAAAAA==" SegmentRef="nDOS+DTqWDKA9h4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAsh4mTAAAAA==" SegmentRef="nDOS+DTqWDKAAi4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAuh4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAvh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAwh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAxh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAyh4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAzh4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKA0h4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKA1h4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKA2h4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKA3h4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKA4h4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKA5h4mTAAAAA==" />
+      <TaxInfo Amount="AED420" Category="YQ" Key="nDOS+DTqWDKA6h4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKA7h4mTAAAAA==" />
+      <FareCalc>CAI XY X/DMM XY DXB 508.00KVALOWC NUC508.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED190.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED300.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAti4mTAAAAA==" TotalPrice="AED3345" BasePrice="EGP32313.00" ApproximateTotalPrice="AED3345" ApproximateBasePrice="AED2360" EquivalentBasePrice="AED2360" Taxes="AED985" ApproximateTaxes="AED985" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT11H25M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAui4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAwi4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="ET" Refundable="true" BasePrice="EGP32313.00" Key="nDOS+DTqWDKAyi4mTAAAAA==" TotalPrice="AED3345" ApproximateTotalPrice="AED3345" ApproximateBasePrice="AED2360" EquivalentBasePrice="AED2360" Taxes="AED985" ApproximateTaxes="AED985" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAAj4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="7" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAAj4mTAAAAA==" SegmentRef="nDOS+DTqWDKAui4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="7" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAAj4mTAAAAA==" SegmentRef="nDOS+DTqWDKAwi4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAzi4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKA0i4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKA1i4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKA2i4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKA3i4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKA4i4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKA5i4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKA6i4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKA7i4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="L3" Key="nDOS+DTqWDKA8i4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S2" Key="nDOS+DTqWDKA9i4mTAAAAA==" />
+      <TaxInfo Amount="AED40" Category="YQ" Key="nDOS+DTqWDKA+i4mTAAAAA==" />
+      <TaxInfo Amount="AED730" Category="YR" Key="nDOS+DTqWDKA/i4mTAAAAA==" />
+      <FareCalc>CAI ET X/ADD ET DXB 612.35KOWEG Q CAIDXB42.86NUC655.21END ROE49.316</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED370.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED370.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAEj4mTAAAAA==" TotalPrice="AED3425" BasePrice="USD783.00" ApproximateTotalPrice="AED3425" ApproximateBasePrice="AED2880" EquivalentBasePrice="AED2880" Taxes="AED545" ApproximateTaxes="AED545" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT6H45M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAFj4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAHj4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="WY" Refundable="true" BasePrice="USD783.00" Key="nDOS+DTqWDKAJj4mTAAAAA==" TotalPrice="AED3425" ApproximateTotalPrice="AED3425" ApproximateBasePrice="AED2880" EquivalentBasePrice="AED2880" Taxes="AED545" ApproximateTaxes="AED545" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAYj4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="7" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAYj4mTAAAAA==" SegmentRef="nDOS+DTqWDKAFj4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="7" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAYj4mTAAAAA==" SegmentRef="nDOS+DTqWDKAHj4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAKj4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKALj4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAMj4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKANj4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAOj4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAPj4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAQj4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKARj4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKASj4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="I2" Key="nDOS+DTqWDKATj4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="OM" Key="nDOS+DTqWDKAUj4mTAAAAA==" />
+      <TaxInfo Amount="AED30" Category="S6" Key="nDOS+DTqWDKAVj4mTAAAAA==" />
+      <TaxInfo Amount="AED200" Category="YQ" Key="nDOS+DTqWDKAWj4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKAXj4mTAAAAA==" />
+      <FareCalc>CAI WY X/MCT WY DXB Q CAIDXB20.00 763.00KCMOEG NUC783.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED200.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED670.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAcj4mTAAAAA==" TotalPrice="AED4775" BasePrice="EGP52664.00" ApproximateTotalPrice="AED4775" ApproximateBasePrice="AED3840" EquivalentBasePrice="AED3840" Taxes="AED935" ApproximateTaxes="AED935" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT15H0M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAdj4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAfj4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" ETicketability="Yes" PlatingCarrier="AT" Refundable="true" BasePrice="EGP52664.00" Key="nDOS+DTqWDKAhj4mTAAAAA==" TotalPrice="AED4775" ApproximateTotalPrice="AED4775" ApproximateBasePrice="AED3840" EquivalentBasePrice="AED3840" Taxes="AED935" ApproximateTaxes="AED935" ProviderCode="1G" Cat35Indicator="false">
+      <FareInfoRef Key="nDOS+DTqWDKAuj4mTAAAAA==" />
+      <FareInfoRef Key="nDOS+DTqWDKAvj4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAuj4mTAAAAA==" SegmentRef="nDOS+DTqWDKAdj4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="7" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAvj4mTAAAAA==" SegmentRef="nDOS+DTqWDKAfj4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAij4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAjj4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAkj4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAlj4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAmj4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAnj4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAoj4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKApj4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAqj4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="MA" Key="nDOS+DTqWDKArj4mTAAAAA==" />
+      <TaxInfo Amount="AED580" Category="YQ" Key="nDOS+DTqWDKAsj4mTAAAAA==" />
+      <TaxInfo Amount="AED60" Category="YR" Key="nDOS+DTqWDKAtj4mTAAAAA==" />
+      <FareCalc>CAI AT CMN 373.50KA0RE2MA AT DXB 694.38KA0RE22A NUC1067.88END ROE49.316</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED510.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED640.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAyj4mTAAAAA==" TotalPrice="AED1845" BasePrice="USD368.00" ApproximateTotalPrice="AED1845" ApproximateBasePrice="AED1360" EquivalentBasePrice="AED1360" Taxes="AED485" ApproximateTaxes="AED485" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT6H25M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKASd4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAUd4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" PlatingCarrier="SV" Refundable="true" BasePrice="USD368.00" Key="nDOS+DTqWDKAzj4mTAAAAA==" TotalPrice="AED1845" ApproximateTotalPrice="AED1845" ApproximateBasePrice="AED1360" EquivalentBasePrice="AED1360" Taxes="AED485" ApproximateTaxes="AED485" ProviderCode="1G">
+      <FareInfoRef Key="nDOS+DTqWDKABk4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKABk4mTAAAAA==" SegmentRef="nDOS+DTqWDKASd4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKABk4mTAAAAA==" SegmentRef="nDOS+DTqWDKAUd4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKA0j4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKA1j4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKA2j4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKA3j4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKA4j4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKA5j4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKA6j4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKA7j4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKA8j4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKA9j4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKA+j4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKA/j4mTAAAAA==" />
+      <TaxInfo Amount="AED190" Category="YR" Key="nDOS+DTqWDKAAk4mTAAAAA==" />
+      <FareCalc>CAI SV X/RUH SV DXB 368.15KAOXEGF4 NUC368.15END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Before Departure">
+        <Percentage>0.00</Percentage>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Before Departure">
+        <Percentage>0.00</Percentage>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAUk4mTAAAAA==" TotalPrice="AED1845" BasePrice="USD368.00" ApproximateTotalPrice="AED1845" ApproximateBasePrice="AED1360" EquivalentBasePrice="AED1360" Taxes="AED485" ApproximateTaxes="AED485" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT6H45M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKA8d4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKA+d4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" PlatingCarrier="SV" Refundable="true" BasePrice="USD368.00" Key="nDOS+DTqWDKAVk4mTAAAAA==" TotalPrice="AED1845" ApproximateTotalPrice="AED1845" ApproximateBasePrice="AED1360" EquivalentBasePrice="AED1360" Taxes="AED485" ApproximateTaxes="AED485" ProviderCode="1G">
+      <FareInfoRef Key="nDOS+DTqWDKABk4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKABk4mTAAAAA==" SegmentRef="nDOS+DTqWDKA8d4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKABk4mTAAAAA==" SegmentRef="nDOS+DTqWDKA+d4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAWk4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAXk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAYk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAZk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAak4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAbk4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAck4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAdk4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAek4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAfk4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKAgk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAhk4mTAAAAA==" />
+      <TaxInfo Amount="AED190" Category="YR" Key="nDOS+DTqWDKAik4mTAAAAA==" />
+      <FareCalc>CAI SV X/JED SV DXB 368.15KAOXEGF4 NUC368.15END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Before Departure">
+        <Percentage>0.00</Percentage>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Before Departure">
+        <Percentage>0.00</Percentage>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAlk4mTAAAAA==" TotalPrice="AED1845" BasePrice="USD368.00" ApproximateTotalPrice="AED1845" ApproximateBasePrice="AED1360" EquivalentBasePrice="AED1360" Taxes="AED485" ApproximateTaxes="AED485" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT7H5M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKARe4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKATe4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" PlatingCarrier="SV" Refundable="true" BasePrice="USD368.00" Key="nDOS+DTqWDKAmk4mTAAAAA==" TotalPrice="AED1845" ApproximateTotalPrice="AED1845" ApproximateBasePrice="AED1360" EquivalentBasePrice="AED1360" Taxes="AED485" ApproximateTaxes="AED485" ProviderCode="1G">
+      <FareInfoRef Key="nDOS+DTqWDKABk4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKABk4mTAAAAA==" SegmentRef="nDOS+DTqWDKARe4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKABk4mTAAAAA==" SegmentRef="nDOS+DTqWDKATe4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAnk4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAok4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKApk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAqk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKArk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAsk4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAtk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAuk4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAvk4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAwk4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKAxk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAyk4mTAAAAA==" />
+      <TaxInfo Amount="AED190" Category="YR" Key="nDOS+DTqWDKAzk4mTAAAAA==" />
+      <FareCalc>CAI SV X/JED SV DXB 368.15KAOXEGF4 NUC368.15END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Before Departure">
+        <Percentage>0.00</Percentage>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Before Departure">
+        <Percentage>0.00</Percentage>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKA2k4mTAAAAA==" TotalPrice="AED1845" BasePrice="USD368.00" ApproximateTotalPrice="AED1845" ApproximateBasePrice="AED1360" EquivalentBasePrice="AED1360" Taxes="AED485" ApproximateTaxes="AED485" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT7H25M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKA0d4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKA3d4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" PlatingCarrier="SV" Refundable="true" BasePrice="USD368.00" Key="nDOS+DTqWDKACk4mTAAAAA==" TotalPrice="AED1845" ApproximateTotalPrice="AED1845" ApproximateBasePrice="AED1360" EquivalentBasePrice="AED1360" Taxes="AED485" ApproximateTaxes="AED485" ProviderCode="1G">
+      <FareInfoRef Key="nDOS+DTqWDKABk4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKABk4mTAAAAA==" SegmentRef="nDOS+DTqWDKA0d4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKABk4mTAAAAA==" SegmentRef="nDOS+DTqWDKA3d4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKADk4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAEk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAFk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAGk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAHk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAIk4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAJk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAKk4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKALk4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAMk4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKANk4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAOk4mTAAAAA==" />
+      <TaxInfo Amount="AED190" Category="YR" Key="nDOS+DTqWDKAPk4mTAAAAA==" />
+      <FareCalc>CAI SV X/JED SV DXB 368.15KAOXEGF4 NUC368.15END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Before Departure">
+        <Percentage>0.00</Percentage>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Before Departure">
+        <Percentage>0.00</Percentage>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKA3k4mTAAAAA==" TotalPrice="AED1885" BasePrice="USD375.00" ApproximateTotalPrice="AED1885" ApproximateBasePrice="AED1380" EquivalentBasePrice="AED1380" Taxes="AED505" ApproximateTaxes="AED505" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT5H45M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAof4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAqf4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" PlatingCarrier="GF" Refundable="true" BasePrice="USD375.00" Key="nDOS+DTqWDKA4k4mTAAAAA==" TotalPrice="AED1885" ApproximateTotalPrice="AED1885" ApproximateBasePrice="AED1380" EquivalentBasePrice="AED1380" Taxes="AED505" ApproximateTaxes="AED505" ProviderCode="1G">
+      <FareInfoRef Key="nDOS+DTqWDKAFl4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="7" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAFl4mTAAAAA==" SegmentRef="nDOS+DTqWDKAof4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="7" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAFl4mTAAAAA==" SegmentRef="nDOS+DTqWDKAqf4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKA5k4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKA6k4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKA7k4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKA8k4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKA9k4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKA+k4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKA/k4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAAl4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKABl4mTAAAAA==" />
+      <TaxInfo Amount="AED60" Category="BH" Key="nDOS+DTqWDKACl4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="HM" Key="nDOS+DTqWDKADl4mTAAAAA==" />
+      <TaxInfo Amount="AED240" Category="YQ" Key="nDOS+DTqWDKAEl4mTAAAAA==" />
+      <FareCalc>CAI GF X/BAH GF DXB 350.00KBSMR3EG Q CAIDXB25.00NUC375.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED190.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED320.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAIl4mTAAAAA==" TotalPrice="AED2065" BasePrice="EGP21967.00" ApproximateTotalPrice="AED2065" ApproximateBasePrice="AED1610" EquivalentBasePrice="AED1610" Taxes="AED455" ApproximateTaxes="AED455" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT9H20M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKA+f4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAAg4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" PlatingCarrier="A3" Refundable="true" BasePrice="EGP21967.00" Key="nDOS+DTqWDKAJl4mTAAAAA==" TotalPrice="AED2065" ApproximateTotalPrice="AED2065" ApproximateBasePrice="AED1610" EquivalentBasePrice="AED1610" Taxes="AED455" ApproximateTaxes="AED455" ProviderCode="1G">
+      <FareInfoRef Key="nDOS+DTqWDKAXl4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAXl4mTAAAAA==" SegmentRef="nDOS+DTqWDKA+f4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAXl4mTAAAAA==" SegmentRef="nDOS+DTqWDKAAg4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAKl4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKALl4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAMl4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKANl4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAOl4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAPl4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAQl4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKARl4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKASl4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="WP" Key="nDOS+DTqWDKATl4mTAAAAA==" />
+      <TaxInfo Amount="AED30" Category="WQ" Key="nDOS+DTqWDKAUl4mTAAAAA==" />
+      <TaxInfo Amount="AED40" Category="YQ" Key="nDOS+DTqWDKAVl4mTAAAAA==" />
+      <TaxInfo Amount="AED120" Category="YR" Key="nDOS+DTqWDKAWl4mTAAAAA==" />
+      <FareCalc>CAI A3 X/ATH A3 DXB 445.43KNCMFLC NUC445.43END ROE49.316</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Percentage>0.00</Percentage>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED340.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAal4mTAAAAA==" TotalPrice="AED2665" BasePrice="USD458.00" ApproximateTotalPrice="AED2665" ApproximateBasePrice="AED1690" EquivalentBasePrice="AED1690" Taxes="AED975" ApproximateTaxes="AED975" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT8H10M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKACh4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAEh4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" PlatingCarrier="XY" Refundable="true" BasePrice="USD458.00" Key="nDOS+DTqWDKAbl4mTAAAAA==" TotalPrice="AED2665" ApproximateTotalPrice="AED2665" ApproximateBasePrice="AED1690" EquivalentBasePrice="AED1690" Taxes="AED975" ApproximateTaxes="AED975" ProviderCode="1G">
+      <FareInfoRef Key="nDOS+DTqWDKAql4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAql4mTAAAAA==" SegmentRef="nDOS+DTqWDKACh4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAql4mTAAAAA==" SegmentRef="nDOS+DTqWDKAEh4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAcl4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAdl4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAel4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAfl4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAgl4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAhl4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAil4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAjl4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAkl4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAll4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKAml4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAnl4mTAAAAA==" />
+      <TaxInfo Amount="AED580" Category="YQ" Key="nDOS+DTqWDKAol4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKApl4mTAAAAA==" />
+      <FareCalc>CAI XY X/JED XY DXB 458.00KPLUOWC NUC458.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED90.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED200.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAtl4mTAAAAA==" TotalPrice="AED2845" BasePrice="USD507.00" ApproximateTotalPrice="AED2845" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED975" ApproximateTaxes="AED975" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT6H0M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAZh4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAbh4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" PlatingCarrier="XY" Refundable="true" BasePrice="USD507.00" Key="nDOS+DTqWDKAul4mTAAAAA==" TotalPrice="AED2845" ApproximateTotalPrice="AED2845" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED975" ApproximateTaxes="AED975" ProviderCode="1G">
+      <FareInfoRef Key="nDOS+DTqWDKA9l4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA9l4mTAAAAA==" SegmentRef="nDOS+DTqWDKAZh4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA9l4mTAAAAA==" SegmentRef="nDOS+DTqWDKAbh4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAvl4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAwl4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAxl4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAyl4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAzl4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKA0l4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKA1l4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKA2l4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKA3l4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKA4l4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKA5l4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKA6l4mTAAAAA==" />
+      <TaxInfo Amount="AED580" Category="YQ" Key="nDOS+DTqWDKA7l4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKA8l4mTAAAAA==" />
+      <FareCalc>CAI XY X/RUH XY DXB 507.00KPLUOWC NUC507.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED90.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED200.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKARm4mTAAAAA==" TotalPrice="AED2845" BasePrice="USD507.00" ApproximateTotalPrice="AED2845" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED975" ApproximateTaxes="AED975" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT6H35M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAFi4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAHi4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" PlatingCarrier="XY" Refundable="true" BasePrice="USD507.00" Key="nDOS+DTqWDKASm4mTAAAAA==" TotalPrice="AED2845" ApproximateTotalPrice="AED2845" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED975" ApproximateTaxes="AED975" ProviderCode="1G">
+      <FareInfoRef Key="nDOS+DTqWDKA9l4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA9l4mTAAAAA==" SegmentRef="nDOS+DTqWDKAFi4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA9l4mTAAAAA==" SegmentRef="nDOS+DTqWDKAHi4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKATm4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAUm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAVm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAWm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKAXm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAYm4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAZm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAam4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAbm4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAcm4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKAdm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAem4mTAAAAA==" />
+      <TaxInfo Amount="AED580" Category="YQ" Key="nDOS+DTqWDKAfm4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKAgm4mTAAAAA==" />
+      <FareCalc>CAI XY X/RUH XY DXB 507.00KPLUOWC NUC507.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED90.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED200.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKAjm4mTAAAAA==" TotalPrice="AED2845" BasePrice="USD507.00" ApproximateTotalPrice="AED2845" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED975" ApproximateTaxes="AED975" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT7H55M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAZh4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAHi4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" PlatingCarrier="XY" Refundable="true" BasePrice="USD507.00" Key="nDOS+DTqWDKAkm4mTAAAAA==" TotalPrice="AED2845" ApproximateTotalPrice="AED2845" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED975" ApproximateTaxes="AED975" ProviderCode="1G">
+      <FareInfoRef Key="nDOS+DTqWDKA9l4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA9l4mTAAAAA==" SegmentRef="nDOS+DTqWDKAZh4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA9l4mTAAAAA==" SegmentRef="nDOS+DTqWDKAHi4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKAlm4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAmm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKAnm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKAom4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKApm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAqm4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKArm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAsm4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAtm4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAum4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKAvm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAwm4mTAAAAA==" />
+      <TaxInfo Amount="AED580" Category="YQ" Key="nDOS+DTqWDKAxm4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKAym4mTAAAAA==" />
+      <FareCalc>CAI XY X/RUH XY DXB 507.00KPLUOWC NUC507.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED90.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED200.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKA1m4mTAAAAA==" TotalPrice="AED2845" BasePrice="USD508.00" ApproximateTotalPrice="AED2845" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED975" ApproximateTaxes="AED975" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT9H30M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKA9h4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAAi4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" PlatingCarrier="XY" Refundable="true" BasePrice="USD508.00" Key="nDOS+DTqWDKA+l4mTAAAAA==" TotalPrice="AED2845" ApproximateTotalPrice="AED2845" ApproximateBasePrice="AED1870" EquivalentBasePrice="AED1870" Taxes="AED975" ApproximateTaxes="AED975" ProviderCode="1G">
+      <FareInfoRef Key="nDOS+DTqWDKA9l4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA9l4mTAAAAA==" SegmentRef="nDOS+DTqWDKA9h4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="9" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKA9l4mTAAAAA==" SegmentRef="nDOS+DTqWDKAAi4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKA/l4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKAAm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKABm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKACm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKADm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKAEm4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKAFm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKAGm4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAHm4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="E3" Key="nDOS+DTqWDKAIm4mTAAAAA==" />
+      <TaxInfo Amount="AED70" Category="IO" Key="nDOS+DTqWDKAJm4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="T2" Key="nDOS+DTqWDKAKm4mTAAAAA==" />
+      <TaxInfo Amount="AED580" Category="YQ" Key="nDOS+DTqWDKALm4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKAMm4mTAAAAA==" />
+      <FareCalc>CAI XY X/DMM XY DXB 508.00KPLUOWC NUC508.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Amount>AED90.00</Amount>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED200.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <AirPricingSolution Key="nDOS+DTqWDKA2m4mTAAAAA==" TotalPrice="AED3895" BasePrice="USD911.00" ApproximateTotalPrice="AED3895" ApproximateBasePrice="AED3350" EquivalentBasePrice="AED3350" Taxes="AED545" ApproximateTaxes="AED545" xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Journey TravelTime="P0DT6H45M0S">
+      <AirSegmentRef Key="nDOS+DTqWDKAFj4mTAAAAA==" />
+      <AirSegmentRef Key="nDOS+DTqWDKAHj4mTAAAAA==" />
+    </Journey>
+    <LegRef Key="nDOS+DTqWDKA9Z4mTAAAAA==" />
+    <AirPricingInfo LatestTicketingTime="2026-11-18T23:59:00.000+04:00" PricingMethod="Guaranteed" PlatingCarrier="WY" Refundable="true" BasePrice="USD911.00" Key="nDOS+DTqWDKA3m4mTAAAAA==" TotalPrice="AED3895" ApproximateTotalPrice="AED3895" ApproximateBasePrice="AED3350" EquivalentBasePrice="AED3350" Taxes="AED545" ApproximateTaxes="AED545" ProviderCode="1G">
+      <FareInfoRef Key="nDOS+DTqWDKAGn4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="7" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAGn4mTAAAAA==" SegmentRef="nDOS+DTqWDKAFj4mTAAAAA==" />
+      <BookingInfo BookingCode="K" BookingCount="7" CabinClass="Economy" FareInfoRef="nDOS+DTqWDKAGn4mTAAAAA==" SegmentRef="nDOS+DTqWDKAHj4mTAAAAA==" />
+      <TaxInfo Amount="AED5" Category="ZR" Key="nDOS+DTqWDKA4m4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="EG" Key="nDOS+DTqWDKA5m4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="EQ" Key="nDOS+DTqWDKA6m4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="JK" Key="nDOS+DTqWDKA7m4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O2" Key="nDOS+DTqWDKA8m4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="O9" Key="nDOS+DTqWDKA9m4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="QH" Key="nDOS+DTqWDKA+m4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="S4" Key="nDOS+DTqWDKA/m4mTAAAAA==" />
+      <TaxInfo Amount="AED20" Category="XK" Key="nDOS+DTqWDKAAn4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="I2" Key="nDOS+DTqWDKABn4mTAAAAA==" />
+      <TaxInfo Amount="AED10" Category="OM" Key="nDOS+DTqWDKACn4mTAAAAA==" />
+      <TaxInfo Amount="AED30" Category="S6" Key="nDOS+DTqWDKADn4mTAAAAA==" />
+      <TaxInfo Amount="AED200" Category="YQ" Key="nDOS+DTqWDKAEn4mTAAAAA==" />
+      <TaxInfo Amount="AED100" Category="YR" Key="nDOS+DTqWDKAFn4mTAAAAA==" />
+      <FareCalc>CAI WY X/MCT WY DXB Q CAIDXB20.00 891.00KFXOEG NUC911.00END ROE1.0</FareCalc>
+      <PassengerType Code="ADT" Age="35" />
+      <ChangePenalty PenaltyApplies="Anytime">
+        <Percentage>0.00</Percentage>
+      </ChangePenalty>
+      <CancelPenalty PenaltyApplies="Anytime">
+        <Amount>AED200.00</Amount>
+      </CancelPenalty>
+    </AirPricingInfo>
+    <Connection SegmentIndex="0" />
+  </AirPricingSolution>
+  <BrandList xmlns="http://www.travelport.com/schema/air_v52_0">
+    <Brand Carrier="EK" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKAzn4mTAAAAA==" Name="Economy Flex" BrandID="1380518">
+      <Title Type="External" LanguageCode="EN">Economy Flex</Title>
+      <Title Type="Short" LanguageCode="EN">EcoFlex</Title>
+      <Text Type="Upsell" LanguageCode="EN">Economy Flex lets you choose your seats for free, and you can enjoy more baggage allowance and more flexibility to change your booking.</Text>
+      <Text Type="MarketingAgent" LanguageCode="EN">Economy Flex includes:
+
+• Free seat selection and paid seat selection
+• Earn 0.7 Skywards Mile for every mile flown
+• Checked baggage allowance
+• Cabin baggage 1 bag up to 7kg
+• Regional multicourse dining
+• Complimentary alcoholic and non-alcoholic drinks
+• Up to 5,000 channels of entertainment
+• Free unlimited online chat messaging for Emirates Skywards Gold members 
+• Buy great value Wi-Fi plans
+• Changes permitted for a fee 
+• Refunds permitted for a fee
+
+Please refer to the terms and conditions of the fare and the rules of the destination
+• Please note that if the flight is operated by another airline then the onboard product or service will vary. The content on this screen is for information purposes only. Please validate brands and ancillaries at Fare Quote.</Text>
+      <Text Type="Strapline" LanguageCode="EN">Includes rebooking or refunds against a fee, and seat reservation</Text>
+      <ImageLocation Type="Agent" ImageWidth="150" ImageHeight="99">https://cdn.travelport.com/emirates/EK_general_medium_281052.JPG</ImageLocation>
+      <ImageLocation Type="Consumer" ImageWidth="150" ImageHeight="99">https://cdn.travelport.com/emirates/EK_general_medium_281052.JPG</ImageLocation>
+    </Brand>
+    <Brand Carrier="GF" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKA1n4mTAAAAA==" Name="ECONOMY LIGHT" BrandID="2135500">
+      <Title Type="External" LanguageCode="EN">Economy Light</Title>
+      <Title Type="Short" LanguageCode="EN">ECOLITE</Title>
+      <Text Type="Strapline" LanguageCode="EN">Economy Light</Text>
+    </Brand>
+    <Brand Carrier="QR" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKA3n4mTAAAAA==" Name="ECONOMY CONVENIENCE" BrandID="2110862">
+      <Title Type="External" LanguageCode="EN">Economy Convenience</Title>
+      <Title Type="Short" LanguageCode="EN">ECONVENIEN</Title>
+      <Text Type="Upsell" LanguageCode="EN">Benefit from more Qmiles allowance and seat selection</Text>
+      <Text Type="MarketingAgent" LanguageCode="EN">Economy Convenience includes                                                                                           
+- Checked baggage 2 x 23kg                                                                                     
+- Carry on 7kg (1 piece)                                                                                                   
+- 75% Qmiles accumulation                                                                           
+- Standard seat selection                                                                            
+- Refund to original form of payment (chargeable)                                                                                                                                        - Upgrade with Qmiles    
+-2 Date Change permitted, chargeable from 3rd Change                                                                                
+                                                                                                                       
+• Please note that if the flight is operated by another airline then the on-board product or service maybe different to that described above.</Text>
+      <Text Type="Strapline" LanguageCode="EN">Economy Convenience</Text>
+      <ImageLocation Type="Consumer" ImageWidth="1400" ImageHeight="800">https://cdn.travelport.com/qatar/QR_general_large_143563.jpg</ImageLocation>
+      <ImageLocation Type="Agent" ImageWidth="150" ImageHeight="134">https://cdn.travelport.com/qatar/QR_general_medium_269.jpg</ImageLocation>
+    </Brand>
+    <Brand Carrier="A3" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKA5n4mTAAAAA==" Name="COMFORTFLEX" BrandID="2117884">
+      <Title Type="External" LanguageCode="EN">Comfortflex</Title>
+      <Title Type="Short" LanguageCode="EN">COMFORTFLE</Title>
+      <Text Type="MarketingAgent" LanguageCode="EN">Choose Aegean, Europe's Best Regional Airline, and discover why customers come back to us time after time.
+
+Passengers that need more flexibility and free baggage allowance when planning their journey and do not want to pay rebooking fees, now they can do unlimited changes. Also included are:
+
+- 1 free checked baggage allowance (23kgs)
+- cabin baggage: 1 item up to 8kg and 1 personal item women's/men's handbag or a thin laptop case
+- Cold meal, hot &amp; cold beverages, beer &amp; wine 
+- Unlimited free ticket changes (No rebooking fee. Possible charge for fare fee difference)
+- mileage accrual
+- Free seat selection in Standard seats &amp; Upfront Seats
+- Wi-Fi onboard - free Text &amp; Surf package (on all aircraft that contain IFE system) 
+
+• Please note that if the flight is operated by another airline then the onboard product service may be different to that described above.</Text>
+      <Text Type="Strapline" LanguageCode="EN">Comfortflex</Text>
+      <ImageLocation Type="Consumer" ImageWidth="1400" ImageHeight="800">https://cdn.travelport.com/aegeanairlines/A3_general_large_193295.jpg</ImageLocation>
+      <ImageLocation Type="Agent" ImageWidth="150" ImageHeight="150">https://cdn.travelport.com/aegeanairlines/A3_general_medium_193294.jpg</ImageLocation>
+    </Brand>
+    <Brand Carrier="XY" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKA7n4mTAAAAA==" Name="PLU" BrandID="2027788">
+      <Title Type="External" LanguageCode="EN">Plu</Title>
+      <Title Type="Short" LanguageCode="EN">PLU</Title>
+      <Text Type="Strapline" LanguageCode="EN">Plu</Text>
+    </Brand>
+    <Brand Carrier="KU" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKA9n4mTAAAAA==" Name="ECONOMY FLEXIBLE" BrandID="2154962">
+      <Title Type="External" LanguageCode="EN">Economy Flexible</Title>
+      <Title Type="Short" LanguageCode="EN">ECOFLEXI</Title>
+      <Text Type="Strapline" LanguageCode="EN">Economy Flexible</Text>
+    </Brand>
+    <Brand Carrier="XY" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKA/n4mTAAAAA==" Name="VAL" BrandID="2027789">
+      <Title Type="External" LanguageCode="EN">Val</Title>
+      <Title Type="Short" LanguageCode="EN">VAL</Title>
+      <Text Type="Strapline" LanguageCode="EN">Val</Text>
+    </Brand>
+    <Brand Carrier="GF" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKABo4mTAAAAA==" Name="ECONOMY SMART" BrandID="2135499">
+      <Title Type="External" LanguageCode="EN">Economy Smart</Title>
+      <Title Type="Short" LanguageCode="EN">ECOSMART</Title>
+      <Text Type="Strapline" LanguageCode="EN">Economy Smart</Text>
+    </Brand>
+    <Brand Carrier="A3" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKADo4mTAAAAA==" Name="FLEX" BrandID="2117885">
+      <Title Type="External" LanguageCode="EN">Flex</Title>
+      <Title Type="Short" LanguageCode="EN">FLEX</Title>
+      <Text Type="MarketingAgent" LanguageCode="EN">Choose Aegean, Europe's Best Regional Airline, and discover why customers come back to us time after time.
+
+Passengers that need more flexibility when planning their journey and do not want to pay rebooking fees, now they can do unlimited changes. Also included are:
+
+- checked baggage available at a fee if required
+- cabin baggage: 1 item up to 8kg and 1 personal item women's/men's handbag or a thin laptop case
+- Cold meal, hot &amp; cold beverages, beer &amp; wine 
+- Unlimited free ticket changes (No rebooking fee. Possible charge for fare fee difference)
+- mileage accrual
+- Free seat selection in Standard seats
+
+• Please note that if the flight is operated by another airline then the onboard product service may be different to that described above.</Text>
+      <Text Type="Strapline" LanguageCode="EN">Flex</Text>
+      <ImageLocation Type="Agent" ImageWidth="150" ImageHeight="150">https://cdn.travelport.com/aegeanairlines/A3_general_small_361192.jpg</ImageLocation>
+      <ImageLocation Type="Consumer" ImageWidth="1400" ImageHeight="800">https://cdn.travelport.com/aegeanairlines/A3_general_large_330769.jpg</ImageLocation>
+    </Brand>
+    <Brand Carrier="RJ" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKAFo4mTAAAAA==" Name="ECONOMY FLEX" BrandID="2114763">
+      <Title Type="External" LanguageCode="EN">Economy Flex</Title>
+      <Title Type="Short" LanguageCode="EN">ECFLEX</Title>
+      <Text Type="MarketingAgent" LanguageCode="EN">Economy Flex</Text>
+      <Text Type="Strapline" LanguageCode="EN">Economy Flex</Text>
+      <ImageLocation Type="Consumer" ImageWidth="150" ImageHeight="150">https://upamedia.atpco.net/photos/825495d2-5e18-4fdb-9dfa-1ad614e19940/square_thumb/e2-190-eco.jpg</ImageLocation>
+      <ImageLocation Type="Agent" ImageWidth="150" ImageHeight="150">https://upamedia.atpco.net/photos/825495d2-5e18-4fdb-9dfa-1ad614e19940/square_thumb/e2-190-eco.jpg</ImageLocation>
+    </Brand>
+    <Brand Carrier="MS" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKAHo4mTAAAAA==" Name="ECONOMY GOOD DEAL" BrandID="1730060">
+      <Title Type="External" LanguageCode="EN">Economy Good Deal</Title>
+      <Title Type="Short" LanguageCode="EN">GD</Title>
+      <Text Type="MarketingAgent" LanguageCode="EN">Economy Good Deal</Text>
+      <Text Type="Strapline" LanguageCode="EN">Economy Good Deal</Text>
+      <ImageLocation Type="Consumer" ImageWidth="149" ImageHeight="150">https://cdn.travelport.com/egyptair/MS_general_medium_2650.jpg</ImageLocation>
+      <ImageLocation Type="Agent" ImageWidth="150" ImageHeight="149">https://cdn.travelport.com/egyptair/MS_general_medium_2651.jpg</ImageLocation>
+    </Brand>
+    <Brand Carrier="WY" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKAJo4mTAAAAA==" Name="ECONOMY FLEX" BrandID="2070936">
+      <Title Type="External" LanguageCode="EN">Economy Flex</Title>
+      <Title Type="Short" LanguageCode="EN">ECOFLEX</Title>
+      <Text Type="Strapline" LanguageCode="EN">Economy Flex</Text>
+    </Brand>
+    <Brand Carrier="SV" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKALo4mTAAAAA==" Name="FLEX ECO" BrandID="2142231">
+      <Title Type="External" LanguageCode="EN">Flex Eco</Title>
+      <Title Type="Short" LanguageCode="EN">NFLEXE</Title>
+      <Text Type="Strapline" LanguageCode="EN">Flex Eco</Text>
+    </Brand>
+    <Brand Carrier="WY" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKANo4mTAAAAA==" Name="ECONOMY COMFORT" BrandID="2070937">
+      <Title Type="External" LanguageCode="EN">Economy Comfort</Title>
+      <Title Type="Short" LanguageCode="EN">ECOCOMFORT</Title>
+      <Text Type="Strapline" LanguageCode="EN">Economy Comfort</Text>
+    </Brand>
+    <Brand Carrier="SV" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKAPo4mTAAAAA==" Name="BASIC ECO" BrandID="2142233">
+      <Title Type="External" LanguageCode="EN">Basic Eco</Title>
+      <Title Type="Short" LanguageCode="EN">NBASICE</Title>
+      <Text Type="Strapline" LanguageCode="EN">Basic Eco</Text>
+    </Brand>
+    <Brand Carrier="AT" BrandedDetailsAvailable="true" Key="nDOS+DTqWDKARo4mTAAAAA==" Name="ECO CLASSIC" BrandID="1975462">
+      <Title Type="External" LanguageCode="EN">Eco Classic</Title>
+      <Title Type="Short" LanguageCode="EN">ECLASSIC</Title>
+      <Text Type="Strapline" LanguageCode="EN">Eco Classic</Text>
+    </Brand>
+  </BrandList>
+</LowFareSearchRsp>

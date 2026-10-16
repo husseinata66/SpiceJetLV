@@ -179,7 +179,9 @@ function registerModuleOwnership(baselineAbsPath, slug, opts = {}) {
     updatedAt: now.toISOString(),
   };
 
-  fsImpl.writeFileSync(ownershipPath(baselineAbsPath), `${JSON.stringify(next, null, 2)}\n`, 'utf8');
+  // `dryRun` (Phase 9.1, F-05): every check above, nothing written — so a retirement can prove the claim
+  // is valid before its first mutation.
+  if (!opts.dryRun) fsImpl.writeFileSync(ownershipPath(baselineAbsPath), `${JSON.stringify(next, null, 2)}\n`, 'utf8');
   return next;
 }
 

@@ -25,6 +25,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { assertApproverName } = require('../run_manager/approverIdentity');
 
 const { normalizeAction, normalizeOwnership, normalizeEnvironment, PolicyError } = require('./schema');
 const { AUTHORIZATIONS_FILENAME, AUTHORIZATIONS_DOC_FILENAME, authorizationsPath } = require('./policyLoader');
@@ -47,6 +48,7 @@ const AUTHORIZATION_FIELDS = [
  */
 function createAuthorization(input) {
   const required = ['runId', 'action', 'approvedAt', 'approvedBy'];
+  if (input && input.approvedBy && String(input.approvedBy).trim()) assertApproverName(input.approvedBy, 'Execution Safety authorization');
   const missing = required.filter((k) => !input || !input[k]);
   if (missing.length) {
     throw new PolicyError(`createAuthorization requires: ${missing.join(', ')}. `

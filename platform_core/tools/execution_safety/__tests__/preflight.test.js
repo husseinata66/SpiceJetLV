@@ -5,9 +5,13 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 
-const { preflight, renderPreflight, renderPreflightDoc } = require('../preflight');
+const { preflight: preflightAny, renderPreflight, renderPreflightDoc } = require('../preflight');
+const preflight = (o) => preflightAny({ environment: o && o.policy ? o.policy.environment : undefined, ...o });
 const { renderApprovalPrompt, createAuthorization } = require('../authorizations');
-const { evaluate } = require('../evaluator');
+const { evaluate: evaluateAny } = require('../evaluator');
+// F-22 (Phase 9.3): the evaluator never defaults the environment. These tests exercise rule resolution,
+// so every request names the environment its policy governs — explicitly, here.
+const evaluate = (req) => evaluateAny({ environment: req && req.policy ? req.policy.environment : undefined, ...req });
 const { PolicyError } = require('../schema');
 
 const POLICY = {

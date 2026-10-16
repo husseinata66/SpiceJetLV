@@ -201,12 +201,16 @@ function renderReport(metrics, { now, fixture = false, dashboard = null } = {}) 
     `| Planned | ${cell(e.planned)} |`,
     `| Executed | ${cell(e.executed)} |`,
     `| Passed | ${cell(e.passed)} |`,
-    `| Failed | ${cell(e.failed)} |`,
+    `| Failed (every failure category) | ${cell(e.failed)} |`,
+    ...(e.failures ? [`| — Application Failure / unclassified Failed | ${cell(e.failures.application)} / ${cell(e.failures.unclassified)} |`, `| — Automation / Environment failures | ${cell(e.failures.automation)} / ${cell(e.failures.environment)} |`] : []),
+    ...(e.automationRepaired ? [`| Automation Repaired (not a clean pass) | ${cell(e.automationRepaired)} |`, `| Flaky | ${cell(e.flaky)} |`, `| Unverified (incl. Inconclusive, Quarantined, Unverified) | ${cell(e.unverified)} |`, `| Not Executed / Excluded | ${cell(e.notExecuted)} / ${cell(e.excluded)} |`] : []),
     `| Skipped | ${cell(e.skipped)} |`,
     `| Blocked | ${cell(e.blocked)} |`,
     `| Inconclusive | ${cell(e.inconclusive)} |`,
     `| — of which blocked by Execution Safety | ${cell(e.blockedBySafety)} |`,
-    `| Pass rate | ${cell(metrics.formulas.EXECUTION_PASS_RATE, 'ratio')} |`, '',
+    `| Pass rate | ${cell(metrics.formulas.EXECUTION_PASS_RATE, 'ratio')} |`,
+    ...(metrics.formulas.VERIFIED_PASS_RATE ? [`| Verified pass rate (Passed / Executed) | ${cell(metrics.formulas.VERIFIED_PASS_RATE, 'ratio')} |`] : []), '',
+    '_These are TELEMETRY figures. The authoritative execution outcome is Execution History — see `observability health`, which reconciles the two; where they disagree, execution history governs._', '',
     '_A test blocked by Execution Safety was never run. It is not a failure of the application, the '
     + 'automation, or the environment, and is never counted as one._', '');
 

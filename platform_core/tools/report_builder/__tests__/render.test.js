@@ -227,6 +227,6 @@ test('renderReport renders the example model end to end', () => {
   const html = renderReport(model);
   assert.ok(html.includes('TC-AGENCY-POS-01'));
   assert.ok(html.includes('Cleanup / follow-up'));
-  assert.ok(html.includes('<span class="pill tone-pass">COMPLETE</span>'));
+  assert.ok(html.includes('<span class="pill tone-neutral">COMPLETE</span>'), 'the example has failures, so its pill is not green');
   assert.ok(!html.includes('undefined'), 'no unresolved value leaked into the document');
 });

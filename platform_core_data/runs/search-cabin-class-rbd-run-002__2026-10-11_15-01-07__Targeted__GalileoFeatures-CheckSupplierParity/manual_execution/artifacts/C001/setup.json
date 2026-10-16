@@ -1,0 +1,39 @@
+{
+ "note": "Route CAI→DXB 18/11/2026 entered only so the Check Supplier dialog opens; no check sent",
+ "A": {
+  "branch": "NDC1_Ahmed Ayman (BRN287)",
+  "branchAfter": "NDC1_Ahmed Ayman (BRN287)",
+  "suppliers": [
+   "NDCGal"
+  ],
+  "supplierSelected": "NDCGal",
+  "credentials": [
+   "NdcGalileoSTG EGY"
+  ],
+  "credentialSelected": "NdcGalileoSTG EGY",
+  "at": "2026-10-11T12:52:56.970Z"
+ },
+ "B": {
+  "branch": "ahmed ayman (BRN632)",
+  "branchAfter": "ahmed ayman (BRN632)",
+  "suppliers": [
+   "Galileo"
+  ],
+  "supplierSelected": "Galileo",
+  "credentials": [
+   "GalileoLiveSTAGING"
+  ],
+  "credentialSelected": "GalileoLiveSTAGING",
+  "at": "2026-10-11T12:53:26.131Z"
+ },
+ "aBranchAfterBSelected": "NDC1_Ahmed Ayman (BRN287)",
+ "cookieNames": {
+  "A": [
+   "JSESSIONID"
+  ],
+  "B": [
+   "JSESSIONID"
+  ]
+ },
+ "separateSessionCookie": true
+}

@@ -205,16 +205,28 @@ function resolveAppConfig(profile, app) {
  *   whatever the credentials file names itself; omit to let the credentials file decide.
  * @param {string} [opts.credentialsPath] - override the auto-resolved
  *   platform_core_data/knowledge_base/credentials/credentials.json path; only needed for edge cases (e.g. tests).
- * @param {boolean} [opts.headless] - overrides both the per-stage and global defaults when given
- * @param {string} [opts.stage] - pipeline stage label, e.g. "manual_execution". Selects a
- *   per-stage display-mode default from the profile's `browser.headlessByStage` map, so a stage
- *   whose purpose requires a visible browser gets one without every call site remembering to ask.
- *   Precedence: explicit `headless` argument > `headlessByStage[stage]` > `browser.headless`.
+ * @param {boolean} opts.headless - REQUIRED: the human's explicit choice for this launch (true = Headless,
+ *   false = Headed). Since Phase 9.3 no profile value (`browser.headless`, `browser.headlessByStage`) decides
+ *   it — a missing choice is refused (MODE_REQUIRED) before anything is read.
+ * @param {string} [opts.stage] - pipeline stage label, e.g. "manual_execution" — recorded context only; it
+ *   no longer selects a display mode.
  * @param {string} [opts.app] - selects a named login flow from the profile's `apps` map (e.g.
  *   `'portal'`) instead of the root-level `login`/`defaultBaseUrl` — added 2026-09-26 for a second
  *   application with a different login form. Omit for the original, single-app behavior.
  */
-async function launchAuthenticated({ env, credentialsPath, headless, stage, app } = {}) {
+async function launchAuthenticated({ env, credentialsPath, headless, stage, app, preflight } = {}) {
+  // Headed or Headless is a human's explicit choice for THIS launch (pipeline.md §6 Rule 11; Phase 9.3,
+  // workflow enforcement). It is checked here, at the launch itself, before any profile or credential is
+  // read — never taken from a profile default, a per-stage default or the previous run.
+  if (typeof headless !== 'boolean') {
+    const err = new Error('launchAuthenticated requires an explicit `headless` (true = Headless, false = Headed), asked of the human '
+      + 'immediately before this launch — it is never defaulted, inferred or carried over (pipeline.md §6 Rule 11).');
+    err.code = 'MODE_REQUIRED';
+    throw err;
+  }
+  // Live-activity boundary (Phase 9.4): the run's stage has a confirmed Safety Preflight for a browser, in this mode.
+  // eslint-disable-next-line global-require
+  const pfRecord = require('../run_manager/executionPreflight').assertLivePreflight({ ...(preflight || {}), headless });
   const profile = loadProfile();
   let { creds, env: resolvedEnv } = loadCredentials(env, credentialsPath);
   const { loginConfig, appBaseUrl } = resolveAppConfig(profile, app);
@@ -226,14 +238,12 @@ async function launchAuthenticated({ env, credentialsPath, headless, stage, app 
     );
   }
 
+  // R-01 (Phase 9.5): the environment and the target this session opens are the ones the preflight confirmed —
+  // compared before any browser starts.
+  // eslint-disable-next-line global-require
+  require('../run_manager/executionPreflight').assertSessionMatchesPreflight({ record: pfRecord, runsDir: preflight.runsDir, environment: resolvedEnv, url: creds.baseUrl || appBaseUrl || profile.defaultBaseUrl });
   const browserSettings = profile.browser || {};
-  const byStage = browserSettings.headlessByStage || {};
-  const stageDefault = stage && typeof byStage[stage] === 'boolean' ? byStage[stage] : undefined;
-  const isHeadless = typeof headless === 'boolean'
-    ? headless
-    : typeof stageDefault === 'boolean'
-      ? stageDefault
-      : !!browserSettings.headless;
+  const isHeadless = headless;
 
   const browser = await chromium().launch({
     channel: browserSettings.channel || 'chrome',

@@ -1,0 +1,736 @@
+{
+ "title": "Galileo Features — rerun-2 final reconciliation",
+ "documentTitle": "Manual QA Report rerun-2 — Galileo",
+ "statusPill": "PENDING REVIEW",
+ "statusPillTone": "warning",
+ "statuses": [
+  {
+   "key": "Passed",
+   "label": "Passed",
+   "tone": "pass"
+  },
+  {
+   "key": "Failed",
+   "label": "Failed",
+   "tone": "fail"
+  },
+  {
+   "key": "Blocked",
+   "label": "Blocked",
+   "tone": "blocked"
+  },
+  {
+   "key": "Skipped",
+   "label": "Skipped",
+   "tone": "warning"
+  },
+  {
+   "key": "Not Executed",
+   "label": "Not Executed",
+   "tone": "neutral"
+  },
+  {
+   "key": "Inconclusive",
+   "label": "Inconclusive",
+   "tone": "accent"
+  },
+  {
+   "key": "Excluded",
+   "label": "Excluded",
+   "tone": "neutral"
+  },
+  {
+   "key": "Flaky",
+   "label": "Flaky",
+   "tone": "warning"
+  }
+ ],
+ "meta": {
+  "fields": [
+   [
+    {
+     "label": "Run",
+     "value": "search-cabin-class-rbd-run-001__2026-10-11_10-20-20__Targeted__GalileoFeatures-IntegrationVsDirectSearch",
+     "mono": true
+    },
+    {
+     "label": "Mode",
+     "value": "Headed"
+    }
+   ],
+   [
+    {
+     "label": "Integration",
+     "value": "NDC1_Ahmed Ayman (BRN287) · NDCGal"
+    },
+    {
+     "label": "Direct",
+     "value": "ahmed ayman (BRN632) · Galileo"
+    }
+   ],
+   {
+    "label": "Scope",
+    "value": "Flight Search only — CAI routes, 2026-11-18…25; prices ignored; compared per fare option × passenger type × segment"
+   },
+   {
+    "label": "Cycles",
+    "value": "cycle 1 + rerun-1 + rerun-2 (all kept as recorded); verified 5 · unverified 0"
+   }
+  ]
+ },
+ "summary": {
+  "title": "1. Outcome",
+  "total": 18,
+  "totalLabel": "Suite Total",
+  "donut": {
+   "focus": "Passed",
+   "label": "pass rate (executable scope 18, final)"
+  }
+ },
+ "testCases": {
+  "title": "Per-test results",
+  "categories": [
+   {
+    "key": "all",
+    "name": "Search – Cabin Class & RBD / Galileo",
+    "cases": [
+     {
+      "id": "TC-GSRCH-001",
+      "title": "Correct branch and supplier in each session",
+      "status": "Inconclusive",
+      "rows": [
+       {
+        "label": "Rev 3",
+        "value": "Reload step removed (CR-1); Review reset to Pending; not re-executed; cycle-1 result kept"
+       },
+       {
+        "label": "Classification",
+        "value": "Observation — test-case wording; Stage 3 change proposed"
+       },
+       {
+        "label": "Execution time",
+        "value": "40s"
+       },
+       {
+        "label": "Reason",
+        "value": "All 5 assertions passed. The Expected Result also says the branch stays selected after a page reload; it does not (cleared in both sessions, identically). No requirement defines that, so this is a test-case wording issue, not an application failure — flagged to Stage 3."
+       }
+      ],
+      "evidence": "artifacts/TC001.sessions.json",
+      "assertions": [
+       {
+        "assertion": "A1 — Session A branch",
+        "expected": "`NDC1_Ahmed Ayman (BRN287)`",
+        "actual": "NDC1_Ahmed Ayman (BRN287)",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A2 — Session B branch",
+        "expected": "`ahmed ayman (BRN632)`",
+        "actual": "ahmed ayman (BRN632)",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A3 — Session A supplier list",
+        "expected": "`NDCGal`",
+        "actual": "NDCGal",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A4 — Session B supplier list",
+        "expected": "`Galileo`",
+        "actual": "Galileo",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A5 — Branch selection in one session does not change the other",
+        "expected": "present",
+        "actual": "After B selected its branch, A still showed \"NDC1_Ahmed Ayman (BRN287)\"; separate JSESSIONID per browser",
+        "check": "present",
+        "result": "pass"
+       }
+      ]
+     },
+     {
+      "id": "TC-GSRCH-002",
+      "title": "Parity — one-way, Economy, CAI→DXB",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Final (rerun-2)",
+        "value": "Failed — fresh execution; records in ManualExecutionResults.rerun-2.md"
+       },
+       {
+        "label": "Execution time",
+        "value": "7s"
+       },
+       {
+        "label": "Reason",
+        "value": "A6: Integration returns 30 extra fare options (higher fare brands) on 30 of 34 flights. Flights, segments, times, stops, Cabin, RBD and baggage allowance of every matched fare option are equal."
+       },
+       {
+        "label": "Defects",
+        "value": "DEF-03"
+       }
+      ],
+      "evidence": "rerun-2: artifacts_rerun-2/ — artifacts/E02_eco.comparison.json; artifacts/E02_eco.integration.json; artifacts/E02_eco.direct.json; artifacts/E02_eco.integration.png; artifacts/E02_eco.direct.png",
+      "assertions": []
+     },
+     {
+      "id": "TC-GSRCH-003",
+      "title": "Parity — round-trip, Economy, CAI⇄DXB",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Final (rerun-2)",
+        "value": "Failed — fresh execution; records in ManualExecutionResults.rerun-2.md"
+       },
+       {
+        "label": "Execution time",
+        "value": "9s"
+       },
+       {
+        "label": "Reason",
+        "value": "A1/A2: 13 outbound+return combinations only on Integration. A6: 83 fare options only on Integration, 5 (Emirates \"Economy Flex\", RBD L/K) only on Direct. Integration returned exactly 200 offers — possibly capped."
+       },
+       {
+        "label": "Defects",
+        "value": "DEF-03, DEF-04"
+       }
+      ],
+      "evidence": "rerun-2: artifacts_rerun-2/ — artifacts/E03_rt.comparison.json; artifacts/E03_rt.integration.json; artifacts/E03_rt.direct.json; artifacts/E03_rt.integration.png; artifacts/E03_rt.direct.png",
+      "assertions": []
+     },
+     {
+      "id": "TC-GSRCH-004",
+      "title": "Parity — mixed passengers (Adult, Child, Infant)",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Final (rerun-2)",
+        "value": "Failed — fresh execution; records in ManualExecutionResults.rerun-2.md"
+       },
+       {
+        "label": "Execution time",
+        "value": "7s"
+       },
+       {
+        "label": "Reason",
+        "value": "A6: Integration returns 29 extra fare options. Everything else equal, per passenger type."
+       },
+       {
+        "label": "Defects",
+        "value": "DEF-03"
+       }
+      ],
+      "evidence": "rerun-2: artifacts_rerun-2/ — artifacts/E04_pax.comparison.json; artifacts/E04_pax.integration.json; artifacts/E04_pax.direct.json; artifacts/E04_pax.integration.png; artifacts/E04_pax.direct.png",
+      "assertions": []
+     },
+     {
+      "id": "TC-GSRCH-005",
+      "title": "Parity — Business, CAI→DXB",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Final (rerun-2)",
+        "value": "Failed — fresh execution; records in ManualExecutionResults.rerun-2.md"
+       },
+       {
+        "label": "Execution time",
+        "value": "7s"
+       },
+       {
+        "label": "Reason",
+        "value": "A4: 25 extra fare options on Integration. A5: the Oman Air \"BUSINESS COMFORT\" option (WY408+WY603) is labelled `FirstClass` on Integration and `First` on Direct."
+       },
+       {
+        "label": "Defects",
+        "value": "DEF-03, DEF-05"
+       }
+      ],
+      "evidence": "rerun-2: artifacts_rerun-2/ — artifacts/E05_bus.comparison.json; artifacts/E05_bus.integration.json; artifacts/E05_bus.direct.json; artifacts/E05_bus.integration.png; artifacts/E05_bus.direct.png",
+      "assertions": []
+     },
+     {
+      "id": "TC-GSRCH-006",
+      "title": "Parity — Premium Economy, CAI→DXB",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Final (rerun-2)",
+        "value": "Failed — fresh execution; records in ManualExecutionResults.rerun-2.md"
+       },
+       {
+        "label": "Execution time",
+        "value": "8s"
+       },
+       {
+        "label": "Reason",
+        "value": "Integration ignores Premium Economy: it returns the same 34 flights as an Economy search, all in Economy. Direct returns 12 Premium Economy flights (RBD J)."
+       },
+       {
+        "label": "Defects",
+        "value": "DEF-01"
+       }
+      ],
+      "evidence": "rerun-2: artifacts_rerun-2/ — artifacts/E06_prem.comparison.json; artifacts/E06_prem.integration.json; artifacts/E06_prem.direct.json; artifacts/E06_prem.integration.png; artifacts/E06_prem.direct.png",
+      "assertions": []
+     },
+     {
+      "id": "TC-GSRCH-007",
+      "title": "Parity — First Class, CAI→DXB",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Final (rerun-2)",
+        "value": "Failed — fresh execution; records in ManualExecutionResults.rerun-2.md"
+       },
+       {
+        "label": "Execution time",
+        "value": "7s"
+       },
+       {
+        "label": "Reason",
+        "value": "Integration ignores First Class: it returns the same 34 flights as a Business search. Direct returns 10 First Class flights."
+       },
+       {
+        "label": "Defects",
+        "value": "DEF-02"
+       }
+      ],
+      "evidence": "rerun-2: artifacts_rerun-2/ — artifacts/E07_first.comparison.json; artifacts/E07_first.integration.json; artifacts/E07_first.direct.json; artifacts/E07_first.integration.png; artifacts/E07_first.direct.png",
+      "assertions": []
+     },
+     {
+      "id": "TC-GSRCH-010",
+      "title": "Cabin Class filter returns only the selected cabin",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Final (rerun-2)",
+        "value": "Failed — fresh execution; records in ManualExecutionResults.rerun-2.md"
+       },
+       {
+        "label": "Execution time",
+        "value": "29s"
+       },
+       {
+        "label": "Reason",
+        "value": "Premium Economy and First Class are not applied on Integration (DEF-01, DEF-02). A Business search returns one Oman Air option whose segments are in First cabin, on both branches (DEF-06)."
+       },
+       {
+        "label": "Defects",
+        "value": "DEF-01, DEF-02, DEF-06"
+       }
+      ],
+      "evidence": "rerun-2: artifacts_rerun-2/ — artifacts/E02_eco.comparison.json; artifacts/E02_eco.integration.json; artifacts/E02_eco.direct.json; artifacts/E05_bus.comparison.json; artifacts/E05_bus.integration.json; artifacts/E05_bus.direct.json; artifacts/E06_prem.comparison.json; artifacts/E06_prem.integration.json; artifacts/E06_prem.direct.json; artifacts/E07_first.comparison.json; artifacts/E07_first.integration.json; artifacts/E07_first.direct.json; artifacts/E06_prem.integration.png; artifacts/E06_prem.direct.png; artifacts/E07_first.integration.png; artifacts/E07_first.direct.png; artifacts/E05_bus.integration.png; artifacts/E05_bus.direct.png",
+      "assertions": []
+     },
+     {
+      "id": "TC-GSRCH-011",
+      "title": "RBD filter — Economy (Q, K, Y)",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Execution time",
+        "value": "21s"
+       }
+      ],
+      "evidence": "artifacts/E08_ecoQ.comparison.json; artifacts/E08_ecoQ.integration.json; artifacts/E08_ecoQ.direct.json; artifacts/E09_ecoK.comparison.json; artifacts/E09_ecoK.integration.json; artifacts/E09_ecoK.direct.json; artifacts/E10_ecoY.comparison.json; artifacts/E10_ecoY.integration.json; artifacts/E10_ecoY.direct.json",
+      "assertions": [
+       {
+        "assertion": "A1 — `Q`: result set not empty",
+        "expected": "≥ 1, both branches",
+        "actual": "Integration 35 offers (35 options), Direct 24 (24 options)",
+        "check": "≥ 1",
+        "result": "pass"
+       },
+       {
+        "assertion": "A2 — `Q`: every segment RBD in {Q}, cabin Economy",
+        "expected": "RBD Q, Economy",
+        "actual": "Integration RBD [Q] cabin [Economy]; Direct RBD [Q] cabin [Economy]",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A3 — `Q`: same flights on both branches",
+        "expected": "equal",
+        "actual": "24 matched; 0 only Integration; 0 only Direct (fare options: 11 extra on Integration — not asserted here)",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A4 — `K`: result set not empty",
+        "expected": "≥ 1, both branches",
+        "actual": "Integration 43 offers (43 options), Direct 31 (31 options)",
+        "check": "≥ 1",
+        "result": "pass"
+       },
+       {
+        "assertion": "A5 — `K`: every segment RBD in {K}, cabin Economy",
+        "expected": "RBD K, Economy",
+        "actual": "Integration RBD [K] cabin [Economy]; Direct RBD [K] cabin [Economy]",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A6 — `K`: same flights on both branches",
+        "expected": "equal",
+        "actual": "31 matched; 0 only Integration; 0 only Direct (fare options: 12 extra on Integration — not asserted here)",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A7 — `Y`: result set not empty",
+        "expected": "≥ 1, both branches",
+        "actual": "Integration 49 offers (49 options), Direct 35 (35 options)",
+        "check": "≥ 1",
+        "result": "pass"
+       },
+       {
+        "assertion": "A8 — `Y`: every segment RBD in {Y}, cabin Economy",
+        "expected": "RBD Y, Economy",
+        "actual": "Integration RBD [Y] cabin [Economy]; Direct RBD [Y] cabin [Economy]",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A9 — `Y`: same flights on both branches",
+        "expected": "equal",
+        "actual": "35 matched; 0 only Integration; 0 only Direct (fare options: 14 extra on Integration — not asserted here)",
+        "check": "equals",
+        "result": "pass"
+       }
+      ]
+     },
+     {
+      "id": "TC-GSRCH-012",
+      "title": "RBD filter — Business (J, C)",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Execution time",
+        "value": "18s"
+       }
+      ],
+      "evidence": "artifacts/E11_busJ.comparison.json; artifacts/E11_busJ.integration.json; artifacts/E11_busJ.direct.json; artifacts/E12_busC.comparison.json; artifacts/E12_busC.integration.json; artifacts/E12_busC.direct.json",
+      "assertions": [
+       {
+        "assertion": "A1 — `J`: result set not empty",
+        "expected": "≥ 1, both branches",
+        "actual": "Integration 38 offers (38 options), Direct 28 (28 options)",
+        "check": "≥ 1",
+        "result": "pass"
+       },
+       {
+        "assertion": "A2 — `J`: every segment RBD in {J}, cabin Business",
+        "expected": "RBD J, Business",
+        "actual": "Integration RBD [J] cabin [Business]; Direct RBD [J] cabin [Business]",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A3 — `J`: same flights on both branches",
+        "expected": "equal",
+        "actual": "28 matched; 0 only Integration; 0 only Direct (fare options: 10 extra on Integration — not asserted here)",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A4 — `C`: result set not empty",
+        "expected": "≥ 1, both branches",
+        "actual": "Integration 39 offers (39 options), Direct 29 (29 options)",
+        "check": "≥ 1",
+        "result": "pass"
+       },
+       {
+        "assertion": "A5 — `C`: every segment RBD in {C}, cabin Business",
+        "expected": "RBD C, Business",
+        "actual": "Integration RBD [C] cabin [Business]; Direct RBD [C] cabin [Business]",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A6 — `C`: same flights on both branches",
+        "expected": "equal",
+        "actual": "29 matched; 0 only Integration; 0 only Direct (fare options: 10 extra on Integration — not asserted here)",
+        "check": "equals",
+        "result": "pass"
+       }
+      ]
+     },
+     {
+      "id": "TC-GSRCH-013",
+      "title": "Parity — Cabin Class and RBD that do not match",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Execution time",
+        "value": "6s"
+       }
+      ],
+      "evidence": "artifacts/E13_ecoJ.comparison.json; artifacts/E13_ecoJ.integration.json; artifacts/E13_ecoJ.direct.json",
+      "assertions": [
+       {
+        "assertion": "A1 — Outcome type, Integration vs Direct",
+        "expected": "same",
+        "actual": "Integration \"No Flights Found\", Direct \"No Flights Found\" (0/0 offers, HTTP 200/200)",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A2 — Message text",
+        "expected": "same",
+        "actual": "Both: \"No Flights Found — We couldn’t find any flights matching your search.\"",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A3 — Fare options, Cabin and RBD when results are shown",
+        "expected": "same",
+        "actual": "No results on either branch — condition not met",
+        "check": "equals",
+        "result": "pass"
+       }
+      ]
+     },
+     {
+      "id": "TC-GSRCH-015",
+      "title": "Parity — one-way, Economy, CAI→JED",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Final (rerun-2)",
+        "value": "Failed — fresh execution; records in ManualExecutionResults.rerun-2.md"
+       },
+       {
+        "label": "Execution time",
+        "value": "7s"
+       },
+       {
+        "label": "Reason",
+        "value": "A4: 34 extra fare options on Integration. Flights and fare details equal."
+       },
+       {
+        "label": "Defects",
+        "value": "DEF-03"
+       }
+      ],
+      "evidence": "rerun-2: artifacts_rerun-2/ — artifacts/E14_jed.comparison.json; artifacts/E14_jed.integration.json; artifacts/E14_jed.direct.json; artifacts/E14_jed.integration.png; artifacts/E14_jed.direct.png",
+      "assertions": []
+     },
+     {
+      "id": "TC-GSRCH-016",
+      "title": "Parity — Multi-City, Economy",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Final (rerun-2)",
+        "value": "Failed — fresh execution; records in ManualExecutionResults.rerun-2.md"
+       },
+       {
+        "label": "Execution time",
+        "value": "9s"
+       },
+       {
+        "label": "Reason",
+        "value": "A1/A2: 14 leg-1+leg-2 combinations only on Integration. A4: 64 extra fare options on Integration. Integration returned exactly 200 offers — possibly capped."
+       },
+       {
+        "label": "Defects",
+        "value": "DEF-03, DEF-04"
+       }
+      ],
+      "evidence": "rerun-2: artifacts_rerun-2/ — artifacts/E15_mc.comparison.json; artifacts/E15_mc.integration.json; artifacts/E15_mc.direct.json; artifacts/E15_mc.integration.png; artifacts/E15_mc.direct.png",
+      "assertions": []
+     },
+     {
+      "id": "TC-GSRCH-017",
+      "title": "Parity — Multi-City, different Cabin per leg",
+      "status": "Flaky",
+      "rows": [
+       {
+        "label": "Investigation",
+        "value": "Direct returned ET600 as Business/D in 2 of 5 identical searches; cause unknown — stays Flaky"
+       },
+       {
+        "label": "Final",
+        "value": "Failed in cycle 1, Passed in rerun-1 — DEF-07 not reproduced"
+       },
+       {
+        "label": "Execution time",
+        "value": "9s"
+       },
+       {
+        "label": "Reason",
+        "value": "A1/A2: 4 combinations only on Integration. A3/A5: on Direct, leg-1 segment ET600 (Economy requested) comes back as Business / RBD D; Integration returns it as Economy / RBD V."
+       },
+       {
+        "label": "Defects",
+        "value": "DEF-04, DEF-07"
+       }
+      ],
+      "evidence": "artifacts/E16_mcbus.comparison.json; artifacts/E16_mcbus.integration.json; artifacts/E16_mcbus.direct.json; artifacts/E16_mcbus.integration.png; artifacts/E16_mcbus.direct.png",
+      "assertions": []
+     },
+     {
+      "id": "TC-GSRCH-018",
+      "title": "RBD filter — First Class (F, A)",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Final (rerun-2)",
+        "value": "Failed — fresh execution; records in ManualExecutionResults.rerun-2.md"
+       },
+       {
+        "label": "Execution time",
+        "value": "11s"
+       },
+       {
+        "label": "Reason",
+        "value": "Integration returns no First Class fares: RBD F → No Flights Found (Direct 10); RBD A → 1 offer whose segments are Business (Direct 10 First)."
+       },
+       {
+        "label": "Defects",
+        "value": "DEF-02"
+       }
+      ],
+      "evidence": "rerun-2: artifacts_rerun-2/ — artifacts/E17_firstF.comparison.json; artifacts/E17_firstF.integration.json; artifacts/E17_firstF.direct.json; artifacts/E18_firstA.comparison.json; artifacts/E18_firstA.integration.json; artifacts/E18_firstA.direct.json; artifacts/E17_firstF.integration.png; artifacts/E17_firstF.direct.png; artifacts/E18_firstA.integration.png; artifacts/E18_firstA.direct.png",
+      "assertions": []
+     },
+     {
+      "id": "TC-GSRCH-019",
+      "title": "RBD filter — Premium Economy (J)",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Final (rerun-2)",
+        "value": "Failed — fresh execution; records in ManualExecutionResults.rerun-2.md"
+       },
+       {
+        "label": "Execution time",
+        "value": "6s"
+       },
+       {
+        "label": "Reason",
+        "value": "Integration returns No Flights Found; Direct returns 5 Premium Economy flights in RBD J."
+       },
+       {
+        "label": "Defects",
+        "value": "DEF-01"
+       }
+      ],
+      "evidence": "rerun-2: artifacts_rerun-2/ — artifacts/E19_premJ.comparison.json; artifacts/E19_premJ.integration.json; artifacts/E19_premJ.direct.json; artifacts/E19_premJ.integration.png; artifacts/E19_premJ.direct.png",
+      "assertions": []
+     },
+     {
+      "id": "TC-GSRCH-020",
+      "title": "RBD filter — several RBDs selected together (Q + K)",
+      "status": "Passed",
+      "rows": [
+       {
+        "label": "Execution time",
+        "value": "7s"
+       }
+      ],
+      "evidence": "artifacts/E20_ecoQK.comparison.json; artifacts/E20_ecoQK.integration.json; artifacts/E20_ecoQK.direct.json",
+      "assertions": [
+       {
+        "assertion": "A1 — `Q|K`: result set not empty",
+        "expected": "≥ 1, both branches",
+        "actual": "Integration 51 offers (51 options), Direct 30 (30 options)",
+        "check": "≥ 1",
+        "result": "pass"
+       },
+       {
+        "assertion": "A2 — `Q|K`: every segment RBD in {Q|K}, cabin Economy",
+        "expected": "RBD Q|K, Economy",
+        "actual": "Integration RBD [K,Q] cabin [Economy]; Direct RBD [K,Q] cabin [Economy]",
+        "check": "matches",
+        "result": "pass"
+       },
+       {
+        "assertion": "A3 — `Q|K`: same flights on both branches",
+        "expected": "equal",
+        "actual": "30 matched; 0 only Integration; 0 only Direct (fare options: 21 extra on Integration — not asserted here)",
+        "check": "equals",
+        "result": "pass"
+       }
+      ]
+     },
+     {
+      "id": "TC-GSRCH-021",
+      "title": "RBD filter — on one Multi-City leg only",
+      "status": "Failed",
+      "rows": [
+       {
+        "label": "Execution time",
+        "value": "10m"
+       },
+       {
+        "label": "Reason",
+        "value": "Search does nothing on both branches when an RBD is set on leg 1 only: no request is sent and no message is shown (seen 2 times per branch). Control checks: no RBD on any leg → search runs; RBD on both legs → search runs; RBD on leg 2 only → no request."
+       },
+       {
+        "label": "Defects",
+        "value": "DEF-08"
+       }
+      ],
+      "evidence": "artifacts/E21_mcQ.integration.png; artifacts/E21_mcQ.direct.png; artifacts/E21_mcQ.integration.json; artifacts/E21_mcQ.direct.json",
+      "assertions": [
+       {
+        "assertion": "A1 — Result set not empty",
+        "expected": "≥ 1, both branches",
+        "actual": "No search request sent on either branch (waited 300 s, then retried once with network capture: 0 requests, 0 console messages, 0 UI messages)",
+        "check": "≥ 1",
+        "result": "fail"
+       },
+       {
+        "assertion": "A2 — Every leg 1 segment RBD = Q",
+        "expected": "RBD Q",
+        "actual": "Not evaluable — no results",
+        "check": "equals",
+        "result": "unchecked"
+       },
+       {
+        "assertion": "A3 — Same combinations on both branches",
+        "expected": "equal",
+        "actual": "Same outcome on both branches: search silently not submitted",
+        "check": "equals",
+        "result": "pass"
+       },
+       {
+        "assertion": "A4 — Leg 2 RBDs, Integration vs Direct",
+        "expected": "equal",
+        "actual": "Not evaluable — no results",
+        "check": "equals",
+        "result": "unchecked"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "sections": [
+  {
+   "type": "notes",
+   "title": "Final reconciliation",
+   "blocks": [
+    {
+     "kind": "ul",
+     "items": [
+      "Final: Passed 4 · Flaky 1 · Failed 12 · Inconclusive 1 (executable scope 18).",
+      "Assertions: rerun-1 31 records (28 pass, 1 fail, 2 not checked); rerun-2 73 records (35 pass, 32 fail, 6 not checked); 0 conflicts, 0 self-contradictions. Cycle-1 conflicts kept as history.",
+      "Confirmed: DEF-01, DEF-02 (High), DEF-08 (Medium). Pending clarification: DEF-03, DEF-04, DEF-06. Observations: DEF-05, baggage wording. TC-017 Flaky (DEF-07 intermittent on Direct).",
+      "TC-001: suite rev 3 waiting for approval; not re-executed, not marked Passed."
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -21,6 +21,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { assertApproverName } = require('../run_manager/approverIdentity');
 
 const { writeJsonAtomic } = require('./moduleRegistry');
 
@@ -76,6 +77,50 @@ class AutomationStateError extends Error {
  * @param {string} slug
  * @returns {string} absolute path to the state file
  */
+// Build, report and IDE output that is never part of an automation project's reviewed revision.
+const REVISION_IGNORED_DIRS = new Set(['.git', 'node_modules', 'target', 'build', 'out', 'dist', 'coverage', '.idea', '.vscode',
+  'allure-results', 'allure-report', 'extent-reports', 'execution-summary', 'test-output', 'test-results', 'playwright-report', '.gradle']);
+const REVISION_IGNORED_FILE = /(^\.DS_Store$|\.log$)/;
+
+/**
+ * The exact REVISION of a module's automation project(s) — every source file under
+ * modules/{slug}/automation/tests_{Framework}/ and its content hash, excluding build/report/IDE output
+ * (Phase 9.1, F-04). Recorded with an Automation Approval, and re-computed before a workspace merge or a
+ * retirement: what is merged or retired must be exactly what was approved. Deterministic and independent
+ * of git, so it can be taken before anything is committed.
+ * @returns {{sha256: string, fileCount: number, projects: Record<string, {sha256: string, fileCount: number}>}}
+ */
+function automationRevision(modulesDir, slug) {
+  // eslint-disable-next-line global-require
+  const crypto = require('crypto');
+  const dir = path.join(modulesDir, slug, 'automation');
+  let projectDirs = [];
+  try { projectDirs = fs.readdirSync(dir, { withFileTypes: true }).filter((e) => e.isDirectory() && /^tests_/.test(e.name)).map((e) => e.name).sort(); } catch { projectDirs = []; }
+  const projects = {};
+  for (const name of projectDirs) projects[name] = treeRevision(path.join(dir, name));
+  const sha256 = crypto.createHash('sha256').update(JSON.stringify(Object.entries(projects).map(([k, v]) => [k, v.sha256]))).digest('hex');
+  return { sha256, fileCount: Object.values(projects).reduce((n, p) => n + p.fileCount, 0), projects };
+}
+
+/** Revision of one directory tree (see automationRevision). */
+function treeRevision(root) {
+  // eslint-disable-next-line global-require
+  const crypto = require('crypto');
+  const files = [];
+  const walk = (d) => {
+    let es = [];
+    try { es = fs.readdirSync(d, { withFileTypes: true }); } catch { return; }
+    for (const e of es) {
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) { if (!REVISION_IGNORED_DIRS.has(e.name)) walk(p); } else if (e.isFile() && !REVISION_IGNORED_FILE.test(e.name)) files.push(p);
+    }
+  };
+  walk(root);
+  const rows = files.map((f) => [path.relative(root, f).split(path.sep).join('/'), crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex')])
+    .sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
+  return { sha256: crypto.createHash('sha256').update(rows.map((r) => r[0] + '\u0000' + r[1]).join('\n')).digest('hex'), fileCount: rows.length };
+}
+
 function automationStatePath(modulesDir, slug) {
   return path.join(modulesDir, slug, 'automation', AUTOMATION_STATE_FILENAME);
 }
@@ -163,6 +208,7 @@ function setAutomationState(modulesDir, slug, state, opts = {}) {
       `Legal next states: ${LEGAL_TRANSITIONS[prior.state].join(', ') || '(none — terminal state)'}.`
     );
   }
+  if (state === 'Approved' && approvedBy && String(approvedBy).trim()) assertApproverName(approvedBy, `Automation Approval of "${slug}"`);
   if (state === 'Approved' && (!approvedBy || !String(approvedBy).trim())) {
     throw new AutomationStateError(
       `Approving "${slug}"'s automation requires \`approvedBy\` — an Automation Approval record ` +
@@ -189,6 +235,8 @@ function setAutomationState(modulesDir, slug, state, opts = {}) {
     assembledAt: prior?.assembledAt ?? null,
     approvedBy: state === 'Approved' ? approvedBy : (prior?.approvedBy ?? null),
     approvedAt: state === 'Approved' ? timestamp : (prior?.approvedAt ?? null),
+    // The exact revision the approval covers (Phase 9.1, F-04): merged and retired code must match it.
+    approvedRevision: state === 'Approved' ? (opts.approvedRevision ?? automationRevision(modulesDir, slug)) : (prior?.approvedRevision ?? null),
     updatedAt: timestamp,
     history: [
       ...(prior?.history || []),
@@ -229,10 +277,14 @@ function recordAssembly(modulesDir, slug, opts = {}) {
     );
   }
 
+  if (!prior.approvedBy || !String(prior.approvedBy).trim()) {
+    throw new AutomationStateError(`Module "${slug}"'s automation is Approved but names no approver — not an Automation Approval (pipeline.md §5.2).`);
+  }
   const timestamp = now.toISOString();
   const next = {
     ...prior,
     assembledAt: timestamp,
+    ...(opts.assembledRevision ? { assembledRevision: opts.assembledRevision } : {}),
     baselineRef: opts.baselineRef ?? prior.baselineRef,
     ...(opts.mergeSummaryPath ? { lastMergeSummary: opts.mergeSummaryPath } : {}),
     updatedAt: timestamp,
@@ -303,6 +355,7 @@ function recordPromotion(modulesDir, slug, opts = {}) {
       'could be scoped (pipeline.md §12.9).'
     );
   }
+  if (promotedBy && String(promotedBy).trim()) assertApproverName(promotedBy, `Promotion of "${slug}"`);
   if (!promotedBy || !String(promotedBy).trim()) {
     throw new AutomationStateError(
       `Promoting "${slug}" requires \`promotedBy\` — an unattributed promotion record is the same ` +
@@ -349,8 +402,12 @@ function recordPromotion(modulesDir, slug, opts = {}) {
  *
  * @param {string} modulesDir
  * @param {string} slug
- * @param {{now: Date, changedPaths: string[], baselineRef?: string, approvedBy?: string,
- *          run?: string, verification?: object, note?: string}} opts
+ * Refuses (since 2026-10-08) an update with no named `approvedBy` or no valid `baselineRef` commit —
+ * an unapproved or unrecoverable in-place change is never recorded. `verifyRef(ref)` optionally
+ * confirms the commit exists (e.g. `git cat-file -e <ref>^{commit}`).
+ *
+ * @param {{now: Date, changedPaths: string[], baselineRef: string, approvedBy: string,
+ *          run?: string, verification?: object, note?: string, verifyRef?: (ref: string) => boolean}} opts
  * @returns {object} the written state
  */
 function recordBaselineUpdate(modulesDir, slug, opts = {}) {
@@ -375,13 +432,41 @@ function recordBaselineUpdate(modulesDir, slug, opts = {}) {
       'files leaves a reviewer nothing to review.'
     );
   }
+  // An in-place baseline change is approved code or it is nothing (pipeline.md §5.2, §12.9): the
+  // approval moved to this recording step when the module was promoted, so recording without a named
+  // approver would record an unapproved change as if it were approved.
+  const approvedBy = typeof opts.approvedBy === 'string' ? opts.approvedBy.trim() : '';
+  if (approvedBy) assertApproverName(approvedBy, `Baseline update of "${slug}"`);
+  if (!approvedBy) {
+    throw new AutomationStateError(
+      'recordBaselineUpdate requires `approvedBy` — the named human who gave the Automation Approval ' +
+      'for this in-place change (pipeline.md §5.2, §12.9). An unapproved baseline change is not recorded.'
+    );
+  }
+  // The commit that captured the change is what makes it recoverable; without it, "which version was
+  // approved?" has no answer once the next edit lands.
+  const baselineRef = typeof opts.baselineRef === 'string' ? opts.baselineRef.trim() : '';
+  if (!/^[0-9a-f]{7,40}$/i.test(baselineRef)) {
+    throw new AutomationStateError(
+      'recordBaselineUpdate requires `baselineRef` — the git commit (7–40 hex characters) that captured ' +
+      `this change (pipeline.md §12.9). Got ${JSON.stringify(opts.baselineRef ?? null)}. Commit the change first.`
+    );
+  }
+  if (typeof opts.verifyRef === 'function' && !opts.verifyRef(baselineRef)) {
+    throw new AutomationStateError(
+      `recordBaselineUpdate: baselineRef ${baselineRef} does not name a commit in the baseline's repository.`
+    );
+  }
 
   const timestamp = now.toISOString();
   const entry = {
     at: timestamp,
     changedPaths: [...changedPaths],
-    ...(opts.baselineRef ? { baselineRef: opts.baselineRef } : {}),
-    ...(opts.approvedBy ? { approvedBy: opts.approvedBy } : {}),
+    baselineRef,
+    // The ref this change was made on top of — the restore point, kept with the entry so history
+    // stays recoverable even after later updates move `baselineRef` on.
+    previousBaselineRef: prior.baselineRef ?? null,
+    approvedBy,
     ...(opts.run ? { run: opts.run } : {}),
     ...(opts.verification ? { verification: opts.verification } : {}),
     ...(opts.note ? { note: opts.note } : {}),
@@ -393,7 +478,7 @@ function recordBaselineUpdate(modulesDir, slug, opts = {}) {
   const next = {
     ...prior,
     sourceRuns: [...sourceRuns],
-    baselineRef: opts.baselineRef ?? prior.baselineRef,
+    baselineRef,
     baselineUpdates: [...(prior.baselineUpdates || []), entry],
     updatedAt: timestamp,
     history: [...(prior.history || []), { state: 'BaselineUpdated', at: timestamp, ...(opts.run ? { run: opts.run } : {}) }],
@@ -418,6 +503,8 @@ function listAssemblable(modulesDir, slugs = []) {
 }
 
 module.exports = {
+  automationRevision,
+  treeRevision,
   AUTOMATION_STATE_FILENAME,
   AUTOMATION_STATE_SCHEMA_VERSION,
   AUTOMATION_STATES,
@@ -432,3 +519,6 @@ module.exports = {
   recordBaselineUpdate,
   listAssemblable,
 };
+
+// Concurrency (Phase 9.4): each read-modify-write below holds the registry lock (registryLock.js).
+require('./registryLock').lockExports(module.exports, ['setAutomationState', 'recordAssembly', 'recordPromotion', 'recordBaselineUpdate']);

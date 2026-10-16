@@ -1,0 +1,95 @@
+{
+ "id": "I02_mcbus_tc017",
+ "offers": [
+  61,
+  61
+ ],
+ "flights": [
+  61,
+  61
+ ],
+ "onlyA": [],
+ "onlyB": [],
+ "matched": 61,
+ "stopsDiff": 0,
+ "opt": {
+  "matched": 60,
+  "onlyA": [
+   "ET453 CAI-ADD 11-18T02:20>11-18T07:10 + ET600 ADD-DXB 11-18T21:45>11-19T02:55 || ET601 DXB-ADD 11-22T04:25>11-22T07:35 + ET462 ADD-JED 11-22T11:00>11-22T13:30 :: ADTx1:VVDD"
+  ],
+  "onlyB": [
+   "ET453 CAI-ADD 11-18T02:20>11-18T07:10 + ET600 ADD-DXB 11-18T21:45>11-19T02:55 || ET601 DXB-ADD 11-22T04:25>11-22T07:35 + ET462 ADD-JED 11-22T11:00>11-22T13:30 :: ADTx1:VDDD"
+  ],
+  "dupA": 0,
+  "dupB": 0
+ },
+ "cabinDiff": [],
+ "bagDiff": [],
+ "bagTextDiff": 178,
+ "bagTextEx": "\"2 Pieces\" vs \"Number 2 Piece Allowed.\"",
+ "paxSets": [
+  [
+   "ADTx1"
+  ],
+  [
+   "ADTx1"
+  ]
+ ],
+ "cabins": [
+  [
+   "Business",
+   "Economy"
+  ],
+  [
+   "Business",
+   "Economy"
+  ]
+ ],
+ "rbds": [
+  [
+   "C",
+   "D",
+   "H",
+   "J",
+   "M",
+   "Q",
+   "R",
+   "S",
+   "T",
+   "V",
+   "Z"
+  ],
+  [
+   "C",
+   "D",
+   "H",
+   "J",
+   "M",
+   "Q",
+   "R",
+   "S",
+   "T",
+   "V",
+   "Z"
+  ]
+ ],
+ "legCabins": [
+  {
+   "1": [
+    "Economy"
+   ],
+   "2": [
+    "Business"
+   ]
+  },
+  {
+   "1": [
+    "Business",
+    "Economy"
+   ],
+   "2": [
+    "Business"
+   ]
+  }
+ ]
+}

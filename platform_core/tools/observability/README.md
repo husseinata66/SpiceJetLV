@@ -74,7 +74,8 @@ Every event declares who emitted it, because they are **not** equally trustworth
 | `skill` | A Skill emitted it because its specification says to. | **Nothing** |
 
 The platform has no orchestrating process — a "stage" is a Claude Skill following a Markdown spec,
-and nothing wraps it. So stage timing, human decisions and artifact activity can only be
+and nothing wraps it. Execution results are the exception since Phase 8.1: the Run Manager emits them
+(`platform-tool`) from the recorded results files (§15.4). Otherwise stage timing, human decisions and artifact activity can only be
 skill-emitted. That is a real limitation, and it is reported rather than papered over: the two counts
 appear separately in every report, and `observability validate` exists to prove a stream
 under-instrumented instead of leaving a reader to notice (HD-OBS-001).
@@ -155,7 +156,8 @@ test asserts the registry and the computed output match exactly.
 | `TOOL_FAILURE_RATE` | Failed / (Succeeded + Failed) — closed calls only |
 | `RETRY_RATE` | Retries / Tool Calls Started — may exceed 1, not clamped |
 | `FIRST_PASS_AUTOMATION_SUCCESS` | Passed on attempt 1 / Executed on attempt 1 |
-| `EXECUTION_PASS_RATE` | Passed / (Passed + Failed) — Skipped and Blocked excluded from both sides |
+| `EXECUTION_PASS_RATE` | Passed / (Passed + Failed), Failed = every failure category — Skipped and Blocked excluded from both sides |
+| `VERIFIED_PASS_RATE` | Passed / Executed — Automation Repaired, Flaky and unverified results ran but are not passes |
 | `VALIDATION_FAILURE_RATE` | Validation Failed / (Passed + Failed) — platform validation only |
 | `HUMAN_DECISIONS_PER_STAGE` | Requested / Stages Started |
 | `SAFETY_BLOCK_RATE` | Forbidden / Operations Evaluated |
@@ -201,10 +203,17 @@ legitimate QA vocabulary gets switched off.
 
 ## 12. Historical runs
 
-Observability is **prospective** (HD-OBS-003). run-001, run-002 and run-003 were never instrumented
-and no event is invented for them. What their immutable artifacts genuinely prove — Surefire totals,
-execution cycle counts, `run.json` timing — is available as **Historical Derived Metrics**, returned
-under its own key, bannered, and never merged into instrumented metrics.
+Observability is **prospective** (HD-OBS-003). No event is ever invented for a run that was not instrumented.
+
+**A historical run** is one that predates the run state model (no `stateSchemaVersion`), or one that is Completed, Cancelled or Failed. Every run in this data root today is historical: run-001…run-006, the RUN-2026… runs, and every `<owner>-run-NNN` run.
+
+- **Nothing is written into it.** Not events, not metrics files, not Run Health reports. Canonical execution telemetry (§15.4) refuses it, and a Run Health report for it is read, or written elsewhere with `--out-dir`.
+- **Its immutable artifacts are still read, with two separate views:**
+
+| View | What it is |
+|---|---|
+| **Historical Derived Metrics** (`historical.js`) | What the artifacts prove — Surefire totals, execution cycle counts, `run.json` timing. Returned under its own key, bannered, never merged into instrumented metrics |
+| **Run Health** (§15) | Reads the run's results files through Execution History. The workflow is **Unknown**; the verdict is **not recorded**; a Passed with no assertion evidence is **Unverified**, a legacy `FAIL` is an *unclassified* `Failed`, and an unknown status is `Unrecognized`. Verification is never claimed retroactively, so a historical run shows no verified passes unless its results carry assertion records |
 
 ## 13. Usage
 
@@ -246,7 +255,113 @@ The dashboard **computes nothing**. It renders `ObservabilityMetrics.json`; the 
 report remain authoritative. Colour never carries meaning alone — every status is stated in text and
 every bar is labelled with its number.
 
-## 15. Files
+## 15. Run Health — the authoritative view (Phase 8)
+
+Telemetry says what was *instrumented*. **Run Health** says where the run stands, by reading the tools that own each fact and never recomputing one:
+
+| Fact | Authoritative source |
+|---|---|
+| Workflow, stage states, approvals, partial scope, revalidation (stale evidence), next action | `run_manager/workflowPlanner` (it alone decides the next step) |
+| Test verdict | `run_manager/runState`, the recorded outcomes |
+| Execution results (final and first attempt), assertion evidence and coverage | `run_manager/executionHistory` |
+| Repairs: classification, cumulative attempts, quarantine, confidence, approvals, before/after, regression, knowledge promotion | `run_manager/repairGovernance.repairReport` |
+| Contract health: versions, drift counts, mock vs real evidence, policy, blockers, pending decisions | `api_contract/registry.scopeStatus` (what `api_contract/cli.js status --json` prints) |
+| Automation baseline and ownership state | `module_manager/automationState` |
+
+```bash
+node platform_core/tools/observability/cli.js health       --run <folder> [--json] [--out [--out-dir <dir>]]
+# every command also takes --data-root <dir> — an isolated data root (it must contain runs/), Phase 9.3 F-24
+node platform_core/tools/observability/cli.js health-check --run <folder> [--revision RunHealth.rev-N]   # exit 2 = disagree or stale
+```
+
+### 15.1 Unified status mapping (`statusMap.js`)
+
+There is one vocabulary, the canonical model in `run_manager/testStatus.js`. Telemetry events now accept every canonical status. The original five remain valid, and `Unrecognized` is refused on write.
+
+| Status | Category | Counted against | In "executed" |
+|---|---|---|---|
+| Passed | pass | — (the only status that counts as a pass) | yes |
+| Flaky | pass-unstable | Automation | yes |
+| Automation Repaired | pass-repaired | Automation (never a clean pass) | yes |
+| Failed · Application Failure | app-failure | Application (a bare `Failed` is reported as **unclassified**) | yes |
+| Automation Failure | auto-failure | Automation | yes |
+| Environment Failure · Infrastructure Failure · Configuration Failure | env-failure | Environment | yes |
+| Blocked · Skipped · Not Executed | not-run | Coverage (in scope, not executed) | no |
+| Excluded | not-applicable | Coverage (reported; outside every denominator) | no |
+| Inconclusive · Quarantined · Unverified · Unrecognized | unverified | Coverage (a result that cannot be trusted as a pass) | yes |
+
+Legacy telemetry is mapped conservatively:
+
+- a `Failed` stays an *unclassified* failure, never promoted to "Application Failure";
+- any status that isn't recognised is `Unrecognized`, never Passed;
+- a legacy results file's Passed with no assertion evidence is `Unverified`, so verification is never claimed retroactively.
+
+The registered `EXECUTION_PASS_RATE` keeps its meaning, so earlier metrics still read the same. `VERIFIED_PASS_RATE` (Passed / Executed) is new, and counts repaired, flaky and unverified results as executed but not passed.
+
+### 15.2 Health dimensions — reported apart, never combined
+
+**There is no overall health figure and no green summary.** Each dimension states its source, numerator, denominator, and what happens to excluded and missing results (`runHealth.HEALTH_DEFINITIONS`, printed in every report):
+
+| Dimension | Numerator | Denominator | Missing / excluded |
+|---|---|---|---|
+| Application | Application Failure + unclassified Failed | Executed (executable scope minus not-run) | No results → Unavailable; Excluded never counted |
+| Automation | Automation Failure + Quarantined (Repaired and Flaky shown apart) | Executed | As above; plus the Module Manager's automation state |
+| Environment | Environment / Infrastructure / Configuration Failure | Executed | As above |
+| Coverage | Executed; and evidenced passes | Executable scope (everything but Excluded) | Incomplete while anything is unverified, not run, a pass lacks assertion evidence, or a required assertion has no record |
+| Contract | The contract tool's blockers and warnings | The run's scopes (+ a Supplier's Feature) | No registry and optional → `not-registered` (not clean) |
+| Workflow | Blocked stages, pending approvals, revalidation, pending decisions | The selected workflow's stages | Legacy run → Unknown |
+
+Manual (4M) and automation (5A, or 5H once it ran) are reported as separate branches. A source that cannot be read makes its dimensions **Unavailable**, never clean.
+
+### 15.3 Reporting consistency
+
+- **One snapshot, three renderings.** `RunHealth.md`, `RunHealth.report.json` (the shared `report_builder` design) and `RunHealth.html` are rendered from one snapshot, which is kept as `.snapshot.json`. Each rendering carries the same **figures**: the verdict, every status count, assertion coverage, repair outcomes, contract health and workflow blockers.
+- **What `health-check` verifies.** The three renderings must agree with each other, and with a fresh read of the authoritative sources. A report that has fallen behind is **stale**.
+- **Never green.** The status pill states the recorded test verdict in words.
+- **Immutable revisions.** The first report is `RunHealth`; later ones are `RunHealth.rev-N`. A revision is never overwritten.
+- **Never written through a link (Phase 9.3, F-23).** Events, metrics, report, dashboard and Run Health are written into a run only when the target's real path stays inside the run folder; a symbolic link or junction in `metadata/` that points elsewhere is refused (`OUTSIDE_RUN`) before any folder, lock or file is created.
+- **One data root per command (Phase 9.3, F-24).** `--data-root <dir>` applies to every command, is validated once (it must contain `runs/`), and every read and write of that command uses it. `--run` takes a run folder name, never a path.
+- **Finished runs are read, not written.** A run that is Completed, Cancelled, Failed or legacy is never written into; its health is read, or written with `--out-dir` elsewhere.
+- **The Final QA Report check covers contracts too.** `state report-check` (and the 6A completion gate) also check that an "API contract position" section states the contract tool's current blockers, and refuse a green report while any contract blocker is open.
+- **History governs telemetry.** Telemetry results are reconciled against execution history, and any disagreement is listed.
+
+### 15.4 Canonical execution telemetry and reconciliation (Phase 8.1)
+
+**Emission.** After `state outcome <4M|5A|5H> --from-results` records an outcome, the Run Manager emits `TEST_EXECUTION_RESULT` events (`source: platform-tool`, `emitExecution.js`) from what Execution History reads. A failure to emit is a warning; the outcome is still recorded. Skills are unchanged and remain independently invoked. There are two kinds of event:
+
+| Event | When | Status |
+|---|---|---|
+| **cycle** | One per test per results cycle (`attempt` 1 = first attempt) | The cycle's *effective* status: what its evidence supports. A recorded Passed with no assertion evidence is Unverified; a generic `Failed` stays `Failed` and is never turned into Application or Automation Failure |
+| **final** | One per test for the recorded outcome | The test-level final status (Automation Repaired, Quarantined, Flaky…). It is excluded from the telemetry counts so a test is not counted twice |
+
+**No duplicates.**
+
+- Every event carries `metadata.evidenceKey`, derived from the evidence itself: run, stage, results file and its fingerprint, test and cycle. For a final event, the key is the final status and the cycles it rests on.
+- An event whose key is already in the stream is skipped. A recovery, a reopened stage, or the same command run twice adds nothing.
+- A new rerun cycle, or a changed final status, is new evidence. It gets new events, and earlier events are never rewritten.
+- Historical runs are refused (§12).
+
+**Reconciliation** (Run Health, `telemetry`). Each telemetry source — `platform-tool` and `skill` — is compared with Execution History *separately*, so one never hides the other. It covers:
+
+- the first attempt;
+- the final result;
+- every **Automation Repaired** transition, flagged if telemetry calls it Passed;
+- every unresolved or quarantined test, flagged if telemetry shows it passing;
+- tests with no telemetry, events with no test, telemetry for unknown tests, corrupt lines, and legacy unclassified `Failed`.
+
+Every disagreement is listed and becomes a Run Health figure (`telemetry.*`). **None changes a count: Execution History governs.**
+
+### 15.5 The dashboard and Run Health (Phase 8.1)
+
+`dashboard` keeps every telemetry chart for comparison, and adds a **Verified Execution Health (authoritative)** panel:
+
+- it is rendered from the Run Health snapshot as-is: verdict, dimension states, and every figure. Nothing is recalculated;
+- it links the latest written Run Health report and says whether that report is still current or stale;
+- if Run Health cannot be read, the panel says **Unavailable**.
+
+The telemetry section is titled **Telemetry Summary — instrumented events, not verified execution health**. Its "Passed" is green only when the authoritative view is fully clean and the verdict is `all-passed`, and no dimension state is ever shown green. `health-check` also verifies a written dashboard: its embedded figures and snapshot fingerprint must match Run Health now.
+
+## 16. Files
 
 ```text
 schema.js       vocabulary, validation, secret redaction
@@ -257,6 +372,10 @@ sources.js      the only impure readers (run.json, test suites, Safety evidence)
 historical.js   what a non-instrumented run's artifacts still prove
 report.js       ObservabilityReport.md
 dashboard.js    ObservabilityDashboard.html
-cli.js          record / summary / validate / metrics / report / dashboard / historical / compare
+cli.js          record / summary / validate / metrics / report / dashboard / historical / compare / health / health-check
+statusMap.js    the unified status mapping (canonical model ⇄ telemetry, legacy)
+runHealth.js    Run Health snapshot from the authoritative sources; health definitions
+runHealthReport.js  Markdown / report model / HTML, immutable revisions, the consistency checks (report, dashboard)
+emitExecution.js  canonical TEST_EXECUTION_RESULT emission from recorded results, deduplicated
 index.js        public surface
 ```

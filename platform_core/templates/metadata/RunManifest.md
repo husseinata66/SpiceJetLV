@@ -95,6 +95,11 @@ Three notes on why fields exist:
 | # | Timestamp | Stage | Transition | Decided By | Feedback / Reason |
 |---|---|---|---|---|---|
 | {{N}} | {{TIMESTAMP}} | {{STAGE}} | {{FROM}} → {{TO}} | {{DECIDED_BY}} | {{FEEDBACK}} |
+<!-- run-state-events-applied: {{APPLIED_SEQ}} -->
+
+<!-- The marker above is written by the Run Manager only (run_manager.md §8.1): the number of run-state
+     events from run.json this table already shows, so a missed update is replayed exactly once. -->
+
 
 ## 5. Declared Gaps
 
@@ -182,3 +187,13 @@ proves nothing** (`pipeline.md` §15.4).
 
 **Token usage and cost are `Unavailable`** on every run, for the reason recorded in the Observability
 Report — never `0`, and never estimated.
+
+## 8. Module Artifacts Consumed
+
+<!-- Which revision of each module / Feature / Supplier artifact this run consumed, at which stage —
+     from run.json `moduleArtifactRefs[]`, written by the Run Manager at each stage start (pipeline.md §7).
+     A run stays reproducible after the module moves on only because this records what it read. -->
+
+| Stage | Artifact | Upstream stage | Header | Integrity | Fingerprint | Consumed at |
+|---|---|---|---|---|---|---|
+| {{STAGE}} | `{{ARTIFACT}}` | {{UPSTREAM_STAGE}} | {{HEADER}} | {{INTEGRITY}} | `{{SHA256_12}}` | {{TIMESTAMP}} |

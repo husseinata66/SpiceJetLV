@@ -11,7 +11,7 @@ This workflow takes a single, already-scoped User Story from requirement to a st
 
 It exists for the common case where a project has already been onboarded and explored at least once (e.g., via a prior Entire Project or First Run pass), and a new User Story arrives against that same, still-valid application surface — re-discovering the whole application for one story would be wasted, redundant work.
 
-**This workflow does not decide, by itself, that Stages 1–2 don't need to run.** That determination is made by the existing Automation Start Decision Gate mechanism (`pipeline/pipeline.md` §5.4), applied here at Stage 3's entry point rather than Stage `4A`'s — see §4 Step 1.
+**This workflow does not decide, by itself, that Stages 1–2 don't need to run.** That determination is made by the existing Workflow Selection & Start Decision Gate (`pipeline/pipeline.md` §5.4; formerly the Automation Start Decision Gate), applied here at Stage 3's entry point rather than Stage `4A`'s — see §4 Step 1.
 
 # 3. Scope
 
@@ -91,11 +91,11 @@ against the wrong scope shape is not fixed by re-running Step 1; it has to be di
 
 ## Step 1 — Run Manager & Stage-State Check
 
-Before Stage 3 is invoked, the Run Manager performs the Automation Start Decision Gate check (`pipeline/pipeline.md` §5.4) — **extended here to any downstream entry point, not only Stage `4A`** — because this workflow is itself a request to begin at a stage other than Stage 1:
+Before Stage 3 is invoked, the Run Manager performs the Workflow Selection & Start Decision Gate check (`pipeline/pipeline.md` §5.4) — which applies to any downstream entry point, not only Stage `4A` — because this workflow is itself a request to begin at a stage other than Stage 1:
 
-1. Inspect the project's Run Manifest and report, plainly, the actual current state of Stages 1–2 (Approved / Pending / not started).
+1. Inspect the actual stage state and report it plainly for Stages 1–2 (Approved / Pending / not started). Per §5.4 step 1, Stage 1–3 state is read from each artifact's own `status:` header in the module workspace, not from a new run's Run Manifest.
 2. If Stage 1 and Stage 2 both show `Approved`: confirm with whoever invoked this workflow that the existing Project Context and Discovery Artifacts are still expected to be current for the module(s) this story touches. **Bring the computed answer to that conversation, not just the question** — `cli.js drift --run <prior-run>` (`run_manager.md` §5.8) reports whether the application actually moved in those paths since that run was anchored, so "are these still current?" is answered with evidence where an anchor exists, and explicitly as *unknown* where it does not.
-3. If either stage is missing or not `Approved`: **do not proceed and do not assume.** Ask explicitly — per §5.4's existing options (continue from latest approved stage, run the full pipeline from Stage 1, or other) — this workflow never silently substitutes a full pipeline run for its own narrower scope, and never silently proceeds against a missing/unapproved Project Context or Discovery baseline.
+3. If either stage is missing or not `Approved`: **do not proceed and do not assume.** Ask explicitly — per §5.4's options (Full Manual, Full Automation, Specific Stage with its input check and confirmation, or Other; with "continue from the first stage that is not Approved" vs "re-run from Stage 1" where some stages are already approved) — this workflow never silently substitutes a full pipeline run for its own narrower scope, and never silently proceeds against a missing/unapproved Project Context or Discovery baseline.
 4. Once confirmed, **create the run as a refinement of the run whose artifacts it reuses** — a single command (`run_manager.md` §5.9, §5.10):
 
    ```bash

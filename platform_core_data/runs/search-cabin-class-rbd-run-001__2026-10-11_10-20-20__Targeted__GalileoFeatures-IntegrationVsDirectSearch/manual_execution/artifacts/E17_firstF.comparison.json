@@ -1,0 +1,61 @@
+{
+ "offers": {
+  "A": 0,
+  "B": 10
+ },
+ "flights": {
+  "A": 0,
+  "B": 10
+ },
+ "flightsOnlyA": [],
+ "flightsOnlyB": [
+  "EK930 CAI-DXB 11-18T08:00>11-18T13:15",
+  "EK928 CAI-DXB 11-18T12:30>11-18T17:45",
+  "EK924 CAI-DXB 11-18T19:25>11-19T00:40",
+  "EK926 CAI-DXB 11-18T00:50>11-18T06:10",
+  "QR1308 CAI-DOH 11-18T20:20>11-19T00:25 + QR1002 DOH-DXB 11-19T01:30>11-19T03:50",
+  "QR1304 CAI-DOH 11-18T13:05>11-18T17:10 + QR1014 DOH-DXB 11-18T18:35>11-18T20:55",
+  "QR1304 CAI-DOH 11-18T13:05>11-18T17:10 + QR1018 DOH-DXB 11-18T18:55>11-18T21:15",
+  "QR1302 CAI-DOH 11-18T19:35>11-18T23:40 + QR1002 DOH-DXB 11-19T01:30>11-19T03:50",
+  "QR1306 CAI-DOH 11-18T01:20>11-18T05:25 + QR1006 DOH-DXB 11-18T08:05>11-18T10:25",
+  "QR1306 CAI-DOH 11-18T01:20>11-18T05:25 + QR1022 DOH-DXB 11-18T09:20>11-18T11:40"
+ ],
+ "matched": 0,
+ "stopsDiff": [],
+ "fareOpt": {
+  "matchedOptions": 0,
+  "onlyA": [],
+  "onlyB": [],
+  "dupA": [],
+  "dupB": []
+ },
+ "detailDiff": [],
+ "bagTextDiff": 0,
+ "bagTextExamples": [],
+ "cabinLabelPairs": [],
+ "cabins": {
+  "A": [],
+  "B": [
+   "First"
+  ]
+ },
+ "rbds": {
+  "A": [],
+  "B": [
+   "F"
+  ]
+ },
+ "perLeg": {
+  "A": {},
+  "B": {
+   "1": {
+    "cabins": [
+     "First"
+    ],
+    "rbds": [
+     "F"
+    ]
+   }
+  }
+ }
+}

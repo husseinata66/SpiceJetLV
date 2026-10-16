@@ -1,0 +1,73 @@
+{
+ "branchConfirmed": "NDC1_Ahmed Ayman (BRN287)",
+ "executedAt": "2026-10-11T10:05:30.563Z",
+ "httpStatus": 200,
+ "uiHeader": "1 options | 1 time slots",
+ "searchCriteria": {
+  "tripType": 1,
+  "noOfAdults": 1,
+  "noOfChildren": 0,
+  "noOfInfants": 0,
+  "entity": {
+   "selectedBranch": 10994
+  },
+  "filters": {
+   "isNearByAirport": false,
+   "isBaggageFareOnly": false,
+   "isUpSelling": false,
+   "isNonStop": false,
+   "isExcludeLcc": false,
+   "allianceAirline": null,
+   "preferAirlines": []
+  },
+  "routes": [
+   {
+    "cabinClass": 4,
+    "dateOfJourney": "18-11-2026",
+    "destination": {
+     "airportCode": "DXB"
+    },
+    "origins": [
+     {
+      "airportCode": "CAI"
+     }
+    ],
+    "rbd": [
+     "A"
+    ]
+   }
+  ]
+ },
+ "note": "Normalized from the flight-search/search response. Prices removed. Level: fare option x passenger type x segment.",
+ "offers": 1,
+ "flights": {
+  "A3931 CAI-ATH 11-18T04:40>11-18T06:40 + A3958 ATH-DXB 11-18T09:10>11-18T16:00": {
+   "stops": "1",
+   "options": [
+    {
+     "rbdKey": "ADTx1:AA",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "A3931",
+        "leg": 1,
+        "cabin": "Business",
+        "rbd": "A",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       },
+       {
+        "seg": "A3958",
+        "leg": 1,
+        "cabin": "Business",
+        "rbd": "A",
+        "bag": "2PC",
+        "bagText": "2 Pieces"
+       }
+      ]
+     }
+    }
+   ]
+  }
+ }
+}

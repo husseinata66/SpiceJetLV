@@ -1,0 +1,202 @@
+{
+ "offers": {
+  "A": 64,
+  "B": 12
+ },
+ "flights": {
+  "A": 34,
+  "B": 12
+ },
+ "flightsOnlyA": [
+  "KU542 CAI-KWI 11-18T20:25>11-18T23:50 + KU677 KWI-DXB 11-19T00:35>11-19T03:30",
+  "KU544 CAI-KWI 11-18T02:40>11-18T06:05 + KU671 KWI-DXB 11-18T09:25>11-18T12:20",
+  "MS901 CAI-DXB 11-18T04:20>11-18T09:40",
+  "MS905 CAI-DXB 11-18T13:40>11-18T19:00",
+  "MS912 CAI-DXB 11-18T09:40>11-18T15:00",
+  "MS910 CAI-DXB 11-18T22:25>11-19T03:45",
+  "SV302 CAI-JED 11-18T19:50>11-18T23:00 + SV590 JED-DXB 11-19T01:10>11-19T04:55",
+  "QR1304 CAI-DOH 11-18T13:05>11-18T17:10 + QR1014 DOH-DXB 11-18T18:35>11-18T20:55",
+  "EK930 CAI-DXB 11-18T08:00>11-18T13:15",
+  "EK928 CAI-DXB 11-18T12:30>11-18T17:45",
+  "EK922 CAI-DXB 11-18T16:30>11-18T21:45",
+  "EK924 CAI-DXB 11-18T19:25>11-19T00:40",
+  "EK926 CAI-DXB 11-18T00:50>11-18T06:10",
+  "RJ504 CAI-AMM 11-18T14:05>11-18T16:25 + RJ614 AMM-DXB 11-18T17:25>11-18T21:35",
+  "RJ508 CAI-AMM 11-18T05:05>11-18T07:25 + RJ610 AMM-DXB 11-18T08:40>11-18T12:45",
+  "VF248 CAI-SAW 11-18T04:55>11-18T08:25 + VF143 SAW-DXB 11-18T20:55>11-19T03:15",
+  "WY408 CAI-MCT 11-18T01:15>11-18T06:55 + WY603 MCT-DXB 11-18T08:50>11-18T10:00",
+  "WY406 CAI-MCT 11-18T18:05>11-18T23:45 + WY603 MCT-DXB 11-19T08:50>11-19T10:00",
+  "SV386 CAI-JED 11-18T01:00>11-18T04:10 + SV566 JED-DXB 11-18T06:00>11-18T09:45",
+  "GF80 CAI-BAH 11-18T04:20>11-18T08:20 + GF504 BAH-DXB 11-18T09:40>11-18T12:05",
+  "GF70 CAI-BAH 11-18T16:00>11-18T20:00 + GF500 BAH-DXB 11-19T01:10>11-19T03:35",
+  "A3931 CAI-ATH 11-18T04:40>11-18T06:40 + A3958 ATH-DXB 11-18T09:10>11-18T16:00",
+  "TK695 CAI-IST 11-18T20:45>11-19T00:20 + TK762 IST-DXB 11-19T01:30>11-19T06:55",
+  "TK687 CAI-IST 11-18T02:20>11-18T05:45 + TK764 IST-DXB 11-18T07:55>11-18T13:30",
+  "A3935 CAI-ATH 11-18T20:50>11-18T23:00 + A3958 ATH-DXB 11-19T09:10>11-19T16:00",
+  "AT273 CAI-CMN 11-18T08:40>11-18T12:35 + AT9900 CMN-DXB 11-18T14:10>11-19T01:40",
+  "ET453 CAI-ADD 11-18T02:20>11-18T07:10 + ET602 ADD-DXB 11-18T10:30>11-18T15:45",
+  "ET1451 CAI-ADD 11-18T22:25>11-19T03:05 + ET602 ADD-DXB 11-19T10:30>11-19T15:45",
+  "LH7177 CAI-MUC 11-18T10:05>11-18T13:10 + LH638 MUC-DXB 11-18T22:35>11-19T07:30"
+ ],
+ "flightsOnlyB": [
+  "XY568 CAI-JED 11-18T23:50>11-19T03:05 + XY501 JED-DXB 11-19T07:15>11-19T11:15",
+  "XY590 CAI-JED 11-18T21:20>11-19T00:30 + XY501 JED-DXB 11-19T07:15>11-19T11:15",
+  "XY264 CAI-RUH 11-18T10:50>11-18T13:35 + XY209 RUH-DXB 11-18T17:45>11-18T20:45",
+  "XY272 CAI-RUH 11-18T19:40>11-18T23:15 + XY1215 RUH-DXB 11-19T02:55>11-19T05:55",
+  "XY266 CAI-RUH 11-18T23:30>11-19T03:05 + XY201 RUH-DXB 11-19T07:40>11-19T10:40",
+  "XY276 CAI-RUH 11-18T16:45>11-18T20:20 + XY1215 RUH-DXB 11-19T02:55>11-19T05:55",
+  "XY268 CAI-RUH 11-18T15:10>11-18T18:45 + XY1215 RUH-DXB 11-19T02:55>11-19T05:55"
+ ],
+ "matched": 5,
+ "stopsDiff": [],
+ "fareOpt": {
+  "matchedOptions": 0,
+  "onlyA": [
+   {
+    "flight": "XY264 CAI-RUH 11-18T10:50>11-18T13:35 + XY207 RUH-DXB 11-18T15:50>11-18T18:50",
+    "brand": "LIG/LIG",
+    "detail": "ADTx1:Economy|A|20KG,Economy|A|20KG"
+   },
+   {
+    "flight": "XY264 CAI-RUH 11-18T10:50>11-18T13:35 + XY207 RUH-DXB 11-18T15:50>11-18T18:50",
+    "brand": "VAL/VAL",
+    "detail": "ADTx1:Economy|A|30KG,Economy|A|30KG"
+   },
+   {
+    "flight": "XY274 CAI-RUH 11-18T12:10>11-18T15:45 + XY209 RUH-DXB 11-18T17:45>11-18T20:45",
+    "brand": "LIG/LIG",
+    "detail": "ADTx1:Economy|A|20KG,Economy|A|20KG"
+   },
+   {
+    "flight": "XY274 CAI-RUH 11-18T12:10>11-18T15:45 + XY209 RUH-DXB 11-18T17:45>11-18T20:45",
+    "brand": "VAL/VAL",
+    "detail": "ADTx1:Economy|A|30KG,Economy|A|30KG"
+   },
+   {
+    "flight": "XY566 CAI-JED 11-18T08:20>11-18T11:30 + XY509 JED-DXB 11-18T14:30>11-18T18:30",
+    "brand": "LIG/LIG",
+    "detail": "ADTx1:Economy|A|20KG,Economy|A|20KG"
+   },
+   {
+    "flight": "XY566 CAI-JED 11-18T08:20>11-18T11:30 + XY509 JED-DXB 11-18T14:30>11-18T18:30",
+    "brand": "VAL/VAL",
+    "detail": "ADTx1:Economy|A|30KG,Economy|A|30KG"
+   },
+   {
+    "flight": "XY572 CAI-JED 11-18T20:05>11-18T23:20 + XY501 JED-DXB 11-19T07:15>11-19T11:15",
+    "brand": "LIG/LIG",
+    "detail": "ADTx1:Economy|A|20KG,Economy|A|20KG"
+   },
+   {
+    "flight": "XY572 CAI-JED 11-18T20:05>11-18T23:20 + XY501 JED-DXB 11-19T07:15>11-19T11:15",
+    "brand": "VAL/VAL",
+    "detail": "ADTx1:Economy|A|30KG,Economy|A|30KG"
+   },
+   {
+    "flight": "XY895 CAI-DMM 11-18T23:25>11-19T03:15 + XY811 DMM-DXB 11-19T08:25>11-19T10:55",
+    "brand": "LIG/LIG",
+    "detail": "ADTx1:Economy|A|20KG,Economy|A|20KG"
+   },
+   {
+    "flight": "XY895 CAI-DMM 11-18T23:25>11-19T03:15 + XY811 DMM-DXB 11-19T08:25>11-19T10:55",
+    "brand": "VAL/VAL",
+    "detail": "ADTx1:Economy|A|30KG,Economy|A|30KG"
+   }
+  ],
+  "onlyB": [
+   {
+    "flight": "XY264 CAI-RUH 11-18T10:50>11-18T13:35 + XY207 RUH-DXB 11-18T15:50>11-18T18:50",
+    "brand": "/",
+    "detail": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC"
+   },
+   {
+    "flight": "XY274 CAI-RUH 11-18T12:10>11-18T15:45 + XY209 RUH-DXB 11-18T17:45>11-18T20:45",
+    "brand": "/",
+    "detail": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC"
+   },
+   {
+    "flight": "XY566 CAI-JED 11-18T08:20>11-18T11:30 + XY509 JED-DXB 11-18T14:30>11-18T18:30",
+    "brand": "/",
+    "detail": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC"
+   },
+   {
+    "flight": "XY572 CAI-JED 11-18T20:05>11-18T23:20 + XY501 JED-DXB 11-19T07:15>11-19T11:15",
+    "brand": "/",
+    "detail": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC"
+   },
+   {
+    "flight": "XY895 CAI-DMM 11-18T23:25>11-19T03:15 + XY811 DMM-DXB 11-19T08:25>11-19T10:55",
+    "brand": "/",
+    "detail": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC"
+   }
+  ],
+  "dupA": [],
+  "dupB": []
+ },
+ "detailDiff": [],
+ "bagTextDiff": 0,
+ "bagTextExamples": [],
+ "cabinLabelPairs": [],
+ "cabins": {
+  "A": [
+   "Economy"
+  ],
+  "B": [
+   "PremiumEconomy"
+  ]
+ },
+ "rbds": {
+  "A": [
+   "A",
+   "E",
+   "H",
+   "K",
+   "L",
+   "M",
+   "N",
+   "Q",
+   "S",
+   "T",
+   "V",
+   "W",
+   "Y"
+  ],
+  "B": [
+   "J"
+  ]
+ },
+ "perLeg": {
+  "A": {
+   "1": {
+    "cabins": [
+     "Economy"
+    ],
+    "rbds": [
+     "A",
+     "E",
+     "H",
+     "K",
+     "L",
+     "M",
+     "N",
+     "Q",
+     "S",
+     "T",
+     "V",
+     "W",
+     "Y"
+    ]
+   }
+  },
+  "B": {
+   "1": {
+    "cabins": [
+     "PremiumEconomy"
+    ],
+    "rbds": [
+     "J"
+    ]
+   }
+  }
+ }
+}

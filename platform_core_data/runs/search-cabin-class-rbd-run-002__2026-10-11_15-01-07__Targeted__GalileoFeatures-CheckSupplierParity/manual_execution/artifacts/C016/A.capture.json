@@ -1,0 +1,94 @@
+{
+ "side": "Integration",
+ "at": "2026-10-11T13:05:01.051Z",
+ "secs": 13.46,
+ "httpStatus": 200,
+ "responseCaptured": true,
+ "readBack": {
+  "branch": "NDC1_Ahmed Ayman (BRN287)",
+  "branchBeforeCheck": "NDC1_Ahmed Ayman (BRN287)",
+  "suppliersListed": [
+   "NDCGal"
+  ],
+  "supplierSelected": "NDCGal",
+  "credentialsListed": [
+   "NdcGalileoSTG EGY"
+  ],
+  "credentialSelected": "NdcGalileoSTG EGY"
+ },
+ "formAsEntered": "Flight Search | Branch selected. | NDC1_Ahmed Ayman (BRN287) | Branch | * | NDC1_Ahmed Ayman (BRN287) | Agency | Agency | Agent | Agent | One-way | Round-trip | Multi-city | CAI | DXB | Economy | RBD | DXB | JED | Economy | RBD | Add flight | 1 | Baggage Fare Only | Up-selling | Check Supplier | Search",
+ "passengers": null,
+ "platformRequestToCheckSupplier": {
+  "flightRequestDto": {
+   "tripType": 3,
+   "noOfAdults": 1,
+   "noOfChildren": 0,
+   "noOfInfants": 0,
+   "entity": {
+    "selectedBranch": 10994
+   },
+   "filters": {
+    "isNearByAirport": false,
+    "isBaggageFareOnly": false,
+    "isUpSelling": false,
+    "isNonStop": false,
+    "isExcludeLcc": false,
+    "allianceAirline": null,
+    "preferAirlines": []
+   },
+   "routes": [
+    {
+     "cabinClass": 1,
+     "dateOfJourney": "18-11-2026",
+     "destination": {
+      "airportCode": "DXB"
+     },
+     "origins": [
+      {
+       "airportCode": "CAI"
+      }
+     ],
+     "rbd": []
+    },
+    {
+     "cabinClass": 1,
+     "dateOfJourney": "22-11-2026",
+     "destination": {
+      "airportCode": "JED"
+     },
+     "origins": [
+      {
+       "airportCode": "DXB"
+      }
+     ],
+     "rbd": []
+    }
+   ]
+  },
+  "supplierId": 162,
+  "pccId": 320
+ },
+ "errorMessage": "CheckSupplierErrorMsg {\ncorrelationId : PgtQQ8gM0aVmjbUxL9cZkwk6aLM_JovX_Ur0um8P\ntimestamp : 2026-10-11T13:05:10.397Z\nmessage : status-code:409 Conflict-500-Non-Specified Internal Communication Error: WAS-UNIVERSALAPI-33890-001.PP.TVLPORT.COM\nerrorDescription : Non-Specified Internal Communication Error: WAS-UNIVERSALAPI-33890-001.PP.TVLPORT.COM\n====================\n\n}",
+ "parseError": null,
+ "searchCallsDuringCheck": [],
+ "payloadLength": {
+  "supplierRequest": 1898,
+  "supplierResponse": 584
+ },
+ "sha256OfRawPayload": {
+  "supplierRequest": "7036bb3ccb3c31a0c122a6274077f94bd1332a757c07c3677ada9f1d3cc4083a",
+  "supplierResponse": "820f5c6edefd935e509d7258c3e7d1d0e4bea6b5b58a08382802dc2bf35677d8"
+ },
+ "redactions": {
+  "supplierRequest": 2,
+  "supplierResponse": 0,
+  "supplierConfig": 0,
+  "total": 2
+ },
+ "boundary": {
+  "reportedBy": "platform back end (BND-04) — not a network capture",
+  "credentialHost": "ndc-integration-stg-ne-3.azurewebsites.net",
+  "schema": "52",
+  "soapEnvelope": true
+ }
+}

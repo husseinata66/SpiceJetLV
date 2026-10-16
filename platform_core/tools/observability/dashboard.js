@@ -188,6 +188,7 @@ details{margin-top:12px} summary{cursor:pointer;color:var(--muted);font-size:13p
 summary:hover{color:var(--ink)}
 .funnel{display:flex;flex-direction:column;gap:6px}
 .tag{font-size:11px;padding:2px 7px;border-radius:4px;border:1px solid currentColor;font-weight:600}
+.hstate{font-weight:700} .hstate--failure{color:var(--failure)} .hstate--warning{color:var(--warning)} .hstate--neutral{color:inherit} .hstate--unavail{color:var(--unavail)}
 .tag--incomplete{color:var(--warning)} .tag--completed{color:var(--success)}
 footer{color:var(--muted);font-size:12.5px;margin-top:26px;line-height:1.7}
 @media print{ body{background:#fff} .card{break-inside:avoid} }
@@ -200,7 +201,38 @@ footer{color:var(--muted);font-size:12.5px;margin-top:26px;line-height:1.7}
  * @param {{now: Date, fixture?: boolean, historical?: object|null, reportPath?: string}} opts
  * @returns {string} a complete, self-contained HTML document
  */
-function renderDashboard(metrics, { now, fixture = false, historical = null, reportPath = 'ObservabilityReport.md' } = {}) {
+/** Dimension state → presentation tone. No state is ever shown green: health is not one figure. */
+const HEALTH_TONE = { failures: 'failure', blocked: 'failure', 'evidence-modified': 'failure', incomplete: 'warning', repaired: 'warning', warnings: 'warning', 'needs-revalidation': 'warning', 'awaiting-decision': 'warning', 'in-progress': 'neutral', unavailable: 'unavail', unknown: 'unavail', 'not-registered': 'unavail', 'not-selected': 'unavail', clean: 'neutral', complete: 'neutral' };
+
+/**
+ * The authoritative Run Health panel — rendered from a runHealth snapshot exactly as it is (state words and
+ * figures); nothing is computed here. Without a snapshot it says so, and is never green.
+ */
+function healthPanel(health, healthReport) {
+  if (!health) {
+    return section('verified-health', 'Verified Execution Health (authoritative)', `<p class="empty"><strong>Unavailable.</strong>
+      ${esc((healthReport && healthReport.reason) || 'The Run Health view could not be read for this run.')} The telemetry below is not a
+      substitute for it.</p>`, 'Source: observability health — workflow planner, execution history, repair report, API contract tool, module manager.');
+  }
+  const dims = [];
+  for (const [b, h] of Object.entries(health.health.byBranch)) {
+    for (const d of ['application', 'automation', 'environment', 'coverage']) dims.push([`${d[0].toUpperCase()}${d.slice(1)} (${b})`, h[d].state]);
+  }
+  dims.push(['Contract', health.health.contract.state], ['Workflow', health.health.workflow.state]);
+  const link = healthReport && healthReport.revision
+    ? `<a href="${esc(healthReport.revision)}.html">${esc(healthReport.revision)}</a> — ${healthReport.current ? 'current' : '<strong>stale</strong>: the authoritative sources changed after it was written'}`
+    : 'none written yet — <code>observability health --out</code>';
+  return section('verified-health', 'Verified Execution Health (authoritative)', `
+    <p><strong>Test verdict (recorded):</strong> ${esc(health.verdict.overall)} — final ${esc(health.verdict.final)}, first attempt ${esc(health.verdict.firstAttempt)}.
+      There is no overall health figure; each dimension stands on its own.</p>
+    ${table(['Dimension', 'State'], dims.map(([d, st]) => [esc(d), `<span class="hstate hstate--${HEALTH_TONE[st] || 'unavail'}">${esc(st)}</span>`]), '')}
+    <p class="note">Run Health report: ${link}. Snapshot <code>${esc(health.fingerprint.slice(0, 16))}</code>.</p>
+    <details><summary>Figures (as the Run Health report states them)</summary>
+      <ul class="health-figures">${health.figures.map(([k, v]) => `<li data-figure="${esc(k)}">${esc(k)}: ${esc(v)}</li>`).join('')}</ul></details>`,
+  'Read from the authoritative sources by <code>observability health</code> — never recomputed here. The telemetry sections below show what was instrumented; where they disagree, execution history governs.');
+}
+
+function renderDashboard(metrics, { now, fixture = false, historical = null, reportPath = 'ObservabilityReport.md', health = null, healthReport = null } = {}) {
   if (!metrics || typeof metrics !== 'object' || !metrics.runId || !metrics.instrumentation) {
     throw new Error('renderDashboard requires a canonical metrics object (runId + instrumentation). '
       + 'It renders metrics; it never reconstructs them.');
@@ -265,8 +297,8 @@ function renderDashboard(metrics, { now, fixture = false, historical = null, rep
     ${kpi('Review Approved', metrics.testDesign.review.approved, 'count', 'success')}
     ${kpi('Automation Approved', metrics.testDesign.automation.approved, 'count', 'success')}
     ${kpi('Tests Executed', metrics.execution.executed)}
-    ${kpi('Passed', metrics.execution.passed, 'count', 'success')}
-    ${kpi('Failed', metrics.execution.failed, 'count', 'failure')}
+    ${kpi('Passed (telemetry)', metrics.execution.passed, 'count', healthIsClean(health) ? 'success' : 'neutral')}
+    ${kpi('Failed (telemetry)', metrics.execution.failed, 'count', 'failure')}
     ${kpi('Blocked', metrics.execution.blocked, 'count', 'blocked')}
     ${kpi('Human Decisions', metrics.humanDecisions.requested)}
     ${kpi('Safety Blocks', metrics.safety.blocks, 'count', 'blocked')}
@@ -317,7 +349,7 @@ function renderDashboard(metrics, { now, fixture = false, historical = null, rep
   const ex = metrics.execution;
   const exMax = Math.max(0, ...['passed', 'failed', 'skipped', 'blocked'].map((k) => num(ex[k]) || 0));
   const execution = `
-    ${bar('Passed', num(ex.passed), exMax, 'success')}
+    ${bar('Passed', num(ex.passed), exMax, healthIsClean(health) ? 'success' : 'neutral')}
     ${bar('Failed', num(ex.failed), exMax, 'failure')}
     ${bar('Skipped', num(ex.skipped), exMax, 'warning')}
     ${bar('Blocked', num(ex.blocked), exMax, 'blocked')}
@@ -474,7 +506,8 @@ function renderDashboard(metrics, { now, fixture = false, historical = null, rep
   const body = [
     header,
     ...H,
-    `<section class="card"><h2>Executive Summary</h2>${kpis}</section>`,
+    healthPanel(health, healthReport),
+    `<section class="card"><h2>Telemetry Summary <span class="note" style="font-weight:400">— instrumented events, not verified execution health</span></h2>${kpis}</section>`,
     section('stages', 'Stage Duration', stageBars
       + (unreached.length ? `<p class="note" style="margin-top:14px">Not reached by this run:
         ${esc(unreached.join(' · '))}. A stage with no bar was never started — that is different from a
@@ -504,8 +537,9 @@ function renderDashboard(metrics, { now, fixture = false, historical = null, rep
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Observability — ${esc(metrics.runId)}</title>
+<title>Observability — ${esc(metrics.runId)}</title>${health ? `\n<meta name="run-health-fingerprint" content="${esc(health.fingerprint)}">` : ''}
 <style>${STYLES}</style>
 </head>
 <body><div class="wrap">
@@ -515,4 +549,12 @@ ${body}
 `;
 }
 
-module.exports = { renderDashboard, esc, val, donut, bar, STYLES };
+/** Green only when the authoritative view says every dimension is clean and the verdict is all-passed. */
+function healthIsClean(health) {
+  if (!health || health.verdict.overall !== 'all-passed') return false;
+  if (health.evidence && health.evidence.state === 'modified') return false;
+  const states = [...Object.values(health.health.byBranch).flatMap((h) => ['application', 'automation', 'environment', 'coverage'].map((d) => h[d].state)), health.health.contract.state, health.health.workflow.state];
+  return states.every((x) => ['clean', 'complete', 'not-registered'].includes(x));
+}
+
+module.exports = { renderDashboard, healthIsClean, HEALTH_TONE, esc, val, donut, bar, STYLES };

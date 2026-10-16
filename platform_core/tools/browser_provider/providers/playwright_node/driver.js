@@ -164,15 +164,31 @@ function loadCredentials(envOverride, credentialsPathOverride, projectRoot) {
  *   whatever the credentials file names itself; omit to let the credentials file decide.
  * @param {string} [opts.credentialsPath] - override the auto-resolved
  *   {{PROJECT_ROOT}}/credentials/credentials.json path; only needed for edge cases (e.g. tests).
- * @param {boolean} [opts.headless] - overrides the profile's browser.headless default when given
+ * @param {boolean} opts.headless - REQUIRED: the human's explicit choice for this launch (true = Headless,
+ *   false = Headed); a missing choice is refused (MODE_REQUIRED) — never the profile's browser.headless
  * @param {string} [opts.projectRoot] - override the configured project root; omit in normal use
  */
-async function launchAuthenticated({ env, credentialsPath, headless, projectRoot } = {}) {
+async function launchAuthenticated({ env, credentialsPath, headless, projectRoot, preflight } = {}) {
+  // Headed or Headless is a human's explicit choice for THIS launch (pipeline.md §6 Rule 11; Phase 9.3,
+  // workflow enforcement). It is checked here, at the launch itself, before any profile or credential is
+  // read — never taken from a profile default, a per-stage default or the previous run.
+  if (typeof headless !== 'boolean') {
+    const err = new Error('launchAuthenticated requires an explicit `headless` (true = Headless, false = Headed), asked of the human '
+      + 'immediately before this launch — it is never defaulted, inferred or carried over (pipeline.md §6 Rule 11).');
+    err.code = 'MODE_REQUIRED';
+    throw err;
+  }
+  // Live-activity boundary (Phase 9.4): the run's stage has a confirmed Safety Preflight for a browser, in this mode.
+  // eslint-disable-next-line global-require
+  const pfRecord = require('../../../run_manager/executionPreflight').assertLivePreflight({ ...(preflight || {}), headless });
   const profile = loadProfile(projectRoot);
   let { creds, env: resolvedEnv } = loadCredentials(env, credentialsPath, projectRoot);
 
+  // R-01 (Phase 9.5): environment and target compared with the confirmed preflight before any browser starts.
+  // eslint-disable-next-line global-require
+  require('../../../run_manager/executionPreflight').assertSessionMatchesPreflight({ record: pfRecord, runsDir: preflight.runsDir, environment: resolvedEnv, url: creds.baseUrl || profile.defaultBaseUrl });
   const browserSettings = profile.browser || {};
-  const isHeadless = typeof headless === 'boolean' ? headless : !!browserSettings.headless;
+  const isHeadless = headless;
 
   const browser = await chromium().launch({
     channel: browserSettings.channel || 'chrome',

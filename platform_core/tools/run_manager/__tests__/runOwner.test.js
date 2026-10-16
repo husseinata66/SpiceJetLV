@@ -283,11 +283,11 @@ test('applyRunRenames refuses a plan with errors or one gone stale', () => {
   const { root, runsDir } = makeDataRoot();
   seedMergedBranches(runsDir);
   const bad = planRunRenames(runsDir, { assign: { 'no-such-run': 'agency' } });
-  assert.throws(() => applyRunRenames(runsDir, bad, { now: NOW, approvedBy: 'A', reason: 'r' }), RenameRunsError);
+  assert.throws(() => applyRunRenames(runsDir, bad, { now: NOW, approvedBy: 'QA Lead', reason: 'r' }), RenameRunsError);
 
   const plan = planRunRenames(runsDir);
   fs.rmSync(path.join(runsDir, plan.renames[0].from), { recursive: true });
-  assert.throws(() => applyRunRenames(runsDir, plan, { now: NOW, approvedBy: 'A', reason: 'r' }), /no longer exists/);
+  assert.throws(() => applyRunRenames(runsDir, plan, { now: NOW, approvedBy: 'QA Lead', reason: 'r' }), /no longer exists/);
   assert.ok(fs.existsSync(path.join(runsDir, plan.renames[1].from)), 'nothing renamed before the check failed');
   cleanup(root);
 });

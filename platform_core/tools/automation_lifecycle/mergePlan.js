@@ -9,6 +9,7 @@
 // would silently delete the other run's already-merged work. Recording the baseline's content at
 // snapshot time ("base") resolves that ambiguity.
 
+const fs = require('fs');
 const path = require('path');
 const { hashContent, walkFiles } = require('./hashUtils');
 const {
@@ -168,6 +169,42 @@ const NO_GIT_WARNING =
  *   `repo` is the GitRepo governing the baseline; omitted, it is discovered from the baseline path.
  * @returns {object} the Merge Plan — see pipeline.md §12 Step 3 for field meanings
  */
+class MergeTopologyError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'MergeTopologyError';
+    this.code = 'MERGE_TOPOLOGY';
+  }
+}
+
+/**
+ * Topology (Phase 9.3, F-25): the working copy is read through the baseline's repository (ignore rules, tracked
+ * state), so it must live inside that repository's work tree — outside it, git can only fail half-way through.
+ * The CLI calls this with the REAL repository before planning; throws MergeTopologyError unless both paths
+ * exist and sit inside `repo.root`.
+ */
+function assertSameWorkTree(repo, baselineAbsPath, workingCopyAbsPath) {
+  const real = (p, what) => {
+    try { return fs.realpathSync.native(path.resolve(p)); } catch {
+      throw new MergeTopologyError(`The ${what} ${p} does not exist — nothing to merge. Nothing was read or written.`);
+    }
+  };
+  const norm = (p) => (process.platform === 'win32' ? p.toLowerCase() : p);
+  const root = norm(real(repo.root, 'baseline repository root'));
+  const within = (p) => { const r = path.relative(root, norm(p)); return r === '' || (!r.startsWith('..') && !path.isAbsolute(r)); };
+  const base = real(baselineAbsPath, 'baseline');
+  const wc = real(workingCopyAbsPath, 'module package');
+  if (!within(base)) throw new MergeTopologyError(`The baseline ${baselineAbsPath} is not inside its repository work tree ${repo.root}. Nothing was read or written.`);
+  if (!within(wc)) {
+    throw new MergeTopologyError(
+      `The module package ${workingCopyAbsPath} is outside the baseline's repository (${repo.root}). A Workspace ` +
+      'Merge reads the package through that repository (ignore rules, tracked state), so both must be in the same ' +
+      'work tree — the module working copy under platform_core_data/modules/<module>/automation and the baseline under ' +
+      'automation_baseline/ (pipeline.md §12). Nothing was read or written.'
+    );
+  }
+}
+
 function computeMergePlan(baselineAbsPath, workingCopyAbsPath, snapshot, deps) {
   const repo = deps.repo || discoverRepo(baselineAbsPath, deps);
   const warnings = [];
@@ -241,6 +278,8 @@ function computeMergePlan(baselineAbsPath, workingCopyAbsPath, snapshot, deps) {
 }
 
 module.exports = {
+  MergeTopologyError,
+  assertSameWorkTree,
   buildDiskSnapshot,
   buildGitSnapshot,
   classifyChanges,

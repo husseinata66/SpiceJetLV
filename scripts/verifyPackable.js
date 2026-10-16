@@ -98,9 +98,18 @@ if (!initPs1.includes('agentic-testing.js')) {
 // happened to quote one of those phrases).
 const { getTemplate } = require('../platform_core/tools/init/templates.js');
 
+// Only a file that WOULD be published can leak (Phase 9.2, F-21): files[] is a whitelist, and project data
+// outside it never ships. Without files[] (the whole tree ships) or with platform_core_data in it, every
+// listed file is checked, exactly as before.
+const wouldPublish = (rel) => {
+  if (!Array.isArray(pkg.files) || !pkg.files.length) return true;
+  const posix = rel.split(path.sep).join('/');
+  return pkg.files.map((p) => p.replace(/\/+$/, '')).some((p) => posix === p || posix.startsWith(`${p}/`));
+};
 for (const leaked of ['PRD.md', 'run_configuration.md', 'PRD_UserStories.md']) {
   const abs = path.join(ROOT, 'platform_core_data', 'knowledge_base', leaked);
   if (!fs.existsSync(abs)) continue;
+  if (!wouldPublish(path.join('platform_core_data', 'knowledge_base', leaked))) continue;
   const content = fs.readFileSync(abs, 'utf8');
   const pristine = content.replace(/\r\n/g, '\n') === getTemplate(leaked).replace(/\r\n/g, '\n');
   if (!pristine) {

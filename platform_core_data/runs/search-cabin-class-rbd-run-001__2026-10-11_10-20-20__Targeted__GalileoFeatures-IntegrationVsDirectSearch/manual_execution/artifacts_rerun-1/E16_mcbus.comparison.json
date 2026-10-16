@@ -1,0 +1,123 @@
+{
+ "offers": {
+  "A": 61,
+  "B": 61
+ },
+ "flights": {
+  "A": 61,
+  "B": 61
+ },
+ "flightsOnlyA": [],
+ "flightsOnlyB": [],
+ "matched": 61,
+ "stopsDiff": [],
+ "fareOpt": {
+  "matchedOptions": 61,
+  "onlyA": [],
+  "onlyB": [],
+  "dupA": [],
+  "dupB": []
+ },
+ "detailDiff": [],
+ "bagTextDiff": 182,
+ "bagTextExamples": [
+  "1 Pieces ⇄ Number 1 Piece Allowed.",
+  "2 Pieces ⇄ Number 2 Piece Allowed.",
+  "3 Pieces ⇄ Number 3 Piece Allowed."
+ ],
+ "cabinLabelPairs": [],
+ "cabins": {
+  "A": [
+   "Business",
+   "Economy"
+  ],
+  "B": [
+   "Business",
+   "Economy"
+  ]
+ },
+ "rbds": {
+  "A": [
+   "C",
+   "D",
+   "H",
+   "J",
+   "M",
+   "Q",
+   "R",
+   "S",
+   "T",
+   "V",
+   "Z"
+  ],
+  "B": [
+   "C",
+   "D",
+   "H",
+   "J",
+   "M",
+   "Q",
+   "R",
+   "S",
+   "T",
+   "V",
+   "Z"
+  ]
+ },
+ "perLeg": {
+  "A": {
+   "1": {
+    "cabins": [
+     "Economy"
+    ],
+    "rbds": [
+     "H",
+     "M",
+     "Q",
+     "R",
+     "S",
+     "T",
+     "V"
+    ]
+   },
+   "2": {
+    "cabins": [
+     "Business"
+    ],
+    "rbds": [
+     "C",
+     "D",
+     "J",
+     "Z"
+    ]
+   }
+  },
+  "B": {
+   "1": {
+    "cabins": [
+     "Economy"
+    ],
+    "rbds": [
+     "H",
+     "M",
+     "Q",
+     "R",
+     "S",
+     "T",
+     "V"
+    ]
+   },
+   "2": {
+    "cabins": [
+     "Business"
+    ],
+    "rbds": [
+     "C",
+     "D",
+     "J",
+     "Z"
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,1607 @@
+{
+ "branch": "ahmed ayman (BRN632)",
+ "executedAt": "2026-10-11T09:33:25.974Z",
+ "httpStatus": 200,
+ "uiHeader": "35 options | 4 time slots",
+ "searchCriteria": {
+  "tripType": 1,
+  "noOfAdults": 1,
+  "noOfChildren": 0,
+  "noOfInfants": 0,
+  "entity": {
+   "selectedBranch": 11703
+  },
+  "filters": {
+   "isNearByAirport": false,
+   "isBaggageFareOnly": false,
+   "isUpSelling": false,
+   "isNonStop": false,
+   "isExcludeLcc": false,
+   "allianceAirline": null,
+   "preferAirlines": []
+  },
+  "routes": [
+   {
+    "cabinClass": 1,
+    "dateOfJourney": "18-11-2026",
+    "destination": {
+     "airportCode": "DXB"
+    },
+    "origins": [
+     {
+      "airportCode": "CAI"
+     }
+    ],
+    "rbd": [
+     "Y"
+    ]
+   }
+  ]
+ },
+ "note": "Normalized from the flight-search/search response. Prices removed. Level: fare option x passenger type x segment.",
+ "offers": 35,
+ "flights": {
+  "KU542 CAI-KWI 11-18T20:25>11-18T23:50 + KU677 KWI-DXB 11-19T00:35>11-19T03:30": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "KU542",
+     "op": "KU",
+     "from": "CAI",
+     "to": "KWI",
+     "dep": "2026-11-18T20:25:00",
+     "arr": "2026-11-18T23:50:00"
+    },
+    {
+     "flight": "KU677",
+     "op": "KU",
+     "from": "KWI",
+     "to": "DXB",
+     "dep": "2026-11-19T00:35:00",
+     "arr": "2026-11-19T03:30:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY FLEXIBLE/ECONOMY FLEXIBLE",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "KU542",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "KU677",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "KU544 CAI-KWI 11-18T02:40>11-18T06:05 + KU671 KWI-DXB 11-18T09:25>11-18T12:20": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "KU544",
+     "op": "KU",
+     "from": "CAI",
+     "to": "KWI",
+     "dep": "2026-11-18T02:40:00",
+     "arr": "2026-11-18T06:05:00"
+    },
+    {
+     "flight": "KU671",
+     "op": "KU",
+     "from": "KWI",
+     "to": "DXB",
+     "dep": "2026-11-18T09:25:00",
+     "arr": "2026-11-18T12:20:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY FLEXIBLE/ECONOMY FLEXIBLE",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "KU544",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "KU671",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "KU546 CAI-KWI 11-18T11:25>11-18T14:50 + KU675 KWI-DXB 11-18T19:00>11-18T21:55": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "KU546",
+     "op": "KU",
+     "from": "CAI",
+     "to": "KWI",
+     "dep": "2026-11-18T11:25:00",
+     "arr": "2026-11-18T14:50:00"
+    },
+    {
+     "flight": "KU675",
+     "op": "KU",
+     "from": "KWI",
+     "to": "DXB",
+     "dep": "2026-11-18T19:00:00",
+     "arr": "2026-11-18T21:55:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY FLEXIBLE/ECONOMY FLEXIBLE",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "KU546",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "KU675",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV310 CAI-RUH 11-18T10:35>11-18T14:10 + SV560 RUH-DXB 11-18T16:05>11-18T19:00": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "SV310",
+     "op": "SV",
+     "from": "CAI",
+     "to": "RUH",
+     "dep": "2026-11-18T10:35:00",
+     "arr": "2026-11-18T14:10:00"
+    },
+    {
+     "flight": "SV560",
+     "op": "SV",
+     "from": "RUH",
+     "to": "DXB",
+     "dep": "2026-11-18T16:05:00",
+     "arr": "2026-11-18T19:00:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "BASIC ECO/BASIC ECO",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV310",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "SV560",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV386 CAI-JED 11-18T01:00>11-18T04:10 + SV566 JED-DXB 11-18T06:00>11-18T09:45": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "SV386",
+     "op": "SV",
+     "from": "CAI",
+     "to": "JED",
+     "dep": "2026-11-18T01:00:00",
+     "arr": "2026-11-18T04:10:00"
+    },
+    {
+     "flight": "SV566",
+     "op": "SV",
+     "from": "JED",
+     "to": "DXB",
+     "dep": "2026-11-18T06:00:00",
+     "arr": "2026-11-18T09:45:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "BASIC ECO/BASIC ECO",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV386",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "SV566",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV302 CAI-JED 11-18T19:50>11-18T23:00 + SV590 JED-DXB 11-19T01:10>11-19T04:55": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "SV302",
+     "op": "SV",
+     "from": "CAI",
+     "to": "JED",
+     "dep": "2026-11-18T19:50:00",
+     "arr": "2026-11-18T23:00:00"
+    },
+    {
+     "flight": "SV590",
+     "op": "SV",
+     "from": "JED",
+     "to": "DXB",
+     "dep": "2026-11-19T01:10:00",
+     "arr": "2026-11-19T04:55:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "BASIC ECO/BASIC ECO",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV302",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "SV590",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "SV308 CAI-JED 11-18T03:35>11-18T06:45 + SV568 JED-DXB 11-18T09:15>11-18T13:00": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "SV308",
+     "op": "SV",
+     "from": "CAI",
+     "to": "JED",
+     "dep": "2026-11-18T03:35:00",
+     "arr": "2026-11-18T06:45:00"
+    },
+    {
+     "flight": "SV568",
+     "op": "SV",
+     "from": "JED",
+     "to": "DXB",
+     "dep": "2026-11-18T09:15:00",
+     "arr": "2026-11-18T13:00:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "BASIC ECO/BASIC ECO",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "SV308",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "SV568",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "RJ504 CAI-AMM 11-18T14:05>11-18T16:25 + RJ614 AMM-DXB 11-18T17:25>11-18T21:35": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "RJ504",
+     "op": "RJ",
+     "from": "CAI",
+     "to": "AMM",
+     "dep": "2026-11-18T14:05:00",
+     "arr": "2026-11-18T16:25:00"
+    },
+    {
+     "flight": "RJ614",
+     "op": "RJ",
+     "from": "AMM",
+     "to": "DXB",
+     "dep": "2026-11-18T17:25:00",
+     "arr": "2026-11-18T21:35:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY FLEX/ECONOMY FLEX",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "RJ504",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "RJ614",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "RJ508 CAI-AMM 11-18T05:05>11-18T07:25 + RJ610 AMM-DXB 11-18T08:40>11-18T12:45": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "RJ508",
+     "op": "RJ",
+     "from": "CAI",
+     "to": "AMM",
+     "dep": "2026-11-18T05:05:00",
+     "arr": "2026-11-18T07:25:00"
+    },
+    {
+     "flight": "RJ610",
+     "op": "RJ",
+     "from": "AMM",
+     "to": "DXB",
+     "dep": "2026-11-18T08:40:00",
+     "arr": "2026-11-18T12:45:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY FLEX/ECONOMY FLEX",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "RJ508",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "RJ610",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "RJ506 CAI-AMM 11-18T19:55>11-18T22:15 + RJ612 AMM-DXB 11-19T00:10>11-19T04:15": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "RJ506",
+     "op": "RJ",
+     "from": "CAI",
+     "to": "AMM",
+     "dep": "2026-11-18T19:55:00",
+     "arr": "2026-11-18T22:15:00"
+    },
+    {
+     "flight": "RJ612",
+     "op": "RJ",
+     "from": "AMM",
+     "to": "DXB",
+     "dep": "2026-11-19T00:10:00",
+     "arr": "2026-11-19T04:15:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY FLEX/ECONOMY FLEX",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "RJ506",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "RJ612",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "GF80 CAI-BAH 11-18T04:20>11-18T08:20 + GF504 BAH-DXB 11-18T09:40>11-18T12:05": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "GF80",
+     "op": "GF",
+     "from": "CAI",
+     "to": "BAH",
+     "dep": "2026-11-18T04:20:00",
+     "arr": "2026-11-18T08:20:00"
+    },
+    {
+     "flight": "GF504",
+     "op": "GF",
+     "from": "BAH",
+     "to": "DXB",
+     "dep": "2026-11-18T09:40:00",
+     "arr": "2026-11-18T12:05:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY LIGHT/ECONOMY LIGHT",
+     "detailKey": "ADTx1:Economy|Y|35KG,Economy|Y|35KG",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "GF80",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "35KG",
+        "bagText": "35 Kilograms Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "GF504",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "35KG",
+        "bagText": "35 Kilograms Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "GF70 CAI-BAH 11-18T16:00>11-18T20:00 + GF500 BAH-DXB 11-19T01:10>11-19T03:35": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "GF70",
+     "op": "GF",
+     "from": "CAI",
+     "to": "BAH",
+     "dep": "2026-11-18T16:00:00",
+     "arr": "2026-11-18T20:00:00"
+    },
+    {
+     "flight": "GF500",
+     "op": "GF",
+     "from": "BAH",
+     "to": "DXB",
+     "dep": "2026-11-19T01:10:00",
+     "arr": "2026-11-19T03:35:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY LIGHT/ECONOMY LIGHT",
+     "detailKey": "ADTx1:Economy|Y|35KG,Economy|Y|35KG",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "GF70",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "35KG",
+        "bagText": "35 Kilograms Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "GF500",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "35KG",
+        "bagText": "35 Kilograms Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "MS905 CAI-DXB 11-18T13:40>11-18T19:00": {
+   "stops": "0",
+   "segs": [
+    {
+     "flight": "MS905",
+     "op": "MS",
+     "from": "CAI",
+     "to": "DXB",
+     "dep": "2026-11-18T13:40:00",
+     "arr": "2026-11-18T19:00:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY FULLY FLEX",
+     "detailKey": "ADTx1:Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "MS905",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "MS901 CAI-DXB 11-18T04:20>11-18T09:40": {
+   "stops": "0",
+   "segs": [
+    {
+     "flight": "MS901",
+     "op": "MS",
+     "from": "CAI",
+     "to": "DXB",
+     "dep": "2026-11-18T04:20:00",
+     "arr": "2026-11-18T09:40:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY FULLY FLEX",
+     "detailKey": "ADTx1:Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "MS901",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "MS912 CAI-DXB 11-18T09:40>11-18T15:00": {
+   "stops": "0",
+   "segs": [
+    {
+     "flight": "MS912",
+     "op": "MS",
+     "from": "CAI",
+     "to": "DXB",
+     "dep": "2026-11-18T09:40:00",
+     "arr": "2026-11-18T15:00:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY FULLY FLEX",
+     "detailKey": "ADTx1:Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "MS912",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "MS910 CAI-DXB 11-18T22:25>11-19T03:45": {
+   "stops": "0",
+   "segs": [
+    {
+     "flight": "MS910",
+     "op": "MS",
+     "from": "CAI",
+     "to": "DXB",
+     "dep": "2026-11-18T22:25:00",
+     "arr": "2026-11-19T03:45:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY FULLY FLEX",
+     "detailKey": "ADTx1:Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "MS910",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A3931 CAI-ATH 11-18T04:40>11-18T06:40 + A3958 ATH-DXB 11-18T09:10>11-18T16:00": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "A3931",
+     "op": "A3",
+     "from": "CAI",
+     "to": "ATH",
+     "dep": "2026-11-18T04:40:00",
+     "arr": "2026-11-18T06:40:00"
+    },
+    {
+     "flight": "A3958",
+     "op": "A3",
+     "from": "ATH",
+     "to": "DXB",
+     "dep": "2026-11-18T09:10:00",
+     "arr": "2026-11-18T16:00:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "FLEX/FLEX",
+     "detailKey": "ADTx1:Economy|Y|0PC,Economy|Y|0PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "A3931",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "0PC",
+        "bagText": "Number 0 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "A3958",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "0PC",
+        "bagText": "Number 0 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "EK930 CAI-DXB 11-18T08:00>11-18T13:15": {
+   "stops": "0",
+   "segs": [
+    {
+     "flight": "EK930",
+     "op": "EK",
+     "from": "CAI",
+     "to": "DXB",
+     "dep": "2026-11-18T08:00:00",
+     "arr": "2026-11-18T13:15:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "Economy Flex Plus",
+     "detailKey": "ADTx1:Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "EK930",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "EK928 CAI-DXB 11-18T12:30>11-18T17:45": {
+   "stops": "0",
+   "segs": [
+    {
+     "flight": "EK928",
+     "op": "EK",
+     "from": "CAI",
+     "to": "DXB",
+     "dep": "2026-11-18T12:30:00",
+     "arr": "2026-11-18T17:45:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "Economy Flex Plus",
+     "detailKey": "ADTx1:Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "EK928",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "EK922 CAI-DXB 11-18T16:30>11-18T21:45": {
+   "stops": "0",
+   "segs": [
+    {
+     "flight": "EK922",
+     "op": "EK",
+     "from": "CAI",
+     "to": "DXB",
+     "dep": "2026-11-18T16:30:00",
+     "arr": "2026-11-18T21:45:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "Economy Flex Plus",
+     "detailKey": "ADTx1:Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "EK922",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "EK924 CAI-DXB 11-18T19:25>11-19T00:40": {
+   "stops": "0",
+   "segs": [
+    {
+     "flight": "EK924",
+     "op": "EK",
+     "from": "CAI",
+     "to": "DXB",
+     "dep": "2026-11-18T19:25:00",
+     "arr": "2026-11-19T00:40:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "Economy Flex Plus",
+     "detailKey": "ADTx1:Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "EK924",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "EK926 CAI-DXB 11-18T00:50>11-18T06:10": {
+   "stops": "0",
+   "segs": [
+    {
+     "flight": "EK926",
+     "op": "EK",
+     "from": "CAI",
+     "to": "DXB",
+     "dep": "2026-11-18T00:50:00",
+     "arr": "2026-11-18T06:10:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "Economy Flex Plus",
+     "detailKey": "ADTx1:Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "EK926",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "VF248 CAI-SAW 11-18T04:55>11-18T08:25 + VF143 SAW-DXB 11-18T20:55>11-19T03:15": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "VF248",
+     "op": "TK",
+     "from": "CAI",
+     "to": "SAW",
+     "dep": "2026-11-18T04:55:00",
+     "arr": "2026-11-18T08:25:00"
+    },
+    {
+     "flight": "VF143",
+     "op": "VF",
+     "from": "SAW",
+     "to": "DXB",
+     "dep": "2026-11-18T20:55:00",
+     "arr": "2026-11-19T03:15:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "BASIC/BASIC",
+     "detailKey": "ADTx1:Economy|Y|20KG,Economy|Y|20KG",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "VF248",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "20KG",
+        "bagText": "20 Kilograms Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "VF143",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "20KG",
+        "bagText": "20 Kilograms Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "WY408 CAI-MCT 11-18T01:15>11-18T06:55 + WY603 MCT-DXB 11-18T08:50>11-18T10:00": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "WY408",
+     "op": "WY",
+     "from": "CAI",
+     "to": "MCT",
+     "dep": "2026-11-18T01:15:00",
+     "arr": "2026-11-18T06:55:00"
+    },
+    {
+     "flight": "WY603",
+     "op": "WY",
+     "from": "MCT",
+     "to": "DXB",
+     "dep": "2026-11-18T08:50:00",
+     "arr": "2026-11-18T10:00:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY COMFORT/ECONOMY COMFORT",
+     "detailKey": "ADTx1:Economy|Y|30KG,Economy|Y|30KG",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "WY408",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "30KG",
+        "bagText": "30 Kilograms Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "WY603",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "30KG",
+        "bagText": "30 Kilograms Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY566 CAI-JED 11-18T08:20>11-18T11:30 + XY509 JED-DXB 11-18T14:30>11-18T18:30": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY566",
+     "op": "XY",
+     "from": "CAI",
+     "to": "JED",
+     "dep": "2026-11-18T08:20:00",
+     "arr": "2026-11-18T11:30:00"
+    },
+    {
+     "flight": "XY509",
+     "op": "XY",
+     "from": "JED",
+     "to": "DXB",
+     "dep": "2026-11-18T14:30:00",
+     "arr": "2026-11-18T18:30:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "VAL/VAL",
+     "detailKey": "ADTx1:Economy|Y|30KG,Economy|Y|30KG",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY566",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "30KG",
+        "bagText": "30 Kilograms Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY509",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "30KG",
+        "bagText": "30 Kilograms Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY895 CAI-DMM 11-18T23:25>11-19T03:15 + XY811 DMM-DXB 11-19T08:25>11-19T10:55": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY895",
+     "op": "XY",
+     "from": "CAI",
+     "to": "DMM",
+     "dep": "2026-11-18T23:25:00",
+     "arr": "2026-11-19T03:15:00"
+    },
+    {
+     "flight": "XY811",
+     "op": "XY",
+     "from": "DMM",
+     "to": "DXB",
+     "dep": "2026-11-19T08:25:00",
+     "arr": "2026-11-19T10:55:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "VAL/VAL",
+     "detailKey": "ADTx1:Economy|Y|30KG,Economy|Y|30KG",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY895",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "30KG",
+        "bagText": "30 Kilograms Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY811",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "30KG",
+        "bagText": "30 Kilograms Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY264 CAI-RUH 11-18T10:50>11-18T13:35 + XY207 RUH-DXB 11-18T15:50>11-18T18:50": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY264",
+     "op": "XY",
+     "from": "CAI",
+     "to": "RUH",
+     "dep": "2026-11-18T10:50:00",
+     "arr": "2026-11-18T13:35:00"
+    },
+    {
+     "flight": "XY207",
+     "op": "XY",
+     "from": "RUH",
+     "to": "DXB",
+     "dep": "2026-11-18T15:50:00",
+     "arr": "2026-11-18T18:50:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "VAL/VAL",
+     "detailKey": "ADTx1:Economy|Y|30KG,Economy|Y|30KG",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY264",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "30KG",
+        "bagText": "30 Kilograms Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY207",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "30KG",
+        "bagText": "30 Kilograms Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY274 CAI-RUH 11-18T12:10>11-18T15:45 + XY209 RUH-DXB 11-18T17:45>11-18T20:45": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY274",
+     "op": "XY",
+     "from": "CAI",
+     "to": "RUH",
+     "dep": "2026-11-18T12:10:00",
+     "arr": "2026-11-18T15:45:00"
+    },
+    {
+     "flight": "XY209",
+     "op": "XY",
+     "from": "RUH",
+     "to": "DXB",
+     "dep": "2026-11-18T17:45:00",
+     "arr": "2026-11-18T20:45:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "VAL/VAL",
+     "detailKey": "ADTx1:Economy|Y|30KG,Economy|Y|30KG",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY274",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "30KG",
+        "bagText": "30 Kilograms Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY209",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "30KG",
+        "bagText": "30 Kilograms Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY264 CAI-RUH 11-18T10:50>11-18T13:35 + XY209 RUH-DXB 11-18T17:45>11-18T20:45": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY264",
+     "op": "XY",
+     "from": "CAI",
+     "to": "RUH",
+     "dep": "2026-11-18T10:50:00",
+     "arr": "2026-11-18T13:35:00"
+    },
+    {
+     "flight": "XY209",
+     "op": "XY",
+     "from": "RUH",
+     "to": "DXB",
+     "dep": "2026-11-18T17:45:00",
+     "arr": "2026-11-18T20:45:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "VAL/VAL",
+     "detailKey": "ADTx1:Economy|Y|30KG,Economy|Y|30KG",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY264",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "30KG",
+        "bagText": "30 Kilograms Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY209",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "30KG",
+        "bagText": "30 Kilograms Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "ET453 CAI-ADD 11-18T02:20>11-18T07:10 + ET602 ADD-DXB 11-18T10:30>11-18T15:45": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "ET453",
+     "op": "ET",
+     "from": "CAI",
+     "to": "ADD",
+     "dep": "2026-11-18T02:20:00",
+     "arr": "2026-11-18T07:10:00"
+    },
+    {
+     "flight": "ET602",
+     "op": "ET",
+     "from": "ADD",
+     "to": "DXB",
+     "dep": "2026-11-18T10:30:00",
+     "arr": "2026-11-18T15:45:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "/",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "ET453",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "ET602",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "AT273 CAI-CMN 11-18T08:40>11-18T12:35 + AT9900 CMN-DXB 11-18T14:10>11-19T01:40": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "AT273",
+     "op": "AT",
+     "from": "CAI",
+     "to": "CMN",
+     "dep": "2026-11-18T08:40:00",
+     "arr": "2026-11-18T12:35:00"
+    },
+    {
+     "flight": "AT9900",
+     "op": "EK",
+     "from": "CMN",
+     "to": "DXB",
+     "dep": "2026-11-18T14:10:00",
+     "arr": "2026-11-19T01:40:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECO CLASSIC/ECO CLASSIC",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "AT273",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "AT9900",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "TK687 CAI-IST 11-18T02:20>11-18T05:45 + TK764 IST-DXB 11-18T07:55>11-18T13:30": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "TK687",
+     "op": "TK",
+     "from": "CAI",
+     "to": "IST",
+     "dep": "2026-11-18T02:20:00",
+     "arr": "2026-11-18T05:45:00"
+    },
+    {
+     "flight": "TK764",
+     "op": "TK",
+     "from": "IST",
+     "to": "DXB",
+     "dep": "2026-11-18T07:55:00",
+     "arr": "2026-11-18T13:30:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "FLEXIBLE/FLEXIBLE",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "TK687",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "TK764",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "QR1304 CAI-DOH 11-18T13:05>11-18T17:10 + QR1014 DOH-DXB 11-18T18:35>11-18T20:55": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "QR1304",
+     "op": "QR",
+     "from": "CAI",
+     "to": "DOH",
+     "dep": "2026-11-18T13:05:00",
+     "arr": "2026-11-18T17:10:00"
+    },
+    {
+     "flight": "QR1014",
+     "op": "QR",
+     "from": "DOH",
+     "to": "DXB",
+     "dep": "2026-11-18T18:35:00",
+     "arr": "2026-11-18T20:55:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY COMFORT/ECONOMY COMFORT",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "QR1304",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "QR1014",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "QR1304 CAI-DOH 11-18T13:05>11-18T17:10 + QR1018 DOH-DXB 11-18T18:55>11-18T21:15": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "QR1304",
+     "op": "QR",
+     "from": "CAI",
+     "to": "DOH",
+     "dep": "2026-11-18T13:05:00",
+     "arr": "2026-11-18T17:10:00"
+    },
+    {
+     "flight": "QR1018",
+     "op": "QR",
+     "from": "DOH",
+     "to": "DXB",
+     "dep": "2026-11-18T18:55:00",
+     "arr": "2026-11-18T21:15:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY COMFORT/ECONOMY COMFORT",
+     "detailKey": "ADTx1:Economy|Y|2PC,Economy|Y|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "QR1304",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "QR1018",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "LH7177 CAI-MUC 11-18T10:05>11-18T13:10 + LH638 MUC-DXB 11-18T22:35>11-19T07:30": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "LH7177",
+     "op": "MS",
+     "from": "CAI",
+     "to": "MUC",
+     "dep": "2026-11-18T10:05:00",
+     "arr": "2026-11-18T13:10:00"
+    },
+    {
+     "flight": "LH638",
+     "op": "LH",
+     "from": "MUC",
+     "to": "DXB",
+     "dep": "2026-11-18T22:35:00",
+     "arr": "2026-11-19T07:30:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "ECONOMY COMFORT/ECONOMY COMFORT",
+     "detailKey": "ADTx1:Economy|Y|1PC,Economy|Y|1PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "LH7177",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "1PC",
+        "bagText": "Number 1 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "LH638",
+        "leg": 1,
+        "cabin": "Economy",
+        "rbd": "Y",
+        "bag": "1PC",
+        "bagText": "Number 1 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  }
+ }
+}

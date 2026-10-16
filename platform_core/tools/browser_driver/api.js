@@ -82,14 +82,13 @@ class BrowserDriver {
   /**
    * The only way to obtain a session. Never construct BrowserDriver directly.
    *
-   * Pass `stage` (e.g. `'manual_execution'`) to pick up that stage's display-mode default from
-   * the profile's `browser.headlessByStage` — the mechanism by which Stage 4 runs headed without
-   * every call site having to remember to ask for it. An explicit `headless` still wins over both
-   * the per-stage and the global default.
+   * `headless` is REQUIRED — the human's explicit Headed/Headless choice for this launch (pipeline.md §6
+   * Rule 11). No profile or per-stage default decides it any more (Phase 9.3): a missing choice is refused
+   * with MODE_REQUIRED before anything is launched.
    */
-  static async authenticate({ env, credentialsPath, headless, stage, app } = {}) {
+  static async authenticate({ env, credentialsPath, headless, stage, app, preflight } = {}) {
     const { browser, context, page, profile, env: resolvedEnv } = await launchAuthenticated({
-      env, credentialsPath, headless, stage, app,
+      env, credentialsPath, headless, stage, app, preflight,
     });
     return new BrowserDriver({ browser, context, page, profile, env: resolvedEnv });
   }

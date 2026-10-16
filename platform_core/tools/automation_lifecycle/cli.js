@@ -25,8 +25,11 @@
 //                                              # byte-identity proof, required before retirement
 //   node .../cli.js retire-module --module <slug> --baseline <path> --package <path> \
 //     --owned <glob,glob> [--shared <glob,glob>] [--suite <file>] --by "<name>" [--apply]
-//                                              # verify -> register ownership -> delete the module
-//                                              # working copy -> record Promoted. Dry-run default.
+//                                              # every precondition first (Approved + approver, assembled,
+//                                              # exact approved revision, byte identity, ownership), then a
+//                                              # journalled, rolled-back-on-failure retirement (Phase 9.1).
+//   node .../cli.js retire-module --module <slug> --recover
+//                                              # finish or roll back a retirement that did not complete
 //   node .../cli.js check-retired --module <slug>
 //                                              # asserts a retired directory has NOT come back
 //   node .../cli.js check-ownership --module <slug> --baseline <path> [--paths a,b,c]
@@ -39,13 +42,27 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 const { copyBaselineIntoModule, loadSnapshot, SNAPSHOT_FILENAME } = require('./baselineCopy');
-const { computeMergePlan } = require('./mergePlan');
+const { computeMergePlan, assertSameWorkTree } = require('./mergePlan');
+const { discoverRepo } = require('./gitUtils');
+
+/**
+ * The repository governing the baseline, with the package checked to be inside its work tree (Phase 9.3,
+ * F-25) — before any git command reads the package. A package outside it is refused with MERGE_TOPOLOGY.
+ */
+function governedRepo(baseline, pkg) {
+  if (typeof baseline !== 'string' || !baseline) throw Object.assign(new Error('--baseline <dir> is required.'), { code: 'INVALID_ARGUMENT' });
+  const repo = discoverRepo(path.resolve(baseline), { execFileSync });
+  if (repo.available) assertSameWorkTree(repo, baseline, pkg);
+  return repo;
+}
 const { applyMerge } = require('./mergeApply');
 const { cleanupPackage, retireModulePackage } = require('./cleanup');
 const { resolveAutomationRoot, assertModuleDirRetired } = require('./automationRoot');
 const { verifyPromotion, renderVerificationReport } = require('./promoteVerify');
 const { registerModuleOwnership, readOwnership, classifyChangeset } = require('./baselineOwnership');
-const { recordPromotion, readAutomationState } = require('../module_manager/automationState');
+const { recordPromotion, readAutomationState, recordAssembly } = require('../module_manager/automationState');
+const { evaluateMerge, writeMergeManifest } = require('./mergeSafety');
+const { retireModule, recoverRetirement } = require('./retireModule');
 
 const DEFAULT_MODULES_DIR = 'platform_core_data/modules';
 
@@ -121,7 +138,21 @@ function parseArgs(argv) {
 }
 
 function cmdCopyIn(args) {
-  const result = copyBaselineIntoModule(args.baseline, packagePath(args), { execFileSync, now: new Date() });
+  // Fail closed (Phase 9.4): a working copy is seeded only for a named module, into that module's own
+  // automation/tests_{Framework} folder, never for a Promoted module, and never over existing files — cpSync
+  // would otherwise overwrite whatever folder --package names (another module's copy, a target project).
+  const slug = typeof args.module === 'string' ? args.module : null;
+  if (!slug) throw Object.assign(new Error('copy-in requires --module <slug>: a working copy is always one module\'s.'), { code: 'INVALID_ARGUMENT' });
+  const pkg = path.resolve(packagePath(args));
+  const expected = path.resolve(modulesDir(args), slug, 'automation');
+  if (path.dirname(pkg) !== expected || !/^tests_/.test(path.basename(pkg))) {
+    throw Object.assign(new Error(`copy-in refused: ${pkg} is not module "${slug}"'s automation project (expected ${expected}${path.sep}tests_{Framework}).`), { code: 'OUTSIDE_MODULE' });
+  }
+  if (fs.existsSync(pkg) && fs.readdirSync(pkg).length) {
+    throw Object.assign(new Error(`copy-in refused: ${pkg} already holds files — an existing working copy is never overwritten by a re-seed.`), { code: 'DESTINATION_NOT_EMPTY' });
+  }
+  const moduleState = readAutomationState(modulesDir(args), slug);
+  const result = copyBaselineIntoModule(args.baseline, pkg, { execFileSync, now: new Date(), moduleState: moduleState ? { ...moduleState, module: slug } : undefined });
   console.log(JSON.stringify(result, null, 2));
 }
 
@@ -129,7 +160,8 @@ function cmdPlanMerge(args) {
   const pkg = packagePath(args);
   const snapshotPath = path.join(path.dirname(pkg), SNAPSHOT_FILENAME);
   const snapshot = loadSnapshot(snapshotPath);
-  const plan = computeMergePlan(args.baseline, pkg, snapshot, { execFileSync });
+  const repo = governedRepo(args.baseline, pkg);
+  const plan = computeMergePlan(args.baseline, pkg, snapshot, { execFileSync, repo });
   if (args.json) {
     console.log(JSON.stringify(plan, null, 2));
   } else {
@@ -150,7 +182,25 @@ function cmdMerge(args) {
   const pkg = packagePath(args);
   const snapshotPath = path.join(path.dirname(pkg), SNAPSHOT_FILENAME);
   const snapshot = loadSnapshot(snapshotPath);
-  const plan = computeMergePlan(args.baseline, pkg, snapshot, { execFileSync });
+  const repo = governedRepo(args.baseline, pkg);
+  const plan = computeMergePlan(args.baseline, pkg, snapshot, { execFileSync, repo });
+  // Phase 9.1, F-04: every precondition is proven, and the full proposed change set out, BEFORE any write —
+  // approval provenance, the exact approved revision, the module's own package, ownership, target paths.
+  const slug = typeof args.module === 'string' ? args.module : undefined;
+  const dir = modulesDir(args);
+  const stamp = new Date();
+  const manifest = evaluateMerge({ modulesDir: dir, slug, packageAbs: pkg, baselineAbs: args.baseline, plan, runFolder: args['run-folder'] || null, now: stamp });
+  if (!args.apply) {
+    console.log(JSON.stringify({ plan, manifest, result: { applied: false, reason: manifest.safe ? 'dry run — pass --apply to merge' : 'dry run — the merge would be refused' } }, null, 2));
+    return { plan, manifest };
+  }
+  if (!manifest.safe) {
+    console.error(`MERGE_UNSAFE: refusing to merge — ${manifest.refusals.length} precondition(s) failed; nothing was written:\n${manifest.refusals.map((r) => `  - ${r}`).join('\n')}`);
+    console.log(JSON.stringify({ manifest }, null, 2));
+    process.exitCode = 1;
+    return { plan, manifest };
+  }
+  const manifestFile = writeMergeManifest(dir, slug, manifest, stamp);
   const result = applyMerge(
     args.baseline,
     pkg,
@@ -159,16 +209,94 @@ function cmdMerge(args) {
       project: args.project,
       packageName: packageName(args),
       // The source module's slug, recorded in the assembly commit message (pipeline.md §12.4 step 4).
-      module: typeof args.module === 'string' ? args.module : undefined,
+      module: slug,
       runFolder: args['run-folder'],
+      approval: manifest.approval,
     },
-    { execFileSync, now: new Date(), apply: Boolean(args.apply) },
+    { execFileSync, now: stamp, apply: true },
   );
-  console.log(JSON.stringify({ plan, result }, null, 2));
+  // The assembly is recorded by the Module Manager, with the revision that was merged and the manifest
+  // that described it — so a later retirement can prove what is in the baseline.
+  const assembled = recordAssembly(dir, slug, { now: stamp, mergeSummaryPath: manifestFile.split(path.sep).join('/'), assembledRevision: manifest.revision.approved });
+  // Shared-asset approvals this merge used are consumed — each covers one change, once (Phase 9.4).
+  // eslint-disable-next-line global-require
+  if ((manifest.sharedApprovals || []).length) require('./sharedAssets').consume(dir, manifest.sharedApprovals, `merge of ${slug}`);
+  console.log(JSON.stringify({ plan, manifest: { ...manifest, file: manifestFile }, result, assembledAt: assembled.assembledAt }, null, 2));
+  return { plan, manifest, result };
+}
+
+/**
+ * `all-accounted` deletes working-copy files on the strength of a merge plan. It is accepted only for the
+ * merge that was actually applied (Phase 9.3, workflow enforcement): the module's automation state records an
+ * assembly (written only by a governed `merge --apply`, after Automation Approval and every merge
+ * precondition), and every path it would delete is one that assembly's recorded merge manifest took into the
+ * baseline. A plan file alone — which anyone can write — never authorizes a deletion. `build-only` (discarded,
+ * regenerable build output) needs none of this.
+ */
+function assertCleanupAccounted(args, plan, scope) {
+  if (scope !== 'all-accounted') return;
+  const refuse = (why) => { throw Object.assign(new Error(`Cleanup refused, nothing deleted: ${why}`), { code: 'CLEANUP_UNVERIFIED' }); };
+  const slug = typeof args.module === 'string' ? args.module : null;
+  if (!slug) refuse('--scope all-accounted names the module whose applied merge it cleans up (--module <slug>).');
+  const state = readAutomationState(modulesDir(args), slug);
+  if (!state || !state.assembledAt || !state.lastMergeSummary) refuse(`module "${slug}" has no recorded assembly — its working copy was never merged into the baseline by a governed merge --apply.`);
+  let manifest;
+  try { manifest = JSON.parse(fs.readFileSync(path.resolve(state.lastMergeSummary), 'utf8')); } catch { refuse(`the recorded merge manifest ${state.lastMergeSummary} cannot be read.`); }
+  if (!manifest.safe || !manifest.changes) refuse(`the recorded merge manifest ${state.lastMergeSummary} is not a safe, applied merge.`);
+  const merged = new Set([
+    ...manifest.changes.added.map((c) => c.path), ...manifest.changes.modified.map((c) => c.path),
+    ...manifest.changes.deleted.map((c) => c.path), ...manifest.changes.renamed.map((c) => c.from),
+  ]);
+  const outside = [...(plan.added || []), ...(plan.modified || []), ...(plan.deleted || []), ...(plan.renamed || []).map((r) => r.from)].filter((p) => !merged.has(p));
+  if (outside.length) refuse(`${outside.length} path(s) in the plan were not part of the recorded merge (${outside.slice(0, 5).join(', ')}${outside.length > 5 ? ', …' : ''}).`);
+}
+
+// ---- Phase 9.4: governed baseline updates (Promoted modules) and shared-asset changes ----
+const str = (args, k) => (typeof args[k] === 'string' ? args[k] : undefined);
+function needModule(args) {
+  const slug = str(args, 'module');
+  if (!slug) throw Object.assign(new Error('--module <slug> is required.'), { code: 'INVALID_ARGUMENT' });
+  return slug;
+}
+function cmdPlanBaselineUpdate(args) {
+  // eslint-disable-next-line global-require
+  const bu = require('./baselineUpdate');
+  const rec = bu.planBaselineUpdate({ modulesDir: modulesDir(args), slug: needModule(args), baselineAbs: str(args, 'baseline'), toRef: str(args, 'to'), reason: str(args, 'reason'), now: new Date() });
+  console.log(JSON.stringify({ planned: rec.id, from: rec.from, to: rec.to, files: rec.files, sharedChanges: rec.sharedChanges, fingerprint: rec.fingerprint, next: `record-baseline-update --module ${rec.module} --baseline <dir> --update ${rec.id} --approved-by "<name>"` }, null, 2));
+}
+function cmdRecordBaselineUpdate(args) {
+  // eslint-disable-next-line global-require
+  const bu = require('./baselineUpdate');
+  const r = bu.recordGovernedBaselineUpdate({ modulesDir: modulesDir(args), slug: needModule(args), baselineAbs: str(args, 'baseline'), id: str(args, 'update'), approvedBy: str(args, 'approved-by'), run: str(args, 'run-folder'), now: new Date() });
+  console.log(JSON.stringify({ recorded: r.record.id, baselineRef: r.record.to, approvedBy: r.record.approval.by, restorePoint: r.record.rollback.restorePoint, rollback: r.record.rollback.command, finishedInterrupted: r.finished }, null, 2));
+}
+function cmdPlanSharedChange(args) {
+  // eslint-disable-next-line global-require
+  const sa = require('./sharedAssets');
+  const rec = sa.planSharedChange({ modulesDir: modulesDir(args), baselineAbs: str(args, 'baseline'), relPath: str(args, 'path'), operation: str(args, 'operation'), sourceFile: str(args, 'source'), reason: str(args, 'reason'), now: new Date() });
+  console.log(JSON.stringify({ planned: rec.id, path: rec.path, operation: rec.operation, impact: rec.impact, fingerprint: rec.fingerprint, next: `approve-shared-change --change ${rec.id} --approved-by "<name>" --fingerprint ${rec.fingerprint}` }, null, 2));
+}
+function cmdApproveSharedChange(args) {
+  // eslint-disable-next-line global-require
+  const sa = require('./sharedAssets');
+  const rec = sa.approveSharedChange({ modulesDir: modulesDir(args), id: str(args, 'change'), approvedBy: str(args, 'approved-by'), fingerprint: str(args, 'fingerprint'), now: new Date() });
+  console.log(JSON.stringify({ approved: rec.id, by: rec.approval.by, impactAcknowledged: rec.approval.impactAcknowledged }, null, 2));
+}
+function cmdApplySharedChange(args) {
+  // eslint-disable-next-line global-require
+  const sa = require('./sharedAssets');
+  const rec = sa.applySharedChange({ modulesDir: modulesDir(args), id: str(args, 'change'), baselineAbs: str(args, 'baseline') });
+  console.log(JSON.stringify({ applied: rec.id, path: rec.path, operation: rec.operation }, null, 2));
+}
+function cmdSharedChanges(args) {
+  // eslint-disable-next-line global-require
+  const sa = require('./sharedAssets');
+  console.log(JSON.stringify(sa.listChanges(sa.changesDirFor(modulesDir(args))).map((r) => ({ id: r.id, path: r.path, operation: r.operation, status: r.status, approvedBy: r.approval ? r.approval.by : null })), null, 2));
 }
 
 function cmdCleanup(args) {
   const plan = JSON.parse(fs.readFileSync(args.plan, 'utf8'));
+  assertCleanupAccounted(args, plan, typeof args.scope === 'string' ? args.scope : 'build-only');
   const result = cleanupPackage(packagePath(args), plan, {
     apply: Boolean(args.apply),
     // Undefined falls through to cleanup.js's own safe default ('build-only'), so the default lives
@@ -223,12 +351,18 @@ function cmdVerifyPromotion(args) {
  */
 function cmdRetireModule(args) {
   const slug = requiredArg(args, 'module', 'retirement is per module.');
+  const dir = modulesDir(args);
+  // Phase 9.1, F-05: a retirement that did not finish is recovered first — rolled back, or completed if
+  // Promoted was already recorded. Nothing else runs while a journal is open.
+  if (args.recover) {
+    const r = recoverRetirement(dir, slug);
+    console.log(JSON.stringify(r, null, 2));
+    return r;
+  }
   const baseline = requiredArg(args, 'baseline', 'the baseline path is what gets verified against.');
   const pkg = packagePath(args);
   const owned = listArg(args.owned);
   const apply = Boolean(args.apply);
-  const dir = modulesDir(args);
-
   if (owned.length === 0) {
     throw new Error(
       'Missing --owned — the baseline paths this module owns. Without them the module cannot be ' +
@@ -236,50 +370,27 @@ function cmdRetireModule(args) {
     );
   }
   const promotedBy = requiredArg(args, 'by', 'an unattributed promotion record is not a record.');
-
-  const state = readAutomationState(dir, slug);
-  if (!state) throw new Error(`Module "${slug}" has no automation state.`);
-
-  const verification = verifyPromotion(baseline, pkg, { execFileSync });
-  console.log(renderVerificationReport(verification));
-  if (!verification.passed) {
+  try {
+    // Every precondition — approval, assembly, exact approved revision, byte identity, ownership — is
+    // proven before the first mutation; the operation itself is journalled and rolled back on failure.
+    const result = retireModule({
+      modulesDir: dir, slug, baselineAbs: baseline, packageAbs: pkg, owned, promotedBy,
+      shared: listArg(args.shared).length ? listArg(args.shared) : undefined,
+      suite: typeof args.suite === 'string' ? args.suite : undefined,
+      baselineRef: typeof args['baseline-ref'] === 'string' ? args['baseline-ref'] : undefined,
+      note: typeof args.note === 'string' ? args.note : undefined,
+      now: new Date(), apply, execFileSync,
+    });
+    if (result.check && result.check.verification) console.log(renderVerificationReport(result.check.verification));
+    console.log(JSON.stringify(result.dryRun ? { dryRun: true, wouldRetire: result.wouldRetire, ownedPaths: result.ownedPaths } : result, null, 2));
+    return result;
+  } catch (err) {
+    if (err.name !== 'RetirementSafetyError') throw err;
+    console.error(`${err.code}: ${err.message}`);
+    console.error('The module working copy is untouched.');
     process.exitCode = 1;
-    console.error('Retirement ABORTED — verification failed. The module working copy is untouched.');
-    return { verification, retired: null };
+    return { refused: err.code, detail: err.detail };
   }
-
-  if (!apply) {
-    const preview = retireModulePackage(pkg, { verification, apply: false });
-    console.log(JSON.stringify({ dryRun: true, wouldRetire: preview, ownedPaths: owned }, null, 2));
-    return { verification, retired: preview };
-  }
-
-  const manifest = registerModuleOwnership(baseline, slug, {
-    owned,
-    shared: listArg(args.shared).length ? listArg(args.shared) : undefined,
-    suite: typeof args.suite === 'string' ? args.suite : undefined,
-    baselineRef: typeof args['baseline-ref'] === 'string' ? args['baseline-ref'] : undefined,
-    promotedAt: new Date().toISOString(),
-    now: new Date(),
-  });
-
-  const retired = retireModulePackage(pkg, { verification, apply: true });
-
-  const promoted = recordPromotion(dir, slug, {
-    now: new Date(),
-    baselinePath: baseline,
-    ownedPaths: owned,
-    retiredPath: retired.path,
-    verification: { passed: true, fileCount: verification.verifiedCount },
-    promotedBy,
-    baselineRef: typeof args['baseline-ref'] === 'string' ? args['baseline-ref'] : undefined,
-    note: typeof args.note === 'string' ? args.note : undefined,
-  });
-
-  console.log(JSON.stringify({
-    retired, ownership: manifest.modules[slug], state: promoted.state, sourceOfTruth: promoted.sourceOfTruth,
-  }, null, 2));
-  return { verification, retired, promoted };
 }
 
 function cmdCheckRetired(args) {
@@ -352,17 +463,33 @@ function main() {
     case 'check-ownership':
       cmdCheckOwnership(args);
       break;
+    case 'plan-baseline-update': cmdPlanBaselineUpdate(args); break;
+    case 'record-baseline-update': cmdRecordBaselineUpdate(args); break;
+    case 'plan-shared-change': cmdPlanSharedChange(args); break;
+    case 'approve-shared-change': cmdApproveSharedChange(args); break;
+    case 'apply-shared-change': cmdApplySharedChange(args); break;
+    case 'shared-changes': cmdSharedChanges(args); break;
     default:
       console.error(
         'Usage: cli.js <copy-in|plan-merge|merge|cleanup|resolve-root|verify-promotion|'
-        + 'retire-module|check-retired|check-ownership> [options]'
+        + 'retire-module|check-retired|check-ownership|plan-baseline-update|record-baseline-update|'
+        + 'plan-shared-change|approve-shared-change|apply-shared-change|shared-changes> [options]'
       );
       process.exitCode = 1;
   }
 }
 
 if (require.main === module) {
-  main();
+  // No command ends in a raw stack trace (Phase 9.3, F-25): a refusal or an unexpected error is reported
+  // as one line with its code, and the exit code says it failed. Nothing is retried or swallowed.
+  try {
+    main();
+  } catch (err) {
+    const first = String(err && err.message ? err.message : err).split('\n').filter((l) => l.trim()).slice(0, 3).join(' — ');
+    console.error(`${err && err.code && typeof err.code === 'string' ? err.code : 'ERROR'}: ${first}`);
+    if (process.env.AGENTIC_DEBUG) console.error(err && err.stack);
+    process.exitCode = 1;
+  }
 }
 
 module.exports = { parseArgs };

@@ -167,7 +167,7 @@ Browser mode is the clearest difference between the two pipelines (`pipeline.md`
 | **Manual** (`4M`) | **Headed** — visible | A human watching each interaction *is* the point: timing, transient, and visual-state behaviour a post-hoc screenshot cannot preserve |
 | **Automation** (`4A`, `5A`, `5H`) | **Headless** | Speed and repeatability; verification output is a machine-checkable fact, not something a human needs to watch |
 
-Stage `4M`'s headed mode is configured, not opt-in: `browser.headlessByStage` in `platform_core_data/knowledge_base/browser/profile.json` maps `manual_execution` to `false`. Where headed is genuinely unavailable (a CI runner, a headless container), `4M` proceeds headless and says so in its Known Limitations rather than halting.
+Stage `4M`'s headed mode is the configured default: `browser.headlessByStage` in `platform_core_data/knowledge_base/browser/profile.json` maps `manual_execution` to `false`. The table above shows each stage's *recommended* mode. **Every stage still asks Headed or Headless right before every execution or live verification session** (`pipeline.md` §6 Rule 11), and a configured value is only a proposal. Where headed is genuinely unavailable (a CI runner, a headless container), `4M` says so in that question and runs headless only if you choose it — it never switches mode on its own.
 
 ### 4.2 The two MCP servers
 
@@ -271,9 +271,17 @@ Start narrow. Run [`workflows_and_pipelines/workflows/first_run.md`](../workflow
 
 It is explicitly **not** a QA sign-off on your application. It's a smoke test of the platform.
 
-### The Automation Start Decision Gate
+### Workflow Selection & Start Decision Gate
 
-Before Stage `4A` — or before any single downstream stage is invoked for the first time — the platform reports the actual current state of every stage and asks how to proceed ([`pipeline.md` §5.4](../workflows_and_pipelines/pipeline/pipeline.md)). It never assumes you want to resume, and never assumes you want to start fresh.
+When new work arrives — and before Stage `4A` or any single downstream stage is invoked — the platform reports the actual current state of every stage and asks which workflow to run ([`pipeline.md` §5.4](../workflows_and_pipelines/pipeline/pipeline.md)):
+
+| Option | Stages |
+|---|---|
+| **Full Manual** | 1 → 2 → 3 → `4M` |
+| **Full Automation** | 1 → 2 → 3 → `4A` → `5A` → `6A` |
+| **Specific Stage** | One named stage. The platform shows what is complete and missing, checks that stage's inputs, and waits for your confirmation |
+
+In a Full workflow, the next stage starts on its own only after you approve the current one. Every approval gate, Human Decision, and Headed/Headless question is still asked where it belongs. Self-Healing (`5H`) is never part of a workflow — you start it yourself. The platform never assumes you want to resume, and never assumes you want to start fresh.
 
 ---
 
@@ -642,7 +650,7 @@ Every stage resolves **Platform Knowledge first, then Project Knowledge**, and m
 | Stage `4A` generates inside `platform_core_data/` instead of your test dir | `writeAllowlist` is empty — it is **fail-closed** | add your test globs to `target.writeAllowlist` in `platform.config.json` |
 | `configVersion mismatch` | tool and config are different generations | the error names whether to upgrade the platform or migrate the config; it is deliberately a hard error, never a best-effort read |
 | MCP tools unavailable | project-scoped `.mcp.json` not yet approved | run `/mcp` once per machine |
-| Browser opens when you expected none | Stage `4M` (Manual Execution) is headed by design | `4M` runs headed on purpose — see `browser.headlessByStage` in `profile.json`. Every Automation-branch stage is headless; check `profile.json` and the `.mcp.json` `--headless` flag |
+| Browser opens when you expected none | Stage `4M` (Manual Execution) is headed by design | The mode is the answer you gave just before the run: the driver refuses to launch without an explicit Headed/Headless choice (Phase 9.3) and no `profile.json` value decides it. Every Automation-branch stage is headless; check `profile.json` and the `.mcp.json` `--headless` flag |
 | A failing suite was not repaired automatically | **Correct behaviour** — Stage `5H` never runs on its own (`pipeline.md` §3.6) | Invoke it: `/self-healing-skill`, or `/self-healing-skill {module}` to scope it. Many failing runs should *not* be healed — fix the app, fix the environment, or accept the finding |
 | Self-healing refuses to fix a failing test | It is classified `Application Failure`, not `Automation Failure` | This is the platform's most important guardrail: a genuinely broken application must never be "healed" into a green suite (`self-healing-skill` §8). Fix the application |
 | `.env` or credentials unreadable | the built-in read denylist | working as designed. `readDenylist` **merges with**, never replaces, a non-overridable list (`.env*`, `**/credentials*.json`, `**/secrets*`, `**/*.pem`, `**/*.key`, `**/.aws/**`, `**/id_rsa*`). Secrets reach the platform only through `platform_core_data/knowledge_base/credentials/credentials.json` |

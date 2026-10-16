@@ -1,0 +1,90 @@
+{
+ "id": "I01_mcbus_tc017",
+ "offers": [
+  61,
+  61
+ ],
+ "flights": [
+  61,
+  61
+ ],
+ "onlyA": [],
+ "onlyB": [],
+ "matched": 61,
+ "stopsDiff": 0,
+ "opt": {
+  "matched": 61,
+  "onlyA": [],
+  "onlyB": [],
+  "dupA": 0,
+  "dupB": 0
+ },
+ "cabinDiff": [],
+ "bagDiff": [],
+ "bagTextDiff": 182,
+ "bagTextEx": "\"2 Pieces\" vs \"Number 2 Piece Allowed.\"",
+ "paxSets": [
+  [
+   "ADTx1"
+  ],
+  [
+   "ADTx1"
+  ]
+ ],
+ "cabins": [
+  [
+   "Business",
+   "Economy"
+  ],
+  [
+   "Business",
+   "Economy"
+  ]
+ ],
+ "rbds": [
+  [
+   "C",
+   "D",
+   "H",
+   "J",
+   "M",
+   "Q",
+   "R",
+   "S",
+   "T",
+   "V",
+   "Z"
+  ],
+  [
+   "C",
+   "D",
+   "H",
+   "J",
+   "M",
+   "Q",
+   "R",
+   "S",
+   "T",
+   "V",
+   "Z"
+  ]
+ ],
+ "legCabins": [
+  {
+   "1": [
+    "Economy"
+   ],
+   "2": [
+    "Business"
+   ]
+  },
+  {
+   "1": [
+    "Economy"
+   ],
+   "2": [
+    "Business"
+   ]
+  }
+ ]
+}

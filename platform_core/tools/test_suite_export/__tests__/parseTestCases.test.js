@@ -217,6 +217,8 @@ test('toRows emits the §6.1 header in order, then one row per case', () => {
     'Review', 'Automation',
     // Supplier gating columns, appended 2026-09-27 after the lifecycle pair for the same reason.
     'Requires', 'Supplier Rule',
+    // Structured assertions, appended 2026-10-09 (Phase 5.8) after everything else, for the same reason.
+    'Assertions',
   ]);
   assert.strictEqual(rows.length, cases.length + 1);
   for (const row of rows) assert.strictEqual(row.length, FIELDS.length);

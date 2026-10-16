@@ -1,0 +1,596 @@
+{
+  "title": "Coverage Report — Check Supplier Parity / Galileo",
+  "documentTitle": "Galileo Features — Check Supplier Parity Test Design run-002",
+  "statusPill": "APPROVED",
+  "statusPillTone": "neutral",
+  "statuses": [
+    {
+      "key": "Covered",
+      "label": "Covered",
+      "tone": "pass"
+    },
+    {
+      "key": "Partial",
+      "label": "Partially Covered",
+      "tone": "warning"
+    },
+    {
+      "key": "Uncovered",
+      "label": "Uncovered",
+      "tone": "fail"
+    }
+  ],
+  "meta": {
+    "fields": [
+      [
+        {
+          "label": "Scope",
+          "value": "search-cabin-class-rbd / galileo",
+          "mono": true
+        },
+        {
+          "label": "Run",
+          "value": "run-002",
+          "mono": true
+        }
+      ],
+      {
+        "label": "Comparison",
+        "value": "Check Supplier request and response — Integration (NDC1_Ahmed Ayman) vs Direct (ahmed ayman); search only, prices ignored"
+      },
+      {
+        "label": "Status",
+        "value": "Approved by Ahmed Ayman 2026-10-11 — rev 1, 18 cases (1 Setup / Configuration, 17 Request/Response Parity), Review: 18 Approved"
+      }
+    ]
+  },
+  "summary": {
+    "title": "1. Coverage summary",
+    "total": 18,
+    "totalLabel": "Test cases",
+    "donut": {
+      "focus": "Covered",
+      "percent": 100,
+      "label": "of 20 rev 3 requirements and observations covered (design coverage, not results)"
+    }
+  },
+  "testCases": {
+    "title": "Test cases",
+    "categories": [
+      {
+        "key": "setup",
+        "name": "Setup / Configuration",
+        "cases": [
+          {
+            "id": "TC-GCSP-001",
+            "title": "Setup — branch, supplier and credential read back in each session",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-001"
+              },
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Smoke, Setup, Configuration, CheckSupplier"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01"
+              },
+              {
+                "label": "Expected",
+                "value": "Session A lists supplier `NDCGal` with credential `NdcGalileoSTG EGY`. Session B lists supplier `Galileo` with credential `GalileoLiveSTAGING`. Selecting a branch in one session does not change the other."
+              }
+            ]
+          }
+        ],
+        "items": []
+      },
+      {
+        "key": "parity",
+        "name": "Check Supplier Request/Response Parity",
+        "cases": [
+          {
+            "id": "TC-GCSP-002",
+            "title": "Request/Response parity — one-way, Economy, CAI→DXB",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-002"
+              },
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Smoke, Parity, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05, OBS-06"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. On both, every returned segment is Economy. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-003",
+            "title": "Request/Response parity — round-trip, Economy, CAI⇄DXB",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-003"
+              },
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. On both, every returned segment is Economy. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-004",
+            "title": "Request/Response parity — mixed passengers (Adult, Child, Infant)",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-004"
+              },
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. On both, every matched fare option is priced for the same passenger types and counts (2 Adult, 1 Child, 1 Infant). Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-005",
+            "title": "Request/Response parity — Business, CAI→DXB",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-005"
+              },
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity, CabinClass, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. On both, every returned segment is Business. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-006",
+            "title": "Request/Response parity — Premium Economy, CAI→DXB",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-006"
+              },
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity, CabinClass, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. On both, every returned segment is Premium Economy. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-007",
+            "title": "Request/Response parity — First Class, CAI→DXB",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-007"
+              },
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity, CabinClass, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. On both, every returned segment is First. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-010",
+            "title": "Request/Response parity — Cabin Class sent and returned per selected cabin",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-010"
+              },
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, CabinClass, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. In each check, on both, the response is not empty and every returned segment is in the selected cabin. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-011",
+            "title": "Request/Response parity — RBD — Economy (Q, K, Y)",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-011"
+              },
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, RBD, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. In each check, on both, the response is not empty and every returned segment is Economy with the selected RBD. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-012",
+            "title": "Request/Response parity — RBD — Business (J, C)",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-012"
+              },
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, RBD, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. In each check, on both, the response is not empty and every returned segment is Business with the selected RBD. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-013",
+            "title": "Request/Response parity — Cabin Class and RBD that do not match",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-013"
+              },
+              {
+                "label": "Priority",
+                "value": "P4"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Parity, Negative-InvalidInputs, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. Both responses give the same outcome: the same error or empty result, or the same fare options with the same Cabin Class and RBD. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-015",
+            "title": "Request/Response parity — one-way, Economy, CAI→JED",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-015"
+              },
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. On both, every returned segment is Economy. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-016",
+            "title": "Request/Response parity — Multi-City, Economy",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-016"
+              },
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity, MultiCity, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. On both, every returned segment of both legs is Economy. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-017",
+            "title": "Request/Response parity — Multi-City, different Cabin per leg",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-017"
+              },
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity, MultiCity, CabinClass, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. On both, every leg 1 segment is Economy and every leg 2 segment is Business. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-018",
+            "title": "Request/Response parity — RBD — First Class (F, A)",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-018"
+              },
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, RBD, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. In each check, on both, the response is not empty and every returned segment is First with the selected RBD. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-019",
+            "title": "Request/Response parity — RBD — Premium Economy (J)",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-019"
+              },
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, RBD, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. On both, the response is not empty and every returned segment is Premium Economy with RBD `J`. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-020",
+            "title": "Request/Response parity — RBD — several RBDs together (Q + K)",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-020"
+              },
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, RBD, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. On both, the response is not empty and every returned segment has RBD Q or K. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GCSP-021",
+            "title": "Request/Response parity — RBD on one Multi-City leg only",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Traces to",
+                "value": "TC-GSRCH-021"
+              },
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, RBD, MultiCity, CheckSupplier, RequestResponseParity"
+              },
+              {
+                "label": "Requirement",
+                "value": "CSP-01…04, BND-01…04, CMP-08…13, OBS-01…05"
+              },
+              {
+                "label": "Expected",
+                "value": "**Request:** both requests carry the trip, legs, airports, dates, passengers, Cabin Class and RBD of the Test Data. No request difference is a Confirmed Functional Mismatch. Every search-modifier difference is documented with both values and an outcome. **Response:** both are successful. No flight, segment, fare option, Cabin Class, RBD or baggage difference is a Confirmed Functional Mismatch. On both, the response is not empty, every leg 1 segment has RBD `Q`, and leg 2 is not limited to `Q`. Every Pending Parity Clarification is listed with its mechanism, open question and evidence. Prices are ignored."
+              }
+            ]
+          }
+        ],
+        "items": []
+      }
+    ]
+  },
+  "sections": [
+    {
+      "type": "notes",
+      "title": "Outcome rules",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "Each difference is Confirmed Functional Mismatch (contradicts approved Test Data or a requirement), Pending Parity Clarification (genuine business difference, expected behaviour not established), or Representation Only (equivalent meaning).",
+            "P-UPSELL, P-AIRPORT and P-CEILING are known Pending mechanisms, not an exhaustive list.",
+            "Search modifiers (ReturnUpsellFare, PreferCity, AllowDirectAccess, CurrencyType, …) are documented in A10 with both values and evidence. They are never classified as defects just because they differ.",
+            "Request (A3–A11) and Response (A12–A20) groups get separate outcomes. Passed only with no Confirmed and no Pending differences.",
+            "Nothing is judged at the Integration Layer → Galileo boundary (BND-03). It is not observable."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Design issues and decisions",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "DI-1: Outcome classes for this run: Confirmed Functional Mismatch (contradicts approved Test Data or an approved requirement), Pending Parity Clarification (a genuine business difference whose expected behaviour is not established), Representation Only (equivalent business meaning). P-UPSELL, P-AIRPORT and P-CEILING are known mechanisms, not an exhaustive list. Decision: Decided by Ahmed Ayman, 2026-10-11: accepted as test-design rules for this run. No Project Context rev 4.",
+            "DI-2: P-CEILING: one side returned exactly 200 solutions. That does not prove truncation. Decision: Decided: stays Pending Parity Clarification.",
+            "DI-3: A case with no failed assertion but unresolved Pending items. Checked against the Run Manager (executionHistory.buildHistory) with a scratchpad fixture: a recorded Inconclusive with verified assertions stays Inconclusive, with no conflict. A separate group-outcome table is not read as a results or assertion table. Limitation: the Run Manager has no structured \"Pending\" status, so the reason is free text and PC IDs live in the QA Report. Decision: Decided: no forced Passed or Failed. Recorded as Inconclusive with a \"Pending Parity Clarification:\" reason, a group-outcome table, and PC IDs in the QA Report. A structured status would need a platform change (not proposed for now).",
+            "DI-4: TC-GCSP-021: Check Supplier may produce no request for a partial Multi-City RBD. Decision: Decided: capture the evidence, record A2–A20 as Not checked and the case as Inconclusive, and infer no value.",
+            "DI-5: 24 Check Supplier calls per branch (48 in total). Decision: Decided: acceptable, subject to the execution preflight and a Headed/Headless confirmation."
+          ]
+        }
+      ]
+    }
+  ]
+}

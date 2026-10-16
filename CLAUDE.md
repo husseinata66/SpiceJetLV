@@ -212,6 +212,6 @@ node platform_core/tools/report_builder/cli.js build    --model <artifact>.repor
 ## Tests
 
 ```bash
-npm test                  # node --test across platform_core/tools/**/__tests__
+npm test                  # node --test across platform_core/tools/**/__tests__ and tests/contracts (real-world API contracts)
 npm run verify:boundary   # branch-boundary check
 ```

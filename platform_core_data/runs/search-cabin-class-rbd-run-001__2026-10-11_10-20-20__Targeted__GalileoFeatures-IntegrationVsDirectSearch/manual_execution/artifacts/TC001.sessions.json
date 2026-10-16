@@ -1,0 +1,17 @@
+{
+ "at": "2026-10-11T08:45:38.291Z",
+ "A_branch": "NDC1_Ahmed Ayman (BRN287)",
+ "B_branch": "ahmed ayman (BRN632)",
+ "A_suppliers": [
+  "NDCGal"
+ ],
+ "B_suppliers": [
+  "Galileo"
+ ],
+ "A_after_B_select": "NDC1_Ahmed Ayman (BRN287)",
+ "A_after_reload": "Branch*",
+ "B_after_reload": "Branch*",
+ "A_url": "http://192.168.1.210/booking/flight-search",
+ "B_url": "http://192.168.1.210/booking/flight-search",
+ "cookiesShared": "JSESSIONID / JSESSIONID"
+}

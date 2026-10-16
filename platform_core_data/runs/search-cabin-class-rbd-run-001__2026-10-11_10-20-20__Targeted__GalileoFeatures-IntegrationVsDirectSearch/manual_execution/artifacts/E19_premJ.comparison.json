@@ -1,0 +1,56 @@
+{
+ "offers": {
+  "A": 0,
+  "B": 5
+ },
+ "flights": {
+  "A": 0,
+  "B": 5
+ },
+ "flightsOnlyA": [],
+ "flightsOnlyB": [
+  "XY566 CAI-JED 11-18T08:20>11-18T11:30 + XY509 JED-DXB 11-18T14:30>11-18T18:30",
+  "XY264 CAI-RUH 11-18T10:50>11-18T13:35 + XY207 RUH-DXB 11-18T15:50>11-18T18:50",
+  "XY274 CAI-RUH 11-18T12:10>11-18T15:45 + XY209 RUH-DXB 11-18T17:45>11-18T20:45",
+  "XY264 CAI-RUH 11-18T10:50>11-18T13:35 + XY209 RUH-DXB 11-18T17:45>11-18T20:45",
+  "XY895 CAI-DMM 11-18T23:25>11-19T03:15 + XY811 DMM-DXB 11-19T08:25>11-19T10:55"
+ ],
+ "matched": 0,
+ "stopsDiff": [],
+ "fareOpt": {
+  "matchedOptions": 0,
+  "onlyA": [],
+  "onlyB": [],
+  "dupA": [],
+  "dupB": []
+ },
+ "detailDiff": [],
+ "bagTextDiff": 0,
+ "bagTextExamples": [],
+ "cabinLabelPairs": [],
+ "cabins": {
+  "A": [],
+  "B": [
+   "PremiumEconomy"
+  ]
+ },
+ "rbds": {
+  "A": [],
+  "B": [
+   "J"
+  ]
+ },
+ "perLeg": {
+  "A": {},
+  "B": {
+   "1": {
+    "cabins": [
+     "PremiumEconomy"
+    ],
+    "rbds": [
+     "J"
+    ]
+   }
+  }
+ }
+}

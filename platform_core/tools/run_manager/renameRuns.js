@@ -291,6 +291,10 @@ function applyRunRenames(runsDir, plan, opts = {}) {
   if (!approvedBy || !String(approvedBy).trim()) {
     throw new RenameRunsError('applyRunRenames requires `approvedBy` — renaming a run is never applied silently.');
   }
+  // The same approver rule as every approval (Phase 9.4; approverIdentity.js).
+  // eslint-disable-next-line global-require
+  const problem = require('./approverIdentity').approverProblem(approvedBy);
+  if (problem) throw new RenameRunsError(`applyRunRenames: ${problem}. Name the human who approved the rename (a name is recorded, not authenticated).`);
   if (!reason || !String(reason).trim()) {
     throw new RenameRunsError('applyRunRenames requires a non-empty `reason`.');
   }

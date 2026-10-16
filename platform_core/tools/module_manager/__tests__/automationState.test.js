@@ -271,11 +271,59 @@ test('recordBaselineUpdate is the only write path for a promoted module', () => 
     now: LATER,
     changedPaths: ['src/main/java/AdminPages/Admin/Login/LogIn_Page.java'],
     approvedBy: 'reviewer@example.com',
+    baselineRef: 'b'.repeat(40),
     run: 'run-004',
   });
   assert.equal(state.state, 'Promoted', 'an in-place update is not a second promotion');
   assert.equal(state.baselineUpdates.length, 1);
   assert.ok(state.sourceRuns.includes('run-004'));
+  cleanup(modulesDir);
+});
+
+test('recordBaselineUpdate refuses an update with no named approver — an unapproved change is not recorded', () => {
+  const modulesDir = makeModulesDir();
+  approvedAndAssembled(modulesDir);
+  recordPromotion(modulesDir, 'login', { now: LATER, ...PROMOTION_OPTS });
+  const before = readAutomationState(modulesDir, 'login');
+  for (const approvedBy of [undefined, '', '   ']) {
+    assert.throws(
+      () => recordBaselineUpdate(modulesDir, 'login', { now: LATER, changedPaths: ['a.java'], baselineRef: 'b'.repeat(40), approvedBy }),
+      /requires `approvedBy`/,
+    );
+  }
+  assert.deepEqual(readAutomationState(modulesDir, 'login'), before, 'nothing written');
+  cleanup(modulesDir);
+});
+
+test('recordBaselineUpdate refuses a missing or malformed baselineRef, and a ref the repository does not have', () => {
+  const modulesDir = makeModulesDir();
+  approvedAndAssembled(modulesDir);
+  recordPromotion(modulesDir, 'login', { now: LATER, ...PROMOTION_OPTS });
+  const base = { now: LATER, changedPaths: ['a.java'], approvedBy: 'reviewer@example.com' };
+  for (const baselineRef of [undefined, '', 'uncommitted', 'abc12', 'z'.repeat(40), 'a'.repeat(41)]) {
+    assert.throws(() => recordBaselineUpdate(modulesDir, 'login', { ...base, baselineRef }), /baselineRef/);
+  }
+  assert.throws(
+    () => recordBaselineUpdate(modulesDir, 'login', { ...base, baselineRef: 'c'.repeat(40), verifyRef: () => false }),
+    /does not name a commit/,
+  );
+  cleanup(modulesDir);
+});
+
+test('recordBaselineUpdate keeps recoverable history: each entry records its restore point, nothing is overwritten', () => {
+  const modulesDir = makeModulesDir();
+  approvedAndAssembled(modulesDir);
+  recordPromotion(modulesDir, 'login', { now: LATER, ...PROMOTION_OPTS });
+  const first = 'd'.repeat(40);
+  const second = 'e'.repeat(40);
+  const priorRef = readAutomationState(modulesDir, 'login').baselineRef ?? null;
+  recordBaselineUpdate(modulesDir, 'login', { now: LATER, changedPaths: ['a.java'], approvedBy: 'r1', baselineRef: first, verifyRef: () => true });
+  const state = recordBaselineUpdate(modulesDir, 'login', { now: LATER, changedPaths: ['b.java'], approvedBy: 'r2', baselineRef: second });
+  assert.equal(state.baselineUpdates.length, 2);
+  assert.equal(state.baselineUpdates[0].previousBaselineRef, priorRef);
+  assert.equal(state.baselineUpdates[1].previousBaselineRef, first);
+  assert.equal(state.baselineUpdates[1].approvedBy, 'r2');
+  assert.equal(state.baselineRef, second);
   cleanup(modulesDir);
 });
 

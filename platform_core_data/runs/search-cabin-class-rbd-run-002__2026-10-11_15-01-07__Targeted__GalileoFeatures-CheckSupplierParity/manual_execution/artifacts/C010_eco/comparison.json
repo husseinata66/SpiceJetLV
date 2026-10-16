@@ -1,0 +1,565 @@
+{
+ "case": "TC-GCSP-010",
+ "check": "Economy",
+ "criteria": {
+  "legs": [
+   {
+    "o": "CAI",
+    "d": "DXB",
+    "dt": "18/11/2026"
+   }
+  ]
+ },
+ "rule": "Prices ignored; flights by identity; fare options by flight + RBD sequence per passenger type; cabin/baggage on matched options; nothing judged at the Integration Layer → Galileo boundary (BND-03)",
+ "key": "C010_eco",
+ "rq": {
+  "trip": {
+   "expected": "One-way, 1 leg(s)",
+   "integration": "One-way, 1 leg(s)",
+   "direct": "One-way, 1 leg(s)",
+   "ok": true
+  },
+  "airports": {
+   "expected": "leg 1 CAI→DXB",
+   "integration": "leg 1 CAI→DXB",
+   "direct": "leg 1 CAI→DXB",
+   "ok": true
+  },
+  "dates": {
+   "expected": "leg 1 2026-11-18",
+   "integration": "leg 1 2026-11-18",
+   "direct": "leg 1 2026-11-18",
+   "ok": true
+  },
+  "pax": {
+   "expected": "1 Adult",
+   "integration": "1 Adult",
+   "direct": "1 Adult",
+   "ok": true
+  },
+  "cabin": {
+   "expected": "leg 1 Economy",
+   "integration": "leg 1 Economy",
+   "direct": "leg 1 Economy",
+   "ok": true
+  },
+  "rbd": {
+   "expected": "leg 1 none",
+   "integration": "leg 1 none",
+   "direct": "leg 1 none",
+   "ok": true
+  },
+  "confirmed": [],
+  "modifiers": [
+   {
+    "path": "LowFareSearchReq/@ReturnUpsellFare",
+    "integration": "true",
+    "direct": "false",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-01"
+   },
+   {
+    "path": "LowFareSearchReq/AirPricingModifiers/@CurrencyType",
+    "integration": "(absent)",
+    "direct": "EGP",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-02"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/AirLegModifiers/@AllowDirectAccess",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-03"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/SearchDestination/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/SearchOrigin/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   }
+  ],
+  "sameModifiers": [
+   {
+    "path": "LowFareSearchReq/@SolutionResult",
+    "value": "true"
+   },
+   {
+    "path": "LowFareSearchReq/AirSearchModifiers/PreferredProviders/Provider/@Code",
+    "value": "1G"
+   },
+   {
+    "path": "LowFareSearchReq/AirPricingModifiers/@FaresIndicator",
+    "value": "AllFares"
+   }
+  ],
+  "representation": [
+   {
+    "item": "XML schema version",
+    "integration": "air_v52_0",
+    "direct": "air_v44_0"
+   },
+   {
+    "item": "SOAP envelope",
+    "integration": "no",
+    "direct": "yes"
+   },
+   {
+    "item": "namespaces, prefixes, element order, encoding",
+    "integration": "v52 common/air namespaces, utf-16 declaration",
+    "direct": "v44 namespaces with soapenv/air/com prefixes"
+   },
+   {
+    "item": "LowFareSearchReq/BillingPointOfSaleInfo/@OriginApplication",
+    "integration": "UAPI",
+    "direct": "uAPI"
+   },
+   {
+    "item": "LowFareSearchReq/SearchPassenger[1]/@Age",
+    "integration": "35",
+    "direct": "(absent)"
+   },
+   {
+    "item": "LowFareSearchReq/SearchPassenger[1]/@BookingTravelerRef",
+    "integration": "(absent)",
+    "direct": "[REDACTED]"
+   }
+  ],
+  "platformRequestsEqual": true
+ },
+ "rs": {
+  "status": [
+   {
+    "side": "Integration",
+    "http": 200,
+    "errorMessage": null,
+    "parsed": true,
+    "fault": null,
+    "kind": "ok"
+   },
+   {
+    "side": "Direct",
+    "http": 200,
+    "errorMessage": null,
+    "parsed": true,
+    "fault": null,
+    "kind": "ok"
+   }
+  ],
+  "ok": true,
+  "commError": [],
+  "businessEmpty": [],
+  "counts": {
+   "integration": {
+    "solutions": 66,
+    "flights": 35,
+    "upsellBrands": 19
+   },
+   "direct": {
+    "solutions": 35,
+    "flights": 35,
+    "upsellBrands": 0
+   }
+  },
+  "flightsOnly": [],
+  "optionsOnly": [
+   {
+    "side": "Integration",
+    "flight": "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30",
+    "rbdSequence": "ADTx1:TT",
+    "brand": "2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20",
+    "rbdSequence": "ADTx1:TT",
+    "brand": "2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1730060",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1730060",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1730060",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1730060",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55",
+    "rbdSequence": "ADTx1:SS",
+    "brand": "2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35",
+    "rbdSequence": "ADTx1:MM",
+    "brand": "2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45",
+    "rbdSequence": "ADTx1:MM",
+    "brand": "2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "TK695 CAI-IST 2026-11-18T20:45>2026-11-19T00:20 + TK762 IST-DXB 2026-11-19T01:30>2026-11-19T06:55",
+    "rbdSequence": "ADTx1:HH",
+    "brand": "2138616/2138616",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   },
+   {
+    "side": "Integration",
+    "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30",
+    "rbdSequence": "ADTx1:HH",
+    "brand": "2138616/2138616",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL",
+    "outcome": "Pending Parity Clarification"
+   }
+  ],
+  "pending": [
+   {
+    "side": "Integration",
+    "flight": "KU542 CAI-KWI 2026-11-18T20:25>2026-11-18T23:50 + KU677 KWI-DXB 2026-11-19T00:35>2026-11-19T03:30",
+    "rbdSequence": "ADTx1:TT",
+    "brand": "2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "KU544 CAI-KWI 2026-11-18T02:40>2026-11-18T06:05 + KU671 KWI-DXB 2026-11-18T09:25>2026-11-18T12:20",
+    "rbdSequence": "ADTx1:TT",
+    "brand": "2154964/2154964",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS901 CAI-DXB 2026-11-18T04:20>2026-11-18T09:40",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1730060",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS905 CAI-DXB 2026-11-18T13:40>2026-11-18T19:00",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1730060",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS912 CAI-DXB 2026-11-18T09:40>2026-11-18T15:00",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1730060",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "MS910 CAI-DXB 2026-11-18T22:25>2026-11-19T03:45",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1730060",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "QR1304 CAI-DOH 2026-11-18T13:05>2026-11-18T17:10 + QR1014 DOH-DXB 2026-11-18T18:35>2026-11-18T20:55",
+    "rbdSequence": "ADTx1:SS",
+    "brand": "2110862/2110862",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK930 CAI-DXB 2026-11-18T08:00>2026-11-18T13:15",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK928 CAI-DXB 2026-11-18T12:30>2026-11-18T17:45",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK922 CAI-DXB 2026-11-18T16:30>2026-11-18T21:45",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK924 CAI-DXB 2026-11-18T19:25>2026-11-19T00:40",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "EK926 CAI-DXB 2026-11-18T00:50>2026-11-18T06:10",
+    "rbdSequence": "ADTx1:K",
+    "brand": "1380518",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ504 CAI-AMM 2026-11-18T14:05>2026-11-18T16:25 + RJ614 AMM-DXB 2026-11-18T17:25>2026-11-18T21:35",
+    "rbdSequence": "ADTx1:MM",
+    "brand": "2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "RJ508 CAI-AMM 2026-11-18T05:05>2026-11-18T07:25 + RJ610 AMM-DXB 2026-11-18T08:40>2026-11-18T12:45",
+    "rbdSequence": "ADTx1:MM",
+    "brand": "2114763/2114763",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "TK695 CAI-IST 2026-11-18T20:45>2026-11-19T00:20 + TK762 IST-DXB 2026-11-19T01:30>2026-11-19T06:55",
+    "rbdSequence": "ADTx1:HH",
+    "brand": "2138616/2138616",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   },
+   {
+    "side": "Integration",
+    "flight": "TK687 CAI-IST 2026-11-18T02:20>2026-11-18T05:45 + TK764 IST-DXB 2026-11-18T07:55>2026-11-18T13:30",
+    "rbdSequence": "ADTx1:HH",
+    "brand": "2138616/2138616",
+    "within": true,
+    "pc": "PC-05",
+    "mechanism": "P-UPSELL"
+   }
+  ],
+  "confirmed": [],
+  "matched": {
+   "flights": 35,
+   "options": 35,
+   "stopsDiff": 0,
+   "cabinDiff": [],
+   "bagDiff": [],
+   "fareBasisDiffSupportingOnly": 0
+  },
+  "filter": {
+   "outside": [],
+   "paxBad": [],
+   "emptyA": false,
+   "emptyB": false
+  },
+  "representation": [
+   {
+    "item": "cabin names normalized (e.g. PremiumEconomy = Premium Economy)",
+    "note": "compared after normalization"
+   }
+  ]
+ },
+ "readback": [
+  {
+   "side": "A",
+   "ok": true,
+   "rb": {
+    "branch": "NDC1_Ahmed Ayman (BRN287)",
+    "branchBeforeCheck": "NDC1_Ahmed Ayman (BRN287)",
+    "suppliersListed": [
+     "NDCGal"
+    ],
+    "supplierSelected": "NDCGal",
+    "credentialsListed": [
+     "NdcGalileoSTG EGY"
+    ],
+    "credentialSelected": "NdcGalileoSTG EGY"
+   }
+  },
+  {
+   "side": "B",
+   "ok": true,
+   "rb": {
+    "branch": "ahmed ayman (BRN632)",
+    "branchBeforeCheck": "ahmed ayman (BRN632)",
+    "suppliersListed": [
+     "Galileo"
+    ],
+    "supplierSelected": "Galileo",
+    "credentialsListed": [
+     "GalileoLiveSTAGING"
+    ],
+    "credentialSelected": "GalileoLiveSTAGING"
+   }
+  }
+ ],
+ "boundary": [
+  {
+   "side": "A",
+   "ok": true,
+   "b": {
+    "reportedBy": "platform back end (BND-04) — not a network capture",
+    "credentialHost": "ndc-integration-stg-ne-3.azurewebsites.net",
+    "schema": "52",
+    "soapEnvelope": false
+   }
+  },
+  {
+   "side": "B",
+   "ok": true,
+   "b": {
+    "reportedBy": "platform back end (BND-04) — not a network capture",
+    "credentialHost": "emea.universal-api.pp.travelport.com",
+    "schema": "44",
+    "soapEnvelope": true
+   }
+  }
+ ],
+ "searchCalled": 0
+}

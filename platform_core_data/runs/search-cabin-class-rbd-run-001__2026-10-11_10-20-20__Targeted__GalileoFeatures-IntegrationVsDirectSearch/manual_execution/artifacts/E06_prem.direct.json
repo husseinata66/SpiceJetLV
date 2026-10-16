@@ -1,0 +1,631 @@
+{
+ "branch": "ahmed ayman (BRN632)",
+ "executedAt": "2026-10-11T08:49:07.701Z",
+ "httpStatus": 200,
+ "uiHeader": "12 options | 3 time slots",
+ "searchCriteria": {
+  "tripType": 1,
+  "noOfAdults": 1,
+  "noOfChildren": 0,
+  "noOfInfants": 0,
+  "entity": {
+   "selectedBranch": 11703
+  },
+  "filters": {
+   "isNearByAirport": false,
+   "isBaggageFareOnly": false,
+   "isUpSelling": false,
+   "isNonStop": false,
+   "isExcludeLcc": false,
+   "allianceAirline": null,
+   "preferAirlines": []
+  },
+  "routes": [
+   {
+    "cabinClass": 2,
+    "dateOfJourney": "18-11-2026",
+    "destination": {
+     "airportCode": "DXB"
+    },
+    "origins": [
+     {
+      "airportCode": "CAI"
+     }
+    ],
+    "rbd": []
+   }
+  ]
+ },
+ "note": "Normalized from the flight-search/search response the results page renders. Prices removed. Level: fare option x passenger type x segment.",
+ "offers": 12,
+ "flights": {
+  "XY566 CAI-JED 11-18T08:20>11-18T11:30 + XY509 JED-DXB 11-18T14:30>11-18T18:30": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY566",
+     "op": "XY",
+     "from": "CAI",
+     "to": "JED",
+     "dep": "2026-11-18T08:20:00",
+     "arr": "2026-11-18T11:30:00"
+    },
+    {
+     "flight": "XY509",
+     "op": "XY",
+     "from": "JED",
+     "to": "DXB",
+     "dep": "2026-11-18T14:30:00",
+     "arr": "2026-11-18T18:30:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "/",
+     "detailKey": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY566",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY509",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY568 CAI-JED 11-18T23:50>11-19T03:05 + XY501 JED-DXB 11-19T07:15>11-19T11:15": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY568",
+     "op": "XY",
+     "from": "CAI",
+     "to": "JED",
+     "dep": "2026-11-18T23:50:00",
+     "arr": "2026-11-19T03:05:00"
+    },
+    {
+     "flight": "XY501",
+     "op": "XY",
+     "from": "JED",
+     "to": "DXB",
+     "dep": "2026-11-19T07:15:00",
+     "arr": "2026-11-19T11:15:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "/",
+     "detailKey": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY568",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY501",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY590 CAI-JED 11-18T21:20>11-19T00:30 + XY501 JED-DXB 11-19T07:15>11-19T11:15": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY590",
+     "op": "XY",
+     "from": "CAI",
+     "to": "JED",
+     "dep": "2026-11-18T21:20:00",
+     "arr": "2026-11-19T00:30:00"
+    },
+    {
+     "flight": "XY501",
+     "op": "XY",
+     "from": "JED",
+     "to": "DXB",
+     "dep": "2026-11-19T07:15:00",
+     "arr": "2026-11-19T11:15:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "/",
+     "detailKey": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY590",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY501",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY572 CAI-JED 11-18T20:05>11-18T23:20 + XY501 JED-DXB 11-19T07:15>11-19T11:15": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY572",
+     "op": "XY",
+     "from": "CAI",
+     "to": "JED",
+     "dep": "2026-11-18T20:05:00",
+     "arr": "2026-11-18T23:20:00"
+    },
+    {
+     "flight": "XY501",
+     "op": "XY",
+     "from": "JED",
+     "to": "DXB",
+     "dep": "2026-11-19T07:15:00",
+     "arr": "2026-11-19T11:15:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "/",
+     "detailKey": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY572",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY501",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY264 CAI-RUH 11-18T10:50>11-18T13:35 + XY207 RUH-DXB 11-18T15:50>11-18T18:50": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY264",
+     "op": "XY",
+     "from": "CAI",
+     "to": "RUH",
+     "dep": "2026-11-18T10:50:00",
+     "arr": "2026-11-18T13:35:00"
+    },
+    {
+     "flight": "XY207",
+     "op": "XY",
+     "from": "RUH",
+     "to": "DXB",
+     "dep": "2026-11-18T15:50:00",
+     "arr": "2026-11-18T18:50:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "/",
+     "detailKey": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY264",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY207",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY274 CAI-RUH 11-18T12:10>11-18T15:45 + XY209 RUH-DXB 11-18T17:45>11-18T20:45": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY274",
+     "op": "XY",
+     "from": "CAI",
+     "to": "RUH",
+     "dep": "2026-11-18T12:10:00",
+     "arr": "2026-11-18T15:45:00"
+    },
+    {
+     "flight": "XY209",
+     "op": "XY",
+     "from": "RUH",
+     "to": "DXB",
+     "dep": "2026-11-18T17:45:00",
+     "arr": "2026-11-18T20:45:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "/",
+     "detailKey": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY274",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY209",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY264 CAI-RUH 11-18T10:50>11-18T13:35 + XY209 RUH-DXB 11-18T17:45>11-18T20:45": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY264",
+     "op": "XY",
+     "from": "CAI",
+     "to": "RUH",
+     "dep": "2026-11-18T10:50:00",
+     "arr": "2026-11-18T13:35:00"
+    },
+    {
+     "flight": "XY209",
+     "op": "XY",
+     "from": "RUH",
+     "to": "DXB",
+     "dep": "2026-11-18T17:45:00",
+     "arr": "2026-11-18T20:45:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "/",
+     "detailKey": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY264",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY209",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY272 CAI-RUH 11-18T19:40>11-18T23:15 + XY1215 RUH-DXB 11-19T02:55>11-19T05:55": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY272",
+     "op": "XY",
+     "from": "CAI",
+     "to": "RUH",
+     "dep": "2026-11-18T19:40:00",
+     "arr": "2026-11-18T23:15:00"
+    },
+    {
+     "flight": "XY1215",
+     "op": "XY",
+     "from": "RUH",
+     "to": "DXB",
+     "dep": "2026-11-19T02:55:00",
+     "arr": "2026-11-19T05:55:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "/",
+     "detailKey": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY272",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY1215",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY266 CAI-RUH 11-18T23:30>11-19T03:05 + XY201 RUH-DXB 11-19T07:40>11-19T10:40": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY266",
+     "op": "XY",
+     "from": "CAI",
+     "to": "RUH",
+     "dep": "2026-11-18T23:30:00",
+     "arr": "2026-11-19T03:05:00"
+    },
+    {
+     "flight": "XY201",
+     "op": "XY",
+     "from": "RUH",
+     "to": "DXB",
+     "dep": "2026-11-19T07:40:00",
+     "arr": "2026-11-19T10:40:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "/",
+     "detailKey": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY266",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY201",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY276 CAI-RUH 11-18T16:45>11-18T20:20 + XY1215 RUH-DXB 11-19T02:55>11-19T05:55": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY276",
+     "op": "XY",
+     "from": "CAI",
+     "to": "RUH",
+     "dep": "2026-11-18T16:45:00",
+     "arr": "2026-11-18T20:20:00"
+    },
+    {
+     "flight": "XY1215",
+     "op": "XY",
+     "from": "RUH",
+     "to": "DXB",
+     "dep": "2026-11-19T02:55:00",
+     "arr": "2026-11-19T05:55:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "/",
+     "detailKey": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY276",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY1215",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY268 CAI-RUH 11-18T15:10>11-18T18:45 + XY1215 RUH-DXB 11-19T02:55>11-19T05:55": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY268",
+     "op": "XY",
+     "from": "CAI",
+     "to": "RUH",
+     "dep": "2026-11-18T15:10:00",
+     "arr": "2026-11-18T18:45:00"
+    },
+    {
+     "flight": "XY1215",
+     "op": "XY",
+     "from": "RUH",
+     "to": "DXB",
+     "dep": "2026-11-19T02:55:00",
+     "arr": "2026-11-19T05:55:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "/",
+     "detailKey": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY268",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY1215",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "XY895 CAI-DMM 11-18T23:25>11-19T03:15 + XY811 DMM-DXB 11-19T08:25>11-19T10:55": {
+   "stops": "1",
+   "segs": [
+    {
+     "flight": "XY895",
+     "op": "XY",
+     "from": "CAI",
+     "to": "DMM",
+     "dep": "2026-11-18T23:25:00",
+     "arr": "2026-11-19T03:15:00"
+    },
+    {
+     "flight": "XY811",
+     "op": "XY",
+     "from": "DMM",
+     "to": "DXB",
+     "dep": "2026-11-19T08:25:00",
+     "arr": "2026-11-19T10:55:00"
+    }
+   ],
+   "options": [
+    {
+     "brandKey": "/",
+     "detailKey": "ADTx1:PremiumEconomy|J|2PC,PremiumEconomy|J|2PC",
+     "pax": {
+      "ADTx1": [
+       {
+        "seg": "XY895",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       },
+       {
+        "seg": "XY811",
+        "leg": 1,
+        "cabin": "PremiumEconomy",
+        "rbd": "J",
+        "bag": "2PC",
+        "bagText": "Number 2 Piece Allowed.",
+        "carryOn": null
+       }
+      ]
+     }
+    }
+   ]
+  }
+ }
+}

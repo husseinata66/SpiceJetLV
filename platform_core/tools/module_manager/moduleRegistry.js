@@ -14,6 +14,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { assertApproverName } = require('../run_manager/approverIdentity');
 
 const {
   assertValidModuleSlug,
@@ -145,10 +146,10 @@ function emptyStages() {
  * @param {object} data
  */
 function writeJsonAtomic(file, data) {
-  fs.mkdirSync(path.dirname(file), { recursive: true });
-  const tmp = `${file}.tmp`;
-  fs.writeFileSync(tmp, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
-  fs.renameSync(tmp, file);
+  // A uniquely named temp file plus the Windows rename retry (Phase 9.3, F-26): a fixed temp name let two
+  // concurrent writers share one file, and the second rename failed (EPERM).
+  // eslint-disable-next-line global-require
+  require('../run_manager/atomicFile').writeJsonAtomic(file, data);
 }
 
 /**
@@ -548,6 +549,7 @@ function approveModules(modulesDir, slugs = [], opts = {}) {
   if (!(now instanceof Date) || Number.isNaN(now.getTime())) {
     throw new ModuleRegistryError('approveModules requires an explicit valid `now` Date.');
   }
+  if (approvedBy && String(approvedBy).trim()) assertApproverName(approvedBy, 'Module approval');
   if (!approvedBy || !String(approvedBy).trim()) {
     throw new ModuleRegistryError(
       'approveModules requires `approvedBy` — an approval record with no approver is not an approval.'
@@ -562,12 +564,29 @@ function approveModules(modulesDir, slugs = [], opts = {}) {
   const approved = [];
   const timestamp = now.toISOString();
 
+  // Phase 9.2, F-20: approval moves a Proposed module to Active — nothing else. A Superseded or Archived
+  // module is never reactivated by a generic approval (module_architecture.md: refused activation); an
+  // Active one is already approved and is left exactly as it is. Every check runs before anything changes.
   for (const slug of targets) {
     const entry = findModule(registry, slug);
     if (!entry) {
       throw new ModuleRegistryError(`No module "${slug}" is registered, so it cannot be approved.`);
     }
+    if (entry.status !== 'Proposed' && entry.status !== 'Active') {
+      throw new ModuleRegistryError(
+        `Module "${slug}" is ${entry.status} — approval never reactivates a ${entry.status} module` +
+        `${entry.supersededBy ? ` (superseded by ${entry.supersededBy})` : ''}. Propose a new module instead.`
+      );
+    }
+  }
+  for (const slug of targets) {
+    const entry = findModule(registry, slug);
+    if (entry.status === 'Active') continue;
     entry.status = 'Active';
+    // Per-entity provenance (F-20): who approved THIS module, kept on the module itself.
+    entry.approvedBy = approvedBy;
+    entry.approvedAt = timestamp;
+    entry.approvals = [...(entry.approvals || []), { approvedBy, approvedAt: timestamp }];
     entry.updatedAt = timestamp;
     approved.push(entry);
   }
@@ -685,3 +704,6 @@ module.exports = {
   supersedeModule,
   listModules,
 };
+
+// Concurrency (Phase 9.4): each read-modify-write below holds the registry lock (registryLock.js).
+require('./registryLock').lockExports(module.exports, ['registerModule', 'proposeModules', 'approveModules', 'recordStage', 'supersedeModule']);

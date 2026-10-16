@@ -81,9 +81,9 @@ class PlaywrightNodeSession {
    * a Skill — go through the Browser Provider interface, which selects the provider from
    * platform.config.json.
    */
-  static async authenticate({ env, credentialsPath, headless, projectRoot } = {}) {
+  static async authenticate({ env, credentialsPath, headless, projectRoot, preflight } = {}) {
     const { browser, context, page, profile, env: resolvedEnv } = await launchAuthenticated({
-      env, credentialsPath, headless, projectRoot,
+      env, credentialsPath, headless, projectRoot, preflight,
     });
     return new PlaywrightNodeSession({ browser, context, page, profile, env: resolvedEnv, projectRoot });
   }

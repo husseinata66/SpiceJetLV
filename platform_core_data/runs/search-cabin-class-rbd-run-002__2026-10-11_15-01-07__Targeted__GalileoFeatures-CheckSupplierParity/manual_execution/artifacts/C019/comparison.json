@@ -1,0 +1,383 @@
+{
+ "case": "TC-GCSP-019",
+ "criteria": {
+  "legs": [
+   {
+    "o": "CAI",
+    "d": "DXB",
+    "dt": "18/11/2026"
+   }
+  ],
+  "cabin": "Premium Economy",
+  "rbd": [
+   "J"
+  ]
+ },
+ "rule": "Prices ignored; flights by identity; fare options by flight + RBD sequence per passenger type; cabin/baggage on matched options; nothing judged at the Integration Layer → Galileo boundary (BND-03)",
+ "key": "C019",
+ "rq": {
+  "trip": {
+   "expected": "One-way, 1 leg(s)",
+   "integration": "One-way, 1 leg(s)",
+   "direct": "One-way, 1 leg(s)",
+   "ok": true
+  },
+  "airports": {
+   "expected": "leg 1 CAI→DXB",
+   "integration": "leg 1 CAI→DXB",
+   "direct": "leg 1 CAI→DXB",
+   "ok": true
+  },
+  "dates": {
+   "expected": "leg 1 2026-11-18",
+   "integration": "leg 1 2026-11-18",
+   "direct": "leg 1 2026-11-18",
+   "ok": true
+  },
+  "pax": {
+   "expected": "1 Adult",
+   "integration": "1 Adult",
+   "direct": "1 Adult",
+   "ok": true
+  },
+  "cabin": {
+   "expected": "leg 1 Premium Economy",
+   "integration": "leg 1 Economy",
+   "direct": "leg 1 Premium Economy",
+   "ok": false
+  },
+  "rbd": {
+   "expected": "leg 1 J",
+   "integration": "leg 1 J",
+   "direct": "leg 1 J",
+   "ok": true
+  },
+  "confirmed": [
+   {
+    "field": "cabin",
+    "side": "Integration",
+    "expected": "leg 1 Premium Economy",
+    "actual": "leg 1 Economy"
+   }
+  ],
+  "modifiers": [
+   {
+    "path": "LowFareSearchReq/@ReturnUpsellFare",
+    "integration": "true",
+    "direct": "false",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-01"
+   },
+   {
+    "path": "LowFareSearchReq/AirPricingModifiers/@CurrencyType",
+    "integration": "(absent)",
+    "direct": "EGP",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-02"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/AirLegModifiers/@AllowDirectAccess",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-03"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/SearchDestination/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/SearchOrigin/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   }
+  ],
+  "sameModifiers": [
+   {
+    "path": "LowFareSearchReq/@SolutionResult",
+    "value": "true"
+   },
+   {
+    "path": "LowFareSearchReq/AirSearchModifiers/PreferredProviders/Provider/@Code",
+    "value": "1G"
+   },
+   {
+    "path": "LowFareSearchReq/AirPricingModifiers/@FaresIndicator",
+    "value": "AllFares"
+   }
+  ],
+  "representation": [
+   {
+    "item": "XML schema version",
+    "integration": "air_v52_0",
+    "direct": "air_v44_0"
+   },
+   {
+    "item": "SOAP envelope",
+    "integration": "yes",
+    "direct": "yes"
+   },
+   {
+    "item": "namespaces, prefixes, element order, encoding",
+    "integration": "v52 common/air namespaces, utf-16 declaration",
+    "direct": "v44 namespaces with soapenv/air/com prefixes"
+   },
+   {
+    "item": "LowFareSearchReq/BillingPointOfSaleInfo/@OriginApplication",
+    "integration": "UAPI",
+    "direct": "uAPI"
+   },
+   {
+    "item": "LowFareSearchReq/SearchPassenger[1]/@Age",
+    "integration": "35",
+    "direct": "(absent)"
+   },
+   {
+    "item": "LowFareSearchReq/SearchPassenger[1]/@BookingTravelerRef",
+    "integration": "(absent)",
+    "direct": "[REDACTED]"
+   }
+  ],
+  "platformRequestsEqual": true
+ },
+ "rs": {
+  "status": [
+   {
+    "side": "Integration",
+    "http": 200,
+    "errorMessage": "CheckSupplierErrorMsg { correlationId : PgtQQ8gM0aVmjbUxL9cZkwk6aLM_JovX_Ur0um8P timestamp : 2026-10-11T13:07:46.504Z message : status-code:409 Conflict-4413-No fares found for the specified request. - UNABLE TO FARE QUOTE errorDescription : No fares found for the specified request. - UNABLE TO FARE QUOTE ==================== }",
+    "parsed": false,
+    "fault": "UNABLE TO FARE QUOTE",
+    "kind": "business-empty"
+   },
+   {
+    "side": "Direct",
+    "http": 200,
+    "errorMessage": null,
+    "parsed": true,
+    "fault": null,
+    "kind": "ok"
+   }
+  ],
+  "ok": false,
+  "commError": [],
+  "businessEmpty": [
+   "Integration"
+  ],
+  "counts": {
+   "integration": {
+    "solutions": 0,
+    "flights": 0,
+    "upsellBrands": 0
+   },
+   "direct": {
+    "solutions": 5,
+    "flights": 5,
+    "upsellBrands": 0
+   }
+  },
+  "flightsOnly": [
+   {
+    "side": "Direct",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30",
+    "options": 1,
+    "availabilitySource": [
+     "XY566: A (No polled avail exists)",
+     "XY509: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY207 RUH-DXB 2026-11-18T15:50>2026-11-18T18:50",
+    "options": 1,
+    "availabilitySource": [
+     "XY264: A (No polled avail exists)",
+     "XY207: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY274 CAI-RUH 2026-11-18T12:10>2026-11-18T15:45 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+    "options": 1,
+    "availabilitySource": [
+     "XY274: A (No polled avail exists)",
+     "XY209: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+    "options": 1,
+    "availabilitySource": [
+     "XY264: A (No polled avail exists)",
+     "XY209: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   },
+   {
+    "side": "Direct",
+    "flight": "XY895 CAI-DMM 2026-11-18T23:25>2026-11-19T03:15 + XY811 DMM-DXB 2026-11-19T08:25>2026-11-19T10:55",
+    "options": 1,
+    "availabilitySource": [
+     "XY895: A (No polled avail exists)",
+     "XY811: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify.",
+    "outcome": "Confirmed Functional Mismatch"
+   }
+  ],
+  "optionsOnly": [],
+  "pending": [],
+  "confirmed": [
+   {
+    "kind": "flight on one side only",
+    "side": "Direct",
+    "flight": "XY566 CAI-JED 2026-11-18T08:20>2026-11-18T11:30 + XY509 JED-DXB 2026-11-18T14:30>2026-11-18T18:30",
+    "options": 1,
+    "availabilitySource": [
+     "XY566: A (No polled avail exists)",
+     "XY509: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Direct",
+    "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY207 RUH-DXB 2026-11-18T15:50>2026-11-18T18:50",
+    "options": 1,
+    "availabilitySource": [
+     "XY264: A (No polled avail exists)",
+     "XY207: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Direct",
+    "flight": "XY274 CAI-RUH 2026-11-18T12:10>2026-11-18T15:45 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+    "options": 1,
+    "availabilitySource": [
+     "XY274: A (No polled avail exists)",
+     "XY209: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Direct",
+    "flight": "XY264 CAI-RUH 2026-11-18T10:50>2026-11-18T13:35 + XY209 RUH-DXB 2026-11-18T17:45>2026-11-18T20:45",
+    "options": 1,
+    "availabilitySource": [
+     "XY264: A (No polled avail exists)",
+     "XY209: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   },
+   {
+    "kind": "flight on one side only",
+    "side": "Direct",
+    "flight": "XY895 CAI-DMM 2026-11-18T23:25>2026-11-19T03:15 + XY811 DMM-DXB 2026-11-19T08:25>2026-11-19T10:55",
+    "options": 1,
+    "availabilitySource": [
+     "XY895: A (No polled avail exists)",
+     "XY811: A (No polled avail exists)"
+    ],
+    "note": "No mechanism established (SRCH-03 contradicted). Candidate explanations, not established: request modifiers only on the Integration side (PC-03 AllowDirectAccess, PC-04 PreferCity), or availability read from cache vs live poll at call time — see availabilitySource. Reviewer may reclassify."
+   }
+  ],
+  "matched": {
+   "flights": 0,
+   "options": 0,
+   "stopsDiff": 0,
+   "cabinDiff": [],
+   "bagDiff": [],
+   "fareBasisDiffSupportingOnly": 0
+  },
+  "filter": {
+   "outside": [],
+   "paxBad": [],
+   "emptyA": true,
+   "emptyB": false
+  },
+  "representation": [
+   {
+    "item": "cabin names normalized (e.g. PremiumEconomy = Premium Economy)",
+    "note": "compared after normalization"
+   }
+  ]
+ },
+ "readback": [
+  {
+   "side": "A",
+   "ok": true,
+   "rb": {
+    "branch": "NDC1_Ahmed Ayman (BRN287)",
+    "branchBeforeCheck": "NDC1_Ahmed Ayman (BRN287)",
+    "suppliersListed": [
+     "NDCGal"
+    ],
+    "supplierSelected": "NDCGal",
+    "credentialsListed": [
+     "NdcGalileoSTG EGY"
+    ],
+    "credentialSelected": "NdcGalileoSTG EGY"
+   }
+  },
+  {
+   "side": "B",
+   "ok": true,
+   "rb": {
+    "branch": "ahmed ayman (BRN632)",
+    "branchBeforeCheck": "ahmed ayman (BRN632)",
+    "suppliersListed": [
+     "Galileo"
+    ],
+    "supplierSelected": "Galileo",
+    "credentialsListed": [
+     "GalileoLiveSTAGING"
+    ],
+    "credentialSelected": "GalileoLiveSTAGING"
+   }
+  }
+ ],
+ "boundary": [
+  {
+   "side": "A",
+   "ok": true,
+   "b": {
+    "reportedBy": "platform back end (BND-04) — not a network capture",
+    "credentialHost": "ndc-integration-stg-ne-3.azurewebsites.net",
+    "schema": "52",
+    "soapEnvelope": true
+   }
+  },
+  {
+   "side": "B",
+   "ok": true,
+   "b": {
+    "reportedBy": "platform back end (BND-04) — not a network capture",
+    "credentialHost": "emea.universal-api.pp.travelport.com",
+    "schema": "44",
+    "soapEnvelope": true
+   }
+  }
+ ],
+ "searchCalled": 0
+}

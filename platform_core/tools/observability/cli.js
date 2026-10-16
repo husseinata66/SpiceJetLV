@@ -15,6 +15,9 @@
 //   node .../cli.js dashboard [--run <folder>] [--out]
 //   node .../cli.js historical [--run <folder>] [--json]
 //   node .../cli.js compare --run A --run B [--json]
+//   node .../cli.js health       [--run <folder>] [--json] [--out [--out-dir <dir>]] [--data-root <dir>]
+//   node .../cli.js health-check [--run <folder>] [--revision RunHealth.rev-N] [--dir <dir>] [--data-root <dir>]
+//                                exit 2 = the renderings disagree, or no longer match the authoritative sources
 //
 // `--run` defaults to the Active Run pointer, so a Skill mid-pipeline does not have to know or repeat
 // the folder name it is already working inside.
@@ -36,6 +39,23 @@ const { renderReport } = require('./report');
 const { renderDashboard } = require('./dashboard');
 const { deriveHistorical } = require('./historical');
 const { loadRunJson, loadTestSuites, loadSafetyEvidence, listRuns } = require('./sources');
+
+// The data root every subcommand reads and writes (Phase 9.3, F-24): `--data-root <dir>` when given — an
+// isolated root (a disposable workspace, a copy under review), validated once in main() — else the
+// configured one. One value for the whole command, so a dashboard can never read one root and write another.
+let DATA_ROOT_OVERRIDE = null;
+const root = () => DATA_ROOT_OVERRIDE || resolveDataRoot();
+
+/** Why `dir` cannot be used as a data root, or null. */
+function dataRootProblem(dir) {
+  let st;
+  try { st = fs.statSync(dir); } catch { return `--data-root ${dir} does not exist`; }
+  if (!st.isDirectory()) return `--data-root ${dir} is not a folder`;
+  let runs;
+  try { runs = fs.statSync(path.join(dir, 'runs')); } catch { runs = null; }
+  if (!runs || !runs.isDirectory()) return `--data-root ${dir} has no runs/ folder — it is not a data root`;
+  return null;
+}
 const { isAvailable, formatDuration, formatRatio } = require('./formulas');
 
 const EXIT = { ok: 0, error: 1, incomplete: 2 };
@@ -67,8 +87,12 @@ const USAGE = `Observability — deterministic run telemetry.
   dashboard  [--run <folder>] [--out]      render ObservabilityDashboard.html (self-contained)
   historical [--run <folder>] [--json]     what a non-instrumented run's artifacts still prove
   compare    --run A --run B [--json]      cross-run comparison of immutable run metrics
+  health     [--run <folder>] [--json] [--out [--out-dir D]]   Run Health from the authoritative sources
+  health-check [--run <folder>] [--revision R] [--dir D]        Markdown / JSON / HTML agree, and are current
 
 Event types: ${EVENT_TYPES.join(', ')}
+
+Every command takes [--data-root <dir>] — an isolated data root (it must contain runs/); default: the configured one.
 
 Exit codes: 0 ok · 1 error · 2 under-instrumented
 `;
@@ -79,7 +103,7 @@ function resolveRun(args) {
   try {
     // eslint-disable-next-line global-require
     const { resolveActiveRunFolder } = require('../run_manager/activeRun');
-    const folder = resolveActiveRunFolder(path.join(resolveDataRoot(), 'runs'));
+    const folder = resolveActiveRunFolder(path.join(root(), 'runs'));
     if (folder) return folder;
   } catch { /* no pointer, or run_manager unavailable */ }
   return null;
@@ -91,16 +115,22 @@ function requireRun(args) {
     console.error('No run specified and no Active Run pointer is set. Pass --run <folder>.');
     return null;
   }
+  // A run is named by its folder name inside <data root>/runs — never by a path (F-24: with an isolated data
+  // root, a path in --run must not reach outside it).
+  if (/[\\/]/.test(run) || run === '.' || run === '..' || !fs.existsSync(path.join(root(), 'runs', run, 'metadata'))) {
+    console.error(`Run "${run}" is not a run folder in ${path.join(root(), 'runs')}. Pass its folder name.`);
+    return null;
+  }
   return run;
 }
 
 /** Loads everything the aggregator needs, in one place so every subcommand agrees. */
 function buildMetrics(runFolder, { dataRoot } = {}) {
-  const root = dataRoot || resolveDataRoot();
-  const read = readEvents({ runFolder, dataRoot: root });
-  const { runJson } = loadRunJson({ dataRoot: root, runFolder });
-  const { suites } = loadTestSuites({ dataRoot: root });
-  const safety = loadSafetyEvidence({ dataRoot: root, runFolder, events: read.events });
+  const base = dataRoot || root();
+  const read = readEvents({ runFolder, dataRoot: base });
+  const { runJson } = loadRunJson({ dataRoot: base, runFolder });
+  const { suites } = loadTestSuites({ dataRoot: base });
+  const safety = loadSafetyEvidence({ dataRoot: base, runFolder, events: read.events });
   const metrics = aggregate({
     runId: runFolder,
     runJson,
@@ -113,7 +143,7 @@ function buildMetrics(runFolder, { dataRoot } = {}) {
   metrics.integrity.problems = [...metrics.integrity.problems, ...read.problems];
   metrics.integrity.ok = metrics.integrity.problems.length === 0;
   metrics.integrity.foreignEventsRejected = read.foreign.length;
-  return { metrics, read, root };
+  return { metrics, read, root: base };
 }
 
 function cmdRecord(args) {
@@ -146,7 +176,7 @@ function cmdRecord(args) {
     }
   }
 
-  const res = recordEvent({ runFolder: run, event, now: new Date() });
+  const res = recordEvent({ runFolder: run, dataRoot: root(), event, now: new Date() });
   if (!res.ok) { console.error(`! ${res.warning}`); return EXIT.error; }
   if (args.json) console.log(JSON.stringify(res.event, null, 2));
   else console.log(`${res.event.eventId}  ${res.event.type}${res.event.spanId ? `  span=${res.event.spanId}` : ''}`);
@@ -156,7 +186,7 @@ function cmdRecord(args) {
 function cmdValidate(args) {
   const run = requireRun(args);
   if (!run) return EXIT.error;
-  const read = readEvents({ runFolder: run, dataRoot: resolveDataRoot() });
+  const read = readEvents({ runFolder: run, dataRoot: root() });
   const { metrics } = buildMetrics(run);
   const unclosed = metrics.instrumentation.unclosedSpans;
 
@@ -229,7 +259,7 @@ function cmdSummary(args) {
   console.log(`Tool calls:       ${v(metrics.tools.totals.calls)} (${v(metrics.tools.totals.failed)} failed, ${v(metrics.tools.totals.retries)} retries)`);
   const tdMark = metrics.testDesign.totalCases.provenance === 'historical-derived' ? ' [current artifact values]' : '';
   console.log(`Test cases:       ${v(metrics.testDesign.totalCases)} — Review approved ${v(metrics.testDesign.review.approved)}, Automation approved ${v(metrics.testDesign.automation.approved)}${tdMark}`);
-  console.log(`Execution:        ${v(metrics.execution.passed)} passed / ${v(metrics.execution.failed)} failed / ${v(metrics.execution.blocked)} blocked`);
+  console.log(`Execution:        ${v(metrics.execution.passed)} passed / ${v(metrics.execution.failed)} failed / ${v(metrics.execution.automationRepaired)} automation repaired / ${v(metrics.execution.unverified)} unverified / ${v(metrics.execution.blocked)} blocked  (telemetry — authoritative outcome: observability health)`);
   console.log(`Safety blocks:    ${v(metrics.safety.blocks)}`);
   console.log(`Repair cycles:    ${v(metrics.repair.cycles)}`);
   console.log('');
@@ -248,7 +278,9 @@ function cmdSummary(args) {
   return metrics.instrumentation.status === INSTRUMENTATION.FULL ? EXIT.ok : EXIT.incomplete;
 }
 
-function writeOut(file, contents, args) {
+function writeOut(file, contents, args, run) {
+  // F-23 (Phase 9.3): never written through a symbolic link or junction that leaves the run folder.
+  if (run) require('./recorder').assertRunWrite(root(), run, path.dirname(file), file);
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, contents, 'utf8');
   if (!args.json) console.log(`Written: ${file}`);
@@ -260,7 +292,7 @@ function cmdMetrics(args) {
   if (!run) return EXIT.error;
   const { metrics } = buildMetrics(run);
   const json = `${JSON.stringify(metrics, null, 2)}\n`;
-  if (args.out) writeOut(metricsPath(undefined, run), json, args);
+  if (args.out) writeOut(metricsPath(root(), run), json, args, run);
   else console.log(json.trimEnd());
   return EXIT.ok;
 }
@@ -274,7 +306,7 @@ function cmdReport(args) {
     fixture: args.fixture === true,
     dashboard: args.out ? 'ObservabilityDashboard.html' : null,
   });
-  if (args.out) writeOut(reportPath(undefined, run), md, args);
+  if (args.out) writeOut(reportPath(root(), run), md, args, run);
   else console.log(md);
   return EXIT.ok;
 }
@@ -288,14 +320,31 @@ function cmdDashboard(args) {
   // that pretends it was instrumented.
   let historical = null;
   if (metrics.instrumentation.status === INSTRUMENTATION.NONE) {
-    try { historical = deriveHistorical({ runFolder: run }); } catch { /* nothing derivable */ }
+    try { historical = deriveHistorical({ dataRoot: root(), runFolder: run }); } catch { /* nothing derivable */ }
   }
 
-  const html = renderDashboard(metrics, { now: new Date(), fixture: args.fixture === true, historical });
+  // The authoritative Run Health view (Phase 8.1), read — never recomputed — and the latest written report's
+  // status. A failure to read it is shown as Unavailable, never hidden.
+  let health = null; let healthReport = null;
+  try {
+    // eslint-disable-next-line global-require
+    health = require('./runHealth').buildRunHealth({ dataRoot: root(), runFolder: run, now: new Date() });
+    // eslint-disable-next-line global-require
+    const { listRevisions } = require('./runHealthReport');
+    const dir = observabilityDir(root(), run);
+    const rev = listRevisions(dir).pop();
+    if (rev) {
+      let recorded = null;
+      try { recorded = JSON.parse(fs.readFileSync(path.join(dir, `${rev}.snapshot.json`), 'utf8')).fingerprint; } catch { /* none */ }
+      healthReport = { revision: rev, current: recorded === health.fingerprint };
+    }
+  } catch (err) { healthReport = { reason: `Run Health could not be read: ${String(err.message).split('\n')[0]}` }; }
+
+  const html = renderDashboard(metrics, { now: new Date(), fixture: args.fixture === true, historical, health, healthReport });
   if (args.out) {
     // Metrics are regenerated alongside, so the dashboard can never be newer than the data it shows.
-    writeOut(metricsPath(undefined, run), `${JSON.stringify(metrics, null, 2)}\n`, args);
-    const file = writeOut(dashboardPath(undefined, run), html, args);
+    writeOut(metricsPath(root(), run), `${JSON.stringify(metrics, null, 2)}\n`, args, run);
+    const file = writeOut(dashboardPath(root(), run), html, args, run);
     if (!args.json) console.log('\nSelf-contained: open it directly in a browser. No server, no network.');
     return file ? EXIT.ok : EXIT.error;
   }
@@ -306,7 +355,7 @@ function cmdDashboard(args) {
 function cmdHistorical(args) {
   const run = requireRun(args);
   if (!run) return EXIT.error;
-  const h = deriveHistorical({ runFolder: run });
+  const h = deriveHistorical({ dataRoot: root(), runFolder: run });
   if (args.json) { console.log(JSON.stringify(h, null, 2)); return EXIT.ok; }
   const v = (m) => (isAvailable(m) ? String(m.value) : 'Unavailable');
   console.log(`Historical Derived Metrics — ${run}`);
@@ -334,7 +383,7 @@ function cmdHistorical(args) {
  * which of the two is wrong.
  */
 function cmdCompare(args) {
-  const runs = args.runs.length ? args.runs : listRuns({}).slice(0, 3);
+  const runs = args.runs.length ? args.runs : listRuns({ dataRoot: root() }).slice(0, 3);
   if (runs.length < 2) {
     console.error('compare needs at least two runs: --run A --run B');
     return EXIT.error;
@@ -377,10 +426,79 @@ function cmdCompare(args) {
   return EXIT.ok;
 }
 
+/** Run Health (Phase 8): workflow, execution, coverage, repairs, contracts — read, never recomputed. */
+function cmdHealth(args) {
+  // eslint-disable-next-line global-require
+  const { buildRunHealth } = require('./runHealth');
+  // eslint-disable-next-line global-require
+  const { writeRunHealth } = require('./runHealthReport');
+  const dataRoot = root();
+  const run = requireRun(args);
+  if (!run) return EXIT.error;
+  const snapshot = buildRunHealth({ dataRoot, runFolder: run, now: new Date() });
+  if (args.out) {
+    if (typeof args['out-dir'] === 'string') {
+      // R-03 (Phase 9.5): Run Health is written into the data root, or a registered report-output root — nowhere else.
+      // eslint-disable-next-line global-require
+      const { realPathOf } = require('../run_manager/pathBoundary');
+      const norm = (p) => (process.platform === 'win32' ? p.toLowerCase() : p);
+      const rel = path.relative(norm(realPathOf(dataRoot)), norm(realPathOf(path.resolve(args['out-dir']))));
+      // eslint-disable-next-line global-require
+      const ok = (rel && !rel.startsWith('..') && !path.isAbsolute(rel)) || require('../run_manager/targetWrites').permittedRootFor(dataRoot, args['out-dir'], ['report-output']);
+      if (!ok) throw new ObservabilityError(`--out-dir ${args['out-dir']} is outside the data root and every registered report-output root — Run Health is written nowhere else.`);
+    }
+    const files = writeRunHealth({ dataRoot, runFolder: run, snapshot, outDir: typeof args['out-dir'] === 'string' ? args['out-dir'] : undefined });
+    console.log(`Wrote ${files.revision} (.md, .report.json, .html, .snapshot.json) in ${path.dirname(files.md)}`);
+    return EXIT.ok;
+  }
+  if (args.json) { console.log(JSON.stringify(snapshot, null, 2)); return EXIT.ok; }
+  console.log(`Run Health — ${run}  (test verdict: ${snapshot.verdict.overall}; no overall health figure)`);
+  for (const [k, v] of snapshot.figures) console.log(`  ${k.padEnd(44)} ${v}`);
+  for (const n of snapshot.notes) console.log(`  note: ${n}`);
+  return EXIT.ok;
+}
+
+function cmdHealthCheck(args) {
+  // eslint-disable-next-line global-require
+  const { checkRunHealth } = require('./runHealthReport');
+  const dataRoot = root();
+  const run = requireRun(args);
+  if (!run) return EXIT.error;
+  const r = checkRunHealth({ dataRoot, runFolder: run, dir: typeof args.dir === 'string' ? args.dir : undefined, revision: typeof args.revision === 'string' ? args.revision : undefined });
+  // The dashboard, when one was written, must show the Run Health view the sources give now (Phase 8.1).
+  const dash = typeof args.dashboard === 'string' ? path.resolve(args.dashboard) : path.join(typeof args.dir === 'string' ? args.dir : observabilityDir(dataRoot, run), 'ObservabilityDashboard.html');
+  if (fs.existsSync(dash)) {
+    // eslint-disable-next-line global-require
+    const { checkDashboard } = require('./runHealthReport');
+    // eslint-disable-next-line global-require
+    const { buildRunHealth } = require('./runHealth');
+    r.dashboard = checkDashboard({ html: fs.readFileSync(dash, 'utf8'), snapshot: buildRunHealth({ dataRoot, runFolder: run, now: new Date() }) });
+    if (!r.dashboard.ok) r.ok = false;
+  }
+  if (args.json) console.log(JSON.stringify(r, null, 2));
+  else {
+    if (r.dashboard) {
+      console.log(`dashboard: ${r.dashboard.ok ? 'agrees with Run Health' : 'DISAGREES'}`);
+      for (const p of r.dashboard.problems) console.log(`  dashboard: ${p}`);
+    }
+    console.log(`${r.revision}: renderings ${r.consistent ? 'agree' : 'DISAGREE'}; ${r.current ? 'current' : 'STALE'}`);
+    for (const p of r.problems) console.log(`  mismatch: ${p}`);
+    for (const p of r.stale) console.log(`  stale: ${p}`);
+  }
+  return r.ok ? EXIT.ok : EXIT.incomplete;
+}
+
 function main(argv) {
   const args = parseArgs(argv);
   const command = args._[0];
   if (args.help || args.h || !command) { console.log(USAGE); return command ? EXIT.ok : EXIT.error; }
+  DATA_ROOT_OVERRIDE = null;
+  if (args['data-root'] !== undefined) {
+    const dir = typeof args['data-root'] === 'string' ? path.resolve(args['data-root']) : '';
+    const why = dir ? dataRootProblem(dir) : '--data-root needs a folder';
+    if (why) { console.error(`${why}. Nothing was read or written.`); return EXIT.error; }
+    DATA_ROOT_OVERRIDE = dir;
+  }
   try {
     switch (command) {
       case 'record': return cmdRecord(args);
@@ -391,13 +509,15 @@ function main(argv) {
       case 'dashboard': return cmdDashboard(args);
       case 'historical': return cmdHistorical(args);
       case 'compare': return cmdCompare(args);
+      case 'health': return cmdHealth(args);
+      case 'health-check': return cmdHealthCheck(args);
       default:
         console.error(`Unknown command "${command}".\n`);
         console.log(USAGE);
         return EXIT.error;
     }
   } catch (err) {
-    if (err instanceof ObservabilityError) { console.error(`\n${err.message}\n`); return EXIT.error; }
+    if (err instanceof ObservabilityError || err.name === 'RunHealthError') { console.error(`\n${err.code && err.code !== 'RUN_HEALTH' ? `${err.code}: ` : ''}${err.message}\n`); return EXIT.error; }
     throw err;
   }
 }

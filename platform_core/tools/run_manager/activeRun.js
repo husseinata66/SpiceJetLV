@@ -17,6 +17,13 @@ const path = require('path');
 
 const { resolveRunFolder, resolveRunFolderStrict } = require('./runFolderIndex');
 const { parseRunFolderName } = require('./runFolderName');
+const { withFileLock, writeFileAtomic } = require('./atomicFile');
+
+// The pointer is rewritten on every activation and stage advance, often by concurrent processes (Phase 9.3,
+// F-26): each read-modify-write holds this lock, and each write goes through a uniquely named temp file with
+// the Windows rename retry. A fixed temp name made two writers share one file, and one crashed (EPERM) after
+// its run had already been created.
+const pointerLock = (runsDir) => `${activeRunPath(runsDir)}.lock`;
 
 const ACTIVE_RUN_FILENAME = 'current_active_run.json';
 
@@ -132,6 +139,7 @@ function listRuns(runsDir) {
       scope: parsed.scope ?? meta.scope ?? null,
       target: parsed.target ?? meta.target ?? null,
       status: meta.status ?? null,
+      stateModel: Boolean(meta.stateSchemaVersion),
       stagesPresent: detectStagesPresent(runsDir, folderName),
       // Sort key only, dropped before returning.
       sortTime: runStartMillis(parsed, meta),
@@ -211,6 +219,7 @@ function setActiveRun(runsDir, identifier, opts = {}) {
     );
   }
 
+  return withFileLock(pointerLock(runsDir), () => {
   const previous = readActiveRun(runsDir);
   const previousFolder = previous?.activeRun?.folderName ?? null;
   const parsed = parseRunFolderName(folderName);
@@ -245,6 +254,7 @@ function setActiveRun(runsDir, identifier, opts = {}) {
   fs.mkdirSync(runsDir, { recursive: true });
   writeActiveRun(runsDir, pointer);
   return pointer;
+  });
 }
 
 /**
@@ -256,9 +266,7 @@ function writeActiveRun(runsDir, pointer) {
   // a concurrent reader sees either the old pointer or the new one, never a half-written file. Cheap
   // insurance for a file rewritten on every stage advance.
   const target = activeRunPath(runsDir);
-  const tmp = `${target}.tmp`;
-  fs.writeFileSync(tmp, `${JSON.stringify(pointer, null, 2)}\n`, 'utf8');
-  fs.renameSync(tmp, target);
+  writeFileAtomic(target, `${JSON.stringify(pointer, null, 2)}\n`);
 }
 
 /**
@@ -361,6 +369,11 @@ function clearActiveRun(runsDir) {
  * @returns {object|null} the refreshed pointer, or null if there is nothing to refresh
  */
 function refreshActiveRun(runsDir) {
+  if (!fs.existsSync(activeRunPath(runsDir))) return null;
+  return withFileLock(pointerLock(runsDir), () => refreshActiveRunLocked(runsDir));
+}
+
+function refreshActiveRunLocked(runsDir) {
   const pointer = readActiveRun(runsDir);
   const folderName = pointer?.activeRun?.folderName;
   if (!folderName) return null;

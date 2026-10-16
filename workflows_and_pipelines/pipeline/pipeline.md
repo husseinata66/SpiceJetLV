@@ -187,7 +187,7 @@ The two branches solve the same problem — "is this behaviour correct?" — wit
 
 | | Manual branch (`4M`) | Automation branch (`4A` → `5A`) |
 |---|---|---|
-| **Browser mode** | **Headed** (visible) — a human watches each interaction live | **Headless** — speed and repeatability |
+| **Browser mode** *(recommended — confirmed with the human before every execution, §6 Rule 11)* | **Headed** (visible) — a human watches each interaction live | **Headless** — speed and repeatability |
 | **Driver** | Playwright MCP server, headed | Playwright MCP server, headless |
 | **Purpose of browser use** | *Execute* the test case and judge the result | *Verify* selectors/DOM, then *run* generated code |
 | **Output** | Results, defects, CSV, MD report, evidence | Scripts, execution results, reports |
@@ -239,12 +239,13 @@ node platform_core/tools/module_manager/cli.js use login       # activate one (s
 
 | | |
 |---|---|
-| **Input** | PRD · Supporting Documents · Run Configuration |
+| **Input** | PRD · Supporting Documents *(optional)* · Run Configuration *(optional)* |
 | **Output** | Project Context, **one file per module** · **proposed module decomposition** |
 | **Checkpoint** | **Human Review Required** *(covers the context **and** the module list)* |
 | **Artifact path** | `platform_core_data/modules/{module}/context/ProjectContext.md` — one per module in scope · `platform_core_data/modules/modules.json` (registry, written by the Module Manager) |
 
 Notes:
+- **Run Configuration is optional** *(revised 2026-10-08)*. Without it, this stage runs from the PRD alone and marks every missing value (target environment, roles and credentials, environment constraints) as an `Open Question — Requires Run Configuration`. It never guesses a value (`project-context-skill` "Missing run configuration → run degraded"). **Optional does not mean never needed.** A later stage that depends on a missing value — Stage 2's live exploration, Stage `4M`/`5A` execution, a Stage `5H` rerun — must have that value resolved before it proceeds. That stage asks for it and waits; it never fills it in with a default or a guess.
 - "Supporting Documents" (optional) covers any material that informs scope but is not itself the PRD — e.g., prior audit/QA reports, compliance policies, org-specific testing standards. These are folded into the Project Context alongside the PRD; they are never treated as a substitute source of requirements.
 - This is the **only** stage in either pipeline permitted to read the PRD. Once its output is approved, the PRD is not re-consulted by any later stage.
 - **This is the only stage that may propose a module.** It reads the PRD and proposes a decomposition — a list of modules, each with a name, a one-line scope statement, and the PRD sections it derives from. Because the decomposition is *derived from the PRD*, it is Stage 1's output and nobody else's (§6 Rule 4). A Stage 2 or Stage 3 observation that a module should be split is reported as a gap for the next Stage 1 pass; it is never acted on.
@@ -344,7 +345,7 @@ Notes:
 
 Notes:
 - **What it executes depends on the run's module scope** (`module_architecture.md` §9.1): a single- or multi-module run executes each named module's own standalone project under `modules/{module}/automation/` — or, for a **promoted** module, the baseline's module-scoped suite `testng-{module}.xml` (§12.9), since its working copy no longer exists; a **full-project** run executes the assembled baseline as one system, which is the point of assembly and the only way cross-module interaction is exercised at all. The root is always resolved through `automation_lifecycle/automationRoot.js`, never assumed.
-- **This stage is a pure mechanical runner.** It runs the approved suite, classifies each result by cause (Application / Automation / Environment / Infrastructure / Configuration Failure, Passed, Inconclusive, Flaky), captures evidence, and reports the three separated health figures — Application Health, Automation Health, Environment Health. **It never modifies automation code.**
+- **This stage is a pure mechanical runner.** It runs the approved suite, classifies each result by cause (Application / Automation / Environment / Infrastructure / Configuration Failure, Passed, Inconclusive, Flaky), captures evidence, and reports the three separated execution health figures — Application Health, Automation Health, Environment Health (Run Health adds Coverage, Contract and Workflow, §15.1a). **It never modifies automation code.**
 - **All repair reasoning has moved out of this stage** into Stage `5H` (`self-healing-skill`). This stage's job ends at an accurate, well-evidenced classification. Diagnosing *why* automation failed and changing code to fix it is `5H`'s responsibility, and only on explicit human invocation (§3.6).
 - Project Context remains a standing reference (target environment, credentials, safety constraints) — this stage confirms the target environment against it before running anything.
 - Execution Metadata includes, at minimum, the Executed Test Case ID and Automation Script ID for every result, plus Execution Time.
@@ -382,12 +383,13 @@ Notes:
 | **Input** | Execution Results · Traceability Matrix · Project Context · Repair Summary (if `5H` ran) |
 | **Output** | Final QA Report |
 | **Checkpoint** | *None — terminal stage, delivered to human stakeholders outside the pipeline* |
-| **Artifact path** | `platform_core_data/runs/{{RUN_FOLDER}}/reporting/Final_QA_Report.md` |
+| **Artifact path** | `platform_core_data/runs/{{RUN_FOLDER}}/reporting/Final_QA_Report.md` · `.../reporting/Final_QA_Report.rev-N.md` (only where Stage `5H` ran after the report existed) |
 
 Notes:
 - The Traceability Matrix is consulted here specifically to compute Requirement Coverage and Automation Coverage, and to carry forward every Manual Test Suite "Assumption-based test" tag into a resolved (confirmed/refuted/unverified) status. It is read from `modules/{module}/test_design/TraceabilityMatrix.md` for every module the run executed, and the report states which module each coverage figure belongs to.
 - **This stage serves the Automation branch only.** The Manual branch self-reports at `4M` and never reaches here (§3.3). A run that took only the Manual branch has no Final QA Report, and that is correct, not a gap.
 - **Where Stage `5H` ran, the report distinguishes a first-attempt pass from a repaired pass** — an `Automation Repaired` result is never presented as a clean `Passed`, so a reader can always see which coverage required a fix.
+- **A repair after the report never rewrites it** *(added 2026-10-08)*. If a human runs Stage `5H` after a Final QA Report exists, the original is preserved and the next `/reporting-skill` writes `Final_QA_Report.rev-N.md` from the latest verified results — each test's outcome from the most recent execution that actually ran it — with its basis and a first-attempt → latest change table (`reporting-skill` §7A).
 - This is the last stage of the Automation branch. Its output is consumed by people, not by another agent — there is nothing downstream to gate.
 
 ## 4.1 Explicit Skill I/O Chaining (Contract-Level)
@@ -478,11 +480,11 @@ This gate is named distinctly from "Human Review Required" because approving it 
 
 ### 5.3 Gate Mechanics
 
-1. On completing its output, an agent stops and marks its artifact `Pending Review` (or `Pending Automation Approval` for Stage `4A` / a Stage `5H` re-merge). It does not hand off to the next stage itself.
+1. On completing its output, an agent stops and marks its artifact `Pending Review` (or `Pending Automation Approval` for Stage `4A` / a Stage `5H` re-merge). It does not hand off to the next stage itself. **What happens after approval depends on the selected workflow (§5.4).** Inside a Full Manual or Full Automation workflow, the orchestrator — not the skill — invokes the next stage once the approval is recorded (§5.4.2).
 2. A human with the appropriate role (§5.1/§5.2) reviews the artifact against the criteria above.
 3. **Approved:** the reviewer marks the artifact `Approved` (see §7 for the recommended mechanism) and the next stage's agent may now be invoked with that artifact as input.
 4. **Rejected:** the pipeline halts at the current stage. The rejecting reviewer's feedback is attached to the artifact. The *same* agent that produced the rejected artifact re-runs, incorporating that feedback, against its original inputs — a rejection does not cascade back further up the pipeline unless the reviewer explicitly determines the fault lies in an upstream artifact (e.g., a flawed Project Context surfaced only once Test Design tried to use it), in which case the reviewer escalates to that earlier stage's checkpoint instead.
-5. **A stage is not blocked from being *invoked* by its predecessor's open checkpoint — it is blocked from *silently consuming un-approved input*.** A human may invoke any skill directly, at any time, in any order (§5.3.1). What an open (`Pending`) predecessor checkpoint forbids is the *pipeline* advancing on its own: no stage may auto-chain into the next, and no orchestrator may treat "the previous stage finished" as authorization to continue. When a directly-invoked stage finds its required upstream artifact `Pending Review` / `Pending Automation Approval`, it stops and requests that approval per §5.3.1 — it does not refuse the invocation outright, and it does not proceed on the un-approved draft.
+5. **A stage is not blocked from being *invoked* by its predecessor's open checkpoint — it is blocked from *silently consuming un-approved input*.** A human may invoke any skill directly, at any time, in any order (§5.3.1). What an open (`Pending`) predecessor checkpoint forbids is the *pipeline* advancing on its own: no stage may auto-chain into the next, and no orchestrator may treat "the previous stage finished" as authorization to continue. **Finishing is never authorization; a recorded approval is.** The only automatic progression the pipeline allows is the one §5.4.2 defines: inside a Full workflow the human selected, the next stage starts after the predecessor's checkpoint reads `Approved` — never on `Pending`, never on silence, and never into Stage `5H`. When a directly-invoked stage finds its required upstream artifact `Pending Review` / `Pending Automation Approval`, it stops and requests that approval per §5.3.1 — it does not refuse the invocation outright, and it does not proceed on the un-approved draft.
 
 ### 5.3.1 Direct Skill Invocation (added 2026-07-26, user-mandated)
 
@@ -496,7 +498,7 @@ This gate is named distinctly from "Human Review Required" because approving it 
 | With instructions | `/test-design-skill cover only the Login module, negative cases only` | Same, plus a run-scoped instruction that narrows or focuses the work. |
 | Approval-driven (pre-existing) | "approved" | Unchanged: approve the open checkpoint, then the recommended next stage may be invoked. |
 
-**2. A direct invocation is authorization to run *that skill*, and nothing else.** It never implies authorization to run, resume, or skip any *other* stage — §5.4's Automation Start Decision Gate and §6 Rule 3 are untouched. Calling `/automation-skill` authorizes the Automation skill to begin its own work; it does not authorize a silent Stages 1–3 catch-up pass. It likewise never authorizes crossing the branch boundary: invoking an Automation-branch skill is never authorization to run Stage `4M`, and invoking `/manual-execution-skill` is never authorization to generate automation (§3.3).
+**2. A direct invocation is authorization to run *that skill*, and nothing else.** It never implies authorization to run, resume, or skip any *other* stage — §5.4's Workflow Selection & Start Decision Gate and §6 Rule 3 are untouched. In particular, a direct invocation is never a Full workflow selection, so it never triggers §5.4.2's automatic progression. Calling `/automation-skill` authorizes the Automation skill to begin its own work; it does not authorize a silent Stages 1–3 catch-up pass. It likewise never authorizes crossing the branch boundary: invoking an Automation-branch skill is never authorization to run Stage `4M`, and invoking `/manual-execution-skill` is never authorization to generate automation (§3.3).
 
 **3. Instruction prompts are run-scoped, never spec-overriding.** An instruction passed with a direct call may narrow scope, set focus, or prioritize (a module, a requirement ID, a subset of test cases, an output emphasis). It must never be read as permission to violate the invoked skill's own Execution Rules, this document's General Pipeline Rules (§6), the PRD-access restriction (§6 Rule 4), or a Human Decision gate (§5.5). Where an instruction conflicts with a rule, the rule wins and the skill says so plainly, then proceeds with the compliant remainder of the instruction. An instruction that *widens* scope beyond the run's business objective is a Human Decision (§5.5), not a free-form override.
 
@@ -521,29 +523,133 @@ The point of the recommendation is that approval is no longer the *only* move th
 
 **7. Traceability records the invocation path.** The Run Manifest (§7) records, per stage, how that stage was entered: `Pipeline` (invoked after its predecessor's approval), `Direct` (invoked by name), or `Direct (degraded)` (invoked by name with one or more required inputs absent, per #5). Any artifact produced under `Direct (degraded)` carries the same note in its own header, so a later reader can never mistake a gap-laden run for a fully-fed one.
 
-### 5.4 Automation Start Decision Gate (pre-flight — added 2026-07-12, user-mandated)
+### 5.3.2 Mechanical Entry & Exit Gates (added 2026-10-08, user-mandated)
 
-**Added after the orchestrator, during a real run, unilaterally decided to run Stages 1–4 in a single pass on a bare request to "run automation" — a judgment call it had no authority to make alone.** This gate runs *before* any stage is invoked or resumed, whenever a human asks for automation (Stage `4A`) or any other single downstream stage in either branch:
+§5.3 and §5.3.1 are now checked in code, not only by instruction. Every stage records its lifecycle in the run state model (`run_manager.md` §8.1) through `node platform_core/tools/run_manager/cli.js state …`, and the entry gate runs on every start.
 
-1. **Inspect, don't assume.** The orchestrator reads that project's Run Manifest (§7) and determines, per stage: does an Approved artifact exist? A Pending one? Nothing at all? It must not proceed on an assumption about what "probably" exists.
+**Lifecycle every Skill follows:**
+
+1. **Entry** — `state start <ID> --invocation <Pipeline|Direct|Direct (degraded)>`. The entry gate (`run_manager/stageGate.js`) runs first. **Exit code 2 means blocked**: the Skill does not start its work. It shows the reasons and follows §5.3.1 #4 (request the missing approval, name the next command). It never works around a block.
+2. **Artifacts** — `state artifact <ID> --artifacts <paths> [--kind checkpoint|output|evidence]` for what it produces.
+3. **Exit** — a stage with a checkpoint: `state request-approval <ID> --artifacts <checkpoint artifact>`. A stage without one (`5A`, `6A`): `state complete <ID>`, which needs a registered output on disk. **A checkpointed stage is never marked Completed by finishing its work.**
+4. **Approval** — only after the named reviewer approves and the artifact's own Status header reads `Approved`: `state approve <ID> --approved-by "<reviewer>"`. It is refused if the header says anything else.
+5. **Blocked / Failed** — `state block <ID> --reason "…"` or `state fail <ID> --reason "…"`, so the run shows what it is waiting on.
+
+**What the entry gate checks**, for each required upstream stage and each module / Feature / Supplier scope in the run:
+
+| Check | Blocks when |
+|---|---|
+| Presence | The upstream artifact is absent and this stage cannot run without it |
+| Approval | Its own header reads `Pending Review`, `Pending Automation Approval`, `Draft`, `Rejected`, or no recognizable status. A Manifest row and a `Completed` stage both count for nothing |
+| Integrity | Its content no longer matches the fingerprint taken when its approval was recorded (modified after approval) |
+| Staleness | The Module Manager reports it stale (§7, `module_architecture.md` §10.4), unless a named human accepts it with `--accept-stale-by` |
+| This run | The upstream stage is still Running, Paused, Waiting For Approval, Blocked, or Failed in this run |
+| Invocation | A degraded start not declared `Direct (degraded)`; Stage `5H` invoked as `Pipeline` (§3.6) |
+| Partial approval *(2.1)* | The header records both an approval and an open item ("Approved … `PO-30` Pending Review", "Approved … reset to Pending") — status `Mixed`. The reviewer states one status for the whole artifact |
+| Recorded history *(2.1)* | The latest decision the run state model recorded for the artifact is a withdrawal (reopen), a rejection, or a still-open approval request — whatever the header now says. A header edited by hand is not a recorded approval |
+| Automation agreement *(2.1)* | For `4A` as upstream: the Module Manager's automation state (the authority, §5.2) and the `AutomationPlan` header disagree — e.g. `Promoted` vs `Pending Review`. The `module.json` cache disagreeing is a warning only |
+| Scope *(2.1)* | A `--modules` / `--module-feature` override on a run that already has a scope |
+
+**A header alone never authorizes a downstream stage** (Phase 9.1, F-01). An artifact whose header reads `Approved` but that has no recorded, named, fingerprinted approval is `unrecorded` and **blocks** the gate. An artifact approved before this mechanism existed is carried forward by one route only: the approver attests it in the new run — `state attest-legacy-approval --artifact <path> --legacy-run <folder> --approved-by "<name>" --reason "..."` — backed by a legacy run that references the artifact in committed, unmodified history, with the artifact itself committed and unmodified. The attestation records the artifact's fingerprint, so a later edit makes it `modified` like any approval. Nothing is written into the historical run. A recorded approval with no fingerprint is `unverifiable` and blocks too. Existing artifacts are never changed or migrated; until attested or re-approved they simply cannot authorize a new downstream stage.
+
+**Approving `4A` or `5H` also needs the Module Manager to agree** *(2.1)*: each module in the run must be `Approved` in `.module_automation_state.json` after the stage last started, or — for a `Promoted` module — have an in-place change recorded with `recordBaselineUpdate()` (named approver, commit) after it started. This adds no approval authority; it refuses a stage approval that the existing authority does not back.
+
+**Scope-aware partial approval** *(2.2)*. `Mixed` stays blocked by default. An approved, independent part of a `Mixed` artifact may be consumed only when all four of these hold:
+
+1. **Item status comes from a structured source, never from header prose.** Test cases: their own `Review` / `Automation` fields, with dependencies read from the Traceability Matrix (`Requirement`, `Finding` and `Acceptance Criteria` references; a `module:ID` reference names another module's item). Project Context, Discovery and other artifacts: an `## Approval Scope` table the reviewer writes in the artifact — columns `Item | Status | Depends On | Affects`, with Status `Approved` / `Pending` / `Rejected`. `Affects` names what an unresolved item changes.
+2. **A named reviewer records it** — `state approve-scope --artifact <path> --approved-by "<name>"`. This needs the header to read `Mixed` and the artifact to be in the run's scope. The record (every item's status, dependencies and affects, plus fingerprints of the artifact and its traceability) goes into the run's `run.json`. Any later edit, or a header that stops reading `Mixed`, invalidates it.
+3. **The stage names the exact scope it consumes** — `state start <ID> … --scope-items <ids> --by "<name>"`. Choosing a part is a Human Decision, made by name. Without `--scope-items`, a `Mixed` upstream blocks, and the gate lists the items it can currently prove independent, for the human to decide on.
+4. **The gate proves independence.** Every requested item and its whole declared dependency closure must be Approved (test cases also `Automation = Approved` for `4A` / `5A`), and no Pending or Rejected item may list any of them in `Affects`. An unknown item, an unlisted dependency, a case without a traceability row while its upstream is only partly approved, an ambiguous cross-module ID, or a dependency on another module's unresolved item → blocked, for a human to decide.
+
+A partial approval never approves the artifact: its header stays `Mixed`, `approve` for its stage is still refused, and every artifact-level check — fingerprints, staleness, the Module Manager automation cross-check — applies unchanged. The proven scope, its closure, and the scope records it relied on are kept on the stage (`entryGate.partialScope`).
+
+**No bypass** *(2.1)*. A reopen passes the same gate as a start. The API has no option to skip the gate or to read another data root. The one skip is a test-only hook, which is refused outside the Node test runner. Every gate result — passed or blocked — is appended to the stage's `entryGateHistory`; a repeated block adds to the stage history rather than replacing the earlier reason.
+
+**Per stage** — required upstream, the checkpoint artifact that carries the approval, and the only degraded paths (§5.3.1 #5, each Skill's own "Missing upstream" rules):
+
+| Stage | Needs | Checkpoint artifact (header carries approval) | Exit | Degraded only when |
+|---|---|---|---|---|
+| 1 | — | `context/ProjectContext.md` per module | request-approval | — (a missing PRD is the Skill's own halt) |
+| 2 | 1 | `discovery/QA_Assessment_Report.md` | request-approval | Project Context absent |
+| 3 | 1, 2 | `test_design/TestCases_{Module}.md` | request-approval | Discovery absent (Project Context absent blocks) |
+| `4M` | 3, 1 | `runs/{run}/manual_execution/ManualExecutionSummary.md` | request-approval | Project Context absent **and** `--environment-supplied` (no suite blocks) |
+| `4A` | 3 | `automation/AutomationPlan_{Framework}.md` | request-approval | no approved suite **and** `--named-test-cases` |
+| `5A` | `4A`, 1 | — (no checkpoint) | complete, with `execution/ExecutionResults.md` registered | Project Context absent **and** `--environment-supplied` (no approved automation blocks) |
+| `5H` | `5A`, 1 | `healing/RepairSummary.md` (`**Status:**` line) | request-approval (re-merge, §5.2) | no `5A` results **and** `--external-reports`; never as `Pipeline` |
+| `6A` | `5A`, 3, 1 | — (no checkpoint) | complete, with `reporting/Final_QA_Report.md` registered | any input absent — reported as a gap, never as a favourable result |
+
+`state gate <ID> --invocation …` runs the same check without starting anything. Neither branch's gate reads the other branch's output (§3.3).
+
+### 5.4 Workflow Selection & Start Decision Gate (pre-flight — added 2026-07-12, extended 2026-10-08, user-mandated)
+
+**Added after the orchestrator, during a real run, unilaterally decided to run Stages 1–4 in a single pass on a bare request to "run automation" — a judgment call it had no authority to make alone.** *Extended 2026-10-08:* the same gate now offers the three approved workflows — Full Manual, Full Automation, and Specific Stage — so that "how far should this go?" is one explicit human answer instead of a fresh approval-and-invoke cycle at every stage. This gate runs *before* any stage is invoked or resumed: when new work arrives (after §5.7 intake, where that applies), and whenever a human asks for automation (Stage `4A`) or any other single downstream stage in either branch:
+
+1. **Inspect, don't assume.** The orchestrator determines, per stage, whether an Approved artifact exists, a Pending one, or nothing at all. It reads each stage's state where that state actually lives (§7): for Stages 1, 2, 3 and `4A`, the `status:` header of the artifact in the module workspace (`modules/{module}/{stage}/` — the header is authoritative, `module.json` is only a cache); for Stages `4M`, `5A` and `6A`, the run's Run Manifest and run folder. It must not proceed on an assumption about what "probably" exists.
 2. **Report the actual state plainly**, e.g.:
    ```
-   Current project state
+   Current state — module: login
    ✓ Stage 1 — Approved
    ✓ Stage 2 — Approved
    ✓ Stage 3 — Approved
-   ✓ Stage 4M — Approved
+   ✗ Stage 4M — Not started
    ✗ Stage 4A — Not started
    ```
-   or, for a project/scope with nothing yet: "No previous automation exists."
-3. **Ask how to proceed** — present at minimum these options, and let the human choose (or specify something else via "Other"):
-   1. Continue from the latest approved pipeline stage.
-   2. Run the full pipeline from Stage 1.
-   3. Generate automation directly (skip missing stages) — an explicit, human-authorized exception to §6 Rule 3's default "no skip" rule, never the orchestrator inventing scope or shortcuts on its own.
+   or, for a project/scope with nothing yet: "No previous work exists for this scope."
+3. **Ask which workflow to run** — present at minimum these options, and let the human choose (or specify something else via "Other"):
+   1. **Full Manual** — Stage 1 → 2 → 3 → `4M`.
+   2. **Full Automation** — Stage 1 → 2 → 3 → `4A` → `5A` → `6A`. Stage `5H` is never part of it (§3.6).
+   3. **Specific Stage** — run one named stage only (§5.4.1). This covers the earlier "generate automation directly (skip missing stages)" option: running a stage whose upstream is missing is an explicit, human-authorized exception to §6 Rule 3's default "no skip" rule, never the orchestrator inventing scope or shortcuts on its own.
    4. Other.
-4. **The orchestrator must never choose one of these on the human's behalf** — not even under a standing "minimize unnecessary decisions" or "drive forward automatically" directive elsewhere in this project's operating instructions. This is precisely the category of judgment call those directives are meant to exclude, not fold into "routine progress."
+
+   When some stages of a Full workflow are already `Approved` for this scope, the question also states whether the workflow **continues from the first stage that is not Approved** or **re-runs from Stage 1**. Re-running an Approved stage is the human's choice, never a default, and it follows §7 (the artifact is refined in place; nothing in a previous run is overwritten).
+4. **The orchestrator must never choose one of these on the human's behalf** — not even under a standing "minimize unnecessary decisions" or "drive forward automatically" directive elsewhere in this project's operating instructions. This is precisely the category of judgment call those directives are meant to exclude, not fold into "routine progress." What *is* automatic is defined only by §5.4.2, and only after this choice has been made.
+
+**Run Configuration is not a gate question.** It is optional (§4, Stage 1). Values a later stage needs — target environment, credentials, safety constraints — are resolved by that stage before it proceeds, never pre-filled with a default.
+
+The selected workflow is recorded in the run state — `cli.js state workflow <full-manual|full-automation|specific-stage> [--stage <ID>] --by "<name>"`, kept in `run.json` `workflowPlan` and mirrored to the Run Manifest — so an interrupted session resumes the same workflow rather than starting the choice from scratch. Changing it later needs a reason, and the earlier choice is kept in its history.
 
 This does not weaken §6 Rule 3 in the normal, non-Spike case — it only makes explicit that a human-authorized partial or skip-ahead run is a distinct, deliberately chosen path each time, never an inferred default.
+
+#### 5.4.1 Specific Stage
+
+Before a single named stage starts, the orchestrator:
+
+1. Shows which stages are complete and which are missing for this scope (step 2 above).
+2. Checks that stage's required inputs (its `SKILL.md` `inputs` contract and §4.1): each one present and `Approved`, present but `Pending`, or absent.
+3. States the consequence before anything runs. A `Pending` input → that approval is requested first (§5.3.1 #4). An absent input → the stage would run degraded, and the message says which outputs become declared gaps (§5.3.1 #5).
+4. **Asks for confirmation and waits.** The stage starts only on an explicit yes.
+
+A Specific Stage selection runs that stage and nothing else. When it finishes, there is no automatic progression: its closing message recommends the next step (§5.3.1 #6) and the human decides.
+
+#### 5.4.2 Automatic progression inside a selected Full workflow
+
+Selecting **Full Manual** or **Full Automation** is the human's authorization for the orchestrator to invoke each next stage of that branch, in order, without a new request at each step. It authorizes nothing else:
+
+- **It advances only on a recorded approval.** The next stage starts only when the predecessor's checkpoint reads `Approved`, given by a named human (§5.1–§5.3). `Pending` → the workflow waits. `Rejected` → §5.3 #4 applies: the same stage revises its output, and the workflow does not move on. Stage `5A` has no checkpoint of its own (§4), so it starts once Stage `4A`'s Automation Approval is recorded, and Stage `6A` starts once Stage `5A` has completed.
+- **Every gate stays.** No checkpoint is skipped, merged, shortened, or approved by the orchestrator. §6 Rule 6 is unchanged.
+- **Every point-of-use question is still asked at its point of use**: Human Decisions (§5.5), including framework, target and strategy at Stage `4A` (`automation-skill` §31–§33); Headed or Headless immediately before every execution (§6 Rule 11); destructive-action and safety authorizations (§14). Selecting a workflow never answers them in advance.
+- **Skills stay independent.** The orchestrator invokes each skill by name with its declared inputs (§4.1). It never edits a skill's output, never reorders stages, and never crosses the branch boundary (§3.3) — Full Manual never invokes an Automation-branch skill, and Full Automation never invokes Stage `4M`. Running both branches is two selections.
+- **Stage `5H` is never invoked.** When Stage `5A` reports Automation Failures, the orchestrator continues to `6A` as the workflow defines and names `/self-healing-skill` as an available option. It never starts it (§3.6). If the human runs `5H` afterwards, the Final QA Report is not rewritten: the next `/reporting-skill` writes a new revision (§4, Stage `6A`; `reporting-skill` §7A).
+- **Pause and resume.** The human may stop the workflow at any point. Work already written stays as it is. On resume, the orchestrator re-runs step 1's inspection — state is re-read, never assumed from memory — and continues from the first stage that is not `Approved`.
+- **Workflow completion is not testing success.** A workflow that reaches its terminal stage is *complete*. Whether the application passed is reported separately, in that stage's own results (`4M` QA Report, `6A` Final QA Report).
+
+**How the next stage is identified** *(Phase 3, 2026-10-08)*. The orchestrator runs `cli.js state next`. It never decides the next stage itself. The planner (`run_manager/workflowPlanner.js`) reads the run state, revalidates every completed stage, evaluates the next stage's entry gate, and returns one action:
+
+| Exit | Meaning | What the orchestrator does |
+|---|---|---|
+| 0 | `start` — the next stage's gate passes, and no human choice is pending | Invokes that stage's Skill. The Skill runs `state start` itself, so the gate is checked again at that moment |
+| 3 | A **Human Decision**: an approval to record, a partial scope to choose, a degraded run to authorize, a block to resolve, an interrupted stage, or a completed stage whose basis changed (`revalidate`) | Shows the options and waits. It never picks one |
+| 4 | Nothing left — the workflow is complete (`complete-run`), or the run is terminal | Reports completion **and** the test outcome, separately |
+
+`state plan` shows every stage — completed, pending approval, blocked, in progress, skipped (outside the workflow), needs revalidation — and `state status` reports workflow completion, test outcome and approvals as three separate facts. The planner never starts, approves or skips a stage, never reads completion as approval, and never proposes Stage `5H`.
+
+**Smart resume.** Every `plan` re-checks each completed stage of the workflow:
+- its approval still verifies against its header and fingerprint;
+- the upstream artifacts its entry gate accepted still hold;
+- the run's scope did not change after it finished;
+- for `4M` / `5A`, the target code did not move since the run was anchored.
+
+A change marks that stage and every later one for revalidation. Re-execution is a human's `state reopen` — the earlier approval and evidence are kept. A stage with no entry-gate evidence is reported as **impact unknown**, never as unaffected. A stage left `Running` by an interrupted session is either left to its Skill or recovered with `state recover` (Running → Failed, then retried through its gate) — a human says which.
 
 ### 5.5 Human Decisions vs. Engineering Decisions (added 2026-07-12, user-mandated — applies to every stage in both branches, not only Stage `4A`)
 
@@ -626,7 +732,9 @@ Mechanically:
 | **Known Automation Issue** | Classification stays `Automation Failure`, additionally tagged `Known Automation Issue` with the diagnosis attached, so a later run does not re-diagnose from scratch. |
 | **Skip** | Stage `5A`'s original results stand unchanged as final. |
 
-**Repeated failure is quarantined, not repaired indefinitely.** A test that has been repaired and has failed again across a defined number of healing passes is moved to the **Quarantine Register** with its full history, rather than being repaired a third time. A test that needs perpetual healing is telling you something about the test's design or the application's stability that another patch will not fix.
+**Phase 9.3 additions:** `propose` requires Root Cause Confidence High backed by a cited observed root cause (Medium/Low → diagnosis only, `DIAGNOSIS_ONLY`); whether a rerun mutates comes from the Execution Safety policy via the 5H Safety Preflight, never only from the caller; and a 5H rerun pass without a validated repair attempt is never labelled Automation Repaired (`repair-not-governed`). **The gate is enforced, not only asked (Phase 6).** Every step of a 5H pass is recorded and checked by `cli.js state heal …` (`repairGovernance.js`, self-healing-skill "Repair Governance"): a named invocation and an explicit failed scope; a confirmed automation classification (an application defect is never re-labelled); at most three attempts per test per operation; confidence derived from cited evidence and banded High 90–100 / Medium 70–89 / Low < 70, with Medium and Low needing their own named approval on top of this gate; no change to protected artifacts or verification strength; validation only from registered 5H rerun results, with regression results for shared components; no production writes, and read-only production diagnostics only with a named approval; knowledge only from validated repairs, sanitized.
+
+**Repeated failure is quarantined, not repaired indefinitely.** A test that has been repaired and has failed again across a defined number of healing passes is moved to the **Quarantine Register** with its full history, rather than being repaired again: at most three attempts per test, the third unsuccessful attempt quarantines it, and a fourth proposal is refused (enforced; reconciled in Phase 9.3 — earlier wording said "a third time"). A test that needs perpetual healing is telling you something about the test's design or the application's stability that another patch will not fix.
 
 ### 5.7 New User Story Intake Routing (pre-Stage-1 — added 2026-08-17, user-mandated)
 
@@ -662,7 +770,11 @@ Mechanically:
 4. **No downstream agent may read the PRD directly.** Only Stage 1 has the PRD in its Input list. This is enforced structurally, not just by convention: no other stage's Input table in §4 contains the PRD.
 5. **Project Context is the Single Source of Truth.** From Stage 1 onward, every agent's understanding of "what the product should do" is scoped by the Project Context artifact — in **both** branches, including Stages `4M`, `5A`, `5H`, and `6A`, which reference it for environment/safety and risk-resolution purposes even where it is not the headline input of that stage.
 6. **Human approval gates must stop the pipeline until approval is granted.** See §5.3 — no silent timeouts, no auto-approval, no proceeding on an assumed "looks fine." A direct skill invocation (§5.3.1) is not an approval and never satisfies this rule: a directly-invoked stage whose upstream artifact is `Pending` still stops and requests that approval (§5.3.1 #4).
-7. **All artifacts must be versionable.** See §7 — every artifact carries a version identifier and prior versions are retained, never overwritten in place.
+7. **All artifacts must be versionable, and run evidence is never overwritten.** See §7. *(Reworded 2026-10-08: the old wording — "every artifact carries a version identifier … never overwritten in place" — predated §7's 2026-07-27 revision and contradicted it. §7 is authoritative.)* The rule has two halves, one per location:
+
+    **(a) Module artifacts** (`modules/{module}/…` — Project Context, Discovery, Test Design, automation, healing records) are one file each, edited in place. Every change stays traceable: git holds every prior state, the artifact's own header carries its status and revision count, and the Run Manifest records each approval. A change to an `Approved` artifact sends it back through its stage's gate before anything consumes it again (§7 "Approval changes status, never location").
+
+    **(b) Run evidence** (`runs/{{RUN_FOLDER}}/…`) — every recorded outcome of an execution (each result row, its status, its timestamps) and every piece of evidence (screenshots, logs, traces) — is never overwritten or deleted: not by a later stage, a rerun, a repair, or a later run. A rerun writes a new file beside the original (the existing `ExecutionResults.rerun-N.md` convention, §4 Stage `5H`) and leaves the original untouched. A reviewer-requested correction to a run artifact's *wording* during its own review (§7 "Refinement edits the reviewed file") is still allowed, stays traceable through git and the revision count, and never changes a recorded outcome. New scope always gets a new run (`run_manager.md`), never a change to an existing one.
 8. **Every output must maintain traceability.** See §8 — every artifact from Stage 3 onward can be traced back, ID for ID, to the Project Context requirement (and, transitively, the PRD) that generated it.
 9. **Two Roots, One Project.** Exactly two roots exist (§1.1), and every read and write an agent performs resolves inside one of them:
 
@@ -682,12 +794,15 @@ Mechanically:
     - In any report or summary, clearly separate: what happened, why it happened, what was changed, what is still not fixed, and what should happen next.
     - Never state a finding more confidently than the evidence supports — this rule narrows *wording*, it never loosens the evidence, hedging, or Defect Documentation Standard requirements a stage's own spec already imposes.
     - Keep the result professional and readable by testers, developers, product owners, and managers alike, without cutting evidence that matters just to shorten the text.
-11. **Headed or Headless is confirmed with the human before *every* execution, with no exceptions and no inference** (added 2026-08-17, user-mandated). This binds **every** run of anything against a live application: Stage `4M` manual execution, Stage `5A` automation execution, Stage `5H` self-healing reruns, verification runs, regression runs, post-promotion live proofs, and one-off diagnostic runs.
+11. **Headed or Headless is confirmed with the human before *every* execution, with no exceptions and no inference** (added 2026-08-17, user-mandated). **Enforced since Phase 9.2 (F-16):** the answer is recorded in the stage's Safety Preflight (`state preflight <4M|5A|5H> … --execution-mode Headed|Headless --confirmed-by "<name>"`), and the Run Manager refuses to start a browser execution without it. Non-browser execution (API, database, batch) records its type and is never asked for a mode. This binds **every** run of anything against a live application: Stage `4M` manual execution, Stage `5A` automation execution, Stage `5H` self-healing reruns, verification runs, regression runs, post-promotion live proofs, and one-off diagnostic runs.
 
     - **Ask immediately before the run starts**, not at the start of the session and not bundled into an earlier planning question. The answer must still be true when the browser opens.
     - **Never infer the mode** from the previous execution, from the run folder, from a config default, from a properties file, or from what the last session used. A mode that was right yesterday is not evidence about today: the human may be watching this one, sharing a screen, on a machine with no display, or deliberately checking behaviour that only shows headed.
     - **Never treat silence, an unrelated approval, or "go ahead" as the answer.** The question is answered explicitly or the run does not start.
     - Record the selected mode in the execution artifact, so a later reader knows how the evidence was produced.
+    - **It covers every live browser session, not only test execution** *(clarified 2026-10-08)*: Stage 2's live exploration and Stage `4A`'s live selector verification are runs against a live application too. A stage may state which answer is normal for it and why — headless for Discovery and `4A` verification, headed for `4M` — but it states that as a recommendation inside the question, never as the answer.
+    - **Never switch modes silently.** If the selected mode cannot be provided — no display is attached, or the `playwright` MCP server is registered with `--headless` and has not been restarted without it — the stage stops, says why, and asks again. It never falls back to the other mode on its own.
+    - **A mode the human types in the same invocation that starts the run** (e.g. `/automation-execution-skill run Login, headed`) is an explicit answer for that one execution. A mode in a Run Configuration, a properties file, or a previous run is only a proposal to confirm.
 
     This is deliberately stricter than the surrounding approval model: most gates ask once per artifact, this one asks once per execution, because it is the one setting that changes what the human can see while their application is being driven.
     - Before finishing any user-facing output, check it: Can a tester understand it on first read? Can any hard word be replaced with an easier one? Are long sentences split into shorter ones? Are technical terms explained where needed? Is it still accurate and backed by evidence?
@@ -723,7 +838,7 @@ platform_core_data/runs/{{RUN_FOLDER}}/{stage}/    # execution — per run, immu
 
 To satisfy Rule 7 (versionable artifacts) and Rule 6 (gates that truly stop the pipeline):
 
-- **One file per artifact, edited in place.** An artifact has exactly one path for its whole life — `ProjectContext.md`, not `ProjectContext.v1.md`. No version suffix is ever appended, and no copy is ever made. For a module artifact that life is the *module's*, not one run's: a later run refining Login's Test Design edits `modules/login/test_design/TestCases_Login.md` rather than producing a second copy of it somewhere else.
+- **One file per artifact, edited in place.** An artifact has exactly one path for its whole life — `ProjectContext.md`, not `ProjectContext.v1.md`. No version suffix is ever appended, and no copy is ever made. **The two exceptions are run evidence written by a later execution**, which must not overwrite the earlier one (§6 Rule 7b): a rerun's `*.rerun-N.*` results (§4, Stage `5H`) and a Final QA Report revision, `Final_QA_Report.rev-N.md` (§4, Stage `6A`). Each is a new file beside the original, never a replacement for it. For a module artifact that life is the *module's*, not one run's: a later run refining Login's Test Design edits `modules/login/test_design/TestCases_Login.md` rather than producing a second copy of it somewhere else.
 - **Approval changes status, never location.** Approving an artifact updates the `status:` field in its own header (`Draft` → `Pending Review` → `Approved`) and records the approval in the Run Manifest. **A stage must never, on approval, write a "final" copy of its Markdown outputs** — the file the reviewer read *is* the approved artifact. For a module artifact, `module.json` and `modules.json` cache that status for fast listing; **the artifact's own header is authoritative and a stage requiring approved input reads the header, never a cache** (`module_architecture.md` §10.5).
 - **Refinement edits the reviewed file.** When a reviewer requests changes — whether the artifact is `Pending Review`, `Approved`, or was rejected — the producing stage re-opens that same file and edits it in place. It must never create a `.v2`, `_final`, `_revised`, or otherwise-suffixed sibling.
 - **Git is the version history.** Prior states of every artifact are recoverable from version control, which is why an in-place edit loses nothing. Each stage's write and each approval is a commit-worthy change; the Run Manifest records the sequence.
@@ -801,6 +916,128 @@ Concretely, this means:
 **The two branch chains never cross.** A Manual Execution Result never cites an Automation artifact, and no Automation artifact cites a Manual Execution Result (§3.3). Both legitimately cite the same shared upstream artifacts — the Traceability Matrix, the Test Suite, the Project Context — which is what allows a reader to compare manual and automated coverage of the same requirement without either branch depending on the other.
 
 A gap anywhere in either chain (an artifact that cannot cite its predecessor) is itself a pipeline defect and must be surfaced at the next available checkpoint, not silently patched over.
+
+### 8.1 Change management — impact, reuse and conflicts (added 2026-10-08, Phase 5)
+
+The chain above is now read as one graph — `cli.js state trace`
+(`run_manager/traceGraph.js`). It runs Requirement → Discovery Finding → Test Case → Automation →
+Execution Result → Report for each module, module Feature, Supplier and shared scope of a run.
+
+**Gaps it reports** (it never repairs one):
+- a case with no Traceability Matrix row;
+- a case citing a requirement or finding its scope does not define;
+- an approved, automation-approved case that no Automation Decision Report decides;
+- an approved case never executed;
+- a run with results but no report;
+- an `AC-` / `REQ-` / `BR-` requirement no case traces to.
+
+**Before an approved artifact is changed** — Project Context, Discovery, Test Design:
+
+1. **Impact analysis** — `cli.js state impact --artifact <path> (--base <git revision> | --changed <ids>)`
+   (`changeImpact.js`).
+   - **Finds the changed items:** stated explicitly, or compared by ID against a git revision (read
+     through `git show`, never checked out).
+   - **Follows them to everything that depends on them:** cases, their automation, execution results
+     and reports, Approval Scope `Affects`, other modules citing `module:ID`, and every Supplier of a
+     Feature when a Feature-level or shared artifact changes.
+   - **Classifies the change** as **blocking** when it reaches anything approved, automated or
+     executed, or removes an item; otherwise **non-blocking**.
+2. **A human decides** — `… --record --decision approved|rejected --by "<name>" --reason "…"`. This
+   is stored in `run.json` `changeRequests[]`, against the exact content analysed. A change that
+   reaches several modules is approved only by naming each one (`--approved-modules`); several
+   Suppliers likewise (`--approved-suppliers`). No module is ever created by it.
+3. **The changed artifact's approval needs that decision.** Re-approving an artifact that changed after
+   an earlier recorded approval — `state approve`, or `state approve-scope` for a partial approval — is
+   refused (`IMPACT_ANALYSIS_REQUIRED`) without an approved impact decision for exactly its current
+   content.
+
+**Reuse, not regeneration** (`duplicates.js`, `cli.js state duplicates`, `state reuse`):
+- **Stories:** a new story is compared by content with existing ones, criterion by criterion. A shared
+  number alone is reported as proving nothing.
+- **Findings:** a new finding is compared with existing findings.
+- **Test suites:** a proposed suite is planned against the existing one, keeping every existing ID:
+  - unchanged, or updated (its Review resets);
+  - a proposed duplicate keeps the existing case's ID;
+  - a new case takes the next free ID, never a reused one;
+  - an existing case the proposal omits is listed for a human — never deleted silently.
+- **Project Context:** `state reuse` says whether each scope's approved Project Context can be reused
+  as it is.
+
+**Requirement conflicts** (`state conflicts`):
+- **Superseded reference — blocks Stages `4M`, `4A` and `5A`.** An approved case that still traces to
+  a requirement the Project Context marks superseded blocks those stages until a human records how it
+  is resolved: `state conflict-decision --id CF-… --decision "…" --by "<name>"`. The tool lists
+  conflicts; it never resolves one.
+- **Same ID, different definitions — a warning.** The same ID defined differently in two scopes of one
+  run is reported, not blocking.
+
+**`moduleArtifactRefs[]`** — every stage start records, in `run.json` and in the Run Manifest's
+"Module Artifacts Consumed" section, which revision (content fingerprint) of each module, Feature,
+Supplier or shared artifact the run consumed. A run stays reproducible after the module moves on.
+
+### 8.2 API contract drift — detection, impact and decisions (added 2026-10-09, Phase 7)
+
+An API contract is discovery output: **Stage 2 owns it, Stage 3 consumes it.** It lives in `<scope>/discovery/api_contracts/` and is managed only by `platform_core/tools/api_contract/cli.js`; the reference is its [README](../../platform_core/tools/api_contract/README.md). It is a capability, not a Skill.
+
+**Three roles, never confused:**
+
+| Role | What it is | How it is recorded |
+|---|---|---|
+| **approved** | The contract tests are designed against | Only by a named human: `import-approved` for an existing approved specification, or `accept` for a proposal |
+| **proposed** | A supplied next version (OpenAPI, Swagger, Postman) | Pending until accepted or rejected |
+| **observed** | Captured mock or real traffic | Evidence, never a contract and never an expected result |
+
+**What is preserved.** Every version keeps its source fingerprint, its normalized fingerprint and a content-addressed snapshot. Superseded versions are kept, so every comparison can be reproduced.
+
+**Drift.** Every difference is classified **Breaking**, **Potentially breaking**, **Non-breaking** or **Unknown** (insufficient evidence, never assumed safe), and each classification names the rule that produced it. Request and response are judged separately. The comparison covers:
+
+- endpoints and methods;
+- request parameters and bodies;
+- response fields;
+- required and optional fields;
+- types and nullability;
+- enums and constraints;
+- status codes;
+- headers;
+- authentication;
+- error structures.
+
+**Impact** follows the traceability graph (§8.1) to requirements, test cases, structured assertions, automation, execution results, reports and Suppliers. It has three grades:
+
+- **confirmed** — an assertion's Expected Source, or a requirement the contract declares, links the case to the change;
+- **potential** — the case's text mentions the endpoint, with no proof the changed part is what it checks;
+- **missing traceability** — no case mentions the changed endpoint.
+
+**Decisions.** Each decision is named, carries a reason, and rests on one analysis ID. It is refused when the analysis is stale. The decisions are:
+
+- accept a proposal, whole or per endpoint, or reject it;
+- review a contradicting observation;
+- decide each approved case an accepted change reaches (`no-change-needed`, `update-required`, `updated`, `retire`);
+- reconcile two approved contracts that contradict each other.
+
+**What never happens.** An Expected Result is never updated, a test case is never regenerated, and an Assertion ID or an approval is never changed. A test-case update is ordinary Stage 3 work (§8.1).
+
+**The gate.** Unresolved Breaking or Unknown drift blocks Stages `4M`, `4A` and `5A` for the cases it reaches. That means:
+
+- a pending proposal;
+- unreviewed real evidence that contradicts the approved contract;
+- an undecided reached case;
+- an undecided contradiction between approved contracts.
+
+The block is contained:
+
+- another module's or Supplier's drift never blocks this scope;
+- a partial scope that excludes the reached cases is not blocked;
+- drift that reaches no traceable case blocks the whole scope.
+
+**Coverage policy (Phase 7.1).** Whether a scope must have a validated contract is a named human's choice, made with `cli.js policy --scope <scope>|project --mode required|optional --by "<name>" --reason "…"`. Every change is kept. Without a choice, a scope is `optional` and behaves exactly as above. Under `required`:
+
+- a missing approved contract blocks the scope's API test cases;
+- Breaking or Unknown drift that reaches no traceable case blocks the **whole** scope (untraced is never read as unaffected).
+
+**Impact precision (Phase 7.1).** An assertion's Expected Source written as `API contract <METHOD> <path> [<status>] [<$.json.path>]` (or with an operationId) is parsed, and its JSON path is authoritative. A requirement link alone, or an assertion that names no field, is potential impact for a human to confirm, never confirmed.
+
+**Mock vs real.** They are always recorded apart, and a mock passing never validates the real integration. Real evidence must come from a run, be kept in its folder, and name a verified, consistent environment. State-changing real evidence against Production is refused (§14).
 
 ## 9. Roles Summary
 
@@ -1019,6 +1256,41 @@ For every assertion in the case's Expected Result, record one row:
 - **Every assertion gets a row.** An assertion that could not be checked makes the case `Inconclusive`,
   never `Passed`; a list of observed values with no expected value beside it is not evidence of a pass.
 
+**Where the rows go, and what the platform does with them (Phase 5.6B).** They are the "Assertion Records" table of
+the results file of the cycle that executed the case (`ManualExecutionResults.md` / `ExecutionResults.md` §3.1, and
+each `*.rerun-N.md`): `Test Case ID · Assertion · Expected · Expected Source · Actual · Check · Result · Evidence`.
+The Run Manager reads them (`assertionEvidence.js`) and a `Passed` counts only when every row is complete, its
+Expected is found in the approved test case or its source is cited, its Check is recognized, its recorded Result
+agrees with Expected vs Actual where that can be recomputed, every quoted literal of the Expected Result is checked
+by some row, and every cited file exists. Otherwise: no rows, or anything incomplete → `Unverified`; a ❌, a
+`Not checked`, or a contradiction → `Inconclusive` with a conflict. The recorded status is always kept beside it.
+
+**Expected values are checked against the version the stage consumed (Phase 5.7).** When an execution stage
+starts, every module artifact it consumes is fingerprinted and snapshotted into its run folder
+(`metadata/consumed/<sha256>.md`); 5A reads the suite version its Stage 4A was built on. An Expected value is
+verified against that version — never the suite as it is today. A version that was not recorded, or cannot be
+retrieved (snapshot, unchanged file, or a committed version with the same fingerprint), verifies nothing: the
+row reads `Unverified`. A cited source verifies only when it names a consumed artifact by path.
+
+**The assertion contract (Phase 5.8).** A new or materially updated test case states its assertions in an
+`**Assertions:**` table — `Assertion ID · Expected · Expected Source · Check · Requirement` (test-design-skill
+§6.1a) — and Stage 3 approval is refused without it. Execution records each one against its ID: a case is
+`Passed` only when every required assertion has exactly one record, with the approved Expected and Check,
+and passes. A missing record is reported as missing (never as failed, never as passed); a record whose ID the
+case does not define is reported as extra; a changed Expected or a repeated ID is a conflict. All of it is
+read from the suite version the stage consumed. A legacy case without the table keeps the textual checks
+below.
+
+**Coverage is reported, not assumed.** The platform splits each Expected Result into clauses and lists any
+clause no assertion's Expected visibly addresses (`assertionCoverage`: complete · partial · unknown). It is a
+textual lower bound: a `partial` case is never presented as completely verified, and no green report is
+accepted while one exists. Nothing is invented for an unmapped clause.
+
+**Evidence references are files inside the run folder.** A cited file is resolved against the results file's folder
+and the run folder and must exist there; an absolute path, a `..` path, or a link leading outside the run is refused
+(a conflict), and a reference matching two files is ambiguous. A file that exists proves only that it exists — never
+that an assertion passed.
+
 **Why:** screenshots are the largest avoidable cost of a browser stage — each one is a file, and each one
 viewed is image tokens in the agent's context, repeated on every later turn of that session. A suite of
 mostly-passing cases was producing dozens of screenshots nobody reads.
@@ -1227,6 +1499,15 @@ Two modules may never claim the same path: `registerModuleOwnership()` refuses a
 
 **Approval, verification, and recording — the §5.2 gate does not weaken.** An in-place change to a promoted module still needs an Automation Approval before it is recorded, still runs the module-scoped suite plus whatever regression the change's blast radius calls for, and is then recorded with `recordBaselineUpdate()`: changed files, verification results, approver, run, and baseline commit. `automation_promotion.md` and `AutomationPackages.md` are updated the same way. What does **not** happen is a second module-to-baseline copy — there is no second copy to move, and treating an in-place edit as a merge would invent a source that does not exist.
 
+**Recoverable history for an in-place change** *(added 2026-10-08)*. An in-place edit has no second copy, so git is the only way back. A stage that changes a promoted module's code (`4A` generation, `5H` repair) therefore:
+
+1. **Checks the paths it will touch are clean before the first edit** — read-only `git status --porcelain -- <paths>`. Uncommitted changes it did not make → **stop and ask**. Editing on top of someone else's uncommitted work would mix the two changes and make the earlier state unrecoverable.
+2. **Records the pre-change commit** — the baseline's path-scoped ref (read-only `git log -1 --format=%H -- <baseline>`) — in its own report (Decision Report or Repair Summary) before the first edit. This is the restore point.
+3. **Never commits, resets, or checks out** — committing is the human's action. Until the change is committed, the stage reports it as **uncommitted**, with the restore point beside it.
+4. **Records the approved change completely** — `recordBaselineUpdate()` with the changed paths, `approvedBy` (the named approver), `baselineRef` (the commit that captured the change, once the human has committed it), the verifying run, and the verification results. A record without a named approver is not an approved change, whatever the state file accepts.
+
+**Enforced in code** *(2026-10-08)*. `module_manager/automationState.js` `recordBaselineUpdate()` refuses an update with no named `approvedBy`, or with a `baselineRef` that is not a git commit hash (7–40 hex characters). An optional `verifyRef` check confirms the commit exists. Each entry keeps `previousBaselineRef` — the restore point it was made on top of — and entries are only ever appended. So an unapproved or unrecoverable in-place change cannot be recorded as approved. There is still no CLI verb for it; it is called from code.
+
 **What is lost, stated plainly.** Before promotion the three-way merge protected one module's code from another's. An in-place edit has no merge, so that protection is now the ownership check plus review. This is the cost of the single-source-of-truth model and is the reason `check-ownership` runs after every post-promotion change rather than occasionally.
 
 ### 12.10 Safety rules for promoted modules (added 2026-08-17, user-mandated)
@@ -1236,6 +1517,8 @@ Two modules may never claim the same path: `registerModuleOwnership()` refuses a
 3. **If the module directory is recreated, stop and report it — never use it.** `resolveAutomationRoot()` throws `MODULE_DIR_RESURRECTED` rather than quietly preferring the baseline, because a resurrected directory looks authoritative while being a dead end: nothing executes from it, so work done there is lost silently. `cli.js check-retired` is the standalone form of this assertion.
 4. **Draft or Promoted is read from state before any edit**, never guessed from what happens to be on disk. `Draft` → module workspace. `Promoted` → baseline. One resolver, one answer.
 5. **Changes stay scoped** to the requested module and its genuinely shared dependencies. Unrelated modules in the baseline are never overwritten.
+6. **Merge preconditions are enforced, not described** (Phase 9.1, F-04, `automation_lifecycle/mergeSafety.js`). Before `merge --apply` writes anything it proves: the Module Manager state is `Approved`, names its approver and has an Approved history entry; the module project is exactly the revision that approval recorded (`approvedRevision`, taken by the Module Manager at approval); the package is `modules/{module}/automation/tests_{Framework}/` of the named module; no path leaves the baseline; nothing owned by another module is touched; an existing baseline file is replaced only when the module owns it or it is declared `shared`, and **deleted only when the module owns it**. Any failure refuses the whole merge with every reason (`MERGE_UNSAFE`). The full proposed change is written to `modules/{module}/automation/merge_manifests/` before the first write; the commit message reports the recorded approver and is never itself proof of approval; the assembly (`assembledAt`, `assembledRevision`) is recorded by the Module Manager.
+7. **Retirement proves everything before its first mutation, and is reversible until Promoted is recorded** (Phase 9.1, F-05, `automation_lifecycle/retireModule.js`). Preconditions: Approved with a named approver, assembled, the exact approved revision, byte identity with the baseline, owned paths that exist in the baseline and collide with no other module. The operation is journalled (`.retirement_journal.json`): ownership is registered, the working copy is **moved aside, not deleted**, Promoted is recorded, and only then is the moved-aside copy removed. A failure rolls everything back exactly; a process that dies mid-way leaves the journal, and `retire-module --module <m> --recover` rolls it back (or finishes the cleanup if Promoted was already recorded).
 
 ### 12.6 `automation_promotion.md`
 
@@ -1426,6 +1709,15 @@ This is the same `platform_core` / `platform_core_data` split §1.1 already draw
 
 Both executing stages run a **non-mutating Safety Preflight** before anything starts, so a run's mutation footprint and its authorization questions are known up front rather than discovered by attempting a prohibited action.
 
+**Controlled mutation boundaries (Phase 9.4).** Writes outside a run's own folder go through commands that check them before anything is written, record them, and recover from an interrupted write: Target/Reference Project writes (`target_write/cli.js`: registered root → Target Write Plan → named approval bound to its fingerprint → apply, with the Target Write Ledger); Promoted-module baseline updates (`automation_lifecycle plan-baseline-update` / `record-baseline-update`); shared automation assets (`plan-shared-change` / `approve-shared-change` / `apply-shared-change` — a module merge never replaces a shared file on its own); Platform Knowledge promotion (`knowledge_promotion/cli.js`). Live browser sessions of Stages 2 and 4A record a Safety Preflight too, and every platform browser launch requires the stage's confirmed preflight in the same Headed/Headless mode. These checks bind the supported commands; they do not stop an unrestricted process from writing files directly — that needs filesystem permissions, a sandbox or CI, outside the platform.
+
+**Enforced at the execution boundary (Phase 9.2, F-16).** `run_manager/cli.js state preflight <4M|5A|5H> --environment <env> --target-url <url> --execution-type <browser|api|database|batch|other> [--execution-mode Headed|Headless] --operations <ops.json> --confirmed-by "<name>"` records it (`run.json` `safetyPreflights[]`, rendered to `metadata/SafetyPreflight.md` — every confirmation **and refusal** is kept). The entry gate of 4M, 5A and 5H refuses to start without a **confirmed** preflight whose binding still matches; an execution stage cannot complete or be approved once a bound input changed (`PREFLIGHT_STALE`); and results are recorded only for a stage that actually started. The preflight:
+- names the environment explicitly — it must be a known environment the project policy governs; it is **never inferred from the URL and never defaulted** (an unknown environment, or one no policy covers, such as Production under a Staging policy, is refused);
+- records the target URL, which must match the run scope's declared target (Project Context "Target Environment") when there is one;
+- evaluates every intended operation with this policy and the run's own authorizations: Allowed passes, Approval Required needs a named run authorization, **Forbidden — including any prohibited Production mutation — is refused and never lifted**; each operation is recorded as read-only or mutating, and an operation on another module is refused;
+- asks for Headed or Headless **only** for browser execution;
+- binds the run, stage, environment, URL, execution type and mode, operations, the policy file and hash, the run's authorizations, the run scope, the approved suite(s) and the Capability Plan — any change makes it stale.
+
 ### 14.5 Human authorization
 
 A scoped authorization is a **Human Decision** in the §5.5 sense — it belongs to the same category as *"executing any destructive or irreversible operation"*, which that section already names.
@@ -1465,6 +1757,17 @@ states the architectural position; it deliberately does not restate the schema, 
 Observability never authorizes an operation, rejects a test case, overrides a Human Decision (§5.5),
 changes a Safety decision, routes a pipeline, or alters a test outcome. It observes.
 
+### 15.1a Run Health — one view, the authoritative sources (added 2026-10-09, Phase 8)
+
+`observability/cli.js health` lays the run's workflow, verdict, execution, coverage, repairs, contract health and automation state side by side. It reads the tool that owns each one and recomputes none.
+
+- **One vocabulary.** Telemetry and history share the canonical statuses (`testStatus.js`). Nothing unknown becomes Passed, and Automation Repaired is never a clean pass.
+- **Six dimensions, never combined.** Application, Automation, Environment, Coverage, Contract and Workflow health are reported apart, each with its denominator, and there is no overall green.
+- **Consistency is checked.** Markdown, JSON and HTML carry the same figures, and `health-check` verifies them against the sources.
+- **The planner stays in charge.** The Workflow Planner remains the only authority on the next action.
+
+Definitions: [`observability/README.md`](../../platform_core/tools/observability/README.md) §15.
+
 ### 15.2 The chain
 
 ```text
@@ -1493,7 +1796,7 @@ wraps it. So every event declares its provenance:
   absence proves nothing.**
 
 The two are counted separately in every report and are never presented as one reliability class
-(HD-OBS-001). An opened span with no matching completion is reported `Incomplete` and receives
+(HD-OBS-001). **Execution results are platform-emitted since Phase 8.1.** After `state outcome … --from-results`, the Run Manager emits a canonical `TEST_EXECUTION_RESULT` per test and cycle, plus a final one per test, from the recorded results files. Each is deduplicated by an evidence key. Skill-emitted results remain allowed, and each source is reconciled against Execution History on its own (`observability/README.md` §15.4). An opened span with no matching completion is reported `Incomplete` and receives
 **no duration** — never an elapsed-time estimate.
 
 ### 15.5 Token and cost telemetry are unavailable
@@ -1703,12 +2006,49 @@ sections. This is the same design with a region unused, not a different design.
 ### 17.5 Status vocabulary is declared, never assumed
 
 A report declares its own statuses and maps each to a **tone** (`pass`, `fail`, `blocked`, `warning`,
-`accent`, `neutral`). A Manual Execution report's `PASS`/`FAIL`/`BLOCKED` and a Stage `5A` report's
-`PASSED`/`ERROR`/`SKIPPED` therefore colour and filter correctly without either stage inventing CSS.
+`accent`, `neutral`), so every stage's statuses colour and filter correctly without any stage inventing CSS.
 
 A result whose status is not declared is a **validation error**, not a silently uncoloured card —
 `4M`'s Result Classification and `5A`'s Application/Automation/Environment separation must survive
 into the report intact, and a typo that quietly merges two of them would defeat that.
+
+**One status model across `4M`, `5A`, `5H` and `6A`** *(2026-10-08 — replaces the earlier
+`PASS`/`FAIL`/`BLOCKED` and `PASSED`/`ERROR`/`SKIPPED` examples; `ERROR` had no defined meaning).*
+Defined once, in `platform_core/tools/run_manager/testStatus.js`:
+
+| Status | Meaning | Counts against |
+|---|---|---|
+| `Passed` | Executed; the expected result was observed **and evidenced** | — |
+| `Flaky` | Executed; outcome not consistent across attempts or cycles with no change in between | — (never a clean pass) |
+| `Automation Repaired` | Failed for an automation cause, repaired by `5H`, passed in a rerun | Automation health (never a clean pass) |
+| `Failed` / `Application Failure` | The application behaved incorrectly — a defect | Application health |
+| `Automation Failure` | The automation is wrong (locator, timing, script) | Automation health |
+| `Environment` / `Infrastructure` / `Configuration Failure` | The environment failed, not the application | Environment health |
+| `Blocked` | Not executed because a prerequisite or another test did not hold — the dependency is recorded; never a failure of this test | Coverage |
+| `Skipped` | Deliberately not executed (e.g. an execution-safety block), with the reason | Coverage |
+| `Not Executed` | In scope but not reached | Coverage |
+| `Excluded` | Outside executable scope — unsupported capability (Capability Plan) or not approved at Review. Reported; **never in the pass-rate denominator** | — |
+| `Inconclusive` | Executed; the evidence does not decide | Unverified |
+| `Quarantined` | Held out by `5H` after repeated repair failures | Unverified |
+| `Unverified` | Recorded as `Passed` with no evidence cited — not counted as a pass | Unverified |
+| `Unrecognized` | A status this model does not define — kept as written, never counted as a pass | Unverified |
+
+**No status is silently converted.** Exact synonyms (`PASS` → `Passed`) are read as the same status
+and the raw text is kept. A test's *final* status is derived from its execution history
+(`executionHistory.js`), never from a summary:
+- a `Passed` after an `Automation Failure`, in a rerun `5H` produced, reads `Automation Repaired`;
+- a `Passed` after a failure in a rerun nothing repaired reads `Flaky`;
+- a pass with no evidence reads `Unverified`;
+- a test listed in the Quarantine Register reads `Quarantined`;
+- a case the Capability Plan excludes reads `Excluded`.
+
+The first-attempt status is always kept beside the final one, and a Repair Summary alone never proves a pass.
+
+**Reports never claim more than the outcome.** report_builder's status pill is `neutral` unless
+`statusPillTone: "pass"` is set, and `pass` (green) is refused unless the model declares
+`outcomeVerdict: "all-passed"` and its counts agree. Each HTML embeds the fingerprint of the JSON model
+it was built from, and `cli.js state report-check` confirms the Markdown, JSON and HTML agree with the
+recorded outcome.
 
 ---
 

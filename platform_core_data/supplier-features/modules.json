@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "derivedFrom": null,
-  "approvedAt": "2026-09-23T18:51:31.588Z",
-  "approvedBy": "Mohamed Soliman",
+  "approvedAt": "2026-10-11T07:20:00.269Z",
+  "approvedBy": "Ahmed Ayman",
   "activeModules": [],
   "activeScope": null,
   "spansEveryModule": false,
@@ -715,6 +715,146 @@
           },
           "approvedAt": "2026-09-27T10:27:47.843Z",
           "approvedBy": "Mohamed Soliman"
+        }
+      ]
+    },
+    {
+      "slug": "search-cabin-class-rbd",
+      "name": "Search – Cabin Class & RBD",
+      "description": null,
+      "status": "Active",
+      "derivedFromSections": [],
+      "kind": "supplier_feature",
+      "integrationLayer": null,
+      "createdAt": "2026-10-11T07:19:56.559Z",
+      "updatedAt": "2026-10-11T10:09:11.486Z",
+      "supersededBy": null,
+      "stages": {
+        "context": {
+          "status": "Not Started",
+          "artifactPath": null,
+          "lastRun": null,
+          "lastUpdated": null,
+          "revisionCount": 0,
+          "targetRefAtWrite": null
+        },
+        "discovery": {
+          "status": "Not Started",
+          "artifactPath": null,
+          "lastRun": null,
+          "lastUpdated": null,
+          "revisionCount": 0,
+          "targetRefAtWrite": null
+        },
+        "test_design": {
+          "status": "Not Started",
+          "artifactPath": null,
+          "lastRun": null,
+          "lastUpdated": null,
+          "revisionCount": 0,
+          "targetRefAtWrite": null
+        },
+        "automation": {
+          "status": "Not Started",
+          "artifactPath": null,
+          "lastRun": null,
+          "lastUpdated": null,
+          "revisionCount": 0,
+          "targetRefAtWrite": null
+        },
+        "healing": {
+          "status": "Not Started",
+          "artifactPath": null,
+          "lastRun": null,
+          "lastUpdated": null,
+          "revisionCount": 0,
+          "targetRefAtWrite": null
+        }
+      },
+      "approvedBy": "Ahmed Ayman",
+      "approvedAt": "2026-10-11T07:20:00.269Z",
+      "approvals": [
+        {
+          "approvedBy": "Ahmed Ayman",
+          "approvedAt": "2026-10-11T07:20:00.269Z"
+        }
+      ],
+      "suppliers": [
+        {
+          "slug": "galileo",
+          "name": "Galileo",
+          "description": null,
+          "feature": "search-cabin-class-rbd",
+          "status": "Active",
+          "createdAt": "2026-10-11T07:20:00.433Z",
+          "updatedAt": "2026-10-11T10:09:11.486Z",
+          "supersededBy": null,
+          "stages": {
+            "context": {
+              "status": "Approved",
+              "artifactPath": "platform_core_data/supplier-features/search-cabin-class-rbd/suppliers/galileo/context/ProjectContext.md",
+              "lastRun": null,
+              "lastUpdated": "2026-10-11T07:27:45.085Z",
+              "revisionCount": 1,
+              "targetRefAtWrite": null
+            },
+            "discovery": {
+              "status": "Not Started",
+              "artifactPath": null,
+              "lastRun": null,
+              "lastUpdated": null,
+              "revisionCount": 0,
+              "targetRefAtWrite": null
+            },
+            "test_design": {
+              "status": "Pending Review",
+              "artifactPath": "platform_core_data/supplier-features/search-cabin-class-rbd/suppliers/galileo/test_design/TestCases_SearchCabinRBD_Galileo.md",
+              "lastRun": null,
+              "lastUpdated": "2026-10-11T10:09:11.486Z",
+              "revisionCount": 3,
+              "targetRefAtWrite": null
+            },
+            "automation": {
+              "status": "Not Started",
+              "artifactPath": null,
+              "lastRun": null,
+              "lastUpdated": null,
+              "revisionCount": 0,
+              "targetRefAtWrite": null
+            },
+            "healing": {
+              "status": "Not Started",
+              "artifactPath": null,
+              "lastRun": null,
+              "lastUpdated": null,
+              "revisionCount": 0,
+              "targetRefAtWrite": null
+            }
+          },
+          "approvedAt": "2026-10-11T07:20:00.518Z",
+          "approvedBy": "Ahmed Ayman",
+          "capabilities": {
+            "hold": "Unknown",
+            "payAfterHold": "Unknown",
+            "meal": "Unknown",
+            "baggage": "Unknown",
+            "seat": "Unknown",
+            "bundle": "Unknown"
+          },
+          "capabilityHistory": [
+            {
+              "at": "2026-10-11T07:20:05.312Z",
+              "by": "Ahmed Ayman",
+              "changes": {
+                "hold": "Unknown",
+                "payAfterHold": "Unknown",
+                "meal": "Unknown",
+                "baggage": "Unknown",
+                "seat": "Unknown",
+                "bundle": "Unknown"
+              }
+            }
+          ]
         }
       ]
     }

@@ -42,6 +42,30 @@ structured to match any external ALM, issue-tracking, or test-management system.
 | Generated | {{TIMESTAMP}} |
 | Status | {{STATUS}} <!-- Pending Review / Approved --> |
 
+## Shared Definitions
+
+<!-- OPTIONAL (test-design-skill §6.1b). Delete this whole section when no setup or comparison logic is
+     shared by several cases. Write each shared item ONCE here and cite it by ID from the cases.
+
+       ### SETUP-n — Title          numbered steps reaching a ready state; cited from Preconditions
+       ### VR-n — Title             a validation rule; MUST have a **Source:** line (requirement,
+                                    contract or confirmed business rule — never an observation), then
+                                    the procedure and one sub-check per line (VR-n.1, VR-n.2 …)
+
+     Example:
+       ### VR-01 — Error body contract
+       **Source:** FR-7, API contract GET /users/{id} 404
+       - VR-01.1 Status code equals the contract status.
+       - VR-01.2 `$.error.code` equals the contract error code.
+
+     Editing a definition re-opens review for every case that cites it (it is part of their
+     fingerprint). Exported as the workbook's "Shared Definitions" sheet. `cli.js --check` reports
+     undefined, unused or source-less definitions. -->
+
+### {{DEFINITION_ID}} — {{DEFINITION_TITLE}}
+
+{{DEFINITION_BODY}}
+
 ## Case Index
 
 <!-- At-a-glance index for this module. Traceability (Requirement Reference, Risk, Discovery

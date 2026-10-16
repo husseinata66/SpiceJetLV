@@ -154,3 +154,6 @@ platform_core_data/automation_baseline/**/generatedReport_*.zip
 
 # Excel lock files - never commit
 ~$*
+
+# Phase 9.5 (R-15): recovery backups of TARGET-project files (target_write) — never committed.
+.recovery/

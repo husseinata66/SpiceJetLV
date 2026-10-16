@@ -22,11 +22,14 @@
 
 const fs = require('fs');
 const path = require('path');
+const { assertApproverName } = require('../run_manager/approverIdentity');
 
 const { generateRunFolderName, parseRunFolderName, deriveRunOwner } = require('./runFolderName');
 const { captureTargetRef } = require('./targetRef');
 const { setActiveRun } = require('./activeRun');
 const { renderRunManifest } = require('./runManifest');
+const { writeJsonAtomic } = require('./atomicFile');
+const { initialRunState, withRunLock } = require('./runState');
 
 class CreateRunError extends Error {
   constructor(message) {
@@ -151,6 +154,16 @@ function createRun(runsDir, opts = {}) {
   // Validated BEFORE any folder is created — a rejected ownership shape must leave nothing behind,
   // exactly like every other createRun() validation failure.
   validateRunScopeFamily(extraRunJson);
+  // Phase 9.2, F-11: the run binds only to registered, eligible (Active) scope. The CLI (`new`) always asks
+  // for this; a library caller opts in, so fixtures that model a run without a registry keep working.
+  if (opts.requireRegisteredScope) {
+    // eslint-disable-next-line global-require
+    const problems = require('./scopeRegistration').runScopeProblems(path.dirname(runsDir), extraRunJson);
+    if (problems.length) {
+      throw new CreateRunError(`Run not created — its scope is not registered and approved: ${problems.join('; ')}. ` +
+        'Register and approve it through the Module Manager first (module_manager/cli.js propose/approve, supplier-feature ...).');
+    }
+  }
   if (extraRunJson.moduleFeature && extraRunJson.scopeFamily) {
     throw new CreateRunError(
       '`moduleFeature` names a classic module Feature and cannot be combined with a ' +
@@ -167,22 +180,33 @@ function createRun(runsDir, opts = {}) {
     throw new CreateRunError(err.message);
   }
 
-  let existingNames = [];
-  try {
-    existingNames = fs.readdirSync(runsDir, { withFileTypes: true })
-      .filter((e) => e.isDirectory()).map((e) => e.name);
-  } catch { /* fresh runs dir — created below */ }
-
-  const folderName = opts.folderName
-    || generateRunFolderName({ scope, target, owner: runOwner }, { existingNames, now });
-
-  const runDir = path.join(runsDir, folderName);
-  if (fs.existsSync(runDir)) {
-    throw new CreateRunError(
-      `Run folder ${folderName} already exists. Run creation never overwrites an existing run — ` +
-      'a run folder is immutable once written (run_manager.md §6).'
-    );
-  }
+  // Naming and claiming the folder happen under one exclusive lock on the runs folder (Phase 9.3, F-26).
+  // Without it, two creations in the same second listed the same folders, picked the same next number,
+  // and one was refused ("already exists") — or, had both passed the existence check, shared a folder.
+  // Serialized, the second creation sees the first one's folder and takes the next number. The claim itself
+  // is an atomic, non-recursive mkdir: it fails if the folder exists, lock or no lock.
+  fs.mkdirSync(runsDir, { recursive: true });
+  const { withFileLock } = require('./atomicFile'); // eslint-disable-line global-require
+  const { folderName, runDir } = withFileLock(path.join(runsDir, '.run-create.lock'), () => {
+    let existingNames = [];
+    try {
+      existingNames = fs.readdirSync(runsDir, { withFileTypes: true })
+        .filter((e) => e.isDirectory()).map((e) => e.name);
+    } catch { /* fresh runs dir */ }
+    const name = opts.folderName
+      || generateRunFolderName({ scope, target, owner: runOwner }, { existingNames, now });
+    const dir = path.join(runsDir, name);
+    try {
+      fs.mkdirSync(dir);
+    } catch (err) {
+      if (err.code !== 'EEXIST') throw err;
+      throw new CreateRunError(
+        `Run folder ${name} already exists. Run creation never overwrites an existing run — ` +
+        'a run folder is immutable once written (run_manager.md §6).'
+      );
+    }
+    return { folderName: name, runDir: dir };
+  });
 
   // metadata/ is the one folder every run has (§6). Stage folders are created by the stages
   // themselves, when they actually write — never pre-created here.
@@ -214,7 +238,9 @@ function createRun(runsDir, opts = {}) {
     ...anchor,
     createdBy: createdBy || 'Run Manager',
     startedTime: now.toISOString(),
-    status: 'Preparing',
+    // Run state model (runState.js, run_manager.md §8.1): status, statusHistory, stages{}, revision.
+    // Every run created from here on is inside the model; runs created before it read as Unknown.
+    ...initialRunState({ now, createdBy: createdBy || 'Run Manager' }),
     // Supplier Features run-ownership fields — optional, default null, zero impact on any classic
     // module-scoped run (see validateRunScopeFamily's header). `testingLayerScope` and `scopeHistory`
     // are part of the same optional surface: harmless on every classic run, and the frozen-scope/
@@ -275,35 +301,41 @@ function backfillTargetRef(runsDir, folderName, opts = {}) {
   }
 
   const file = path.join(runsDir, folderName, 'metadata', 'run.json');
-  let meta;
-  try {
-    meta = JSON.parse(fs.readFileSync(file, 'utf8'));
-  } catch {
+  if (!fs.existsSync(file)) {
     return { updated: false, reason: `${folderName} has no readable metadata/run.json`, anchor: null };
   }
+  // Same lock as the run state model, so a backfill never overwrites a concurrent state change.
+  return withRunLock(runsDir, folderName, () => {
+    let meta;
+    try {
+      meta = JSON.parse(fs.readFileSync(file, 'utf8'));
+    } catch {
+      return { updated: false, reason: `${folderName} has no readable metadata/run.json`, anchor: null };
+    }
 
-  if (meta.targetRef && !force) {
-    return {
-      updated: false,
-      anchor: null,
-      reason: `${folderName} already has targetRef ${String(meta.targetRef).slice(0, 7)} — ` +
-        'refusing to overwrite a real anchor (pass force to replace it deliberately)',
+    if (meta.targetRef && !force) {
+      return {
+        updated: false,
+        anchor: null,
+        reason: `${folderName} already has targetRef ${String(meta.targetRef).slice(0, 7)} — ` +
+          'refusing to overwrite a real anchor (pass force to replace it deliberately)',
+      };
+    }
+
+    const anchor = captureTargetRef(targetRoot, { scopePaths, capturedAt: now, execFileSync });
+    const next = {
+      ...meta,
+      ...anchor,
+      // The honesty flag: this anchor describes the code at backfill time, not at execution time.
+      targetRefBackfilled: true,
+      targetRefReason:
+        `${anchor.targetRefReason} — BACKFILLED at ${now.toISOString()}: this is the code state when ` +
+        'the anchor was added, not when the run executed, so drift measured from it understates what ' +
+        'actually changed since the run.',
     };
-  }
-
-  const anchor = captureTargetRef(targetRoot, { scopePaths, capturedAt: now, execFileSync });
-  const next = {
-    ...meta,
-    ...anchor,
-    // The honesty flag: this anchor describes the code at backfill time, not at execution time.
-    targetRefBackfilled: true,
-    targetRefReason:
-      `${anchor.targetRefReason} — BACKFILLED at ${now.toISOString()}: this is the code state when ` +
-      'the anchor was added, not when the run executed, so drift measured from it understates what ' +
-      'actually changed since the run.',
-  };
-  writeJson(file, next);
-  return { updated: true, reason: 'anchor backfilled', anchor: next };
+    writeJsonAtomic(file, next);
+    return { updated: true, reason: 'anchor backfilled', anchor: next };
+  });
 }
 
 /**
@@ -349,6 +381,7 @@ function changeSupplierFeatureRunScope(runsDir, folderName, opts = {}) {
   if (!(now instanceof Date) || Number.isNaN(now.getTime())) {
     throw new CreateRunError('changeSupplierFeatureRunScope requires an explicit valid `now` Date.');
   }
+  if (approvedBy && String(approvedBy).trim()) assertApproverName(approvedBy, 'Scope change');
   if (!approvedBy || !String(approvedBy).trim()) {
     throw new CreateRunError(
       'changeSupplierFeatureRunScope requires `approvedBy` — a scope change must be attributed to ' +
@@ -368,48 +401,60 @@ function changeSupplierFeatureRunScope(runsDir, folderName, opts = {}) {
   }
 
   const file = path.join(runsDir, folderName, 'metadata', 'run.json');
-  let meta;
-  try {
-    meta = JSON.parse(fs.readFileSync(file, 'utf8'));
-  } catch {
+  if (!fs.existsSync(file)) {
     throw new CreateRunError(`No readable metadata/run.json for run "${folderName}".`);
   }
+  // Same lock as the run state model, so a scope change never overwrites a concurrent state change.
+  return withRunLock(runsDir, folderName, () => {
+    let meta;
+    try {
+      meta = JSON.parse(fs.readFileSync(file, 'utf8'));
+    } catch {
+      throw new CreateRunError(`No readable metadata/run.json for run "${folderName}".`);
+    }
 
-  if (meta.scopeFamily === null || meta.scopeFamily === undefined) {
-    throw new CreateRunError(
-      `Run "${folderName}" is not Supplier-Feature-scoped (\`scopeFamily\` is null) — scope-freeze/` +
-      'history does not apply to a classic module-scoped run.'
-    );
-  }
+    if (meta.scopeFamily === null || meta.scopeFamily === undefined) {
+      throw new CreateRunError(
+        `Run "${folderName}" is not Supplier-Feature-scoped (\`scopeFamily\` is null) — scope-freeze/` +
+        'history does not apply to a classic module-scoped run.'
+      );
+    }
 
-  const previous = {};
-  const next = {};
-  for (const f of SCOPE_FREEZE_FIELDS) {
-    previous[f] = meta[f] ?? null;
-    next[f] = Object.prototype.hasOwnProperty.call(changes, f) ? changes[f] : previous[f];
-  }
+    const previous = {};
+    const next = {};
+    for (const f of SCOPE_FREEZE_FIELDS) {
+      previous[f] = meta[f] ?? null;
+      next[f] = Object.prototype.hasOwnProperty.call(changes, f) ? changes[f] : previous[f];
+    }
 
-  // Re-validate the full XOR/both-set invariant against the PROPOSED new shape. `scopeFamily` is read
-  // from the existing run rather than from `next` — it is not changeable here, but the validator needs
-  // it to know which rules apply. `testingLayerScope` is opaque to this check.
-  validateRunScopeFamily({ ...next, scopeFamily: meta.scopeFamily });
+    // Re-validate the full XOR/both-set invariant against the PROPOSED new shape. `scopeFamily` is read
+    // from the existing run rather than from `next` — it is not changeable here, but the validator needs
+    // it to know which rules apply. `testingLayerScope` is opaque to this check.
+    validateRunScopeFamily({ ...next, scopeFamily: meta.scopeFamily });
+    // Phase 9.2, F-11: a scope change binds only to registered, eligible scope too (the CLI always asks).
+    if (opts.requireRegisteredScope) {
+      // eslint-disable-next-line global-require
+      const problems = require('./scopeRegistration').runScopeProblems(path.dirname(runsDir), { ...next, scopeFamily: meta.scopeFamily });
+      if (problems.length) throw new CreateRunError(`Scope change refused — the new scope is not registered and approved: ${problems.join('; ')}.`);
+    }
 
-  const historyEntry = {
-    changedAt: now.toISOString(),
-    approvedBy: String(approvedBy),
-    reason: String(reason),
-    previous,
-    next,
-  };
+    const historyEntry = {
+      changedAt: now.toISOString(),
+      approvedBy: String(approvedBy),
+      reason: String(reason),
+      previous,
+      next,
+    };
 
-  const updated = {
-    ...meta,
-    ...next,
-    scopeHistory: [...(Array.isArray(meta.scopeHistory) ? meta.scopeHistory : []), historyEntry],
-  };
-  writeJson(file, updated);
+    const updated = {
+      ...meta,
+      ...next,
+      scopeHistory: [...(Array.isArray(meta.scopeHistory) ? meta.scopeHistory : []), historyEntry],
+    };
+    writeJsonAtomic(file, updated);
 
-  return { updated: true, previous, next, historyEntry };
+    return { updated: true, previous, next, historyEntry };
+  });
 }
 
 module.exports = {

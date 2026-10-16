@@ -1,0 +1,10 @@
+{
+ "branch": "NDC1_Ahmed Ayman (BRN287)",
+ "executedAt": "2026-10-11T09:03:09.197Z",
+ "httpStatus": null,
+ "uiHeader": "header not found",
+ "searchCriteria": null,
+ "note": "Normalized from the flight-search/search response the results page renders. Prices removed. Level: fare option x passenger type x segment.",
+ "offers": 0,
+ "flights": {}
+}

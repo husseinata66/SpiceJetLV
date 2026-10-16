@@ -1,0 +1,118 @@
+{
+ "offers": {
+  "A": 38,
+  "B": 28
+ },
+ "flights": {
+  "A": 28,
+  "B": 28
+ },
+ "flightsOnlyA": [],
+ "flightsOnlyB": [],
+ "matched": 28,
+ "stopsDiff": [],
+ "fareOpt": {
+  "matchedOptions": 28,
+  "onlyA": [
+   {
+    "flight": "SV310 CAI-RUH 11-18T10:35>11-18T14:10 + SV560 RUH-DXB 11-18T16:05>11-18T19:00",
+    "brand": "FLEX BUS/FLEX BUS",
+    "detail": "ADTx1:Business|J|2PC,Business|J|2PC"
+   },
+   {
+    "flight": "SV310 CAI-RUH 11-18T10:35>11-18T14:10 + SV552 RUH-DXB 11-18T18:05>11-18T21:00",
+    "brand": "FLEX BUS/FLEX BUS",
+    "detail": "ADTx1:Business|J|2PC,Business|J|2PC"
+   },
+   {
+    "flight": "SV312 CAI-RUH 11-18T19:55>11-18T23:30 + SV562 RUH-DXB 11-19T06:30>11-19T09:25",
+    "brand": "FLEX BUS/FLEX BUS",
+    "detail": "ADTx1:Business|J|2PC,Business|J|2PC"
+   },
+   {
+    "flight": "SV386 CAI-JED 11-18T01:00>11-18T04:10 + SV566 JED-DXB 11-18T06:00>11-18T09:45",
+    "brand": "FLEX BUS/FLEX BUS",
+    "detail": "ADTx1:Business|J|2PC,Business|J|2PC"
+   },
+   {
+    "flight": "SV302 CAI-JED 11-18T19:50>11-18T23:00 + SV590 JED-DXB 11-19T01:10>11-19T04:55",
+    "brand": "FLEX BUS/FLEX BUS",
+    "detail": "ADTx1:Business|J|2PC,Business|J|2PC"
+   },
+   {
+    "flight": "SV308 CAI-JED 11-18T03:35>11-18T06:45 + SV568 JED-DXB 11-18T09:15>11-18T13:00",
+    "brand": "FLEX BUS/FLEX BUS",
+    "detail": "ADTx1:Business|J|2PC,Business|J|2PC"
+   },
+   {
+    "flight": "GF80 CAI-BAH 11-18T04:20>11-18T08:20 + GF504 BAH-DXB 11-18T09:40>11-18T12:05",
+    "brand": "FALCON GOLD FLEX/FALCON GOLD FLEX",
+    "detail": "ADTx1:Business|J|50KG,Business|J|50KG"
+   },
+   {
+    "flight": "GF70 CAI-BAH 11-18T16:00>11-18T20:00 + GF500 BAH-DXB 11-19T01:10>11-19T03:35",
+    "brand": "FALCON GOLD FLEX/FALCON GOLD FLEX",
+    "detail": "ADTx1:Business|J|50KG,Business|J|50KG"
+   },
+   {
+    "flight": "GF80 CAI-BAH 11-18T04:20>11-18T08:20 + GF508 BAH-DXB 11-18T15:50>11-18T18:15",
+    "brand": "FALCON GOLD FLEX/FALCON GOLD FLEX",
+    "detail": "ADTx1:Business|J|50KG,Business|J|50KG"
+   },
+   {
+    "flight": "WY408 CAI-MCT 11-18T01:15>11-18T06:55 + WY603 MCT-DXB 11-18T08:50>11-18T10:00",
+    "brand": "BUSINESS FLEX/BUSINESS FLEX",
+    "detail": "ADTx1:Business|J|50KG,Business|J|50KG"
+   }
+  ],
+  "onlyB": [],
+  "dupA": [],
+  "dupB": []
+ },
+ "detailDiff": [],
+ "bagTextDiff": 47,
+ "bagTextExamples": [
+  "2 Pieces ⇄ Number 2 Piece Allowed.",
+  "3 Pieces ⇄ Number 3 Piece Allowed.",
+  "40 Kilograms ⇄ 40 Kilograms Allowed."
+ ],
+ "cabinLabelPairs": [],
+ "cabins": {
+  "A": [
+   "Business"
+  ],
+  "B": [
+   "Business"
+  ]
+ },
+ "rbds": {
+  "A": [
+   "J"
+  ],
+  "B": [
+   "J"
+  ]
+ },
+ "perLeg": {
+  "A": {
+   "1": {
+    "cabins": [
+     "Business"
+    ],
+    "rbds": [
+     "J"
+    ]
+   }
+  },
+  "B": {
+   "1": {
+    "cabins": [
+     "Business"
+    ],
+    "rbds": [
+     "J"
+    ]
+   }
+  }
+ }
+}

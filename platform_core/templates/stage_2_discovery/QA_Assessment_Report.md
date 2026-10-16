@@ -178,3 +178,27 @@ that Finding's own metadata.md (see findings/FINDING_metadata.md).
 **Handoff confirmation:** {{HANDOFF_CONFIRMATION}}
 <!-- State explicitly that every input .claude/skills/test-design-skill/SKILL.md §4 declares it
      needs is present and specific — or name precisely what is absent. -->
+
+## Approval Scope (optional — only for a partial approval)
+
+<!-- Leave this section OUT unless the reviewer approves only PART of this artifact. Most artifacts
+     never need it: a whole-artifact approval is the Status header alone, exactly as before.
+
+     Use it when the Status header records both approved and open items (it then reads "Mixed" to the
+     platform, and no stage may consume the artifact). Listing the items lets a stage consume an
+     approved, INDEPENDENT part — workflows_and_pipelines/pipeline/pipeline.md §5.3.2 "Scope-aware
+     partial approval". The reviewer writes it; no stage ever fills it in or changes a Status.
+
+     Item       — an ID the Traceability Matrix cites: a section (§2, §2.4), a requirement or decision
+                  (AC-3, PO-24), a finding (FINDING-012). Another module's item: module:ID.
+     Status     — Approved | Pending | Rejected
+     Depends On — items this one needs (— for none)
+     Affects    — for a Pending/Rejected item: what it changes; those items cannot proceed while it is open
+
+     The table only takes effect once recorded:
+       node platform_core/tools/run_manager/cli.js state approve-scope --artifact <this file> --approved-by "<reviewer>"
+     Any later edit to this file invalidates that record. -->
+
+| Item | Status | Depends On | Affects |
+|---|---|---|---|
+| {{ITEM_ID}} | {{Approved / Pending / Rejected}} | {{DEPENDS_ON}} | {{AFFECTS}} |

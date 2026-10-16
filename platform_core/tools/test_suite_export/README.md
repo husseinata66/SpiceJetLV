@@ -186,11 +186,31 @@ order — no more"):
 | J | Notes | 35 |
 | K | **Review** | 12 |
 | L | **Automation** | 12 |
+| M | Requires | 22 |
+| N | Supplier Rule | 20 |
+| O | **Assertions** | 60 |
+
+Column O (added 2026-10-09, Phase 5.8) carries the case's `**Assertions:**` table as written — its
+structured assertions (test-design-skill §6.1a). Appended last, so no existing column moves; the lifecycle
+import below reads only K and L, and is unaffected.
 
 `FIELDS` in [`parseTestCases.js`](parseTestCases.js) is the single ordering authority for both the
 columns and the per-case field extraction, so the two cannot fall out of step. Traceability, Risk,
 and the Requirement/Discovery/Finding/Evidence references are deliberately **absent** — §6.2 puts
 them in `TraceabilityMatrix.md`, keyed by Test Case ID, not on the execution-facing document.
+
+### The Shared Definitions sheet
+
+A suite with a `## Shared Definitions` section (test-design-skill §6.1b) gets a **second sheet**,
+`Shared Definitions`, after the cases sheet: `ID · Type · Title · Source · Definition · Used By`. Sheet 1
+is unchanged and is still the only sheet `--import-lifecycle` reads. A suite without the section
+exports a byte-identical single-sheet workbook, as before.
+
+Parsing lives in [`sharedDefinitions.js`](sharedDefinitions.js). A case citing `SETUP-n` / `VR-n` gets
+the cited text attached as `sharedDefinitions` on its parsed record (not a column), so it is part of
+the case's fingerprint: editing a rule re-opens review for exactly the cases that cite it. Warnings: a
+cited ID or sub-check that is not defined, a definition no case uses, a rule with no `**Source:**` (or
+one naming an observation), a duplicate ID, and a non-definition heading inside the section.
 
 ### The lifecycle columns — K and L
 
@@ -323,7 +343,8 @@ of a timestamp diff on every Stage 3 re-run.
 | [`cli.js`](cli.js) | Command-line entry; resolves the active run, reports results, sets the exit code |
 | [`exportSuites.js`](exportSuites.js) | `exportSuite` / `exportSuiteDir` — file discovery and orchestration |
 | [`parseTestCases.js`](parseTestCases.js) | Markdown suite → structured records; owns the `FIELDS` contract |
-| [`xlsxWriter.js`](xlsxWriter.js) | Dependency-free single-sheet `.xlsx` writer |
+| [`xlsxWriter.js`](xlsxWriter.js) | Dependency-free `.xlsx` writer — one sheet, plus optional extra sheets after it |
+| [`sharedDefinitions.js`](sharedDefinitions.js) | `## Shared Definitions` parsing, case linking, the definitions sheet rows |
 | [`readWorkbook.js`](readWorkbook.js) | `readWorkbook` / `WorkbookReadError` — the `.xlsx` reader the lifecycle import reads decisions with |
 | [`importLifecycle.js`](importLifecycle.js) | `--import-lifecycle`: `importLifecycle` / `readDecisions` / `ImportError` |
 | [`syncCaseIndex.js`](syncCaseIndex.js) | `--sync-index`: `syncCaseIndex` / `readCases` / `IndexSyncError` |

@@ -1,0 +1,98 @@
+{
+ "id": "E05_bus",
+ "offers": [
+  59,
+  34
+ ],
+ "flights": [
+  34,
+  34
+ ],
+ "onlyA": [],
+ "onlyB": [],
+ "matched": 34,
+ "stopsDiff": 0,
+ "opt": {
+  "matched": 34,
+  "onlyA": [
+   "KU542 CAI-KWI 11-18T20:25>11-18T23:50 + KU677 KWI-DXB 11-19T00:35>11-19T03:30 :: ADTx1:PP",
+   "KU544 CAI-KWI 11-18T02:40>11-18T06:05 + KU671 KWI-DXB 11-18T09:25>11-18T12:20 :: ADTx1:PP",
+   "KU546 CAI-KWI 11-18T11:25>11-18T14:50 + KU675 KWI-DXB 11-18T19:00>11-18T21:55 :: ADTx1:PP",
+   "MS901 CAI-DXB 11-18T04:20>11-18T09:40 :: ADTx1:D",
+   "MS905 CAI-DXB 11-18T13:40>11-18T19:00 :: ADTx1:D",
+   "MS910 CAI-DXB 11-18T22:25>11-19T03:45 :: ADTx1:D",
+   "MS912 CAI-DXB 11-18T09:40>11-18T15:00 :: ADTx1:D",
+   "TK695 CAI-IST 11-18T20:45>11-19T00:20 + TK762 IST-DXB 11-19T01:30>11-19T06:55 :: ADTx1:ZZ",
+   "TK687 CAI-IST 11-18T02:20>11-18T05:45 + TK764 IST-DXB 11-18T07:55>11-18T13:30 :: ADTx1:ZZ",
+   "EK930 CAI-DXB 11-18T08:00>11-18T13:15 :: ADTx1:C",
+   "EK928 CAI-DXB 11-18T12:30>11-18T17:45 :: ADTx1:C",
+   "EK922 CAI-DXB 11-18T16:30>11-18T21:45 :: ADTx1:C",
+   "EK924 CAI-DXB 11-18T19:25>11-19T00:40 :: ADTx1:C",
+   "EK926 CAI-DXB 11-18T00:50>11-18T06:10 :: ADTx1:C"
+  ],
+  "onlyB": [],
+  "dupA": 6,
+  "dupB": 0
+ },
+ "cabinDiff": [
+  "WY408 ADTx1 FirstClass⇄First",
+  "WY603 ADTx1 FirstClass⇄First"
+ ],
+ "bagDiff": [],
+ "bagTextDiff": 59,
+ "bagTextEx": "\"2 Pieces\" vs \"Number 2 Piece Allowed.\"",
+ "paxSets": [
+  [
+   "ADTx1"
+  ],
+  [
+   "ADTx1"
+  ]
+ ],
+ "cabins": [
+  [
+   "Business",
+   "FirstClass"
+  ],
+  [
+   "Business",
+   "First"
+  ]
+ ],
+ "rbds": [
+  [
+   "C",
+   "D",
+   "I",
+   "J",
+   "K",
+   "P",
+   "S",
+   "Z"
+  ],
+  [
+   "C",
+   "D",
+   "I",
+   "J",
+   "K",
+   "P",
+   "S",
+   "Z"
+  ]
+ ],
+ "legCabins": [
+  {
+   "1": [
+    "Business",
+    "FirstClass"
+   ]
+  },
+  {
+   "1": [
+    "Business",
+    "First"
+   ]
+  }
+ ]
+}

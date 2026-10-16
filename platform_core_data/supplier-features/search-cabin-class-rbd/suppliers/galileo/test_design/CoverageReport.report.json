@@ -1,0 +1,528 @@
+{
+  "title": "Coverage Report — Search – Cabin Class & RBD / Galileo",
+  "documentTitle": "Galileo Features — Test Design run-001",
+  "statusPill": "PENDING REVIEW",
+  "statusPillTone": "warning",
+  "statuses": [
+    {
+      "key": "Covered",
+      "label": "Covered",
+      "tone": "pass"
+    },
+    {
+      "key": "Partial",
+      "label": "Partially Covered",
+      "tone": "warning"
+    },
+    {
+      "key": "Uncovered",
+      "label": "Uncovered",
+      "tone": "fail"
+    },
+    {
+      "key": "Excluded",
+      "label": "Excluded",
+      "tone": "neutral"
+    },
+    {
+      "key": "Assumption-based",
+      "label": "Assumption-based",
+      "tone": "accent"
+    }
+  ],
+  "meta": {
+    "fields": [
+      [
+        {
+          "label": "Scope",
+          "value": "search-cabin-class-rbd / galileo",
+          "mono": true
+        },
+        {
+          "label": "Pipeline",
+          "value": "Manual (4M)"
+        }
+      ],
+      {
+        "label": "Comparison",
+        "value": "Integration (NDC1_Ahmed Ayman) vs Direct (ahmed ayman) — search only, prices ignored"
+      },
+      {
+        "label": "Status",
+        "value": "Pending Review — rev 2, 18 active cases (3 retired), Review: Pending"
+      }
+    ]
+  },
+  "summary": {
+    "title": "1. Coverage summary",
+    "total": 18,
+    "totalLabel": "Test cases",
+    "donut": {
+      "focus": "Covered",
+      "percent": 100,
+      "label": "of 11 in-scope requirements covered (design coverage, not results)"
+    }
+  },
+  "testCases": {
+    "title": "Test cases",
+    "categories": [
+      {
+        "key": "precondition",
+        "name": "Precondition",
+        "cases": [
+          {
+            "id": "TC-GSRCH-001",
+            "title": "Correct branch and supplier in each session",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Smoke, Precondition"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-01"
+              },
+              {
+                "label": "Expected",
+                "value": "Session A lists supplier `NDCGal`. Session B lists supplier `Galileo`. After reload, each session still shows its own branch, and selecting a branch in one session does not change the other."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "parity",
+        "name": "Parity",
+        "cases": [
+          {
+            "id": "TC-GSRCH-002",
+            "title": "Parity — one-way, Economy, CAI→DXB",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Smoke, Parity"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-02…09, CMP-01…03, CMP-06, CMP-07"
+              },
+              {
+                "label": "Expected",
+                "value": "Both branches return the same flights with the same segments, times and stops. Each matched flight has the same fare options, and each fare option has the same Cabin Class, RBD and baggage allowance per segment. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-003",
+            "title": "Parity — round-trip, Economy, CAI⇄DXB",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-02…09, CMP-01…03, CMP-06"
+              },
+              {
+                "label": "Expected",
+                "value": "Both branches return the same outbound + return combinations with the same segments, times and stops. Each matched combination has the same fare options, and each has the same Cabin Class, RBD and baggage allowance per segment. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-004",
+            "title": "Parity — mixed passengers (Adult, Child, Infant)",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-02…09, CMP-03"
+              },
+              {
+                "label": "Expected",
+                "value": "Both branches return the same flights. Each matched fare option shows the same passenger types and counts, and the same Cabin Class, RBD and baggage allowance per passenger type and segment. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-005",
+            "title": "Parity — Business, CAI→DXB",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity, CabinClass"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-02…09, SRCH-07"
+              },
+              {
+                "label": "Expected",
+                "value": "Both branches return the same flights. Each matched fare option has the same Cabin Class name, RBD and baggage allowance per segment. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-006",
+            "title": "Parity — Premium Economy, CAI→DXB",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity, CabinClass"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-02…09, SRCH-07"
+              },
+              {
+                "label": "Expected",
+                "value": "Both branches return the same flights. Each matched fare option has the same Cabin Class, RBD and baggage allowance per segment. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-007",
+            "title": "Parity — First Class, CAI→DXB",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity, CabinClass"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-02…09, SRCH-07"
+              },
+              {
+                "label": "Expected",
+                "value": "Both branches return the same flights. Each matched fare option has the same Cabin Class, RBD and baggage allowance per segment. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-015",
+            "title": "Parity — one-way, Economy, CAI→JED",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-02…09, CMP-03"
+              },
+              {
+                "label": "Expected",
+                "value": "Both branches return the same flights with the same segments, times and stops. Each matched flight has the same fare options with the same Cabin Class, RBD and baggage allowance per segment. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-016",
+            "title": "Parity — Multi-City, Economy",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity, MultiCity"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-02…09, CMP-03, CMP-06"
+              },
+              {
+                "label": "Expected",
+                "value": "Both branches return the same leg 1 + leg 2 combinations with the same segments, times and stops. Each matched combination has the same fare options with the same Cabin Class, RBD and baggage allowance per segment. Prices are ignored."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-017",
+            "title": "Parity — Multi-City, different Cabin per leg",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Scenario, Parity, MultiCity, CabinClass"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-02, SRCH-03, SRCH-07, SRCH-08, SRCH-10"
+              },
+              {
+                "label": "Expected",
+                "value": "Both branches return the same combinations and fare options. On both branches, leg 1 segments are Economy and leg 2 segments are Business, with the same RBD and baggage allowance per segment."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "filter",
+        "name": "Cabin / RBD filter",
+        "cases": [
+          {
+            "id": "TC-GSRCH-010",
+            "title": "Cabin Class filter returns only the selected cabin",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, CabinClass"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-10, CMP-05"
+              },
+              {
+                "label": "Expected",
+                "value": "For each Cabin Class searched, on each branch, the result set is not empty and every segment of every fare option is in the selected cabin."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-011",
+            "title": "RBD filter — Economy (Q, K, Y)",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, RBD"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-11, SRCH-03, CMP-05"
+              },
+              {
+                "label": "Expected",
+                "value": "For each RBD, on each branch, the result set is not empty and every segment of every fare option has the selected RBD in Economy. Both branches return the same flights for the same RBD."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-012",
+            "title": "RBD filter — Business (J, C)",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, RBD"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-11, SRCH-03, CMP-05"
+              },
+              {
+                "label": "Expected",
+                "value": "For each RBD, on each branch, the result set is not empty and every segment of every fare option has the selected RBD in Business. Both branches return the same flights for the same RBD."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-018",
+            "title": "RBD filter — First Class (F, A)",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P1"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, RBD"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-11, SRCH-03, CMP-05"
+              },
+              {
+                "label": "Expected",
+                "value": "For each RBD, on each branch, the result set is not empty and every segment of every fare option has the selected RBD in First Class. Both branches return the same flights for the same RBD."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-019",
+            "title": "RBD filter — Premium Economy (J)",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, RBD"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-11, SRCH-03, CMP-05"
+              },
+              {
+                "label": "Expected",
+                "value": "On each branch, the result set is not empty and every segment of every fare option has RBD `J` in Premium Economy. Both branches return the same flights."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-020",
+            "title": "RBD filter — several RBDs selected together (Q + K)",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P3"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, RBD"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-11, SRCH-03, CMP-05"
+              },
+              {
+                "label": "Expected",
+                "value": "On each branch, the result set is not empty and every segment of every fare option has RBD `Q` or `K`. Both branches return the same flights."
+              }
+            ]
+          },
+          {
+            "id": "TC-GSRCH-021",
+            "title": "RBD filter — on one Multi-City leg only",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P2"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Filter, RBD, MultiCity"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-11, SRCH-08, SRCH-03"
+              },
+              {
+                "label": "Expected",
+                "value": "On each branch, the result set is not empty, every leg 1 segment has RBD `Q`, and leg 2 is not limited to `Q`. Both branches return the same combinations."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "negative",
+        "name": "Negative (parity only)",
+        "cases": [
+          {
+            "id": "TC-GSRCH-013",
+            "title": "Parity — Cabin Class and RBD that do not match",
+            "status": "Covered",
+            "rows": [
+              {
+                "label": "Priority",
+                "value": "P4"
+              },
+              {
+                "label": "Tags",
+                "value": "Atomic, Parity, Negative-InvalidInputs"
+              },
+              {
+                "label": "Requirement",
+                "value": "SRCH-02, SRCH-03, SRCH-07, SRCH-08"
+              },
+              {
+                "label": "Expected",
+                "value": "Both branches give the same outcome: the same message, or the same fare options with the same Cabin Class and RBD."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "type": "notes",
+      "title": "Coverage gaps and decisions",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "Rev 2: test data validated live on 2026-10-11 (both branches, search only); DXB routes replaced by CAI routes — see CoverageReport.md §13.",
+            "RBD coverage widened: Economy Q/K/Y, Business J/C, First F/A, Premium J, Q+K together, and per-leg RBD in Multi-City.",
+            "Multi-City parity added (supported on both branches, with per-leg Cabin and RBD).",
+            "Retired: TC-GSRCH-008 and 009 (merged into every parity case), TC-GSRCH-014 (out of focus).",
+            "RBD, Cabin and baggage compared per fare option × passenger type × segment. Fare Basis is not returned on either branch.",
+            "Parity and filter validation are separate (CMP-05); every result compared or Inconclusive (CMP-06)."
+          ]
+        }
+      ]
+    }
+  ]
+}

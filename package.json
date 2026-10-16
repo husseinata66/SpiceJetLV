@@ -42,15 +42,22 @@
     "README.md"
   ],
   "scripts": {
-    "test": "node --test \"platform_core/tools/**/__tests__/*.test.js\"",
+    "test": "node --test \"platform_core/tools/**/__tests__/*.test.js\" \"tests/contracts/*.test.js\"",
     "selftest": "node bin/agentic-testing.js doctor",
     "detect": "node bin/agentic-testing.js detect",
     "test:e2e": "bash scripts/e2e/verify-install.sh . .e2e-workdir",
     "verify:boundary": "node scripts/verifyBranchBoundary.js",
-    "prepack": "node scripts/verifyBranchBoundary.js && node scripts/verifyPackable.js"
+    "prepack": "node scripts/verifyBranchBoundary.js && node scripts/verifyPackable.js",
+    "test:e2e:self-healing": "node tests/e2e/self_healing/selfHealing.e2e.js",
+    "test:contracts": "node --test \"platform_core/tools/api_contract/__tests__/*.test.js\" \"tests/contracts/*.test.js\"",
+    "test:contracts:matrix": "node tests/contracts/matrixRunner.js --markdown",
+    "test:contracts:external": "node tests/contracts/external.js"
   },
   "devDependencies": {
-    "playwright": "^1.63.0"
+    "playwright": "^1.61.1"
+  },
+  "peerDependencies": {
+    "playwright": ">=1.61.1"
   },
   "peerDependenciesMeta": {
     "playwright": {

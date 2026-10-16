@@ -95,7 +95,7 @@ Three prohibitions define this skill more sharply than its capabilities do:
 
 1. **Never heal an application defect.** A test failing because the application is genuinely broken must never be modified to stop failing (§8). This is the single failure mode that would turn the platform from a defect-detection system into a defect-concealment system.
 2. **Never run automatically.** No failing execution, and no orchestrator, may invoke this skill (§6). A human asks, or it does not run.
-3. **Never repair on low confidence.** Below a High root-cause confidence, the only permitted action is *diagnosis* — gathering evidence, changing nothing (§7.1).
+3. **Never repair on low confidence.** Below a High root-cause confidence, the only permitted action is *diagnosis* — gathering evidence, changing nothing (§7.1). *Root-cause* confidence (§7.1) is the gate on proposing at all — `state heal propose` refuses Medium or Low (`DIAGNOSIS_ONLY`), and refuses High unless the observed root cause is cited (Phase 9.3). The *repair*-confidence band (§9.2: High 90–100 · Medium 70–89 · Low < 70) is a separate, later measure: a Medium or Low band repair still needs its own named approval before apply.
 
 # 3. Responsibilities
 
@@ -110,7 +110,7 @@ Three prohibitions define this skill more sharply than its capabilities do:
 - **Rerun only the affected tests** (§12) — never the full suite unless every test in it was repaired.
 - **Produce a Before/After Comparison** (§13) distinguishing Fixed, Remaining, and New failures — a repair that introduced a regression is reported as such, never buried.
 - **Label a repaired pass `Automation Repaired`, never `Passed`** (§13) — so no reader mistakes a fixed test for a clean first attempt.
-- **Quarantine rather than repair indefinitely** (§14) — a test repaired and re-failed across the configured attempt limit is withdrawn with its history, not patched a third time.
+- **Quarantine rather than repair indefinitely** (§14) — at most **three** repair attempts per test; the third unsuccessful attempt quarantines it with its history, and a fourth is refused.
 - **Write confirmed repairs only** (§10.2) — a repair that did not work contributes nothing to the KB, however plausible its reasoning was.
 - **Re-enter the Automation Approval gate before any re-merge** (§15) — Stage `4A`'s approval does not cover code this skill changed.
 - **Be scoped by the invocation** (§4.1) — a healing pass named for `Login` touches nothing outside `Login`.
@@ -473,7 +473,7 @@ If the human approves repairs:
 - **Rerun only the repaired tests** — never the full suite, unless every test in it was repaired. A full-suite rerun after a two-test repair wastes environment time and obscures which change caused which outcome.
 - **Rerun from the module's resolved root** (`cli.js resolve-root --module {{MODULE_SLUG}}`) — the repaired code, in place. For a `Draft` module that is `modules/{{MODULE_SLUG}}/automation/tests_{{FRAMEWORK}}/`, which is precisely what that project being standalone (`automation-skill` §11D.1) buys. For a `Promoted` module it is the baseline, run through the **module-scoped suite** (`testng-{{MODULE_SLUG}}.xml`) — the same isolation, achieved by suite scoping instead of by directory separation (`pipeline.md` §12.9).
 - **Confirm the target environment against the Project Context before rerunning anything** — the same environment-match discipline every execution-capable stage applies.
-- **Confirm Headed or Headless with the human immediately before the rerun starts** (`pipeline.md` §6 Rule 11). This binds every rerun, including a two-test verification rerun. Never infer the mode, never carry it over from the Stage `5A` execution that produced the failures, and never treat approval of the repair plan as approval of the mode. Record the answer in the rerun's results.
+- **Confirm Headed or Headless with the human immediately before the rerun starts** (`pipeline.md` §6 Rule 11), and record it — with the environment, target and operations — in the Stage `5H` Safety Preflight (`state preflight 5H …`, `pipeline.md` §14). The Run Manager refuses to start 5H without it (Phase 9.2). This binds every rerun, including a two-test verification rerun. Never infer the mode, never carry it over from the Stage `5A` execution that produced the failures, and never treat approval of the repair plan as approval of the mode. Record the answer in the rerun's results.
 - **Never execute a mutating action against an environment the Project Context has not marked safe for it.**
 - **Capture the same evidence classes Stage `5A` captures**, so a before/after comparison is genuinely comparable rather than comparing rich evidence against thin evidence.
 
@@ -516,7 +516,7 @@ For every test in **Fixed**, write the confirmed repair per §10.2–§10.3. Not
 
 # 14. Quarantine — bounded healing attempts
 
-**A test is not repaired indefinitely.** Each test carries a repair-attempt count across **that module's whole history** — every healing pass ever run against it, not just this one. When a test has been repaired and failed again across the configured attempt limit — **default 2 prior attempts, so the third failure quarantines it** — it is moved to the Quarantine Register instead of being repaired again.
+**A test is not repaired indefinitely.** Each test carries a repair-attempt count across **that module's whole history** — every healing pass ever run against it, not just this one. When a test has had **three unsuccessful repair attempts** (the approved budget, enforced by `state heal`; a fourth proposal is refused with `REPAIR_ATTEMPT_LIMIT`), it is moved to the Quarantine Register instead of being repaired again. *(Reconciled in Phase 9.3: earlier wording here — "default 2 prior attempts", "not patched a third time" — contradicted the approved and enforced limit of three.)*
 
 **The count is cumulative because the register is per module and edited in place** (`modules/{{MODULE_SLUG}}/healing/QuarantineRegister.md`). A test that failed repair once in `run-004` and twice in `run-011` has **three** attempts. Resetting the count per run — which a per-run register would do implicitly — would let a test be patched indefinitely without ever reaching the limit this section exists to enforce.
 
@@ -535,6 +535,7 @@ A `Flaky` result is a genuine automation defect more often than not (a race, a m
 1. The repaired suite is marked `Pending Automation Approval`.
 2. It is reviewed against the §5.2 `5H` criteria: each repair matches its approved strategy; no `Application Failure` was healed into silence (§8); the Before/After comparison including any New Failure; quarantined tests recorded rather than deleted.
 3. **Only after that approval** may it merge to the Workspace Automation Baseline (`pipeline.md` §12.4) or project into the Target Project (§13.3).
+4. **For a `Promoted` module there is no merge** — the repair was applied in place, in the baseline (§11). The same approval then gates the *recording* step instead: the change is reviewed, run module-scoped, regression-checked to the extent its blast radius demands, and only then recorded with `automation_lifecycle/cli.js plan-baseline-update` → `record-baseline-update --approved-by "<name>"` (Phase 9.4; `pipeline.md` §5.2 final paragraph, §12.9). Until that approval, the in-place change is unapproved code and is reported as such. Before the first repair edit, this skill checks the touched paths are clean and writes the pre-change commit (the restore point) into the Repair Summary (`pipeline.md` §12.9 "Recoverable history"). An unsuccessful or rejected repair is therefore always recoverable, and is recorded, never erased.
 
 Treating the original approval as still covering repaired code is the most likely path by which unreviewed code reaches a real environment.
 
@@ -558,11 +559,11 @@ Treating the original approval as still covering repaired code is the most likel
 
 # 17. Allowed Tools
 
-- **Playwright MCP server (headless)** — for diagnosis evidence (DOM snapshots, console/network capture, screenshots) and targeted reruns. A credential value is **never** typed into an MCP tool call; authenticate per the platform's credential contract, then act against that session.
+- **Playwright MCP server** (headless by registration; any live run or rerun still confirms Headed/Headless with the human first, §12 and `pipeline.md` §6 Rule 11) — for diagnosis evidence (DOM snapshots, console/network capture, screenshots) and targeted reruns. A credential value is **never** typed into an MCP tool call; authenticate per the platform's credential contract, then act against that session.
 - **`git` (read-only: `diff`, `log`, `show`, `status`)** — to establish which tests are new or changed against the baseline under §4.3. Never `checkout`, `reset`, `commit`, or any history-altering command.
-- **File tools:** Read (Execution Results, external execution reports per §4.2, Automation Suite, Project Context, both KBs, prior Repair Summaries), Write (Repair Summary, Before/After Comparison, Quarantine Register, repaired automation files in the run's working copy, Repair KB entries per §10.2).
+- **File tools:** Read (Execution Results, external execution reports per §4.2, Automation Suite, Project Context, both KBs, prior Repair Summaries), Write (Repair Summary, Before/After Comparison, Quarantine Register, repaired automation files at the module's resolved root per §11, Repair KB entries per §10.2).
 
-**Not permitted:** deleting, regenerating, or overwriting a human's report folder read under §4.2 · editing any Stage 1–3 artifact (Project Context, PRD, Discovery, Test Suite, Traceability Matrix, Coverage Report) · editing any Manual branch artifact · editing the Workspace Automation Baseline directly · writing to the Selector Verification KB (Stage `4A` is its sole writer, `pipeline.md` §10.8 rule 1) · merging to the baseline or projecting into the Target Project before fresh Automation Approval (§15) · running the full suite when only a subset was repaired (§12) · modifying the application under test.
+**Not permitted:** deleting, regenerating, or overwriting a human's report folder read under §4.2 · editing any Stage 1–3 artifact (Project Context, PRD, Discovery, Test Suite, Traceability Matrix, Coverage Report) · editing any Manual branch artifact · editing the Workspace Automation Baseline for a `Draft` module (its repairs go to the module project), or, for a `Promoted` module, any baseline path that is not `owned` (or declared `shared`) by that module under `.baseline_ownership.json` (§11) · writing to the Selector Verification KB (Stage `4A` is its sole writer, `pipeline.md` §10.8 rule 1) · merging to the baseline or projecting into the Target Project before fresh Automation Approval (§15) · running the full suite when only a subset was repaired (§12) · modifying the application under test.
 
 # 18. Expected Artifacts
 
@@ -647,7 +648,7 @@ The Repair Summary must contain exactly these sections, so Stage `6A` never has 
 8. **Must derive every confidence percentage additively from cited evidence** (§9.2) — never an invented number.
 9. **Must ask once per batch, never per test case** (§6.2), and must not proceed on silence.
 10. **Must treat approval as covering the presented batch only** (§6.2).
-11. **Must modify automation code only, in the run's working copy** (§11) — never a Stage 1–3 artifact, a Manual branch artifact, the baseline directly, or the application.
+11. **Must modify automation code only, at the module's resolved root** (§11) — the module project for a `Draft` module; only that module's `owned` (or declared `shared`) baseline paths for a `Promoted` module, after Batch Repair Approval, and recorded only after fresh Automation Approval (§15, `pipeline.md` §5.2). Never a Stage 1–3 artifact, a Manual branch artifact, another module's baseline code, or the application.
 12. **Must rerun only the affected tests** (§12).
 13. **Must label a repaired pass `Automation Repaired`, never `Passed`** (§13).
 14. **Must report New Failures explicitly**, never nett them off against fixes (§13).
@@ -718,6 +719,10 @@ Next step — either:
   1. Approve the repaired suite:   "approved"  →  merge to baseline, then /reporting-skill
   2. Heal another module:          /self-healing-skill {module}
   3. Report as-is:                 /reporting-skill   (repairs remain unmerged)
+
+  If a Final QA Report already exists for this run, /reporting-skill writes a new revision
+  (Final_QA_Report.rev-N.md) from the latest verified results; the original stays as written
+  (reporting-skill §7A).
 ```
 
 # 25. Metrics
@@ -883,7 +888,7 @@ node platform_core/tools/run_manager/cli.js list     # every run, newest first, 
 - **The pointer is sticky**, so a multi-stage session keeps writing into one run.
 - **Switching runs is the human's call** (`cli.js use <run>`). This stage never rewrites the pointer.
 
-This stage never creates a run. It heals the active run's automation and writes its records back into that same run.
+This stage never creates a run. It heals the suite at the module's resolved root, writes its repair records to `modules/{module}/healing/`, and writes rerun results into the active run as new `ExecutionResults.rerun-N.md` files — never over the original results.
 
 ## Inherited artifacts and code drift
 
@@ -900,3 +905,52 @@ node platform_core/tools/run_manager/cli.js drift --json    # exit 2 when not "u
 - **A prior run's confirmed repair may no longer apply** where drift touches the same paths. Cite it as a candidate, state that it is unverified against current code, and let the live evidence decide.
 - **`unknown-*` is not `unchanged`.** No anchor, no git, or an unresolvable ref all mean drift could not be computed — treat inherited repair knowledge as unverified rather than confirmed.
 - **A repair-attempt count is inherited across lineage** (§14), so a test repeatedly healed across refinements reaches quarantine rather than resetting its budget each run.
+
+# Repair Governance — the mechanical record (Phase 6, added 2026-10-09)
+
+The rules above are enforced by the Run Manager (`repairGovernance.js`). Each step of a pass is recorded with `cli.js state heal …` in this run's `run.json` (`stages['5H'].repairOperations`), and a step that breaks a rule is **refused** — so a repair cannot reach "fixed" by skipping one. The record survives an interrupted session: after `state recover 5H` and a fresh `state start 5H --invocation Direct --by "<name>"`, the open operation and every attempt count are exactly where they were.
+
+| Step | Command | Refused when |
+|---|---|---|
+| Invoke | `state start 5H --invocation Direct --by "<name>"` | no named human; `--invocation Pipeline` (§6.1). The Workflow Planner never proposes 5H. |
+| Open | `state heal open --tests TC-…,TC-… --environment <env> --reason "…" --by "<name>"` | no named tests ("all failures" is never implied); a test with no failed result in the recorded outcome |
+| Classify | `state heal classify --test TC-… --class automation\|application\|environment\|infrastructure\|test-data\|unknown --evidence "…" --by "<name>"` | no evidence; a recorded **Application / Environment / Infrastructure Failure** re-labelled `automation` — never done here (§5, §8.2); a human corrects a wrong class in the execution record |
+| Propose | `state heal propose --test TC-… --strategy "…" --reason "…" --patch <runs/…/attempt-N.diff> --root-cause-confidence High --factors "<factor>:<value>:<citation>;…" [--novel] --by "<name>"` | Root Cause Confidence missing, Medium or Low, or High without a cited `observed-root-cause` factor (`DIAGNOSIS_ONLY`, §7.1 — Phase 9.3); not a **confirmed automation** defect (unknown, test-data and the rest are not eligible); a **4th attempt** in the operation (`REPAIR_ATTEMPT_LIMIT` → quarantine, §14); a patch touching a **protected** path — approved test cases / expected results / structured assertions (`test_design/`), requirements (`context/`, `discovery/`, `knowledge_base/`), Supplier business rules, approved 4A artifacts, Module Manager records, production configuration, run evidence, or anything outside this run's module automation and the Workspace Automation Baseline (application source) — `PROTECTED_BOUNDARY`; a patch that **weakens verification** — removes an assertion, adds a skip or a swallowed error, swaps an exact matcher for a weaker one, changes an asserted value, or removes an approved expected value — `ASSERTION_WEAKENING` (§8.1); a confidence factor without a citation, or citing a file that is not in the run folder |
+| Approve | `state heal batch-approve --by "<name>"`, and for **Medium or Low** confidence also `state heal approve --test TC-… --attempt N --by "<name>"` | — |
+| Apply | `state heal apply --test TC-… --attempt N [--restore-point <commit>] --by "<name>"` | not covered by a batch approval (High confidence included — it never skips the gate); Medium/Low without its own approval |
+| Validate | `state heal validate --test TC-… --attempt N --rerun <ExecutionResults.rerun-N.md> [--regression TC-…@<rerun>,…] [--mutating] --by "<name>"` | whether the rerun **mutates** is decided by the Execution Safety policy through the Stage 5H Safety Preflight's operations (`--mutating` can only make it stricter; with no confirmed 5H preflight it counts as mutating) — Phase 9.3; the rerun is not a registered 5H rerun (a Repair Summary is never proof); the original failure evidence changed; a change to a **shared** component (`shared/`, `common/`, `base/`, `utils/`, `helpers/`, `components/`, `fixtures/`, `support/`) without regression results beyond the repaired test; on Production (or an unrecognized environment), no read-only access approval, or a mutating rerun |
+| Production | `state heal prod-access --scope "…" --read-only --by "<name>"` | not read-only — production writes are never approved |
+| Knowledge | `state heal promote --test TC-… --attempt N --title "…" --body "…" --by "<name>"` | the attempt is not **validated as fixed** — unverified suggestions never become knowledge. The entry is sanitized (credentials, tokens, cookies, e-mail, phone, card numbers) and carries its provenance (run, operation, attempt, patch fingerprint, validating rerun). Written to the project layer `knowledge/patterns/repair/REPAIR-NNN.md`; Platform promotion (§10.3) stays a separate human decision |
+| Fresh budget | `state heal grant-budget --test TC-… --basis changed-failure\|new-run --reason "…" --by "<name>"` | no named human or reason; the failure is the same one (changed-failure); a counted attempt was in this run (new-run) |
+| Close / report | `state heal close --by "<name>"` · `state heal report [--json]` | an attempt still open |
+
+**Only a governed repair is a repair (Phase 9.3).** The execution history labels a test `Automation Repaired` only when a repair attempt for it was validated as fixed with that exact rerun. A test that merely passes in a registered 5H rerun — code changed outside `state heal`, or not changed at all — reads `Flaky` with a `repair-not-governed` conflict, and the outcome is never a clean pass.
+
+**Validation outcomes:** `fixed` (the repaired test passes, verified by its assertion records, in the rerun, and every regression test passes), `remaining` (still failing — another attempt is allowed, up to three), `regression-failed` (the repair broke another test — rejected). The execution history independently labels a fixed test `Automation Repaired`, never `Passed`; an Application Failure stays one, and Application and Automation Health stay separate.
+
+**Repair confidence bands** (the derived percentage of §9.2): **High 90–100 · Medium 70–89 · Low below 70**. No observed root cause means no base contribution; a novel pattern is capped at 60; nothing exceeds 95 before a rerun. Root Cause Confidence (§7.1) is a separate, earlier judgment.
+
+**Attempt limits and quarantine (Phase 6.1).** At most **three repair attempts per test**, counted across **every repair operation of this run and of every earlier run of the same module or Supplier scope** — opening another operation, recovering an interrupted stage or starting a new run never resets the count. The **third unsuccessful attempt quarantines the test** (recorded on the run, `stages['5H'].repairQuarantine`, with every attempt), and no further repair is proposed for it (`QUARANTINED`). Quarantine is never removed. A fresh budget is **only** a named human's recorded grant — `state heal grant-budget --test TC-… --basis changed-failure|new-run --reason "…" --by "<name>"` — and its basis is checked: `changed-failure` only when the failure now (recorded status + reason) differs from the one the counted attempts addressed; `new-run` only when every counted attempt was in an earlier run. The grant opens a new window after the record; it erases nothing.
+
+**Applied-patch verification (Phase 6.1).** `propose` refuses a patch that does not apply cleanly to the files on disk, keeps each file's original under `runs/{{RUN_FOLDER}}/self_healing/originals/`, and fingerprints every file of the automation scope it touches. `apply` checks the files on disk against the exact expected result: refused when the patch is not applied (`PATCH_NOT_APPLIED`), only partly applied (`PATCH_PARTIAL`), different from it (`PATCH_MISMATCH`), or when any other file in that scope changed (`UNEXPECTED_CHANGES`). It records each file's before/after fingerprint. `validate` refuses an attempt whose application was not verified, or whose files changed since (`PATCH_CHANGED_AFTER_APPLY`). The platform never applies a patch itself.
+
+**Evidence, environment, ownership (Phase 6.1).** A classification cites at least one evidence **file** inside this run (a trace, log, DOM snapshot); free text alone, or a missing file, is refused (`EVIDENCE_REQUIRED`); the recorded class is kept beside the new one, with the evidence files' fingerprints; only supported reclassifications are recorded (an Application Failure stays one; Environment/Infrastructure never become automation or application defects here). The declared environment is checked against the Run Configuration (`knowledge_base/execution_safety_policy.json`), any environment the run records, and an environment class named in the Project Context (a URL is not evidence); `unverified` or `inconsistent` is **restricted** exactly like Production — read-only reruns with a named approval, never a write. Shared components come from the Workspace Automation Baseline's `.baseline_ownership.json` where it covers the path (a `foreign` path — another module's code — is refused), folder names otherwise; a shared change is validated only with regression results for **every** test that passed before the repair.
+
+# Controlled mutations (Phase 9.4)
+
+- **Promoted module repairs** are recorded with `automation_lifecycle/cli.js plan-baseline-update` → `record-baseline-update --approved-by "<name>"`: only this module's owned paths, from its recorded restore point, exactly the committed content (a shared file needs an approved shared-asset change).
+- **Platform Knowledge promotion** (§10.3) is `knowledge_promotion/cli.js propose --run <run> --entry REPAIR-NNN --by "<name>"` → `review --proposal KP-n --decision approve|reject --by "<name>" --reason "…"` → `apply --proposal KP-n --run <run>`. Only an entry written by `state heal promote` from a repair validated as fixed, byte-for-byte unchanged, with no secret-shaped content, is proposed; a new Platform Knowledge file is written, never an existing one overwritten; `verify` reports any edited or unapproved file.
+- **Reruns in a browser** use the 5H Safety Preflight already recorded for `state start 5H`; pass `preflight: { runsDir, run, stage: '5H', id: 'SP-n' }` and the same mode to the driver or `runSuite`.
+
+# Run State Integration (pipeline.md §5.3.2 — added 2026-10-08)
+
+This stage (`5H`) records its lifecycle in the run state model. These commands are mechanical. They never replace a reviewer's decision and never skip a gate. The full rule, and every stage's row, is `pipeline.md` §5.3.2.
+
+0. **Safety Preflight — before entry:** record it with `node platform_core/tools/run_manager/cli.js state preflight 5H --environment <env> --target-url <url> --execution-type <browser|api|database|batch|other> [--execution-mode Headed|Headless] --operations <ops.json> --confirmed-by "<name>"` **before** `state start 5H` — the Run Manager writes `metadata/SafetyPreflight.md` itself and its entry gate refuses to start 5H without a confirmed, current preflight (Phase 9.2/9.3; never hand-write that file). Ask Headed or Headless for it then; if the human chooses a different mode for a later rerun, record a new `state preflight 5H` before that rerun (the latest confirmed preflight is the one that binds).
+1. **Entry — before any work:** `node platform_core/tools/run_manager/cli.js state start 5H --invocation <Pipeline|Direct|Direct (degraded)> [--instruction "..."]`. This runs the entry gate. **Exit code 2 means blocked:** do not start. Show the human the reasons, request what is missing (`pipeline.md` §5.3.1 #4), and name the next command. Never start with `--invocation Pipeline` — the gate refuses it (`pipeline.md` §3.6); this stage starts only on a human's explicit invocation. Without Stage `5A` results, `--invocation "Direct (degraded)" --external-reports` (§4.2). The Batch Repair Approval (§6) is a separate, in-stage decision and is not recorded by these commands.
+2. **Artifacts:** `node platform_core/tools/run_manager/cli.js state artifact 5H --artifacts <path[,path]> [--kind checkpoint|output|evidence]` for what this stage writes.
+3. **Exit — this stage has a checkpoint:** `node platform_core/tools/run_manager/cli.js state request-approval 5H --artifacts <checkpoint artifact>`. Its checkpoint artifact is `platform_core_data/modules/{{MODULE_SLUG}}/healing/RepairSummary.md` (its `**Status:**` line) — for the re-merge Automation Approval (§15). Finishing the work never marks the stage Completed.
+4. **Approval:** only after the named reviewer approves and the artifact's own Status header reads `Approved`: `node platform_core/tools/run_manager/cli.js state approve 5H --approved-by "<reviewer>"`. It is refused if the header says anything else, or if the artifact is missing. A rejection: `state reject 5H --rejected-by "<reviewer>" --feedback "..."`.
+5. **Blocked or failed:** `state block 5H --reason "..."` or `state fail 5H --reason "..."`, so the run records what it is waiting on.
+
+**Recording the rerun (`pipeline.md` §17.5).** Register each rerun file with `node platform_core/tools/run_manager/cli.js state artifact 5H --artifacts <runs/…/execution/ExecutionResults.rerun-N.md>` — that registration is what marks it as a repair rerun — then `state outcome 5H --from-results`. A test reads `Automation Repaired` only where a rerun result shows `Passed` after an `Automation Failure`; the Repair Summary is never proof of a pass. An `Application Failure` that later passes is reported as a conflict for review, never as repaired.

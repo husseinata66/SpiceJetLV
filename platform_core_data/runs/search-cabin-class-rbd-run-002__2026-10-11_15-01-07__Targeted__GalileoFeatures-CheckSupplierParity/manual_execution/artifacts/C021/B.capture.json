@@ -1,0 +1,96 @@
+{
+ "side": "Direct",
+ "at": "2026-10-11T13:09:06.903Z",
+ "secs": 6.396,
+ "httpStatus": 200,
+ "responseCaptured": true,
+ "readBack": {
+  "branch": "ahmed ayman (BRN632)",
+  "branchBeforeCheck": "ahmed ayman (BRN632)",
+  "suppliersListed": [
+   "Galileo"
+  ],
+  "supplierSelected": "Galileo",
+  "credentialsListed": [
+   "GalileoLiveSTAGING"
+  ],
+  "credentialSelected": "GalileoLiveSTAGING"
+ },
+ "formAsEntered": "Flight Search | Branch selected. | ahmed ayman (BRN632) | Branch | * | ahmed ayman (BRN632) | Agency | Agency | Agent | Agent | One-way | Round-trip | Multi-city | CAI | DXB | Economy | Q | DXB | JED | Economy | RBD | Add flight | 1 | Baggage Fare Only | Up-selling | Check Supplier | Search",
+ "passengers": null,
+ "platformRequestToCheckSupplier": {
+  "flightRequestDto": {
+   "tripType": 3,
+   "noOfAdults": 1,
+   "noOfChildren": 0,
+   "noOfInfants": 0,
+   "entity": {
+    "selectedBranch": 11703
+   },
+   "filters": {
+    "isNearByAirport": false,
+    "isBaggageFareOnly": false,
+    "isUpSelling": false,
+    "isNonStop": false,
+    "isExcludeLcc": false,
+    "allianceAirline": null,
+    "preferAirlines": []
+   },
+   "routes": [
+    {
+     "cabinClass": 1,
+     "dateOfJourney": "18-11-2026",
+     "destination": {
+      "airportCode": "DXB"
+     },
+     "origins": [
+      {
+       "airportCode": "CAI"
+      }
+     ],
+     "rbd": [
+      "Q"
+     ]
+    },
+    {
+     "cabinClass": 1,
+     "dateOfJourney": "22-11-2026",
+     "destination": {
+      "airportCode": "JED"
+     },
+     "origins": [
+      {
+       "airportCode": "DXB"
+      }
+     ],
+     "rbd": []
+    }
+   ]
+  },
+  "supplierId": 119,
+  "pccId": 598
+ },
+ "errorMessage": null,
+ "parseError": null,
+ "searchCallsDuringCheck": [],
+ "payloadLength": {
+  "supplierRequest": 1880,
+  "supplierResponse": 87244
+ },
+ "sha256OfRawPayload": {
+  "supplierRequest": "dfc0fafa84b1a6cc3a51e5ad83924fa7970ba4b3aef53948742285d31418dca9",
+  "supplierResponse": "8cb2d658bc2238fcc61a53aa41c050815654275c6f2178e4cd254e43b96d57e0"
+ },
+ "redactions": {
+  "supplierRequest": 1,
+  "supplierResponse": 0,
+  "supplierConfig": 1,
+  "total": 2
+ },
+ "boundary": {
+  "reportedBy": "platform back end (BND-04) — not a network capture",
+  "credentialHost": "emea.universal-api.pp.travelport.com",
+  "schema": "44",
+  "soapEnvelope": true
+ }
+}

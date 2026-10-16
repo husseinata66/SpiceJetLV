@@ -96,8 +96,23 @@ module.exports = {
    * Executes a generated automation suite. Reports/results land in the isolated generated-output
    * directory, never beside the suite's source.
    */
-  runSuite({ suiteDir, grep, mode = 'headless', reporter = 'list', projectRoot } = {}) {
+  runSuite({ suiteDir, grep, mode, reporter = 'list', projectRoot, preflight, environment, baseUrl } = {}) {
     if (!suiteDir) throw new Error('runSuite requires a suiteDir.');
+    // The display mode is the human's explicit choice for this run (pipeline.md §6 Rule 11; Phase 9.3) —
+    // never defaulted to headless here.
+    if (!['headed', 'headless', 'debug'].includes(mode)) {
+      const err = new Error('runSuite requires an explicit mode: "headed" or "headless" (or "debug"), asked of the human immediately before this run — it is never defaulted (pipeline.md §6 Rule 11).');
+      err.code = 'MODE_REQUIRED';
+      throw err;
+    }
+    // Live-activity boundary (Phase 9.4): a suite runs only for a run's stage with a confirmed browser preflight in
+    // this mode (debug is a headed session).
+    // eslint-disable-next-line global-require
+    const pf = require('../../../run_manager/executionPreflight');
+    const pfRecord = pf.assertLivePreflight({ ...(preflight || {}), headless: mode === 'headless' });
+    // R-01 (Phase 9.5): the suite runs against the environment and base URL the preflight confirmed; both are
+    // passed to it as TEST_ENVIRONMENT and BASE_URL (a suite that ignores them is outside this check).
+    pf.assertSessionMatchesPreflight({ record: pfRecord, runsDir: preflight.runsDir, environment, url: baseUrl });
     const reportDir = outputDir(projectRoot, 'report');
     const resultsDir = outputDir(projectRoot, 'results');
     const args = ['test', '--reporter', reporter];
@@ -110,6 +125,8 @@ module.exports = {
         PLAYWRIGHT_HTML_REPORT: reportDir,
         PLAYWRIGHT_JSON_OUTPUT_NAME: path.join(resultsDir, 'results.json'),
         PLAYWRIGHT_TEST_OUTPUT_DIR: resultsDir,
+        BASE_URL: baseUrl,
+        TEST_ENVIRONMENT: environment,
       },
     });
   },

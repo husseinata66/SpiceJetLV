@@ -28,10 +28,11 @@ const { BrowserDriver } = require('../../platform_core/tools/browser_driver/api'
 
 const driver = await BrowserDriver.authenticate({
   env: 'STG',        // optional — omit to let the credentials file's activeEnvironment/environment decide
-  // stage: 'manual_execution', // optional — selects that stage's display-mode default from
-  //                             // the profile's browser.headlessByStage. Stage 4M maps to headed.
-  // headless: false,          // optional — forces a headed window regardless of stage/profile.
-  //                           // Omit both: the profile's browser.headless default is `true`.
+  preflight: { runsDir, run, stage: '4M', id: 'SP-n' }, // REQUIRED (9.4; exact id + Running stage, env/URL matched: 9.5) — the stage's confirmed Safety Preflight,
+  //                             // recorded as browser execution in the same mode; otherwise PREFLIGHT_REQUIRED / MODE_MISMATCH.
+  headless: false,              // REQUIRED — the human's Headed (false) / Headless (true) answer for THIS
+  //                             // launch (pipeline.md §6 Rule 11). Omitted → refused, MODE_REQUIRED (Phase 9.3).
+  //                             // No profile value (browser.headless, browser.headlessByStage) decides it.
 });
 
 driver.useComponent('GlobalNavigation');    // load shared nav locators
@@ -88,7 +89,7 @@ platform_core_data/knowledge_base/
 
 A profile contains **only**:
 - `defaultBaseUrl`
-- `browser` — launch/context settings (`channel`, `headless` default, `headlessByStage` per-stage display-mode overrides, `viewport`, anything else Playwright's launch/context options need)
+- `browser` — launch/context settings (`channel`, `viewport`, anything else Playwright's launch/context options need). `headless` / `headlessByStage` are **no longer read** (Phase 9.3): the display mode is the human's explicit answer, passed on every launch
 - `login` — username/password/submit selectors, and a post-login success signal — this is the **default** login flow, used whenever `authenticate()` is called without an `app`
 - `apps` (optional) — named alternate login flows for a **second application** with a different login form (e.g. `apps.portal`), each with its own `baseUrl` and `login` block. Added 2026-09-26 when a Portal application (Agency Code + Email + Password, 3 fields) needed automating alongside the pre-existing Admin application (username + password, 2 fields) — every existing caller that never passes `app` is unaffected, since the root-level `defaultBaseUrl`/`login` are unchanged.
 - `notes` (optional, human-readable)

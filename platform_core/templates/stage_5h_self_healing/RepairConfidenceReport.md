@@ -27,7 +27,7 @@ Proposed Repair:
 {{PROPOSED_REPAIR_ONE_LINE}}
 
 Confidence:
-{{CONFIDENCE}}%
+{{CONFIDENCE}}%   Band: {{High | Medium | Low}}   <!-- High 90–100 · Medium 70–89 · Low < 70 — as computed by `state heal propose` from the cited factors; Medium/Low need their own named approval before apply -->
 
 Reasoning:
 - {{FACTOR_1}}

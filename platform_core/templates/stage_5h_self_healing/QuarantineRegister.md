@@ -18,7 +18,7 @@ a green suite and hides that evidence.
 # Quarantine Register — {{MODULE}}
 
 **Module:** `{{MODULE_SLUG}}` · **Last updated by run:** `{{RUN_FOLDER}}`
-**Attempt limit:** {{ATTEMPT_LIMIT}} <!-- default 2 prior attempts; the 3rd failure quarantines (§14) -->
+**Attempt limit:** {{ATTEMPT_LIMIT}} <!-- three repair attempts per test; the 3rd unsuccessful attempt quarantines, a 4th is refused (§14, enforced by state heal) -->
 **Counted across:** this module's whole history — every healing pass ever run against it
 
 <!-- THIS REGISTER IS CUMULATIVE AND PER MODULE. It is edited in place across runs, not re-created per

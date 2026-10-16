@@ -1,0 +1,276 @@
+{
+ "case": "TC-GCSP-016",
+ "criteria": {
+  "trip": "Multi-city",
+  "legs": [
+   {
+    "o": "CAI",
+    "d": "DXB",
+    "dt": "18/11/2026"
+   },
+   {
+    "o": "DXB",
+    "d": "JED",
+    "dt": "22/11/2026"
+   }
+  ]
+ },
+ "rule": "Prices ignored; flights by identity; fare options by flight + RBD sequence per passenger type; cabin/baggage on matched options; nothing judged at the Integration Layer → Galileo boundary (BND-03)",
+ "key": "C016",
+ "rq": {
+  "trip": {
+   "expected": "Multi-city, 2 leg(s)",
+   "integration": "Multi-city, 2 leg(s)",
+   "direct": "Multi-city, 2 leg(s)",
+   "ok": true
+  },
+  "airports": {
+   "expected": "leg 1 CAI→DXB · leg 2 DXB→JED",
+   "integration": "leg 1 CAI→DXB · leg 2 DXB→JED",
+   "direct": "leg 1 CAI→DXB · leg 2 DXB→JED",
+   "ok": true
+  },
+  "dates": {
+   "expected": "leg 1 2026-11-18 · leg 2 2026-11-22",
+   "integration": "leg 1 2026-11-18 · leg 2 2026-11-22",
+   "direct": "leg 1 2026-11-18 · leg 2 2026-11-22",
+   "ok": true
+  },
+  "pax": {
+   "expected": "1 Adult",
+   "integration": "1 Adult",
+   "direct": "1 Adult",
+   "ok": true
+  },
+  "cabin": {
+   "expected": "leg 1 Economy · leg 2 Economy",
+   "integration": "leg 1 Economy · leg 2 Economy",
+   "direct": "leg 1 Economy · leg 2 Economy",
+   "ok": true
+  },
+  "rbd": {
+   "expected": "leg 1 none · leg 2 none",
+   "integration": "leg 1 none · leg 2 none",
+   "direct": "leg 1 none · leg 2 none",
+   "ok": true
+  },
+  "confirmed": [],
+  "modifiers": [
+   {
+    "path": "LowFareSearchReq/@ReturnUpsellFare",
+    "integration": "true",
+    "direct": "false",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-01"
+   },
+   {
+    "path": "LowFareSearchReq/AirPricingModifiers/@CurrencyType",
+    "integration": "(absent)",
+    "direct": "EGP",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-02"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/AirLegModifiers/@AllowDirectAccess",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-03"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/SearchDestination/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[1]/SearchOrigin/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[2]/AirLegModifiers/@AllowDirectAccess",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-03"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[2]/SearchDestination/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   },
+   {
+    "path": "LowFareSearchReq/SearchAirLeg[2]/SearchOrigin/CityOrAirport/@PreferCity",
+    "integration": "true",
+    "direct": "(absent)",
+    "cmp08": "Different default or search modifier",
+    "outcome": "Pending Parity Clarification",
+    "pc": "PC-04"
+   }
+  ],
+  "sameModifiers": [
+   {
+    "path": "LowFareSearchReq/@SolutionResult",
+    "value": "true"
+   },
+   {
+    "path": "LowFareSearchReq/AirSearchModifiers/PreferredProviders/Provider/@Code",
+    "value": "1G"
+   },
+   {
+    "path": "LowFareSearchReq/AirPricingModifiers/@FaresIndicator",
+    "value": "AllFares"
+   }
+  ],
+  "representation": [
+   {
+    "item": "XML schema version",
+    "integration": "air_v52_0",
+    "direct": "air_v44_0"
+   },
+   {
+    "item": "SOAP envelope",
+    "integration": "yes",
+    "direct": "yes"
+   },
+   {
+    "item": "namespaces, prefixes, element order, encoding",
+    "integration": "v52 common/air namespaces, utf-16 declaration",
+    "direct": "v44 namespaces with soapenv/air/com prefixes"
+   },
+   {
+    "item": "LowFareSearchReq/BillingPointOfSaleInfo/@OriginApplication",
+    "integration": "UAPI",
+    "direct": "uAPI"
+   },
+   {
+    "item": "LowFareSearchReq/SearchPassenger[1]/@Age",
+    "integration": "35",
+    "direct": "(absent)"
+   }
+  ],
+  "platformRequestsEqual": true
+ },
+ "rs": {
+  "status": [
+   {
+    "side": "Integration",
+    "http": 200,
+    "errorMessage": "CheckSupplierErrorMsg { correlationId : PgtQQ8gM0aVmjbUxL9cZkwk6aLM_JovX_Ur0um8P timestamp : 2026-10-11T13:05:10.397Z message : status-code:409 Conflict-500-Non-Specified Internal Communication Error: WAS-UNIVERSALAPI-33890-001.PP.TVLPORT.COM errorDescription : Non-Specified Internal Communication Error: WAS-UNIVERSALAPI-33890-001.PP.TVLPORT.COM ==================== }",
+    "parsed": false,
+    "fault": "no LowFareSearchRsp",
+    "kind": "comm-error"
+   },
+   {
+    "side": "Direct",
+    "http": 200,
+    "errorMessage": null,
+    "parsed": true,
+    "fault": null,
+    "kind": "ok"
+   }
+  ],
+  "ok": false,
+  "commError": [
+   "Integration"
+  ],
+  "businessEmpty": [],
+  "counts": {
+   "integration": {
+    "solutions": 0
+   },
+   "direct": {
+    "solutions": 110
+   }
+  },
+  "note": "Not compared: Integration returned a supplier communication error — the response is not observable for parity (execution error, not a mismatch).",
+  "flightsOnly": [],
+  "optionsOnly": [],
+  "pending": [],
+  "confirmed": [],
+  "matched": {
+   "flights": 0,
+   "options": 0,
+   "stopsDiff": 0,
+   "cabinDiff": [],
+   "bagDiff": [],
+   "fareBasisDiffSupportingOnly": 0
+  },
+  "filter": {
+   "outside": [],
+   "paxBad": [],
+   "emptyA": true,
+   "emptyB": false
+  }
+ },
+ "readback": [
+  {
+   "side": "A",
+   "ok": true,
+   "rb": {
+    "branch": "NDC1_Ahmed Ayman (BRN287)",
+    "branchBeforeCheck": "NDC1_Ahmed Ayman (BRN287)",
+    "suppliersListed": [
+     "NDCGal"
+    ],
+    "supplierSelected": "NDCGal",
+    "credentialsListed": [
+     "NdcGalileoSTG EGY"
+    ],
+    "credentialSelected": "NdcGalileoSTG EGY"
+   }
+  },
+  {
+   "side": "B",
+   "ok": true,
+   "rb": {
+    "branch": "ahmed ayman (BRN632)",
+    "branchBeforeCheck": "ahmed ayman (BRN632)",
+    "suppliersListed": [
+     "Galileo"
+    ],
+    "supplierSelected": "Galileo",
+    "credentialsListed": [
+     "GalileoLiveSTAGING"
+    ],
+    "credentialSelected": "GalileoLiveSTAGING"
+   }
+  }
+ ],
+ "boundary": [
+  {
+   "side": "A",
+   "ok": true,
+   "b": {
+    "reportedBy": "platform back end (BND-04) — not a network capture",
+    "credentialHost": "ndc-integration-stg-ne-3.azurewebsites.net",
+    "schema": "52",
+    "soapEnvelope": true
+   }
+  },
+  {
+   "side": "B",
+   "ok": true,
+   "b": {
+    "reportedBy": "platform back end (BND-04) — not a network capture",
+    "credentialHost": "emea.universal-api.pp.travelport.com",
+    "schema": "44",
+    "soapEnvelope": true
+   }
+  }
+ ],
+ "searchCalled": 0
+}

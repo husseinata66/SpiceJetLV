@@ -466,8 +466,8 @@ sequenceDiagram
     participant EA as Automation Execution skill (5A)
     participant SH as Self-Healing skill (5H)
 
-    Orc->>H: Automation Start Decision Gate — report actual stage state, ask how to proceed
-    H-->>Orc: Decision (resume / full pipeline / generate directly)
+    Orc->>H: Workflow Selection & Start Decision Gate — report actual stage state, ask which workflow
+    H-->>Orc: Decision (Full Manual / Full Automation / Specific Stage)
 
     Orc->>AA: Invoke Stage 4A
     AA->>H: Consolidated gate — Automation Target · Framework · Strategy
@@ -755,7 +755,7 @@ The Run Manager is the only component that creates a run, names it, or decides w
 | `cli.js new --scope <S> --target <T> [--workflow W] [--no-activate]` | create a run: name + code-state anchor + Run Manifest + activation. Add `--feature F (--supplier S \| --shared-scope SS)` or `--modules m [--module-feature F]` so the run is numbered within its Feature/module (`reissue-run-003`) |
 | `cli.js rename-runs [--assign "<run>=<owner>"] [--apply --approved-by N --reason R]` | move existing runs onto their Feature/module's own sequence — plans by default, writes nothing |
 | `cli.js active [--json]` · `use <run>` · `list [--json]` · `refresh` · `clear` | read, switch, refresh, or remove the Active Run pointer |
-| `cli.js stage "<Stage>" --status <Approved\|…>` · `manifest [--json]` | record and read the Run Manifest stage ledger |
+| `cli.js manifest [--json]` · `stage "<Stage>" --status <…>` | read the Run Manifest stage ledger; `stage` writes it only for a legacy run — a state-model run's ledger follows its `state` commands |
 | `cli.js refine <prior-run> [--dry-run]` · `drift [--run <r>]` · `anchor [--run <r>]` | run lineage, code drift since a run was anchored, anchor backfill |
 
 The Active Run pointer (`platform_core_data/runs/current_active_run.json`) is sticky and fails loudly: with no pointer a stage asks which run to use, and a pointer naming a missing run stops the stage rather than falling back to the newest one. `AGENTIC_TESTING_RUN_FOLDER` overrides it for a single process without persisting; `AGENTIC_TESTING_TOOL_ROOT` / `AGENTIC_TESTING_TARGET_ROOT` override the two roots resolved from `platform.config.json`.
@@ -1078,7 +1078,7 @@ Follow [`platform_core/tools/browser_driver/README.md`](platform_core/tools/brow
 
 ### 4. Run the pipeline
 
-Every stage after Stage 1 requires the previous stage's checkpoint to already be `Approved`. Before automation (Stage 4A) or any single downstream stage is invoked for the first time, the platform runs the **Automation Start Decision Gate** ([`workflows_and_pipelines/pipeline/pipeline.md` §5.4](workflows_and_pipelines/pipeline/pipeline.md)) — it reports the actual current state of every stage and asks explicitly how to proceed; it never assumes.
+Every stage after Stage 1 requires the previous stage's checkpoint to already be `Approved`. Before automation (Stage 4A) or any single downstream stage is invoked for the first time, the platform runs the **Workflow Selection & Start Decision Gate** ([`workflows_and_pipelines/pipeline/pipeline.md` §5.4](workflows_and_pipelines/pipeline/pipeline.md)) — it reports the actual current state of every stage and asks which workflow to run: Full Manual, Full Automation, or a Specific Stage. In a Full workflow the next stage starts only after the current one is approved; Self-Healing is never started for you. It never assumes.
 
 ```mermaid
 flowchart LR

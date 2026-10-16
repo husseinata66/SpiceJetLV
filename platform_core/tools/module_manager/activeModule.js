@@ -529,3 +529,6 @@ module.exports = {
   isActiveFeatureStale,
   clearActiveModules,
 };
+
+// Concurrency (Phase 9.4): each read-modify-write below holds the registry lock (registryLock.js).
+require('./registryLock').lockExports(module.exports, ['setActiveModules', 'setActiveModulesToAll', 'setActiveFeature', 'clearActiveFeature', 'clearActiveModules']);

@@ -173,6 +173,23 @@ function resolveDesignDirs(args, opts = {}) {
         + '     or pass:  --module <slug>  /  --dir <path>'
       );
     }
+    // Feature scope (Phase 9.3, F-28): an active Feature pointer decides the folder — the Feature's own
+    // test_design/, never its parent module's. A stale or contradictory pointer is an error, never a
+    // fallback to module scope (CLAUDE.md "Scope pointers"; activeModule.resolveActiveFeature).
+    const { resolveActiveFeature } = require('../module_manager/activeModule');
+    let active;
+    try {
+      active = resolveActiveFeature(modulesDir);
+    } catch (err) {
+      throw new ExportError(`${err.message}\nNothing was exported — the Feature pointer is not silently dropped to module scope.`);
+    }
+    if (active.scope === 'feature') {
+      return {
+        dirs: [path.join(require('../module_manager/featureRegistry').featureDir(modulesDir, active.module, active.feature), 'test_design')],
+        source: `active Feature ${active.module}/${active.feature}`,
+        strict: true,
+      };
+    }
     // The RESOLVED selection is reported, never the registry's recorded scope: an
     // AGENTIC_TESTING_MODULE override changes what is active for this process without touching the
     // file, so the stored scope can disagree with what is actually being exported.

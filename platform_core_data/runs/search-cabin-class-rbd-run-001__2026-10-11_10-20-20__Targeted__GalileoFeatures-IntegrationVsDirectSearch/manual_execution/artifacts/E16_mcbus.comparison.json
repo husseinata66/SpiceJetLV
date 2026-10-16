@@ -1,0 +1,151 @@
+{
+ "offers": {
+  "A": 65,
+  "B": 61
+ },
+ "flights": {
+  "A": 65,
+  "B": 61
+ },
+ "flightsOnlyA": [
+  "MS901 CAI-DXB 11-18T04:20>11-18T09:40 || MS913 DXB-CAI 11-22T16:20>11-22T18:30 + MS643 CAI-JED 11-22T20:40>11-22T23:55",
+  "MS905 CAI-DXB 11-18T13:40>11-18T19:00 || MS913 DXB-CAI 11-22T16:20>11-22T18:30 + MS643 CAI-JED 11-22T20:40>11-22T23:55",
+  "MS912 CAI-DXB 11-18T09:40>11-18T15:00 || MS913 DXB-CAI 11-22T16:20>11-22T18:30 + MS643 CAI-JED 11-22T20:40>11-22T23:55",
+  "MS910 CAI-DXB 11-18T22:25>11-19T03:45 || MS913 DXB-CAI 11-22T16:20>11-22T18:30 + MS643 CAI-JED 11-22T20:40>11-22T23:55"
+ ],
+ "flightsOnlyB": [],
+ "matched": 61,
+ "stopsDiff": [],
+ "fareOpt": {
+  "matchedOptions": 61,
+  "onlyA": [],
+  "onlyB": [],
+  "dupA": [],
+  "dupB": []
+ },
+ "detailDiff": [
+  {
+   "flight": "ET453 CAI-ADD 11-18T02:20>11-18T07:10 + ET600 ADD-DXB 11-18T21:45>11-19T02:55 || ET601 DXB-ADD 11-22T04:25>11-22T07:35 + ET462 ADD-JED 11-22T11:00>11-22T13:30",
+   "brand": "///",
+   "pax": "ADTx1",
+   "seg": "ET600",
+   "field": "cabin",
+   "A": "Economy",
+   "B": "Business"
+  },
+  {
+   "flight": "ET453 CAI-ADD 11-18T02:20>11-18T07:10 + ET600 ADD-DXB 11-18T21:45>11-19T02:55 || ET601 DXB-ADD 11-22T04:25>11-22T07:35 + ET462 ADD-JED 11-22T11:00>11-22T13:30",
+   "brand": "///",
+   "pax": "ADTx1",
+   "seg": "ET600",
+   "field": "rbd",
+   "A": "V",
+   "B": "D"
+  }
+ ],
+ "bagTextDiff": 182,
+ "bagTextExamples": [
+  "1 Pieces ⇄ Number 1 Piece Allowed.",
+  "2 Pieces ⇄ Number 2 Piece Allowed.",
+  "3 Pieces ⇄ Number 3 Piece Allowed."
+ ],
+ "cabinLabelPairs": [
+  "Economy ⇄ Business"
+ ],
+ "cabins": {
+  "A": [
+   "Business",
+   "Economy"
+  ],
+  "B": [
+   "Business",
+   "Economy"
+  ]
+ },
+ "rbds": {
+  "A": [
+   "C",
+   "D",
+   "H",
+   "J",
+   "M",
+   "Q",
+   "R",
+   "S",
+   "T",
+   "V",
+   "Z"
+  ],
+  "B": [
+   "C",
+   "D",
+   "H",
+   "J",
+   "M",
+   "Q",
+   "R",
+   "S",
+   "T",
+   "V",
+   "Z"
+  ]
+ },
+ "perLeg": {
+  "A": {
+   "1": {
+    "cabins": [
+     "Economy"
+    ],
+    "rbds": [
+     "H",
+     "M",
+     "Q",
+     "R",
+     "S",
+     "T",
+     "V"
+    ]
+   },
+   "2": {
+    "cabins": [
+     "Business"
+    ],
+    "rbds": [
+     "C",
+     "D",
+     "J",
+     "Z"
+    ]
+   }
+  },
+  "B": {
+   "1": {
+    "cabins": [
+     "Business",
+     "Economy"
+    ],
+    "rbds": [
+     "D",
+     "H",
+     "M",
+     "Q",
+     "R",
+     "S",
+     "T",
+     "V"
+    ]
+   },
+   "2": {
+    "cabins": [
+     "Business"
+    ],
+    "rbds": [
+     "C",
+     "D",
+     "J",
+     "Z"
+    ]
+   }
+  }
+ }
+}
