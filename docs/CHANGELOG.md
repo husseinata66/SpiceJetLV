@@ -14,6 +14,20 @@ record it; a redundant entry costs nothing, a silent gap defeats the point of th
 
 ---
 
+## 2026-10-17 — Ancillaries: screenshots only for results that did not pass
+
+User-mandated, **Ancillaries Feature only**. The Flynas NDC SeatMap run (run-006) screenshotted
+every `Passed` case and also saved working shots taken only to check where the browser was.
+
+- **Taken for `Failed`, `Blocked`, `Inconclusive`**, showing the state that proves the result.
+- **Never for `Passed`.** The case's Notes record what was observed; no screenshot is not a gap.
+- **No working screenshots.** Browser state is checked with `browser_snapshot`, not a saved image.
+- `supplier-features/ancillaries/context/ExecutionFlow_HappyPath.md` §11, rev 3, so every
+  Ancillaries Supplier run picks it up. `manual-execution-skill` §7 is unchanged for every other
+  Feature and module. Existing run evidence is untouched.
+
+---
+
 ## 2026-10-11 — PE-03: run-bound Stage 3 suites and per-suite Traceability Matrix
 
 Platform defect fix, approved by Ahmed Ayman. It was found when run-002 of `search-cabin-class-rbd/galileo` was blocked at its 4M
