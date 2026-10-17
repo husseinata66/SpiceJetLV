@@ -17,9 +17,10 @@
 **Feature:** Ancillaries (`ancillaries`)
 **Canonical location:** `platform_core_data/supplier-features/ancillaries/context/ExecutionFlow_HappyPath.md`
 **Status:** Draft — pending approval
-**Revision:** 4 — §11 failure screenshots saved in each run's own `failures/` folder (human
-decision, Mohanad Dawood, 2026-10-17). Rev 3 limited screenshots to results that did not pass
-(2026-10-17); rev 2 added §3.1 cabin × bundle coverage (2026-09-27)
+**Revision:** 5 — adds §15 execution efficiency, including batched setup (human decision, Mohanad
+Dawood, 2026-10-17). Rev 4 saved failure screenshots in each run's `failures/` folder and rev 3
+limited screenshots to results that did not pass (both 2026-10-17); rev 2 added §3.1 cabin × bundle
+coverage (2026-09-27)
 **Last Updated:** 2026-10-17
 **Related:** `CapabilityModel.md` (same folder) — governs every capability gate below.
 `FeatureChecklistProfile.md` (same folder) — the rows injected into a Supplier's Checklist.
@@ -376,3 +377,64 @@ This document is Feature-level. It is **referenced, never duplicated** (`ndc_exe
   edit to this file.
 - The exception: if a deviation shows this procedure was wrong for **every** Supplier, this file is
   corrected in place, as a recorded revision. Never silently overwritten.
+
+## 15. Execution efficiency
+
+*(Human decision, Mohanad Dawood, 2026-10-17.)* Every browser action is one AI round trip, and every
+page read costs tokens. These rules keep an Ancillaries run fast and cheap without changing what is
+tested or what evidence is kept.
+
+### 15.0 Use the `playwright-ancillaries` server
+
+Ancillaries runs drive the browser through the **`playwright-ancillaries`** MCP server
+(`mcp__playwright-ancillaries__browser_*`), never the default `playwright` server. It is registered
+in the repo-root `.mcp.json` with three extra flags that apply to this Feature only:
+
+| Flag | Effect |
+|---|---|
+| `--snapshot-mode none` | No page snapshot is taken after every action. Read the page only when needed (§15.1) |
+| `--image-responses omit` | A screenshot is still **saved to its file** (§11), but the image is not sent back into the conversation |
+| `--console-level error` | Only console errors are returned, not every info and warning line |
+
+Every other Feature, module and stage keeps the default `playwright` server, unchanged. Headed or
+Headless is still asked before every execution; neither server forces it.
+
+### 15.1 Read the page as little as possible
+
+- **Locate an element with `browser_find`** (text or regex). It returns only the matching lines and
+  the element's ref, not the whole page.
+- **Take a full `browser_snapshot` only on a screen not yet seen in this run**, and scope it with
+  `target` or `depth` where possible. Never read a whole snapshot file after every action.
+- **Click by a unique selector** when one is known; that needs no snapshot at all.
+- **Confirm an outcome with `browser_wait_for`** on the expected text, or with `browser_find`, not
+  with a fresh snapshot.
+
+### 15.2 One call per form
+
+Fill each passenger's details in **one `browser_fill_form` call**, not one call per field.
+
+### 15.3 One booking per shared setup
+
+- Before executing, **group the in-scope cases by the setup they need**: passenger mix, trip type
+  (one-way, return, multi-city), cabin, bundle. Build one booking per group and run every case of
+  that group on it before building the next.
+- **Start a fresh booking only when a case needs one:** it changes or cancels the booking, it needs a
+  different setup, or an earlier case left the booking in a state its precondition rules out.
+- Record in each case's Notes which booking it ran on.
+
+### 15.4 Batched setup — the one exception to the no-scripts rule
+
+Steps that only **reach** the screen under test may run as **one `browser_run_code_unsafe` call**
+instead of one call per step. For this Feature only, this overrides `manual-execution-skill` §2.1
+(no scripts) and `platform_core/tools/mcp/README.md` §1.4 (run-code is read-only), within these
+limits:
+
+| | |
+|---|---|
+| 1 | **Setup only.** Search, pick the flight, fill passenger details, open Ancillaries or the seat map. A step the test case checks always runs as its own call, so it can be watched and judged |
+| 2 | **Stops before anything that books, pays, or changes a booking.** §9 and every other mutating action stay single steps under the run's safety authorizations |
+| 3 | **Stops at any unexpected dialog** (for example Price Update) and reports it; never accepts it on its own |
+| 4 | **No credential** ever appears in the code (`mcp/README.md` §1.3). Log in first, the normal way |
+| 5 | **Passed inline, never saved as a file.** It is not an artifact |
+| 6 | **Returns a short result:** the screen it reached, the selected flight and its Supplier attribution (§4), and any error. Never a page snapshot |
+| 7 | **If it fails, continue in single steps** from the last screen it reached. The failure is a setup problem, not a test result, until the single steps show otherwise |

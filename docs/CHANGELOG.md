@@ -14,6 +14,28 @@ record it; a redundant entry costs nothing, a silent gap defeats the point of th
 
 ---
 
+## 2026-10-17 — Ancillaries: faster, cheaper execution
+
+User-mandated, **Ancillaries Feature only**. Runs were slow and token-heavy: one AI round trip per
+browser action, full-page snapshots read to find the next element, and a fresh booking rebuilt for
+cases that could share one. New `ExecutionFlow_HappyPath.md` §15 (rev 5):
+
+- **A dedicated `playwright-ancillaries` MCP server** in `.mcp.json`, with `--snapshot-mode none`
+  (no snapshot after every action), `--image-responses omit` (screenshots still saved to file, not
+  sent back as images) and `--console-level error`. The default `playwright` server is unchanged for
+  every other Feature, module and stage.
+- **Read the page as little as possible:** `browser_find` to locate elements, full snapshots only on
+  a screen not yet seen, `browser_wait_for` to confirm outcomes.
+- **One `browser_fill_form` call per passenger form.**
+- **One booking per shared setup:** cases are grouped by passenger mix, trip type, cabin and bundle.
+- **Batched setup:** steps that only reach the screen under test may run as one
+  `browser_run_code_unsafe` call. An Ancillaries-only exception to `manual-execution-skill` §2.1 and
+  `mcp/README.md` §1.4, limited to setup: it stops before anything that books, pays or changes a
+  booking, stops at any unexpected dialog, carries no credential, and is never saved as a file.
+  Steps a test case checks still run one by one.
+
+---
+
 ## 2026-10-17 — Ancillaries: failure screenshots saved in each run's own folder
 
 User-mandated. Run-006's screenshots landed in the repo root because they were saved with bare file

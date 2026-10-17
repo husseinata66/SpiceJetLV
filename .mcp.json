@@ -5,6 +5,14 @@
       "args": ["-y", "@playwright/mcp@latest", "--isolated"],
       "env": {}
     },
+    "playwright-ancillaries": {
+      "command": "npx",
+      "args": [
+        "-y", "@playwright/mcp@latest", "--isolated",
+        "--snapshot-mode", "none", "--image-responses", "omit", "--console-level", "error"
+      ],
+      "env": {}
+    },
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp@latest"],
