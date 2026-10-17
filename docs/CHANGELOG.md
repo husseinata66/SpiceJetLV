@@ -14,6 +14,27 @@ record it; a redundant entry costs nothing, a silent gap defeats the point of th
 
 ---
 
+## 2026-10-17 — SeatMap sheet: Setup Group column
+
+User-mandated. Rather than rewriting the case-by-case sheet as long E2E scenarios — which would hide
+every check after the first failure, drop whole scenarios at the capability gate and coarsen the
+traceability — each case now names the booking it runs on.
+
+- **`TestCases_AncillariesSeatMap.xlsx`** gains a `Setup Group` column (T, appended after `Review`
+  so the Summary tab's letter-based formulas are unaffected). 124 cases in 19 numbered groups,
+  explained on the 'Before every test' tab. Group 01 (the default 1 adult + 1 child + 1 infant
+  one-way Economy booking) holds 63 cases; group 14 lets 15 confirmation, e-ticket, wallet and report
+  cases share one real booking.
+- **No existing test cell changed.** Capability-gate decisions are identical before and after for
+  flynas-ndc, air-sm-cairo and oman-air.
+- **Two stale spots fixed while there.** The Test Cases filter covered only A1:P80; it now covers
+  every column and row (A1:T125). The Summary tab's totals were typed numbers for 79 tests and its
+  pass/fail counts stopped at row 80; every total is now a formula over rows 2–2000 (124 tests
+  today), and the seven groups it was missing (Q, S, T, U, V, W, X) are listed.
+- `ExecutionFlow_HappyPath.md` §15.3: use the `Setup Group` column where a suite has one.
+
+---
+
 ## 2026-10-17 — Ancillaries: faster, cheaper execution
 
 User-mandated, **Ancillaries Feature only**. Runs were slow and token-heavy: one AI round trip per

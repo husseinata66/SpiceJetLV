@@ -418,6 +418,9 @@ Fill each passenger's details in **one `browser_fill_form` call**, not one call 
 - Before executing, **group the in-scope cases by the setup they need**: passenger mix, trip type
   (one-way, return, multi-city), cabin, bundle. Build one booking per group and run every case of
   that group on it before building the next.
+- **Where the suite has a `Setup Group` column, use it** instead of regrouping at run time. The
+  SeatMap sheet has one: groups are numbered in run order and explained on its 'Before every test'
+  tab. Within a group, change the fare package on step 1 rather than building a new booking.
 - **Start a fresh booking only when a case needs one:** it changes or cancels the booking, it needs a
   different setup, or an earlier case left the booking in a state its precondition rules out.
 - Record in each case's Notes which booking it ran on.
