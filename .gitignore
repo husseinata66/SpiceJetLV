@@ -35,6 +35,10 @@ lerna-debug.log*
 
 # Playwright MCP
 .playwright-mcp/
+# A screenshot saved with a bare file name lands in the repo root; evidence belongs in its run folder.
+/*.png
+/*.jpeg
+/*.webp
 
 # Playwright Outputs
 playwright-report/

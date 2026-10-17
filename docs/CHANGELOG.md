@@ -14,6 +14,20 @@ record it; a redundant entry costs nothing, a silent gap defeats the point of th
 
 ---
 
+## 2026-10-17 — Ancillaries: failure screenshots saved in each run's own folder
+
+User-mandated. Run-006's screenshots landed in the repo root because they were saved with bare file
+names, which Playwright MCP resolves against the workspace root.
+
+- **Each failure screenshot goes to**
+  `platform_core_data/runs/<run folder>/manual_execution/artifacts/failures/<Test Case ID>.png`,
+  passed as the full path. The folder is created by the run's first failure screenshot.
+  `supplier-features/ancillaries/context/ExecutionFlow_HappyPath.md` §11, rev 4.
+- **`.gitignore` ignores `/*.png`, `/*.jpeg`, `/*.webp`** at the repo root, so a stray screenshot
+  can never be committed again.
+
+---
+
 ## 2026-10-17 — Ancillaries: screenshots only for results that did not pass
 
 User-mandated, **Ancillaries Feature only**. The Flynas NDC SeatMap run (run-006) screenshotted

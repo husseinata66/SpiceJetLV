@@ -17,8 +17,9 @@
 **Feature:** Ancillaries (`ancillaries`)
 **Canonical location:** `platform_core_data/supplier-features/ancillaries/context/ExecutionFlow_HappyPath.md`
 **Status:** Draft — pending approval
-**Revision:** 3 — §11 screenshots only for results that did not pass (human decision, Mohanad
-Dawood, 2026-10-17). Rev 2 added §3.1 cabin × bundle coverage (2026-09-27)
+**Revision:** 4 — §11 failure screenshots saved in each run's own `failures/` folder (human
+decision, Mohanad Dawood, 2026-10-17). Rev 3 limited screenshots to results that did not pass
+(2026-10-17); rev 2 added §3.1 cabin × bundle coverage (2026-09-27)
 **Last Updated:** 2026-10-17
 **Related:** `CapabilityModel.md` (same folder) — governs every capability gate below.
 `FeatureChecklistProfile.md` (same folder) — the rows injected into a Supplier's Checklist.
@@ -318,6 +319,10 @@ unconnected sets — the configuration in Admin is what makes the Portal result 
 **Screenshots only for a result that did not pass** (human decision, Mohanad Dawood, 2026-10-17):
 
 - **`Failed`, `Blocked`, `Inconclusive`** — one screenshot showing the state that proves the result.
+- **Saved in the run's own failures folder:**
+  `platform_core_data/runs/<run folder>/manual_execution/artifacts/failures/<Test Case ID>.png`.
+  Always pass this full path as the screenshot `filename` — a bare name is saved in the repo root.
+  The folder is created by the run's first failure screenshot, so a run with no failures has none.
 - **`Passed`** — no screenshot. The items above are recorded as text, values, and network data in
   the result's Notes. A `Passed` case with no screenshot is not an evidence gap and needs no reason.
 - **No working screenshots.** To check where the browser is, read the page with `browser_snapshot`;
