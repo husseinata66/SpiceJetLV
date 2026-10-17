@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
   "activeRun": {
-    "folderName": "search-cabin-class-rbd-run-001__2026-10-11_10-20-20__Targeted__GalileoFeatures-IntegrationVsDirectSearch",
+    "folderName": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
     "index": 1,
-    "runOwner": "search-cabin-class-rbd",
-    "scope": "Targeted",
-    "target": "GalileoFeatures-IntegrationVsDirectSearch",
+    "runOwner": "credential-routes-filter",
+    "scope": "UserStory",
+    "target": "CredentialRoutesFilter-Update(US62039,US60737)",
     "status": "Preparing",
     "title": null,
-    "startedTime": "2026-10-11T07:20:20.494Z",
+    "startedTime": "2026-10-17T08:35:16.582Z",
     "stagesPresent": [],
-    "path": "platform_core_data/runs/search-cabin-class-rbd-run-001__2026-10-11_10-20-20__Targeted__GalileoFeatures-IntegrationVsDirectSearch"
+    "path": "platform_core_data/runs/credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)"
   },
-  "switchedAt": "2026-10-11T07:20:20.494Z",
+  "switchedAt": "2026-10-17T08:35:16.582Z",
   "setBy": "Run Manager",
-  "previousRun": null
+  "previousRun": "search-cabin-class-rbd-run-001__2026-10-11_10-20-20__Targeted__GalileoFeatures-IntegrationVsDirectSearch"
 }

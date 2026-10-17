@@ -1,0 +1,2194 @@
+{
+  "folderName": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+  "index": 1,
+  "runOwner": "credential-routes-filter",
+  "scope": "UserStory",
+  "target": "Credential Routes Filter - Update (US 62039, US 60737)",
+  "workflow": "unversioned",
+  "targetRef": "c5acc6a4c6cbde485de01e75691ce10d195100bf",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-10-17T08:35:16.582Z",
+  "targetRepoRoot": "E:/Projects/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at E:/Projects/agentic-ai-testing-platform",
+  "createdBy": "Run Manager",
+  "startedTime": "2026-10-17T08:35:16.582Z",
+  "stateSchemaVersion": 1,
+  "stateRevision": 45,
+  "status": "Running",
+  "statusReason": null,
+  "statusHistory": [
+    {
+      "at": "2026-10-17T08:35:16.582Z",
+      "from": null,
+      "to": "Preparing",
+      "by": "Run Manager",
+      "reason": "run created"
+    },
+    {
+      "at": "2026-10-17T08:36:25.411Z",
+      "from": "Preparing",
+      "to": "Running",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T08:39:09.279Z",
+      "from": "Running",
+      "to": "Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T08:53:50.620Z",
+      "from": "Waiting For Approval",
+      "to": "Running",
+      "by": "Ahmed Ayman",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T08:55:35.498Z",
+      "from": "Running",
+      "to": "Blocked",
+      "by": "Run Manager",
+      "reason": "Stage 2 Blocked: Browser login blocked: credentials.json has no environments.STG block; its active environment 'ODEYSYS' is not a known environment in the safety policy (preflight SP-2 refused). Needs a human to add an STG entry or a policy alias."
+    },
+    {
+      "at": "2026-10-17T09:00:26.540Z",
+      "from": "Blocked",
+      "to": "Running",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T09:00:33.962Z",
+      "from": "Running",
+      "to": "Blocked",
+      "by": "Run Manager",
+      "reason": "Stage 2 Blocked: credentials.json has no environments.UAT block (policy alias UAT added; preflight SP-4 confirmed). Waiting for the human to add the UAT credentials entry."
+    },
+    {
+      "at": "2026-10-17T09:01:43.954Z",
+      "from": "Blocked",
+      "to": "Running",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T09:24:18.284Z",
+      "from": "Running",
+      "to": "Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T09:37:58.273Z",
+      "from": "Waiting For Approval",
+      "to": "Blocked",
+      "by": "Ahmed Ayman",
+      "reason": "Stage 2 Blocked: Rejected by Ahmed Ayman: Revision requested 2026-10-17: Q1 'جربها انت' (try the at-limit behaviour), Q2 'جربها انت' (post-response filter), Q3 'شوف انت' (Blacklist airline in request); Q8: Cancel should return to the Credential Routes search list"
+    },
+    {
+      "at": "2026-10-17T09:37:58.366Z",
+      "from": "Blocked",
+      "to": "Running",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T09:42:55.689Z",
+      "from": "Running",
+      "to": "Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T09:46:31.808Z",
+      "from": "Waiting For Approval",
+      "to": "Blocked",
+      "by": "Ahmed Ayman",
+      "reason": "Stage 2 Blocked: Rejected by Ahmed Ayman: Revision requested 2026-10-17: verify whether any supplier has type 'Both' (2) — 'اتاكد'"
+    },
+    {
+      "at": "2026-10-17T09:46:47.512Z",
+      "from": "Blocked",
+      "to": "Running",
+      "by": "Ahmed Ayman",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T09:46:47.615Z",
+      "from": "Running",
+      "to": "Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T09:46:54.115Z",
+      "from": "Waiting For Approval",
+      "to": "Blocked",
+      "by": "Ahmed Ayman",
+      "reason": "Stage 2 Blocked: Entry gate: Stage 1 is Waiting For Approval in this run · credential-routes-filter: Stage 1 modules/credential-routes-filter/context/ProjectContext.md — approval was requested in run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737) (Stage 1) and is still open — record the reviewer's decision there first"
+    },
+    {
+      "at": "2026-10-17T09:46:54.247Z",
+      "from": "Blocked",
+      "to": "Running",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T09:48:36.760Z",
+      "from": "Running",
+      "to": "Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T09:57:23.045Z",
+      "from": "Waiting For Approval",
+      "to": "Running",
+      "by": "Ahmed Ayman",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T09:57:23.200Z",
+      "from": "Running",
+      "to": "Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T09:58:27.848Z",
+      "from": "Waiting For Approval",
+      "to": "Running",
+      "by": "Ahmed Ayman",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T09:58:41.259Z",
+      "from": "Running",
+      "to": "Blocked",
+      "by": "Run Manager",
+      "reason": "Stage 3 Blocked: Entry gate: credential-routes-filter: Stage 2 (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) was built on modules/credential-routes-filter/context/ProjectContext.md, which it consumed at 2026-10-17T09:46:54.247Z as dce5efeb332d and which is now 85efeacbe3ce — the stage's output describes the earlier version, whatever that artifact's approval says now (re-run Stage 2, or accept it with --accept-stale-by \"<name>\") · credential-routes-filter: Stage 2 (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) was built on modules/credential-routes-filter/context/ProjectContext.md, which was re-approved by Ahmed Ayman at 2026-10-17T09:57:23.313Z (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)), after the stage started (2026-10-17T09:46:54.247Z) (re-run Stage 2, or accept it with --accept-stale-by \"<name>\")"
+    },
+    {
+      "at": "2026-10-17T09:58:50.149Z",
+      "from": "Blocked",
+      "to": "Running",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T10:04:07.511Z",
+      "from": "Running",
+      "to": "Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null
+    },
+    {
+      "at": "2026-10-17T10:09:38.371Z",
+      "from": "Waiting For Approval",
+      "to": "Running",
+      "by": "Ahmed Ayman",
+      "reason": null
+    }
+  ],
+  "stages": {
+    "1": {
+      "stageId": "1",
+      "name": "Stage 1 — Project Context",
+      "checkpoint": "Human Review",
+      "status": "Completed",
+      "startedAt": "2026-10-17T08:36:25.411Z",
+      "lastStartedAt": "2026-10-17T09:57:23.045Z",
+      "completedAt": "2026-10-17T09:57:23.313Z",
+      "updatedAt": "2026-10-17T09:57:23.313Z",
+      "attempts": 3,
+      "resumes": 0,
+      "revisions": 2,
+      "invocationPath": "Pipeline",
+      "instruction": null,
+      "artifacts": [
+        {
+          "path": "platform_core_data/modules/credential-routes-filter/context/ProjectContext.md",
+          "kind": "checkpoint",
+          "recordedAt": "2026-10-17T08:39:09.176Z"
+        },
+        {
+          "path": "platform_core_data/modules/ApplicationContext.md",
+          "kind": "output",
+          "recordedAt": "2026-10-17T08:39:09.176Z"
+        },
+        {
+          "path": "platform_core_data/knowledge_base/PRD_UserStories.md",
+          "kind": "output",
+          "recordedAt": "2026-10-17T08:39:09.176Z"
+        }
+      ],
+      "reason": null,
+      "approval": {
+        "status": "Approved",
+        "approvedBy": "Ahmed Ayman",
+        "approvedAt": "2026-10-17T09:57:23.313Z",
+        "rejectedBy": null,
+        "rejectedAt": null,
+        "feedback": null,
+        "headerEvidence": [
+          {
+            "path": "platform_core_data/modules/credential-routes-filter/context/ProjectContext.md",
+            "status": "Approved",
+            "raw": "**Approved** — Revision 3: Ahmed Ayman (ahmed.ayman@tildetech.ae), 2026-10-17, by answering the Discovery open questions (change `CR-1`). Revisions 1–2: Ahmed Ayman, 2026-10-17, Stage 1 gate",
+            "source": "markdown-table",
+            "sha256": "85efeacbe3ce39ea9a8a907a942692e8412eab27b1b38848b2fdcff4a321d0b8"
+          }
+        ],
+        "previous": [
+          {
+            "status": "Approved",
+            "approvedBy": "Ahmed Ayman",
+            "approvedAt": "2026-10-17T08:53:50.620Z",
+            "rejectedBy": null,
+            "rejectedAt": null,
+            "feedback": null,
+            "headerEvidence": [
+              {
+                "path": "platform_core_data/modules/credential-routes-filter/context/ProjectContext.md",
+                "status": "Approved",
+                "raw": "**Approved** — Ahmed Ayman (ahmed.ayman@tildetech.ae), 2026-10-17, at the Stage 1 gate, by the directive *\"explore on env 70 … explore and design TCs only\"*. Open at approval: `ASM-CRF-9` and the other assumptions in §6 — to be settled from Discovery evidence (user: *\"once you finished set any thing as you found\"*); `PO-CRF-6`, `PO-CRF-7`, `PO-CRF-9` deferred to before execution",
+                "source": "markdown-table",
+                "sha256": "2c273c032fe792fdbd924aa31e5a902f05c9f4272179b9605494fe131f753b4d"
+              }
+            ],
+            "reopenedAt": "2026-10-17T09:46:47.512Z",
+            "reopenedBy": "Ahmed Ayman",
+            "reopenReason": "Revision 3 from the user's answers at the Discovery gate (change CR-1, impact IA-5e60e97564c3)"
+          },
+          {
+            "status": "Approved",
+            "approvedBy": "Ahmed Ayman",
+            "approvedAt": "2026-10-17T09:46:54.115Z",
+            "rejectedBy": null,
+            "rejectedAt": null,
+            "feedback": null,
+            "headerEvidence": [
+              {
+                "path": "platform_core_data/modules/credential-routes-filter/context/ProjectContext.md",
+                "status": "Approved",
+                "raw": "**Approved** — Revision 3: Ahmed Ayman (ahmed.ayman@tildetech.ae), 2026-10-17, by answering the Discovery open questions (change `CR-1`). Revisions 1–2: Ahmed Ayman, 2026-10-17, Stage 1 gate",
+                "source": "markdown-table",
+                "sha256": "dce5efeb332ddcaee8a081a73b30914ba97345bddbdfbb892aafdfaa59d9f769"
+              }
+            ],
+            "reopenedAt": "2026-10-17T09:57:23.045Z",
+            "reopenedBy": "Ahmed Ayman",
+            "reopenReason": "PO-CRF-16 added (change CR-3)"
+          }
+        ]
+      },
+      "history": [
+        {
+          "at": "2026-10-17T08:36:25.411Z",
+          "from": "Not Started",
+          "to": "Running",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T08:39:09.279Z",
+          "from": "Running",
+          "to": "Waiting For Approval",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T08:53:50.620Z",
+          "from": "Waiting For Approval",
+          "to": "Completed",
+          "by": "Ahmed Ayman",
+          "reason": "approved"
+        },
+        {
+          "at": "2026-10-17T09:46:47.512Z",
+          "from": "Completed",
+          "to": "Running",
+          "by": "Ahmed Ayman",
+          "reason": "Revision 3 from the user's answers at the Discovery gate (change CR-1, impact IA-5e60e97564c3)"
+        },
+        {
+          "at": "2026-10-17T09:46:47.615Z",
+          "from": "Running",
+          "to": "Waiting For Approval",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T09:46:54.115Z",
+          "from": "Waiting For Approval",
+          "to": "Completed",
+          "by": "Ahmed Ayman",
+          "reason": "approved"
+        },
+        {
+          "at": "2026-10-17T09:57:23.045Z",
+          "from": "Completed",
+          "to": "Running",
+          "by": "Ahmed Ayman",
+          "reason": "PO-CRF-16 added (change CR-3)"
+        },
+        {
+          "at": "2026-10-17T09:57:23.200Z",
+          "from": "Running",
+          "to": "Waiting For Approval",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T09:57:23.313Z",
+          "from": "Waiting For Approval",
+          "to": "Completed",
+          "by": "Ahmed Ayman",
+          "reason": "approved"
+        }
+      ],
+      "entryGate": {
+        "decision": "proceed",
+        "checkedAt": "2026-10-17T09:57:23.045Z",
+        "invocationPath": "Pipeline",
+        "scope": [],
+        "gaps": [],
+        "warnings": [],
+        "checks": []
+      },
+      "entryGateHistory": [
+        {
+          "decision": "proceed",
+          "checkedAt": "2026-10-17T08:36:25.411Z",
+          "invocationPath": "Pipeline",
+          "scope": [],
+          "gaps": [],
+          "warnings": [],
+          "checks": []
+        },
+        {
+          "decision": "proceed",
+          "checkedAt": "2026-10-17T09:46:47.512Z",
+          "invocationPath": "Pipeline",
+          "scope": [],
+          "gaps": [],
+          "warnings": [],
+          "checks": []
+        },
+        {
+          "decision": "proceed",
+          "checkedAt": "2026-10-17T09:57:23.045Z",
+          "invocationPath": "Pipeline",
+          "scope": [],
+          "gaps": [],
+          "warnings": [],
+          "checks": []
+        }
+      ]
+    },
+    "2": {
+      "stageId": "2",
+      "name": "Stage 2 — Discovery",
+      "checkpoint": "Human Review",
+      "status": "Completed",
+      "startedAt": "2026-10-17T08:54:25.520Z",
+      "lastStartedAt": "2026-10-17T09:46:54.247Z",
+      "completedAt": "2026-10-17T09:58:27.848Z",
+      "updatedAt": "2026-10-17T09:58:27.848Z",
+      "attempts": 5,
+      "resumes": 0,
+      "revisions": 2,
+      "invocationPath": "Pipeline",
+      "instruction": null,
+      "artifacts": [
+        {
+          "path": "platform_core_data/modules/credential-routes-filter/discovery/QA_Assessment_Report.md",
+          "kind": "checkpoint",
+          "recordedAt": "2026-10-17T09:24:18.192Z"
+        },
+        {
+          "path": "platform_core_data/modules/credential-routes-filter/discovery/Timeline.md",
+          "kind": "output",
+          "recordedAt": "2026-10-17T09:24:18.192Z"
+        },
+        {
+          "path": "platform_core_data/modules/credential-routes-filter/discovery/Coverage_Summary.md",
+          "kind": "output",
+          "recordedAt": "2026-10-17T09:24:18.192Z"
+        },
+        {
+          "path": "platform_core_data/modules/credential-routes-filter/discovery/findings/Findings_Summary.md",
+          "kind": "output",
+          "recordedAt": "2026-10-17T09:24:18.192Z"
+        },
+        {
+          "path": "platform_core_data/modules/credential-routes-filter/discovery/CredentialRoutesFilter_List.md",
+          "kind": "output",
+          "recordedAt": "2026-10-17T09:24:18.192Z"
+        },
+        {
+          "path": "platform_core_data/modules/credential-routes-filter/discovery/CredentialRoutesFilter_AddEdit.md",
+          "kind": "output",
+          "recordedAt": "2026-10-17T09:24:18.192Z"
+        }
+      ],
+      "reason": null,
+      "approval": {
+        "status": "Approved",
+        "approvedBy": "Ahmed Ayman",
+        "approvedAt": "2026-10-17T09:58:27.848Z",
+        "rejectedBy": null,
+        "rejectedAt": null,
+        "feedback": null,
+        "headerEvidence": [
+          {
+            "path": "platform_core_data/modules/credential-routes-filter/discovery/QA_Assessment_Report.md",
+            "status": "Approved",
+            "raw": "**Approved** — Ahmed Ayman (ahmed.ayman@tildetech.ae), 2026-10-17, at the Stage 2 gate. Open items carried to Stage 3 as exploratory: OQ-D6 (part), `ASM-CRF-4`",
+            "source": "markdown-table",
+            "sha256": "01aacb1b4c40593043b35bb1e948053b75dcac044004ab189c1e07c3f0096949"
+          }
+        ],
+        "previous": []
+      },
+      "history": [
+        {
+          "at": "2026-10-17T08:54:25.520Z",
+          "from": "Not Started",
+          "to": "Running",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T08:55:35.498Z",
+          "from": "Running",
+          "to": "Blocked",
+          "by": "Run Manager",
+          "reason": "Browser login blocked: credentials.json has no environments.STG block; its active environment 'ODEYSYS' is not a known environment in the safety policy (preflight SP-2 refused). Needs a human to add an STG entry or a policy alias."
+        },
+        {
+          "at": "2026-10-17T09:00:26.540Z",
+          "from": "Blocked",
+          "to": "Running",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T09:00:33.962Z",
+          "from": "Running",
+          "to": "Blocked",
+          "by": "Run Manager",
+          "reason": "credentials.json has no environments.UAT block (policy alias UAT added; preflight SP-4 confirmed). Waiting for the human to add the UAT credentials entry."
+        },
+        {
+          "at": "2026-10-17T09:01:43.954Z",
+          "from": "Blocked",
+          "to": "Running",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T09:24:18.284Z",
+          "from": "Running",
+          "to": "Waiting For Approval",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T09:37:58.273Z",
+          "from": "Waiting For Approval",
+          "to": "Blocked",
+          "by": "Ahmed Ayman",
+          "reason": "Rejected by Ahmed Ayman: Revision requested 2026-10-17: Q1 'جربها انت' (try the at-limit behaviour), Q2 'جربها انت' (post-response filter), Q3 'شوف انت' (Blacklist airline in request); Q8: Cancel should return to the Credential Routes search list"
+        },
+        {
+          "at": "2026-10-17T09:37:58.366Z",
+          "from": "Blocked",
+          "to": "Running",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T09:42:55.689Z",
+          "from": "Running",
+          "to": "Waiting For Approval",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T09:46:31.808Z",
+          "from": "Waiting For Approval",
+          "to": "Blocked",
+          "by": "Ahmed Ayman",
+          "reason": "Rejected by Ahmed Ayman: Revision requested 2026-10-17: verify whether any supplier has type 'Both' (2) — 'اتاكد'"
+        },
+        {
+          "at": "2026-10-17T09:46:31.917Z",
+          "from": "Blocked",
+          "to": "Blocked",
+          "by": "Run Manager",
+          "reason": "Entry gate: credential-routes-filter: Stage 1 modules/credential-routes-filter/context/ProjectContext.md — changed after it was approved by Ahmed Ayman at 2026-10-17T08:53:50.620Z (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) — it must pass its gate again",
+          "event": "entry gate re-check"
+        },
+        {
+          "at": "2026-10-17T09:46:40.291Z",
+          "from": "Blocked",
+          "to": "Blocked",
+          "by": "Run Manager",
+          "reason": "Entry gate: credential-routes-filter: Stage 1 modules/credential-routes-filter/context/ProjectContext.md — changed after it was approved by Ahmed Ayman at 2026-10-17T08:53:50.620Z (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) — it must pass its gate again",
+          "event": "entry gate re-check"
+        },
+        {
+          "at": "2026-10-17T09:46:47.857Z",
+          "from": "Blocked",
+          "to": "Blocked",
+          "by": "Run Manager",
+          "reason": "Entry gate: Stage 1 is Waiting For Approval in this run · credential-routes-filter: Stage 1 modules/credential-routes-filter/context/ProjectContext.md — approval was requested in run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737) (Stage 1) and is still open — record the reviewer's decision there first",
+          "event": "entry gate re-check"
+        },
+        {
+          "at": "2026-10-17T09:46:54.247Z",
+          "from": "Blocked",
+          "to": "Running",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T09:48:36.760Z",
+          "from": "Running",
+          "to": "Waiting For Approval",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T09:58:27.848Z",
+          "from": "Waiting For Approval",
+          "to": "Completed",
+          "by": "Ahmed Ayman",
+          "reason": "approved"
+        }
+      ],
+      "entryGate": {
+        "decision": "proceed",
+        "checkedAt": "2026-10-17T09:46:54.247Z",
+        "invocationPath": "Pipeline",
+        "scope": [
+          "credential-routes-filter"
+        ],
+        "gaps": [],
+        "warnings": [],
+        "checks": [
+          {
+            "stage": "1",
+            "scope": "credential-routes-filter",
+            "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+            "result": "ok",
+            "integrity": "verified"
+          }
+        ]
+      },
+      "entryGateHistory": [
+        {
+          "decision": "proceed",
+          "checkedAt": "2026-10-17T08:54:25.520Z",
+          "invocationPath": "Pipeline",
+          "scope": [
+            "credential-routes-filter"
+          ],
+          "gaps": [],
+          "warnings": [],
+          "checks": [
+            {
+              "stage": "1",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "ok",
+              "integrity": "verified"
+            }
+          ]
+        },
+        {
+          "decision": "proceed",
+          "checkedAt": "2026-10-17T09:00:26.540Z",
+          "invocationPath": "Pipeline",
+          "scope": [
+            "credential-routes-filter"
+          ],
+          "gaps": [],
+          "warnings": [],
+          "checks": [
+            {
+              "stage": "1",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "ok",
+              "integrity": "verified"
+            }
+          ]
+        },
+        {
+          "decision": "proceed",
+          "checkedAt": "2026-10-17T09:01:43.954Z",
+          "invocationPath": "Pipeline",
+          "scope": [
+            "credential-routes-filter"
+          ],
+          "gaps": [],
+          "warnings": [],
+          "checks": [
+            {
+              "stage": "1",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "ok",
+              "integrity": "verified"
+            }
+          ]
+        },
+        {
+          "decision": "proceed",
+          "checkedAt": "2026-10-17T09:37:58.366Z",
+          "invocationPath": "Pipeline",
+          "scope": [
+            "credential-routes-filter"
+          ],
+          "gaps": [],
+          "warnings": [],
+          "checks": [
+            {
+              "stage": "1",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "ok",
+              "integrity": "verified"
+            }
+          ]
+        },
+        {
+          "decision": "blocked",
+          "checkedAt": "2026-10-17T09:46:31.917Z",
+          "invocationPath": "Pipeline",
+          "scope": [
+            "credential-routes-filter"
+          ],
+          "blockers": [
+            "credential-routes-filter: Stage 1 modules/credential-routes-filter/context/ProjectContext.md — changed after it was approved by Ahmed Ayman at 2026-10-17T08:53:50.620Z (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) — it must pass its gate again"
+          ],
+          "gaps": [],
+          "warnings": [],
+          "checks": [
+            {
+              "stage": "1",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "modified",
+              "integrity": "mismatch"
+            }
+          ]
+        },
+        {
+          "decision": "blocked",
+          "checkedAt": "2026-10-17T09:46:40.291Z",
+          "invocationPath": "Pipeline",
+          "scope": [
+            "credential-routes-filter"
+          ],
+          "blockers": [
+            "credential-routes-filter: Stage 1 modules/credential-routes-filter/context/ProjectContext.md — changed after it was approved by Ahmed Ayman at 2026-10-17T08:53:50.620Z (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) — it must pass its gate again"
+          ],
+          "gaps": [],
+          "warnings": [],
+          "checks": [
+            {
+              "stage": "1",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "modified",
+              "integrity": "mismatch"
+            }
+          ]
+        },
+        {
+          "decision": "blocked",
+          "checkedAt": "2026-10-17T09:46:47.857Z",
+          "invocationPath": "Pipeline",
+          "scope": [
+            "credential-routes-filter"
+          ],
+          "blockers": [
+            "Stage 1 is Waiting For Approval in this run",
+            "credential-routes-filter: Stage 1 modules/credential-routes-filter/context/ProjectContext.md — approval was requested in run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737) (Stage 1) and is still open — record the reviewer's decision there first"
+          ],
+          "gaps": [],
+          "warnings": [],
+          "checks": [
+            {
+              "stage": "1",
+              "scope": "this run",
+              "result": "in-progress"
+            },
+            {
+              "stage": "1",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "pending",
+              "integrity": "open-review"
+            }
+          ]
+        },
+        {
+          "decision": "proceed",
+          "checkedAt": "2026-10-17T09:46:54.247Z",
+          "invocationPath": "Pipeline",
+          "scope": [
+            "credential-routes-filter"
+          ],
+          "gaps": [],
+          "warnings": [],
+          "checks": [
+            {
+              "stage": "1",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "ok",
+              "integrity": "verified"
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "stageId": "3",
+      "name": "Stage 3 — Test Design",
+      "checkpoint": "Human Review",
+      "status": "Completed",
+      "startedAt": "2026-10-17T09:58:50.149Z",
+      "lastStartedAt": "2026-10-17T09:58:50.149Z",
+      "completedAt": "2026-10-17T10:09:38.371Z",
+      "updatedAt": "2026-10-17T10:09:38.371Z",
+      "attempts": 1,
+      "resumes": 0,
+      "revisions": 0,
+      "invocationPath": "Pipeline",
+      "instruction": null,
+      "artifacts": [
+        {
+          "path": "platform_core_data/modules/credential-routes-filter/test_design/TestCases_CredentialRoutesFilter.md",
+          "kind": "checkpoint",
+          "recordedAt": "2026-10-17T10:04:07.413Z"
+        },
+        {
+          "path": "platform_core_data/modules/credential-routes-filter/test_design/TestCases_CredentialRoutesFilter.xlsx",
+          "kind": "output",
+          "recordedAt": "2026-10-17T10:04:07.413Z"
+        },
+        {
+          "path": "platform_core_data/modules/credential-routes-filter/test_design/TraceabilityMatrix.md",
+          "kind": "output",
+          "recordedAt": "2026-10-17T10:04:07.413Z"
+        },
+        {
+          "path": "platform_core_data/modules/credential-routes-filter/test_design/CoverageReport.md",
+          "kind": "output",
+          "recordedAt": "2026-10-17T10:04:07.413Z"
+        }
+      ],
+      "reason": null,
+      "approval": {
+        "status": "Approved",
+        "approvedBy": "Ahmed Ayman",
+        "approvedAt": "2026-10-17T10:09:38.371Z",
+        "rejectedBy": null,
+        "rejectedAt": null,
+        "feedback": null,
+        "headerEvidence": [
+          {
+            "path": "platform_core_data/modules/credential-routes-filter/test_design/TestCases_CredentialRoutesFilter.md",
+            "status": "Approved",
+            "raw": "**Approved** — Ahmed Ayman (ahmed.ayman@tildetech.ae), 2026-10-17, Stage 3 gate: all 26 cases reviewed and accepted. No automation decision made yet",
+            "source": "markdown-table",
+            "sha256": "14920d4741ab2932e7bff8ad2e5dd2f8138cfffad07d81c1841993bcf59859d2"
+          }
+        ],
+        "previous": []
+      },
+      "history": [
+        {
+          "at": "2026-10-17T09:58:41.259Z",
+          "from": "Not Started",
+          "to": "Blocked",
+          "by": "Run Manager",
+          "reason": "Entry gate: credential-routes-filter: Stage 2 (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) was built on modules/credential-routes-filter/context/ProjectContext.md, which it consumed at 2026-10-17T09:46:54.247Z as dce5efeb332d and which is now 85efeacbe3ce — the stage's output describes the earlier version, whatever that artifact's approval says now (re-run Stage 2, or accept it with --accept-stale-by \"<name>\") · credential-routes-filter: Stage 2 (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) was built on modules/credential-routes-filter/context/ProjectContext.md, which was re-approved by Ahmed Ayman at 2026-10-17T09:57:23.313Z (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)), after the stage started (2026-10-17T09:46:54.247Z) (re-run Stage 2, or accept it with --accept-stale-by \"<name>\")"
+        },
+        {
+          "at": "2026-10-17T09:58:50.149Z",
+          "from": "Blocked",
+          "to": "Running",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T10:04:07.511Z",
+          "from": "Running",
+          "to": "Waiting For Approval",
+          "by": "Run Manager",
+          "reason": null
+        },
+        {
+          "at": "2026-10-17T10:09:38.371Z",
+          "from": "Waiting For Approval",
+          "to": "Completed",
+          "by": "Ahmed Ayman",
+          "reason": "approved"
+        }
+      ],
+      "entryGate": {
+        "decision": "proceed",
+        "checkedAt": "2026-10-17T09:58:50.149Z",
+        "invocationPath": "Pipeline",
+        "scope": [
+          "credential-routes-filter"
+        ],
+        "acceptedStaleBy": "Ahmed Ayman",
+        "gaps": [],
+        "warnings": [],
+        "checks": [
+          {
+            "stage": "1",
+            "scope": "credential-routes-filter",
+            "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+            "result": "ok",
+            "integrity": "verified"
+          },
+          {
+            "stage": "2",
+            "scope": "credential-routes-filter",
+            "artifact": "modules/credential-routes-filter/discovery/QA_Assessment_Report.md",
+            "result": "ok",
+            "integrity": "verified"
+          },
+          {
+            "stage": "2",
+            "scope": "credential-routes-filter",
+            "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+            "result": "stale-accepted"
+          },
+          {
+            "stage": "2",
+            "scope": "credential-routes-filter",
+            "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+            "result": "stale-accepted"
+          }
+        ]
+      },
+      "entryGateHistory": [
+        {
+          "decision": "blocked",
+          "checkedAt": "2026-10-17T09:58:41.259Z",
+          "invocationPath": "Pipeline",
+          "scope": [
+            "credential-routes-filter"
+          ],
+          "blockers": [
+            "credential-routes-filter: Stage 2 (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) was built on modules/credential-routes-filter/context/ProjectContext.md, which it consumed at 2026-10-17T09:46:54.247Z as dce5efeb332d and which is now 85efeacbe3ce — the stage's output describes the earlier version, whatever that artifact's approval says now (re-run Stage 2, or accept it with --accept-stale-by \"<name>\")",
+            "credential-routes-filter: Stage 2 (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) was built on modules/credential-routes-filter/context/ProjectContext.md, which was re-approved by Ahmed Ayman at 2026-10-17T09:57:23.313Z (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)), after the stage started (2026-10-17T09:46:54.247Z) (re-run Stage 2, or accept it with --accept-stale-by \"<name>\")"
+          ],
+          "gaps": [],
+          "warnings": [],
+          "checks": [
+            {
+              "stage": "1",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "ok",
+              "integrity": "verified"
+            },
+            {
+              "stage": "2",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/discovery/QA_Assessment_Report.md",
+              "result": "ok",
+              "integrity": "verified"
+            },
+            {
+              "stage": "2",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "stale"
+            },
+            {
+              "stage": "2",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "stale"
+            }
+          ]
+        },
+        {
+          "decision": "proceed",
+          "checkedAt": "2026-10-17T09:58:50.149Z",
+          "invocationPath": "Pipeline",
+          "scope": [
+            "credential-routes-filter"
+          ],
+          "acceptedStaleBy": "Ahmed Ayman",
+          "gaps": [],
+          "warnings": [],
+          "checks": [
+            {
+              "stage": "1",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "ok",
+              "integrity": "verified"
+            },
+            {
+              "stage": "2",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/discovery/QA_Assessment_Report.md",
+              "result": "ok",
+              "integrity": "verified"
+            },
+            {
+              "stage": "2",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "stale-accepted"
+            },
+            {
+              "stage": "2",
+              "scope": "credential-routes-filter",
+              "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+              "result": "stale-accepted"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "stateEventSeq": 42,
+  "stateEvents": [
+    {
+      "seq": 1,
+      "at": "2026-10-17T08:36:25.411Z",
+      "stageId": "1",
+      "stage": "Stage 1 — Project Context",
+      "transition": "Stage 1: Not Started → Running (Pipeline); run Preparing → Running",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 2,
+      "at": "2026-10-17T08:39:09.279Z",
+      "stageId": "1",
+      "stage": "Stage 1 — Project Context",
+      "transition": "Stage 1: Running → Waiting For Approval (Pending Review); run Running → Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 3,
+      "at": "2026-10-17T08:53:50.620Z",
+      "stageId": "1",
+      "stage": "Stage 1 — Project Context",
+      "transition": "Stage 1: Waiting For Approval → Completed (Approved); run Waiting For Approval → Running",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 4,
+      "at": "2026-10-17T08:54:25.520Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: Not Started → Running (Pipeline)",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 5,
+      "at": "2026-10-17T08:55:02.822Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "Stage 2: Safety Preflight SP-1 confirmed (Staging, browser Headless)",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 6,
+      "at": "2026-10-17T08:55:30.014Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "Stage 2: Safety Preflight SP-2 refused — 1 reason(s)",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 7,
+      "at": "2026-10-17T08:55:35.498Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: Running → Blocked; run Running → Blocked",
+      "by": "Run Manager",
+      "reason": "Browser login blocked: credentials.json has no environments.STG block; its active environment 'ODEYSYS' is not a known environment in the safety policy (preflight SP-2 refused). Needs a human to add an STG entry or a policy alias.",
+      "runStatus": "Blocked"
+    },
+    {
+      "seq": 8,
+      "at": "2026-10-17T09:00:06.513Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "Stage 2: Safety Preflight SP-3 refused — 1 reason(s)",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Blocked"
+    },
+    {
+      "seq": 9,
+      "at": "2026-10-17T09:00:26.540Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: Blocked → Running (Pipeline); run Blocked → Running",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 10,
+      "at": "2026-10-17T09:00:26.663Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "Stage 2: Safety Preflight SP-4 confirmed (Staging, browser Headless)",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 11,
+      "at": "2026-10-17T09:00:33.962Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: Running → Blocked; run Running → Blocked",
+      "by": "Run Manager",
+      "reason": "credentials.json has no environments.UAT block (policy alias UAT added; preflight SP-4 confirmed). Waiting for the human to add the UAT credentials entry.",
+      "runStatus": "Blocked"
+    },
+    {
+      "seq": 12,
+      "at": "2026-10-17T09:01:43.954Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: Blocked → Running (Pipeline); run Blocked → Running",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 13,
+      "at": "2026-10-17T09:24:18.284Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: Running → Waiting For Approval (Pending Review); run Running → Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 14,
+      "at": "2026-10-17T09:37:43.246Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "Stage 2: Safety Preflight SP-5 confirmed (Staging, browser Headless)",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 15,
+      "at": "2026-10-17T09:37:49.867Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "Stage 2: Safety Preflight SP-6 confirmed (Staging, browser Headless)",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 16,
+      "at": "2026-10-17T09:37:58.273Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: Waiting For Approval → Blocked (Rejected); run Waiting For Approval → Blocked",
+      "by": "Ahmed Ayman",
+      "reason": "Revision requested 2026-10-17: Q1 'جربها انت' (try the at-limit behaviour), Q2 'جربها انت' (post-response filter), Q3 'شوف انت' (Blacklist airline in request); Q8: Cancel should return to the Credential Routes search list",
+      "runStatus": "Blocked"
+    },
+    {
+      "seq": 17,
+      "at": "2026-10-17T09:37:58.366Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: Blocked → Running (Pipeline); run Blocked → Running",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 18,
+      "at": "2026-10-17T09:37:58.484Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "Stage 2: Safety Preflight SP-7 confirmed (Staging, browser Headless)",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 19,
+      "at": "2026-10-17T09:41:03.268Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "impact CR-1 approved for modules/credential-routes-filter/context/ProjectContext.md (blocking)",
+      "by": "Ahmed Ayman",
+      "reason": "User answers 2026-10-17: AC 2 applies to all GDS suppliers incl. NDCGal/Amadeus NDC/Sabre NDC (Q6 'اه هيتطبق عليهم'); AC 2 applies to Admin and Portal (Q5); several airlines sent together (Q4 'تقريبا اه'); no approval on this screen (Q7)",
+      "runStatus": "Running"
+    },
+    {
+      "seq": 20,
+      "at": "2026-10-17T09:42:55.689Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: Running → Waiting For Approval (Pending Review); run Running → Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 21,
+      "at": "2026-10-17T09:46:31.808Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: Waiting For Approval → Blocked (Rejected); run Waiting For Approval → Blocked",
+      "by": "Ahmed Ayman",
+      "reason": "Revision requested 2026-10-17: verify whether any supplier has type 'Both' (2) — 'اتاكد'",
+      "runStatus": "Blocked"
+    },
+    {
+      "seq": 22,
+      "at": "2026-10-17T09:46:31.917Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: entry gate blocked again (stays Blocked)",
+      "by": "Run Manager",
+      "reason": "credential-routes-filter: Stage 1 modules/credential-routes-filter/context/ProjectContext.md — changed after it was approved by Ahmed Ayman at 2026-10-17T08:53:50.620Z (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) — it must pass its gate again",
+      "runStatus": "Blocked"
+    },
+    {
+      "seq": 23,
+      "at": "2026-10-17T09:46:32.085Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "Stage 2: Safety Preflight SP-8 confirmed (Staging, browser Headless)",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Blocked"
+    },
+    {
+      "seq": 24,
+      "at": "2026-10-17T09:46:40.291Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: entry gate blocked again (stays Blocked)",
+      "by": "Run Manager",
+      "reason": "credential-routes-filter: Stage 1 modules/credential-routes-filter/context/ProjectContext.md — changed after it was approved by Ahmed Ayman at 2026-10-17T08:53:50.620Z (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) — it must pass its gate again",
+      "runStatus": "Blocked"
+    },
+    {
+      "seq": 25,
+      "at": "2026-10-17T09:46:47.512Z",
+      "stageId": "1",
+      "stage": "Stage 1 — Project Context",
+      "transition": "Stage 1: Completed → Running (reopened); run Blocked → Running",
+      "by": "Ahmed Ayman",
+      "reason": "Revision 3 from the user's answers at the Discovery gate (change CR-1, impact IA-5e60e97564c3)",
+      "runStatus": "Running"
+    },
+    {
+      "seq": 26,
+      "at": "2026-10-17T09:46:47.615Z",
+      "stageId": "1",
+      "stage": "Stage 1 — Project Context",
+      "transition": "Stage 1: Running → Waiting For Approval (Pending Review); run Running → Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 27,
+      "at": "2026-10-17T09:46:47.857Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: entry gate blocked again (stays Blocked)",
+      "by": "Run Manager",
+      "reason": "Stage 1 is Waiting For Approval in this run · credential-routes-filter: Stage 1 modules/credential-routes-filter/context/ProjectContext.md — approval was requested in run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737) (Stage 1) and is still open — record the reviewer's decision there first",
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 28,
+      "at": "2026-10-17T09:46:47.989Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "Stage 2: Safety Preflight SP-9 confirmed (Staging, browser Headless)",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 29,
+      "at": "2026-10-17T09:46:53.655Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "impact CR-2 approved for modules/credential-routes-filter/context/ProjectContext.md (blocking)",
+      "by": "Ahmed Ayman",
+      "reason": "Final Revision 3 content of change CR-1 (user answers at the Discovery gate, 2026-10-17)",
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 30,
+      "at": "2026-10-17T09:46:54.115Z",
+      "stageId": "1",
+      "stage": "Stage 1 — Project Context",
+      "transition": "Stage 1: Waiting For Approval → Completed (Approved); run Waiting For Approval → Blocked",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Blocked"
+    },
+    {
+      "seq": 31,
+      "at": "2026-10-17T09:46:54.247Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: Blocked → Running (Pipeline); run Blocked → Running",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 32,
+      "at": "2026-10-17T09:46:54.376Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "Stage 2: Safety Preflight SP-10 confirmed (Staging, browser Headless)",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 33,
+      "at": "2026-10-17T09:48:36.760Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: Running → Waiting For Approval (Pending Review); run Running → Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 34,
+      "at": "2026-10-17T09:57:22.603Z",
+      "stageId": null,
+      "stage": "—",
+      "transition": "impact CR-3 approved for modules/credential-routes-filter/context/ProjectContext.md (blocking)",
+      "by": "Ahmed Ayman",
+      "reason": "User answer 2026-10-17: Supplier Change dialog must be removed after AC 1; Both suppliers count as LCC",
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 35,
+      "at": "2026-10-17T09:57:23.045Z",
+      "stageId": "1",
+      "stage": "Stage 1 — Project Context",
+      "transition": "Stage 1: Completed → Running (reopened); run Waiting For Approval → Running",
+      "by": "Ahmed Ayman",
+      "reason": "PO-CRF-16 added (change CR-3)",
+      "runStatus": "Running"
+    },
+    {
+      "seq": 36,
+      "at": "2026-10-17T09:57:23.200Z",
+      "stageId": "1",
+      "stage": "Stage 1 — Project Context",
+      "transition": "Stage 1: Running → Waiting For Approval (Pending Review); run Running → Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 37,
+      "at": "2026-10-17T09:57:23.313Z",
+      "stageId": "1",
+      "stage": "Stage 1 — Project Context",
+      "transition": "Stage 1: Waiting For Approval → Completed (Approved)",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 38,
+      "at": "2026-10-17T09:58:27.848Z",
+      "stageId": "2",
+      "stage": "Stage 2 — Discovery",
+      "transition": "Stage 2: Waiting For Approval → Completed (Approved); run Waiting For Approval → Running",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 39,
+      "at": "2026-10-17T09:58:41.259Z",
+      "stageId": "3",
+      "stage": "Stage 3 — Test Design",
+      "transition": "Stage 3: Not Started → Blocked; run Running → Blocked",
+      "by": "Run Manager",
+      "reason": "credential-routes-filter: Stage 2 (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) was built on modules/credential-routes-filter/context/ProjectContext.md, which it consumed at 2026-10-17T09:46:54.247Z as dce5efeb332d and which is now 85efeacbe3ce — the stage's output describes the earlier version, whatever that artifact's approval says now (re-run Stage 2, or accept it with --accept-stale-by \"<name>\") · credential-routes-filter: Stage 2 (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)) was built on modules/credential-routes-filter/context/ProjectContext.md, which was re-approved by Ahmed Ayman at 2026-10-17T09:57:23.313Z (run credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)), after the stage started (2026-10-17T09:46:54.247Z) (re-run Stage 2, or accept it with --accept-stale-by \"<name>\")",
+      "runStatus": "Blocked"
+    },
+    {
+      "seq": 40,
+      "at": "2026-10-17T09:58:50.149Z",
+      "stageId": "3",
+      "stage": "Stage 3 — Test Design",
+      "transition": "Stage 3: Blocked → Running (Pipeline); run Blocked → Running",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Running"
+    },
+    {
+      "seq": 41,
+      "at": "2026-10-17T10:04:07.511Z",
+      "stageId": "3",
+      "stage": "Stage 3 — Test Design",
+      "transition": "Stage 3: Running → Waiting For Approval (Pending Review); run Running → Waiting For Approval",
+      "by": "Run Manager",
+      "reason": null,
+      "runStatus": "Waiting For Approval"
+    },
+    {
+      "seq": 42,
+      "at": "2026-10-17T10:09:38.371Z",
+      "stageId": "3",
+      "stage": "Stage 3 — Test Design",
+      "transition": "Stage 3: Waiting For Approval → Completed (Approved); run Waiting For Approval → Running",
+      "by": "Ahmed Ayman",
+      "reason": null,
+      "runStatus": "Running"
+    }
+  ],
+  "scopeFamily": null,
+  "feature": null,
+  "supplier": null,
+  "sharedScope": null,
+  "testingLayerScope": null,
+  "scopeHistory": [],
+  "modules": [
+    "credential-routes-filter"
+  ],
+  "moduleScope": "single",
+  "moduleArtifactRefs": [
+    {
+      "stage": "2",
+      "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+      "upstreamStage": "1",
+      "scope": "credential-routes-filter",
+      "header": "Approved",
+      "integrity": "verified",
+      "sha256": "2c273c032fe792fdbd924aa31e5a902f05c9f4272179b9605494fe131f753b4d",
+      "snapshot": "runs/credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)/metadata/consumed/2c273c032fe792fdbd924aa31e5a902f05c9f4272179b9605494fe131f753b4d.md",
+      "at": "2026-10-17T08:54:25.520Z"
+    },
+    {
+      "stage": "2",
+      "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+      "upstreamStage": "1",
+      "scope": "credential-routes-filter",
+      "header": "Approved",
+      "integrity": "verified",
+      "sha256": "dce5efeb332ddcaee8a081a73b30914ba97345bddbdfbb892aafdfaa59d9f769",
+      "snapshot": "runs/credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)/metadata/consumed/dce5efeb332ddcaee8a081a73b30914ba97345bddbdfbb892aafdfaa59d9f769.md",
+      "at": "2026-10-17T09:46:54.247Z"
+    },
+    {
+      "stage": "3",
+      "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+      "upstreamStage": "1",
+      "scope": "credential-routes-filter",
+      "header": "Approved",
+      "integrity": "verified",
+      "sha256": "85efeacbe3ce39ea9a8a907a942692e8412eab27b1b38848b2fdcff4a321d0b8",
+      "snapshot": "runs/credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)/metadata/consumed/85efeacbe3ce39ea9a8a907a942692e8412eab27b1b38848b2fdcff4a321d0b8.md",
+      "at": "2026-10-17T09:58:50.149Z"
+    },
+    {
+      "stage": "3",
+      "artifact": "modules/credential-routes-filter/discovery/QA_Assessment_Report.md",
+      "upstreamStage": "2",
+      "scope": "credential-routes-filter",
+      "header": "Approved",
+      "integrity": "verified",
+      "sha256": "01aacb1b4c40593043b35bb1e948053b75dcac044004ab189c1e07c3f0096949",
+      "snapshot": "runs/credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)/metadata/consumed/01aacb1b4c40593043b35bb1e948053b75dcac044004ab189c1e07c3f0096949.md",
+      "at": "2026-10-17T09:58:50.149Z"
+    }
+  ],
+  "safetyPreflights": [
+    {
+      "id": "SP-1",
+      "stageId": "2",
+      "at": "2026-10-17T08:55:02.822Z",
+      "decision": "confirmed",
+      "refusals": [],
+      "confirmedBy": "Ahmed Ayman",
+      "environment": "Staging",
+      "requestedEnvironment": "STG",
+      "environmentClass": "non-production",
+      "policy": {
+        "id": "ndc-admin-portal-stg",
+        "version": 2,
+        "environment": "Staging",
+        "hash": "sha256:51a687067064c789a5479fc87f6e736e",
+        "file": "knowledge_base/execution_safety_policy.json"
+      },
+      "targetUrl": "http://192.168.1.70/",
+      "declaredTarget": "http://192.168.1.70 — Admin, STG, shared (user, 2026-10-17). **The US 62039 / US 60737 change is NOT deployed there yet** (user, 2026-10-17): Stage 2 observes the **current baseline**, not the new behaviour",
+      "executionType": "browser",
+      "executionMode": "Headless",
+      "operations": [
+        {
+          "action": "READ",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": "Credential Routes Filter",
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        },
+        {
+          "action": "SEARCH",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": "Credential Routes Filter",
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        }
+      ],
+      "readOnly": true,
+      "binding": {
+        "static": {
+          "run": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+          "stageId": "2",
+          "environment": "Staging",
+          "targetUrl": "http://192.168.1.70/",
+          "executionType": "browser",
+          "executionMode": "Headless",
+          "operations": "6171be2ec8193fc2752af3383b81f127dd940998e07d35e92ced2471b2f5c456"
+        },
+        "dynamic": {
+          "policyHash": "sha256:51a687067064c789a5479fc87f6e736e",
+          "authorizations": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "scope": "44c6757994dc6d1fde5462749d6144b1e618bdc4ff6cef831d528be8302b781c",
+          "suites": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "capabilityPlan": null
+        },
+        "fingerprint": "36603567ba9cb4ff1a001232abe55a70c4d2ad5968a1208e31614851ec341ef0"
+      }
+    },
+    {
+      "id": "SP-2",
+      "stageId": "2",
+      "at": "2026-10-17T08:55:30.014Z",
+      "decision": "refused",
+      "refusals": [
+        "\"ODEYSYS\" is not a known environment (Local, Development, QA, Test, Staging, PreProduction, Production; aliases: STG, staging, stg, STG_PORTAL, ANCILLARIES_STG) — an unknown environment is refused, never treated as Staging"
+      ],
+      "confirmedBy": "Ahmed Ayman",
+      "environment": null,
+      "requestedEnvironment": "ODEYSYS",
+      "environmentClass": "unknown",
+      "policy": {
+        "id": "ndc-admin-portal-stg",
+        "version": 2,
+        "environment": "Staging",
+        "hash": "sha256:51a687067064c789a5479fc87f6e736e",
+        "file": "knowledge_base/execution_safety_policy.json"
+      },
+      "targetUrl": "http://192.168.1.70/",
+      "declaredTarget": "http://192.168.1.70 — Admin, STG, shared (user, 2026-10-17). **The US 62039 / US 60737 change is NOT deployed there yet** (user, 2026-10-17): Stage 2 observes the **current baseline**, not the new behaviour",
+      "executionType": "browser",
+      "executionMode": "Headless",
+      "operations": [
+        {
+          "action": "READ",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": "Credential Routes Filter",
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Not evaluated"
+        },
+        {
+          "action": "SEARCH",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": "Credential Routes Filter",
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Not evaluated"
+        }
+      ],
+      "readOnly": true,
+      "binding": {
+        "static": {
+          "run": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+          "stageId": "2",
+          "environment": null,
+          "targetUrl": "http://192.168.1.70/",
+          "executionType": "browser",
+          "executionMode": "Headless",
+          "operations": "6171be2ec8193fc2752af3383b81f127dd940998e07d35e92ced2471b2f5c456"
+        },
+        "dynamic": {
+          "policyHash": "sha256:51a687067064c789a5479fc87f6e736e",
+          "authorizations": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "scope": "44c6757994dc6d1fde5462749d6144b1e618bdc4ff6cef831d528be8302b781c",
+          "suites": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "capabilityPlan": null
+        },
+        "fingerprint": "8c0ac100763763654deb1f11c1b000f933a418512320d2a67ca86dd846d6bf10"
+      }
+    },
+    {
+      "id": "SP-3",
+      "stageId": "2",
+      "at": "2026-10-17T09:00:06.513Z",
+      "decision": "refused",
+      "refusals": [
+        "\"UAT\" is not a known environment (Local, Development, QA, Test, Staging, PreProduction, Production; aliases: STG, staging, stg, STG_PORTAL, ANCILLARIES_STG) — an unknown environment is refused, never treated as Staging"
+      ],
+      "confirmedBy": "Ahmed Ayman",
+      "environment": null,
+      "requestedEnvironment": "UAT",
+      "environmentClass": "unknown",
+      "policy": {
+        "id": "ndc-admin-portal-stg",
+        "version": 2,
+        "environment": "Staging",
+        "hash": "sha256:51a687067064c789a5479fc87f6e736e",
+        "file": "knowledge_base/execution_safety_policy.json"
+      },
+      "targetUrl": "http://192.168.1.70/",
+      "declaredTarget": "http://192.168.1.70 — Admin, STG, shared (user, 2026-10-17). **The US 62039 / US 60737 change is NOT deployed there yet** (user, 2026-10-17): Stage 2 observes the **current baseline**, not the new behaviour",
+      "executionType": "browser",
+      "executionMode": "Headless",
+      "operations": [
+        {
+          "action": "READ",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Not evaluated"
+        },
+        {
+          "action": "SEARCH",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Not evaluated"
+        }
+      ],
+      "readOnly": true,
+      "binding": {
+        "static": {
+          "run": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+          "stageId": "2",
+          "environment": null,
+          "targetUrl": "http://192.168.1.70/",
+          "executionType": "browser",
+          "executionMode": "Headless",
+          "operations": "b1d568c15751440c2e69e46783089dbcf23c96155e7059af80a994a6440b4ab0"
+        },
+        "dynamic": {
+          "policyHash": "sha256:51a687067064c789a5479fc87f6e736e",
+          "authorizations": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "scope": "44c6757994dc6d1fde5462749d6144b1e618bdc4ff6cef831d528be8302b781c",
+          "suites": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "capabilityPlan": null
+        },
+        "fingerprint": "682e2a2187ff17d91e9011fb1a69f8bac690e880d3b87c1e77deb346900a8d57"
+      }
+    },
+    {
+      "id": "SP-4",
+      "stageId": "2",
+      "at": "2026-10-17T09:00:26.663Z",
+      "decision": "confirmed",
+      "refusals": [],
+      "confirmedBy": "Ahmed Ayman",
+      "environment": "Staging",
+      "requestedEnvironment": "UAT",
+      "environmentClass": "non-production",
+      "policy": {
+        "id": "ndc-admin-portal-stg",
+        "version": 2,
+        "environment": "Staging",
+        "hash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+        "file": "knowledge_base/execution_safety_policy.json"
+      },
+      "targetUrl": "http://192.168.1.70/",
+      "declaredTarget": "http://192.168.1.70 — Admin, STG, shared (user, 2026-10-17). **The US 62039 / US 60737 change is NOT deployed there yet** (user, 2026-10-17): Stage 2 observes the **current baseline**, not the new behaviour",
+      "executionType": "browser",
+      "executionMode": "Headless",
+      "operations": [
+        {
+          "action": "READ",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        },
+        {
+          "action": "SEARCH",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        }
+      ],
+      "readOnly": true,
+      "binding": {
+        "static": {
+          "run": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+          "stageId": "2",
+          "environment": "Staging",
+          "targetUrl": "http://192.168.1.70/",
+          "executionType": "browser",
+          "executionMode": "Headless",
+          "operations": "b1d568c15751440c2e69e46783089dbcf23c96155e7059af80a994a6440b4ab0"
+        },
+        "dynamic": {
+          "policyHash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+          "authorizations": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "scope": "44c6757994dc6d1fde5462749d6144b1e618bdc4ff6cef831d528be8302b781c",
+          "suites": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "capabilityPlan": null
+        },
+        "fingerprint": "de25c02c512f62fe94cdc7212d17c6deae7f71123c6985c597afab0a128d5551"
+      }
+    },
+    {
+      "id": "SP-5",
+      "stageId": "2",
+      "at": "2026-10-17T09:37:43.246Z",
+      "decision": "confirmed",
+      "refusals": [],
+      "confirmedBy": "Ahmed Ayman",
+      "environment": "Staging",
+      "requestedEnvironment": "UAT",
+      "environmentClass": "non-production",
+      "policy": {
+        "id": "ndc-admin-portal-stg",
+        "version": 2,
+        "environment": "Staging",
+        "hash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+        "file": "knowledge_base/execution_safety_policy.json"
+      },
+      "targetUrl": "http://192.168.1.70/",
+      "declaredTarget": "http://192.168.1.70 — Admin, STG, shared (user, 2026-10-17). **The US 62039 / US 60737 change is NOT deployed there yet** (user, 2026-10-17): Stage 2 observes the **current baseline**, not the new behaviour",
+      "executionType": "browser",
+      "executionMode": "Headless",
+      "operations": [
+        {
+          "action": "READ",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        },
+        {
+          "action": "SEARCH",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        }
+      ],
+      "readOnly": true,
+      "binding": {
+        "static": {
+          "run": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+          "stageId": "2",
+          "environment": "Staging",
+          "targetUrl": "http://192.168.1.70/",
+          "executionType": "browser",
+          "executionMode": "Headless",
+          "operations": "b1d568c15751440c2e69e46783089dbcf23c96155e7059af80a994a6440b4ab0"
+        },
+        "dynamic": {
+          "policyHash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+          "authorizations": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "scope": "44c6757994dc6d1fde5462749d6144b1e618bdc4ff6cef831d528be8302b781c",
+          "suites": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "capabilityPlan": null
+        },
+        "fingerprint": "de25c02c512f62fe94cdc7212d17c6deae7f71123c6985c597afab0a128d5551"
+      }
+    },
+    {
+      "id": "SP-6",
+      "stageId": "2",
+      "at": "2026-10-17T09:37:49.867Z",
+      "decision": "confirmed",
+      "refusals": [],
+      "confirmedBy": "Ahmed Ayman",
+      "environment": "Staging",
+      "requestedEnvironment": "UAT",
+      "environmentClass": "non-production",
+      "policy": {
+        "id": "ndc-admin-portal-stg",
+        "version": 2,
+        "environment": "Staging",
+        "hash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+        "file": "knowledge_base/execution_safety_policy.json"
+      },
+      "targetUrl": "http://192.168.1.70/",
+      "declaredTarget": "http://192.168.1.70 — Admin, STG, shared (user, 2026-10-17). **The US 62039 / US 60737 change is NOT deployed there yet** (user, 2026-10-17): Stage 2 observes the **current baseline**, not the new behaviour",
+      "executionType": "browser",
+      "executionMode": "Headless",
+      "operations": [
+        {
+          "action": "READ",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        },
+        {
+          "action": "SEARCH",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        }
+      ],
+      "readOnly": true,
+      "binding": {
+        "static": {
+          "run": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+          "stageId": "2",
+          "environment": "Staging",
+          "targetUrl": "http://192.168.1.70/",
+          "executionType": "browser",
+          "executionMode": "Headless",
+          "operations": "b1d568c15751440c2e69e46783089dbcf23c96155e7059af80a994a6440b4ab0"
+        },
+        "dynamic": {
+          "policyHash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+          "authorizations": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "scope": "44c6757994dc6d1fde5462749d6144b1e618bdc4ff6cef831d528be8302b781c",
+          "suites": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "capabilityPlan": null
+        },
+        "fingerprint": "de25c02c512f62fe94cdc7212d17c6deae7f71123c6985c597afab0a128d5551"
+      }
+    },
+    {
+      "id": "SP-7",
+      "stageId": "2",
+      "at": "2026-10-17T09:37:58.484Z",
+      "decision": "confirmed",
+      "refusals": [],
+      "confirmedBy": "Ahmed Ayman",
+      "environment": "Staging",
+      "requestedEnvironment": "UAT",
+      "environmentClass": "non-production",
+      "policy": {
+        "id": "ndc-admin-portal-stg",
+        "version": 2,
+        "environment": "Staging",
+        "hash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+        "file": "knowledge_base/execution_safety_policy.json"
+      },
+      "targetUrl": "http://192.168.1.70/",
+      "declaredTarget": "http://192.168.1.70 — Admin, STG, shared (user, 2026-10-17). **The US 62039 / US 60737 change is NOT deployed there yet** (user, 2026-10-17): Stage 2 observes the **current baseline**, not the new behaviour",
+      "executionType": "browser",
+      "executionMode": "Headless",
+      "operations": [
+        {
+          "action": "READ",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        },
+        {
+          "action": "SEARCH",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        }
+      ],
+      "readOnly": true,
+      "binding": {
+        "static": {
+          "run": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+          "stageId": "2",
+          "environment": "Staging",
+          "targetUrl": "http://192.168.1.70/",
+          "executionType": "browser",
+          "executionMode": "Headless",
+          "operations": "b1d568c15751440c2e69e46783089dbcf23c96155e7059af80a994a6440b4ab0"
+        },
+        "dynamic": {
+          "policyHash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+          "authorizations": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "scope": "44c6757994dc6d1fde5462749d6144b1e618bdc4ff6cef831d528be8302b781c",
+          "suites": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "capabilityPlan": null
+        },
+        "fingerprint": "de25c02c512f62fe94cdc7212d17c6deae7f71123c6985c597afab0a128d5551"
+      }
+    },
+    {
+      "id": "SP-8",
+      "stageId": "2",
+      "at": "2026-10-17T09:46:32.085Z",
+      "decision": "confirmed",
+      "refusals": [],
+      "confirmedBy": "Ahmed Ayman",
+      "environment": "Staging",
+      "requestedEnvironment": "UAT",
+      "environmentClass": "non-production",
+      "policy": {
+        "id": "ndc-admin-portal-stg",
+        "version": 2,
+        "environment": "Staging",
+        "hash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+        "file": "knowledge_base/execution_safety_policy.json"
+      },
+      "targetUrl": "http://192.168.1.70/",
+      "declaredTarget": "http://192.168.1.70 — Admin, STG, shared (user, 2026-10-17). **The US 62039 / US 60737 change is NOT deployed there yet** (user, 2026-10-17): Stage 2 observes the **current baseline**, not the new behaviour",
+      "executionType": "browser",
+      "executionMode": "Headless",
+      "operations": [
+        {
+          "action": "READ",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        }
+      ],
+      "readOnly": true,
+      "binding": {
+        "static": {
+          "run": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+          "stageId": "2",
+          "environment": "Staging",
+          "targetUrl": "http://192.168.1.70/",
+          "executionType": "browser",
+          "executionMode": "Headless",
+          "operations": "9c316743409dd4c4ce06909ea2b9460f007c2a574ea9db5c3d0a459b11ca3358"
+        },
+        "dynamic": {
+          "policyHash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+          "authorizations": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "scope": "44c6757994dc6d1fde5462749d6144b1e618bdc4ff6cef831d528be8302b781c",
+          "suites": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "capabilityPlan": null
+        },
+        "fingerprint": "8b6f80624c4728674f3f1f16854264726c8447b682e082bd3243163de8698873"
+      }
+    },
+    {
+      "id": "SP-9",
+      "stageId": "2",
+      "at": "2026-10-17T09:46:47.989Z",
+      "decision": "confirmed",
+      "refusals": [],
+      "confirmedBy": "Ahmed Ayman",
+      "environment": "Staging",
+      "requestedEnvironment": "UAT",
+      "environmentClass": "non-production",
+      "policy": {
+        "id": "ndc-admin-portal-stg",
+        "version": 2,
+        "environment": "Staging",
+        "hash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+        "file": "knowledge_base/execution_safety_policy.json"
+      },
+      "targetUrl": "http://192.168.1.70/",
+      "declaredTarget": "http://192.168.1.70 — Admin, STG, shared (user, 2026-10-17). **The US 62039 / US 60737 change is NOT deployed there yet** (user, 2026-10-17): Stage 2 observes the **current baseline**, not the new behaviour",
+      "executionType": "browser",
+      "executionMode": "Headless",
+      "operations": [
+        {
+          "action": "READ",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        }
+      ],
+      "readOnly": true,
+      "binding": {
+        "static": {
+          "run": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+          "stageId": "2",
+          "environment": "Staging",
+          "targetUrl": "http://192.168.1.70/",
+          "executionType": "browser",
+          "executionMode": "Headless",
+          "operations": "9c316743409dd4c4ce06909ea2b9460f007c2a574ea9db5c3d0a459b11ca3358"
+        },
+        "dynamic": {
+          "policyHash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+          "authorizations": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "scope": "44c6757994dc6d1fde5462749d6144b1e618bdc4ff6cef831d528be8302b781c",
+          "suites": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "capabilityPlan": null
+        },
+        "fingerprint": "8b6f80624c4728674f3f1f16854264726c8447b682e082bd3243163de8698873"
+      }
+    },
+    {
+      "id": "SP-10",
+      "stageId": "2",
+      "at": "2026-10-17T09:46:54.376Z",
+      "decision": "confirmed",
+      "refusals": [],
+      "confirmedBy": "Ahmed Ayman",
+      "environment": "Staging",
+      "requestedEnvironment": "UAT",
+      "environmentClass": "non-production",
+      "policy": {
+        "id": "ndc-admin-portal-stg",
+        "version": 2,
+        "environment": "Staging",
+        "hash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+        "file": "knowledge_base/execution_safety_policy.json"
+      },
+      "targetUrl": "http://192.168.1.70/",
+      "declaredTarget": "http://192.168.1.70 — Admin, STG, shared (user, 2026-10-17). **The US 62039 / US 60737 change is NOT deployed there yet** (user, 2026-10-17): Stage 2 observes the **current baseline**, not the new behaviour",
+      "executionType": "browser",
+      "executionMode": "Headless",
+      "operations": [
+        {
+          "action": "READ",
+          "ownership": "Shared",
+          "module": "credential-routes-filter",
+          "entity": null,
+          "testCaseId": null,
+          "mutating": false,
+          "decision": "Allowed",
+          "matchedRule": "policy.categories.read.Shared",
+          "reason": "Searching, filtering, paginating and viewing pre-existing records is not mutation and is fully in scope."
+        }
+      ],
+      "readOnly": true,
+      "binding": {
+        "static": {
+          "run": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+          "stageId": "2",
+          "environment": "Staging",
+          "targetUrl": "http://192.168.1.70/",
+          "executionType": "browser",
+          "executionMode": "Headless",
+          "operations": "9c316743409dd4c4ce06909ea2b9460f007c2a574ea9db5c3d0a459b11ca3358"
+        },
+        "dynamic": {
+          "policyHash": "sha256:b37a0e71bcd505ba99c78264f4a28178",
+          "authorizations": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "scope": "44c6757994dc6d1fde5462749d6144b1e618bdc4ff6cef831d528be8302b781c",
+          "suites": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "capabilityPlan": null
+        },
+        "fingerprint": "8b6f80624c4728674f3f1f16854264726c8447b682e082bd3243163de8698873"
+      }
+    }
+  ],
+  "changeRequests": [
+    {
+      "id": "CR-1",
+      "analysisId": "IA-5e60e97564c3",
+      "at": "2026-10-17T09:41:03.268Z",
+      "by": "Ahmed Ayman",
+      "decision": "approved",
+      "reason": "User answers 2026-10-17: AC 2 applies to all GDS suppliers incl. NDCGal/Amadeus NDC/Sabre NDC (Q6 'اه هيتطبق عليهم'); AC 2 applies to Admin and Portal (Q5); several airlines sent together (Q4 'تقريبا اه'); no approval on this screen (Q7)",
+      "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+      "artifactSha256": "2c273c032fe792fdbd924aa31e5a902f05c9f4272179b9605494fe131f753b4d",
+      "classification": "blocking",
+      "delta": {
+        "changed": [
+          "ASM-CRF-9",
+          "ASM-CRF-7",
+          "ASM-CRF-5"
+        ],
+        "added": [],
+        "removed": [],
+        "basis": "stated"
+      },
+      "affected": {
+        "modules": [
+          "credential-routes-filter"
+        ],
+        "suppliers": [],
+        "testCases": 0,
+        "approvedTestCases": [],
+        "automation": 0,
+        "executions": 0,
+        "reports": 0,
+        "findings": []
+      },
+      "approvedModules": [],
+      "approvedSuppliers": [],
+      "reasons": [
+        "modules/credential-routes-filter/context/ProjectContext.md is Approved — an approved artifact is changing"
+      ]
+    },
+    {
+      "id": "CR-2",
+      "analysisId": "IA-3eb298dab131",
+      "at": "2026-10-17T09:46:53.655Z",
+      "by": "Ahmed Ayman",
+      "decision": "approved",
+      "reason": "Final Revision 3 content of change CR-1 (user answers at the Discovery gate, 2026-10-17)",
+      "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+      "artifactSha256": "dce5efeb332ddcaee8a081a73b30914ba97345bddbdfbb892aafdfaa59d9f769",
+      "classification": "blocking",
+      "delta": {
+        "changed": [
+          "ASM-CRF-9",
+          "ASM-CRF-7",
+          "ASM-CRF-5",
+          "PO-CRF-12",
+          "PO-CRF-13",
+          "PO-CRF-14",
+          "PO-CRF-15"
+        ],
+        "added": [],
+        "removed": [],
+        "basis": "stated"
+      },
+      "affected": {
+        "modules": [
+          "credential-routes-filter"
+        ],
+        "suppliers": [],
+        "testCases": 0,
+        "approvedTestCases": [],
+        "automation": 0,
+        "executions": 0,
+        "reports": 0,
+        "findings": []
+      },
+      "approvedModules": [],
+      "approvedSuppliers": [],
+      "reasons": [
+        "modules/credential-routes-filter/context/ProjectContext.md is Approved — an approved artifact is changing"
+      ]
+    },
+    {
+      "id": "CR-3",
+      "analysisId": "IA-3f6230fb7ef8",
+      "at": "2026-10-17T09:57:22.603Z",
+      "by": "Ahmed Ayman",
+      "decision": "approved",
+      "reason": "User answer 2026-10-17: Supplier Change dialog must be removed after AC 1; Both suppliers count as LCC",
+      "artifact": "modules/credential-routes-filter/context/ProjectContext.md",
+      "artifactSha256": "85efeacbe3ce39ea9a8a907a942692e8412eab27b1b38848b2fdcff4a321d0b8",
+      "classification": "blocking",
+      "delta": {
+        "changed": [
+          "PO-CRF-16"
+        ],
+        "added": [],
+        "removed": [],
+        "basis": "stated"
+      },
+      "affected": {
+        "modules": [
+          "credential-routes-filter"
+        ],
+        "suppliers": [],
+        "testCases": 0,
+        "approvedTestCases": [],
+        "automation": 0,
+        "executions": 0,
+        "reports": 0,
+        "findings": []
+      },
+      "approvedModules": [],
+      "approvedSuppliers": [],
+      "reasons": [
+        "modules/credential-routes-filter/context/ProjectContext.md is Approved — an approved artifact is changing"
+      ]
+    }
+  ]
+}

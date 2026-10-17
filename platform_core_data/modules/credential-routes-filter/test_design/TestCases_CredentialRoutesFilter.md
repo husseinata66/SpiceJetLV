@@ -1,0 +1,1120 @@
+| Approved | Rejected || Approved | Rejected || Approved | Rejected || Approved | Rejected || Approved | Rejected || Approved | Rejected || Approved | Rejected || Approved | Rejected |# Manual Test Suite — Credential Routes Filter
+
+| Field | Value |
+|---|---|
+| Module | `credential-routes-filter` |
+| Produced by run | `credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)` |
+| Revision | 2 (in place — LCC test data AirArbia → FlyNas in 8 cases; `PO-CRF-7`, `PO-CRF-9` recorded) |
+| Run Scope Type / Run Type | User Story / User Story (enhancement, CRUD area Update) |
+| Project Context | `modules/credential-routes-filter/context/ProjectContext.md` — Revision 3, Approved |
+| Discovery | `modules/credential-routes-filter/discovery/QA_Assessment_Report.md` — Approved |
+| Total Test Cases | 26 |
+| Generated | 2026-10-17 |
+| Status | **Approved** — Ahmed Ayman (ahmed.ayman@tildetech.ae), 2026-10-17, Stage 3 gate; the 8 cases rewritten for FlyNas (TC-CRF-001, 005, 006, 007, 009, 010, 011, 012) were re-approved the same day — all 26 cases reviewed and accepted. Automation rejected for all 26 (user, 2026-10-17: no automation needed for now) |
+
+## 0. Read this first
+
+- **Written for the build that contains US 62039 and US 60737.** The change is **not deployed** on `http://192.168.1.70` yet (2026-10-17). Run these cases only after deployment.
+- **Environment and data.** Admin `http://192.168.1.70` (UAT, shared). Supplier names below are the names on this environment (FINDING-001 — intended): Sabre ATPCO GDS = `Sabre`, Sabre NDC = `NDCsbr`, Amadeus NDC = `AmadeusNDC`, Travelport NDC = `TravelportNdc`.
+- **Decisions (user, 2026-10-17):** `PO-CRF-7` — **create any routes and rules the cases need, on any supplier** (user: *"add any routes to match all test cases … I'll remove anything"*). LCC cases use **FlyNas**; GDS cases use the supplier named in each case. **The user removes the test data after the run** — per-case "delete after" notes become optional. Record this grant in the execution run's safety authorizations once the environment is known. `PO-CRF-9` — **a supplier request log is available**, so every "request contains the airline" check (VR-01.1) can be verified. Target environment and credentials will be supplied by the user after deployment.
+- **Clean up after each case** that saves a rule: delete the rule this case created, or restore the existing rule to its state before the case.
+
+## Shared Definitions
+
+### SETUP-1 — Open the Add Routes Filter form
+
+1. Log in to Admin as `odeysysadmin`.
+2. Open Master → Supplier → Credential Routes Filter.
+3. Click **Add Routes Filter**.
+
+### SETUP-2 — Add N routes to the open form
+
+1. Use Origin `CAI` for every route.
+2. For each route, pick a different Destination airport (not `CAI`, not "All Airports"), then click **Add**.
+3. Stop when the Routes counter shows `N / {max}`.
+
+### SETUP-3 — Save a Whitelist rule with one airline for a GDS supplier
+
+1. SETUP-1.
+2. Select the Supplier and Supplier Credential given in the case's Test Data.
+3. Select the Airline given in the case's Test Data.
+4. Select **Whitelist**.
+5. Add the route `CAI` → `JED`.
+6. Click **Save Configuration**.
+7. Confirm the message `Configuration saved successfully`.
+
+### VR-01 — Search results limited to the configured airline
+
+**Source:** PRD_UserStories.md US 10 AC 2 (Project Context §2, `PO-CRF-12`).
+
+- **VR-01.1** The supplier search request sent for this search contains the configured airline code. Checked in the supplier request log / API trace (`PO-CRF-9`). If no log is available, record **Inconclusive**.
+- **VR-01.2** Every flight returned **by this supplier credential** is for the configured airline.
+- Ignore results from other supplier credentials (filter the results by supplier, or use a branch/agency that only has this credential).
+- If the supplier returns no flights at all for the route and date, the result is **Inconclusive** — change the date and search again before recording it.
+
+## Case Index
+
+| Test Case ID | Title | Tier | Priority | Tags | Review | Automation |
+|---|---|---|---|---|---|---|
+| TC-CRF-001 | LCC supplier route limit shows 150 | Atomic | P1 | Atomic, Positive, AC-1 | Approved | Rejected |
+| TC-CRF-002 | "Both" supplier route limit shows 150 | Atomic | P2 | Atomic, Positive, AC-1, Assumption-based | Approved | Rejected |
+| TC-CRF-003 | GDS supplier route limit stays 150 | Atomic | P2 | Atomic, Regression | Approved | Rejected |
+| TC-CRF-004 | Existing LCC rule shows the new 150 limit on Edit | Atomic | P2 | Atomic, Positive, AC-1 | Approved | Rejected |
+| TC-CRF-005 | LCC rule accepts the 51st route | Atomic | P1 | Atomic, Negative-BoundaryValues, AC-1 | Approved | Rejected |
+| TC-CRF-006 | Save LCC rule with 150 routes | Scenario | P1 | Scenario, Negative-BoundaryValues, AC-1 | Approved | Rejected |
+| TC-CRF-007 | LCC rule blocks the 151st route | Atomic | P1 | Atomic, Negative-BoundaryValues, AC-1 | Approved | Rejected |
+| TC-CRF-008 | GDS rule blocks the 151st route | Atomic | P3 | Atomic, Negative-BoundaryValues, Regression | Approved | Rejected |
+| TC-CRF-009 | Supplier change GDS → LCC shows no limit warning | Atomic | P2 | Atomic, Positive, AC-1 | Approved | Rejected |
+| TC-CRF-010 | Supplier change GDS → LCC keeps more than 50 routes | Atomic | P2 | Atomic, Negative-BoundaryValues, AC-1 | Approved | Rejected |
+| TC-CRF-011 | "All Airports" route counts as one route | Atomic | P3 | Atomic, Positive | Approved | Rejected |
+| TC-CRF-012 | Airlines field hidden for LCC supplier | Atomic | P2 | Atomic, Regression | Approved | Rejected |
+| TC-CRF-013 | Airlines field shown for GDS supplier | Atomic | P3 | Atomic, Regression | Approved | Rejected |
+| TC-CRF-014 | Galileo — search limited to the configured airline | Atomic | P1 | Atomic, Positive, AC-2 | Approved | Rejected |
+| TC-CRF-015 | Amadeus — search limited to the configured airline | Atomic | P1 | Atomic, Positive, AC-2 | Approved | Rejected |
+| TC-CRF-016 | Sabre ATPCO — search limited to the configured airline | Atomic | P1 | Atomic, Positive, AC-2 | Approved | Rejected |
+| TC-CRF-017 | Travelport NDC — search limited to the configured airline | Atomic | P1 | Atomic, Positive, AC-2 | Approved | Rejected |
+| TC-CRF-018 | NDCGal — search limited to the configured airline | Atomic | P2 | Atomic, Positive, AC-2 | Approved | Rejected |
+| TC-CRF-019 | Amadeus NDC — search limited to the configured airline | Atomic | P2 | Atomic, Positive, AC-2 | Approved | Rejected |
+| TC-CRF-020 | Sabre NDC — search limited to the configured airline | Atomic | P2 | Atomic, Positive, AC-2 | Approved | Rejected |
+| TC-CRF-021 | Portal search limited to the configured airline | Atomic | P1 | Atomic, Positive, AC-2 | Approved | Rejected |
+| TC-CRF-022 | Search with two configured airlines | Atomic | P2 | Atomic, Positive, AC-2, Assumption-based | Approved | Rejected |
+| TC-CRF-023 | Rule without airlines — search unchanged | Atomic | P1 | Atomic, Regression | Approved | Rejected |
+| TC-CRF-024 | Blacklist rule with an airline | Atomic | P2 | Atomic, Exploratory, AC-2 | Approved | Rejected |
+| TC-CRF-025 | Airline filter on an "All Airports" route | Atomic | P3 | Atomic, Exploratory, AC-2 | Approved | Rejected |
+| TC-CRF-026 | Airport blacklist still blocks a whitelisted route | Scenario | P3 | Scenario, Integration, Regression | Approved | Rejected |
+
+## Test Cases
+
+### TC-CRF-001 — LCC supplier route limit shows 150
+
+**Objective:** Verify that an LCC supplier allows 150 routes.
+
+**Preconditions:** SETUP-1.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Supplier | `FlyNas` (LCC) |
+| Supplier Credential | a `FlyNas` credential |
+
+**Steps:**
+
+1. Select the Supplier.
+2. Select the Supplier Credential.
+3. Add one route: `CAI` → `JED`.
+
+**Expected Result:**
+
+1. [A1] The Routes counter shows `1 / 150`.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | `1 / 150` | US 9 AC 1 | equals | AC-1 |
+
+**Priority:** P1
+
+**Tags:** Atomic, Positive, AC-1
+
+**Notes:** Before the change this showed `1 / 50`. Do not save. Rewritten 2026-10-17: was `Review: Approved` (Ahmed Ayman, 2026-10-17); LCC test data changed from AirArbia to FlyNas per `PO-CRF-7`. Re-approved by Ahmed Ayman, 2026-10-17.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-002 — "Both" supplier route limit shows 150
+
+**Objective:** Verify that a supplier of type "Both" allows 150 routes, like an LCC supplier.
+
+**Preconditions:** SETUP-1.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Supplier | `ShuraTech` (type Both) |
+| Supplier Credential | `ShuraTechLive` |
+
+**Steps:**
+
+1. Select the Supplier.
+2. Select the Supplier Credential.
+3. Add one route: `CAI` → `JED`.
+
+**Expected Result:**
+
+1. [A1] The Routes counter shows `1 / 150`.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | `1 / 150` | PO-CRF-16 | equals | PO-CRF-16 |
+
+**Priority:** P2
+
+**Tags:** Atomic, Positive, AC-1, Assumption-based
+
+**Notes:** Assumption-based: "Both" counts as LCC (`PO-CRF-10`, `PO-CRF-16`). If it shows `1 / 50`, raise it for a Product Owner decision. Do not save.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-003 — GDS supplier route limit stays 150
+
+**Objective:** Verify that the GDS route limit is still 150 after the change.
+
+**Preconditions:** SETUP-1.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Supplier | `Galileo` (GDS) |
+| Supplier Credential | `GalileoLive` |
+
+**Steps:**
+
+1. Select the Supplier.
+2. Select the Supplier Credential.
+3. Add one route: `CAI` → `JED`.
+
+**Expected Result:**
+
+1. [A1] The Routes counter shows `1 / 150`.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | `1 / 150` | US 9 AC 1 ("aligning it with the existing GDS limit") | equals | AC-1 |
+
+**Priority:** P2
+
+**Tags:** Atomic, Regression
+
+**Notes:** Do not save.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-004 — Existing LCC rule shows the new 150 limit on Edit
+
+**Objective:** Verify that an LCC rule saved before the change gets the new 150 limit.
+
+**Preconditions:** The rule `AirArbia` / `AirArabia Live` exists (saved before the change, 1 route).
+
+**Steps:**
+
+1. Open Master → Supplier → Credential Routes Filter.
+2. Click Edit on the `AirArbia` / `AirArabia Live` row.
+
+**Expected Result:**
+
+1. [A1] The Routes counter shows `1 / 150`.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | `1 / 150` | US 9 AC 1 | equals | AC-1 |
+
+**Priority:** P2
+
+**Tags:** Atomic, Positive, AC-1
+
+**Notes:** Click Cancel at the end. Do not save.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-005 — LCC rule accepts the 51st route
+
+**Objective:** Verify that an LCC rule accepts a route above the old limit of 50.
+
+**Preconditions:** SETUP-1. Supplier `FlyNas` and credential a `FlyNas` credential selected. SETUP-2 with N = 50.
+
+**Steps:**
+
+1. Select Origin `CAI` and a new Destination.
+2. Click **Add**.
+
+**Expected Result:**
+
+1. [A1] The route is added to the Routes list.
+2. [A2] The Routes counter shows `51 / 150`.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | 51st route in the list | US 9 AC 1 | present | AC-1 |
+| A2 | `51 / 150` | US 9 AC 1 | equals | AC-1 |
+
+**Priority:** P1
+
+**Tags:** Atomic, Negative-BoundaryValues, AC-1
+
+**Notes:** Old limit + 1. Do not save — click Cancel. Rewritten 2026-10-17: was `Review: Approved` (Ahmed Ayman, 2026-10-17); LCC test data changed from AirArbia to FlyNas per `PO-CRF-7`. Re-approved by Ahmed Ayman, 2026-10-17.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-006 — Save LCC rule with 150 routes
+
+**Objective:** Verify that an LCC rule with exactly 150 routes can be saved and reopened.
+
+**Preconditions:** SETUP-1. `PO-CRF-7` decided (who may create the rule and how it is cleaned up).
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Supplier | `FlyNas` |
+| Supplier Credential | a credential with no existing rule, chosen under `PO-CRF-7` |
+| Mode | Whitelist |
+
+**Steps:**
+
+1. Select the Supplier and Supplier Credential.
+2. Select **Whitelist**.
+3. SETUP-2 with N = 150.
+4. Click **Save Configuration**.
+5. Open the saved rule with Edit.
+
+**Expected Result:**
+
+1. [A1] The message `Configuration saved successfully` is shown.
+2. [A2] On Edit, the Routes counter shows `150 / 150`.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | `Configuration saved successfully` | US 9 AC 1 | equals | AC-1 |
+| A2 | `150 / 150` | US 9 AC 1 | equals | AC-1 |
+
+**Priority:** P1
+
+**Tags:** Scenario, Negative-BoundaryValues, AC-1
+
+**Notes:** Delete the rule after the case. Keep it only if TC-CRF-007 runs next on the same rule. Rewritten 2026-10-17: was `Review: Approved` (Ahmed Ayman, 2026-10-17); LCC test data changed from AirArbia to FlyNas per `PO-CRF-7`. Re-approved by Ahmed Ayman, 2026-10-17.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-007 — LCC rule blocks the 151st route
+
+**Objective:** Verify that an LCC rule cannot have more than 150 routes.
+
+**Preconditions:** SETUP-1. Supplier `FlyNas` and a credential selected. SETUP-2 with N = 150.
+
+**Steps:**
+
+1. Select Origin `CAI` and a new Destination.
+2. Click **Add**.
+
+**Expected Result:**
+
+1. [A1] The route is not added.
+2. [A2] The message `Maximum 150 routes reached.` is shown.
+3. [A3] The Routes counter still shows `150 / 150`.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | no 151st route | US 9 AC 1 | absent | AC-1 |
+| A2 | `Maximum 150 routes reached.` | US 9 AC 1 | equals | AC-1 |
+| A3 | `150 / 150` | US 9 AC 1 | equals | AC-1 |
+
+**Priority:** P1
+
+**Tags:** Atomic, Negative-BoundaryValues, AC-1
+
+**Notes:** Message wording is today's text with the new number (Discovery `CredentialRoutesFilter_AddEdit.md` §5.1). Do not save — click Cancel. Rewritten 2026-10-17: was `Review: Approved` (Ahmed Ayman, 2026-10-17); LCC test data changed from AirArbia to FlyNas per `PO-CRF-7`. Re-approved by Ahmed Ayman, 2026-10-17.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-008 — GDS rule blocks the 151st route
+
+**Objective:** Verify that a GDS rule still cannot have more than 150 routes.
+
+**Preconditions:** SETUP-1. Supplier `Galileo` and a credential selected. SETUP-2 with N = 150.
+
+**Steps:**
+
+1. Select Origin `CAI` and a new Destination.
+2. Click **Add**.
+
+**Expected Result:**
+
+1. [A1] The route is not added.
+2. [A2] The message `Maximum 150 routes reached.` is shown.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | no 151st route | US 9 AC 1 | absent | AC-1 |
+| A2 | `Maximum 150 routes reached.` | US 9 AC 1 | equals | AC-1 |
+
+**Priority:** P3
+
+**Tags:** Atomic, Negative-BoundaryValues, Regression
+
+**Notes:** Do not save — click Cancel.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-009 — Supplier change GDS → LCC shows no limit warning
+
+**Objective:** Verify that changing the supplier from GDS to LCC no longer shows the "Supplier Change" warning.
+
+**Preconditions:** SETUP-1.
+
+**Steps:**
+
+1. Select Supplier `Galileo` and a credential.
+2. Add two routes: `CAI` → `JED`, `CAI` → `DXB`.
+3. Change the Supplier to `FlyNas`.
+
+**Expected Result:**
+
+1. [A1] No "Supplier Change" dialog is shown.
+2. [A2] Both routes are still in the Routes list.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | "Supplier Change" dialog | PO-CRF-16 | absent | PO-CRF-16 |
+| A2 | 2 routes | PO-CRF-16 | equals | PO-CRF-16 |
+
+**Priority:** P2
+
+**Tags:** Atomic, Positive, AC-1
+
+**Notes:** Before the change, a dialog said the limit would drop from 150 to 50. Do not save. Rewritten 2026-10-17: was `Review: Approved` (Ahmed Ayman, 2026-10-17); LCC test data changed from AirArbia to FlyNas per `PO-CRF-7`. Re-approved by Ahmed Ayman, 2026-10-17.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-010 — Supplier change GDS → LCC keeps more than 50 routes
+
+**Objective:** Verify that changing the supplier from GDS to LCC does not remove routes above 50.
+
+**Preconditions:** SETUP-1. Supplier `Galileo` and a credential selected. SETUP-2 with N = 60.
+
+**Steps:**
+
+1. Change the Supplier to `FlyNas`.
+
+**Expected Result:**
+
+1. [A1] No route is removed — the Routes list still has 60 routes.
+2. [A2] **Save Configuration** is enabled once a credential and a mode are selected.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | 60 routes | PO-CRF-16 | equals | PO-CRF-16 |
+| A2 | Save enabled | US 9 AC 1 (60 ≤ 150) | present | AC-1 |
+
+**Priority:** P2
+
+**Tags:** Atomic, Negative-BoundaryValues, AC-1
+
+**Notes:** Before the change, routes above 50 were removed. Do not save — click Cancel. Rewritten 2026-10-17: was `Review: Approved` (Ahmed Ayman, 2026-10-17); LCC test data changed from AirArbia to FlyNas per `PO-CRF-7`. Re-approved by Ahmed Ayman, 2026-10-17.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-011 — "All Airports" route counts as one route
+
+**Objective:** Verify that a route using "All Airports" counts as one route toward the limit.
+
+**Preconditions:** SETUP-1. Supplier `FlyNas` and a credential selected.
+
+**Steps:**
+
+1. Select Origin `CAI`.
+2. Select Destination **All Airports**.
+3. Click **Add**.
+
+**Expected Result:**
+
+1. [A1] The Routes counter shows `1 / 150`.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | `1 / 150` | PO-CRF-15 | equals | PO-CRF-15 |
+
+**Priority:** P3
+
+**Tags:** Atomic, Positive
+
+**Notes:** Do not save. Rewritten 2026-10-17: was `Review: Approved` (Ahmed Ayman, 2026-10-17); LCC test data changed from AirArbia to FlyNas per `PO-CRF-7`. Re-approved by Ahmed Ayman, 2026-10-17.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-012 — Airlines field hidden for LCC supplier
+
+**Objective:** Verify that the Airlines field is not shown for an LCC supplier.
+
+**Preconditions:** SETUP-1.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Supplier | `FlyNas` |
+
+**Steps:**
+
+1. Select the Supplier.
+
+**Expected Result:**
+
+1. [A1] No Airlines field is shown.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | Airlines field | PRD_UserStories.md US 2 ("hidden for non-GDS suppliers") | absent | US2-CRUD |
+
+**Priority:** P2
+
+**Tags:** Atomic, Regression
+
+**Notes:** Rewritten 2026-10-17: was `Review: Approved` (Ahmed Ayman, 2026-10-17); LCC test data changed from AirArbia to FlyNas per `PO-CRF-7`. Re-approved by Ahmed Ayman, 2026-10-17.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-013 — Airlines field shown for GDS supplier
+
+**Objective:** Verify that the Airlines field is shown for a GDS supplier and offers active airlines.
+
+**Preconditions:** SETUP-1.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Supplier | `Galileo` |
+
+**Steps:**
+
+1. Select the Supplier.
+2. Open the Airlines field.
+
+**Expected Result:**
+
+1. [A1] The Airlines field is shown.
+2. [A2] The list offers airlines to select (one or more can be selected).
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | Airlines field | PRD_UserStories.md US 2 | present | US2-CRUD |
+| A2 | selectable airlines | PRD_UserStories.md US 2 ("displays active airlines", multi-select) | present | US2-CRUD |
+
+**Priority:** P3
+
+**Tags:** Atomic, Regression
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-014 — Galileo — search limited to the configured airline
+
+**Objective:** Verify that a Galileo rule with one airline sends that airline to the supplier and returns only its flights.
+
+**Preconditions:** SETUP-3. `PO-CRF-9` decided.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Supplier / Credential | `Galileo` / `GalileoLive` |
+| Airline | `EY` — Etihad |
+| Search | One-way `CAI` → `JED`, 1 adult, a date with flights |
+
+**Steps:**
+
+1. Open Admin booking flight search.
+2. Search the route and date in Test Data.
+3. Apply VR-01.
+
+**Expected Result:**
+
+1. [A1] The supplier request contains `EY` (VR-01.1).
+2. [A2] Every Galileo flight returned is an `EY` flight (VR-01.2).
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement | Rule |
+|---|---|---|---|---|---|
+| A1 | `EY` in the supplier request | US 10 AC 2 | contains | AC-2 | VR-01.1 |
+| A2 | all Galileo flights are `EY` | US 10 AC 2 | equals | AC-2 | VR-01.2 |
+
+**Priority:** P1
+
+**Tags:** Atomic, Positive, AC-2
+
+**Notes:** The existing rule `Galileo` / `GalileoLive` already has CAI→JED with `EY`; it can be used instead of creating a new one.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-015 — Amadeus — search limited to the configured airline
+
+**Objective:** Verify that an Amadeus rule with one airline sends that airline to the supplier and returns only its flights.
+
+**Preconditions:** SETUP-3. `PO-CRF-9` decided.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Supplier / Credential | `Amadeus` / `Amadeus Live` |
+| Airline | `MS` — EgyptAir (use another airline this supplier sells on CAI→JED if MS is not offered) |
+| Search | One-way `CAI` → `JED`, 1 adult, a date with flights |
+
+**Steps:**
+
+1. Open Admin booking flight search.
+2. Search the route and date in Test Data.
+3. Apply VR-01.
+
+**Expected Result:**
+
+1. [A1] The supplier request contains the configured airline (VR-01.1).
+2. [A2] Every Amadeus flight returned is for the configured airline (VR-01.2).
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement | Rule |
+|---|---|---|---|---|---|
+| A1 | airline code in the supplier request | US 10 AC 2 | contains | AC-2 | VR-01.1 |
+| A2 | all Amadeus flights are the configured airline | US 10 AC 2 | equals | AC-2 | VR-01.2 |
+
+**Priority:** P1
+
+**Tags:** Atomic, Positive, AC-2
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-016 — Sabre ATPCO — search limited to the configured airline
+
+**Objective:** Verify that a Sabre ATPCO rule with one airline sends that airline to the supplier and returns only its flights.
+
+**Preconditions:** SETUP-3. `PO-CRF-9` decided.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Supplier / Credential | `Sabre` / `SabreStaging` |
+| Airline | `MS` — EgyptAir (or another airline this supplier sells on CAI→JED) |
+| Search | One-way `CAI` → `JED`, 1 adult, a date with flights |
+
+**Steps:**
+
+1. Open Admin booking flight search.
+2. Search the route and date in Test Data.
+3. Apply VR-01.
+
+**Expected Result:**
+
+1. [A1] The supplier request contains the configured airline (VR-01.1).
+2. [A2] Every Sabre flight returned is for the configured airline (VR-01.2).
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement | Rule |
+|---|---|---|---|---|---|
+| A1 | airline code in the supplier request | US 10 AC 2 | contains | AC-2 | VR-01.1 |
+| A2 | all Sabre flights are the configured airline | US 10 AC 2 | equals | AC-2 | VR-01.2 |
+
+**Priority:** P1
+
+**Tags:** Atomic, Positive, AC-2
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-017 — Travelport NDC — search limited to the configured airline
+
+**Objective:** Verify that a Travelport NDC rule with one airline sends that airline to the supplier and returns only its flights.
+
+**Preconditions:** SETUP-3. `PO-CRF-9` decided.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Supplier / Credential | `TravelportNdc` / `Travelport NDC EGY` |
+| Airline | an NDC airline this credential sells on CAI→JED |
+| Search | One-way `CAI` → `JED`, 1 adult, a date with flights |
+
+**Steps:**
+
+1. Open Admin booking flight search.
+2. Search the route and date in Test Data.
+3. Apply VR-01.
+
+**Expected Result:**
+
+1. [A1] The supplier request contains the configured airline (VR-01.1).
+2. [A2] Every Travelport NDC flight returned is for the configured airline (VR-01.2).
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement | Rule |
+|---|---|---|---|---|---|
+| A1 | airline code in the supplier request | US 10 AC 2 | contains | AC-2 | VR-01.1 |
+| A2 | all Travelport NDC flights are the configured airline | US 10 AC 2 | equals | AC-2 | VR-01.2 |
+
+**Priority:** P1
+
+**Tags:** Atomic, Positive, AC-2
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-018 — NDCGal — search limited to the configured airline
+
+**Objective:** Verify that an NDCGal rule with one airline sends that airline to the supplier and returns only its flights.
+
+**Preconditions:** SETUP-3. `PO-CRF-9` decided.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Supplier / Credential | `NDCGal` / `NdcGalileoSTG EGY` |
+| Airline | an NDC airline this credential sells on CAI→JED |
+| Search | One-way `CAI` → `JED`, 1 adult, a date with flights |
+
+**Steps:**
+
+1. Open Admin booking flight search.
+2. Search the route and date in Test Data.
+3. Apply VR-01.
+
+**Expected Result:**
+
+1. [A1] The supplier request contains the configured airline (VR-01.1).
+2. [A2] Every NDCGal flight returned is for the configured airline (VR-01.2).
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement | Rule |
+|---|---|---|---|---|---|
+| A1 | airline code in the supplier request | PO-CRF-12 | contains | PO-CRF-12 | VR-01.1 |
+| A2 | all NDCGal flights are the configured airline | PO-CRF-12 | equals | PO-CRF-12 | VR-01.2 |
+
+**Priority:** P2
+
+**Tags:** Atomic, Positive, AC-2
+
+**Notes:** Not named in AC 2 — added by `PO-CRF-12`.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-019 — Amadeus NDC — search limited to the configured airline
+
+**Objective:** Verify that an Amadeus NDC rule with one airline sends that airline to the supplier and returns only its flights.
+
+**Preconditions:** SETUP-3. `PO-CRF-9` decided.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Supplier / Credential | `AmadeusNDC` / `AmadeusNDCEGY` |
+| Airline | an NDC airline this credential sells on CAI→JED |
+| Search | One-way `CAI` → `JED`, 1 adult, a date with flights |
+
+**Steps:**
+
+1. Open Admin booking flight search.
+2. Search the route and date in Test Data.
+3. Apply VR-01.
+
+**Expected Result:**
+
+1. [A1] The supplier request contains the configured airline (VR-01.1).
+2. [A2] Every Amadeus NDC flight returned is for the configured airline (VR-01.2).
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement | Rule |
+|---|---|---|---|---|---|
+| A1 | airline code in the supplier request | PO-CRF-12 | contains | PO-CRF-12 | VR-01.1 |
+| A2 | all Amadeus NDC flights are the configured airline | PO-CRF-12 | equals | PO-CRF-12 | VR-01.2 |
+
+**Priority:** P2
+
+**Tags:** Atomic, Positive, AC-2
+
+**Notes:** Not named in AC 2 — added by `PO-CRF-12`.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-020 — Sabre NDC — search limited to the configured airline
+
+**Objective:** Verify that a Sabre NDC rule with one airline sends that airline to the supplier and returns only its flights.
+
+**Preconditions:** SETUP-3. `PO-CRF-9` decided.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Supplier / Credential | `NDCsbr` / `NDC Sabre Staging` |
+| Airline | an NDC airline this credential sells on CAI→JED |
+| Search | One-way `CAI` → `JED`, 1 adult, a date with flights |
+
+**Steps:**
+
+1. Open Admin booking flight search.
+2. Search the route and date in Test Data.
+3. Apply VR-01.
+
+**Expected Result:**
+
+1. [A1] The supplier request contains the configured airline (VR-01.1).
+2. [A2] Every Sabre NDC flight returned is for the configured airline (VR-01.2).
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement | Rule |
+|---|---|---|---|---|---|
+| A1 | airline code in the supplier request | PO-CRF-12 | contains | PO-CRF-12 | VR-01.1 |
+| A2 | all Sabre NDC flights are the configured airline | PO-CRF-12 | equals | PO-CRF-12 | VR-01.2 |
+
+**Priority:** P2
+
+**Tags:** Atomic, Positive, AC-2
+
+**Notes:** Not named in AC 2 — added by `PO-CRF-12`.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-021 — Portal search limited to the configured airline
+
+**Objective:** Verify that the airline filter also applies to a search made from the Portal.
+
+**Preconditions:** SETUP-3 for `Galileo` / `GalileoLive` with `EY` (or the existing rule). A Portal agency that uses `GalileoLive`, and a Portal login for it. `PO-CRF-9` decided.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Search | One-way `CAI` → `JED`, 1 adult, a date with flights |
+
+**Steps:**
+
+1. Log in to the Portal.
+2. Search the route and date in Test Data.
+3. Apply VR-01.
+
+**Expected Result:**
+
+1. [A1] The supplier request contains `EY` (VR-01.1).
+2. [A2] Every Galileo flight returned is an `EY` flight (VR-01.2).
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement | Rule |
+|---|---|---|---|---|---|
+| A1 | `EY` in the supplier request | PO-CRF-13 | contains | PO-CRF-13 | VR-01.1 |
+| A2 | all Galileo flights are `EY` | PO-CRF-13 | equals | PO-CRF-13 | VR-01.2 |
+
+**Priority:** P1
+
+**Tags:** Atomic, Positive, AC-2
+
+**Notes:** No Portal login is configured yet for this environment — needed before execution.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-022 — Search with two configured airlines
+
+**Objective:** Verify that a rule with two airlines sends both to the supplier and returns only their flights.
+
+**Preconditions:** SETUP-3 for `Galileo` / `GalileoLive`, selecting **two** airlines in step 3. `PO-CRF-9` decided.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Airlines | `EY` — Etihad, `MS` — EgyptAir |
+| Search | One-way `CAI` → `JED`, 1 adult, a date with flights |
+
+**Steps:**
+
+1. Open Admin booking flight search.
+2. Search the route and date in Test Data.
+
+**Expected Result:**
+
+1. [A1] The supplier request contains both `EY` and `MS`.
+2. [A2] Every Galileo flight returned is an `EY` or `MS` flight.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | `EY` and `MS` in the supplier request | PO-CRF-14 | contains | PO-CRF-14 |
+| A2 | all Galileo flights are `EY` or `MS` | US 10 AC 2 | equals | AC-2 |
+
+**Priority:** P2
+
+**Tags:** Atomic, Positive, AC-2, Assumption-based
+
+**Notes:** Assumption-based: user said "probably yes" (`PO-CRF-14`, `ASM-CRF-5` Likely). If only one airline is sent, raise it for a Product Owner decision.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-023 — Rule without airlines — search unchanged
+
+**Objective:** Verify that a rule with no airline still returns all airlines on the allowed route.
+
+**Preconditions:** A Whitelist rule for `Galileo` / `GalileoLive` with route `CAI` → `JED` and **no** airline (edit the existing rule to clear its airline, or use another credential, per `PO-CRF-7`).
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Search | One-way `CAI` → `JED`, 1 adult, a date with flights from more than one airline |
+
+**Steps:**
+
+1. Open Admin booking flight search.
+2. Search the route and date in Test Data.
+
+**Expected Result:**
+
+1. [A1] Galileo returns flights from more than one airline on `CAI` → `JED`.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | ≥ 2 airlines in Galileo results | PRD_UserStories.md US 2 ("unchanged when no airlines are configured") | ≥ | US2-SP |
+
+**Priority:** P1
+
+**Tags:** Atomic, Regression
+
+**Notes:** Restore the existing rule's airline (`EY`) after the case if it was cleared.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-024 — Blacklist rule with an airline
+
+**Objective:** Explore how a Blacklist rule with an airline is applied after the change.
+
+**Preconditions:** A **Blacklist** rule for `Galileo` / `GalileoLive` with route `CAI` → `JED` and airline `EY`, saved under `PO-CRF-7`. `PO-CRF-9` decided.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Search | One-way `CAI` → `JED`, 1 adult, a date with `EY` flights |
+
+**Steps:**
+
+1. Open Admin booking flight search.
+2. Search the route and date in Test Data.
+3. Check the supplier request in the log.
+
+**Expected Result:**
+
+1. [A1] No Galileo result is an `EY` flight.
+2. [A2] Record how `EY` appears in the supplier request (excluded, or not sent) and confirm with the Product Owner that this is intended.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | `EY` flights in Galileo results | PRD_UserStories.md US 2 ("configured airlines are excluded") | absent | US2-SP |
+| A2 | request form confirmed by Product Owner | ASM-CRF-4 | present | ASM-CRF-4 |
+
+**Priority:** P2
+
+**Tags:** Atomic, Exploratory, AC-2
+
+**Notes:** Exploratory: how a Blacklist airline is sent is not defined (`ASM-CRF-4`). A1 is a fixed check; A2 needs a human decision.
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-025 — Airline filter on an "All Airports" route
+
+**Objective:** Explore whether the airline is sent to the supplier for a route that uses "All Airports".
+
+**Preconditions:** A Whitelist rule for `Galileo` / a test credential with route `CAI` → **All Airports** and airline `EY`, saved under `PO-CRF-7`. `PO-CRF-9` decided.
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Search | One-way `CAI` → `JED`, 1 adult, a date with flights |
+
+**Steps:**
+
+1. Open Admin booking flight search.
+2. Search the route and date in Test Data.
+3. Check the supplier request in the log.
+
+**Expected Result:**
+
+1. [A1] Record whether the supplier request contains `EY`, and confirm the expected behaviour with the Product Owner.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | behaviour confirmed by Product Owner | OQ-D6 | present | OQ-D6 |
+
+**Priority:** P3
+
+**Tags:** Atomic, Exploratory, AC-2
+
+**Notes:** Exploratory: not defined anywhere (user: "not known", 2026-10-17).
+
+**Review:** Approved
+
+**Automation:** Rejected
+
+---
+
+### TC-CRF-026 — Airport blacklist still blocks a whitelisted route
+
+**Objective:** Verify that an airport blacklist still blocks a route the Credential Routes Filter allows (AND logic).
+
+**Preconditions:** A Whitelist rule for `Galileo` / a test credential with route `CAI` → `JED` and airline `EY`. Airport `JED` is set to Blacklist in the Airport module for that supplier (set up outside this module, under `PO-CRF-7`).
+
+**Test Data:**
+
+| Field | Value |
+|---|---|
+| Search | One-way `CAI` → `JED`, 1 adult, a date with `EY` flights |
+
+**Steps:**
+
+1. Open Admin booking flight search.
+2. Search the route and date in Test Data.
+
+**Expected Result:**
+
+1. [A1] Galileo returns no flights for `CAI` → `JED`.
+
+**Assertions:**
+
+| Assertion ID | Expected | Expected Source | Check | Requirement |
+|---|---|---|---|---|
+| A1 | Galileo flights | PRD_UserStories.md US 1 Comments, Example 1 (AND logic) | absent | US1-AND |
+
+**Priority:** P3
+
+**Tags:** Scenario, Integration, Regression
+
+**Notes:** Remove the airport blacklist after the case.
+
+**Review:** Approved
+
+**Automation:** Rejected

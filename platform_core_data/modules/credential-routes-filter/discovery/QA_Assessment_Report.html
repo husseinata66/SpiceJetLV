@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tX0UHH3XbFYmffjMbihbOAQjIqdW/Z8z9jDmAQc17D8='; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="report-model-sha256" content="bdeaaad53c07c54a425160f1167ada730eb6135f944509e38e04de41e61c3506">
+<title>credential-routes-filter — Discovery run-001</title>
+<style>
+  :root{
+    color-scheme: light;
+    --paper:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAEEF4;
+    --ink:#10151F; --ink-2:#45536B; --ink-muted:#7C8AA0;
+    --line:#DDE3EC; --line-strong:#C6CEDC;
+    --accent:#2A78D6; --accent-ink:#1C5CAB; --accent-wash:#E4EEFA;
+    --good:#0CA30C; --warning:#C98A17; --serious:#D9673C; --critical:#D03B3B;
+    --good-wash:rgba(12,163,12,0.12); --warning-wash:rgba(250,178,25,0.16);
+    --serious-wash:rgba(236,131,90,0.14); --critical-wash:rgba(208,59,59,0.12);
+    --shadow:rgba(16,21,31,0.08);
+    --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --font-mono:ui-monospace,"SF Mono","Cascadia Code","Roboto Mono",Consolas,"Courier New",monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --paper:#0A0E15; --surface:#111826; --surface-2:#16202F;
+      --ink:#EDF1F7; --ink-2:#B7C2D1; --ink-muted:#8290A6;
+      --line:#232E40; --line-strong:#324058;
+      --accent:#3987E5; --accent-ink:#8FBBEF; --accent-wash:#152A45;
+      --good:#35C24A; --warning:#E3A730; --serious:#E88A5E; --critical:#EA5B5B;
+      --good-wash:rgba(53,194,74,0.16); --warning-wash:rgba(227,167,48,0.16);
+      --serious-wash:rgba(232,138,94,0.16); --critical-wash:rgba(234,91,91,0.18);
+      --shadow:rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --paper:#0A0E15; --surface:#111826; --surface-2:#16202F;
+    --ink:#EDF1F7; --ink-2:#B7C2D1; --ink-muted:#8290A6;
+    --line:#232E40; --line-strong:#324058;
+    --accent:#3987E5; --accent-ink:#8FBBEF; --accent-wash:#152A45;
+    --good:#35C24A; --warning:#E3A730; --serious:#E88A5E; --critical:#EA5B5B;
+    --good-wash:rgba(53,194,74,0.16); --warning-wash:rgba(227,167,48,0.16);
+    --serious-wash:rgba(232,138,94,0.16); --critical-wash:rgba(234,91,91,0.18);
+    --shadow:rgba(0,0,0,0.5);
+  }
+  :root[data-theme="light"]{
+    color-scheme: light;
+    --paper:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAEEF4;
+    --ink:#10151F; --ink-2:#45536B; --ink-muted:#7C8AA0;
+    --line:#DDE3EC; --line-strong:#C6CEDC;
+    --accent:#2A78D6; --accent-ink:#1C5CAB; --accent-wash:#E4EEFA;
+    --good:#0CA30C; --warning:#C98A17; --serious:#D9673C; --critical:#D03B3B;
+    --good-wash:rgba(12,163,12,0.12); --warning-wash:rgba(250,178,25,0.16);
+    --serious-wash:rgba(236,131,90,0.14); --critical-wash:rgba(208,59,59,0.12);
+    --shadow:rgba(16,21,31,0.08);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--paper); color:var(--ink); font-family:var(--font-sans);
+        font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation-duration:.001ms !important; transition-duration:.001ms !important; } }
+  a{ color:var(--accent-ink); }
+  .wrap{ max-width:960px; margin:0 auto; padding:32px 20px 80px; }
+  .dashboard-card{ background:var(--surface); border:1px solid var(--line-strong); border-radius:24px; padding:24px; }
+  code,.mono{ font-family:var(--font-mono); font-size:.92em; }
+  .header{ display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:24px; }
+  .header-main{ flex:1 1 auto; min-width:280px; }
+  .header h1{ font-size:32px; font-weight:800; margin:0 0 8px; }
+  .header .meta{ color:var(--ink-muted); font-size:13px; }
+  .pill{ display:inline-flex; align-items:center; gap:6px; padding:6px 18px; border-radius:999px; font-size:12px; font-weight:700; letter-spacing:.03em; border:1px solid transparent; }
+  .pill-complete{ background:var(--good-wash); color:var(--good); border-color:var(--good); }
+  .pill-interrupted{ background:var(--critical-wash); color:var(--critical); }
+  .section-num{ font-size:17px; font-weight:700; color:var(--ink); margin:32px 0 14px; text-transform:none; letter-spacing:normal; border-bottom:none; padding-bottom:0; }
+  .summary-layout{ display:flex; align-items:center; gap:36px; flex-wrap:wrap; margin-bottom:28px; }
+  .donut-block{ display:flex; align-items:center; gap:20px; flex-shrink:0; }
+  .stats-block{ flex:1 1 360px; min-width:280px; display:flex; flex-direction:column; gap:14px; }
+  .scard{ text-align:center; }
+  .scard .lbl{ font-size:15px; font-weight:700; color:var(--ink-muted); margin-top:4px; }
+  .scard .val{ font-size:24px; font-weight:700; color:var(--ink); }
+  .scard .val.pass{ color:var(--good); }
+  .scard .val.fail{ color:var(--critical); }
+  .scard .val.blocked{ color:var(--serious); }
+  .scard .val.accent{ color:var(--accent-ink); }
+  .scard-total .lbl{ font-size:17px; margin-top:6px; }
+  .scard-total .val{ font-size:28px; }
+  summary.section-summary-flex > .section-count-badges,
+  summary.section-summary-flex > .section-count-badge{ float:right; }
+  .section-count-badge{ display:flex; flex-direction:column; align-items:center; justify-content:center;
+      background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; padding:6px 20px;
+      text-transform:none; letter-spacing:normal; flex-shrink:0; }
+  .section-count-badge .scb-val{ font-size:20px; font-weight:700; color:var(--accent-ink); line-height:1.2; }
+  .section-count-badge .scb-lbl{ font-size:11px; color:var(--ink-muted); margin-top:1px; }
+  .section-count-badges{ display:flex; gap:10px; flex-shrink:0; }
+  .scb-val.serious{ color:var(--serious); }
+  .scb-val.accent{ color:var(--accent-ink); }
+  .summary-cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; }
+  .donut{ width:280px; height:280px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .donut-hole{ width:190px; height:190px; border-radius:50%; background:var(--paper); display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .donut-pct{ font-size:34px; font-weight:800; color:var(--ink); }
+  .donut-sub{ font-size:15px; color:var(--ink-muted); }
+  .donut-legend{ display:flex; flex-direction:column; gap:10px; }
+  .litem{ display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-2); white-space:nowrap; }
+  .litem .lcount{ margin-left:4px; color:var(--ink-muted); }
+  .swatch{ width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+  .swatch.pass{ background:var(--good); }
+  .swatch.fail{ background:var(--critical); }
+  .swatch.blocked{ background:var(--serious); }
+  h2{ font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-2);
+      border-bottom:1px solid var(--line); padding-bottom:6px; margin:32px 0 12px; }
+  .section-collapse{ margin:0; }
+  .section-collapse > summary{ font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-2);
+      border-bottom:1px solid var(--line); padding-bottom:6px; margin:32px 0 12px; cursor:pointer; }
+  .section-collapse > summary::-webkit-details-marker{ color:var(--ink-muted); }
+  .tc-section > summary{ margin-top:0; }
+  .tc-category{ background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; margin-bottom:10px; }
+  .tc-category > summary{ display:flex; align-items:center; gap:10px; padding:14px 16px; cursor:pointer; list-style:none; }
+  .tc-category > summary::-webkit-details-marker{ display:none; }
+  .cat-icon{ font-size:16px; flex-shrink:0; width:22px; display:inline-flex; align-items:center; justify-content:center; }
+  .cat-name{ font-weight:700; color:var(--ink); flex-shrink:0; }
+  .cat-counts{ display:flex; gap:14px; margin-left:auto; font-size:12px; }
+  .cc{ font-weight:600; }
+  .cc.pass{ color:var(--good); }
+  .cc.fail{ color:var(--critical); }
+  .cc.blocked{ color:var(--serious); }
+  .cat-chev{ display:inline-block; width:9px; flex-shrink:0; color:var(--ink-muted); font-size:10px; transition:transform .15s ease; }
+  .cat-chev::before{ content:'\25B8'; }
+  details.tc-category[open] > summary .cat-chev{ transform:rotate(90deg); }
+  .tc-category-body{ padding:0 16px 16px; }
+  .tc-category.cat-empty{ display:none; }
+  .tc-subhead{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:14px 0 8px; padding-bottom:4px; border-bottom:1px solid var(--line); }
+  .tc-subhead:first-child{ margin-top:4px; }
+  .tc-subhead-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+  .tc-subhead-label.pos{ color:var(--good); }
+  .tc-subhead-label.neg{ color:var(--critical); }
+  .tc-subhead-counts{ display:flex; gap:12px; font-size:11px; }
+  .tc{ background:var(--surface); border:1px solid var(--line-strong); border-left-width:4px; border-radius:12px; padding:16px 18px; margin-bottom:8px; }
+  .tc.PASS{ border-left-color:var(--good); }
+  .tc.FAIL{ border-left-color:var(--critical); }
+  .tc.BLOCKED{ border-left-color:var(--serious); }
+  .tc-head{ display:flex; justify-content:space-between; gap:10px; font-weight:600; }
+  .badge{ font-size:11px; font-weight:700; padding:2px 8px; border-radius:5px; }
+  .badge.PASS{ background:var(--good-wash); color:var(--good); }
+  .badge.FAIL{ background:var(--critical-wash); color:var(--critical); }
+  .badge.BLOCKED{ background:var(--serious-wash); color:var(--serious); }
+  .tc .row{ margin-top:6px; font-size:13px; color:var(--ink-2); overflow-wrap:anywhere; }
+  .tc .row b{ color:var(--ink); }
+  .view-tc-wrap{ margin-top:10px; }
+  .view-tc > summary{ display:block; text-align:right; color:var(--accent-ink); text-decoration:underline; cursor:pointer; font-size:12px; font-weight:600; list-style:none; }
+  .view-tc > summary::-webkit-details-marker{ display:none; }
+  .view-tc-body{ margin-top:8px; padding:14px 16px; background:var(--surface-2); border:1px solid var(--line); border-radius:8px; font-size:13px; }
+  .vtc-h{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-muted); margin:12px 0 4px; }
+  .vtc-h:first-child{ margin-top:0; }
+  .vtc-p{ color:var(--ink-2); overflow-wrap:anywhere; }
+  .vtc-steps{ margin:0; padding-left:18px; color:var(--ink-2); }
+  .vtc-steps li{ margin-bottom:4px; overflow-wrap:anywhere; }
+  .assertions{ margin-top:6px; overflow-x:auto; }
+  .assertions table{ border-collapse:collapse; font-size:12px; width:100%; }
+  .assertions th, .assertions td{ text-align:left; padding:4px 8px; border-bottom:1px solid var(--surface-2); vertical-align:top; overflow-wrap:anywhere; }
+  .assertions tr.as-fail td{ color:var(--fail, #b42318); }
+  .assertions tr.as-missing td{ color:var(--warning, #b54708); font-style:italic; }
+  details.evidence, details.hops{ margin-top:6px; }
+  details.evidence summary, details.hops summary{ cursor:pointer; font-size:12px; color:var(--accent-ink); }
+  details.evidence .ev-body{ margin-top:4px; padding:8px 10px; background:var(--surface-2); border-radius:6px; font-size:12px; overflow-wrap:anywhere; }
+  .hop{ padding:6px 0; border-top:1px solid var(--line); font-size:12px; }
+  .hop:first-child{ border-top:none; }
+  .hop-endpoint{ font-weight:600; color:var(--ink); }
+  .hop .hd{ color:var(--ink-muted); margin-top:2px; overflow-wrap:anywhere; }
+  .hop .hd.hop-reqres.js-hidden{ display:none; }
+  .hop-reqres-toggle{ margin-left:8px; font-size:11px; font-weight:600; color:var(--accent-ink); text-decoration:underline; cursor:pointer; }
+  .hop-reqres-panel{ margin-top:10px; display:flex; flex-direction:column; gap:18px; }
+  .hop-reqres-panel.js-hidden{ display:none; }
+  .rr-title{ font-size:15px; font-weight:700; color:var(--ink); margin-bottom:6px; }
+  .rr-line{ font-size:13px; color:var(--ink-2); margin-bottom:10px; font-family:var(--font-mono); overflow-wrap:anywhere; }
+  .rr-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-muted); margin:10px 0 6px; }
+  .rr-box{ background:#0B0E15; color:#D7DEE8; border-radius:10px; padding:14px 16px; font-family:var(--font-mono); font-size:12.5px; overflow:auto; }
+  .rr-headers-box .rr-h-line{ margin-bottom:14px; white-space:pre-wrap; overflow-wrap:anywhere; }
+  .rr-headers-box .rr-h-line:last-child{ margin-bottom:0; }
+  .rr-body-box{ max-height:340px; }
+  .rr-body-box pre{ margin:0; white-space:pre; }
+  .rr-redacted{ color:#8290A6; }
+  .rr-note{ font-size:11px; color:var(--ink-muted); font-style:italic; margin-top:6px; }
+  .tc-status-row{ display:flex; align-items:center; gap:10px; }
+  .tc-reqres-toggle{ margin-left:auto; }
+  .tc-reqres-panel{ margin-top:10px; display:flex; flex-direction:column; gap:18px; }
+  .tc-reqres-panel.js-hidden{ display:none; }
+  .rr-attempt-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--accent-ink); margin:0 0 4px; }
+  .finding{ border-radius:12px; padding:10px 12px; margin-bottom:8px; font-size:13px; overflow-wrap:anywhere; }
+  .finding.defect{ background:var(--serious-wash); border:1px solid var(--serious); }
+  .finding.unknown_resolution{ background:var(--accent-wash); border:1px solid var(--accent); }
+  .finding .kind{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; }
+  .cleanup{ background:var(--warning-wash); border:1px solid var(--warning); border-radius:12px; padding:12px 14px; }
+  .cleanup ul{ margin:6px 0 0; padding-left:18px; }
+  .cleanup li{ margin-bottom:6px; overflow-wrap:anywhere; }
+  .empty{ color:var(--ink-muted); font-size:13px; font-style:italic; }
+.meta-card{ margin-top:8px; }
+.fields{ display:flex; flex-direction:column; gap:4px; margin:4px 0 6px; }
+.fields.run-meta{ margin-top:10px; padding-top:10px; border-top:1px solid var(--line); }
+.field-row{ display:flex; flex-wrap:wrap; gap:4px 28px; }
+.field{ font-size:14px; display:flex; gap:6px; }
+.field .k{ color:var(--ink-2); font-weight:700; font-size:15px; letter-spacing:normal; text-transform:none; flex-shrink:0; }
+.field .k::after{ content:':'; }
+.field .v{ color:var(--ink); }
+.tc-actions{ display:flex; justify-content:flex-end; gap:8px; margin:32px 0 8px; }
+.tc-actions button{ padding:7px 12px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:12px; font-weight:600; cursor:pointer; }
+.tc-cat-actions{ display:flex; justify-content:flex-end; gap:8px; margin:4px 0 10px; }
+.tc-cat-actions button{ padding:5px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:11px; font-weight:600; cursor:pointer; }
+.tc-cat-actions button:hover{ background:var(--surface-2); }
+.tc-actions button:hover{ background:var(--surface-2); }
+.tc-toolbar{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:0 0 14px; position:sticky; top:0; z-index:5; }
+.tc-toolbar input[type="search"]{ flex:1 1 240px; min-width:180px; padding:7px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); font-size:13px; }
+.tc-toolbar select{ padding:7px 10px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); font-size:13px; }
+.tc-toolbar button{ padding:7px 12px; border-radius:7px; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink-2); font-size:12px; font-weight:600; cursor:pointer; }
+.tc-toolbar button:hover{ background:var(--surface-2); }
+#tcResetFilters{ color:var(--critical); border-color:var(--critical); }
+#tcResetFilters:hover{ background:var(--critical-wash); }
+.tc-toolbar .tc-count{ font-size:12px; color:var(--ink-muted); margin-left:auto; white-space:nowrap; }
+details.tc > summary.tc-head{ cursor:pointer; list-style:none; }
+details.tc > summary.tc-head::-webkit-details-marker{ display:none; }
+.tc-head .chev{ display:inline-block; width:9px; flex-shrink:0; color:var(--ink-muted); font-size:10px; transition:transform .15s ease; align-self:center; }
+.tc-head .chev::before{ content:'\25B8'; }
+details.tc[open] > summary.tc-head .chev{ transform:rotate(90deg); }
+details.tc.js-hidden{ display:none; }
+.tc-no-results{ padding:28px 20px; text-align:center; color:var(--critical); font-size:18px; font-weight:700; background:var(--critical-wash); border:1px solid var(--critical); border-radius:12px; margin-bottom:10px; }
+.tc-no-results.js-hidden{ display:none; }
+
+/* --- Generated-report status tones ---------------------------------------
+   The reference report hardcoded PASS/FAIL/BLOCKED. Generated reports declare
+   their own status vocabulary and map each status to one of these tones, so a
+   Stage 5A "ERROR" or a Stage 6A "PARTIAL" colours correctly without new CSS. */
+.tc.tone-pass{ border-left-color:var(--good); }
+.tc.tone-fail{ border-left-color:var(--critical); }
+.tc.tone-blocked{ border-left-color:var(--serious); }
+.tc.tone-warning{ border-left-color:var(--warning); }
+.tc.tone-accent{ border-left-color:var(--accent); }
+.tc.tone-neutral{ border-left-color:var(--line-strong); }
+.badge.tone-pass{ background:var(--good-wash); color:var(--good); }
+.badge.tone-fail{ background:var(--critical-wash); color:var(--critical); }
+.badge.tone-blocked{ background:var(--serious-wash); color:var(--serious); }
+.badge.tone-warning{ background:var(--warning-wash); color:var(--warning); }
+.badge.tone-accent{ background:var(--accent-wash); color:var(--accent-ink); }
+.badge.tone-neutral{ background:var(--surface-2); color:var(--ink-muted); }
+.swatch.tone-pass{ background:var(--good); }
+.swatch.tone-fail{ background:var(--critical); }
+.swatch.tone-blocked{ background:var(--serious); }
+.swatch.tone-warning{ background:var(--warning); }
+.swatch.tone-accent{ background:var(--accent); }
+.swatch.tone-neutral{ background:var(--line-strong); }
+.cc.tone-pass{ color:var(--good); }
+.cc.tone-fail{ color:var(--critical); }
+.cc.tone-blocked{ color:var(--serious); }
+.cc.tone-warning{ color:var(--warning); }
+.cc.tone-accent{ color:var(--accent-ink); }
+.cc.tone-neutral{ color:var(--ink-muted); }
+.scard .val.tone-pass{ color:var(--good); }
+.scard .val.tone-fail{ color:var(--critical); }
+.scard .val.tone-blocked{ color:var(--serious); }
+.scard .val.tone-warning{ color:var(--warning); }
+.scard .val.tone-accent{ color:var(--accent-ink); }
+.scard .val.tone-neutral{ color:var(--ink); }
+.scb-val.tone-pass{ color:var(--good); }
+.scb-val.tone-fail{ color:var(--critical); }
+.scb-val.tone-blocked{ color:var(--serious); }
+.scb-val.tone-warning{ color:var(--warning); }
+.scb-val.tone-accent{ color:var(--accent-ink); }
+.scb-val.tone-neutral{ color:var(--ink-muted); }
+.finding.tone-fail{ background:var(--critical-wash); border:1px solid var(--critical); }
+.finding.tone-blocked{ background:var(--serious-wash); border:1px solid var(--serious); }
+.finding.tone-warning{ background:var(--warning-wash); border:1px solid var(--warning); }
+.finding.tone-accent{ background:var(--accent-wash); border:1px solid var(--accent); }
+.finding.tone-pass{ background:var(--good-wash); border:1px solid var(--good); }
+.finding.tone-neutral{ background:var(--surface-2); border:1px solid var(--line-strong); }
+.finding .fkv{ margin-top:4px; }
+.finding .fkv b{ color:var(--ink); }
+.notes-block{ font-size:13px; color:var(--ink-2); }
+.notes-block p{ margin:0 0 8px; overflow-wrap:anywhere; }
+.notes-block ul{ margin:0 0 8px; padding-left:18px; }
+.notes-block li{ margin-bottom:4px; overflow-wrap:anywhere; }
+.rr-attempt-label + .rr-title{ margin-top:0; }
+.rr-response-title{ margin-top:18px; }
+.pill.tone-pass{ background:var(--good-wash); color:var(--good); border-color:var(--good); }
+.pill.tone-fail{ background:var(--critical-wash); color:var(--critical); border-color:var(--critical); }
+.pill.tone-blocked{ background:var(--serious-wash); color:var(--serious); border-color:var(--serious); }
+.pill.tone-warning{ background:var(--warning-wash); color:var(--warning); border-color:var(--warning); }
+.pill.tone-accent{ background:var(--accent-wash); color:var(--accent-ink); border-color:var(--accent); }
+.pill.tone-neutral{ background:var(--surface-2); color:var(--ink-muted); border-color:var(--line-strong); }
+</style>
+</head><body><div class="wrap">
+<div class="header"><div class="header-main">
+<h1>QA Assessment Report — credential-routes-filter (run-001, baseline)</h1>
+</div><div><span class="pill tone-neutral">APPROVED</span></div></div>
+<div class="meta-card dashboard-card">
+<div class="fields">
+<div class="field-row"><div class="field"><span class="k">Module</span><span class="v"><span class="mono">credential-routes-filter</span></span></div>
+<div class="field"><span class="k">Run</span><span class="v"><span class="mono">credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)</span></span></div></div>
+<div class="field-row"><div class="field"><span class="k">Project Context</span><span class="v">ProjectContext.md Rev 3 — Approved 2026-10-17 (user answers PO-CRF-12 … 15)</span></div>
+<div class="field"><span class="k">Status</span><span class="v">Approved — Ahmed Ayman, 2026-10-17</span></div></div>
+<div class="field"><span class="k">Environment</span><span class="v"><span class="mono">http://192.168.1.70 (UAT, shared) — odeysysadmin</span></span></div>
+</div>
+<div class="fields run-meta">
+<div class="field-row"><div class="field"><span class="k">Discovery Mode</span><span class="v">Browser automation — Browser Driver, Headless (SP-4, read-only)</span></div>
+<div class="field"><span class="k">Generated</span><span class="v">2026-10-17</span></div></div>
+</div>
+</div>
+<details class="section-collapse" id="section-about-this-page" open>
+<summary>About this page</summary>
+<div class="notes-block">
+<p>HTML rendering of QA_Assessment_Report.md, which is the artifact under review.</p>
+<p>The US 62039 / US 60737 change is NOT deployed. This run records the current baseline only. Nothing was saved, edited or deleted.</p>
+</div>
+</details>
+<details class="section-collapse" id="section-headline" open>
+<summary>Headline</summary>
+<div class="notes-block">
+<ul>
+<li>Today: GDS-type rules allow 150 routes and show an Airlines field; LCC-type rules allow 50 and show none. Code: maxRoutes = GDS ? 150 : 50.</li>
+<li>At the limit (from code): Add blocked with &quot;Maximum {max} routes reached.&quot;; over the limit Save is disabled.</li>
+<li>9 suppliers are type &quot;Both&quot; (API). They act as LCC today (50, no Airlines); per PO-CRF-10 they count as LCC, so AC 1 should give them 150. The GDS→LCC &quot;Supplier Change&quot; dialog hard-codes 150 → 50 (OQ-D8).</li>
+<li>3 of 4 Findings closed as intended/explained by the user. AC 2 still cannot be observed (not deployed).</li>
+</ul>
+</div>
+</details>
+<details class="section-collapse" id="section-findings" open>
+<summary class="section-summary-flex">Findings<span class="section-count-badges"><span class="section-count-badge"><span class="scb-val tone-warning">1</span><span class="scb-lbl">Needs Human Review</span></span><span class="section-count-badge"><span class="scb-val tone-neutral">3</span><span class="scb-lbl">Rejected (intended / explained)</span></span></span></summary>
+<div class="finding tone-neutral"><div class="kind">Observation — Rejected (intended, user 2026-10-17)</div>
+Supplier names in the app do not match the story/intake names (Sabre, NDCsbr, AmadeusNDC, AmdNDC, AmdNDCaaaa). <span class="mono">(FINDING-001)</span>
+<div class="fkv"><b>Annotated:</b> <code>supplier_list_ndc.annotated.png (Q1–Q4) · supplier_list_sabre.annotated.png (Q5)</code></div>
+<div class="fkv"><b>Answer:</b> Names on this environment were entered this way on purpose; on Production they are correct.</div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">Direct Observation</div></details>
+</div>
+<div class="finding tone-neutral"><div class="kind">Observation — Rejected (intended, user 2026-10-17)</div>
+Origin/Destination offer an &quot;All Airports&quot; option, not mentioned in the Project Context. <span class="mono">(FINDING-002)</span>
+<div class="fkv"><b>Annotated:</b> <code>origin_all_airports.annotated.png (Q1)</code></div>
+<div class="fkv"><b>Answer:</b> &quot;All&quot; means any airport; stored as a special id (-1 or -11); counts as 1 route toward the limit. AC 2 behaviour for &quot;All&quot; routes still open.</div>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">Direct Observation</div></details>
+</div>
+<div class="finding tone-neutral"><div class="kind">UX Issue — Rejected (explained)</div>
+Cancel goes back to the previous page (location.back()). From the list it returns to the list; the Dashboard was seen only when /add was opened by URL from the Dashboard. <span class="mono">(FINDING-003)</span>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">Direct Observation</div></details>
+</div>
+<div class="finding tone-neutral"><div class="kind">Test Gap — Needs Human Review</div>
+AC 2 not observable (not deployed, server-side). The live limit probe was refused; the limit rules were read from the front-end code instead. <span class="mono">(FINDING-004)</span>
+<details class="evidence"><summary>Evidence</summary><div class="ev-body">Direct Observation (blocking conditions)</div></details>
+</div>
+</details>
+<details class="section-collapse" id="section-gaps-and-open-questions" open>
+<summary>Gaps and open questions</summary>
+<div class="finding tone-warning"><div class="kind">Open Question</div>
+OQ-D6 (part): does AC 2 add the airline for &quot;All Airports&quot; routes? (user: not known) <span class="mono">(FINDING-002)</span>
+</div>
+<div class="finding tone-neutral"><div class="kind">Answered</div>
+OQ-D7: 9 suppliers are type &quot;Both&quot; (ShuraTech, FlyEgypt, FlyEgyptUAE, ShuraTechGLC, MIK, FlyAdealNDC, ShoraNDC, Spicejet, USBanglaUAE). They behave as LCC; covered as LCC per PO-CRF-10. <span class="mono">(API supplier-with-cred)</span>
+</div>
+<div class="finding tone-neutral"><div class="kind">Answered</div>
+OQ-D8: the &quot;Supplier Change&quot; dialog (150 → 50, routes removed) must be removed after AC 1 (PO-CRF-16). <span class="mono">(user, 2026-10-17)</span>
+</div>
+<div class="finding tone-neutral"><div class="kind">Unresolved assumption</div>
+ASM-CRF-4: does the post-response airline filter stay after AC 2, and how is a Blacklist airline sent? Server-side — cannot be seen before deployment. <span class="mono">(ProjectContext §6)</span>
+</div>
+</details>
+<details class="section-collapse" id="section-coverage-from-coverage-summary-md" open>
+<summary>Coverage (from Coverage_Summary.md)</summary>
+<div class="notes-block">
+<p>3 of 4 in-scope surfaces reached = 75% (live + front-end code). AC 2 unreachable — not deployed.</p>
+</div>
+</details>
+</div><script>
+(function(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll('details.tc'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('details.section-collapse'));
+  var categories = Array.prototype.slice.call(document.querySelectorAll('details.tc-category'));
+  var search = document.getElementById('tcSearch');
+  var statusSel = document.getElementById('tcStatusFilter');
+  var categorySel = document.getElementById('tcCategoryFilter');
+  var countEl = document.getElementById('tcCount');
+  var noResultsEl = document.getElementById('tcNoResults');
+  var resetBtn = document.getElementById('tcResetFilters');
+  var expandBtn = document.getElementById('tcExpandAll');
+  var collapseBtn = document.getElementById('tcCollapseAll');
+
+  var hasToolbar = !!(search && statusSel && categorySel && countEl && noResultsEl);
+
+  function applyFilter(){
+    if (!hasToolbar) return;
+    var q = search.value.trim().toLowerCase();
+    var status = statusSel.value;
+    var category = categorySel.value;
+    var visible = 0;
+    cards.forEach(function(card){
+      var matchesStatus = !status || card.getAttribute('data-status') === status;
+      var matchesText = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
+      var matchesCategory = !category || card.closest('details.tc-category').getAttribute('data-cat') === category;
+      var show = matchesStatus && matchesText && matchesCategory;
+      card.classList.toggle('js-hidden', !show);
+      if (show) visible++;
+      if (show && q) card.open = true;
+    });
+    categories.forEach(function(cat){
+      var anyVisible = cat.querySelector('details.tc:not(.js-hidden)');
+      var matchesCategory = !category || cat.getAttribute('data-cat') === category;
+      cat.classList.toggle('cat-empty', !anyVisible || !matchesCategory);
+      if (anyVisible && matchesCategory && (q || status || category)) cat.open = true;
+    });
+    countEl.textContent = visible + ' / ' + cards.length + ' shown';
+    noResultsEl.classList.toggle('js-hidden', visible !== 0);
+  }
+
+  if (hasToolbar) {
+    search.addEventListener('input', applyFilter);
+    statusSel.addEventListener('change', applyFilter);
+    categorySel.addEventListener('change', applyFilter);
+  }
+  if (resetBtn) resetBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    search.value = '';
+    statusSel.value = '';
+    categorySel.value = '';
+    applyFilter();
+  });
+  if (expandBtn) expandBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    cards.forEach(function(c){ c.open = true; });
+    sections.forEach(function(s){ s.open = true; });
+    categories.forEach(function(c){ c.open = true; });
+  });
+  if (collapseBtn) collapseBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    cards.forEach(function(c){ c.open = false; });
+    sections.forEach(function(s){ s.open = false; });
+    categories.forEach(function(c){ c.open = false; });
+  });
+
+  categories.forEach(function(cat){
+    var catCards = Array.prototype.slice.call(cat.querySelectorAll('details.tc'));
+    var catExpandBtn = cat.querySelector('.tc-cat-expand');
+    var catCollapseBtn = cat.querySelector('.tc-cat-collapse');
+    if (catExpandBtn) catExpandBtn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      catCards.forEach(function(c){ c.open = true; });
+    });
+    if (catCollapseBtn) catCollapseBtn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      catCards.forEach(function(c){ c.open = false; });
+    });
+  });
+
+  applyFilter();
+
+  Array.prototype.slice.call(document.querySelectorAll('.hop')).forEach(function(hop){
+    var panel = hop.querySelector('.hop-reqres-panel');
+    var endpointSpan = hop.querySelector('.hop-endpoint');
+    var toggle = document.createElement('a');
+    toggle.href = '#';
+    toggle.className = 'hop-reqres-toggle';
+    toggle.textContent = 'View req & response';
+
+    if (panel) {
+      panel.classList.add('js-hidden');
+      toggle.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var hidden = panel.classList.toggle('js-hidden');
+        toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+      });
+      endpointSpan.parentNode.insertBefore(toggle, endpointSpan.nextSibling);
+      return;
+    }
+
+    var hds = Array.prototype.slice.call(hop.querySelectorAll('.hd'));
+    var reqEl = hds[0];
+    var resEl = hds[1];
+    if (!reqEl || !resEl) return;
+    reqEl.classList.add('hop-reqres', 'js-hidden');
+    resEl.classList.add('hop-reqres', 'js-hidden');
+    toggle.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var hidden = reqEl.classList.toggle('js-hidden');
+      resEl.classList.toggle('js-hidden', hidden);
+      toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+    });
+    endpointSpan.parentNode.insertBefore(toggle, endpointSpan.nextSibling);
+  });
+
+  Array.prototype.slice.call(document.querySelectorAll('.tc-reqres-anchor')).forEach(function(anchor){
+    var card = anchor.closest('details.tc');
+    var panel = card ? card.querySelector(':scope > .tc-reqres-panel') : null;
+    if (!panel) return;
+    panel.classList.add('js-hidden');
+    var toggle = document.createElement('a');
+    toggle.href = '#';
+    toggle.className = 'hop-reqres-toggle tc-reqres-toggle';
+    toggle.textContent = 'View req & response';
+    toggle.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var hidden = panel.classList.toggle('js-hidden');
+      toggle.textContent = hidden ? 'View req & response' : 'Hide req & response';
+    });
+    anchor.parentNode.insertBefore(toggle, anchor.nextSibling);
+  });
+})();
+</script>
+</body></html>

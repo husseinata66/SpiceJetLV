@@ -1,0 +1,24 @@
+# FINDING-004 — The route-limit boundary and AC 2 could not be observed in this run
+
+- **Finding ID:** FINDING-004
+- **Title:** The route-limit boundary and AC 2 could not be observed in this run
+- **Category:** Test Gap
+- **Severity:** N/A
+- **Severity Reason:** Test Gap category — a limit of this run's coverage, not a claim about the app.
+- **Confidence Score:** 100%
+- **Evidence Category:** Direct Observation (of the blocking conditions)
+- **Status:** Needs Human Review
+- **Business Risk:** The two changed behaviours of this run are not yet seen working or failing.
+- **Technical Risk:** None identified.
+- **Module:** `credential-routes-filter`
+- **Workflow:** AC 1 boundary; AC 2 search request
+- **Description:** (a) **AC 1 boundary.** What the screen does when an LCC rule reaches 50 routes (or a GDS rule 150) was not observed. Reaching it needs 50+ routes in a draft on a shared environment; the session's permission check refused that as a shared-data risk, and `PO-CRF-7` (mutation grant) is not given. (b) **AC 2.** The change is not deployed (user, 2026-10-17). Also, the airline in the supplier request is not visible in the UI (`RISK-CRF-2`).
+- **Expected Behavior:** Project Context §2: LCC limit 150 (AC 1); airline sent in the request for four suppliers (AC 2).
+- **Actual Behavior:** Today's limits seen: LCC "/ 50", GDS "/ 150" (counter only). AC 2 not reachable.
+- **Steps to Reproduce:** —
+- **Investigation/Recovery Result:** Not applicable.
+- **Investigation Notes:** Recovery Strategy (§21) considered: User-guided exploration could reach the limit only by saving data; Documentation describes no request format. No mode available in this run.
+- **Occurrence Count:** 1
+- **Evidence Links:** No screenshot — there is no on-screen blocking condition to capture (Test Gap floor, §5.11). The counter observations are in `discovery/CredentialRoutesFilter_AddEdit.md` §5.
+- **Update (2026-10-17):** Part (a) is now covered by reading the front-end code (`CredentialRoutesFilter_AddEdit.md` §5.1): at the limit Add is blocked with "Maximum {max} routes reached." Still not seen live. Part (b) unchanged.
+- **Recommendation:** After deployment, decide `PO-CRF-7` (how to create and clean up 150+ routes) and `PO-CRF-9` (request log or API trace for AC 2).

@@ -5,7 +5,7 @@
   "description": "Execution Safety policy for the NDC Admin Portal on shared staging (STG). Machine-readable and authoritative for evaluation; execution_safety_policy.md beside this file explains it for reviewers and records the provenance of every rule. Every rule below is either migrated from existing project evidence or is a flagged conservative default -- none was invented because it seemed reasonable. Version 2 (2026-09-28, HD-SAFETY-006) added a narrow SelfCreated carve-out for booking/financial actions, for the Ancillaries/AirIndia Supplier Feature run -- see execution_safety_policy.md S3.5.",
 
   "environment": "Staging",
-  "environmentAliases": ["STG", "staging", "stg", "STG_PORTAL", "ANCILLARIES_STG"],
+  "environmentAliases": ["STG", "staging", "stg", "STG_PORTAL", "ANCILLARIES_STG", "UAT"],
 
   "defaults": {
     "*": {

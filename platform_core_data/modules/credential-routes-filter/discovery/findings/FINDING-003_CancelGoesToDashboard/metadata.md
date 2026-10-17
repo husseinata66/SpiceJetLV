@@ -1,0 +1,23 @@
+# FINDING-003 — Cancel on the Add form goes to the Dashboard, not back to the list
+
+- **Finding ID:** FINDING-003
+- **Title:** Cancel on the Add form goes to the Dashboard, not back to the list
+- **Category:** UX Issue
+- **Severity:** Low
+- **Severity Reason:** Minor usability friction — the user must navigate back through Master → Supplier. Matches the Low criterion.
+- **Confidence Score:** 85%
+- **Evidence Category:** Direct Observation
+- **Status:** Rejected — explained (2026-10-17). Cancel goes **back to the previous page** (code: `location.back()`). From the list it returns to the list, as the user said. The Dashboard was seen only because this run opened `/add` by URL straight after login
+- **Business Risk:** Small extra effort for Admins who cancel often.
+- **Technical Risk:** None identified.
+- **Module:** `credential-routes-filter`
+- **Workflow:** Add Routes Filter → Cancel
+- **Description:** After opening Add Routes Filter, choosing a supplier and clicking Cancel, the app opens `/dashboard`.
+- **Expected Behavior:** Not defined in Project Context.
+- **Actual Behavior:** URL after Cancel: `http://192.168.1.70/dashboard`.
+- **Steps to Reproduce:** 1. Open `/master/supplier/credential-routes-filter/add`. 2. Choose a supplier. 3. Click Cancel.
+- **Investigation/Recovery Result:** Navigation category. Seen in 2 of 2 separate sessions. A third retry was not run, so this stays below 90%.
+- **Investigation Notes:** Cancel from the Edit form was not checked. Browser Back was not checked.
+- **Occurrence Count:** 2 (later explained — see Status)
+- **Evidence Links:** `cancel_lands_on_dashboard.png`. Video not recorded (headless run, single click).
+- **Recommendation:** No action. Re-check: 4 more tries — list → Add → Cancel returned to the list every time; `/add` opened by URL from the Dashboard returned to the Dashboard.

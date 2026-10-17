@@ -11,7 +11,7 @@
 |---|---|
 | Policy ID | `ndc-admin-portal-stg` |
 | Version | 2 (2026-09-28, HD-SAFETY-006 — see §3.5) |
-| Environment | **Staging** (aliases: `STG`, `staging`, `stg`, `STG_PORTAL`, `ANCILLARIES_STG`) |
+| Environment | **Staging** (aliases: `STG`, `staging`, `stg`, `STG_PORTAL`, `ANCILLARIES_STG`, `UAT` — added 2026-10-17 by Ahmed Ayman for `credential-routes-filter-run-001`: the user names the `http://192.168.1.70` Admin environment `UAT`; same shared-staging rules apply) |
 | Effective from | **2026-08-07** |
 | Evaluator | [`platform_core/tools/execution_safety/`](../../platform_core/tools/execution_safety/README.md) |
 | Applies to | Runs created on or after 2026-08-07 — see [§6](#6-what-this-policy-does-not-cover) |

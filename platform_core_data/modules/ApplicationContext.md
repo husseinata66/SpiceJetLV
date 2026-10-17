@@ -4,11 +4,12 @@
 |---|---|
 | Scope | **The whole application**, as the relationships *between* modules. Not a summary of them |
 | Created | 2026-08-18, by operator directive during run-004 |
-| Revision | 4 |
-| Status | **`Pending Review`** — run-010 Stage 4M appended §3.2 (2026-10-04); run-006 Stage 4M appended §3.1 (2026-09-25). Not final until a human approves it |
+| Revision | 5 |
+| Status | **`Draft` — refreshed for `credential-routes-filter-run-001` (2026-10-17, Stage 1).** Before this refresh: `Pending Review` — run-010 Stage 4M appended §3.2 (2026-10-04); run-006 Stage 4M appended §3.1 (2026-09-25). Not final until a human approves it |
+| What the credential-routes-filter-run-001 refresh changed | **§1 module map and this header only.** (1) New module `credential-routes-filter` added as **Active** (approved 2026-10-17, CRUD routing, context on disk). (2) §1 re-synced with the live registry: `agency` now has automation · healing on disk, and `import-booked-pnr` is `Superseded` in the registry. Its Feature `new-layer-contract` is still Active. (3) §2 unchanged: the new module's links to `master-supplier`, `master-flight` and `search-and-booking` are **asserted by the stories, not yet proven**, so they are recorded in its own §3.1 only. §3–§6 unchanged |
 | What the run-006 refresh changed | **Header only.** §1's module map is unchanged: `agency` and `branch` stay Active with the same stages on disk, and run-006 proposes no module. §2 is unchanged: run-006's Agency↔Branch Auto Reissue relationship (checkbox independent, reissue credentials bounded by the Branch — `agency` `PO-16`) is **asserted at intake, not yet proven**, so it is not promoted into the graph. It is recorded in both modules' §3.1 until a run observes it. §6 is unchanged, by reference |
 | Lifecycle | Refreshed to `Draft` by **Stage 1** at run start · appended to by any stage that **proves** a cross-module fact · presented for approval by the branch's **terminal stage** (`6A` Reporting, or `4M` Manual Execution) · **final only once a human approves it** — see `module_architecture.md` §6.7.1 |
-| Modules approved so far | `branch` (Active) · `agency` (Active) · `import-booked-pnr` (Active, with Feature `new-layer-contract`) — 16 more `Proposed` |
+| Modules approved so far | `branch` (Active) · `agency` (Active) · `credential-routes-filter` (Active, 2026-10-17) · `import-booked-pnr` (Superseded in the registry; Feature `new-layer-contract` Active) — 16 more `Proposed` |
 | Target Environment | `http://192.168.1.70` (Admin, STG) · `http://192.168.1.92:9500` (NDC Portal — no credentials configured) |
 | PRD source | `platform_core_data/knowledge_base/PRD.md` — §11 (E2E), §7 (module areas), §6 (cross-cutting) |
 | Anticipated by | `agency` Project Context `PO-11`, which deferred reflection coverage *"until an application-level Project Context exists"*. This is that document |
@@ -39,7 +40,7 @@ context without losing meaning, it was never application-level, and it is duplic
 
 ## 1. Module map
 
-Sixteen of nineteen modules are `Proposed` — named in the registry from the PRD, with no folder and no
+Sixteen of twenty modules are `Proposed` — named in the registry from the PRD, with no folder and no
 work done. That is a statement of what exists, not a backlog commitment. `import-booked-pnr` is not
 PRD-derived: it is an **existing application capability** the PRD's 2026-07-25 automation-derived
 reconstruction does not cover, registered on 2026-09-01 during a New User Story intake (see its own
@@ -48,8 +49,9 @@ Project Context for why).
 | Module | Status | Stages on disk | Role in the application |
 |---|---|---|---|
 | `branch` | **Active** | context · discovery · test_design · automation · healing | Organisation layer under Company. Owns supplier routing and the configuration Agencies inherit |
-| `agency` | **Active** | context · discovery · test_design | Organisation layer under Branch. The unit that books |
-| `import-booked-pnr` | **Active** | features/`new-layer-contract`/context · test_design | **Existing** capability: importing an offline-booked, ticketed PNR into NDC as a manual booking — applies the Rule Engine at the original ticketing time and deducts the organization wallet. Distinct from `import-pnr` (below), which imports an *un-ticketed* PNR for online payment. Its Feature `new-layer-contract` covers the **new** `NDC_Core_service` integration path replacing NDC-INT for booking retrieval |
+| `agency` | **Active** | context · discovery · test_design · automation · healing | Organisation layer under Branch. The unit that books |
+| `credential-routes-filter` | **Active** | context | The Credential Routes Filter screen (Master → Supplier): route-level White/Black list rules per supplier credential, with optional airlines. Filters which journeys a search returns. Registered 2026-10-17 at a New User Story intake (US 62039, US 60737) |
+| `import-booked-pnr` | **Superseded** (registry) | features/`new-layer-contract`/context · test_design | **Existing** capability: importing an offline-booked, ticketed PNR into NDC as a manual booking — applies the Rule Engine at the original ticketing time and deducts the organization wallet. Distinct from `import-pnr` (below), which imports an *un-ticketed* PNR for online payment. Its Feature `new-layer-contract` covers the **new** `NDC_Core_service` integration path replacing NDC-INT for booking retrieval |
 | `authentication` | Proposed | — | Admin and Portal login, OTP, lockout. Upstream of everything |
 | `company` | Proposed | — | Departments, Top-Up Requests |
 | `role-management` | Proposed | — | Roles and permission sets. **Owns the maker–checker authorization question every module defers to it** |

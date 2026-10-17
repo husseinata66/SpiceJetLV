@@ -1,0 +1,174 @@
+# Project Context — Credential Routes Filter
+
+| Field | Value |
+|---|---|
+| Module | `credential-routes-filter` |
+| PRD Source | `platform_core_data/knowledge_base/PRD_UserStories.md` User Story 9 (US 62039), User Story 10 (US 60737) — **the in-scope requirements**. Background only: User Story 1 (T3002), User Story 2 (T3087); `platform_core_data/knowledge_base/PRD.md` §7.4, §7.5, §13 |
+| PRD sections this module derives from | PRD_UserStories.md **US 9 AC 1**, **US 10 AC 2** (scope) · US 1 (T3002) and US 2 (T3087) (the screen's current behaviour) · PRD.md §13 GAP-1, GAP-2, GAP-3 (the screen has no automation coverage today) · PRD.md §7.5 SUP-01, SUP-03, SUP-04 and §7.4 FLT-07, FLT-10 … FLT-14 (neighbouring modules) |
+| Run Scope Type | User Story (`run_scope.md` §3) — `single` module (`credential-routes-filter`) |
+| Run Type | User Story — **enhancement** to an existing screen, CRUD area **Update** (intake answer, 2026-10-17) |
+| Target Environment | `http://192.168.1.70` — Admin, STG, shared (user, 2026-10-17). **The US 62039 / US 60737 change is NOT deployed there yet** (user, 2026-10-17): Stage 2 observes the **current baseline**, not the new behaviour |
+| Pipeline Branch | Not chosen. **This run is limited to Stage 2 (Discovery) and Stage 3 (Test Design)** (user, 2026-10-17). No execution until the change is deployed and the branch is chosen (`PO-CRF-6`) |
+| Produced by run | `credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)` |
+| Revision | 3 (in place — Rev 2 recorded the supplier-type definition `PO-CRF-10`; **Rev 3 records the user's Discovery-gate answers `PO-CRF-12` … `PO-CRF-15`** and widens AC 2 to every GDS supplier — change `CR-1`, impact `IA-5e60e97564c3`, no dependents) |
+| Target ref at write | `c5acc6a` |
+| Generated | 2026-10-17 |
+| Status | **Approved** — Revision 3: Ahmed Ayman (ahmed.ayman@tildetech.ae), 2026-10-17, by answering the Discovery open questions (change `CR-1`). Revisions 1–2: Ahmed Ayman, 2026-10-17, Stage 1 gate |
+
+## 0. Intake decisions (2026-10-17, from the user)
+
+| ID | Decision |
+|---|---|
+| `PO-CRF-1` | Routing is **CRUD**, not Feature. Both stories are part of one consolidated module, with no Feature folder. |
+| `PO-CRF-2` | The module is a **new module named "Credential Routes Filter"** (slug `credential-routes-filter`). It is not placed under `master-supplier`. |
+| `PO-CRF-3` | CRUD area is **Update** for both stories ("Task Modification"). |
+| `PO-CRF-4` | **There is no AC 3.** The numbering 1, 2, 4 is not a missing criterion. |
+| `PO-CRF-5` | **AC 4 (Deprecation Flags for the Preferred Airline screens) is out of scope for now** ("not yet"). It stays recorded in the requirement source and can be brought in by a later run. |
+| `PO-CRF-11` | **Target and run limit (user, 2026-10-17):** environment `http://192.168.1.70`, Super Admin account `odeysysadmin` (password supplied in chat, never written to any artifact). The change is not deployed yet. This run does Discovery and Test Design only. Open assumptions are settled from what Discovery finds. |
+| `PO-CRF-12` | **AC 2 applies to every GDS supplier** (user, 2026-10-17): also NDCGal, Amadeus NDC and Sabre NDC, not only the four AC 2 names. *"they may just not be set up on this STG"*. Resolves `ASM-CRF-9` the opposite way to its assumption. |
+| `PO-CRF-13` | **AC 2 applies in both Admin booking and Portal booking** (user). Resolves `ASM-CRF-7`. |
+| `PO-CRF-14` | **Several selected airlines are sent together** in the request — user: *"probably yes"*. `ASM-CRF-5` becomes Likely, not confirmed. |
+| `PO-CRF-15` | **No approval step** on this screen: a saved rule takes effect directly (user). The 150 GDS limit exists **for database performance**. "All Airports" counts as **one** route. Supplier names on this environment differ from Production on purpose. |
+| `PO-CRF-10` | **There are two supplier types (user, 2026-10-17, at this gate).** **GDS** suppliers are exactly: **Galileo, Amadeus, Sabre ATPCO, NDCGal, Amadeus NDC, Sabre NDC, Travelport NDC.** **LCC** suppliers are **every other supplier**. So "LCC" in AC 1 is a supplier type, not the airline's LCC flag. **Travelport NDC and NDCGal are two different suppliers**, and both are GDS (user correction, same day). |
+
+## 1. Scope Summary
+
+This is a **User Story** run with **two stories** that change the existing **Credential Routes Filter**
+screen (Master → Supplier → Credential Routes Filter). Both stories share the task ID
+`Q4-CORE-WT1-T3224-043`.
+
+**What this run tests:**
+
+1. **AC 1 — LCC route limit (US 62039).** For LCC suppliers, the screen must accept up to **150**
+   routes. The old limit was **50**. The story says this matches "the existing GDS limit".
+   *(Supplier types, `PO-CRF-10`: a **GDS** supplier is one of Galileo, Amadeus, Sabre ATPCO, NDCGal,
+   Amadeus NDC, Sabre NDC, Travelport NDC. An **LCC** supplier is any other supplier. LCC = Low-Cost Carrier;
+   GDS = Global Distribution System.)*
+2. **AC 2 — Airline filter in the supplier request (US 60737).** When an airline is configured on a
+   route rule, the system must **add that airline to the search request before sending it** to the
+   supplier. The supplier then returns results only for that airline. This applies to **Galileo GDS,
+   Travelport NDC, Sabre ATPCO GDS and Amadeus GDS**.
+
+**How AC 2 differs from today's behaviour.** User Story 2 (T3087) placed the airline filter **after**
+the supplier responds and before the Rule Engine. AC 2 moves the airline into the **request** itself.
+The stories do not say whether the old post-response filter stays as well. That is an open question
+(`ASM-CRF-4`), not a decision this stage makes.
+
+**Strategy note for later stages.** This is an enhancement. Tests focus on what changed (the limit and
+the request-side filter). Unchanged behaviour from US 1 and US 2 is checked only as a regression guard,
+and only where a change could break it.
+
+## 2. In Scope for This Module
+
+| Area / Screen / Flow | Why in scope | PRD Reference |
+|---|---|---|
+| Credential Routes Filter — **route count limit for LCC suppliers**: up to 150 routes accepted; the 151st is not | AC 1 — the main change in US 62039 | PRD_UserStories.md US 9 AC 1 |
+| Credential Routes Filter — **route count limit for GDS suppliers** stays the same | AC 1 says LCC is "aligned" with the existing GDS limit, so the GDS limit is the reference value. It is checked, not changed | PRD_UserStories.md US 9 AC 1 |
+| **Airline included in the supplier search request** for a route rule that has a configured airline | AC 2 — the main change in US 60737 | PRD_UserStories.md US 10 AC 2 |
+| AC 2 for **every GDS supplier**: the four AC 2 names (Galileo GDS · Travelport NDC · Sabre ATPCO GDS · Amadeus GDS) **plus NDCGal, Amadeus NDC, Sabre NDC** (`PO-CRF-12`) | AC 2 names four; the user widened it to all GDS (Rev 3) | PRD_UserStories.md US 10 AC 2; `PO-CRF-12` |
+| AC 2 in **Admin and Portal** booking | `PO-CRF-13` | `PO-CRF-13` |
+| **Search results limited to the configured airline** on the configured route | The visible outcome of AC 2 | PRD_UserStories.md US 10 AC 2; US 9 Description |
+| **Regression guard:** route White/Black list rules with **no** airline still work as before | T3087 requires this; AC 2 must not break it | PRD_UserStories.md US 2 "Search Processing" (last bullet), "CRUD Operation Added Fields" (last bullet) |
+| **Regression guard:** saving and editing a route rule (Update) still works with the larger route count | Update is the CRUD area of both stories (`PO-CRF-3`) | PRD_UserStories.md US 1 AC (add, remove); US 9 AC 1 |
+
+## 3. Out of Scope for This Module
+
+| Area / Screen / Flow | Why out of scope | Covered by | PRD Reference |
+|---|---|---|---|
+| **AC 4 — Deprecation flags** that show or hide the Preferred Airline CRUD screens | Deferred by the user (`PO-CRF-5`). The Preferred Airline screens belong to the flight master data | `master-flight` (Prefer Airline, FLT-10 … FLT-14) — **deferred, not tested by this run** | PRD_UserStories.md US 10 AC 4; PRD.md §7.4 |
+| Create, Search, Approve and Reject of route rules, beyond what the regression guard needs | Not part of either story. Only Update was supplied (`PO-CRF-3`) | Not tested — out of this run's scope | PRD_UserStories.md US 1, US 2 |
+| Airline filter for **LCC** suppliers | LCC suppliers have no Airlines field (T3087, observed in Discovery) | Not tested — out of this run's scope | PRD_UserStories.md US 2; US 10 AC 2 |
+| Supplier and Supplier Credential setup, including **Restricted Airlines** | Separate screens. Used only as existing data | `master-supplier` | PRD.md §7.5 SUP-01, SUP-03, SUP-04 |
+| Airline master data, including whether an airline is LCC | Separate screen. Used only as existing data | `master-flight` | PRD.md §7.4 FLT-05, FLT-07 |
+| **Airport** White/Black list | Separate filter. It combines with this screen using AND logic (US 1 comments) | Not registered as a module — not tested by this run | PRD.md §13 GAP-2; PRD_UserStories.md US 1 Comments |
+| Audit log, supplier-verification function, route tag | Listed in US 1 "We need to implement". Not part of these two stories | Not tested — out of this run's scope | PRD_UserStories.md US 1; PRD.md §13 GAP-4, GAP-5 |
+| Rule Engine pricing, aggregation, booking and ticketing | Only reached as part of a search. Not checked here | `rule-engine`, `search-and-booking` | PRD.md §7.7, §7.8 |
+
+## 3.1 Module Boundaries
+
+| Related module | Interaction | Verified by |
+|---|---|---|
+| `master-supplier` | Supplies the supplier, its type (GDS / LCC) and the supplier credential a route rule points to. Its **Restricted Airlines** setting also filters airlines on the same credential (US 1 Example 2) | This module, as existing data only. Combined behaviour → full-project execution only |
+| `master-flight` | Supplies the active airline list for the rule's Airlines field. **AC 4 (deferred)** would hide its Preferred Airline screens | This module (list read only). AC 4 → a later run |
+| `search-and-booking` | Where AC 2's effect is visible: the search results | This module, at search result level only |
+| `branch`, `agency` | Supplier credentials cascade to Branch and Agency (SUP-05). A search runs as an agency/branch user context | Not verified by this run |
+
+## 4. Roles & Credentials Required
+
+| Role | Permissions / purpose | Credential source | PRD Reference |
+|---|---|---|---|
+| **Admin** | Edit route rules on the Credential Routes Filter screen (both stories are written "As an Admin user") | `knowledge_base/credentials/credentials.json` (resolved at runtime) — **which account to use is not confirmed for this run** (§8) | PRD_UserStories.md US 9 Description; PRD.md §2 |
+| **Super Admin** | Approve a route rule change, if the screen uses maker–checker approval | `knowledge_base/credentials/credentials.json` (resolved at runtime) | PRD.md §2, §6.1 |
+| A user who can **run a flight search** (Admin booking, and possibly Portal) | Observe AC 2's effect on search results | Not confirmed — Portal has no credentials configured (`ApplicationContext.md` header) | PRD_UserStories.md US 2 "Scope" |
+
+No username, password or token is written in this file.
+
+## 5. Environment Constraints
+
+| Constraint | Implication for downstream stages | Source |
+|---|---|---|
+| The known STG environment is **shared** | Mutating route rules is not allowed unless a human grants it for this run. Shared rules may be used by other teams' searches | `run_configuration.md` §Environment Constraints; `execution_safety_policy.json` |
+| **AC 1 needs up to 150 routes on one supplier** (and one more to test the limit) | This is a large amount of data on a shared environment. How the routes are created, on which supplier, and how they are cleaned up is a human decision before any execution (`PO-CRF-7`) | PRD_UserStories.md US 9 AC 1 |
+| **AC 2 sends searches to real suppliers** | A credential may be `Live` or `Test` (SUP-03). Searching does not book, but it does call the supplier. Which credentials are safe to search against is a human decision | PRD.md §7.5 SUP-03 |
+| **AC 2's change is inside the request**, which the UI does not show | Seeing filtered results proves the outcome, not the mechanism. Proving "the airline was in the request" needs request evidence (logs, API trace). Whether that evidence is available is unknown (`RISK-CRF-2`) | PRD_UserStories.md US 10 AC 2 |
+| Mutation is decided per action | Scope is not permission. Every mutating step is checked against the safety policy | `pipeline.md` §14 |
+
+## 6. Carried-Forward Assumptions & Risks
+
+These are **not confirmed by the stories**. Stage 2 should probe them. Confirmed statements from the
+stories are in §1 and §2.
+
+| ID | Type | Statement (meaning preserved) | Affected Module(s) | PRD Reference |
+|---|---|---|---|---|
+| `ASM-CRF-1` | ~~Assumption~~ **Resolved (Rev 2)** | "LCC suppliers" was not defined in the story. **Confirmed by the user (`PO-CRF-10`):** LCC = any supplier that is not one of the seven GDS suppliers. Stage 2 still checks that the screen classifies suppliers the same way | `credential-routes-filter`, `master-supplier` | US 9 AC 1; intake answer 2026-10-17 |
+| `ASM-CRF-2` | Assumption | The existing GDS limit is **150**. AC 1 says LCC is "aligned" with it but does not state the number | `credential-routes-filter` | US 9 AC 1 |
+| `ASM-CRF-3` | Assumption | It is not stated **what the limit counts**: routes per rule, per supplier credential, or per supplier. It is also not stated what the screen does at the limit (error message, disabled button) | `credential-routes-filter` | US 9 AC 1 |
+| `ASM-CRF-4` | Assumption | It is not stated whether T3087's **post-response** airline filter stays when AC 2 adds the airline to the **request**. It is also not stated how a **Black List** airline is sent in the request (as an exclusion?) | `credential-routes-filter` | US 10 AC 2; US 2 "Search Processing" |
+| `ASM-CRF-5` | Assumption — **Likely (Rev 3, `PO-CRF-14`)** | It is not stated how **several selected airlines** are sent in one request (T3087 allows multi-select) | `credential-routes-filter` | US 10 AC 2; US 2 "CRUD Operation Added Fields" |
+| `ASM-CRF-6` | ~~Assumption~~ **Resolved (Rev 2)** | AC 2 names **Travelport NDC**, and T3087 shows the Airlines field for GDS suppliers only. **Confirmed by the user (`PO-CRF-10`):** Travelport NDC is a GDS supplier, separate from NDCGal. So all four AC 2 suppliers are GDS, and T3087's rule fits them | `credential-routes-filter`, `master-supplier` | US 10 AC 2; US 2 Description; `PO-CRF-10` |
+| `ASM-CRF-9` | ~~Assumption~~ **Refuted (Rev 3, `PO-CRF-12`) — AC 2 applies to all GDS suppliers** | AC 2 covers **four** of the seven GDS suppliers. **NDCGal, Amadeus NDC and Sabre NDC** are GDS suppliers but are not in AC 2's list. We assume AC 2's change does **not** apply to them, and do not test them for AC 2. The Airlines field from T3087 may still appear for them | `credential-routes-filter` | US 10 AC 2; `PO-CRF-10` |
+| `ASM-CRF-7` | ~~Assumption~~ **Resolved (Rev 3, `PO-CRF-13`)** | T3087 applies airline filtering in both **Admin and Portal** booking. AC 2 does not repeat this. We assume both still apply | `credential-routes-filter`, `search-and-booking` | US 2 "Scope"; US 10 AC 2 |
+| `ASM-CRF-8` | Assumption | US 60737 is titled **"Investigation"**, but its AC describes a behaviour change. We treat AC 2 as a delivered requirement, not a study | `credential-routes-filter` | US 10 title |
+| `RISK-CRF-1` | Risk | **AND logic with other filters.** Airport White/Black list and Restricted Airlines also filter results (US 1 Comments). A search can return nothing for a reason unrelated to AC 2. Test data must avoid these overlaps, or a "no results" outcome cannot be blamed on AC 2 | `credential-routes-filter`, `master-supplier` | US 1 Comments, Examples 1–2 |
+| `RISK-CRF-2` | Risk | **AC 2 may not be fully provable from the UI.** Without request evidence, a test can show filtered results but not that the filter happened in the request | `credential-routes-filter` | US 10 AC 2 |
+| `RISK-CRF-3` | Risk | **Supplier availability.** Each of the four suppliers needs a working credential on the test environment. If one is missing or down, its AC 2 cases are Blocked, not Failed | `credential-routes-filter`, `master-supplier` | US 10 AC 2 |
+| `RISK-CRF-4` | Risk | **No existing coverage.** The screen has no page object, test or locator today, so there is no baseline run to compare against | `credential-routes-filter` | PRD.md §13 GAP-1, GAP-3 |
+| `RISK-CRF-5` | Risk | T3087 required **DBA consultation** for the maximum number of airline selections. Its result is not recorded. With 150 routes, the stored data grows too | `credential-routes-filter` | US 2 "Prerequisites" |
+
+## 6.1 Decisions needed at this gate
+
+| ID | Decision | Needed before |
+|---|---|---|
+| `PO-CRF-6` | **Pipeline branch:** Manual Execution (`4M`) or Automation (`4A`) | Stage 3 gate at the latest |
+| `PO-CRF-7` | **Mutation grant for AC 1:** may this run create and remove up to 151 routes, on which supplier/credential, and how is cleanup done | Any execution |
+| `PO-CRF-8` | ~~Target environment and accounts~~ **Answered — `PO-CRF-11`** | Stage 2 |
+| `PO-CRF-9` | **Request evidence for AC 2:** is a supplier request log or API trace available to testers | Stage 3 (decides how AC 2 cases are evidenced) |
+
+## 7. Traceability Anchor
+
+| Context Item | Section here | PRD Reference |
+|---|---|---|
+| LCC route limit 50 → 150 | §1, §2 | PRD_UserStories.md US 9 AC 1 |
+| GDS limit as the reference value | §2, `ASM-CRF-2` | PRD_UserStories.md US 9 AC 1 |
+| Supplier types: seven GDS suppliers, all others LCC | §0 `PO-CRF-10`, §1, `ASM-CRF-1`, `ASM-CRF-6`, `ASM-CRF-9` | Intake answer, 2026-10-17 |
+| Airline in supplier request; all GDS suppliers, Admin + Portal | §0 `PO-CRF-12`, `PO-CRF-13`; §2 | PRD_UserStories.md US 10 AC 2; user answers 2026-10-17 |
+| Results limited to configured airline and route | §2 | PRD_UserStories.md US 9 Description; US 10 AC 2 |
+| No-airline rules unchanged (regression) | §2 | PRD_UserStories.md US 2 |
+| AC 4 deferred | §0, §3 | PRD_UserStories.md US 10 AC 4 |
+| No AC 3 | §0 | Intake answer, 2026-10-17 |
+| CRUD routing, module name, Update area | §0 | Intake answers, 2026-10-17 |
+| AND logic with Airport list and Restricted Airlines | §3.1, `RISK-CRF-1` | PRD_UserStories.md US 1 Comments |
+| No current automation coverage | `RISK-CRF-4` | PRD.md §13 GAP-1, GAP-3 |
+| Neighbouring modules | §3, §3.1 | PRD.md §7.4, §7.5, §7.7, §7.8 |
+
+## 8. Open Questions — Requires Run Configuration
+
+`run_configuration.md` describes earlier runs. Nothing in it was confirmed for this run.
+
+| Missing Key | Sections Affected |
+|---|---|
+| `{{APP_URL}}` — which environment (earlier runs used `http://192.168.1.70` and `http://192.168.1.60`) | Header, §5 |
+| `{{ENVIRONMENT_NOTES}}` — confirm shared/isolated, and the mutation grant (`PO-CRF-7`) | §5 |
+| `{{ROLE}}` / `{{USERNAME}}` — which Admin and Super Admin accounts; whether the single-account directive from earlier runs applies | §4 |
+| Search user for Portal booking, if `ASM-CRF-7` holds | §4 |
+| Working credential for each of the four AC 2 suppliers | §2, `RISK-CRF-3` |

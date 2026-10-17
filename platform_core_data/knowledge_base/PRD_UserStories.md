@@ -11,6 +11,7 @@ Full originals, with cross-reference notes, live at:
 Extended 2026-08-03 to also serve the Branch module run (User Story 5 below, US 8605 — Create Branch).
 Extended 2026-08-03 to also serve as the source explaining the Branch module's "Outstanding Threshold" field discovered during Stage 2 (User Story 6 below, US 51489 / Q3-INTE-CORE-049 / WT1-T3177 — Agency wallet Threshold option).
 Extended 2026-08-04 to also serve the Branch module's Search & Update scope (User Story 7 below, US 8599 — [Admin] Search & Actions Branch; User Story 8 below, US 8606 — [Admin] Update Branch). Both were pasted together into run-003; US 8606 was supplied specifically so the edit-pen action in US 8599 resolves against a real requirement rather than a stub.
+Extended 2026-10-17 to also serve the Credential Routes Filter module run (`credential-routes-filter-run-001`): User Story 9 below (US 62039 — Increase LCC Limitation) and User Story 10 below (US 60737 — Investigation). Both were pasted together. Both are enhancements to the screen described by User Stories 1–2.
 
 ---
 
@@ -569,3 +570,65 @@ As a System Administrator, I want to update an existing branch with required det
 - Booking Module
 - Staff CRUD
 - Agency CRUD
+
+---
+
+## User Story 9 — US 62039 — Q4-CORE-WT1-T3224-043 — Credential Routes Filter – Task Modification - Increase LCC Limitation
+
+### Description
+
+As an Admin user,
+I want to enhance the Credential Routes Filter by increasing the supported LCC route limit and applying airline filtering to search requests,
+so that I have greater control over supplier route configurations and can ensure that search results are limited to the configured airlines and routes.
+
+### Acceptance Criteria
+
+**Application Details**
+
+| Item | Detail |
+|---|---|
+| CRUD | Credential Routes Filter |
+| Navigation Path | Master → Supplier → Credential Routes Filter |
+| Change Type | Enhancement to an existing module (not a new feature) |
+
+**1. Route Limit Increase**
+
+The maximum number of routes supported for LCC suppliers will be increased from 50 to 150, aligning it with the existing GDS limit.
+
+---
+
+## User Story 10 — US 60737 — Q4-CORE-WT1-T3224-043 — Credential Routes Filter – Task Modification - Investigation
+
+### Description
+
+*(No description text was supplied with this story. Only its Acceptance Criteria were pasted.)*
+
+### Acceptance Criteria
+
+**Application Details**
+
+| Item | Detail |
+|---|---|
+| Application | Credential Routes Filter |
+| Navigation Path | Master → Supplier → Credential Routes Filter |
+| Change Type | Enhancement to an existing module (not a new feature) |
+
+**2. Airline Filtering in Supplier Requests**
+
+The configured airline will be included in the search request before it is sent to the supplier, so that only results for that airline are returned.
+This applies to the following suppliers:
+
+- Galileo GDS
+- Travelport NDC
+- Sabre ATPCO GDS
+- Amadeus GDS
+
+**4. Deprecation Flags (Admin)**
+
+On/off flags will be introduced to control the visibility of the Preferred Airline CRUD screens.
+
+- Default state: ON, until the business completes the data migration.
+- After migration: The business will switch the flags OFF, and the Preferred Airline screens will be hidden.
+- Deprecation Path: Deployment → Flags ON (default) → Business migrates data → Admin switches flags OFF → Screens hidden
+
+*(Intake note, 2026-10-17: across the two stories the Acceptance Criteria are numbered 1, 2 and 4. The user confirmed there is no AC 3.)*

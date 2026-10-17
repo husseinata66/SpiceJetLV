@@ -1,0 +1,60 @@
+{
+  "slug": "credential-routes-filter",
+  "name": "Credential Routes Filter",
+  "description": "Credential Routes Filter CRUD (Master > Supplier > Credential Routes Filter). Update scope: US 62039 (LCC route limit 50->150), US 60737 (airline filter in supplier search requests).",
+  "status": "Active",
+  "derivedFromSections": [],
+  "createdAt": "2026-10-17T08:35:07.735Z",
+  "updatedAt": "2026-10-17T10:09:31.950Z",
+  "supersededBy": null,
+  "stages": {
+    "context": {
+      "status": "Approved",
+      "artifactPath": "platform_core_data/modules/credential-routes-filter/context/ProjectContext.md",
+      "lastRun": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+      "lastUpdated": "2026-10-17T09:57:23.553Z",
+      "revisionCount": 4,
+      "targetRefAtWrite": null
+    },
+    "discovery": {
+      "status": "Approved",
+      "artifactPath": "platform_core_data/modules/credential-routes-filter/discovery/QA_Assessment_Report.md",
+      "lastRun": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+      "lastUpdated": "2026-10-17T09:58:28.054Z",
+      "revisionCount": 3,
+      "targetRefAtWrite": null
+    },
+    "test_design": {
+      "status": "Approved",
+      "artifactPath": "platform_core_data/modules/credential-routes-filter/test_design/TestCases_CredentialRoutesFilter.md",
+      "lastRun": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+      "lastUpdated": "2026-10-17T10:09:31.950Z",
+      "revisionCount": 2,
+      "targetRefAtWrite": null
+    },
+    "automation": {
+      "status": "Not Started",
+      "artifactPath": null,
+      "lastRun": null,
+      "lastUpdated": null,
+      "revisionCount": 0,
+      "targetRefAtWrite": null
+    },
+    "healing": {
+      "status": "Not Started",
+      "artifactPath": null,
+      "lastRun": null,
+      "lastUpdated": null,
+      "revisionCount": 0,
+      "targetRefAtWrite": null
+    }
+  },
+  "approvedBy": "Ahmed Ayman",
+  "approvedAt": "2026-10-17T08:35:13.285Z",
+  "approvals": [
+    {
+      "approvedBy": "Ahmed Ayman",
+      "approvedAt": "2026-10-17T08:35:13.285Z"
+    }
+  ]
+}

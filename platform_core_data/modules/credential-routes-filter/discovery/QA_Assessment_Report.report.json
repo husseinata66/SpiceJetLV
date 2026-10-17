@@ -1,0 +1,186 @@
+{
+  "title": "QA Assessment Report — credential-routes-filter (run-001, baseline)",
+  "documentTitle": "credential-routes-filter — Discovery run-001",
+  "statusPill": "APPROVED",
+  "statusPillTone": "neutral",
+  "meta": {
+    "fields": [
+      [
+        {
+          "label": "Module",
+          "value": "credential-routes-filter",
+          "mono": true
+        },
+        {
+          "label": "Run",
+          "value": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+          "mono": true
+        }
+      ],
+      [
+        {
+          "label": "Project Context",
+          "value": "ProjectContext.md Rev 3 — Approved 2026-10-17 (user answers PO-CRF-12 … 15)",
+          "mono": false
+        },
+        {
+          "label": "Status",
+          "value": "Approved — Ahmed Ayman, 2026-10-17",
+          "mono": false
+        }
+      ],
+      {
+        "label": "Environment",
+        "value": "http://192.168.1.70 (UAT, shared) — odeysysadmin",
+        "mono": true
+      }
+    ],
+    "runFields": [
+      [
+        {
+          "label": "Discovery Mode",
+          "value": "Browser automation — Browser Driver, Headless (SP-4, read-only)",
+          "mono": false
+        },
+        {
+          "label": "Generated",
+          "value": "2026-10-17",
+          "mono": false
+        }
+      ]
+    ]
+  },
+  "summary": null,
+  "sections": [
+    {
+      "type": "notes",
+      "title": "About this page",
+      "blocks": [
+        "HTML rendering of QA_Assessment_Report.md, which is the artifact under review.",
+        "The US 62039 / US 60737 change is NOT deployed. This run records the current baseline only. Nothing was saved, edited or deleted."
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Headline",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "Today: GDS-type rules allow 150 routes and show an Airlines field; LCC-type rules allow 50 and show none. Code: maxRoutes = GDS ? 150 : 50.",
+            "At the limit (from code): Add blocked with \"Maximum {max} routes reached.\"; over the limit Save is disabled.",
+            "9 suppliers are type \"Both\" (API). They act as LCC today (50, no Airlines); per PO-CRF-10 they count as LCC, so AC 1 should give them 150. The GDS→LCC \"Supplier Change\" dialog hard-codes 150 → 50 (OQ-D8).",
+            "3 of 4 Findings closed as intended/explained by the user. AC 2 still cannot be observed (not deployed)."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "findings",
+      "title": "Findings",
+      "badges": [
+        {
+          "value": 1,
+          "label": "Needs Human Review",
+          "tone": "warning"
+        },
+        {
+          "value": 3,
+          "label": "Rejected (intended / explained)",
+          "tone": "neutral"
+        }
+      ],
+      "items": [
+        {
+          "kind": "Observation — Rejected (intended, user 2026-10-17)",
+          "tone": "neutral",
+          "body": "Supplier names in the app do not match the story/intake names (Sabre, NDCsbr, AmadeusNDC, AmdNDC, AmdNDCaaaa).",
+          "refs": "(FINDING-001)",
+          "fields": [
+            {
+              "label": "Annotated",
+              "value": "supplier_list_ndc.annotated.png (Q1–Q4) · supplier_list_sabre.annotated.png (Q5)",
+              "mono": true
+            },
+            {
+              "label": "Answer",
+              "value": "Names on this environment were entered this way on purpose; on Production they are correct.",
+              "mono": false
+            }
+          ],
+          "evidence": "Direct Observation"
+        },
+        {
+          "kind": "Observation — Rejected (intended, user 2026-10-17)",
+          "tone": "neutral",
+          "body": "Origin/Destination offer an \"All Airports\" option, not mentioned in the Project Context.",
+          "refs": "(FINDING-002)",
+          "fields": [
+            {
+              "label": "Annotated",
+              "value": "origin_all_airports.annotated.png (Q1)",
+              "mono": true
+            },
+            {
+              "label": "Answer",
+              "value": "\"All\" means any airport; stored as a special id (-1 or -11); counts as 1 route toward the limit. AC 2 behaviour for \"All\" routes still open.",
+              "mono": false
+            }
+          ],
+          "evidence": "Direct Observation"
+        },
+        {
+          "kind": "UX Issue — Rejected (explained)",
+          "tone": "neutral",
+          "body": "Cancel goes back to the previous page (location.back()). From the list it returns to the list; the Dashboard was seen only when /add was opened by URL from the Dashboard.",
+          "refs": "(FINDING-003)",
+          "evidence": "Direct Observation"
+        },
+        {
+          "kind": "Test Gap — Needs Human Review",
+          "tone": "neutral",
+          "body": "AC 2 not observable (not deployed, server-side). The live limit probe was refused; the limit rules were read from the front-end code instead.",
+          "refs": "(FINDING-004)",
+          "evidence": "Direct Observation (blocking conditions)"
+        }
+      ]
+    },
+    {
+      "type": "findings",
+      "title": "Gaps and open questions",
+      "items": [
+        {
+          "kind": "Open Question",
+          "tone": "warning",
+          "body": "OQ-D6 (part): does AC 2 add the airline for \"All Airports\" routes? (user: not known)",
+          "refs": "(FINDING-002)"
+        },
+        {
+          "kind": "Answered",
+          "tone": "neutral",
+          "body": "OQ-D7: 9 suppliers are type \"Both\" (ShuraTech, FlyEgypt, FlyEgyptUAE, ShuraTechGLC, MIK, FlyAdealNDC, ShoraNDC, Spicejet, USBanglaUAE). They behave as LCC; covered as LCC per PO-CRF-10.",
+          "refs": "(API supplier-with-cred)"
+        },
+        {
+          "kind": "Answered",
+          "tone": "neutral",
+          "body": "OQ-D8: the \"Supplier Change\" dialog (150 → 50, routes removed) must be removed after AC 1 (PO-CRF-16).",
+          "refs": "(user, 2026-10-17)"
+        },
+        {
+          "kind": "Unresolved assumption",
+          "tone": "neutral",
+          "body": "ASM-CRF-4: does the post-response airline filter stay after AC 2, and how is a Blacklist airline sent? Server-side — cannot be seen before deployment.",
+          "refs": "(ProjectContext §6)"
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Coverage (from Coverage_Summary.md)",
+      "blocks": [
+        "3 of 4 in-scope surfaces reached = 75% (live + front-end code). AC 2 unreachable — not deployed."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,206 @@
+{
+  "title": "Coverage Report — credential-routes-filter (run-001)",
+  "documentTitle": "credential-routes-filter — Test Design run-001",
+  "statusPill": "APPROVED",
+  "statusPillTone": "neutral",
+  "meta": {
+    "fields": [
+      [
+        {
+          "label": "Module",
+          "value": "credential-routes-filter",
+          "mono": true
+        },
+        {
+          "label": "Run",
+          "value": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
+          "mono": true
+        }
+      ],
+      [
+        {
+          "label": "Project Context",
+          "value": "Revision 3 — Approved",
+          "mono": false
+        },
+        {
+          "label": "Status",
+          "value": "Approved — Ahmed Ayman, 2026-10-17",
+          "mono": false
+        }
+      ],
+      {
+        "label": "Suite",
+        "value": "test_design/TestCases_CredentialRoutesFilter.md (+ .xlsx) — 26 cases",
+        "mono": true
+      }
+    ],
+    "runFields": [
+      [
+        {
+          "label": "Run Scope",
+          "value": "User Story — US 62039 (AC 1), US 60737 (AC 2)",
+          "mono": false
+        },
+        {
+          "label": "Generated",
+          "value": "2026-10-17",
+          "mono": false
+        }
+      ]
+    ]
+  },
+  "summary": null,
+  "sections": [
+    {
+      "type": "notes",
+      "title": "About this page",
+      "blocks": [
+        "HTML rendering of CoverageReport.md, which is the artifact under review. Nothing has been executed — statuses describe coverage, not results.",
+        "The change is not deployed yet. Every case describes the behaviour after deployment."
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Headline",
+      "blocks": [
+        {
+          "kind": "ul",
+          "items": [
+            "26 test cases. 13 of 13 in-scope requirements covered (100%). AC 4 is out of scope (deferred).",
+            "AC 1: 8 cases (limit 150 for LCC, boundaries 50/51/150/151, existing rules, GDS unchanged). Both-type and the removed Supplier Change dialog: 3 cases.",
+            "AC 2: one case per GDS supplier (7), Portal, two airlines, no-airline regression, Blacklist and All Airports (exploratory).",
+            "4 / 4 Findings dispositioned (all documented exceptions)."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "findings",
+      "title": "Requirements",
+      "items": [
+        {
+          "kind": "Covered",
+          "tone": "neutral",
+          "body": "AC-1 — LCC route limit 50 → 150",
+          "refs": "(TC-CRF-001, 003, 004, 005, 006, 007, 008, 010)"
+        },
+        {
+          "kind": "Covered",
+          "tone": "neutral",
+          "body": "AC-2 — airline in the supplier request (Galileo, Travelport NDC, Sabre ATPCO, Amadeus)",
+          "refs": "(TC-CRF-014 … 017, 022, 024, 025)"
+        },
+        {
+          "kind": "Covered",
+          "tone": "neutral",
+          "body": "PO-CRF-10 — LCC = every non-GDS supplier",
+          "refs": "(TC-CRF-002)"
+        },
+        {
+          "kind": "Covered",
+          "tone": "neutral",
+          "body": "PO-CRF-12 — AC 2 for every GDS supplier (NDCGal, Amadeus NDC, Sabre NDC)",
+          "refs": "(TC-CRF-018, 019, 020)"
+        },
+        {
+          "kind": "Covered",
+          "tone": "neutral",
+          "body": "PO-CRF-13 — AC 2 in Admin and Portal",
+          "refs": "(TC-CRF-021; 014 … 020)"
+        },
+        {
+          "kind": "Assumption-based",
+          "tone": "accent",
+          "body": "PO-CRF-14 — several airlines sent together (Likely)",
+          "refs": "(TC-CRF-022)"
+        },
+        {
+          "kind": "Covered",
+          "tone": "neutral",
+          "body": "PO-CRF-15 — All Airports counts as one route; no approval step",
+          "refs": "(TC-CRF-011, 006)"
+        },
+        {
+          "kind": "Covered",
+          "tone": "neutral",
+          "body": "PO-CRF-16 — Supplier Change dialog removed; Both = LCC",
+          "refs": "(TC-CRF-002, 009, 010)"
+        },
+        {
+          "kind": "Covered",
+          "tone": "neutral",
+          "body": "US2-CRUD — Airlines field GDS only, active airlines",
+          "refs": "(TC-CRF-012, 013)"
+        },
+        {
+          "kind": "Covered",
+          "tone": "neutral",
+          "body": "US2-SP — no-airline rules unchanged; Blacklist excludes airlines",
+          "refs": "(TC-CRF-023, 024)"
+        },
+        {
+          "kind": "Covered",
+          "tone": "neutral",
+          "body": "US1-AND — AND logic with the Airport list",
+          "refs": "(TC-CRF-026)"
+        },
+        {
+          "kind": "Assumption-based",
+          "tone": "accent",
+          "body": "ASM-CRF-4 — post-response filter / Blacklist request form (exploratory)",
+          "refs": "(TC-CRF-024)"
+        },
+        {
+          "kind": "Assumption-based",
+          "tone": "accent",
+          "body": "OQ-D6 — AC 2 for All Airports routes (exploratory)",
+          "refs": "(TC-CRF-025)"
+        },
+        {
+          "kind": "Excluded",
+          "tone": "neutral",
+          "body": "AC 4 (US 60737) — Deprecation Flags for the Preferred Airline screens",
+          "refs": "(deferred by the user, PO-CRF-5)"
+        }
+      ]
+    },
+    {
+      "type": "findings",
+      "title": "Before execution",
+      "items": [
+        {
+          "kind": "Prerequisite",
+          "tone": "warning",
+          "body": "Deploy US 62039 / US 60737. The user will send the target environment and credentials.",
+          "refs": "(all cases)"
+        },
+        {
+          "kind": "Resolved",
+          "tone": "neutral",
+          "body": "PO-CRF-9: a supplier request log is available.",
+          "refs": "(TC-CRF-014 … 025)"
+        },
+        {
+          "kind": "Resolved",
+          "tone": "neutral",
+          "body": "PO-CRF-7: create any routes/rules the cases need, on any supplier. LCC data = FlyNas. The user removes the test data after the run.",
+          "refs": "(TC-CRF-006, 015 … 020, 023 … 026)"
+        },
+        {
+          "kind": "Prerequisite",
+          "tone": "warning",
+          "body": "A Portal login for an agency using GalileoLive.",
+          "refs": "(TC-CRF-021)"
+        }
+      ]
+    },
+    {
+      "type": "notes",
+      "title": "Review & Automation",
+      "blocks": [
+        "Review: 26 Approved (8 FlyNas rewrites re-approved 2026-10-17). Automation: 26 Rejected — manual by decision. No inconsistent pairs."
+      ]
+    }
+  ]
+}
