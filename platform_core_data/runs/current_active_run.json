@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
   "activeRun": {
-    "folderName": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)",
-    "index": 1,
-    "runOwner": "credential-routes-filter",
-    "scope": "UserStory",
-    "target": "CredentialRoutesFilter-Update(US62039,US60737)",
+    "folderName": "ancillaries-run-007__2026-10-19_21-03-09__Targeted__Ancillaries-OmanAir-SeatMapComparison",
+    "index": 7,
+    "runOwner": "ancillaries",
+    "scope": "Targeted",
+    "target": "Ancillaries-OmanAir-SeatMapComparison",
     "status": "Preparing",
     "title": null,
-    "startedTime": "2026-10-17T08:35:16.582Z",
+    "startedTime": "2026-10-19T18:03:09.254Z",
     "stagesPresent": [],
-    "path": "platform_core_data/runs/credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)"
+    "path": "platform_core_data/runs/ancillaries-run-007__2026-10-19_21-03-09__Targeted__Ancillaries-OmanAir-SeatMapComparison"
   },
-  "switchedAt": "2026-10-17T08:35:16.582Z",
-  "setBy": "Run Manager",
-  "previousRun": "search-cabin-class-rbd-run-001__2026-10-11_10-20-20__Targeted__GalileoFeatures-IntegrationVsDirectSearch"
+  "switchedAt": "2026-10-19T18:03:09.254Z",
+  "setBy": "Ahmed Ayman",
+  "previousRun": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)"
 }

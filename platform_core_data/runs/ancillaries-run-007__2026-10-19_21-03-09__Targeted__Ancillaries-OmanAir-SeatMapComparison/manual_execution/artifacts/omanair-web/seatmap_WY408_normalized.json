@@ -1,0 +1,1508 @@
+{
+ "source": "Oman Air website GET /api/seatMap",
+ "segment": "2026-11-10T01:15:00 WY 408 CAI MCT",
+ "currency": "USD",
+ "capturedAt": "2026-10-19T18:16:27.667Z",
+ "seats": [
+  {
+   "n": "10A",
+   "row": 10,
+   "col": "A",
+   "avail": false,
+   "svc": "XLR",
+   "price": 0,
+   "cur": "UNKNOWN",
+   "f": "BASSINET|WINDOW|INFANT"
+  },
+  {
+   "n": "10B",
+   "row": 10,
+   "col": "B",
+   "avail": false,
+   "svc": "XLR",
+   "price": 0,
+   "cur": "UNKNOWN",
+   "f": "BASSINET|CENTER|INFANT"
+  },
+  {
+   "n": "10C",
+   "row": 10,
+   "col": "C",
+   "avail": true,
+   "svc": "XLR",
+   "price": 38.3,
+   "cur": "USD",
+   "f": "BASSINET|AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "10D",
+   "row": 10,
+   "col": "D",
+   "avail": false,
+   "svc": "XLR",
+   "price": 0,
+   "cur": "UNKNOWN",
+   "f": "BASSINET|AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "10E",
+   "row": 10,
+   "col": "E",
+   "avail": false,
+   "svc": "XLR",
+   "price": 0,
+   "cur": "UNKNOWN",
+   "f": "BASSINET|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "10F",
+   "row": 10,
+   "col": "F",
+   "avail": false,
+   "svc": "XLR",
+   "price": 0,
+   "cur": "UNKNOWN",
+   "f": "BASSINET|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "11A",
+   "row": 11,
+   "col": "A",
+   "avail": false,
+   "svc": "FRONT",
+   "price": 0,
+   "cur": "UNKNOWN",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "11B",
+   "row": 11,
+   "col": "B",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "11C",
+   "row": 11,
+   "col": "C",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "11D",
+   "row": 11,
+   "col": "D",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "11E",
+   "row": 11,
+   "col": "E",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "11F",
+   "row": 11,
+   "col": "F",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.7,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "12A",
+   "row": 12,
+   "col": "A",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.7,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "12B",
+   "row": 12,
+   "col": "B",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "12C",
+   "row": 12,
+   "col": "C",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "12D",
+   "row": 12,
+   "col": "D",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "12E",
+   "row": 12,
+   "col": "E",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "12F",
+   "row": 12,
+   "col": "F",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.7,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "14A",
+   "row": 14,
+   "col": "A",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.7,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "14B",
+   "row": 14,
+   "col": "B",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "14C",
+   "row": 14,
+   "col": "C",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "14D",
+   "row": 14,
+   "col": "D",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "14E",
+   "row": 14,
+   "col": "E",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "14F",
+   "row": 14,
+   "col": "F",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.7,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "15A",
+   "row": 15,
+   "col": "A",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.7,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "15B",
+   "row": 15,
+   "col": "B",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "15C",
+   "row": 15,
+   "col": "C",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "15D",
+   "row": 15,
+   "col": "D",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "15E",
+   "row": 15,
+   "col": "E",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "15F",
+   "row": 15,
+   "col": "F",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.7,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "16A",
+   "row": 16,
+   "col": "A",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.7,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "16B",
+   "row": 16,
+   "col": "B",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "16C",
+   "row": 16,
+   "col": "C",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "16D",
+   "row": 16,
+   "col": "D",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "16E",
+   "row": 16,
+   "col": "E",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "16F",
+   "row": 16,
+   "col": "F",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.7,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "17A",
+   "row": 17,
+   "col": "A",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.7,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "17B",
+   "row": 17,
+   "col": "B",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "17C",
+   "row": 17,
+   "col": "C",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "17D",
+   "row": 17,
+   "col": "D",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "17E",
+   "row": 17,
+   "col": "E",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "17F",
+   "row": 17,
+   "col": "F",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.7,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "18A",
+   "row": 18,
+   "col": "A",
+   "avail": false,
+   "svc": "XLR",
+   "price": 38.8,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|EXIT_ROW|PREMIUM|DISABIL|WINDOW"
+  },
+  {
+   "n": "18B",
+   "row": 18,
+   "col": "B",
+   "avail": false,
+   "svc": "XLR",
+   "price": 37,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|EXIT_ROW|PREMIUM|DISABIL|CENTER"
+  },
+  {
+   "n": "18C",
+   "row": 18,
+   "col": "C",
+   "avail": false,
+   "svc": "XLR",
+   "price": 38.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|EXIT_ROW|PREMIUM|DISABIL"
+  },
+  {
+   "n": "18D",
+   "row": 18,
+   "col": "D",
+   "avail": false,
+   "svc": "XLR",
+   "price": 38.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|EXIT_ROW|PREMIUM|DISABIL"
+  },
+  {
+   "n": "18E",
+   "row": 18,
+   "col": "E",
+   "avail": false,
+   "svc": "XLR",
+   "price": 37,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|EXIT_ROW|PREMIUM|DISABIL|CENTER"
+  },
+  {
+   "n": "18F",
+   "row": 18,
+   "col": "F",
+   "avail": false,
+   "svc": "XLR",
+   "price": 38.8,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|EXIT_ROW|PREMIUM|DISABIL|WINDOW"
+  },
+  {
+   "n": "19A",
+   "row": 19,
+   "col": "A",
+   "avail": false,
+   "svc": "XLR",
+   "price": 38.8,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|EXIT_ROW|PREMIUM|DISABIL|WINDOW"
+  },
+  {
+   "n": "19B",
+   "row": 19,
+   "col": "B",
+   "avail": false,
+   "svc": "XLR",
+   "price": 37,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|EXIT_ROW|PREMIUM|DISABIL|CENTER"
+  },
+  {
+   "n": "19C",
+   "row": 19,
+   "col": "C",
+   "avail": false,
+   "svc": "XLR",
+   "price": 38.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|EXIT_ROW|PREMIUM|DISABIL"
+  },
+  {
+   "n": "19D",
+   "row": 19,
+   "col": "D",
+   "avail": false,
+   "svc": "XLR",
+   "price": 38.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|EXIT_ROW|PREMIUM|DISABIL"
+  },
+  {
+   "n": "19E",
+   "row": 19,
+   "col": "E",
+   "avail": false,
+   "svc": "XLR",
+   "price": 37,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|EXIT_ROW|PREMIUM|DISABIL|CENTER"
+  },
+  {
+   "n": "19F",
+   "row": 19,
+   "col": "F",
+   "avail": false,
+   "svc": "XLR",
+   "price": 38.8,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|EXIT_ROW|PREMIUM|DISABIL|WINDOW"
+  },
+  {
+   "n": "20A",
+   "row": 20,
+   "col": "A",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.7,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "20B",
+   "row": 20,
+   "col": "B",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "20C",
+   "row": 20,
+   "col": "C",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "20D",
+   "row": 20,
+   "col": "D",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.2,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "20E",
+   "row": 20,
+   "col": "E",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 16.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "20F",
+   "row": 20,
+   "col": "F",
+   "avail": true,
+   "svc": "FRONT",
+   "price": 18.7,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "21A",
+   "row": 21,
+   "col": "A",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "21B",
+   "row": 21,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "21C",
+   "row": 21,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "21D",
+   "row": 21,
+   "col": "D",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "21E",
+   "row": 21,
+   "col": "E",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "21F",
+   "row": 21,
+   "col": "F",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "22A",
+   "row": 22,
+   "col": "A",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "22B",
+   "row": 22,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "22C",
+   "row": 22,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "22D",
+   "row": 22,
+   "col": "D",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "22E",
+   "row": 22,
+   "col": "E",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "22F",
+   "row": 22,
+   "col": "F",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "23A",
+   "row": 23,
+   "col": "A",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "23B",
+   "row": 23,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "23C",
+   "row": 23,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "23D",
+   "row": 23,
+   "col": "D",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "23E",
+   "row": 23,
+   "col": "E",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "23F",
+   "row": 23,
+   "col": "F",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "24A",
+   "row": 24,
+   "col": "A",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "24B",
+   "row": 24,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "24C",
+   "row": 24,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "24D",
+   "row": 24,
+   "col": "D",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "24E",
+   "row": 24,
+   "col": "E",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "24F",
+   "row": 24,
+   "col": "F",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "25A",
+   "row": 25,
+   "col": "A",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "25B",
+   "row": 25,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "25C",
+   "row": 25,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "25D",
+   "row": 25,
+   "col": "D",
+   "avail": false,
+   "svc": "BACK",
+   "price": 0,
+   "cur": "UNKNOWN",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "25E",
+   "row": 25,
+   "col": "E",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "25F",
+   "row": 25,
+   "col": "F",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "26A",
+   "row": 26,
+   "col": "A",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "26B",
+   "row": 26,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "26C",
+   "row": 26,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "26D",
+   "row": 26,
+   "col": "D",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "26E",
+   "row": 26,
+   "col": "E",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "26F",
+   "row": 26,
+   "col": "F",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "27A",
+   "row": 27,
+   "col": "A",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "27B",
+   "row": 27,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "27C",
+   "row": 27,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "27D",
+   "row": 27,
+   "col": "D",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "27E",
+   "row": 27,
+   "col": "E",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "27F",
+   "row": 27,
+   "col": "F",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "28A",
+   "row": 28,
+   "col": "A",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "28B",
+   "row": 28,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "28C",
+   "row": 28,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "28D",
+   "row": 28,
+   "col": "D",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "28E",
+   "row": 28,
+   "col": "E",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "28F",
+   "row": 28,
+   "col": "F",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "29A",
+   "row": 29,
+   "col": "A",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "29B",
+   "row": 29,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "29C",
+   "row": 29,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "29D",
+   "row": 29,
+   "col": "D",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "29E",
+   "row": 29,
+   "col": "E",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "29F",
+   "row": 29,
+   "col": "F",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "30A",
+   "row": 30,
+   "col": "A",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "30B",
+   "row": 30,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "30C",
+   "row": 30,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "30D",
+   "row": 30,
+   "col": "D",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "30E",
+   "row": 30,
+   "col": "E",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "30F",
+   "row": 30,
+   "col": "F",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "31A",
+   "row": 31,
+   "col": "A",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "31B",
+   "row": 31,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "31C",
+   "row": 31,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "31D",
+   "row": 31,
+   "col": "D",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "31E",
+   "row": 31,
+   "col": "E",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "31F",
+   "row": 31,
+   "col": "F",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "32A",
+   "row": 32,
+   "col": "A",
+   "avail": false,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "32B",
+   "row": 32,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "32C",
+   "row": 32,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "32D",
+   "row": 32,
+   "col": "D",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "32E",
+   "row": 32,
+   "col": "E",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "32F",
+   "row": 32,
+   "col": "F",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "33A",
+   "row": 33,
+   "col": "A",
+   "avail": false,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "33B",
+   "row": 33,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "33C",
+   "row": 33,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "33D",
+   "row": 33,
+   "col": "D",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "33E",
+   "row": 33,
+   "col": "E",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "33F",
+   "row": 33,
+   "col": "F",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "34A",
+   "row": 34,
+   "col": "A",
+   "avail": false,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "34B",
+   "row": 34,
+   "col": "B",
+   "avail": false,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "34C",
+   "row": 34,
+   "col": "C",
+   "avail": false,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "34D",
+   "row": 34,
+   "col": "D",
+   "avail": false,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "34E",
+   "row": 34,
+   "col": "E",
+   "avail": false,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "34F",
+   "row": 34,
+   "col": "F",
+   "avail": false,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "35A",
+   "row": 35,
+   "col": "A",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  },
+  {
+   "n": "35B",
+   "row": 35,
+   "col": "B",
+   "avail": true,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "35C",
+   "row": 35,
+   "col": "C",
+   "avail": true,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "35D",
+   "row": 35,
+   "col": "D",
+   "avail": false,
+   "svc": "BACK",
+   "price": 11.3,
+   "cur": "USD",
+   "f": "AISLE|EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|INFANT"
+  },
+  {
+   "n": "35E",
+   "row": 35,
+   "col": "E",
+   "avail": false,
+   "svc": "BACK",
+   "price": 10,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|CENTER|INFANT"
+  },
+  {
+   "n": "35F",
+   "row": 35,
+   "col": "F",
+   "avail": false,
+   "svc": "BACK",
+   "price": 11.9,
+   "cur": "USD",
+   "f": "EXTRA_SEAT|BULKHEAD_SEAT|PREMIUM|WINDOW|INFANT"
+  }
+ ]
+}

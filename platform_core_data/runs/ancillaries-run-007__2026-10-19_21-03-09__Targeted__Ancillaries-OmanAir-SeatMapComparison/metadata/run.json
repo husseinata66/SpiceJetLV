@@ -1,0 +1,68 @@
+{
+  "folderName": "ancillaries-run-007__2026-10-19_21-03-09__Targeted__Ancillaries-OmanAir-SeatMapComparison",
+  "index": 7,
+  "runOwner": "ancillaries",
+  "scope": "Targeted",
+  "target": "Ancillaries-OmanAir-SeatMapComparison",
+  "workflow": "unversioned",
+  "targetRef": "2157ef1607f11d278bafe12e17f64c1258db6ec3",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-10-19T18:03:09.254Z",
+  "targetRepoRoot": "E:/Projects/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at E:/Projects/agentic-ai-testing-platform",
+  "createdBy": "Ahmed Ayman",
+  "startedTime": "2026-10-19T18:03:09.254Z",
+  "stateSchemaVersion": 1,
+  "stateRevision": 0,
+  "status": "Preparing",
+  "statusReason": null,
+  "statusHistory": [
+    {
+      "at": "2026-10-19T18:03:09.254Z",
+      "from": null,
+      "to": "Preparing",
+      "by": "Ahmed Ayman",
+      "reason": "run created"
+    }
+  ],
+  "stages": {},
+  "stateEventSeq": 0,
+  "stateEvents": [],
+  "scopeFamily": "supplier-feature",
+  "feature": "ancillaries",
+  "supplier": "oman-air",
+  "sharedScope": null,
+  "testingLayerScope": [
+    "Admin",
+    "Portal"
+  ],
+  "scopeHistory": [
+    {
+      "changedAt": "2026-10-19T18:03:15.659Z",
+      "approvedBy": "Ahmed Ayman",
+      "reason": "Oman Air seat map comparison: NDC Admin and NDC Portal (Oman Air website is a reference only, outside NDC scope)",
+      "previous": {
+        "feature": "ancillaries",
+        "supplier": "oman-air",
+        "sharedScope": null,
+        "testingLayerScope": null
+      },
+      "next": {
+        "feature": "ancillaries",
+        "supplier": "oman-air",
+        "sharedScope": null,
+        "testingLayerScope": [
+          "Admin",
+          "Portal"
+        ]
+      }
+    }
+  ],
+  "environment": {
+    "admin": "http://192.168.1.237",
+    "portal": "http://192.168.1.237:9500",
+    "credentialName": "OmanAir Production",
+    "execution": "Headed",
+    "referenceWebsite": "https://www.omanair.com"
+  }
+}
