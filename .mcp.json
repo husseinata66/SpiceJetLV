@@ -9,7 +9,8 @@
       "command": "npx",
       "args": [
         "-y", "@playwright/mcp@latest", "--isolated",
-        "--snapshot-mode", "none", "--image-responses", "omit", "--console-level", "error"
+        "--snapshot-mode", "none", "--image-responses", "omit", "--console-level", "error",
+        "--config", "playwright-ancillaries.config.json"
       ],
       "env": {}
     },

@@ -63,6 +63,13 @@ Therefore, for any flow behind a login:
 - Use Playwright MCP only for **post-login, already-authenticated** exploration, or for **unauthenticated** surfaces (public pages, the login screen's own structure — never its submission with real values).
 - If a Playwright MCP session would require typing a credential to proceed, that is a **stop** — switch to the Browser Driver for that step rather than typing the secret.
 
+**Exception — Ancillaries Supplier runs only (human decision, Mohanad Dawood, 2026-10-17).** In an Ancillaries Supplier run, and only there, the `playwright-ancillaries` server may submit the Portal login form with credentials the human gives in that conversation, because the Browser Driver cannot share its session with the MCP browser. Conditions, all mandatory:
+
+- The human supplies the values **for that run**, in that conversation; they are never remembered, never carried to another run, and never read from anywhere else.
+- The values appear **only** in that one login call. They are never written to a file, a run folder, a report, a test-data file, a log, a commit, or any document, and never repeated in a reply.
+- Because the transcript still contains them, the human is told to **change the password afterwards**.
+- It applies to no other Feature, module, stage, or server (the default `playwright` server keeps the absolute rule above), and it never lifts a `Forbidden` in `execution_safety_policy.json`.
+
 ### 1.4 Read-mostly, never destructive
 
 Every constraint the consuming Skill already carries applies unchanged — the Explorer's "Not permitted" list (`explorer-skill/SKILL.md` §10) and the Project Context's Environment Constraints govern MCP tool calls exactly as they govern driver calls. Specifically:
