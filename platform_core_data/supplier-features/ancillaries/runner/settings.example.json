@@ -1,0 +1,87 @@
+{
+  "_readme": "Copy to settings.local.json (git-ignored) and fill in. Test data only: never a password or any credential. daysFromToday: search close to today (2-3) rather than far out — the Portal snaps to its own nearest available date regardless, so a near search just finds that faster. bundles: leave null to detect from each package's own wording.",
+  "from": "CAI",
+  "to": "JED",
+  "daysFromToday": 3,
+  "savedPassengerSearch": "<the mobile number the saved passenger profiles are filed under>",
+  "nationality": "<the nationality shown on those saved profiles, e.g. Egypt>",
+  "profiles": {
+    "adults": [
+      "<saved adult profile name, 12+ years>"
+    ],
+    "children": [
+      "<saved child profile name, 3 to 11 years>"
+    ],
+    "infants": [
+      "<saved infant profile name, under 2 years>"
+    ]
+  },
+  "bundles": {
+    "allSeats": null,
+    "paidSeats": null
+  },
+  "nonEgp": {
+    "_note": "Group 12 only. A credential that is not in EGP, and its ROE read from the Admin (Master → Miscellaneous → Credential Rate of Exchange, else Rate of Exchange).",
+    "credentialName": "<Portal credential label>",
+    "currency": "<e.g. SAR>",
+    "roe": 0
+  },
+  "suppliers": {
+    "_note": "Optional, per Supplier slug (e.g. \"oman-air\"): anything here overlays the settings above for that Supplier's runs — its own route (from, to, daysFromToday), multiCity, nonEgp, booking dates…",
+    "<supplier-slug>": {
+      "from": "<A>",
+      "to": "<B>",
+      "verifyExitBooking": false
+    }
+  },
+  "multiCity": {
+    "_note": "Group 10 only. A route with inventory on EVERY leg (3 or more); each leg starts where the previous ended. credentialName is optional — only when the multi-city inventory is on a credential other than the run's.",
+    "credentialName": "<optional: the Portal credential label that sells this route>",
+    "legs": [
+      {
+        "from": "<A>",
+        "to": "<B>",
+        "daysFromToday": 1
+      },
+      {
+        "from": "<B>",
+        "to": "<C>",
+        "daysFromToday": 2
+      },
+      {
+        "from": "<C>",
+        "to": "<A>",
+        "daysFromToday": 3
+      }
+    ]
+  },
+  "multiCityAircraft": {
+    "_note": "Group 11 only. A route (2 or more legs) whose flights are on DIFFERENT aircraft types — only the airline decides this, so the human supplies it. Falls back to multiCity.",
+    "credentialName": "<optional>",
+    "legs": [
+      {
+        "from": "<A>",
+        "to": "<B>",
+        "daysFromToday": 3
+      },
+      {
+        "from": "<B>",
+        "to": "<C>",
+        "daysFromToday": 4
+      }
+    ]
+  },
+  "booking": {
+    "_note": "Group 14 only. The same passengers on the same flight twice is refused as a duplicate booking — move this day away from earlier bookings.",
+    "daysFromToday": 4
+  },
+  "clash": {
+    "_note": "Group 16 only (the deliberate baggage clash). Same duplicate rule.",
+    "daysFromToday": 5
+  },
+  "bookingMultiCity": {
+    "_note": "Group 15 only, optional — falls back to multiCity. Keep its dates clear of earlier bookings.",
+    "legs": []
+  },
+  "_verifyExitBooking": "Per Supplier. true = the exit-seat groups (05, 06) end with an ASSISTED real booking of the exit seat the seat map let through — --headed, the human presses Book — to track that the booking is refused with a reason. If it is accepted it is a real booking."
+}
