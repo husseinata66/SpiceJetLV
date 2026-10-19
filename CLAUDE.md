@@ -198,18 +198,19 @@ They hold the speed rules, the passenger age limits, the failure-screenshot rule
 exception. Every Ancillaries Supplier inherits them whether or not its `SupplierChecklist.md` exists
 yet. They change nothing for any other Feature or module.
 
-**No more manual execution (human decision, 2026-10-19).** Every run goes through the runner script,
-one command per Setup Group (§16.0):
+**Ancillaries only — no more manual execution (human decision, 2026-10-19).** Every Ancillaries run
+goes through the runner script, one command per Setup Group (§16.0). This rule does not apply to any
+other Feature or module:
 `node platform_core/tools/supplier_feature_runner/cli.js run --run <run> --group <NN> --headed|--headless`.
 It reads the run's Capability Plan, waits for the human to log in, and never presses Book itself.
 Groups 14–17 are **assisted** (headed only): the runner builds the booking up to Book (or Hold), stops
 with a red banner, **the human presses it** (Group 17: Hold, then Pay And Book → Pay), and the runner
 then does the read-only checks.
 
-- **Never drive the browser case by case to execute tests.** A case or group that is not in the script
-  is **written into the runner first**, proven live once, then run.
-- The browser MCP is only for diagnosing a failed check or exploring a new screen (read-only) before
-  writing its check — never for executing cases.
+- **Never drive the browser case by case to execute Ancillaries tests.** An Ancillaries case or group
+  that is not in the script is **written into the runner first**, proven live once, then run.
+- In Ancillaries runs the browser MCP is only for diagnosing a failed check or exploring a new screen
+  (read-only) before writing its check — never for executing cases.
 
 ## Reports
 
