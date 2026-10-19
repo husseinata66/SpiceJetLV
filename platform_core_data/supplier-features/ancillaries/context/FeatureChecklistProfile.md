@@ -23,7 +23,8 @@
 |---|---|---|---|
 | Shared baseline context | `shared/ancillaries-baseline/context/ProjectContext.md` | rev 3 (Approved 2026-09-25) | §A, §B, §C, §D rows and the `ANC-xx` IDs (now `ANC-01`…`ANC-53`) |
 | Feature-level capability model (not a shared scope) | `context/CapabilityModel.md` | rev 1 | The capability gate every row below depends on; injected separately into §5c |
-| Feature-level operational knowledge (not a shared scope) | `context/ExecutionFlow_HappyPath.md` | rev 2 | How to execute — referenced by Suppliers via `SupplierChecklist.md` §3c, never duplicated. Rev 2 adds §3.1 cabin × bundle coverage |
+| Feature-level operational knowledge (not a shared scope) | `context/ExecutionFlow_HappyPath.md` | rev 7 | How to execute — referenced by Suppliers via `SupplierChecklist.md` §3c, never duplicated. Rev 2 added §3.1 cabin × bundle coverage; rev 7 adds §15.5 portal rules and §16, the run pre-flight and speed playbook (every Ancillaries run reads §16 first; `CLAUDE.md` points there) |
+| Feature-level saved booking script (Portal) | `context/SetupBooking_Script.md` | rev 1 | The proven one-call search → passengers → step 2 script, with no credential. Referenced by Suppliers, never copied; change only its parameter block |
 | Human decision (not a shared scope) | Mohanad Dawood, 2026-09-27, in session (run-006) | — | The cabin × bundle rows below, and the answer to OQ-ANC-06. No `ANC-xx` ID yet: to be added to the shared baseline context's §6 at its next Stage 1 review |
 
 **ID scheme used below:** `ANC-01` … `ANC-41`, the canonical series issued by the shared baseline

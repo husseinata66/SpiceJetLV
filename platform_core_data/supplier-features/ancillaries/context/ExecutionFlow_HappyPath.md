@@ -17,8 +17,9 @@
 **Feature:** Ancillaries (`ancillaries`)
 **Canonical location:** `platform_core_data/supplier-features/ancillaries/context/ExecutionFlow_HappyPath.md`
 **Status:** Draft — pending approval
-**Revision:** 5 — adds §15 execution efficiency, including batched setup (human decision, Mohanad
-Dawood, 2026-10-17). Rev 4 saved failure screenshots in each run's `failures/` folder and rev 3
+**Revision:** 7 — adds §16, the run pre-flight and speed playbook that consolidates every speed-up in one
+place, and the saved `SetupBooking_Script.md` (human decision, Mohanad Dawood, 2026-10-17). Rev 6 added
+§15.5 portal interaction rules proven live (same date). Rev 5 added §15 execution efficiency, including batched setup (same date). Rev 4 saved failure screenshots in each run's `failures/` folder and rev 3
 limited screenshots to results that did not pass (both 2026-10-17); rev 2 added §3.1 cabin × bundle
 coverage (2026-09-27)
 **Last Updated:** 2026-10-17
@@ -441,3 +442,190 @@ limits:
 | 5 | **Passed inline, never saved as a file.** It is not an artifact |
 | 6 | **Returns a short result:** the screen it reached, the selected flight and its Supplier attribution (§4), and any error. Never a page snapshot |
 | 7 | **If it fails, continue in single steps** from the last screen it reached. The failure is a setup problem, not a test result, until the single steps show otherwise |
+
+The proven script for the Portal booking is saved in `SetupBooking_Script.md` (same folder): copy it,
+change only its parameter block, run it. It stops at step 2 and carries no credential.
+
+Proven on 2026-10-17 (OmanAir, CAI→JED, 2 adults, Economy): one batched call took the run from the
+empty Flight Search form to the open seat map in **37 seconds** (**23.8 seconds** once §15.5 rule 1's
+airport retry was added); the same setup done one action at a time took about 9m20s–9m46s. Use that shape for every Setup Group's booking.
+
+### 15.5 Portal interaction rules (proven live, Ancillaries Portal)
+
+These are how this Portal's widgets actually behave. Following them avoids the retries that cost
+the most time.
+
+1. **Airport From/To: type as soon as the dropdown opens, and search again instead of waiting.**
+   Click the field and fill the IATA code immediately. If the matching option is not visible after
+   3 s (the list shows "No results found"), clear the box and type the code again; repeat until it
+   appears (cap 120 s). Waiting on an empty list can hang forever, and a long single wait fails the
+   whole batch. With this retry, each airport took about 4 s instead of 20–60 s.
+2. **Dates must be committed through the calendar.** A value typed into Flight Search Date, Date of
+   Birth or Document Expiry looks set, then resets as soon as focus leaves. Open the calendar and
+   click through: next month for the search date; year → previous/next decade → year → month →
+   day for Date of Birth and Document Expiry.
+3. **Fill fields one after another, never in parallel.** Filling First Name, Last Name and Document
+   Number together (`Promise.all`) left First Name empty with "Required", and Next refused to
+   continue. Sequential fills worked every time.
+   **`browser_fill_form` is for plain textboxes only** (First Name, Last Name, Document Number).
+   Title, Nationality and the other dropdowns are not native `<select>` elements, so its
+   `combobox` type fails on them; use click → option click.
+4. **Fill passengers with *Select passenger*, not by typing.** Typing a passenger means about 14
+   calendar clicks (Date of Birth and Document Expiry) and took 8–10 s each; the saved-profile route
+   took 1.3–1.5 s each. Each section (Adult, Child, Infant) has its own *Select passenger* and lists
+   only profiles of that type. In the dialog: search the saved mobile number → **Pick** a row →
+   **Confirm passenger** (Pick alone only marks the row; Escape or closing discards it) → then
+   change the **Document Number**, never keep the saved one. The system silently refuses a second
+   booking for the same name, date of birth and document. **Choose each profile by its real date
+   of birth with a margin, not by the dialog's Age column** (it rounds). The booking age rules for
+   every Ancillaries booking, in the Portal and in the Admin alike (human-supplied, Mohanad Dawood,
+   2026-10-17): **Adult at least 12 years; Child at least 2 years
+   and less than 12; Infant at least 1 day and less than 2 years.** Keep a margin from each edge
+   (e.g. Child Layla ExrTest born 2017, Infant Youssef Dawood born 2025). A child one day short of
+   2 made `add-pax` return **400 "CHD must be 2 years or older"**, and Next then did nothing visible
+   (no message, no step 2) — if Next seems dead, read the `add-pax` response. The Infant's *Assigned to* then lists only
+   the adults (pick one). Open a collapsed section by clicking its own tab; **Expand All** toggles
+   and can collapse sections you need.
+5. **Do not wait for the whole result list.** Wait for the first `Book Flight` button of the
+   wanted fare and click it.
+6. **Login in an Ancillaries run:** the human may give the Portal credentials in the conversation
+   for that run, and the `playwright-ancillaries` server submits the login form with them in one
+   call (took 1.3 s). This is the scoped exception in `platform_core/tools/mcp/README.md` §1.3: the
+   values are used once, never written anywhere, and the human changes the password afterwards.
+7. **Headed or Headless is the human's choice for every run** (CLAUDE.md). The browser's own
+   per-action time is the same either way; the saving in §15 comes from fewer round trips and
+   smaller replies, not from Headless.
+
+## 16. Run pre-flight and speed playbook — read this first on every Ancillaries run
+
+*(Human decision, Mohanad Dawood, 2026-10-17. Ancillaries only. This section collects every speed-up
+proven on 2026-10-17; the detail is in §11 and §15 and in `SetupBooking_Script.md`. Nothing here
+changes what is tested or what evidence is kept. Measured on OmanAir Group 01: the booking took about
+30 s instead of about 9m46s, and each case took 0–3 s.)*
+
+### 16.0 Run an automated Setup Group with the runner, not case by case
+
+*(Human decision, Mohanad Dawood, 2026-10-18: an agent driving 60 cases one call at a time spent
+about 20% of a session's tokens in 30 minutes.)* When the group is automated, execute it with **one
+command** — no agent in the loop:
+
+```bash
+node platform_core/tools/supplier_feature_runner/cli.js groups --run <run>          # what is automated
+node platform_core/tools/supplier_feature_runner/cli.js run --run <run> --group 01 --headed
+```
+
+It reads the run's `CapabilityPlan.md`, so each Supplier gets only its own cases; it waits for the
+human to log in (no credential is ever typed or stored by it); it never presses Book, Hold, Pay or
+Save Quote; and it writes the working log and the failure screenshots of §16.4 into the run. Groups
+**14–17 are manual** (they book, hold or pay — human decision, 2026-10-18) and the runner refuses
+them. The checks live in `../runner/` (`group01.js` and the Portal adapter `portal.js`); Admin gets
+its own adapter after its live verification pass. Use §16.1–§16.5 below only for a group that is not
+automated yet, or to fix a check the runner reports as Blocked. Full reference:
+`platform_core/tools/supplier_feature_runner/README.md`.
+
+**In the runner today: Groups 01–16** (01–16 verified live on Flynas, 2026-10-18/19).
+Groups 14–16 are **assisted** — run them `--headed`; the runner stops at Book with a red banner and **the human
+presses Book**, then it does every read-only check below by itself. **Group 17** (hold, then pay) stays manual;
+**18** (live connection) and **19** (two sessions) are not automated. Route, credential and date settings the
+human supplies live in `../runner/settings.local.json` (`multiCity`, `multiCityAircraft`, `nonEgp`, `booking`,
+`clash`). Lessons every group (and any hand-run) inherits, each found live:
+
+- **A bundle dropdown re-picked on the option already chosen clears itself.** Stop at the first match
+  and never re-click the selected option. Clicking a PrimeNG dropdown trigger twice closes it.
+- **Step-1 passenger sections, step-2 passenger cards and journey bundle headers are collapsible
+  accordions.** Read the ancestor's `aria-expanded` before clicking — clicking an open one closes it.
+- **Passengers are picked by criteria (age, gender), never by a fixed name** — resolve them from the
+  saved profiles (a slot's dialog only offers profiles already of that type; paginate only when page 1
+  has no match). Search dates stay 2–3 days from today.
+- **Round-trip / multi-city forms:** click the visible field wrapper (the inputs are zero-size and
+  read-only), then type the code; the return/next leg pre-fills. Use `Search` with `{exact:true}`.
+- **The Portal allows one tab per session** ("Multiple Tabs Detected"). Do every check in the one tab.
+- **A sold-out class makes Next do nothing, with no message** (`ssr-quote` 400, "requested class of
+  service is sold out") — read the response before assuming a selector problem.
+- **Read the whole page before recording an absence.** (A confirmation page's "Extra Baggage" card sits
+  below the passenger table; reporting it missing was wrong.)
+
+- **Match report rows by this booking's own keys** — PNR on the Statement report, the invoice on the Sales report
+  (read from the Booking report row, right AFTER the booking reference) — never by amount: two bookings on one day
+  can cost exactly the same. The Statement report says "Latest updated Date & Time is: …" after a search; a
+  booking made after that time cannot be listed yet.
+- **The Itinerary (My Bookings → the order → Itinerary Details) lists ancillaries per JOURNEY**, with each leg of
+  a connecting journey labelled by its route inside the section. Its side panel's "N Booked Seats" is a
+  passenger count (a known bug), not a seat count.
+
+**Groups 14–16 — what the assisted run does (and what to do by hand if the runner can't).** The agent builds the booking and stops before **Book**, takes a
+pre-Book snapshot (route, passengers, package, extras, quoted total, wallet) into the run's
+`manual_execution/GroupResults_Group<NN>_working.md`, and the **human presses Book** — `BOOK`, `PAYMENT` and
+`WALLET_CHARGE` are absolutely Forbidden on Staging (`execution_safety_policy.json`). Everything after is
+read-only: confirmation page, e-ticket, My Bookings, Dashboard, the wallet (re-read it — the first read can be
+stale), Sales / Booking / Statement reports (the **Statement report updates hourly**, so recheck it before
+calling RPT-002). The same passengers on the same flight twice is refused as a duplicate; shift the date.
+Put every group of a Supplier in **one run**.
+
+### 16.1 Before the first action
+
+1. **Use the `playwright-ancillaries` server** (§15.0), maximized (`playwright-ancillaries.config.json`;
+   never `browser_resize` — a forced size cuts the page off). The config alone did not maximize the
+   window (1053×799 on a 1536×864 screen), so also run this once per browser session:
+   `const c = await page.context().newCDPSession(page); const {windowId} = await c.send('Browser.getWindowForTarget'); await c.send('Browser.setWindowBounds', {windowId, bounds: {windowState: 'maximized'}});`
+   If `page` in `browser_run_code_unsafe` is `about:blank` after a reconnect, `page.goto` first.
+   **Ask Headed or Headless for the run.**
+2. **Run the capability gate** (`capability_gate/cli.js plan --run <run>`) and treat its exclusions as
+   final. Also mark a case **Not Applicable up front** when what it checks cannot exist for the Supplier
+   even though the gate let it through (for example the bundle cases NAV-002 and NAV-002b on a Supplier
+   with no fare packages: the sheet tags them `Requires: Seat` only; record the tag gap).
+3. **Group the cases by `Setup Group`** and build one booking per group (§15.3). Extract the group's
+   runnable cases and steps **once** into a working file; do not re-read the sheet per case.
+4. **Log in once.** The human logs in, or gives the credentials for that run under the scoped
+   exception (§15.5 rule 6, one call, about 1.3 s). Never type them into any other call.
+5. **Check the screen before acting** and cap every wait at 5–10 s. A stuck script that waits 30 s per
+   step cost minutes; a quick state read costs nothing.
+
+### 16.2 Building the booking
+
+6. **One call, from `SetupBooking_Script.md`** (about 30 s to step 2): airports retyped until found,
+   dates through the calendar, first fare only, passengers from saved profiles (Pick → Confirm
+   passenger → fresh Document Number), infant linked, ages checked, Next. **The saved script is the
+   no-bundle (OmanAir) shape.** For a Supplier with fare bundles (Flynas) it needs three changes: pick
+   the card by the Supplier's connection name from its `SupplierChecklist.md` (never the other
+   connection, e.g. never "Fly Nas KSA …"), press **Accept** on the "Price Update" pop-up that appears
+   after Book Flight with an infant, and choose a bundle in "Select Bundle" on step 1 before Next.
+   **The Portal may move the searched date** to the nearest one with flights (30 Nov became 23 Oct);
+   record the date actually used.
+7. **Passenger ages** (Portal and Admin): Adult at least 12 years; Child at least 2 and less than 12;
+   Infant at least 1 day and less than 2 years — profiles chosen with a margin (§15.5 rule 4).
+
+### 16.3 Running the cases
+
+8. **Batch several cases per call.** Read only the values each case expects and return one compact
+   result per case with its time. Never take a full-page snapshot to read one value (`browser_find`
+   or a scoped read).
+9. **Do not repeat a combination already executed in the run** (§3.1 step 5).
+10. **Only press what the case itself says.** Next, Select Seat and Confirm are part of cases; **Book,
+    Hold and Pay never are** without a recorded authorization. Tell the human before any step that
+    changes what is on screen, if they are watching or timing.
+11. **After a mistake, recover the state; do not rebuild.** Close a stuck dialog with Escape, open a
+    collapsed section by its own tab, never use *Expand All*. Check each result with a read that can
+    actually fail (a pattern that never matches reports a false failure).
+
+### 16.4 Evidence and results
+
+12. **Screenshots only for Failed, Blocked and Inconclusive** (§11), full path
+    `runs/<run>/manual_execution/artifacts/failures/<Test Case ID>.png`. **Open each one and check it
+    shows the proof** (the first PAX-006 shot had the panel collapsed and proved nothing).
+13. **Record as you go** in the run folder's working log (case, result, time, evidence). The final
+    report is built with `report_builder` from a model, never hand-written HTML (CLAUDE.md, Reports).
+
+### 16.5 What cost the most time on 2026-10-17 (avoid)
+
+| Cost | Instead |
+|---|---|
+| One action per round trip with a full snapshot each time | One batched call, §16.2 |
+| Typing each passenger, about 14 calendar clicks each | Saved profiles, about 1.5 s each |
+| Waiting for an empty airport list | Retype every 3 s |
+| Typed dates, which reset silently | Calendar clicks |
+| Parallel field fills (left First Name empty) | One field after another |
+| 30 s default waits stacked on a missing section | Check the state, cap at 5–10 s |
+| Out-of-range passenger age, which makes Next do nothing visible | Check ages before Next |
+| `browser_resize`, which cut the page off | The maximized config |
+| Rebuilding the booking after a small mistake | Recover the state |

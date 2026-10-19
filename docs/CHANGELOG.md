@@ -14,6 +14,170 @@ record it; a redundant entry costs nothing, a silent gap defeats the point of th
 
 ---
 
+## 2026-10-18 — Supplier Feature Runner: a Setup Group in one command
+
+**Why.** Running Flynas Group 01 (59 cases) with an agent driving the browser one call at a time
+spent about 20% of a session's tokens in 30 minutes — almost all of it on mechanics, not judgment
+(human report, Mohanad Dawood, 2026-10-18).
+
+**What.**
+
+- New engine `platform_core/tools/supplier_feature_runner/` (`cli.js run | groups`). It runs one
+  Setup Group of a Supplier-Feature run in a real browser and writes the Markdown working log
+  (`GroupResults_Group<NN>_<timestamp>.md`, never overwriting an earlier one) and the failure
+  screenshots into the run. It holds no product knowledge: which cases run comes from the run's
+  frozen `CapabilityPlan.md`, group membership from the suite's `Setup Group` column, and the checks
+  from the Feature's own runner module.
+- **Login:** the human logs in in the opened window; only the session cookies are kept, outside the
+  repository, so later runs (and `--headless`) reuse them. The runner never reads, types or stores a
+  credential.
+- **Never books:** a required `actionGuard` is installed in the page in the capture phase and refuses
+  Book / Hold / Pay / Save Quote whatever code clicks them. Groups 14–17 (they book, hold or pay) are
+  **manual by human decision** and refused outright.
+- **Headed/Headless** must be passed every time; `--app` can never reach outside the run's frozen
+  `testingLayerScope`.
+- Ancillaries module `platform_core_data/supplier-features/ancillaries/runner/`: a Portal adapter
+  (`portal.js`, proven live on OmanAir and Flynas) and Group 01's 63 checks (`group01.js`), shared by
+  every application — Admin gets its adapter after its own live pass. Local test data in a git-ignored
+  `settings.local.json` (template `settings.example.json`).
+- `capability_gate` workbook loader now also returns each case's `setupGroup` (ignored by the gate).
+- `ExecutionFlow_HappyPath.md` §16.0 and CLAUDE.md point every Ancillaries run at the runner; the
+  case-by-case playbook (§16.1–§16.5) stays for groups not automated yet.
+
+**Tests.** `supplier_feature_runner/__tests__` (10): plan parsing, group selection, the guard both in
+Node and in the page, scope enforcement, Headed/Headless enforcement, the log.
+
+**Verified live, Flynas NDC, Group 01** (2026-10-18, after six fix-and-rerun cycles against
+the real Portal — each bug found this way, not guessed): all 63 cases accounted for — 52 Passed, 4
+real product defects correctly reproduced (`TC-SM-PAX-007`, `TC-SM-PRC-002`, `TC-SM-SEL-009`,
+`TC-SM-CNF-018`, all already documented from earlier manual runs), 1 legitimate Inconclusive, 2
+flagged manual-only (`TC-SM-A11Y-001/002`), 4 excluded by the Capability Plan (Hold). Zero Blocked.
+Bugs fixed along the way, each a lesson for future selector work: `titleOf`/`nationalityOf` read the
+page in a way that doesn't match the real markup — replaced with the exact-text-div pattern already
+proven for gender, or (for nationality) with known test data instead of reading the page at all; the
+"Book …"/"Seat unavailable" buttons carry a leading icon glyph that breaks an anchored (`^…`) name
+regex (the exact failure mode already documented from the 2026-10-17 manual runs); the seat-assignment
+counter reads "All assigned" once everyone has a seat, not "Seats assigned"; the per-section accordion
+tab's accessible name isn't anchorable either; `openMap` needed the same "wait until enabled" the
+booking script already uses, since the opener button loads briefly disabled. Also: `daysFromToday`
+replaces the `dayNextMonth` search parameter (search close to today — the Portal snaps to its own
+nearest available date regardless) and the first navigation/search get a longer timeout than the
+10 s(→15 s) default used for every other UI interaction.
+
+**Known, unrelated.** `platform_paths` `pathConvention.test.js` was already failing: `automation-skill`
+contains a literal Maven test directory.
+
+### Group 02 (Business cabin), same day
+
+Added `group02.js` (5 cases: `TC-SM-CAB-001/002/003/004/005`), reusing the Portal adapter. Business is
+reached through the Flight Search form's own Cabin field (Economy / Premium Economy / Business / First
+Class) — confirmed live, after first wrongly suspecting the per-card "Economy" label under the
+departure time/airport, which is a static echo of the searched cabin, not a per-card control.
+Discovered and fixed a real bug this way: selecting the cabin closes the passenger-count panel, so
+opening it and clicking the child/infant "+" had to move to *after* the cabin is set, not before.
+
+Group 02 does its own Economy pass and Business pass in one session (the sheet's own method:
+"do the same in Business, compare"), rather than depending on Group 01 having run first.
+
+**Verified live, same session:** the Economy pass worked end to end (card picked, passengers filled,
+bundle chosen, seat map read — 150 of 174 seats, 'Plus' bundle). The Business pass correctly found no
+inventory for this connection within 2-3 days of today and reported all 5 cases Inconclusive, with a
+clear reason, rather than crashing or guessing. **Search stays close to today for both cabins, by
+decision** (not widened to find a date with Business inventory) — a one-off wider check (confirmed
+Business inventory exists ~30-45 days out) was started to validate the comparison logic against real
+data, then stopped by decision before completing; the comparison logic (CAB-001–005) itself remains
+unexercised against real Business data as of this entry.
+
+## 2026-10-19 — Ancillaries runner covers Groups 01–17; booking groups are "assisted" (the human presses Book / Hold / Pay)
+
+**Why.** Groups 10–16 had been run by hand in the browser, which cost far more tokens than the runner and left no
+reusable code (human, 2026-10-19: "run the script until the Book, I click Book, then you continue the script —
+the confirmation page, e-ticket, reports").
+
+**Engine (`platform_core/tools/supplier_feature_runner`).** New **assisted** groups (`assisted: 'Book'`): the runner
+builds the booking, then `ctx.humanGate()` shows a red banner, lets only the Book button through the in-page guard
+while the runner waits idle, and closes the guard again; Hold / Pay / Save Quote stay refused (new test). Assisted
+groups refuse `--headless`. A setup step that stops now saves a screenshot too. `groups` labels assisted groups.
+Tests: 11 pass.
+
+**Ancillaries runner module.** `group10.js`–`group16.js`, `multicity.js` (shared multi-city search-to-step-2, which
+retries the next package when one is refused at step 2), `postbook.js` (read-only: wallet, My Bookings, confirmation,
+e-ticket, Costing, Itinerary per journey/leg/traveller, Booking / Sales / Statement reports); `searchMultiCity` in the
+Portal adapter; `text()` reads the first `<body>` (the Dashboard has two); `hasBundleStep` waits for the package
+section. Group 17 stays manual. New settings: `multiCity`, `multiCityAircraft`, `nonEgp` (ROE from the Admin),
+`booking`, `clash` (dates clear of earlier bookings — duplicates are refused).
+
+**Proven live on Flynas (2026-10-19).** G10 3/3 · G11 1/1 (XY 4 320NE1 vs 320NEO) · G12 1/1 (ROE 13) ·
+G13 2 passed + 2 skipped by the human · G02 rerun 4 passed + CAB-003 by ruling · **G14 15/15** (booking W9R33P, after
+fixing three check bugs found by reading the evidence: an infant-row slice that ran into Bundle Details, and report
+rows matched by amount — UY38MC cost the same 18,848 — now matched by PNR / invoice; RPT-002 passed after the 17:05
+Statement update) · **G15 2/2** (V9DR7C, 54,642.90, 5 seats over 4 flights) · **G16 2/2** (clash reproduced, wallet
+not charged). The human pressed Book each time.
+
+**OmanAir (one run for the supplier).** Group 17 (hold, then pay) added with two stops, proven by hand first: a hold charges nothing; "Pay And Book" opens a popup (Segment · Fare & Baggage · Passenger tabs, Wallet or bank at ~2% more) with Pay; paid state read on the booking details, e-ticket and reports. Exit seats on OmanAir: the seat map AND the booking let an infant-holding adult and a child take the exit seat (two Confirmed bookings, 47,715.20 EGP) — EXR-002/003/004/005 are real failures. Exit-seat groups 05/06 gained an optional assisted booking step (`settings.suppliers.<slug>.verifyExitBooking`). Runner: per-supplier settings overlay; assisted steps inside non-assisted groups; `humanGate` can wait on a popup (`untilFn`); report readers read every page.
+
+**Findings:** booking details "N Booked Seats" shows the API's
+booked-passenger count (`costingInfo.totalBookedCount`) — a bug, human-confirmed; saved-profile dates of birth drift
+backwards across bookings (unconfirmed, not pursued now); Statement report times are 12-hour with no AM/PM.
+
+## 2026-10-19 — Ancillaries runner: Groups 03–09 automated; Groups 14–16 run manually on Flynas
+
+**Runner.** `group03.js`–`group09.js` added to the Ancillaries runner module (all verified live on Flynas): G03 4/4 passed · G04 1/1 · G05 2 passed + 2 Inconclusive · G06 3 passed · G07 Blocked — a real finding
+(after re-linking an infant on step 1, step 2's Ancillaries panel stays empty; reproduced twice) · G08 passed by the
+27 Sep business ruling · G09 6 passed + 1 known fault. New Portal-adapter helpers: criteria-based passenger picking
+(no fixed names), `setAssignedTo`, `expandPassengerCard`, `dropdownOptionsAt`, `searchRoundTrip`, `expandJourneys`,
+`chooseBundleForNextLeg`, `openMapAt`. Search dates are `daysFromToday` (2–3 days out).
+
+**Manual booking groups.** Group 14 — 15 cases, all Passed (the Statement report took ~1 hour to show the
+booking, as the human said it would; checked at 13:17). Group 16 — baggage clash reproduced exactly (`SSR (PDBG) is
+restricted…`); CNF-016/017 pass by ruling; new since 27 Sep: the confirmation page now says **Failed** and My Bookings
+no longer offers "Pay And Book". Group 15 — multi-city booking on the KSA credential (human decision; EGY had no
+multi-city inventory): MCT-004/005 Passed; the first Book was refused as a **duplicate booking** (same passengers on
+the same flight), retried a day later. Group 10 — Blocked: a sold-out class makes Next silently do nothing.
+Group 17 is excluded for Flynas (no Hold). The human pressed Book every time; the agent never did.
+
+**Docs.** `ExecutionFlow_HappyPath.md` §16.0 now lists what is automated, the lessons found live, and the manual
+booking procedure. **Rule recorded:** a new Supplier gets everything in **one run**.
+
+## 2026-10-17 — Ancillaries: one global file for every run (pre-flight, speed playbook, saved script)
+
+User-mandated, **Ancillaries Feature only**. A live OmanAir Group 01 run (52 runnable cases) measured
+the speed-ups and found the rules that make them work. They are now written once, in the Ancillaries
+Feature-level file, and `CLAUDE.md` points every Ancillaries run at it.
+
+- **Measured:** the booking (login to step 2) took about 30 s in one call, against about 9m20s–9m46s
+  one action at a time; passengers from saved profiles took about 5 s for three, against about 25 s
+  typed; each case took 0–3 s. Wall-clock for one booking was a wash with only the lighter server flags:
+  the saving comes from fewer round trips, one booking per Setup Group, and saved profiles.
+- **`ExecutionFlow_HappyPath.md` rev 7:** new §15.5 (airport lists retyped every 3 s instead of
+  waited on; dates only through the calendar; fields filled one after another, never in parallel;
+  Select passenger → Pick → Confirm → fresh Document Number; first fare only; login and Headed/Headless
+  rules) and new §16 (run pre-flight and speed playbook, with a table of what cost the most time).
+  **Passenger age rules, Portal and Admin:** Adult at least 12 years; Child at least 2 and less than 12;
+  Infant at least 1 day and less than 2 years. An out-of-range age makes `add-pax` return 400 and Next
+  does nothing visible.
+- **`SetupBooking_Script.md` (new):** the proven one-call script as a document, not a tool; no
+  credential; parameter block only; checks passenger ages before Next.
+- **`CLAUDE.md`:** new "Ancillaries runs — read the global file first" section. The execution flow had
+  no pointer from any skill, and OmanAir has no `SupplierChecklist.md`, so a new run would not have
+  been told to read it.
+- **`platform_core/tools/mcp/README.md` §1.3:** a scoped exception for Ancillaries Supplier runs only:
+  the human may give the Portal credentials in that conversation for that run, used in one login call,
+  never written anywhere, password changed afterwards. The default `playwright` server keeps the
+  absolute rule.
+- **`.mcp.json` and `playwright-ancillaries.config.json` (new):** the Ancillaries browser starts
+  maximized and follows the real window size. A forced `browser_resize` cut the page off. Reconnect the
+  `playwright-ancillaries` server for it to take effect.
+- **`FeatureChecklistProfile.md`:** Sources updated to rev 7 and the saved script, so new Supplier
+  checklists inherit both.
+- **Not done:** an OmanAir `SupplierChecklist.md` (context stage not started; to be created through the
+  stage flow, not by hand). The rules are guidance, not enforced by tooling.
+- **Run record:** OmanAir, Portal, Group 01: 42 passed, 4 failed (PAX-007, STA-004, SEL-009,
+  PAX-006), 2 not applicable (NAV-002, NAV-002b: no fare packages), 4 inconclusive or blocked (FRC-001,
+  -002, -003, -005); failure screenshots in `manual_execution/artifacts/failures/`.
+
+---
+
 ## 2026-10-17 — SeatMap sheet: Setup Group column
 
 User-mandated. Rather than rewriting the case-by-case sheet as long E2E scenarios — which would hide
