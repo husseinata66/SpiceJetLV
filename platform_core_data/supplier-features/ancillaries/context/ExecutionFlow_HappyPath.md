@@ -519,16 +519,20 @@ human to log in (no credential is ever typed or stored by it); it never presses 
 Save Quote; and it writes the working log and the failure screenshots of §16.4 into the run. Groups
 **14–17 are manual** (they book, hold or pay — human decision, 2026-10-18) and the runner refuses
 them. The checks live in `../runner/` (`group01.js` and the Portal adapter `portal.js`); Admin gets
-its own adapter after its live verification pass. Use §16.1–§16.5 below only for a group that is not
-automated yet, or to fix a check the runner reports as Blocked. Full reference:
+its own adapter after its live verification pass. Full reference:
 `platform_core/tools/supplier_feature_runner/README.md`.
 
-**In the runner today: Groups 01–16** (01–16 verified live on Flynas, 2026-10-18/19).
-Groups 14–16 are **assisted** — run them `--headed`; the runner stops at Book with a red banner and **the human
-presses Book**, then it does every read-only check below by itself. **Group 17** (hold, then pay) stays manual;
+**No more manual execution (human decision, 2026-10-19).** Cases are never executed by hand. A case or
+group missing from the runner is written into it first, proven live once, then run. §16.1–§16.5 below
+are background for writing and fixing checks (and for diagnosing a check the runner reports as Blocked),
+not a way to execute a run.
+
+**In the runner today: Groups 01–17** (01–16 verified live on Flynas, 2026-10-18/19).
+Groups 14–17 are **assisted** — run them `--headed`; the runner stops at Book (Group 17: Hold, then Pay And Book →
+Pay) with a red banner and **the human presses it**, then it does every read-only check below by itself.
 **18** (live connection) and **19** (two sessions) are not automated. Route, credential and date settings the
 human supplies live in `../runner/settings.local.json` (`multiCity`, `multiCityAircraft`, `nonEgp`, `booking`,
-`clash`). Lessons every group (and any hand-run) inherits, each found live:
+`clash`, and per supplier under `suppliers.<slug>`). Lessons every check inherits, each found live:
 
 - **A bundle dropdown re-picked on the option already chosen clears itself.** Stop at the first match
   and never re-click the selected option. Clicking a PrimeNG dropdown trigger twice closes it.
@@ -553,9 +557,9 @@ human supplies live in `../runner/settings.local.json` (`multiCity`, `multiCityA
   a connecting journey labelled by its route inside the section. Its side panel's "N Booked Seats" is a
   passenger count (a known bug), not a seat count.
 
-**Groups 14–16 — what the assisted run does (and what to do by hand if the runner can't).** The agent builds the booking and stops before **Book**, takes a
-pre-Book snapshot (route, passengers, package, extras, quoted total, wallet) into the run's
-`manual_execution/GroupResults_Group<NN>_working.md`, and the **human presses Book** — `BOOK`, `PAYMENT` and
+**Groups 14–17 — what the assisted run does.** The runner builds the booking and stops before **Book** (or
+**Hold**), records a pre-Book snapshot (route, passengers, package, extras, quoted total, wallet) in the group's
+log, and the **human presses it** — `BOOK`, `HOLD`, `PAYMENT` and
 `WALLET_CHARGE` are absolutely Forbidden on Staging (`execution_safety_policy.json`). Everything after is
 read-only: confirmation page, e-ticket, My Bookings, Dashboard, the wallet (re-read it — the first read can be
 stale), Sales / Booking / Statement reports (the **Statement report updates hourly**, so recheck it before
