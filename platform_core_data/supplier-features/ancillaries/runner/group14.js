@@ -168,11 +168,18 @@ const steps = [
       await c.check('TC-SM-CNF-011', P.near(cost.bookingAmount || 0, total),
         `Costing tab: Total Booking Amount ${cost.bookingAmount}, Total Sales Amount ${cost.salesAmount}, Total Net Amount ${cost.netAmount}, Total SSR Amount ${cost.ssrAmount} — against the confirmed ${total}.`);
       const row = await P.myBookingsRow(c, conf.orderId);
-      const listTotal = row ? P.money((row.text.match(/([\d,.]+) [A-Z]{3}\s*$/) || [])[1] || 0) : null;
-      const fareOnly = (conf.fare.base || 0) + (conf.fare.taxes || 0);
-      await c.check('TC-SM-CNF-012', !!row && P.near(listTotal, fareOnly, 0.6) && P.near(cost.bookingAmount || 0, total),
-        `My Bookings list shows ${listTotal} for this order — the fare only (base ${conf.fare.base} + taxes ${conf.fare.taxes} = ${fmt2(fareOnly)}), as the case says it should; the Costing tab shows the amount charged, ${cost.bookingAmount}.`);
-      await c.check('TC-RPT-001', !!row, row ? `My Bookings lists ${conf.orderId} (ref ${conf.ref}).` : `${conf.orderId} is NOT on My Bookings.`);
+      if (c.app === 'Admin') {
+        // TC-SM-CNF-012 is a Portal-only quirk: the My Bookings LIST row shows the fare only, while its
+        // own Costing tab shows the amount charged. Admin has neither a bookings list nor a Costing
+        // tab — PNR Query shows the charged total directly, so there is no "list vs. tab" to compare.
+        await c.na('TC-SM-CNF-012', 'Admin has no My Bookings list and no Costing tab to compare — PNR Query shows the charged total directly (checked by TC-SM-CNF-011).');
+      } else {
+        const listTotal = row ? P.money((row.text.match(/([\d,.]+) [A-Z]{3}\s*$/) || [])[1] || 0) : null;
+        const fareOnly = (conf.fare.base || 0) + (conf.fare.taxes || 0);
+        await c.check('TC-SM-CNF-012', !!row && P.near(listTotal, fareOnly, 0.6) && P.near(cost.bookingAmount || 0, total),
+          `My Bookings list shows ${listTotal} for this order — the fare only (base ${conf.fare.base} + taxes ${conf.fare.taxes} = ${fmt2(fareOnly)}), as the case says it should; the Costing tab shows the amount charged, ${cost.bookingAmount}.`);
+      }
+      await c.check('TC-RPT-001', !!row, row ? `${c.app === 'Admin' ? 'PNR Query finds' : 'My Bookings lists'} ${conf.orderId} (ref ${conf.ref}).` : `${conf.orderId} was NOT found (ref ${conf.ref}).`);
     },
   },
   {

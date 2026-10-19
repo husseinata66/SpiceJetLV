@@ -6,6 +6,14 @@
 //   - the first wallet read straight after an action can be stale — reach it through the Dashboard;
 //   - the Statement report updates hourly, so a booking minutes old is normally not there yet;
 //   - report date pickers refuse a future "To" date.
+//
+// Admin has no My Bookings and no booking-details page: `readCosting` and `readItinerary` go through
+// PNR Query instead (admin_post.js), looked up by the NDC Reference `readConfirmation` records in
+// `c.lookup[orderId]`. `readWallet` reads the Wallet History report. `readEticket` is unchanged — the
+// e-ticket page itself is shared with the Portal.
+
+const A = require('./admin_post');
+const AP = require('./admin_parse');
 
 const money = (t) => Number(String(t).replace(/,/g, ''));
 const near = (a, b, tol = 0.11) => Math.abs(a - b) <= tol; // the wallet and the Statement report show one decimal
@@ -25,6 +33,7 @@ async function textUntil(c, re, tries = 40) {
 }
 
 async function readWallet(c) {
+  if (c.app === 'Admin') return A.readWallet(c);
   await go(c, '/dashboard', 1500);
   await go(c, '/topup-wallet', 500);
   const t = await textUntil(c, /Wallet Available Balance [\d,.]+ [A-Z]{3}/);
@@ -33,7 +42,12 @@ async function readWallet(c) {
   return { amount: money(m[1]), text: `${m[1]} ${m[2]}` };
 }
 
+/** Admin has no My Bookings: its nearest equivalent is the Booking Report, whose rows carry the NDC
+ * Reference and Invoice Number, never the order id — `newest` is therefore the latest reference on
+ * the Portal's own id shape only; on Admin it is left null and callers use `c.lookup[orderId]` instead
+ * (set by `readConfirmation`). */
 async function readMyBookings(c) {
+  if (c.app === 'Admin') { const r = await A.readBookingReport(c); return { ...r, newest: null }; }
   await go(c, '/myBooking', 500);
   const t = await textUntil(c, /Showing \d+ results of \d+ results/);
   const m = t.match(/Showing \d+ results of (\d+) results/);
@@ -41,8 +55,16 @@ async function readMyBookings(c) {
   return { total: Number(m[1]), newest: (t.match(/\b[A-Z]{3}\d{4}[A-Z0-9]+ORD\w+/) || [])[0] || null, text: t };
 }
 
-/** The row of one order on My Bookings: its text, and the controls in its actions cell. */
+/** The row of one order: My Bookings on the Portal; on Admin, PNR Query by the booking's own NDC
+ * Reference (`c.lookup[orderId].ref`, set by `readConfirmation`) stands in for "the row", since Admin
+ * has no booking list to pull a <tr> out of. */
 async function myBookingsRow(c, orderId) {
+  if (c.app === 'Admin') {
+    const ref = (c.lookup || {})[orderId];
+    if (!ref) return null;
+    const p = await A.pnrQuery(c, { ref: ref.ref || ref });
+    return p.found ? { text: p.text, actions: [], className: '' } : null;
+  }
   await readMyBookings(c);
   const row = c.page.locator('tr').filter({ hasText: orderId }).first();
   if (!(await row.count())) return null;
@@ -82,10 +104,15 @@ function bookedAtOf(t) {
 async function readConfirmation(c) {
   const t = await textUntil(c, /Booking Reference|Trip ID/);
   const fare = parseFare(t.slice(t.indexOf('Fare Details')));
+  const orderId = (t.match(/\b[A-Z]{3}\d{4}[A-Z0-9]+ORD\w+/) || [])[0] || null;
+  const ref = (t.match(/Booking Reference: (\S+)/) || [])[1] || null;
+  // Admin has no My Bookings / booking-details: later readers (readCosting, readItinerary,
+  // myBookingsRow) look the booking up on PNR Query by this ref instead of the order id.
+  if (orderId && ref) { c.lookup = c.lookup || {}; c.lookup[orderId] = { ref }; }
   return {
     text: t,
-    orderId: (t.match(/\b[A-Z]{3}\d{4}[A-Z0-9]+ORD\w+/) || [])[0] || null,
-    ref: (t.match(/Booking Reference: (\S+)/) || [])[1] || null,
+    orderId,
+    ref,
     pnr: (t.match(/Booking Date Status Note (\S+)/) || [])[1] || null,
     status: (t.match(/\d{2}:\d{2} (Confirmed|Failed|Pending|Cancelled|On Hold|Ticketed)/) || [])[1] || null,
     bookedAt: bookedAtOf(t),
@@ -108,8 +135,15 @@ async function readEticket(c, orderId) {
   };
 }
 
-/** My Bookings → the order → "Costing" tab. */
+/** My Bookings → the order → "Costing" tab. On Admin, PNR Query's own totals stand in (no Costing
+ * tab exists there): looked up by the ref `readConfirmation` recorded in `c.lookup[orderId]`. */
 async function readCosting(c, orderId) {
+  if (c.app === 'Admin') {
+    const ref = ((c.lookup || {})[orderId] || {}).ref;
+    const p = await A.pnrQuery(c, ref ? { ref } : { ref: orderId });
+    const t = AP.totals(p);
+    return { text: p.text, bookingAmount: t.total, salesAmount: t.sales, netAmount: t.net, ssrAmount: t.ssr };
+  }
   await go(c, `/myBooking/booking-details/${orderId}`, 3000);
   const tab = c.page.getByRole('tab', { name: /Costing/ }).or(c.page.getByText('Costing', { exact: true })).first();
   if (await tab.count()) { await tab.click(); await c.ui.wait(c.page, 1500); }
@@ -126,6 +160,17 @@ async function readCosting(c, orderId) {
  * The side panel's "N Booked Seats" is the API's booked-PASSENGER count (a known bug) — never used as a seat count.
  */
 async function readItinerary(c, orderId) {
+  if (c.app === 'Admin') {
+    const ref = ((c.lookup || {})[orderId] || {}).ref;
+    const q = await A.pnrQuery(c, ref ? { ref } : { ref: orderId });
+    return {
+      text: q.text,
+      journeys: (q.journeys || []).map((j) => ({ flights: j.flights, anc: j.anc })),
+      passengers: (q.passengers || []).map((x) => x.name).join(', '),
+      status: (q.booking || {}).status || null,
+      pnr: (q.passengers || [])[0]?.pnr || null,
+    };
+  }
   const p = c.page;
   await p.goto(new URL(`/myBooking/booking-details/${orderId}`, c.baseUrl).href, { timeout: 60000, waitUntil: 'domcontentloaded' }).catch(() => {});
   await c.ui.wait(p, 4000);
@@ -174,8 +219,27 @@ async function setToday(c, fromId, toId) {
 }
 
 /** One report page searched for today. Returns the result text (between the Search button and the footer). */
+/** Admin-only: Branch (+ Agency, or the report comes back empty) ahead of a report's own date/ref
+ * fields. The Portal has no such selection step. */
+async function pickAdminBranchAgency(c) {
+  const admin = c.settings.admin;
+  if (!admin || !admin.branch) throw new Error('settings.admin.branch is missing — see settings.example.json');
+  const pick = async (n, label) => {
+    const loc = c.page.locator('p-multiselect, p-dropdown').nth(n);
+    if (!(await loc.count())) return;
+    await loc.click();
+    await c.ui.wait(c.page, 400);
+    await c.page.locator('.p-multiselect-item, .p-dropdown-item').filter({ hasText: label }).first().click();
+    await c.page.keyboard.press('Escape').catch(() => {});
+    await c.ui.wait(c.page, 300);
+  };
+  await pick(0, admin.branch);
+  if (admin.agency) await pick(1, admin.agency);
+}
+
 async function searchReportToday(c, path, { fromId = 'id-InvoiceFromDate', toId = 'id-InvoiceToDate', ref = null } = {}) {
   await go(c, path, 2500);
+  if (c.app === 'Admin') await pickAdminBranchAgency(c);
   if (await c.page.locator(`#${fromId}`).count()) await setToday(c, fromId, toId);
   else { // the Booking report names its date fields differently: take the first two date inputs
     const ids = await c.page.locator('input[placeholder="DD/MM/YYYY"]').evaluateAll((els) => els.map((e) => e.id).filter(Boolean));

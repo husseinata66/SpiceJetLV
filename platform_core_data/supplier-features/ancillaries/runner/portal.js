@@ -35,14 +35,17 @@ async function search(page, portal, s, pax, cabin = 'Economy') {
     if (/search|availab/i.test(r.url()) && r.request().method() !== 'OPTIONS') statuses.push(r.status());
   };
   await page.goto(new URL('/booking/flight-search', portal).href, { timeout: 45000 });
+  // Admin (s.entryHook): Branch → Agency → Agent come first on this form. They also shift every textbox index,
+  // so the airports are typed after clicking the field instead (the way the round-trip and multi-city forms do).
+  if (s.entryHook) { await wait(page, 1500); await s.entryHook(page); }
   const pickAirport = async (labelRe, code, option) => {
     await page.locator('div').filter({ hasText: labelRe }).first().click();
     const box = page.getByRole('textbox').nth(1);
     const deadline = Date.now() + 120000;
     while (Date.now() < deadline) {
-      await box.fill('');
-      await box.fill(code);
-      try { await option.first().waitFor({ state: 'visible', timeout: 3000 }); await option.first().click(); return; } catch (_) { /* retype */ }
+      if (s.entryHook) await page.keyboard.type(code);
+      else { await box.fill(''); await box.fill(code); }
+      try { await option.first().waitFor({ state: 'visible', timeout: 3000 }); await option.first().click(); return; } catch (_) { if (s.entryHook) { await page.keyboard.press('Control+A'); await page.keyboard.press('Backspace'); } /* else retype */ }
     }
     throw new Error(`airport ${code} never appeared in the list`);
   };
@@ -87,6 +90,7 @@ async function searchRoundTrip(page, portal, s, pax, returnDaysFromToday, cabin 
   const onResponse = (r) => { if (/search|availab/i.test(r.url()) && r.request().method() !== 'OPTIONS') statuses.push(r.status()); };
   await page.goto(new URL('/booking/flight-search', portal).href, { timeout: 45000 });
   await wait(page, 800);
+  if (s.entryHook) { await wait(page, 700); await s.entryHook(page); } // Admin: Branch → Agency → Agent
   await page.getByText('Round-trip', { exact: true }).click();
   await wait(page, 400);
   if (cabin !== 'Economy') {
@@ -141,6 +145,7 @@ async function searchMultiCity(page, portal, s, pax, legs) {
   }
   await page.goto(new URL('/booking/flight-search', portal).href, { timeout: 45000 });
   await wait(page, 1500);
+  if (s.entryHook) await s.entryHook(page); // Admin: Branch → Agency → Agent
   await page.getByText('Multi-city', { exact: true }).click();
   await wait(page, 800);
   const typeInto = async (label, code, optionLoc) => {

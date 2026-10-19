@@ -26,6 +26,12 @@
     "currency": "<e.g. SAR>",
     "roe": 0
   },
+  "admin": {
+    "_note": "Admin runs only (run.json environment.admin). Branch → Agency → Agent, exactly as they must be picked in that order on the Admin's Flight Search and every report — each later one only has options once the one before it is picked.",
+    "branch": "<e.g. Uplift2_Mohanad Dawood (BRN298)>",
+    "agency": "<e.g. Uplift2_Mohanad Dawood (AGN9809)>",
+    "agent": "<e.g. Mohanad Dawood>"
+  },
   "suppliers": {
     "_note": "Optional, per Supplier slug (e.g. \"oman-air\"): anything here overlays the settings above for that Supplier's runs — its own route (from, to, daysFromToday), multiCity, nonEgp, booking dates…",
     "<supplier-slug>": {

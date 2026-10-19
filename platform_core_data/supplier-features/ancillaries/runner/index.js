@@ -7,18 +7,22 @@
 // runner never contains them. Global rules: ../context/ExecutionFlow_HappyPath.md §15–§16.
 
 const portal = require('./portal');
+const admin = require('./admin');
 
 const isPortalLoggedIn = async (page) => !/login|signin|auth/i.test(page.url())
   && (await page.getByText(/^\s*welcome\s*$/i).count()) > 0;
+// Same "welcome" check as the Portal (proven live, 2026-10-19) — Admin has no /dashboard redirect quirk
+// otherwise worth separating this for.
+const isAdminLoggedIn = isPortalLoggedIn;
 
 module.exports = {
   feature: 'ancillaries',
 
-  // One adapter per application. The group checks are shared; only login and the way into the
-  // booking differ. Admin (Booking-Mid Office → Flight Search, branch/agency/agent) is added after
-  // its own live verification pass.
+  // One adapter per application. The group checks are shared; only login, entry (Branch → Agency →
+  // Agent for Admin) and a few read-only reports (admin_post.js) differ.
   apps: {
     Portal: { startPath: '/booking/flight-search', isLoggedIn: isPortalLoggedIn, ui: portal },
+    Admin: { startPath: '/booking/flight-search', isLoggedIn: isAdminLoggedIn, ui: admin },
   },
 
   // The runner never books, holds or pays. Allowed look-alikes: "Book Flight" opens the booking form,

@@ -51,6 +51,11 @@ const steps = [
     cases: [],
     assisted: 'Hold',
     async run(c) {
+      // The Pay step below (TC-PAH-002/003/004) waits on the Portal's My Bookings row — "Pay And
+      // Book" disappearing from a <tr>. Admin has no My Bookings page: its Hold → Pay flow is not
+      // mapped yet, so this refuses up front rather than hanging the human gate on a page that
+      // never shows that row.
+      if (c.app === 'Admin') throw new Error('Group 17 (Hold, Pay after Hold) is not mapped for Admin yet — its Pay step depends on the Portal\'s My Bookings row. Map Admin\'s pay-after-hold screen first, then remove this guard.');
       const U = c.ui; const p = c.page; const s = c.settings;
       const days = (s.hold && s.hold.daysFromToday) || s.daysFromToday;
       c.state.walletBefore = await P.readWallet(c);
