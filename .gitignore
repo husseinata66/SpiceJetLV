@@ -9,6 +9,10 @@ web_modules/
 .env.*
 !.env.example
 
+# Supplier Feature Runner — local test data (saved-passenger search, profile names). Never committed;
+# settings.example.json beside it is the tracked template. See tools/supplier_feature_runner/README.md.
+platform_core_data/supplier-features/*/runner/settings.local.json
+
 # Browser Driver Layer credentials — must never be committed (see tools/browser_driver/README.md).
 # The real credential file lives at platform_core_data/knowledge_base/credentials/credentials.json
 # — this repo-root rule is the primary enforcement, backed by a second, local .gitignore inside

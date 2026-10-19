@@ -150,6 +150,7 @@ function loadCasesFromWorkbook(file) {
   const reqCol = col('Requires');
   const ruleCol = col('Supplier Rule');
   const reviewCol = col('Review');
+  const setupCol = col('Setup Group');
   if (reqCol === -1) {
     throw new CapabilityGateError(
       `${path.basename(file)} has no "Requires" column — tag every case with the capabilities it needs first.`
@@ -163,6 +164,7 @@ function loadCasesFromWorkbook(file) {
       requires: r[reqCol],
       supplierRule: ruleCol === -1 ? '' : r[ruleCol],
       review: reviewCol === -1 ? '' : r[reviewCol],
+      setupGroup: setupCol === -1 ? '' : r[setupCol], // read by supplier_feature_runner, ignored by the gate
     }));
 }
 
