@@ -1,0 +1,70 @@
+{
+  "folderName": "ancillaries-run-008__2026-10-20_11-04-53__Targeted__Ancillaries-AirCairo-SeatMapComparison",
+  "index": 8,
+  "runOwner": "ancillaries",
+  "scope": "Targeted",
+  "target": "Ancillaries-AirCairo-SeatMapComparison",
+  "workflow": "unversioned",
+  "targetRef": "5e8eb0e8a7fa0d19407b5e466b3b968773b5ef05",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-10-20T08:04:53.216Z",
+  "targetRepoRoot": "E:/Projects/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at E:/Projects/agentic-ai-testing-platform",
+  "createdBy": "Ahmed Ayman",
+  "startedTime": "2026-10-20T08:04:53.216Z",
+  "stateSchemaVersion": 1,
+  "stateRevision": 0,
+  "status": "Preparing",
+  "statusReason": null,
+  "statusHistory": [
+    {
+      "at": "2026-10-20T08:04:53.216Z",
+      "from": null,
+      "to": "Preparing",
+      "by": "Ahmed Ayman",
+      "reason": "run created"
+    }
+  ],
+  "stages": {},
+  "stateEventSeq": 0,
+  "stateEvents": [],
+  "scopeFamily": "supplier-feature",
+  "feature": "ancillaries",
+  "supplier": "air-sm-cairo",
+  "sharedScope": null,
+  "testingLayerScope": [
+    "Admin",
+    "Portal"
+  ],
+  "scopeHistory": [
+    {
+      "changedAt": "2026-10-20T08:04:57.883Z",
+      "approvedBy": "Ahmed Ayman",
+      "reason": "Air Cairo seat map comparison: NDC Admin and NDC Portal (Air Cairo website is a reference only, outside NDC scope)",
+      "previous": {
+        "feature": "ancillaries",
+        "supplier": "air-sm-cairo",
+        "sharedScope": null,
+        "testingLayerScope": null
+      },
+      "next": {
+        "feature": "ancillaries",
+        "supplier": "air-sm-cairo",
+        "sharedScope": null,
+        "testingLayerScope": [
+          "Admin",
+          "Portal"
+        ]
+      }
+    }
+  ],
+  "environment": {
+    "admin": "http://192.168.1.237",
+    "portal": "http://192.168.1.237:9500",
+    "branch": "NDC1_Ahmed Ayman",
+    "agency": "AGN9799",
+    "credentialName": "AIRCairo Production (Warning)",
+    "execution": "Headed",
+    "referenceWebsite": "https://aircairo.com/en-eg/"
+  }
+}

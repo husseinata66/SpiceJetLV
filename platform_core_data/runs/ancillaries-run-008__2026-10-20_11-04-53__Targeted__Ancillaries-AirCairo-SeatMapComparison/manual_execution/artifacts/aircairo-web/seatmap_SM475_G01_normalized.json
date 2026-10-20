@@ -1,0 +1,116 @@
+{
+ "flight": {
+  "marketingAirlineCode": "SM",
+  "marketingFlightNumber": "0475",
+  "departure": {
+   "locationCode": "CAI"
+  },
+  "arrival": {
+   "locationCode": "JED"
+  },
+  "aircraftCode": "320",
+  "aircraftConfigurationVersion": "32A",
+  "cabin": "eco"
+ },
+ "captured": "2026-10-20T08:42:14.681Z",
+ "source": "GET api-des.aircairo.com/v2/shopping/seatmaps/by-order (read-only)",
+ "totalSeats": 180,
+ "rows": "1-30 (30 rows)",
+ "travelers": [
+  "PT2",
+  "PT4"
+ ],
+ "facilities": 4,
+ "perTraveler": {
+  "PT2": {
+   "status": {
+    "available": 168,
+    "blocked": 12
+   },
+   "pricesEGP": {
+    "268": 54,
+    "804": 54,
+    "1071": 54,
+    "1607": 18
+   },
+   "characteristics": {
+    "1": 12,
+    "CH": 180,
+    "L": 6,
+    "W": 60,
+    "A": 60,
+    "1A": 12,
+    "1B": 12,
+    "1C": 12,
+    "E": 12,
+    "IE": 12
+   },
+   "exitSeats": [
+    "12A:blocked",
+    "12B:blocked",
+    "12C:blocked",
+    "12D:blocked",
+    "12E:blocked",
+    "12F:blocked",
+    "13A:blocked",
+    "13B:blocked",
+    "13C:blocked",
+    "13D:blocked",
+    "13E:blocked",
+    "13F:blocked"
+   ]
+  },
+  "PT4": {
+   "status": {
+    "available": 168,
+    "blocked": 12
+   },
+   "pricesEGP": {
+    "268": 54,
+    "804": 54,
+    "1071": 54,
+    "1607": 18
+   },
+   "characteristics": {
+    "1": 12,
+    "CH": 180,
+    "L": 6,
+    "W": 60,
+    "A": 60,
+    "1A": 12,
+    "1B": 12,
+    "1C": 12,
+    "E": 12,
+    "IE": 12
+   },
+   "exitSeats": [
+    "12A:blocked",
+    "12B:blocked",
+    "12C:blocked",
+    "12D:blocked",
+    "12E:blocked",
+    "12F:blocked",
+    "13A:blocked",
+    "13B:blocked",
+    "13C:blocked",
+    "13D:blocked",
+    "13E:blocked",
+    "13F:blocked"
+   ]
+  }
+ },
+ "notAvailableForAll": [
+  "12A",
+  "12B",
+  "12C",
+  "12D",
+  "12E",
+  "12F",
+  "13A",
+  "13B",
+  "13C",
+  "13D",
+  "13E",
+  "13F"
+ ]
+}

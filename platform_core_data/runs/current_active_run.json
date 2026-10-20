@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
   "activeRun": {
-    "folderName": "ancillaries-run-007__2026-10-19_21-03-09__Targeted__Ancillaries-OmanAir-SeatMapComparison",
-    "index": 7,
+    "folderName": "ancillaries-run-008__2026-10-20_11-04-53__Targeted__Ancillaries-AirCairo-SeatMapComparison",
+    "index": 8,
     "runOwner": "ancillaries",
     "scope": "Targeted",
-    "target": "Ancillaries-OmanAir-SeatMapComparison",
+    "target": "Ancillaries-AirCairo-SeatMapComparison",
     "status": "Preparing",
     "title": null,
-    "startedTime": "2026-10-19T18:03:09.254Z",
+    "startedTime": "2026-10-20T08:04:53.216Z",
     "stagesPresent": [],
-    "path": "platform_core_data/runs/ancillaries-run-007__2026-10-19_21-03-09__Targeted__Ancillaries-OmanAir-SeatMapComparison"
+    "path": "platform_core_data/runs/ancillaries-run-008__2026-10-20_11-04-53__Targeted__Ancillaries-AirCairo-SeatMapComparison"
   },
-  "switchedAt": "2026-10-19T18:03:09.254Z",
+  "switchedAt": "2026-10-20T08:04:53.216Z",
   "setBy": "Ahmed Ayman",
-  "previousRun": "credential-routes-filter-run-001__2026-10-17_11-35-16__UserStory__CredentialRoutesFilter-Update(US62039,US60737)"
+  "previousRun": "ancillaries-run-007__2026-10-19_21-03-09__Targeted__Ancillaries-OmanAir-SeatMapComparison"
 }
