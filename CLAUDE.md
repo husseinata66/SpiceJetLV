@@ -214,9 +214,15 @@ executed manually through the browser tool, following the workflow in
 (NDC Admin and Portal executed, the airline website a reference only; same flight on all three; no
 Book, Hold, payment or PNR). Run 008 (Air Cairo) is the second example.
 
-- **A run is a production run when its `run.json` `environment.credentialName` names "Production"**
-  (e.g. `OmanAir Production`). Supporting signs: host `192.168.1.237` and a `referenceWebsite`. Read it
-  from the run; if it is unclear, ask. Staging runs (host `192.168.1.70`) are never manual.
+- **Production or staging is decided from the supplier credential's API key in NDC Admin** (human
+  decision, 2026-10-27). Open the run's supplier credential in the Admin panel, **Supplier credential
+  tab**, and find the entry named `API_KEY` (read-only). Its value is **production** if it contains
+  `prod` anywhere, or its first two letters are `pp`; otherwise it is **staging**. Never use the credential's name, the host or a
+  `referenceWebsite` to decide. Do this before the first group of every Ancillaries run.
+- **The key is a secret.** Check the pattern only: never print, quote, log or write the key into a
+  run file, report or commit. Record only the result ("production — contains prod" / "production —
+  starts pp" / "staging").
+- If the credential or its key cannot be read, ask the human; never assume staging.
 - When a runner script for production exists, those runs move to the CLI and this exception is removed.
 - Everything below applies to **staging** runs only.
 
