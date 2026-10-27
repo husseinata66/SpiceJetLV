@@ -62,9 +62,9 @@ WALLET_CHARGE for the runner absolutely; the gate is the human pressing it.
 
 ## Evidence
 
-- Log: `runs/<run>/manual_execution/GroupResults_Group<NN>_<timestamp>.md` — a new file every
+- Log: `runs/<run>/automation_execution/GroupResults_Group<NN>_<timestamp>.md` — a new file every
   execution, so an earlier one is never overwritten. The Markdown is the authoritative artifact.
-- Screenshots: `runs/<run>/manual_execution/artifacts/failures/<Test Case ID>.png`, only for
+- Screenshots: `runs/<run>/automation_execution/artifacts/failures/<Test Case ID>.png`, only for
   Failed / Blocked / Inconclusive, scrolled to the element that proves it. An existing file gets a
   timestamped sibling instead of being replaced.
 

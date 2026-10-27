@@ -192,7 +192,7 @@ test('renderLog writes the working log, excluded cases apart, and the guard line
   assert.match(md, /## Excluded before execution[\s\S]*\| TC-SM-BND-006 \| Not supported by supplier \|/);
   assert.match(md, /never pressed \(the click guard refused nothing\)/);
   assert.equal(tallyText(model.results), 'Passed 1 · Failed 1 · Excluded 1');
-  const summary = renderSummary(model, 'platform_core_data/runs/run-099__x/manual_execution/log.md');
+  const summary = renderSummary(model, 'platform_core_data/runs/run-099__x/automation_execution/log.md');
   assert.match(summary, /FAILED\s+TC-SM-PAX-007/);
   assert.doesNotMatch(summary, /TC-SM-NAV-001/);
 });

@@ -9,7 +9,7 @@ const STATUS = {
   NA: 'Not Applicable', NOT_RUN: 'Not run', EXCLUDED: 'Excluded',
 };
 // One case can be recorded by several steps; the worst result wins.
-const SEVERITY = { Failed: 5, Blocked: 4, Inconclusive: 3, Passed: 2, 'Not Applicable': 1 };
+const SEVERITY = { Failed: 5, Blocked: 4, Inconclusive: 3, Passed: 2, 'Not Applicable': 1, Excluded: 0 };
 // pipeline rule: a screenshot only for results that did not pass (ExecutionFlow §16.4).
 const NEEDS_SCREENSHOT = new Set(['Failed', 'Blocked', 'Inconclusive']);
 const REPORT_ORDER = ['Passed', 'Failed', 'Blocked', 'Inconclusive', 'Not Applicable', 'Not run', 'Excluded'];

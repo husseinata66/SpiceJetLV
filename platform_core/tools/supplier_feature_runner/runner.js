@@ -9,7 +9,7 @@ const path = require('path');
 
 const { loadCases } = require('../capability_gate');
 const {
-  RunnerError, STATUS, SEVERITY, NEEDS_SCREENSHOT, parseCapabilityPlan, selectGroup, listGroups,
+  RunnerError, STATUS, SEVERITY, NEEDS_SCREENSHOT, groupIdOf, parseCapabilityPlan, selectGroup, listGroups,
   guardTest, installGuard, guardConfig, durationText, renderLog, renderSummary,
 } = require('./index');
 
@@ -27,6 +27,24 @@ function resolveRunDir(arg, runsDir) {
 }
 
 /** Everything that does not need a browser: run, plan, suite, feature module, the group's cases. */
+/**
+ * One supplier's exception: settings.local.json -> suppliers.<slug>.caseGroups { "TC-ID": "09" } moves those cases
+ * to another Setup Group for THAT supplier's runs only (e.g. a behaviour that only a round trip triggers). The sheet
+ * is untouched and every other supplier keeps the sheet's assignment.
+ */
+function applyCaseMoves(cases, settingsFile, supplier) {
+  if (!fs.existsSync(settingsFile)) return;
+  let moves = null;
+  try { moves = ((JSON.parse(read(settingsFile)).suppliers || {})[supplier] || {}).caseGroups; } catch (_) { return; }
+  if (!moves) return;
+  for (const c of cases) {
+    const to = moves[c.id];
+    if (!to) continue;
+    const target = cases.find((x) => groupIdOf(x.setupGroup) === String(to).padStart(2, '0') && !moves[x.id]);
+    if (target) c.setupGroup = target.setupGroup; // the target group's own label, so its listing is unchanged
+  }
+}
+
 function prepare({ runArg, group, dataRoot, repoRoot }) {
   const runDir = resolveRunDir(runArg, path.join(dataRoot, 'runs'));
   const run = JSON.parse(read(path.join(runDir, 'metadata', 'run.json')));
@@ -42,6 +60,7 @@ function prepare({ runArg, group, dataRoot, repoRoot }) {
   const suite = [path.resolve(repoRoot, plan.source), path.resolve(dataRoot, plan.source)].find((f) => fs.existsSync(f));
   if (!suite) throw new RunnerError(`Suite file not found: ${plan.source}`);
   const cases = loadCases(suite);
+  applyCaseMoves(cases, path.join(dataRoot, 'supplier-features', run.feature, 'runner', 'settings.local.json'), run.supplier);
 
   const featureDir = path.join(dataRoot, 'supplier-features', run.feature, 'runner');
   if (!fs.existsSync(path.join(featureDir, 'index.js'))) {
@@ -96,6 +115,11 @@ async function maximize(context, page) {
 
 async function waitForLogin(page, adapter, { headed, timeoutSec, out }) {
   if (await adapter.isLoggedIn(page).catch(() => false)) return 'saved session';
+  // The page may not have drawn its logged-in marker the instant it loads: give a saved session a moment.
+  for (let i = 0; i < 10; i += 1) {
+    await page.waitForTimeout(2000);
+    if (await adapter.isLoggedIn(page).catch(() => false)) return 'saved session';
+  }
   if (!headed) throw new RunnerError('Not logged in and running headless. Run once --headed and log in; the session is then reused.');
   out(`Log in in the browser window. Waiting up to ${timeoutSec} s…`);
   const deadline = Date.now() + timeoutSec * 1000;
@@ -137,6 +161,8 @@ async function execute({ runArg, group, app = null, headed, freshLogin = false, 
   const settings = loadSettings(featureDir, feature, run.supplier);
   const guard = guardConfig(feature.actionGuard);
   const target = chooseApp(run, feature, app);
+  // An adapter may take per-supplier settings (e.g. which seat tags count as exit seats) before any step runs.
+  if (target.adapter.ui && typeof target.adapter.ui.configure === 'function') target.adapter.ui.configure(settings);
   const credentialName = run.environment && run.environment.credentialName;
   if (!credentialName) throw new RunnerError('run.json environment must name the credentialName.');
 
@@ -150,7 +176,7 @@ async function execute({ runArg, group, app = null, headed, freshLogin = false, 
   const runnable = (cid) => planned.has(cid) && planned.get(cid).plan === 'run';
 
   const started = new Date();
-  const failDir = path.join(runDir, 'manual_execution', 'artifacts', 'failures');
+  const failDir = path.join(runDir, 'automation_execution', 'artifacts', 'failures');
   fs.mkdirSync(failDir, { recursive: true });
 
   const { chromium } = require('playwright');
@@ -181,8 +207,11 @@ async function execute({ runArg, group, app = null, headed, freshLogin = false, 
     let file = `${cid}.png`;
     if (fs.existsSync(path.join(failDir, file))) file = `${cid}__${stamp(new Date())}.png`; // never overwrite earlier evidence
     try {
-      if (shot.locator) await shot.locator.evaluate((el) => el.scrollIntoView({ block: 'center' })).catch(() => {});
+      // shot.mark: draws the problem onto the page first (e.g. outlines the offending seats) so the picture shows it.
+      if (shot.mark) await shot.mark().catch(() => {});
+      else if (shot.locator) await shot.locator.evaluate((el) => el.scrollIntoView({ block: 'center' })).catch(() => {});
       await page.screenshot({ path: path.join(failDir, file), fullPage: !!shot.fullPage });
+      await page.evaluate(() => document.querySelectorAll('[data-qa-banner]').forEach((b) => b.remove())).catch(() => {});
       return `artifacts/failures/${file}`;
     } catch (_) { return null; }
   };
@@ -200,7 +229,10 @@ async function execute({ runArg, group, app = null, headed, freshLogin = false, 
   };
   const ctx = {
     headed, assistedStep: false, // a step marked `assisted` may call humanGate even in a group that is not (needs --headed)
-    page, context, app: target.name, baseUrl: target.baseUrl, ui: target.adapter.ui, credentialName, settings, run,
+    page, context, app: target.name, baseUrl: target.baseUrl, ui: target.adapter.ui,
+    // The result cards show a display name, which can differ from the credential's own name:
+    // settings.credentialLabel (optional) is the text the cards carry. The run record keeps credentialName.
+    credentialName: settings.credentialLabel || credentialName, settings, run,
     capabilities: plan.capabilities, rules: plan.rules, state: {},
     supported: (cap) => plan.capabilities[cap] === 'Supported',
     wants: (...cids) => cids.some(runnable),
@@ -210,6 +242,7 @@ async function execute({ runArg, group, app = null, headed, freshLogin = false, 
     fail: (cid, ev, shot) => record(cid, STATUS.FAILED, ev, shot),
     check: (cid, ok, ev, shot) => record(cid, ok ? STATUS.PASSED : STATUS.FAILED, ev, shot),
     na: (cid, ev) => record(cid, STATUS.NA, ev),
+    exclude: (cid, ev) => record(cid, STATUS.EXCLUDED, ev), // a case a human excluded for this situation
     inconclusive: (cid, ev, shot) => record(cid, STATUS.INCONCLUSIVE, ev, shot),
     blocked: (cid, ev, shot) => record(cid, STATUS.BLOCKED, ev, shot),
     /**
@@ -262,7 +295,11 @@ async function execute({ runArg, group, app = null, headed, freshLogin = false, 
       try {
         await step.run(ctx);
       } catch (err) {
-        const msg = `Step "${step.name}" stopped: ${String((err && err.message) || err).split('\n')[0].slice(0, 220)}`;
+        // First line of the error, plus what it was waiting for (the locator in Playwright's call log) —
+        // "Timeout exceeded" alone does not say which control was missing or blocked.
+        const errLines = String((err && err.message) || err).replace(/\u001b\[[0-9;]*m/g, '').split('\n').map((l) => l.trim());
+        const waiting = errLines.find((l) => /waiting for|intercepts pointer|strict mode violation/.test(l));
+        const msg = `Step "${step.name}" stopped: ${errLines[0].slice(0, 220)}${waiting && waiting !== errLines[0] ? ` — ${waiting.replace(/^-\s*/, '').slice(0, 260)}` : ''}`;
         let shot = null;
         if (!step.cases.some(runnable)) { // a setup step belongs to no case — keep its picture anyway
           const where = await shoot(`Group${id}__stopped`, { fullPage: false });
@@ -289,6 +326,9 @@ async function execute({ runArg, group, app = null, headed, freshLogin = false, 
   const finished = new Date();
   const ordered = selected.map((c) => {
     if (c.plan !== 'run') return { id: c.id, title: c.title, status: STATUS.EXCLUDED, evidence: c.reason, sec: null };
+    // A case only a person can judge (scenario.manualOnly) is Excluded for every supplier, whether or not the run completed.
+    const manual = (scenario.manualOnly || {})[c.id];
+    if (manual) return { id: c.id, title: c.title, status: STATUS.EXCLUDED, evidence: `Excluded — ${manual}`, sec: null };
     const r = results.get(c.id);
     if (r) return { ...r, evidence: r.evidence.filter(Boolean).join(' ') };
     const why = aborted ? `Not reached: ${aborted}` : ((scenario.notAutomated || {})[c.id] || 'No automated check yet — run it by hand.');
@@ -300,7 +340,7 @@ async function execute({ runArg, group, app = null, headed, freshLogin = false, 
     startedAt: started.toISOString(), duration: durationText(finished - started),
     environment, results: ordered, refused, aborted,
   };
-  const logFile = path.join(runDir, 'manual_execution', `GroupResults_Group${id}_${stamp(started)}.md`);
+  const logFile = path.join(runDir, 'automation_execution', `GroupResults_Group${id}_${stamp(started)}.md`);
   fs.writeFileSync(logFile, renderLog(model));
   const rel = path.relative(repoRoot, logFile).replace(/\\/g, '/');
   out(renderSummary(model, rel));
