@@ -1,0 +1,67 @@
+{
+  "folderName": "ancillaries-run-012__2026-10-27_13-42-05__Targeted__AirSMCairo-Seatmap-Portal",
+  "index": 12,
+  "runOwner": "ancillaries",
+  "scope": "Targeted",
+  "target": "AirSMCairo-Seatmap-Portal",
+  "workflow": "unversioned",
+  "targetRef": "521b8af87094eeeb3c9700d5551ccace8bf16d16",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-10-27T10:42:05.686Z",
+  "targetRepoRoot": "C:/Users/Sheen-qc/Desktop/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at C:/Users/Sheen-qc/Desktop/agentic-ai-testing-platform",
+  "createdBy": "Mohanad Dawood",
+  "startedTime": "2026-10-27T10:42:05.686Z",
+  "stateSchemaVersion": 1,
+  "stateRevision": 0,
+  "status": "Preparing",
+  "statusReason": null,
+  "statusHistory": [
+    {
+      "at": "2026-10-27T10:42:05.686Z",
+      "from": null,
+      "to": "Preparing",
+      "by": "Run Manager",
+      "reason": "run created"
+    }
+  ],
+  "stages": {},
+  "stateEventSeq": 0,
+  "stateEvents": [],
+  "scopeFamily": "supplier-feature",
+  "feature": "ancillaries",
+  "supplier": "air-sm-cairo",
+  "sharedScope": null,
+  "testingLayerScope": [
+    "Portal"
+  ],
+  "scopeHistory": [
+    {
+      "changedAt": "2026-10-27T10:42:15.203Z",
+      "approvedBy": "Mohanad Dawood",
+      "reason": "AirSMCairo seat map run: Portal only",
+      "previous": {
+        "feature": "ancillaries",
+        "supplier": "air-sm-cairo",
+        "sharedScope": null,
+        "testingLayerScope": null
+      },
+      "next": {
+        "feature": "ancillaries",
+        "supplier": "air-sm-cairo",
+        "sharedScope": null,
+        "testingLayerScope": [
+          "Portal"
+        ]
+      }
+    }
+  ],
+  "environment": {
+    "admin": "http://192.168.1.70",
+    "portal": "http://192.168.1.70:9500",
+    "branch": "Uplift2_Mohanad Dawood",
+    "agency": "AGN9809",
+    "credentialName": "AirSMCairoStg",
+    "execution": "Headless"
+  }
+}
