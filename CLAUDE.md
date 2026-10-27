@@ -207,6 +207,17 @@ Groups 14–17 are **assisted** (headed only): the runner builds the booking up 
 with a red banner, **the human presses it** (Group 17: Hold, then Pay And Book → Pay), and the runner
 then does the read-only checks.
 
+**Headed or Headless — Ancillaries (human decision, 2026-10-27).** Ask the standing Headed/Headless
+question (Standing rules). **Both answers run through the runner CLI; there is no manual-execution path
+for Ancillaries.**
+
+- `Headless` → `cli.js run --run <run> --group <NN> --headless --app Admin|Portal`. Groups 01–13 only.
+  The runner only reuses a saved session; if it says "Not logged in", ask the human to log in once with
+  `--headed`, then continue headless.
+- `Headed` → the same command with `--headed`. Groups 14–17 are headed-only (assisted): tell the human
+  they cannot run headless and the human presses Book / Hold / Pay.
+- The CLI itself uses no model tokens, headed or headless; an agent starting, watching and summarising it
+  does. Keep reading of its output to the summary lines.
 - **Never drive the browser case by case to execute Ancillaries tests.** An Ancillaries case or group
   that is not in the script is **written into the runner first**, proven live once, then run.
 - In Ancillaries runs the browser MCP is only for diagnosing a failed check or exploring a new screen
