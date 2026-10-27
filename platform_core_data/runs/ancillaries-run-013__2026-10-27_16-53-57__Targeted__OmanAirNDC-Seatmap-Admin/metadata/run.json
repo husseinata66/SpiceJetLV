@@ -1,0 +1,67 @@
+{
+  "folderName": "ancillaries-run-013__2026-10-27_16-53-57__Targeted__OmanAirNDC-Seatmap-Admin",
+  "index": 13,
+  "runOwner": "ancillaries",
+  "scope": "Targeted",
+  "target": "OmanAirNDC-Seatmap-Admin",
+  "workflow": "unversioned",
+  "targetRef": "521b8af87094eeeb3c9700d5551ccace8bf16d16",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-10-27T13:53:57.170Z",
+  "targetRepoRoot": "C:/Users/Sheen-qc/Desktop/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at C:/Users/Sheen-qc/Desktop/agentic-ai-testing-platform",
+  "createdBy": "Run Manager",
+  "startedTime": "2026-10-27T13:53:57.170Z",
+  "stateSchemaVersion": 1,
+  "stateRevision": 0,
+  "status": "Preparing",
+  "statusReason": null,
+  "statusHistory": [
+    {
+      "at": "2026-10-27T13:53:57.170Z",
+      "from": null,
+      "to": "Preparing",
+      "by": "Run Manager",
+      "reason": "run created"
+    }
+  ],
+  "stages": {},
+  "stateEventSeq": 0,
+  "stateEvents": [],
+  "scopeFamily": "supplier-feature",
+  "feature": "ancillaries",
+  "supplier": "oman-air-ndc",
+  "sharedScope": null,
+  "testingLayerScope": [
+    "Admin"
+  ],
+  "scopeHistory": [
+    {
+      "changedAt": "2026-10-27T13:54:25.823Z",
+      "approvedBy": "Mohanad Dawood",
+      "reason": "OmanAirNDC seat map run: Admin only",
+      "previous": {
+        "feature": "ancillaries",
+        "supplier": "oman-air-ndc",
+        "sharedScope": null,
+        "testingLayerScope": null
+      },
+      "next": {
+        "feature": "ancillaries",
+        "supplier": "oman-air-ndc",
+        "sharedScope": null,
+        "testingLayerScope": [
+          "Admin"
+        ]
+      }
+    }
+  ],
+  "environment": {
+    "admin": "http://192.168.1.70",
+    "portal": "http://192.168.1.70:9500",
+    "branch": "Uplift2_Mohanad Dawood",
+    "agency": "AGN9809",
+    "credentialName": "omanairndc",
+    "execution": "Headless"
+  }
+}
