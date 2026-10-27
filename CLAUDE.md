@@ -198,8 +198,8 @@ They hold the speed rules, the passenger age limits, the failure-screenshot rule
 exception. Every Ancillaries Supplier inherits them whether or not its `SupplierChecklist.md` exists
 yet. They change nothing for any other Feature or module.
 
-**Ancillaries only — no more manual execution (human decision, 2026-10-19).** Every Ancillaries run
-goes through the runner script, one command per Setup Group (§16.0). This rule does not apply to any
+**Ancillaries only — no more manual execution (human decision, 2026-10-19).** Every Ancillaries
+**staging** run (production is the exception below) goes through the runner script, one command per Setup Group (§16.0). This rule does not apply to any
 other Feature or module:
 `node platform_core/tools/supplier_feature_runner/cli.js run --run <run> --group <NN> --headed|--headless`.
 It reads the run's Capability Plan, waits for the human to log in, and never presses Book itself.
@@ -207,9 +207,22 @@ Groups 14–17 are **assisted** (headed only): the runner builds the booking up 
 with a red banner, **the human presses it** (Group 17: Hold, then Pay And Book → Pay), and the runner
 then does the read-only checks.
 
-**Headed or Headless — Ancillaries (human decision, 2026-10-27).** Ask the standing Headed/Headless
-question (Standing rules). **Both answers run through the runner CLI; there is no manual-execution path
-for Ancillaries.**
+**Exception — Production comparison runs go through manual execution (human decision, 2026-10-27).**
+Production has a written workflow but no runner script yet, so a **production** Ancillaries run is
+executed manually through the browser tool, following the workflow in
+[`ancillaries-run-007`'s `ApprovedScope.md`](platform_core_data/runs/ancillaries-run-007__2026-10-19_21-03-09__Targeted__Ancillaries-OmanAir-SeatMapComparison/metadata/ApprovedScope.md)
+(NDC Admin and Portal executed, the airline website a reference only; same flight on all three; no
+Book, Hold, payment or PNR). Run 008 (Air Cairo) is the second example.
+
+- **A run is a production run when its `run.json` `environment.credentialName` names "Production"**
+  (e.g. `OmanAir Production`). Supporting signs: host `192.168.1.237` and a `referenceWebsite`. Read it
+  from the run; if it is unclear, ask. Staging runs (host `192.168.1.70`) are never manual.
+- When a runner script for production exists, those runs move to the CLI and this exception is removed.
+- Everything below applies to **staging** runs only.
+
+**Headed or Headless — Ancillaries staging runs (human decision, 2026-10-27).** Ask the standing
+Headed/Headless question (Standing rules). **Both answers run through the runner CLI; there is no
+manual-execution path for staging.**
 
 - `Headless` → `cli.js run --run <run> --group <NN> --headless --app Admin|Portal`. Groups 01–13 only.
   The runner only reuses a saved session; if it says "Not logged in", ask the human to log in once with
