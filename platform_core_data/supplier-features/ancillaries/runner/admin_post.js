@@ -13,6 +13,17 @@ const norm = (s) => String(s == null ? '' : s).replace(/\s+/g, ' ').trim();
 const text = async (page) => norm(await page.locator('body').first().innerText());
 
 /**
+ * An option whose whole text is `label` — optionally followed by a bracketed code, "Test (BRN123)" —
+ * wins; otherwise the first option containing it (so "Test" never lands on "Automation Test").
+ */
+async function optionFor(page, selector, label) {
+  if (label === '*') return page.locator(selector).first(); // "any" — the first option offered
+  const escaped = String(label).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const exact = page.locator(selector).filter({ hasText: new RegExp(`^\\s*${escaped}\\s*(\\([^)]*\\))?\\s*$`) });
+  return (await exact.count()) ? exact.first() : page.locator(selector).filter({ hasText: label }).first();
+}
+
+/**
  * Branch → Agency → Agent, in that order — each later dropdown only offers options once the one
  * before it is picked. Used both to enter the flight-search form (as `portal.js`'s `s.entryHook`,
  * wired up by `admin.js`) and as the first step of every report.
@@ -25,7 +36,7 @@ async function selectEntry(page, admin) {
   const pick = async (n, label) => {
     await dd.nth(n).click();
     await wait(page, 400);
-    await page.locator('.p-dropdown-item').filter({ hasText: label }).first().click();
+    await (await optionFor(page, '.p-dropdown-item', label)).click();
     await wait(page, 500);
   };
   await pick(0, admin.branch);
@@ -63,7 +74,7 @@ async function pnrQuery(c, { pnr, ref, ticket } = {}) {
  * `p-multiselect` depending on the report; both use `.p-multiselect-item`/`.p-dropdown-item` options,
  * not `role=option`. Paginates every page like the Portal's `searchReportToday` — never page 1 only.
  */
-async function adminReport(c, path, { from = 'today', ref = null } = {}) {
+async function adminReport(c, path, { from = 'today', ref = null, whole = false } = {}) {
   const admin = c.settings.admin;
   if (!admin || !admin.branch) throw new Error('settings.admin.branch is missing — see settings.example.json');
   const p = c.page;
@@ -73,7 +84,7 @@ async function adminReport(c, path, { from = 'today', ref = null } = {}) {
     if (!(await loc.count())) return;
     await loc.first().click();
     await wait(p, 400);
-    await p.locator('.p-multiselect-item, .p-dropdown-item').filter({ hasText: label }).first().click();
+    await (await optionFor(p, '.p-multiselect-item, .p-dropdown-item', label)).click();
     await p.keyboard.press('Escape').catch(() => {});
     await wait(p, 300);
   };
@@ -100,7 +111,7 @@ async function adminReport(c, path, { from = 'today', ref = null } = {}) {
   await p.keyboard.press('Escape').catch(() => {});
   await p.getByRole('button', { name: 'Search', exact: true }).click();
   await wait(p, 3000);
-  const slice = async () => { const t = await text(p); const i = t.search(/Showing \d+ results|No .*found|No records/i); return i >= 0 ? t.slice(i) : t; };
+  const slice = async () => { const t = await text(p); if (whole) return norm((await p.locator('body').allInnerTexts()).join(' ')); /* this page's table is in a nested body (shadow DOM) that the first body's text leaves out */ const i = t.search(/Showing \d+ results|No .*found|No records/i); return i >= 0 ? t.slice(i) : t; };
   let all = await slice();
   const total = Number((all.match(/Showing \d+ results of (\d+) results/) || [])[1] || 0);
   for (let pg = 2; pg <= Math.min(Math.ceil(total / 10), 8); pg += 1) {
@@ -117,7 +128,7 @@ async function adminReport(c, path, { from = 'today', ref = null } = {}) {
  * the whole month so a booking made minutes ago is already covered (the Portal wallet, by contrast,
  * is reached through the Dashboard and is live). */
 async function readWallet(c) {
-  const t = await adminReport(c, '/reports/wallet-history', { from: 'month' });
+  const t = await adminReport(c, '/reports/wallet-history', { from: 'month', whole: true });
   const amount = AP.parseWalletHistory(t);
   if (amount == null) throw new Error('Wallet History showed no "End Balance" row — check settings.admin.branch/agency');
   return { amount, text: `${amount}` };
@@ -132,4 +143,4 @@ async function readBookingReport(c) {
   return { total: Number(m[1]), text: t };
 }
 
-module.exports = { selectEntry, pnrQuery, adminReport, readWallet, readBookingReport };
+module.exports = { optionFor, selectEntry, pnrQuery, adminReport, readWallet, readBookingReport };

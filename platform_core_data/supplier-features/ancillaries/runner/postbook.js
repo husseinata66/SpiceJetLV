@@ -16,7 +16,9 @@ const A = require('./admin_post');
 const AP = require('./admin_parse');
 
 const money = (t) => Number(String(t).replace(/,/g, ''));
-const near = (a, b, tol = 0.11) => Math.abs(a - b) <= tol; // the wallet and the Statement report show one decimal
+// The quote and the confirmation round the total to whole units (human decision, 2026-10-27: the rounding is a feature),
+// so a charged amount can sit up to ~1.2 below the quote; seen so far on AirSMCairo: 0.2, 0.4, 0.6, 1.2.
+const near = (a, b, tol = 1.5) => Math.abs(a - b) <= tol;
 
 async function go(c, path, ms = 2500) {
   await c.page.goto(new URL(path, c.baseUrl).href, { timeout: 30000 });
@@ -114,7 +116,7 @@ async function readConfirmation(c) {
     orderId,
     ref,
     pnr: (t.match(/Booking Date Status Note (\S+)/) || [])[1] || null,
-    status: (t.match(/\d{2}:\d{2} (Confirmed|Failed|Pending|Cancelled|On Hold|Ticketed)/) || [])[1] || null,
+    status: (t.match(/\d{2}:\d{2} (Confirmed|Failed|Pending|Cancelled|On Hold|Hold|Ticketed)/) || [])[1] || null,
     bookedAt: bookedAtOf(t),
     duplicate: /duplicate of an existing booking/i.test(t),
     airlineError: (t.match(/(SSR \([A-Z]+\)[^.]*\.|The requested [^.]*\.)/) || [])[1] || null,
@@ -229,7 +231,7 @@ async function pickAdminBranchAgency(c) {
     if (!(await loc.count())) return;
     await loc.click();
     await c.ui.wait(c.page, 400);
-    await c.page.locator('.p-multiselect-item, .p-dropdown-item').filter({ hasText: label }).first().click();
+    await (await require('./admin_post').optionFor(c.page, '.p-multiselect-item, .p-dropdown-item', label)).click();
     await c.page.keyboard.press('Escape').catch(() => {});
     await c.ui.wait(c.page, 300);
   };

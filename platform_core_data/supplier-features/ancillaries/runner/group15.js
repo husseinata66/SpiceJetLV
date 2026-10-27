@@ -82,7 +82,7 @@ const steps = [
         if (opts[0]) {
           await U.dropdownAt(p, 'Choose a baggage', last).click(); await U.wait(p, 350);
           await p.getByRole('option').filter({ visible: true }).first().click(); await U.wait(p, 800);
-          chosen.bag = opts[0].split(' - ')[0];
+          chosen.bag = opts[0].split(' - ')[0].replace(/\s+[\d,.]+\s*[A-Z]{3}\b.*$/, '');
         }
       }
       const t = await U.text(p);

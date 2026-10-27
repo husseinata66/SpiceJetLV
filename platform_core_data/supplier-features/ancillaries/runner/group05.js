@@ -60,7 +60,7 @@ const steps = [
       await U.openMap(p);
       await U.activate(p, adult.name); // which traveller is active by default right after opening isn't assumed
       const seats = await U.readSeats(p);
-      const exits = seats.filter((x) => x.features.includes('Exit and emergency exit') && x.state === 'available');
+      const exits = seats.filter((x) => U.isExit(x) && x.state === 'available');
       if (!exits.length) {
         // Exit-row presence and availability are flight-specific (documented); a different flight
         // from a different search just won't always have one — not a reason to fail the run.
@@ -125,9 +125,19 @@ const steps = [
           perPax.push(opts);
         }
         const everyoneHasList = count >= n && perPax.every((opts) => opts.length > 0);
-        const everyOptionWeighted = perPax.every((opts) => opts.every((o) => o.kg > 0 && o.price > 0));
-        await c.check('TC-BG-001', everyoneHasList && everyOptionWeighted,
-          `${count} baggage dropdown(s) for ${n} non-infant passengers. ${perPax.map((opts, i) => `${c.state.travellers[i].firstName}: ${opts.map((o) => `${o.name} ${o.price}`).join(', ') || 'NO LIST'}`).join('; ')}.`);
+        const everyOptionPriced = perPax.every((opts) => opts.every((o) => o.price > 0));
+        // Human decision, 2026-10-27: a baggage option that states no weight (a handling fee per piece) is accepted for
+        // this supplier. What still fails: a passenger with no baggage list, or an option with no price.
+        const noWeight = [...new Set(perPax.flat().filter((o) => !(o.kg > 0)).map((o) => `"${o.name}" (${o.price})`))];
+        const why = [];
+        if (count < n) why.push(`only ${count} baggage dropdown(s) for ${n} passengers`);
+        perPax.forEach((opts, i) => { if (!opts.length) why.push(`${c.state.travellers[i].firstName} has no baggage list`); });
+        perPax.forEach((opts, i) => { const free = opts.filter((o) => !(o.price > 0)); if (free.length) why.push(`${c.state.travellers[i].firstName}: no price on ${free.map((o) => `"${o.name}"`).join(', ')}`); });
+        const note = noWeight.length ? ` Accepted for this supplier (human decision, 2026-10-27): ${noWeight.length} option(s) state a number of pieces or a fee instead of a weight: ${noWeight.join(', ')}.` : '';
+        await c.check('TC-BG-001', everyoneHasList && everyOptionPriced,
+          `${count} baggage dropdown(s) for ${n} non-infant passengers. ${perPax.map((opts, i) => `${c.state.travellers[i].firstName}: ${opts.map((o) => `${o.name} ${o.price}`).join(', ') || 'NO LIST'}`).join('; ')}.${why.length ? ` FAILED BECAUSE: ${why.join('; ')}.` : note}`,
+          { mark: async () => { await U.dropdownAt(p, 'Choose a baggage', 0).click(); await U.wait(p, 600); await U.markSeats(p, [], `TC-BG-001: ${why.join('; ') || 'baggage list'}`); } });
+        await p.keyboard.press('Escape').catch(() => {});
       }
     },
   },

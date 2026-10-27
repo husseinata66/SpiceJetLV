@@ -93,7 +93,8 @@ const steps = [
       }
       if (c.capabilities.Baggage === 'Supported') {
         const opts = await U.dropdownOptionsAt(p, 'Choose a baggage', 0).catch(() => []);
-        if (opts[0]) { chosen.bag = opts[0].split(' - ')[0]; await U.chooseOption(p, 'Choose a baggage', chosen.bag); }
+        // the bag by its name without the price: the list shows 101.00 where the first option read 101
+        if (opts[0]) { chosen.bag = opts[0].split(' - ')[0].replace(/\s+[\d,.]+\s*[A-Z]{3}\b.*$/, ''); await U.chooseOption(p, 'Choose a baggage', chosen.bag); }
       }
       c.state.chosen = chosen;
       c.state.pre = readBreakdown(await U.text(p));

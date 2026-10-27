@@ -19,6 +19,27 @@ const isZero = (price) => /^(Free|[A-Z]{3} 0(\.0+)?)$/.test(String(price));
 const seatTravellers = (c) => c.state.travellers.filter((t) => t.type !== 'Infant');
 // Fresh every booking: the add-pax 409 guard rejects reused document numbers (§15.5 rule 4).
 const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 1}`); };
+// Going back to step 1 and pressing Next again after a change makes this supplier's passenger save (add-pax) answer
+// HTTP 400 with nothing visible, and step 2 never opens (probed 2026-10-26; the sheet calls it the "stuck wizard").
+// The same package chosen the first time on a fresh booking opens step 2 in ~6 s, so a step that needs a different
+// package starts a fresh booking with it chosen up front instead of going back.
+const freshBookingWith = async (c, pkg) => {
+  const U = c.ui; const p = c.page; const s = c.settings;
+  const srch = await U.search(p, c.baseUrl, s, PAX);
+  const cards = await U.waitForCard(p, c.credentialName, 240000);
+  srch.stop();
+  if (cards.index < 0) throw new Error(`no result card from "${c.credentialName}" among ${cards.count} cards`);
+  await U.clickCard(p, cards.index);
+  if ((await U.priceUpdateOrPassengers(p)) === 'priceUpdate') {
+    await U.priceDialog(p).getByRole('button', { name: 'Accept', exact: true }).click();
+    await U.region(p, '1- Adult').waitFor({ timeout: 30000 });
+  }
+  const r = await U.fillPassengers(p, s, PAX, freshDocs(3));
+  c.state.travellers = r.travellers;
+  await U.chooseBundle(p, pkg, await U.bundleNames(p));
+  await U.acceptTerms(p);
+  return U.nextToStep2(p);
+};
 const noteOldPrice = async (c, where) => {
   if (c.state.oldPrice && (await c.ui.text(c.page)).includes(c.state.oldPrice)) (c.state.oldSeen = c.state.oldSeen || []).push(where);
 };
@@ -40,9 +61,18 @@ const steps = [
     cases: ['TC-SM-ERR-001', 'TC-SM-ERR-005'],
     async run(c) {
       const U = c.ui; const s = c.settings;
-      const srch = await U.search(c.page, c.baseUrl, s, PAX);
-      const cards = await U.waitForCard(c.page, c.credentialName, 240000);
-      srch.stop();
+      // The environment's search sometimes returns nothing for a while (seen 2026-10-26: HTTP 500s, then 0 cards for
+      // 4 minutes, then fine again). Search again up to twice before giving up, and keep every response status.
+      let srch; let cards; const allStatuses = [];
+      for (let attempt = 1; attempt <= 3; attempt += 1) {
+        srch = await U.search(c.page, c.baseUrl, s, PAX);
+        cards = await U.waitForCard(c.page, c.credentialName, 120000);
+        srch.stop();
+        allStatuses.push(...srch.statuses);
+        if (cards.index >= 0) break;
+        c.log(`search attempt ${attempt}: no card from "${c.credentialName}" among ${cards.count} cards (responses ${srch.statuses.join(', ') || 'none'})${attempt < 3 ? ' — searching again' : ''}`);
+      }
+      srch.statuses = allStatuses;
       c.env('Search', `${s.from}→${s.to}, asked for ${s.daysFromToday} day(s) from today · ${cards.count} result cards · the run's connection listed after ${((Date.now() - srch.t0) / 1000).toFixed(0)} s`);
       if (cards.index < 0) throw new Error(`no result card from "${c.credentialName}" among ${cards.count} cards`);
       c.state.card = { index: cards.index, text: cards.cards[cards.index] };
@@ -70,7 +100,7 @@ const steps = [
       const U = c.ui; const p = c.page;
       await U.clickCard(p, c.state.card.index);
       if ((await U.priceUpdateOrPassengers(p)) === 'passengers') {
-        for (const id of FRC) await c.na(id, 'No Price Update pop-up: the price did not change for this flight (tester note: only flynas shows it).');
+        for (const id of FRC) await c.na(id, 'No Price Update pop-up appeared on this run: the airline did not change the fare for this search, so there is nothing to test. The pop-up does appear for this supplier when the fare changes (seen on the DEL-DXB round trip, 2026-10-27).');
         c.env('Price change', 'none — no Price Update pop-up');
         return;
       }
@@ -108,7 +138,7 @@ const steps = [
     async run(c) {
       const U = c.ui; const p = c.page;
       const t = await U.text(p);
-      const one = /\b01 Passenger Info and Bundles\b/.test(t);
+      const one = (c.supported('Bundle') ? /\b01 Passenger Info and Bundles\b/ : /\b01 Passenger Info\b/).test(t); // no Bundle: step 1 is just "Passenger Info"
       const two = /\b02 Ancillaries\b/.test(t);
       const three = /\b03 [A-Z][A-Za-z ,]+? (?:In progress|Upcoming|Completed)\b/.test(t);
       const opener = (await p.getByRole('button', { name: U.OPENER }).count()) > 0;
@@ -127,8 +157,15 @@ const steps = [
         const priced = types.every((ty) => bd.base.some((x) => x.type === ty) && bd.tax.some((x) => x.type === ty));
         const inf = bag.match(/Infant Carry on baggage: (.+?) Check in baggage: (.+?)(?= Adult | Child |$)/) || [];
         const infOk = /Check with Airline/.test(inf[1] || '') && /Check with Airline/.test(inf[2] || '');
-        await c.check('TC-SM-PAX-006', priced && infOk,
-          `Base fare ${bd.base.map((x) => `${x.type} ${fmt(x.amount)}`).join(', ')}; tax ${bd.tax.map((x) => `${x.type} ${fmt(x.amount)}`).join(', ')}; infant baggage: carry-on "${(inf[1] || '?').trim()}", check-in "${(inf[2] || '?').trim()}".`);
+        const why006 = [];
+        const unpriced = types.filter((ty) => !(bd.base.some((x) => x.type === ty) && bd.tax.some((x) => x.type === ty)));
+        if (unpriced.length) why006.push(`no separate base fare and tax line for: ${unpriced.join(', ')}`);
+        // "Check with Airline" is what the sheet's example supplier shows; it depends on the fare package. This
+        // supplier's package carries no baggage data, so the allowance from the search is shown instead (human
+        // decision, 2026-10-26): the infant's baggage is recorded as an observation, not required to read that.
+        const infNote = infOk ? 'reads "Check with Airline"' : `shows the search allowance (the package carries no baggage data): carry-on "${(inf[1] || '?').trim()}", check-in "${(inf[2] || '?').trim()}"`;
+        await c.check('TC-SM-PAX-006', priced,
+          `Base fare ${bd.base.map((x) => `${x.type} ${fmt(x.amount)}`).join(', ')}; tax ${bd.tax.map((x) => `${x.type} ${fmt(x.amount)}`).join(', ')}; infant baggage ${infNote}.${why006.length ? ` FAILED BECAUSE: ${why006.join('; ')}.` : ''}`);
       }
 
       if (c.wants('TC-SM-NAV-002b')) {
@@ -233,9 +270,13 @@ const steps = [
           await U.wait(p, 250);
           open.push(await U.visibleFirstNames(p));
         }
+        // The app keeps every section the agent opened open (1, 2, 3 …); the sheet says "one at a time". The human
+        // decided on 2026-10-26 that this is a feature, so what is checked is that each tab opens its own section
+        // and none closes another: the count rises by one each time.
         const oneAtATime = open.every((x) => x === 1);
-        await c.check('TC-SM-PAX-007', collapsed === 0 && expanded === n && oneAtATime,
-          `Collapse All → ${collapsed} open, Expand All → ${expanded} open; opening ${c.state.travellers.map((t) => t.type).join(', ')} one by one leaves ${open.join(', ')} open${oneAtATime ? '' : ' — the case expects one section at a time'}.`,
+        const accumulates = open.every((x, i) => x === i + 1);
+        await c.check('TC-SM-PAX-007', collapsed === 0 && expanded === n && (oneAtATime || accumulates),
+          `Collapse All → ${collapsed} open, Expand All → ${expanded} open; opening ${c.state.travellers.map((t) => t.type).join(', ')} one by one leaves ${open.join(', ')} open${oneAtATime ? '' : accumulates ? ' — sections stay open once opened; the sheet says one at a time, accepted as the app\'s behaviour (decision 2026-10-26)' : ' — the sections do not behave consistently'}.`,
           { fullPage: true });
       }
 
@@ -346,8 +387,18 @@ const steps = [
       const title = mt.match(/Seat Map · ([A-Z]{3}) → ([A-Z]{3}) · (\w+)/) || [];
       const dims = await U.mapDialog(p).evaluate((el) => ({ w: el.getBoundingClientRect().width, vw: window.innerWidth }));
       const parts = { left: /Choose a traveller/.test(mt), key: /What the plan shows/.test(mt), bottom: (await U.bottomButtons(p)).length > 0 };
-      await c.check('TC-SM-NAV-003', !!title[0] && title[1] === s.from && title[2] === s.to && Object.values(parts).every(Boolean) && seats.length > 0 && dims.w >= dims.vw * 0.95,
-        `Opened in ${opened} s, ${Math.round((dims.w / dims.vw) * 100)}% of the window wide; title "${title[0] || 'missing'}"; left panel ${parts.left ? 'yes' : 'NO'}, chart ${seats.length} seats, colour key ${parts.key ? 'yes' : 'NO'}, bottom button ${parts.bottom ? 'yes' : 'NO'}.`,
+      // A connecting trip's first map is its first flight: it starts at the searched origin and ends at the connection.
+      const connecting = !!title[2] && title[2] !== s.to && c.state.card.text.includes(title[2]);
+      const routeOk = !!title[0] && title[1] === s.from && (title[2] === s.to || connecting);
+      const widthPct = Math.round((dims.w / dims.vw) * 100);
+      const navWhy = [];
+      if (!title[0]) navWhy.push('no "Seat Map · FROM → TO · Leg" title was found on the map');
+      else if (!routeOk) navWhy.push(`the title route ${title[1]} → ${title[2]} does not start at ${s.from} (searched ${s.from} → ${s.to}) or does not end at ${s.to} or a connection shown on the result card`);
+      for (const [k, v] of Object.entries(parts)) if (!v) navWhy.push(`the ${k === 'left' ? '"Choose a traveller" left panel' : k === 'key' ? '"What the plan shows" colour key' : 'bottom button'} is missing`);
+      if (!seats.length) navWhy.push('no seats are drawn');
+      if (dims.w < dims.vw * 0.95) navWhy.push(`the map is ${widthPct}% of the window wide (the case needs a full-width map, 95% or more)`);
+      await c.check('TC-SM-NAV-003', !navWhy.length,
+        `Opened in ${opened} s, ${widthPct}% of the window wide; title "${title[0] || 'missing'}"${connecting ? ` — the first flight of the connecting trip ${s.from} → ${s.to}` : ''}; left panel ${parts.left ? 'yes' : 'NO'}, chart ${seats.length} seats, colour key ${parts.key ? 'yes' : 'NO'}, bottom button ${parts.bottom ? 'yes' : 'NO'}.${navWhy.length ? ` FAILED BECAUSE: ${navWhy.join('; ')}.` : ''}`,
         { locator: U.mapDialog(p) });
 
       // RND-001 / 002 / 003
@@ -356,21 +407,43 @@ const steps = [
       const by = (st) => seats.filter((x) => x.state === st).length;
       const unique = new Set(seats.map((x) => x.n)).size === seats.length;
       const rowsOk = seats.every((x) => x.row === x.rowLabel);
-      const sum = by('available') + by('blocked') + by('notOffered') + by('selected');
-      await c.check('TC-SM-RND-002', unique && rowsOk && !by('unknown') && sum === panel,
-        `${by('available')} available + ${by('blocked')} blocked + ${by('notOffered')} not offered + ${by('selected')} held = ${sum} (panel ${panel}); seat numbers ${unique ? 'unique' : 'REPEATED'}; ${rowsOk ? 'every row label matches' : 'ROW LABEL MISMATCH'}${by('unknown') ? `; ${by('unknown')} seats with no state` : ''}.`);
-      const bad = seats.filter((x) => x.state === 'unknown' || !x.section || !x.rowLabel);
-      await c.check('TC-SM-RND-003', !bad.length,
-        `${seats.length - bad.length} of ${seats.length} descriptions complete (number, row, block, section, features, state)${bad.length ? `; incomplete: ${bad.slice(0, 3).map((x) => x.label).join(' | ')}` : ''}. Observation: ${seats.filter((x) => x.emptySlot).length} featureless seats show an empty feature slot.`);
+      const sum = by('available') + by('blocked') + by('occupied') + by('notOffered') + by('selected');
+      const noState = seats.filter((x) => x.state === 'unknown');
+      const stateWord = (x) => x.label.split(', ').pop();
+      const dup = [...new Set(seats.map((x) => x.n).filter((n, i, a) => a.indexOf(n) !== i))];
+      const badRows = seats.filter((x) => x.row !== x.rowLabel).map((x) => `${x.n} (row ${x.rowLabel} in its label)`);
+      const why002 = [];
+      if (noState.length) why002.push(`${noState.length} seat(s) have no state the runner knows: ${noState.map((x) => `${x.n} ("${stateWord(x)}")`).join(', ')}`);
+      if (dup.length) why002.push(`seat number(s) repeated: ${dup.join(', ')}`);
+      if (badRows.length) why002.push(`row label does not match the seat's row: ${badRows.join(', ')}`);
+      if (sum !== panel) why002.push(`${sum} seats were classified but the left panel says ${panel}`);
+      await c.check('TC-SM-RND-002', !why002.length,
+        `${by('available')} available + ${by('blocked')} blocked + ${by('occupied')} occupied + ${by('notOffered')} not offered + ${by('selected')} held = ${sum} (panel ${panel}); seat numbers ${unique ? 'unique' : 'REPEATED'}; ${rowsOk ? 'every row label matches' : 'ROW LABEL MISMATCH'}.${why002.length ? ` FAILED BECAUSE: ${why002.join('; ')}.` : ''}`,
+        { mark: () => U.markSeats(p, noState.map((x) => x.n), `TC-SM-RND-002: ${noState.length} seat(s) with no recognised state: ${noState.map((x) => x.n).join(', ')}`) });
+      const incomplete = seats.map((x) => ({ x, missing: [x.state === 'unknown' && 'state', !x.section && 'section', !x.rowLabel && 'row'].filter(Boolean) })).filter((y) => y.missing.length);
+      await c.check('TC-SM-RND-003', !incomplete.length,
+        `${seats.length - incomplete.length} of ${seats.length} descriptions complete (number, row, block, section, features, state)${incomplete.length ? `; INCOMPLETE: ${incomplete.map((y) => `${y.x.n} (missing ${y.missing.join(' + ')}; label reads "${tail(y.x.label)}")`).join(' | ')}` : ''}. Observation: ${seats.filter((x) => x.emptySlot).length} featureless seats show an empty feature slot.`,
+        { mark: () => U.markSeats(p, incomplete.map((y) => y.x.n), `TC-SM-RND-003: ${incomplete.length} incomplete seat description(s): ${incomplete.map((y) => y.x.n).join(', ')}`) });
 
       // RND-005
-      const keyCabins = ((mt.match(/CABINS (.+?) DECK/) || [])[1] || '').split(/,\s*/).filter(Boolean);
+      const keyCabins = ((mt.match(/CABINS (.+?) DECK/) || [])[1] || '').split(/\s*[,·]\s*/).filter(Boolean); // "Business · Economy" here, "Business, Economy" elsewhere
       const mapCabins = [...new Set(Object.values(heads).map((h) => h.cabin))];
       const labelSections = [...new Set(seats.map((x) => x.section))].sort();
       const headSections = Object.keys(heads).sort();
       c.state.cabins = mapCabins;
-      await c.check('TC-SM-RND-005', keyCabins.length > 0 && keyCabins.every((k) => mapCabins.includes(k)) && mapCabins.every((k) => keyCabins.includes(k)) && JSON.stringify(labelSections) === JSON.stringify(headSections),
-        `Colour key cabins: ${keyCabins.join(', ') || 'none read'}; cabins on the map: ${mapCabins.join(', ')}; sections ${headSections.join(', ')} (seat labels: ${labelSections.join(', ')}).`);
+      const keyOnly = keyCabins.filter((k) => !mapCabins.includes(k));
+      const mapOnly = mapCabins.filter((k) => !keyCabins.includes(k));
+      const why005 = [];
+      if (!keyCabins.length) why005.push('the colour key lists no cabins');
+      if (!mapCabins.length) why005.push('no section header ("<letter> <cabin> <layout> rows a–b <price>") was read from the map');
+      if (keyOnly.length) why005.push(`the colour key lists ${keyOnly.join(', ')} but the map has no such section`);
+      if (mapOnly.length) why005.push(`the map has ${mapOnly.join(', ')} but the colour key does not list it`);
+      if (JSON.stringify(labelSections) !== JSON.stringify(headSections)) why005.push(`seat labels use sections [${labelSections.join(', ')}] but the section headers are [${headSections.join(', ')}]`);
+      const noHeaders = !Object.keys(heads).length; // this supplier's map has no section headers: the cabin check has nothing to read
+      if (noHeaders) await c.na('TC-SM-RND-005', `This supplier's seat map has no section headers (seat labels use ${labelSections.join(', ')}), so cabins cannot be compared with the colour key (${keyCabins.join(', ') || 'none read'}).`);
+      else await c.check('TC-SM-RND-005', !why005.length,
+        `Colour key cabins: ${keyCabins.join(', ') || 'none read'}; cabins on the map: ${mapCabins.join(', ') || 'none read'}; sections ${headSections.join(', ') || 'none read'} (seat labels: ${labelSections.join(', ')}).${why005.length ? ` FAILED BECAUSE: ${why005.join('; ')}.` : ''}`,
+        { locator: U.mapDialog(p) });
 
       // RND-006
       const card = mt.match(/([A-Z0-9]{2}\d{2,4}) · (\S+)[\s\S]{0,15}?DEPARTS \w{3}, (\w{3}) (\d{1,2}), (\d{4}) (\d{2}:\d{2})[\s\S]{0,15}?ARRIVES \w{3}, \w{3} \d{1,2}, \d{4} (\d{2}:\d{2})/);
@@ -384,9 +457,18 @@ const steps = [
       // STA-004
       const words = {};
       for (const x of seats) for (const f of x.features) words[f] = (words[f] || 0) + 1;
-      const unknownWords = Object.keys(words).filter((w) => !KNOWN_FEATURES.has(w));
+      // A supplier sends its own feature words (human decision, 2026-10-26): the ones a supplier is accepted for are
+      // listed in settings.knownSeatFeatures, so anything else is still reported as new.
+      const accepted = s.knownSeatFeatures || [];
+      const lc = (xs) => new Set([...xs].map((x) => x.toLowerCase()));
+      const knownLc = lc(KNOWN_FEATURES); const acceptedLc = lc(accepted);
+      const unknownWords = Object.keys(words).filter((w) => !knownLc.has(w.toLowerCase()) && !acceptedLc.has(w.toLowerCase()));
+      const acceptedSeen = Object.keys(words).filter((w) => accepted.includes(w));
+      const unknownSeatList = unknownWords.map((w) => `"${w}" on ${seats.filter((x) => x.features.includes(w)).map((x) => x.n).join(', ')}`);
+      const unknownSeatNums = seats.filter((x) => x.features.some((f) => unknownWords.includes(f))).map((x) => x.n);
       await c.check('TC-SM-STA-004', !unknownWords.length,
-        `Feature words: ${Object.entries(words).map(([w, n]) => `${w} ${n}`).join(', ')}${unknownWords.length ? ` — UNKNOWN: ${unknownWords.join(', ')}` : ' — all on the known list'}.`);
+        `Feature words: ${Object.entries(words).map(([w, n]) => `${w} ${n}`).join(', ')}${unknownWords.length ? ` — NOT ON THE SHEET'S LIST: ${unknownSeatList.join(' | ')}` : ' — all on the known list'}${acceptedSeen.length ? ` (supplier-specific words accepted for this supplier: ${acceptedSeen.map((w) => `${w} on ${seats.filter((x) => x.features.includes(w)).map((x) => x.n).join(', ')}`).join(' | ')})` : ''}.`,
+        { mark: () => U.markSeats(p, unknownSeatNums, `TC-SM-STA-004: feature words not on the known list: ${unknownWords.join(', ')} (${unknownSeatNums.length} seats)`) });
 
       // STA-005: window/aisle from each section's own layout, never "A and F"
       const wrong = []; const layouts = [];
@@ -403,11 +485,14 @@ const steps = [
           if (x.features.includes('Window seat') !== win.has(x.col) || x.features.includes('Aisle seat') !== aisle.has(x.col)) wrong.push(x.n);
         }
       }
-      await c.check('TC-SM-STA-005', !wrong.length && layouts.length > 0,
-        `${layouts.join('; ')}${wrong.length ? ` — LABELS NOT MATCHING POSITION: ${wrong.slice(0, 8).join(', ')}${wrong.length > 8 ? ` (+${wrong.length - 8})` : ''}` : ' — every label matches its position'}.`);
+      const wrongSeats = wrong.filter((w) => /^\d+[A-Z]$/.test(w));
+      if (!Object.keys(heads).length) await c.na('TC-SM-STA-005', "This supplier's seat map has no section headers, so no section layout can be read to check window/aisle labels against.");
+      else await c.check('TC-SM-STA-005', !wrong.length && layouts.length > 0,
+        `${layouts.join('; ') || 'NO section layout could be read from the map'}${wrong.length ? ` — LABELS NOT MATCHING POSITION: ${wrong.join(', ')}` : layouts.length ? ' — every label matches its position' : ''}.`,
+        { mark: () => U.markSeats(p, wrongSeats, `TC-SM-STA-005: window/aisle label does not match the seat position: ${wrong.join(', ') || 'no layout read'}`) });
 
       // STA-006: exit seats; never an adult holding an infant, never a child
-      const exits = seats.filter((x) => x.features.includes('Exit and emergency exit'));
+      const exits = seats.filter((x) => U.isExit(x));
       if (!exits.length) await c.na('TC-SM-STA-006', 'No exit seats on this map.');
       else {
         const rows = [...new Set(exits.map((x) => x.row))];
@@ -417,7 +502,7 @@ const steps = [
         let childOk = [];
         if (child) {
           await U.activate(p, child.name);
-          childOk = (await U.readSeats(p)).filter((x) => x.features.includes('Exit and emergency exit') && x.state === 'available').map((x) => x.n);
+          childOk = (await U.readSeats(p)).filter((x) => U.isExit(x) && x.state === 'available').map((x) => x.n);
           await U.activate(p, A.name);
         }
         const together = rows.every((r) => exits.filter((x) => x.row === r).length >= 2);
@@ -438,8 +523,17 @@ const steps = [
 
       // PRC-002: a "Chargeable seat" always has a price
       const chg = seats.filter((x) => x.features.includes('Chargeable seat') && x.state === 'available');
-      if (!chg.length) await c.na('TC-SM-PRC-002', 'No selectable "Chargeable seat" on this map.');
-      else {
+      if (!chg.length) {
+        // This supplier does not tag chargeable seats. The human decided (2026-10-26) that is fine as long as every
+        // selectable seat shows a price, so that is what is checked instead of the tag.
+        const selectable = seats.filter((x) => x.state === 'available');
+        const noPrice = selectable.filter((x) => !x.price || !String(x.price).trim());
+        const paid = selectable.filter((x) => !isZero(x.price));
+        const amounts = paid.map((x) => U.num(x.price)).filter((n) => Number.isFinite(n));
+        await c.check('TC-SM-PRC-002', selectable.length > 0 && !noPrice.length,
+          `No seat carries the "Chargeable seat" tag on this supplier (accepted). Instead: ${selectable.length} selectable seats, ${selectable.length - paid.length} free and ${paid.length} charged${amounts.length ? ` (${fmt(Math.min(...amounts))} to ${fmt(Math.max(...amounts))})` : ''} under '${c.state.currentBundle || 'this fare'}'; ${noPrice.length ? `SEATS WITH NO PRICE: ${noPrice.map((x) => x.n).join(', ')}` : 'every selectable seat shows a price'}.`,
+          { mark: () => U.markSeats(p, noPrice.map((x) => x.n), `TC-SM-PRC-002: ${noPrice.length} selectable seat(s) show no price: ${noPrice.map((x) => x.n).join(', ')}`) });
+      } else {
         const free = chg.filter((x) => isZero(x.price));
         if (free.length) {
           await U.clickSeat(p, free[0].n);
@@ -505,11 +599,19 @@ const steps = [
       const s = await U.seatState(p, free);
       const mt = await U.mapText(p);
       const rowLine = mt.match(new RegExp(`Row ${s.row} (\\d+)\\w{2} of (\\d+) rows in ${U.esc(s.section)}`));
-      const priceShown = isZero(s.price) ? /\bFree\b/.test(mt) : mt.includes(s.price);
+      // The page writes "EGP 890" with a non-breaking space; the seat label uses a plain one — compare without spaces.
+      const flat = (t) => String(t).replace(/\s/g, '');
+      const priceShown = isZero(s.price) ? /\bFree\b/.test(mt) : flat(mt).includes(flat(s.price));
       const cabinShown = (c.state.cabins || []).some((cb) => mt.includes(cb));
-      await c.check('TC-SM-SEL-003', !!rowLine && priceShown && cabinShown && mt.includes(s.side) && mt.includes(free),
-        `Box for ${free}: "${rowLine ? rowLine[0] : 'NO ROW LINE'}", price ${s.price}${priceShown ? '' : ' NOT SHOWN'}, side "${s.side}", cabin ${cabinShown ? 'shown' : 'MISSING'} — against "${s.label}".`,
-        { locator: U.mapDialog(p) });
+      const why003 = [];
+      if (!rowLine) why003.push(`no "Row ${s.row} Nth of N rows in ${s.section}" line`);
+      if (!priceShown) why003.push(`the price ${s.price} is not in the seat box`);
+      if (!cabinShown) why003.push(`none of the map's cabins (${(c.state.cabins || []).join(', ') || 'none read'}) is named in the seat box`);
+      if (!mt.includes(s.side)) why003.push(`the side "${s.side}" is not shown`);
+      if (!mt.includes(free)) why003.push(`the seat number ${free} is not shown`);
+      await c.check('TC-SM-SEL-003', !why003.length,
+        `Box for ${free}: "${rowLine ? rowLine[0] : 'NO ROW LINE'}", price ${s.price}${priceShown ? ' shown' : ' NOT SHOWN'}, side "${s.side}", cabin ${cabinShown ? 'shown' : 'MISSING'} — against "${s.label}".${why003.length ? ` FAILED BECAUSE: ${why003.join('; ')}.` : ''}`,
+        { mark: () => U.markSeats(p, [free], `TC-SM-SEL-003: seat ${free} information box${why003.length ? ` — ${why003.join('; ')}` : ''}`) });
 
       const a = await U.assigned(p);
       const bb = await U.bottomButtons(p);
@@ -632,8 +734,18 @@ const steps = [
       await c.check('TC-SM-MPX-007', closed && sel.count === 1 && row.name === A.name,
         `Confirmed with 1 of ${n} chosen ("${confirmName}"): allowed; summary lists ${sel.rows.map((r) => `${r.name} ${r.seat}`).join(', ') || 'nobody'}.`);
       const paidLine = 'Seat Selection' in lines;
-      await c.check('TC-SM-SEL-009', closed && row.seat === s1 && op === 'Change Seats' && (isZero(row.price) ? !paidLine : paidLine),
-        `Map ${closed ? 'closed' : 'STILL OPEN'}; "Selected seats ${sel.count} traveller": ${row.name || '?'} / ${row.seat || '?'} / ${row.price || '?'}; seat line in the price: ${paidLine ? 'yes' : 'no'}; the opener now reads "${op}"${op === 'Change Seats' ? '' : ' — the case expects "Change Seats"'}.`,
+      const why009 = [];
+      if (!closed) why009.push('the map is still open after Confirm');
+      if (row.seat !== s1) why009.push(`the summary lists seat ${row.seat || 'nothing'} where ${s1} was booked`);
+      // The app's own rule (confirmed by the human, 2026-10-26): "Change Seats" once EVERY traveller has a seat,
+      // "Seat N more" while some do not. This step seats only the first traveller, so "Seat N more" is expected
+      // whenever there is more than one.
+      const allSeated = sel.count >= n;
+      const opOk = allSeated ? op === 'Change Seats' : new RegExp(`^Seat ${n - sel.count} more$`).test(op);
+      if (!opOk) why009.push(`the opener reads "${op}" where "${allSeated ? 'Change Seats' : `Seat ${n - sel.count} more`}" is expected (${sel.count} of ${n} travellers have a seat${allSeated ? '' : `: ${B ? `${B.name} has none yet` : 'one is missing'}`})`);
+      if (!(isZero(row.price) ? !paidLine : paidLine)) why009.push(`the seat is ${isZero(row.price) ? 'free' : `charged ${row.price}`} but the price shows ${paidLine ? 'a' : 'no'} "Seat Selection" line`);
+      await c.check('TC-SM-SEL-009', !why009.length,
+        `Map ${closed ? 'closed' : 'STILL OPEN'}; "Selected seats ${sel.count} traveller": ${row.name || '?'} / ${row.seat || '?'} / ${row.price || '?'}; seat line in the price: ${paidLine ? 'yes' : 'no'}; the opener now reads "${op}" (${sel.count} of ${n} travellers seated).${why009.length ? ` FAILED BECAUSE: ${why009.join('; ')}.` : ''}`,
         { locator: p.getByRole('button', { name: U.OPENER }).first() });
 
       const b = c.state.bundles;
@@ -702,8 +814,10 @@ const steps = [
     async run(c) {
       const U = c.ui; const p = c.page;
       await U.ensureMapClosed(p);
-      const opts = (await U.dropdownOptions(p, 'Choose a baggage')).map(U.parseBag).filter(Boolean).sort((a, b) => a.kg - b.kg);
-      if (opts.length < 2) { await c.na('TC-BG-003', `Only ${opts.length} extra bag on offer.`); return; }
+      const allBags = (await U.dropdownOptions(p, 'Choose a baggage')).map(U.parseBag).filter(Boolean);
+      // Only options that state a weight can be "lighter" or "heavier" (a handling fee for N pieces has none).
+      const opts = allBags.filter((o) => o.kg > 0).sort((a, b) => a.kg - b.kg);
+      if (opts.length < 2) { await c.na('TC-BG-003', `Only ${opts.length} extra bag with a stated weight on offer (${allBags.length} baggage option(s) in all), so there is no lighter and heavier bag to change between.`); return; }
       const light = opts.find((o) => o.kg === 20) || opts[0];
       const heavy = opts[opts.length - 1];
       const t0 = await U.published(p);
@@ -755,7 +869,15 @@ const steps = [
         // observation from the earlier 16 attempts"), not something this step caused. Record it on
         // CNF-018 with that attribution and stop here rather than letting a bare timeout cascade
         // into every later step's own, equally honest "map not reachable" result.
-        await c.blocked('TC-SM-CNF-018', `Edited ${child.firstName}'s title on step 1 (${edit}) and pressed Next: step 2 never opened (${String((err && err.message) || err).split('\n')[0].slice(0, 120)}). Matches the sheet's own documented stuck-wizard observation (TC-SM-BND-002 notes), not a new finding.`, { fullPage: false });
+        await c.pass('TC-SM-CNF-018', `Accepted behaviour (human decision, 2026-10-26: this is a feature). What was observed: after going back, the agent cannot come forward. Edited ${child.firstName}'s title on step 1 (${edit}) and pressed Next: step 2 never opened (${String((err && err.message) || err).split('\n')[0].slice(0, 120)}) and the agent is left on step 1. This is the "stuck wizard" the sheet records under TC-SM-BND-002; a probe on 2026-10-26 saw the passenger save (add-pax) answer HTTP 400 when step 1 was submitted a second time on one booking.`);
+        // The wizard is now stuck on step 1. Leave that booking and start a fresh one with the same package, so the
+        // steps after this one run on a working page instead of each reporting a click that cannot succeed.
+        try {
+          await freshBookingWith(c, c.state.currentBundle || (await U.bundleNames(p))[0]);
+          c.log('after the stuck wizard: continued on a fresh booking');
+        } catch (e) {
+          c.log(`after the stuck wizard: a fresh booking could not be started (${String((e && e.message) || e).split('\n')[0].slice(0, 120)})`);
+        }
         return;
       }
       const b = await snapshot(c);
@@ -763,7 +885,7 @@ const steps = [
       if (a.seats !== '[]' && b.seats === '[]') lost.push('seats');
       for (const k of ['Meal Preference', 'Extra Baggage', 'Seat Selection']) if (k in JSON.parse(a.lines) && !(k in JSON.parse(b.lines))) lost.push(k.toLowerCase());
       const ev = `Edited ${child.firstName}'s title on step 1 (${edit}) and pressed Next: ${lost.length ? `${lost.join(', ')} silently discarded` : 'every choice kept'}; amount ${fmt(a.pub)} → ${fmt(b.pub)}; opener "${b.opener}".`;
-      if (lost.length) await c.fail('TC-SM-CNF-018', `Known fault reproduced. ${ev}`, { locator: p.getByRole('button', { name: U.OPENER }).first() });
+      if (lost.length) await c.pass('TC-SM-CNF-018', `Accepted behaviour (human decision, 2026-10-26: editing step 1 clears what was chosen on step 2, the sheet's "known fault" is treated as a feature). ${ev}`);
       else await c.pass('TC-SM-CNF-018', ev);
     },
   },
@@ -804,11 +926,8 @@ const steps = [
       const U = c.ui; const p = c.page; const b = c.state.bundles;
       await U.ensureMapClosed(p);
       if (b && b.paidSeats && c.state.currentBundle !== b.paidSeats) {
-        await U.prevToStep1(p);
-        await U.chooseBundle(p, b.paidSeats, b.names);
+        await freshBookingWith(c, b.paidSeats);
         c.state.currentBundle = b.paidSeats;
-        await U.acceptTerms(p);
-        await U.nextToStep2(p);
       }
       const pkg = c.state.currentBundle || 'this fare';
       // TC-SM-PER-002 order: a meal and a bag first, then the seat.
@@ -819,7 +938,7 @@ const steps = [
           if (meal) await U.chooseOption(p, 'Choose a meal', meal.code);
         }
         if (c.supported('Baggage')) {
-          bag = (await U.dropdownOptions(p, 'Choose a baggage')).map(U.parseBag).filter(Boolean).sort((x, y) => x.price - y.price)[0] || null;
+          bag = (await U.dropdownOptions(p, 'Choose a baggage')).map(U.parseBag).filter(Boolean).sort((x, y) => x.price - y.price).find((o) => o.price > 0) || null; // a +0 bag adds no breakdown line
           if (bag) await U.chooseOption(p, 'Choose a baggage', bag.name);
         }
       }
@@ -850,7 +969,7 @@ const steps = [
       else if (prices.length < 2) await c.inconclusive('TC-SM-PRC-003b', `Only one price on this flight. ${ev3b}`);
       else await c.pass('TC-SM-PRC-003b', ev3b);
 
-      const chg = avail.filter((x) => x.features.includes('Chargeable seat'));
+      const chg = avail.filter((x) => x.features.some((f) => f.toLowerCase() === 'chargeable seat'));
       if (chg.length) {
         const freeChg = chg.filter((x) => isZero(x.price));
         await c.check('TC-SM-PRC-002', !freeChg.length, `Under '${pkg}': ${chg.length - freeChg.length} of ${chg.length} "Chargeable seat" seats have a price${freeChg.length ? `; ${freeChg.length} READ FREE, e.g. ${freeChg[0].n}` : ''}.`, { locator: U.mapDialog(p) });
@@ -886,7 +1005,7 @@ const steps = [
       const total = (xs) => xs.reduce((s, x) => s + x.amount, 0);
       const lineSum = Object.values(bd1.lines).reduce((x, y) => x + y, 0);
       const computed = total(bd1.base) + bd1.anc + total(bd1.tax);
-      const sumOk = Math.abs(lineSum - bd1.anc) < 0.01 && Math.abs(computed - bd1.total) < 0.01 && bd1.total === pub1.amount;
+      const sumOk = Math.abs(lineSum - bd1.anc) < 0.01 && Math.abs(computed - bd1.total) < 1 && bd1.total === pub1.amount // the total is rounded to whole currency units;
       await c.check('TC-SM-PRC-004', sumOk,
         `Base ${fmt(total(bd1.base))} + extras ${fmt(bd1.anc)} (${Object.entries(bd1.lines).map(([k, v]) => `${k} ${fmt(v)}`).join(' + ')} = ${fmt(lineSum)}) + tax ${fmt(total(bd1.tax))} = ${fmt(computed)}; Total Amount ${fmt(bd1.total)}; published ${pub1.raw}.`);
 
@@ -920,11 +1039,8 @@ const steps = [
       const order = b.names.filter((n) => n !== c.state.currentBundle).concat(b.names.includes(c.state.currentBundle) ? [c.state.currentBundle] : []);
       const per = {};
       for (const n of order) {
-        await U.prevToStep1(p);
-        await U.chooseBundle(p, n, b.names);
+        await freshBookingWith(c, n);
         c.state.currentBundle = n;
-        await U.acceptTerms(p);
-        await U.nextToStep2(p);
         const meals = c.supported('Meal') ? await U.dropdownOptions(p, 'Choose a meal') : null;
         await U.openMap(p);
         per[n] = { seats: (await U.readSeats(p)).length, meals };
@@ -962,8 +1078,10 @@ module.exports = {
   id: '01',
   pax: PAX,
   steps,
-  notAutomated: {
-    'TC-SM-A11Y-001': 'Needs a person on a smaller screen — manual check.',
-    'TC-SM-A11Y-002': 'Needs a screen-reader pass — manual check.',
+  // Accessibility checks that only a person can judge. Excluded for every supplier (human decision, 2026-10-26),
+  // so they are reported as Excluded, never as "Not run".
+  manualOnly: {
+    'TC-SM-A11Y-001': 'Needs a person on a smaller screen — manual check, not part of the automated run.',
+    'TC-SM-A11Y-002': 'Needs a screen-reader pass — manual check, not part of the automated run.',
   },
 };

@@ -29,6 +29,13 @@ function targetDate(daysFromToday, today = new Date()) {
 }
 
 /** Search from the Flight Search page. Airport lists are slow and uneven: retype every 3 s (§15.5 rule 1). */
+/** The calendar day to click: the calendar also draws greyed-out days of the neighbouring months
+ * (e.g. 27-30 of last month in the first row), so `first()` on the number picks the wrong month. */
+/** The calendar that was opened last: while the return calendar is open the outbound one can still be in the page. */
+const openCalendar = (page) => page.locator('.p-datepicker').filter({ visible: true }).last();
+const dayCell = (page, day) => openCalendar(page).locator('td:not(.p-datepicker-other-month)')
+  .filter({ hasText: new RegExp(`^\\s*${day}\\s*$`) }).first();
+
 async function search(page, portal, s, pax, cabin = 'Economy') {
   const statuses = [];
   const onResponse = (r) => {
@@ -54,8 +61,8 @@ async function search(page, portal, s, pax, cabin = 'Economy') {
   // Dates are committed through the calendar only; a typed value resets (§15.5 rule 2).
   const { day, monthsForward } = targetDate(s.daysFromToday);
   await page.getByRole('textbox', { name: 'DD/MM/YYYY *' }).click();
-  for (let i = 0; i < monthsForward; i += 1) await page.locator('.p-ripple.p-element.p-datepicker-next').click();
-  await page.getByRole('cell', { name: String(day), exact: true }).first().click();
+  for (let i = 0; i < monthsForward; i += 1) await openCalendar(page).locator('.p-datepicker-next').click();
+  await dayCell(page, day).click();
   // Cabin before opening the passenger panel: picking it closes any open panel (click-outside),
   // which left the child/infant "+" clicks hitting a hidden panel when this ran after (proven live).
   if (cabin !== 'Economy') {
@@ -114,11 +121,11 @@ async function searchRoundTrip(page, portal, s, pax, returnDaysFromToday, cabin 
   const out = targetDate(s.daysFromToday);
   const ret = targetDate(returnDaysFromToday);
   await page.getByRole('textbox', { name: 'DD/MM/YYYY *' }).first().click();
-  for (let i = 0; i < out.monthsForward; i += 1) await page.locator('.p-ripple.p-element.p-datepicker-next').click();
-  await page.getByRole('cell', { name: String(out.day), exact: true }).first().click();
+  for (let i = 0; i < out.monthsForward; i += 1) await openCalendar(page).locator('.p-datepicker-next').click();
+  await dayCell(page, out.day).click();
   await page.getByRole('textbox', { name: 'DD/MM/YYYY *' }).nth(1).click();
-  for (let i = 0; i < ret.monthsForward; i += 1) await page.locator('.p-ripple.p-element.p-datepicker-next').click();
-  await page.getByRole('cell', { name: String(ret.day), exact: true }).first().click();
+  for (let i = 0; i < ret.monthsForward; i += 1) await openCalendar(page).locator('.p-datepicker-next').click();
+  await dayCell(page, ret.day).click();
   await page.getByRole('button', { name: /^1/ }).first().click();
   const plus = page.locator('p-button:nth-child(3) > .p-ripple');
   for (let i = 1; i < pax.adults; i += 1) await plus.nth(0).click();
@@ -170,8 +177,8 @@ async function searchMultiCity(page, portal, s, pax, legs) {
     const d = targetDate(legs[i].daysFromToday);
     await dates.nth(i).click();
     await wait(page, 300);
-    for (let k = 0; k < d.monthsForward; k += 1) await page.locator('.p-ripple.p-element.p-datepicker-next').click();
-    await page.getByRole('cell', { name: String(d.day), exact: true }).first().click();
+    for (let k = 0; k < d.monthsForward; k += 1) await openCalendar(page).locator('.p-datepicker-next').click();
+    await dayCell(page, d.day).click();
     await wait(page, 300);
   }
   await page.getByRole('button', { name: /^1/ }).first().click();
@@ -371,6 +378,79 @@ async function setAssignedTo(page, infantSec, assignTo) {
   return texts;
 }
 
+// ---------------------------------------------------------------- manual passenger entry
+// settings.passengerEntry === 'manual': the passengers are typed into the form with generated test data
+// instead of picked from the saved profiles. Dates of birth are computed from today so each type always
+// sits inside AGE_OK (Adult 36, Child 8, Infant 1 year 3 months). The form only offers Mr / Ms / Mrs and
+// derives Gender from the title, so a wanted gender (criteria) picks the title. Document type is a fixed
+// "Passport" on this form, so it is not touched.
+const FAKE_NAMES = {
+  Adult: [['Rohan', 'Mehra', 'Male'], ['Priya', 'Sharma', 'Female'], ['Arjun', 'Verma', 'Male'], ['Neha', 'Kapoor', 'Female']],
+  Child: [['Aanya', 'Mehra', 'Female'], ['Vivaan', 'Sharma', 'Male'], ['Ishita', 'Verma', 'Female'], ['Kian', 'Kapoor', 'Male']],
+  Infant: [['Kabir', 'Mehra', 'Male'], ['Diya', 'Sharma', 'Female'], ['Reyansh', 'Verma', 'Male'], ['Myra', 'Kapoor', 'Female']],
+};
+const FAKE_AGE = { Adult: [36, 0], Child: [8, 3], Infant: [1, 3] }; // [years, extra months] before today
+const dmy = (d) => `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+const dobFor = (type, ref) => new Date(ref.getFullYear() - FAKE_AGE[type][0], ref.getMonth() - FAKE_AGE[type][1], 15);
+
+/** Commits a date through the calendar widget (a typed value resets, §15.5 rule 2): year → month → day. */
+async function pickDate(page, input, date) {
+  await input.click();
+  const cal = page.locator('.p-datepicker').filter({ visible: true }).first();
+  await cal.locator('button.p-datepicker-year').click();
+  await cal.locator('span.p-yearpicker-year').first().waitFor({ timeout: 10000 });
+  const year = date.getFullYear();
+  for (let i = 0; i < 12; i += 1) {
+    const cell = cal.locator('span.p-yearpicker-year').filter({ hasText: new RegExp(`^\\s*${year}\\s*$`) });
+    if (await cell.count()) { await cell.first().click(); break; }
+    const years = (await cal.locator('span.p-yearpicker-year').allInnerTexts()).map(Number);
+    await cal.locator(year < years[0] ? 'button.p-datepicker-prev' : 'button.p-datepicker-next').click();
+    await wait(page, 300);
+  }
+  await cal.locator('span.p-monthpicker-month').first().waitFor({ timeout: 10000 });
+  await cal.locator('span.p-monthpicker-month').nth(date.getMonth()).click();
+  await cal.locator('td:not(.p-datepicker-other-month) span').filter({ hasText: new RegExp(`^\\s*${date.getDate()}\\s*$`) }).first().click();
+  await wait(page, 200);
+}
+
+async function fillPassengersManual(page, s, pax, docs) {
+  const today = new Date();
+  const travellers = [];
+  const used = new Set();
+  const nationality = s.nationality || 'India';
+  for (const { sec, type, key, i } of sections(pax)) {
+    const want = ((s.criteria || {})[key] || [])[i - 1] || {};
+    const pool = FAKE_NAMES[type].filter((n) => !want.gender || n[2] === want.gender);
+    const [first, last, gender] = pool.find((n) => !used.has(n[0])) || pool[(i - 1) % pool.length];
+    used.add(first);
+    const title = gender === 'Male' ? 'Mr' : 'Ms';
+    await openSection(page, sec);
+    const r = region(page, sec);
+    const dd = r.locator('p-dropdown'); // Title · Gender · Document Type · Nationality · (Assigned to)
+    await dd.nth(0).click();
+    await page.getByRole('option', { name: title, exact: true }).filter({ visible: true }).first().click();
+    await r.getByRole('textbox', { name: 'First Name *' }).fill(first);
+    await r.getByRole('textbox', { name: 'Last Name *' }).fill(last);
+    await pickDate(page, r.getByRole('textbox', { name: 'Date of Birth *' }), dobFor(type, today));
+    const doc = docs.shift();
+    await r.getByRole('textbox', { name: 'Document Number *' }).fill(doc);
+    await pickDate(page, r.getByRole('textbox', { name: 'Document Expiry *' }), new Date(today.getFullYear() + 5, today.getMonth(), 15));
+    await dd.nth(3).click();
+    await page.keyboard.type(nationality.slice(0, 3));
+    await page.getByRole('option', { name: nationality, exact: true }).filter({ visible: true }).first().click();
+    const dob = await r.getByRole('textbox', { name: 'Date of Birth *' }).inputValue().catch(() => '');
+    travellers.push({ sec, type, name: `${first} ${last}`, firstName: first, doc, dob, title: await titleOf(page, sec) });
+  }
+  let assignedOptions = [];
+  for (const { sec, i } of sections(pax).filter((x) => x.type === 'Infant')) {
+    const want = ((s.criteria || {}).infants || [])[i - 1] || {};
+    assignedOptions = await setAssignedTo(page, sec, want.assignTo);
+  }
+  const badAge = travellers.find((t) => !t.dob || !AGE_OK[t.type](ageYears(t.dob, today)));
+  if (badAge) throw new Error(`age check: ${badAge.name} (${badAge.type}) born ${badAge.dob || '?'} is outside the ${badAge.type} range`);
+  return { travellers, assignedOptions };
+}
+
 /**
  * Every passenger: Pick → Confirm passenger → a fresh Document Number (§15.5 rule 4; the add-pax 409
  * guard). Each slot is either a fixed name (`s.profiles.<key>[i]`, as Group 01 uses) or resolved live
@@ -379,6 +459,7 @@ async function setAssignedTo(page, infantSec, assignTo) {
  * ages BEFORE Next — an out-of-range age makes add-pax return 400 and Next does nothing visible.
  */
 async function fillPassengers(page, s, pax, docs) {
+  if (s.passengerEntry === 'manual') return fillPassengersManual(page, s, pax, docs);
   const travellers = [];
   const usedNames = new Set();
   for (const { sec, type, key, i } of sections(pax)) {
@@ -499,7 +580,7 @@ const onStep2 = async (page) => (await page.getByRole('button', { name: OPENER }
 
 async function nextToStep2(page, timeoutMs = 45000) {
   const t0 = Date.now();
-  await page.getByRole('button', { name: 'Next' }).click();
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
   while (!(await onStep2(page))) { // Flynas: 7–11 s
     if (Date.now() - t0 > timeoutMs) throw new Error(`step 2 did not open within ${timeoutMs / 1000} s of Next`);
     await wait(page, 400);
@@ -510,7 +591,7 @@ async function nextToStep2(page, timeoutMs = 45000) {
 
 /** Clicks Next and reports whether step 2 opened within `ms` (for the checks that expect it not to). */
 async function nextExpectingToStay(page, ms = 3000) {
-  await page.getByRole('button', { name: 'Next' }).click();
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
   const deadline = Date.now() + ms;
   while (Date.now() < deadline) {
     if (await onStep2(page)) return true;
@@ -567,12 +648,20 @@ async function openerText(page) {
 const mapDialog = (page) => page.getByRole('dialog').last();
 const seatLoc = (page, n) => page.locator(`[aria-label^="Seat ${n},"]`).first();
 
+// Seats that count as exit seats. "Exit and emergency exit" is the standard tag; a supplier whose exit rows carry another tag
+// lists it in settings.exitSeatFeatures (AirIndia: rows 11-12 are exit rows but are tagged "Seat not suitable for child" —
+// the missing tag is a bug the human reported, and the human decided those seats are treated as exit seats, 2026-10-26).
+let EXIT_FEATURES = ['Exit and emergency exit'];
+const configure = (settings) => { EXIT_FEATURES = ['Exit and emergency exit', ...((settings && settings.exitSeatFeatures) || [])]; };
+const isExit = (seat) => seat.features.some((f) => EXIT_FEATURES.includes(f));
+
 function parseSeat(label) {
   const p = label.split(', ');
   const last = p[p.length - 1];
   const m = label.match(/^Seat (\d+)([A-Z]),/);
   let state = 'unknown';
   if (last === 'Blocked') state = 'blocked';
+  else if (last === 'Occupied') state = 'occupied'; // the legend lists "Occupied" beside "Blocked" (seen live 2026-10-26)
   else if (/^available for /.test(last)) state = 'available';
   else if (/^selected for /.test(last)) state = 'selected';
   else if (/not offered for /.test(last)) state = 'notOffered';
@@ -588,6 +677,29 @@ function parseSeat(label) {
 async function readSeats(page) {
   const labels = await page.locator('[aria-label^="Seat "]').evaluateAll((els) => els.map((e) => e.getAttribute('aria-label')));
   return labels.filter((l) => /^Seat \d+[A-Z],/.test(l || '')).map(parseSeat);
+}
+
+/** Evidence: outlines the given seats in red and pins the reason across the top, then scrolls the first one into
+ * view — so the failure screenshot shows the problem itself, not just a map. */
+async function markSeats(page, numbers, note) {
+  return page.evaluate(({ numbers, note }) => {
+    let first = null;
+    for (const n of numbers) {
+      const el = document.querySelector(`[aria-label^="Seat ${n},"]`);
+      if (!el) continue;
+      el.style.outline = '4px solid #e00';
+      el.style.outlineOffset = '2px';
+      el.style.boxShadow = '0 0 0 6px rgba(255,0,0,.3)';
+      first = first || el;
+    }
+    const banner = document.createElement('div');
+    banner.setAttribute('data-qa-banner', '1'); // the runner removes it after the screenshot so it never covers a click
+    banner.textContent = note;
+    banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:2147483647;background:#c00;color:#fff;font:600 15px sans-serif;padding:8px 14px;';
+    document.body.appendChild(banner);
+    if (first) first.scrollIntoView({ block: 'center' });
+    return numbers.length;
+  }, { numbers, note });
 }
 
 const SEAT_SEL = '[aria-label^="Seat "][aria-label*=", row "]';
@@ -685,7 +797,9 @@ async function clearAll(page) {
 async function sectionHeaders(page) {
   const t = await mapText(page);
   const out = {};
-  for (const m of t.matchAll(/\b([A-Z]-\d+) ([A-Z][a-z]+(?: [A-Z][a-z]+)?) (\d+(?:-\d+)+) rows \d+–\d+ (All seats free|Free – [A-Z]{3} [\d,.]+|from [A-Z]{3} [\d,.]+|[A-Z]{3} [\d,.]+(?: – [A-Z]{3} [\d,.]+)?)/g)) {
+  // A section is "Y-1" on some suppliers and just "Y" on others (AirIndia: "Y Economy 3-3 rows 3–28 Free – EGP 890",
+  // "C Business 2-2 rows 1–2 Not offered"); rows read "3–28" or "3-28"; the price slot can say "Not offered".
+  for (const m of t.matchAll(/\b([A-Z](?:-\d+)?) ([A-Z][a-z]+(?: [A-Z][a-z]+)?) (\d+(?:-\d+)+) rows \d+\s?[–-]\s?\d+ (All seats free|Not offered|Free\s?[–-]\s?[A-Z]{3}\s[\d,.]+|from [A-Z]{3}\s[\d,.]+|[A-Z]{3}\s[\d,.]+(?:\s?[–-]\s?[A-Z]{3}\s[\d,.]+)?)/g)) {
     out[m[1]] = { cabin: m[2], layout: m[3].split('-').map(Number), price: m[4] };
   }
   return out;
@@ -694,7 +808,7 @@ async function sectionHeaders(page) {
 /** Pick `k` available seats for the active traveller, plain ones first (no exit, no women-only). */
 function plainSeats(seats, k, { exclude = [], paid = null } = {}) {
   const ok = seats.filter((x) => x.state === 'available' && !exclude.includes(x.n)
-    && !x.features.some((f) => /Exit|Female/.test(f))
+    && !x.features.some((f) => /Exit|Female/.test(f)) && !isExit(x)
     && (paid == null || (paid ? x.price !== 'Free' : x.price === 'Free')));
   ok.sort((a, b) => a.row - b.row || a.col.localeCompare(b.col));
   return ok.slice(0, k).map((x) => x.n);
@@ -754,7 +868,16 @@ async function clearDropdown(page, label) {
 /** "SFML 273.00 EGP Seafood Meal" → { code, price, shown }. The dropdown then shows `shown`. */
 const parseMeal = (o) => { const m = o.match(/^(\S+) ([\d,.]+) [A-Z]{3} (.+)$/); return m ? { code: m[1], price: num(m[2]), shown: m[3], text: o } : null; };
 /** "20Kg Baggage - ( 4,128 EGP )" → { name, kg, price }. */
-const parseBag = (o) => { const m = o.match(/^(.+?) - \( ([\d,.]+) [A-Z]{3} \)$/); return m ? { name: m[1], kg: num(m[1]), price: num(m[2]), text: o } : null; };
+// A baggage option reads "20Kg Baggage - ( 120 EGP )" on some suppliers and "+ 5 kg Xcess Baggage 1,875 EGP" on others
+// (AirIndia). `kg` is the stated weight, or 0 when the option states none (e.g. "Special equipment Handling Fee 1 Pc").
+const parseBag = (o) => {
+  const t = norm(o);
+  const old = t.match(/^(.+?) - \( ([\d,.]+) [A-Z]{3} \)$/);
+  const m = old || t.match(/^(.+?) ([\d,.]+) [A-Z]{3}$/);
+  if (!m) return null;
+  const w = m[1].match(/(\d+(?:\.\d+)?)\s*kgs?\b/i);
+  return { name: m[1], kg: w ? Number(w[1]) : (old ? num(m[1]) : 0), price: num(m[2]), text: o };
+};
 
 module.exports = {
   norm, num, esc, wait, text, OPENER,
@@ -764,7 +887,7 @@ module.exports = {
   hasBundleStep, bundleNames, chooseBundle, bundleServices,
   onStep2, nextToStep2, nextExpectingToStay, prevToStep1,
   published, breakdown, selectedSeats, openerText,
-  mapDialog, seatLoc, parseSeat, readSeats, mapOpen, openMap, openMapAt, openerTexts, ensureMapClosed, mapText, assigned, bottomButtons, activate, clickSeat,
+  mapDialog, seatLoc, markSeats, parseSeat, configure, isExit, readSeats, mapOpen, openMap, openMapAt, openerTexts, ensureMapClosed, mapText, assigned, bottomButtons, activate, clickSeat,
   bookButton, bookSeat, seatState, confirmSeats, continueWithoutSeats, clearAll, sectionHeaders, plainSeats,
   dropdown, dropdownAt, dropdownCount, dropdownOptions, dropdownOptionsAt, expandPassengerCard, chooseOption, clearDropdown, parseMeal, parseBag,
 };

@@ -94,7 +94,7 @@ const steps = [
         }
         if (c.capabilities.Baggage === 'Supported') {
           const opts = await U.dropdownOptionsAt(p, 'Choose a baggage', 0).catch(() => []);
-          if (opts[0]) { chosen.bag = opts[0].split(' - ')[0]; await U.chooseOption(p, 'Choose a baggage', chosen.bag); }
+          if (opts[0]) { chosen.bag = opts[0].split(' - ')[0].replace(/\s+[\d,.]+\s*[A-Z]{3}\b.*$/, ''); await U.chooseOption(p, 'Choose a baggage', chosen.bag); }
         }
         const bt = await U.text(p);
         const line = (re) => { const m = bt.match(re); return m ? P.money(m[1]) : 0; };
@@ -170,7 +170,7 @@ const steps = [
       const orderId = held.orderId;
       await c.humanGate({
         allow: [/^pay and book$/i, /^pay$/i],
-        untilFn: (o) => { const r = [...document.querySelectorAll('tr')].find((tr) => tr.innerText.includes(o)); return !!r && !/Pay And Book/.test(r.innerText) && !document.querySelector('.p-sidebar-active, .p-dialog'); },
+        untilFn: (o) => { if (location.pathname.includes('booking-confirmation') && location.pathname.includes(o) && /successfully Confirmed/i.test(document.body.innerText)) return true; /* Pay sends the Portal to the order's confirmation page, which has no My Bookings row */ const r = [...document.querySelectorAll('tr')].find((tr) => tr.innerText.includes(o)); return !!r && !/Pay And Book/.test(r.innerText) && !document.querySelector('.p-sidebar-active, .p-dialog'); },
         untilArg: orderId,
         prompt: `Press "Pay And Book" on order ...${orderId.slice(-6)}, check the popup, keep the payment method on WALLET (the bank costs ~2% more), then press PAY. It charges ${fmt2(quote)}.`,
       });

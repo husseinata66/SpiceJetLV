@@ -85,7 +85,7 @@ const steps = [
       }
       if (c.capabilities.Baggage === 'Supported') {
         const opts = await U.dropdownOptions(p, 'Choose a baggage').catch(() => []);
-        if (opts[0]) { const bag = opts[0].split(' - ')[0]; await U.chooseOption(p, 'Choose a baggage', bag); chosen.push(`bag ${bag}`); }
+        if (opts[0]) { const bag = opts[0].split(' - ')[0].replace(/\s+[\d,.]+\s*[A-Z]{3}\b.*$/, ''); await U.chooseOption(p, 'Choose a baggage', bag); chosen.push(`bag ${bag}`); }
       }
       const quote = ((await U.text(p)).match(/Net Payable Amount: ([\d,.]+ [A-Z]{3})/) || [])[1] || '?';
       // Walk away: Book is never pressed (the guard would refuse it anyway).

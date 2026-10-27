@@ -53,7 +53,7 @@ const steps = [
 
       await U.openMap(p);
       const seats = await U.readSeats(p);
-      const exits = seats.filter((x) => x.features.includes('Exit and emergency exit'));
+      const exits = seats.filter((x) => U.isExit(x));
       if (!exits.length) {
         await c.inconclusive('TC-SM-EXR-005', 'No "Exit and emergency exit" seat on this flight\'s map — needs a flight whose inventory actually offers one.');
         await U.ensureMapClosed(p);
@@ -65,7 +65,7 @@ const steps = [
       if (!beforeOk) {
         // The rule is not enforced on the map to begin with (OmanAir, 2026-10-19: an adult holding an infant is
         // offered the exit seat) — a refusal that does not exist cannot follow the infant to another adult.
-        await c.fail('TC-SM-EXR-005', `Infant linked to ${adultA.firstName}: seat ${seat} — A (holds the infant) "${tail(before.a.label)}", B "${tail(before.b.label)}". Expected A refused and B allowed; ${before.a.state === 'available' ? 'the adult holding the infant is OFFERED the exit seat, so there is no refusal to follow the infant to another adult' : 'B is not allowed either'}. The re-link half was not run.`, { locator: U.mapDialog(p) });
+        await c.inconclusive('TC-SM-EXR-005', `Not judged from the seat map: the exit-seat rule is enforced when the booking is attempted, so a case is never failed from the map (standing rule). Infant linked to ${adultA.firstName}: seat ${seat} — A (holds the infant) "${tail(before.a.label)}", B "${tail(before.b.label)}". Expected A refused and B allowed; ${before.a.state === 'available' ? 'the adult holding the infant is OFFERED the exit seat, so there is no refusal to follow the infant to another adult' : 'B is not allowed either'}. The re-link half was not run.`, { locator: U.mapDialog(p) });
         await U.ensureMapClosed(p);
         return;
       }

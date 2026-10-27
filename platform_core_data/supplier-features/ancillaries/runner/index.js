@@ -58,8 +58,9 @@ module.exports = {
   },
 
   validateSettings(s) {
-    const missing = ['from', 'to', 'daysFromToday', 'savedPassengerSearch'].filter((k) => !s[k] || /^</.test(String(s[k])));
-    for (const k of ['adults', 'children', 'infants']) {
+    const manual = s.passengerEntry === 'manual'; // typed passengers need no saved profiles
+    const missing = ['from', 'to', 'daysFromToday', ...(manual ? [] : ['savedPassengerSearch'])].filter((k) => !s[k] || /^</.test(String(s[k])));
+    for (const k of manual ? [] : ['adults', 'children', 'infants']) {
       if (!s.profiles || !Array.isArray(s.profiles[k]) || !s.profiles[k][0] || /^</.test(s.profiles[k][0])) missing.push(`profiles.${k}`);
     }
     if (missing.length) throw new Error(`settings.local.json is missing ${missing.join(', ')}.`);

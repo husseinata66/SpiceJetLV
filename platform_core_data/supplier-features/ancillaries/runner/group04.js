@@ -46,7 +46,7 @@ const steps = [
       await U.nextToStep2(p, 60000);
       await U.openMap(p);
       const seats = await U.readSeats(p);
-      const exits = seats.filter((x) => x.features.includes('Exit and emergency exit') && x.state === 'available');
+      const exits = seats.filter((x) => U.isExit(x) && x.state === 'available');
       if (!exits.length) {
         // Exit-row presence and availability are flight-specific (documented); a different flight
         // from a different search just won't always have one — not a reason to fail the run.

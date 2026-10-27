@@ -58,7 +58,7 @@ const steps = [
       await U.openMap(p);
       await U.activate(p, adult.name);
       const seats = await U.readSeats(p);
-      const exits = seats.filter((x) => x.features.includes('Exit and emergency exit'));
+      const exits = seats.filter((x) => U.isExit(x));
       if (!exits.length) {
         await c.inconclusive('TC-SM-EXR-002', 'No "Exit and emergency exit" seat on this flight\'s map — needs a flight whose inventory actually offers one.');
         await U.ensureMapClosed(p);
@@ -92,8 +92,10 @@ const steps = [
 
       if (c.wants('TC-ML-002')) {
         const count = await U.dropdownCount(p, 'Choose a meal');
-        await c.check('TC-ML-002', count === 1 && !infantMentioned,
-          `${count} meal dropdown(s) for 1 non-infant passenger (${adult.firstName}); ${infant.firstName} (infant) ${infantMentioned ? 'IS MENTIONED on step 2' : 'appears nowhere on step 2'} — no meal choice for the infant.`);
+        // Meals are chosen per flight, so a connecting trip has one dropdown per flight for the one non-infant passenger:
+        // what matters is that the adult has a meal choice and the infant has none.
+        await c.check('TC-ML-002', count >= 1 && !infantMentioned,
+          `${count} meal dropdown(s) for 1 non-infant passenger (${adult.firstName}; one per flight on a connecting trip); ${infant.firstName} (infant) ${infantMentioned ? 'IS MENTIONED on step 2' : 'appears nowhere on step 2'} — no meal choice for the infant.${count < 1 ? ' FAILED BECAUSE: the adult has no meal dropdown.' : ''}${infantMentioned ? ` FAILED BECAUSE: the infant's name appears on step 2.` : ''}`);
       }
       if (c.wants('TC-BG-002')) {
         const count = await U.dropdownCount(p, 'Choose a baggage');

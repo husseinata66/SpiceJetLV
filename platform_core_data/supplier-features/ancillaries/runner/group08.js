@@ -78,7 +78,7 @@ const steps = [
       const heads = await U.sectionHeaders(p);
       // A plain seat for A in a row that holds more than one set (3-3, 3-4-3 …), with free set-mates.
       const candidate = seats.find((x) => {
-        if (x.state !== 'available' || x.features.some((f) => /Exit|Female/.test(f))) return false;
+        if (x.state !== 'available' || x.features.some((f) => /Exit|Female/.test(f)) || U.isExit(x)) return false;
         const h = heads[x.section];
         if (!h || h.layout.length < 2) return false;
         const set = setOf(x, seats, heads);
@@ -99,9 +99,20 @@ const steps = [
       const mateStates = [];
       for (const n of mates) mateStates.push(await U.seatState(p, n));
       const allCols = [...new Set(seats.filter((x) => x.section === candidate.section).map((x) => x.col))].sort();
-      const otherCol = allCols.find((col) => !set.includes(col));
-      const other = otherCol ? await U.seatState(p, `${candidate.row}${otherCol}`) : null;
+      // A seat of the OTHER set that the map offers: an Occupied or Blocked seat says nothing about the rule.
+      const otherStates = [];
+      let other = null;
+      for (const col of allCols.filter((x) => !set.includes(x))) {
+        const st = await U.seatState(p, `${candidate.row}${col}`);
+        otherStates.push(st);
+        if (!other && st.state === 'available') other = st;
+      }
 
+      if (!other) {
+        await c.inconclusive('TC-SM-PAX-008', `${adultA.firstName} took ${candidate.n}. No seat of the other set in row ${candidate.row} is available to compare (${otherStates.map((o) => `${o.n} "${tail(o.label)}"`).join(', ') || 'none found'}), so the rule cannot be judged on this row.`);
+        await U.ensureMapClosed(p);
+        return;
+      }
       const matesBlocked = mateStates.every((m) => m.state !== 'available');
       const otherFree = other ? other.state === 'available' : false;
       const matesText = mateStates.map((m) => `${m.n} "${tail(m.label)}"`).join(', ');
