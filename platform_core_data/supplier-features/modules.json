@@ -132,7 +132,7 @@
       "kind": "supplier_feature",
       "integrationLayer": "NDC-INT",
       "createdAt": "2026-09-04T10:49:38.245Z",
-      "updatedAt": "2026-10-08T11:21:40.071Z",
+      "updatedAt": "2026-10-27T12:29:20.236Z",
       "supersededBy": null,
       "stages": {
         "context": {
@@ -503,7 +503,7 @@
           "feature": "ancillaries",
           "status": "Active",
           "createdAt": "2026-09-23T15:48:41.839Z",
-          "updatedAt": "2026-10-03T03:24:18.071Z",
+          "updatedAt": "2026-10-26T12:06:13.406Z",
           "supersededBy": null,
           "stages": {
             "context": {
@@ -548,7 +548,126 @@
             }
           },
           "approvedAt": "2026-09-23T15:48:46.046Z",
-          "approvedBy": "Ahmed Alhussieny"
+          "approvedBy": "Ahmed Alhussieny",
+          "capabilities": {
+            "hold": "Not Supported",
+            "payAfterHold": "Not Supported",
+            "meal": "Supported",
+            "baggage": "Supported",
+            "seat": "Supported",
+            "bundle": "Supported"
+          },
+          "capabilityHistory": [
+            {
+              "at": "2026-10-26T10:44:28.310Z",
+              "by": "Mohanad Dawood",
+              "changes": {
+                "hold": "Supported",
+                "payAfterHold": "Supported",
+                "meal": "Supported",
+                "baggage": "Supported",
+                "seat": "Supported",
+                "bundle": "Not Supported"
+              }
+            },
+            {
+              "at": "2026-10-26T10:53:42.941Z",
+              "by": "Mohanad Dawood",
+              "changes": {
+                "hold": "Not Supported",
+                "payAfterHold": "Not Supported"
+              }
+            },
+            {
+              "at": "2026-10-26T12:06:13.406Z",
+              "by": "Mohanad Dawood",
+              "changes": {
+                "bundle": "Supported"
+              }
+            }
+          ],
+          "supplierRules": [],
+          "supplierRulesSetAt": "2026-10-26T10:44:28.480Z",
+          "supplierRulesSetBy": "Mohanad Dawood"
+        },
+        {
+          "slug": "oman-air-ndc",
+          "name": "OmanAirNDC",
+          "description": null,
+          "feature": "ancillaries",
+          "status": "Active",
+          "createdAt": "2026-10-27T12:29:10.430Z",
+          "updatedAt": "2026-10-27T12:29:20.236Z",
+          "supersededBy": null,
+          "stages": {
+            "context": {
+              "status": "Not Started",
+              "artifactPath": null,
+              "lastRun": null,
+              "lastUpdated": null,
+              "revisionCount": 0,
+              "targetRefAtWrite": null
+            },
+            "discovery": {
+              "status": "Not Started",
+              "artifactPath": null,
+              "lastRun": null,
+              "lastUpdated": null,
+              "revisionCount": 0,
+              "targetRefAtWrite": null
+            },
+            "test_design": {
+              "status": "Not Started",
+              "artifactPath": null,
+              "lastRun": null,
+              "lastUpdated": null,
+              "revisionCount": 0,
+              "targetRefAtWrite": null
+            },
+            "automation": {
+              "status": "Not Started",
+              "artifactPath": null,
+              "lastRun": null,
+              "lastUpdated": null,
+              "revisionCount": 0,
+              "targetRefAtWrite": null
+            },
+            "healing": {
+              "status": "Not Started",
+              "artifactPath": null,
+              "lastRun": null,
+              "lastUpdated": null,
+              "revisionCount": 0,
+              "targetRefAtWrite": null
+            }
+          },
+          "approvedAt": "2026-10-27T12:29:15.265Z",
+          "approvedBy": "Mohanad Dawood",
+          "capabilities": {
+            "hold": "Supported",
+            "payAfterHold": "Supported",
+            "meal": "Not Supported",
+            "baggage": "Not Supported",
+            "seat": "Supported",
+            "bundle": "Not Supported"
+          },
+          "capabilityHistory": [
+            {
+              "at": "2026-10-27T12:29:19.882Z",
+              "by": "Mohanad Dawood",
+              "changes": {
+                "hold": "Supported",
+                "payAfterHold": "Supported",
+                "meal": "Not Supported",
+                "baggage": "Not Supported",
+                "seat": "Supported",
+                "bundle": "Not Supported"
+              }
+            }
+          ],
+          "supplierRules": [],
+          "supplierRulesSetAt": "2026-10-27T12:29:20.236Z",
+          "supplierRulesSetBy": "Mohanad Dawood"
         }
       ]
     },
