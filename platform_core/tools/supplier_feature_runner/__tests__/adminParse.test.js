@@ -47,8 +47,20 @@ test('PNR Query: nothing found', () => {
   assert.equal(parsePnrQuery('Search No data has been found! Nothing matched that query. No booking details found for the given search query').found, false);
 });
 
+test('PNR Query: a found booking with an empty sub-section is still found', () => {
+  // ZBUCPW, 2026-10-29: the booking showed in full, and an empty section on the same page read "No data has been found".
+  assert.equal(parsePnrQuery('Booking Info Order Id: AGN9794AGNHUSORD261029ORJT9N Status: Booked NDC Reference: NDCEG-BR-F261029dBmYnv History No data has been found').found, true);
+});
+
 test('Wallet History: the last End Balance is the closing wallet', () => {
   const t = 'AGN9809UPLUPLORD261019UAV5U6 NDCEG-TR261019zlp1pX Oct 19, 2026 F_Flight 13,911.8 0 EGP AGN9809 AGN9809UPLUPLORD261019U4U5WC NDCEG-TR261019zQQuNh Oct 19, 2026 F_Flight 14,817.8 0 EGP AGN9809 N/A N/A N/A End Balance 0 676,349.2 N/A Showing 10 results of 10 results';
   assert.equal(parseWalletHistory(t), 676349.2);
   assert.equal(parseWalletHistory('no balance here'), null);
+});
+
+test('PNR Query: an SSR code with digits (Spicejet bag EB30) counts toward the SSR amount', () => {
+  // Captured live 2026-10-29 (Spicejet held booking NDCEG-BR-F261029dei1F2): the bag code is "EB30" and its
+  // weight follows the price, so a 4-letters-only code pattern missed it (590 instead of 14,090).
+  const anc = 'Ancillaries 1 journey(s) DEL BLR Journey 1 1 passenger(s) R Rohan Joshitulg Adult Meal Preference Meals included in this flight itinerary VGSW 290 EGP Vegetarian Sandwich Extra Baggage Baggage allowance & extra options EB30 13,500 EGP Excess Baggage – 30 Kg Seat Selection Seat assigned for this segment Seat 7C 300 EGP AvailablePaid — (Aisle seat) Passenger List 1 passenger(s)';
+  assert.equal(parsePnrQuery(anc).ssrAmount, 14090);
 });

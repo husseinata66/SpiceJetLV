@@ -55,6 +55,10 @@ module.exports = {
     '15': require('./group15'),
     '16': require('./group16'),
     '17': require('./group17'),
+    // 20–22: the leg space seat rule at Book / Pay after Hold (Supplier rule no-leg-space-seat-inf; legbook.js).
+    '20': require('./group20'),
+    '21': require('./group21'),
+    '22': require('./group22'),
   },
 
   validateSettings(s) {

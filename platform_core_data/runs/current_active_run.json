@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
   "activeRun": {
-    "folderName": "ancillaries-run-008__2026-10-20_11-04-53__Targeted__Ancillaries-AirCairo-SeatMapComparison",
-    "index": 8,
+    "folderName": "ancillaries-run-016__2026-10-28_10-02-05__Targeted__Spicejet-Seatmap-Portal",
+    "index": 16,
     "runOwner": "ancillaries",
     "scope": "Targeted",
-    "target": "Ancillaries-AirCairo-SeatMapComparison",
+    "target": "Spicejet-Seatmap-Portal",
     "status": "Preparing",
     "title": null,
-    "startedTime": "2026-10-20T08:04:53.216Z",
+    "startedTime": "2026-10-28T07:02:05.661Z",
     "stagesPresent": [],
-    "path": "platform_core_data/runs/ancillaries-run-008__2026-10-20_11-04-53__Targeted__Ancillaries-AirCairo-SeatMapComparison"
+    "path": "platform_core_data/runs/ancillaries-run-016__2026-10-28_10-02-05__Targeted__Spicejet-Seatmap-Portal"
   },
-  "switchedAt": "2026-10-20T08:04:53.216Z",
-  "setBy": "Ahmed Ayman",
-  "previousRun": "ancillaries-run-007__2026-10-19_21-03-09__Targeted__Ancillaries-OmanAir-SeatMapComparison"
+  "switchedAt": "2026-10-28T07:02:05.661Z",
+  "setBy": "Run Manager",
+  "previousRun": "ancillaries-run-015__2026-10-28_10-02-05__Targeted__Spicejet-Seatmap-Admin"
 }

@@ -16,7 +16,7 @@
 const P = require('./postbook');
 
 const PAX = { adults: 1, children: 1, infants: 1 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 160}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const fmt2 = (n) => Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 async function dashboardCounts(c) {

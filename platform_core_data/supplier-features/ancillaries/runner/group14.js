@@ -12,7 +12,7 @@
 const P = require('./postbook');
 
 const PAX = { adults: 1, children: 1, infants: 1 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 140}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const CASES = ['TC-SM-CNF-001', 'TC-SM-CNF-002', 'TC-SM-CNF-003', 'TC-SM-CNF-004', 'TC-SM-CNF-007', 'TC-SM-CNF-008', 'TC-SM-CNF-010',
   'TC-SM-CNF-011', 'TC-SM-CNF-012', 'TC-ML-005', 'TC-BG-005', 'TC-RPT-001', 'TC-RPT-002', 'TC-RPT-003', 'TC-RPT-004'];
 const fmt2 = (n) => Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -83,7 +83,9 @@ const steps = [
       if (c.capabilities.Seat === 'Supported') {
         await U.openMap(p);
         await U.activate(p, adult.name);
-        const [n] = U.plainSeats(await U.readSeats(p), 1, {});
+        // The adult holds the infant: skip seats the Supplier refuses an infant-holder at booking (settings.infantHolderAvoidSeats
+        // — Spicejet 5F, "seat group eligibility … anchor unit Y/5F", 2026-10-28).
+        const [n] = U.plainSeats(await U.readSeats(p), 1, { exclude: c.settings.infantHolderAvoidSeats || [] });
         if (n) { await U.bookSeat(p, n, adult.firstName); chosen.seat = n; }
         await U.confirmSeats(p);
       }
@@ -108,7 +110,10 @@ const steps = [
       c.state.conf = await P.readConfirmation(c);
       c.env('After Book', `order ${c.state.conf.orderId} · ref ${c.state.conf.ref} · PNR ${c.state.conf.pnr} · status ${c.state.conf.status}`);
       if (c.state.conf.duplicate) throw new Error('the Portal refused it as a duplicate of an existing booking (same passengers on the same flight) — set settings.booking.daysFromToday to another day and run again');
-      if (c.state.conf.status !== 'Confirmed') throw new Error(`the booking is not Confirmed (status "${c.state.conf.status}"${c.state.conf.airlineError ? `: ${c.state.conf.airlineError}` : ''})`);
+      // A Supplier may legitimately stop at another status right after Book (Spicejet: "In Progress", human decision
+      // Hussein 2026-10-28) — listed per Supplier in settings.acceptedBookStatus; every other Supplier still needs Confirmed.
+      const accepted = c.settings.acceptedBookStatus || ['Confirmed'];
+      if (!accepted.includes(c.state.conf.status)) throw new Error(`the booking is not ${accepted.join(' or ')} (status "${c.state.conf.status}"${c.state.conf.airlineError ? `: ${c.state.conf.airlineError}` : ''})`);
     },
   },
   {

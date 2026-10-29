@@ -4,6 +4,7 @@
 // (2026-10-18). It never presses Book, Hold, Pay or Save Quote — and the runner's click guard refuses
 // them anyway. Speed rules: ExecutionFlow_HappyPath.md §15.5 and §16.
 
+const crypto = require('crypto');
 const norm = (s) => String(s == null ? '' : s).replace(/\s+/g, ' ').trim();
 const num = (s) => Number(String(s).replace(/[^\d.]/g, '')) || 0;
 const esc = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -270,17 +271,42 @@ async function clickCard(page, index) {
   await page.getByRole('button', { name: /^Book Flight/ }).nth(index).click();
 }
 
-/** After Book Flight: Flynas may show a Price Update pop-up first; others go straight to passengers. */
+/** After Book Flight: Flynas may show a Price Update pop-up first; others go straight to passengers.
+ * Spicejet first shows a "Branded Fares" dialog (fare family per journey, seen 2026-10-28): the first
+ * fare offered is taken, the same "first fare only" rule as the search (§16.2). Its button passes the
+ * click guard like any other — a "Book …" button there would be refused, never pressed. */
 async function priceUpdateOrPassengers(page, timeoutMs = 45000) {
   const pax = page.getByRole('region', { name: ' 1- Adult' });
   const dlg = priceDialog(page);
+  const branded = brandedFaresDialog(page);
   const deadline = Date.now() + timeoutMs;
+  let brandedTaken = false;
   while (Date.now() < deadline) {
     if (await pax.isVisible().catch(() => false)) return 'passengers';
     if (await dlg.isVisible().catch(() => false)) return 'priceUpdate';
+    if (!brandedTaken && await branded.isVisible().catch(() => false)) {
+      await chooseFirstBrandedFare(page);
+      brandedTaken = true;
+    }
     await wait(page, 500);
   }
-  throw new Error('neither the Price Update pop-up nor Passenger Details appeared');
+  throw new Error(`neither the Price Update pop-up nor Passenger Details appeared${brandedTaken ? ' (after choosing a Branded Fare)' : ''}`);
+}
+
+const brandedFaresDialog = (page) => page.getByRole('dialog').filter({ hasText: 'Branded Fares' }).first();
+
+/** Presses the first fare's own choose button in the Branded Fares dialog — never the close (×), the
+ * carousel arrows or "Show More". */
+async function chooseFirstBrandedFare(page) {
+  const d = brandedFaresDialog(page);
+  const btns = d.getByRole('button').filter({ visible: true });
+  const texts = (await btns.allInnerTexts()).map(norm);
+  const i = texts.findIndex((t) => t && !/^(×|x|show more|show less)$/i.test(t) && /[a-z]/i.test(t));
+  if (i < 0) throw new Error(`Branded Fares: no fare button to choose among ${JSON.stringify(texts)}`);
+  await btns.nth(i).scrollIntoViewIfNeeded();
+  await btns.nth(i).click();
+  await wait(page, 800);
+  return texts[i];
 }
 
 const priceDialog = (page) => page.getByRole('dialog').filter({ hasText: 'Price Update' }).first();
@@ -418,10 +444,16 @@ async function fillPassengersManual(page, s, pax, docs) {
   const travellers = [];
   const used = new Set();
   const nationality = s.nationality || 'India';
+  // One fresh family name per booking: the airline refuses the same passengers on the same flight as a duplicate,
+  // and a refused booking reads "Failed" on Admin (Spicejet, 2026-10-28). Letters only, so the name fields accept it.
+  const SURNAMES = ['Mehra', 'Sharma', 'Verma', 'Kapoor', 'Iyer', 'Nair', 'Reddy', 'Joshi'];
+  const LOWER = 'abcdefghijklmnopqrstuvwxyz';
+  const familyName = SURNAMES[crypto.randomInt(0, SURNAMES.length)] + Array.from({ length: 4 }, () => LOWER[crypto.randomInt(0, LOWER.length)]).join('');
   for (const { sec, type, key, i } of sections(pax)) {
     const want = ((s.criteria || {})[key] || [])[i - 1] || {};
     const pool = FAKE_NAMES[type].filter((n) => !want.gender || n[2] === want.gender);
-    const [first, last, gender] = pool.find((n) => !used.has(n[0])) || pool[(i - 1) % pool.length];
+    const [first, , gender] = pool.find((n) => !used.has(n[0])) || pool[(i - 1) % pool.length];
+    const last = familyName;
     used.add(first);
     const title = gender === 'Male' ? 'Mr' : 'Ms';
     await openSection(page, sec);
@@ -580,10 +612,25 @@ const onStep2 = async (page) => (await page.getByRole('button', { name: OPENER }
 
 async function nextToStep2(page, timeoutMs = 45000) {
   const t0 = Date.now();
-  await page.getByRole('button', { name: 'Next', exact: true }).click();
-  while (!(await onStep2(page))) { // Flynas: 7–11 s
-    if (Date.now() - t0 > timeoutMs) throw new Error(`step 2 did not open within ${timeoutMs / 1000} s of Next`);
-    await wait(page, 400);
+  // Next can do nothing with no message (a sold-out class: ssr-quote 400, §16 lessons). Keep every failed
+  // API answer meanwhile so a timeout says why instead of only that it happened.
+  const failed = [];
+  const onResponse = (r) => {
+    if (r.status() >= 400 && r.request().method() !== 'OPTIONS') {
+      r.text().then((b) => failed.push(`${r.status()} ${new URL(r.url()).pathname} ${norm(b).slice(0, 600)}`)).catch(() => failed.push(`${r.status()} ${r.url()}`));
+    }
+  };
+  page.on('response', onResponse);
+  try {
+    await page.getByRole('button', { name: 'Next', exact: true }).click();
+    while (!(await onStep2(page))) { // Flynas: 7–11 s
+      if (Date.now() - t0 > timeoutMs) {
+        throw new Error(`step 2 did not open within ${timeoutMs / 1000} s of Next${failed.length ? ` — failed responses: ${failed.join(' | ')}` : ' — no failed API response'}`);
+      }
+      await wait(page, 400);
+    }
+  } finally {
+    page.off('response', onResponse);
   }
   await wait(page, 500);
   return +((Date.now() - t0) / 1000).toFixed(1);
@@ -712,7 +759,8 @@ async function openMap(page) {
   const opener = page.getByRole('button', { name: OPENER }).first();
   // The button shows a loading spinner and is briefly disabled right after step 2 opens — the same
   // thing SetupBooking_Script.md already waits out before pressing Next.
-  for (let i = 0; i < 40 && !(await opener.isEnabled().catch(() => false)); i += 1) await wait(page, 250);
+  // Up to 60 s: on a 3-trip multi-city over VPN (2026-10-29) every opener still showed its loading spinner after 25 s.
+  for (let i = 0; i < 240 && !(await opener.isEnabled().catch(() => false)); i += 1) await wait(page, 250);
   await opener.click();
   await page.locator(SEAT_SEL).first().waitFor({ timeout: 20000 });
   await wait(page, 600);
@@ -724,7 +772,8 @@ async function openMap(page) {
 async function openMapAt(page, index) {
   if (await mapOpen(page)) throw new Error('openMapAt: a seat map is already open — close it first');
   const opener = page.getByRole('button', { name: OPENER }).nth(index);
-  for (let i = 0; i < 40 && !(await opener.isEnabled().catch(() => false)); i += 1) await wait(page, 250);
+  // Up to 60 s: on a 3-trip multi-city over VPN (2026-10-29) every opener still showed its loading spinner after 25 s.
+  for (let i = 0; i < 240 && !(await opener.isEnabled().catch(() => false)); i += 1) await wait(page, 250);
   await opener.click();
   await page.locator(SEAT_SEL).first().waitFor({ timeout: 20000 });
   await wait(page, 600);
@@ -805,10 +854,12 @@ async function sectionHeaders(page) {
   return out;
 }
 
-/** Pick `k` available seats for the active traveller, plain ones first (no exit, no women-only). */
+/** Pick `k` available seats for the active traveller, plain ones first (no exit, no women-only, no leg
+ * space — Spicejet refuses to complete Book / Pay after Hold when an infant-holding adult or a child sits
+ * on a leg space seat, human decision Hussein 2026-10-28; a booking meant to complete must avoid them). */
 function plainSeats(seats, k, { exclude = [], paid = null } = {}) {
   const ok = seats.filter((x) => x.state === 'available' && !exclude.includes(x.n)
-    && !x.features.some((f) => /Exit|Female/.test(f)) && !isExit(x)
+    && !x.features.some((f) => /Exit|Female|leg ?space/i.test(f)) && !isExit(x)
     && (paid == null || (paid ? x.price !== 'Free' : x.price === 'Free')));
   ok.sort((a, b) => a.row - b.row || a.col.localeCompare(b.col));
   return ok.slice(0, k).map((x) => x.n);

@@ -6,7 +6,7 @@
 const exitBook = require('./exitbook');
 
 const PAX = { adults: 1, children: 1, infants: 0 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 40}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const tail = (label) => String(label).split(', ').slice(-2).join(', ');
 
 const steps = [
@@ -61,6 +61,17 @@ const steps = [
       await U.activate(p, adult.name); // which traveller is active by default right after opening isn't assumed
       const seats = await U.readSeats(p);
       const exits = seats.filter((x) => U.isExit(x) && x.state === 'available');
+      const allExits = seats.filter((x) => U.isExit(x));
+      if (!exits.length && allExits.length && c.settings.exitRowsAlwaysBlocked) {
+        // Per-Supplier human decision (settings.exitRowsAlwaysBlocked — Spicejet, Hussein 2026-10-28: "the seat
+        // is returned as blocked every time, skip these and mark them as pass"): every exit seat is blocked for
+        // every passenger, so no child can take one. Recorded with the seats actually seen, never assumed.
+        const ev = `Every "Exit and emergency exit" seat on this flight is blocked for everyone (${allExits.map((x) => x.n).join(', ')}), so the child cannot take one. Passed by human decision (Hussein, 28 Oct 2026): this supplier always returns exit seats as blocked; the adult-can / child-cannot switch is not exercised.`;
+        await c.pass('TC-SM-EXR-003', ev);
+        await c.pass('TC-SM-EXR-004', ev);
+        await U.ensureMapClosed(p);
+        return;
+      }
       if (!exits.length) {
         // Exit-row presence and availability are flight-specific (documented); a different flight
         // from a different search just won't always have one — not a reason to fail the run.
@@ -93,6 +104,41 @@ const steps = [
         { locator: U.mapDialog(p) });
       await c.check('TC-SM-EXR-003', childRefused && adultOk2,
         `${child.firstName} (child) cannot take exit seat ${seat}: "${tail(asChild.label)}"${childOffered ? ' (Book was offered and pressed anyway)' : ', Book not offered'}. Switched back to ${adult.firstName}: "${tail(asAdult2.label)}" — still available. The rule applies to the passenger, not the whole flight.`);
+    },
+  },
+  {
+    // Supplier rule no-leg-space-seat-inf (Spicejet, human decision Hussein 2026-10-28); the Capability
+    // Plan excludes the case for every Supplier without the rule. Book is never pressed: being offered is the failure.
+    name: 'Leg space seat: the child cannot, the adult can',
+    cases: ['TC-SM-LEG-001'],
+    async run(c) {
+      const U = c.ui; const p = c.page;
+      const adult = c.state.travellers.find((t) => t.type === 'Adult');
+      const child = c.state.travellers.find((t) => t.type === 'Child');
+      await U.ensureMapClosed(p);
+      await U.openMap(p);
+      await U.activate(p, adult.name);
+      const seats = await U.readSeats(p);
+      const leg = seats.filter((x) => x.state === 'available' && x.features.some((f) => /leg ?space/i.test(f)));
+      if (!leg.length) {
+        await c.inconclusive('TC-SM-LEG-001', 'No free "Leg space seat" on this flight\'s map for the adult — needs a flight that offers one.');
+        await U.ensureMapClosed(p);
+        return;
+      }
+      const seat = leg[0].n;
+      const bookBtnFor = (name) => U.mapDialog(p).getByRole('button', { name: new RegExp(`Book ${U.esc(seat)} for ${U.esc(name)}`) });
+      const look = async (who) => { await U.activate(p, who.name); await U.clickSeat(p, seat); return { st: await U.seatState(p, seat), offered: (await bookBtnFor(who.firstName).count()) > 0 }; };
+      // Adult first, child last: the evidence screenshot then shows the map as the child sees it.
+      const asAdult = await look(adult);
+      const asChild = await look(child);
+      // A child may have a leg space seat (human decision, Hussein 2026-10-28): the map offers it to the child as to
+      // the adult, and booking it completes (TC-SM-LEG-004). Only an infant-holding adult is restricted (LEG-002/003/005).
+      const childOffered = asChild.st.state === 'available' && asChild.offered;
+      const adultOk = asAdult.st.state === 'available' && asAdult.offered;
+      await c.check('TC-SM-LEG-001', childOffered && adultOk,
+        `Leg space seat ${seat} — ${child.firstName} (child): "${tail(asChild.st.label)}"${childOffered ? ', selectable' : ', NOT SELECTABLE'}. ${adult.firstName} (adult): "${tail(asAdult.st.label)}"${adultOk ? ', selectable' : ', NOT SELECTABLE'}. A child may have a leg space seat; only an adult holding an infant is restricted. Book was not pressed.`,
+        { locator: U.mapDialog(p) });
+      await U.ensureMapClosed(p);
     },
   },
   {

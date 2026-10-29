@@ -7,7 +7,7 @@
   "kind": "supplier_feature",
   "integrationLayer": "NDC-INT",
   "createdAt": "2026-09-04T10:49:38.245Z",
-  "updatedAt": "2026-10-27T12:29:20.236Z",
+  "updatedAt": "2026-10-28T13:08:04.598Z",
   "supersededBy": null,
   "stages": {
     "context": {
@@ -543,6 +543,87 @@
       "supplierRules": [],
       "supplierRulesSetAt": "2026-10-27T12:29:20.236Z",
       "supplierRulesSetBy": "Mohanad Dawood"
+    },
+    {
+      "slug": "spicejet",
+      "name": "Spicejet",
+      "description": null,
+      "feature": "ancillaries",
+      "status": "Active",
+      "createdAt": "2026-10-28T06:50:50.833Z",
+      "updatedAt": "2026-10-28T13:08:04.598Z",
+      "supersededBy": null,
+      "stages": {
+        "context": {
+          "status": "Not Started",
+          "artifactPath": null,
+          "lastRun": null,
+          "lastUpdated": null,
+          "revisionCount": 0,
+          "targetRefAtWrite": null
+        },
+        "discovery": {
+          "status": "Not Started",
+          "artifactPath": null,
+          "lastRun": null,
+          "lastUpdated": null,
+          "revisionCount": 0,
+          "targetRefAtWrite": null
+        },
+        "test_design": {
+          "status": "Not Started",
+          "artifactPath": null,
+          "lastRun": null,
+          "lastUpdated": null,
+          "revisionCount": 0,
+          "targetRefAtWrite": null
+        },
+        "automation": {
+          "status": "Not Started",
+          "artifactPath": null,
+          "lastRun": null,
+          "lastUpdated": null,
+          "revisionCount": 0,
+          "targetRefAtWrite": null
+        },
+        "healing": {
+          "status": "Not Started",
+          "artifactPath": null,
+          "lastRun": null,
+          "lastUpdated": null,
+          "revisionCount": 0,
+          "targetRefAtWrite": null
+        }
+      },
+      "approvedAt": "2026-10-28T06:50:54.251Z",
+      "approvedBy": "Hussein",
+      "capabilities": {
+        "hold": "Supported",
+        "payAfterHold": "Supported",
+        "meal": "Supported",
+        "baggage": "Supported",
+        "seat": "Supported",
+        "bundle": "Not Supported"
+      },
+      "capabilityHistory": [
+        {
+          "at": "2026-10-28T06:50:59.294Z",
+          "by": "Hussein",
+          "changes": {
+            "hold": "Supported",
+            "payAfterHold": "Supported",
+            "meal": "Supported",
+            "baggage": "Supported",
+            "seat": "Supported",
+            "bundle": "Not Supported"
+          }
+        }
+      ],
+      "supplierRules": [
+        "no-leg-space-seat-inf"
+      ],
+      "supplierRulesSetAt": "2026-10-28T13:08:04.598Z",
+      "supplierRulesSetBy": "Hussein"
     }
   ]
 }

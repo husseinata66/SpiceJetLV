@@ -9,7 +9,7 @@
 // a map that does block it simply passes.
 
 const PAX = { adults: 2, children: 0, infants: 2 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 70}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const tail = (label) => String(label).split(', ').slice(-2).join(', ');
 
 /** The seat set (block between aisle and wall) a seat belongs to, from its section's own layout. */
@@ -77,12 +77,18 @@ const steps = [
       const seats = await U.readSeats(p);
       const heads = await U.sectionHeaders(p);
       // A plain seat for A in a row that holds more than one set (3-3, 3-4-3 …), with free set-mates.
+      // A row holding a leg space seat is skipped: an infant-holding adult is refused those under the leg
+      // space rule (Spicejet, 2026-10-28), which would hide the seat-set rule this case is about.
+      const legRows = new Set(seats.filter((y) => y.features.some((f) => /leg ?space/i.test(f))).map((y) => y.row));
       const candidate = seats.find((x) => {
-        if (x.state !== 'available' || x.features.some((f) => /Exit|Female/.test(f)) || U.isExit(x)) return false;
+        if (x.state !== 'available' || x.features.some((f) => /Exit|Female/.test(f)) || U.isExit(x) || legRows.has(x.row)) return false;
         const h = heads[x.section];
         if (!h || h.layout.length < 2) return false;
         const set = setOf(x, seats, heads);
-        return set && seats.filter((y) => y.row === x.row && set.includes(y.col) && y.n !== x.n).every((y) => y.state === 'available');
+        // The row must really hold a seat of another set: some rows are short on one side (Spicejet row 4
+        // has no A/B/C, 2026-10-28), and a column missing from the row has no seat to compare against.
+        return set && seats.filter((y) => y.row === x.row && set.includes(y.col) && y.n !== x.n).every((y) => y.state === 'available')
+          && seats.some((y) => y.row === x.row && y.section === x.section && !set.includes(y.col));
       });
       if (!candidate) {
         await c.inconclusive('TC-SM-PAX-008', 'No row on this map with more than one seat set and a free seat whose set-mates are all free — cannot set the case up.');
@@ -98,7 +104,8 @@ const steps = [
       const mates = set.filter((col) => col !== candidate.col).map((col) => `${candidate.row}${col}`);
       const mateStates = [];
       for (const n of mates) mateStates.push(await U.seatState(p, n));
-      const allCols = [...new Set(seats.filter((x) => x.section === candidate.section).map((x) => x.col))].sort();
+      // Only the columns this row actually has — never the whole cabin's (a short row has gaps).
+      const allCols = [...new Set(seats.filter((x) => x.section === candidate.section && x.row === candidate.row).map((x) => x.col))].sort();
       // A seat of the OTHER set that the map offers: an Occupied or Blocked seat says nothing about the rule.
       const otherStates = [];
       let other = null;

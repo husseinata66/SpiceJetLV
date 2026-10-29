@@ -14,7 +14,7 @@
 
 const PAX = { adults: 1, children: 1, infants: 1 };
 const fmt = (n) => (n == null || Number.isNaN(n) ? '?' : Number(n).toLocaleString('en-US'));
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 10}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 
 /**
  * Searches one cabin, books the run's connection, fills passengers, picks a package if one is

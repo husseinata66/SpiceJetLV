@@ -13,7 +13,7 @@
 const { reachStep2 } = require('./multicity');
 
 const PAX = { adults: 1, children: 1, infants: 1 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 100}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const TITLE_RE = /Seat Map · ([A-Z]{3}) → ([A-Z]{3}) · (Trip \d+(?: · Leg \d+)?)/;
 const CARD_RE = /([A-Z0-9]{2}\d{1,4}) · (\S+)/; // "XY4 · 320NE1" — flight numbers can be one digit
 

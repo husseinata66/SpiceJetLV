@@ -10,7 +10,7 @@
 // waits — skipped by human decision, 2026-10-19; recorded as such, never run here.
 
 const PAX = { adults: 1, children: 0, infants: 0 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 120}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const GARBLED = 'eyJhbGciOiJIUzUxMiJ9.eyJrZXkiOiJkYXRhIn0.AAAAAAAAAAAA'; // a token's shape with a signature that cannot verify
 
 const { readWallet: wallet, readMyBookings } = require('./postbook');

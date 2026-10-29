@@ -19,7 +19,7 @@
 const { reachStep2 } = require('./multicity');
 
 const PAX = { adults: 1, children: 1, infants: 1 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 90}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const TITLE_RE = /Seat Map · ([A-Z]{3}) → ([A-Z]{3}) · (Trip \d+)(?: · (Leg \d+))?/;
 const priceSet = (seats) => [...new Set(seats.filter((x) => x.state === 'available').map((x) => x.price))].sort().join(' | ');
 
@@ -79,7 +79,14 @@ const steps = [
       });
       const pkgText = c.state.packages.length ? `Packages ${c.state.packages.map((n, i) => `journey ${i + 1} '${n}'`).join(', ')}. ` : '';
       const ev7 = `${pkgText}${c.state.packageBoxes || 0} package box(es) vs ${flights} seat map(s); ${mealBoxes} meal box(es)${c.capabilities.Meal === 'Supported' ? ` (= ${flights} flights × ${eligible} passengers)` : ''}. Connecting: ${inherit.join('; ') || 'none'}.`;
-      await c.check('TC-SM-MCT-007', problems.length === 0, problems.length ? `${ev7} ${problems.join('; ')}.` : `${ev7} Both flights of a connecting journey share that journey's single package.`);
+      // With no connecting journey on today's inventory the case cannot be judged (Spicejet, 2026-10-29: all three
+      // multi-city journeys came back direct) — Inconclusive, unless a check that does not need a connection failed.
+      const needsConnection = (p) => /no journey on this booking connects|is not more than/.test(p);
+      if (!connecting.length && problems.every(needsConnection)) {
+        await c.inconclusive('TC-SM-MCT-007', `${ev7} No journey on this booking connects (every journey is a single flight), so "both flights of a connecting journey" cannot be checked — needs a multi-city route with a connecting journey.`);
+      } else {
+        await c.check('TC-SM-MCT-007', problems.length === 0, problems.length ? `${ev7} ${problems.join('; ')}.` : `${ev7} Both flights of a connecting journey share that journey's single package.`);
+      }
 
       // 006: baggage is one panel per journey, each labelled with its journey (no fixed number).
       const distinct = [...new Set(bagLabels)];

@@ -10,7 +10,7 @@
 // "Fly Nas KSA Staging" (Admin credential FLYNAS STG, SAR→EGP = 13; the older notes said 9 and are stale).
 
 const PAX = { adults: 1, children: 0, infants: 0 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 110}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const money = (t) => Number(String(t).replace(/,/g, ''));
 const clean = (egp, roe) => { const q = egp / roe; return Math.abs(q * 100 - Math.round(q * 100)) < 1e-4; };
 

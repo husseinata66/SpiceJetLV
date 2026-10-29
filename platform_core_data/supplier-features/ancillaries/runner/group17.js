@@ -19,7 +19,7 @@
 const P = require('./postbook');
 
 const PAX = { adults: 1, children: 0, infants: 0 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 170}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const fmt2 = (n) => Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 async function dashboardCounts(c) {
@@ -28,16 +28,80 @@ async function dashboardCounts(c) {
   return m ? { total: +m[1], pending: +m[2], ticketed: +m[3], text: m[0] } : { text: 'not shown' };
 }
 
+/**
+ * Admin only: Booking-Mid Office → Search Booking → Flight, search the booking reference, open the booking — the
+ * page that offers "Pay after hold" (Hussein, 2026-10-29). Navigation and search only; nothing is pressed that
+ * changes the booking.
+ */
+async function openAdminHeldBooking(c, ref, orderId) {
+  const p = c.page;
+  const click = async (loc, what) => { try { await loc.first().click({ timeout: 8000 }); } catch { throw new Error(`Admin: could not open "${what}"`); } await c.ui.wait(p, 1500); };
+  await P.go(c, '/dashboard', 2000);
+  await click(p.getByText('Booking-Mid Office', { exact: true }), 'Booking-Mid Office');
+  // Booking-Mid Office opens on Flight Search with its side menu collapsed behind the ☰ icon (top left): open it
+  // when "Search Booking" is not visible yet.
+  const searchBooking = p.getByText(/^\s*Search Booking\s*$/i);
+  if (!(await searchBooking.first().isVisible().catch(() => false))) {
+    // The ☰ icon sits alone in the dark strip at the far top LEFT. A generic "menu" selector matched the user avatar
+    // menu at the top right (Change Password / Logout) on 2026-10-29 — so press the icon by its position only, and
+    // close anything else that opened first.
+    await p.keyboard.press('Escape').catch(() => {});
+    const box = await p.evaluate(() => {
+      const el = document.elementFromPoint(30, 27);
+      const btn = el && (el.closest('button, a, [role=button]') || el);
+      const r = btn && btn.getBoundingClientRect();
+      return r && r.left < 80 && r.top < 80 ? { x: r.left + r.width / 2, y: r.top + r.height / 2 } : null;
+    });
+    await p.mouse.click(box ? box.x : 30, box ? box.y : 27);
+    await c.ui.wait(p, 1500);
+  }
+  // In the opened side menu "Search Booking" sits inside a collapsed "Booking-Mid Office" group (⌄). Expand it —
+  // the side-menu entry (left of the content), not the top tab with the same name.
+  if (!(await searchBooking.first().isVisible().catch(() => false))) {
+    const entries = p.getByText('Booking-Mid Office', { exact: true });
+    const n = await entries.count();
+    for (let i = 0; i < n; i += 1) {
+      const b = await entries.nth(i).boundingBox().catch(() => null);
+      if (b && b.x < 380 && b.y > 150) { await entries.nth(i).click({ timeout: 4000 }).catch(() => {}); break; }
+    }
+    await c.ui.wait(p, 1200);
+  }
+  await click(searchBooking, 'Search Booking');
+  await p.getByText(/^\s*Flights?\s*$/i).first().click({ timeout: 5000 }).catch(() => {}); // the Flight tab, when offered
+  await c.ui.wait(p, 1000);
+  const box = [p.getByPlaceholder(/Booking Ref/i), p.getByLabel(/Booking Ref/i), p.locator('input[formcontrolname*="ookingRef" i], input[id*="ookingRef" i]')];
+  let filled = false;
+  for (const b of box) { if (await b.count().catch(() => 0)) { await b.first().fill(ref); filled = true; break; } }
+  if (!filled) throw new Error('Admin Search Booking: no "Booking Reference" field found');
+  await p.getByRole('button', { name: 'Search', exact: true }).first().click();
+  // The results grid shows the ORDER ID (Hussein, 2026-10-29: "click on Order Id"), not the booking reference.
+  const hit = () => p.getByText(orderId || ref);
+  for (let i = 0; i < 30 && !(await hit().count()); i += 1) await c.ui.wait(p, 1000);
+  if (!(await hit().count())) throw new Error(`Admin Search Booking: order ${orderId} (ref ${ref}) not found in the results`);
+  await hit().first().click(); // the Order Id in the results grid → the order page
+  await c.ui.wait(p, 3000);
+  // The order page lists the booking as a bar "<ref> ›"; clicking it opens the booking, where "Pay after hold" is.
+  if (!(await p.getByRole('button', { name: /pay after hold/i }).count())) {
+    await p.getByText(ref).first().click().catch(() => {});
+    for (let i = 0; i < 15 && !(await p.getByRole('button', { name: /pay after hold/i }).count()); i += 1) await c.ui.wait(p, 1000);
+  }
+  c.env('Pay after hold', `opened ${ref} via Booking-Mid Office → Search Booking → Flight`);
+}
+
 /** Everything read about the order from the booking-details page: status, flights, passenger rows, costing. */
 async function readDetails(c, orderId) {
   const it = await P.readItinerary(c, orderId);
   const cost = await P.readCosting(c, orderId);
   const t = it.text || '';
+  // Admin's PNR Query carries status / passenger status / ticket as fields; the Portal's itinerary as text.
+  const admin = c.app === 'Admin';
   return {
-    status: (t.match(/Trip Type \w+(?: \w+)? Status ([A-Za-z ]+?) Airline PNR/) || [])[1] || null,
-    flights: [...t.matchAll(/Flight Detail ([A-Z]{3}) - ([A-Z]{3}) \( ([A-Z0-9]{2}) - (\d+) \)/g)].map((m) => `${m[3]} ${m[4]} ${m[1]}-${m[2]}`),
-    paxStatus: (it.passengers.match(/(ON HOLD|BOOKED|CONFIRMED|TICKETED)\b/) || [])[1] || null,
-    ticket: (it.passengers.match(/\b(\d{10,})\b/) || [])[1] || null,
+    status: (admin && it.status) || (t.match(/Trip Type \w+(?: \w+)? Status ([A-Za-z ]+?) Airline PNR/) || [])[1] || null,
+    flights: admin
+      ? (it.journeys || []).flatMap((j) => (j.flights || []).map((f) => `${f.from}-${f.to}`))
+      : [...t.matchAll(/Flight Detail ([A-Z]{3}) - ([A-Z]{3}) \( ([A-Z0-9]{2}) - (\d+) \)/g)].map((m) => `${m[3]} ${m[4]} ${m[1]}-${m[2]}`),
+    paxStatus: (admin && it.paxStatus) || (it.passengers.match(/(ON HOLD|BOOKED|CONFIRMED|TICKETED)\b/) || [])[1] || null,
+    ticket: admin ? (it.ticket || null) : (it.passengers.match(/\b(\d{10,})\b/) || [])[1] || null,
     total: cost.bookingAmount,
     text: t,
   };
@@ -55,7 +119,8 @@ const steps = [
       // Book" disappearing from a <tr>. Admin has no My Bookings page: its Hold → Pay flow is not
       // mapped yet, so this refuses up front rather than hanging the human gate on a page that
       // never shows that row.
-      if (c.app === 'Admin') throw new Error('Group 17 (Hold, Pay after Hold) is not mapped for Admin yet — its Pay step depends on the Portal\'s My Bookings row. Map Admin\'s pay-after-hold screen first, then remove this guard.');
+      // Admin (2026-10-29): Hold is the same booking-page button; reading the held/paid booking goes through PNR Query
+      // (its own Admin user, admin_post.js); the human pays the held booking wherever Admin offers it (Pay step below).
       const U = c.ui; const p = c.page; const s = c.settings;
       const days = (s.hold && s.hold.daysFromToday) || s.daysFromToday;
       c.state.walletBefore = await P.readWallet(c);
@@ -126,7 +191,7 @@ const steps = [
       const wallet = await P.readWallet(c);
       const row = await P.myBookingsRow(c, held.orderId);
       const dash = await dashboardCounts(c);
-      const eticket = await P.readEticket(c, held.orderId);
+      const eticket = c.app === 'Admin' ? { text: '' } : await P.readEticket(c, held.orderId); // the e-ticket page is the Portal's
       const bookingRep = await P.searchReportToday(c, '/reports/booking');
       c.state.heldRead = { details: d, wallet, row, dash, eticketText: eticket.text.slice(0, 300), inBookingReport: bookingRep.includes(held.ref) };
       c.env('Held state', `details status "${d.status}", passenger "${d.paxStatus}", total ${d.total} (quote ${fmt2(quote)}) · wallet ${walletBefore.text} → ${wallet.text} · My Bookings action ${row && /Pay And Book/.test(row.text) ? '"Pay And Book"' : 'none'} · Dashboard ${dash.text} · Booking report ${bookingRep.includes(held.ref) ? 'lists it' : 'does NOT list it'}`);
@@ -156,7 +221,7 @@ const steps = [
         }
       }
       if (/booking is confirmed/i.test(eticket.text)) c.env('Observation', 'the e-ticket page of this HELD booking says "Congratulations! Your flight booking is confirmed" — misleading while it is only On Hold');
-      if (!row || !/Pay And Book/.test(row.text)) throw new Error('My Bookings offers no "Pay And Book" on the held booking');
+      if (c.app !== 'Admin' && (!row || !/Pay And Book/.test(row.text))) throw new Error('My Bookings offers no "Pay And Book" on the held booking');
     },
   },
   {
@@ -166,20 +231,48 @@ const steps = [
     async run(c) {
       const U = c.ui; const p = c.page;
       const { held, quote, walletBefore } = c.state;
-      await P.readMyBookings(c); // the held booking's row, with its Pay And Book
       const orderId = held.orderId;
-      await c.humanGate({
-        allow: [/^pay and book$/i, /^pay$/i],
-        untilFn: (o) => { if (location.pathname.includes('booking-confirmation') && location.pathname.includes(o) && /successfully Confirmed/i.test(document.body.innerText)) return true; /* Pay sends the Portal to the order's confirmation page, which has no My Bookings row */ const r = [...document.querySelectorAll('tr')].find((tr) => tr.innerText.includes(o)); return !!r && !/Pay And Book/.test(r.innerText) && !document.querySelector('.p-sidebar-active, .p-dialog'); },
-        untilArg: orderId,
-        prompt: `Press "Pay And Book" on order ...${orderId.slice(-6)}, check the popup, keep the payment method on WALLET (the bank costs ~2% more), then press PAY. It charges ${fmt2(quote)}.`,
-      });
+      if (c.app === 'Admin') {
+        // Admin (Hussein, 2026-10-29): Booking-Mid Office → Search Booking → Flight, search the booking reference,
+        // open it, and the HUMAN presses "Pay after hold" (Wallet). The runner only navigates and searches.
+        // Never stop here (Hussein, 2026-10-29: "don't stop"): if the navigation or the button is not found, the
+        // human opens the booking and presses "Pay after hold" — the gate below still waits for it.
+        let found = false;
+        try { await openAdminHeldBooking(c, held.ref, held.orderId); found = (await p.getByRole('button', { name: /pay after hold/i }).count()) > 0; } catch (e) { c.log(`Admin navigation: ${e.message} — open the booking by hand.`); }
+        if (!found) c.env('Pay after hold', `button not found automatically — the human opens ${held.ref} (Booking-Mid Office → ☰ → Booking-Mid Office → Search Booking → Flight → the booking bar) and presses it`);
+        // Wait for the HUMAN (Hussein, 2026-10-29: "wait for me to click on pay after hold, then you continue"): the gate
+        // ends only after the "Pay after hold" button has been SEEN on the booking page and has then gone (paid), or on
+        // a success / confirmation page — never just because the button is not on screen yet. Admin only.
+        await p.evaluate(() => { try { sessionStorage.removeItem('__sawPayAfterHold'); } catch {} });
+        await c.humanGate({
+          allow: [/pay after hold/i, /^pay\b/i, /^confirm\b/i, /^yes\b/i, /^ok$/i, /^proceed\b/i],
+          untilFn: () => {
+            const body = document.body.innerText;
+            if (/successfully (confirmed|paid|booked|issued)|payment (was )?successful/i.test(body)) return true;
+            const button = [...document.querySelectorAll('button')].some((b) => /pay after hold/i.test(b.innerText));
+            let seen = false;
+            try { if (button) sessionStorage.setItem('__sawPayAfterHold', '1'); seen = sessionStorage.getItem('__sawPayAfterHold') === '1'; } catch {}
+            return seen && !button && !document.querySelector('.p-dialog, .p-sidebar-active');
+          },
+          timeoutSec: 900,
+          prompt: `Press "Pay after hold" on ${held.ref}, keep the payment method on WALLET, and confirm. It charges ${fmt2(quote)}.`,
+        });
+      } else {
+        await P.readMyBookings(c); // the held booking's row, with its Pay And Book
+        await c.humanGate({
+          allow: [/^pay and book$/i, /^pay$/i],
+          untilFn: (o) => { if (location.pathname.includes('booking-confirmation') && location.pathname.includes(o) && /successfully Confirmed/i.test(document.body.innerText)) return true; /* Pay sends the Portal to the order's confirmation page, which has no My Bookings row */ const r = [...document.querySelectorAll('tr')].find((tr) => tr.innerText.includes(o)); return !!r && !/Pay And Book/.test(r.innerText) && !document.querySelector('.p-sidebar-active, .p-dialog'); },
+          untilArg: orderId,
+          prompt: `Press "Pay And Book" on order ...${orderId.slice(-6)}, check the popup, keep the payment method on WALLET (the bank costs ~2% more), then press PAY. It charges ${fmt2(quote)}.`,
+        });
+      }
       await U.wait(p, 3000);
 
       const d = await readDetails(c, orderId);
       const wallet = await P.readWallet(c);
       const dash = await dashboardCounts(c);
-      const et = await P.readEticket(c, orderId);
+      // Admin has no e-ticket page: its PNR Query detail stands in for it.
+      const et = c.app === 'Admin' ? { text: d.text, passengers: d.text, fare: { total: d.total } } : await P.readEticket(c, orderId);
       const drop = walletBefore.amount - wallet.amount;
       const total = P.money((et.fare.total != null ? et.fare.total : d.total) || 0);
 

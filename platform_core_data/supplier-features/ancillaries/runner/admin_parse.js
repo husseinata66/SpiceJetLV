@@ -38,7 +38,9 @@ function parsePnrQuery(t) {
     const anc = body.replace(/([A-Z]{3}) ([A-Z]{3}) Journey \d+ · leg \d+ /g, '$1 $2 ').trim();
     return { n: Number(h[3]), from: h[1], to: h[2], flights, anc };
   });
-  const ssr = [...ancText.matchAll(/(?:Seat \d+[A-Z]|[A-Z]{4}\b[^0-9]{0,40}?|\d+ ?Kg[^0-9]{0,30}?)\s*([\d,.]+) EGP/gi)].reduce((a, m) => a + num(m[1]), 0);
+  // SSR codes can carry digits — the 30 kg bag is "EB30 13,500 EGP Excess Baggage – 30 Kg" (Spicejet, 2026-10-29),
+  // with the weight AFTER the price — so a code is a capital letter + 3 letters/digits, not 4 letters only.
+  const ssr = [...ancText.matchAll(/(?:Seat \d+[A-Z]|\b[A-Z][A-Z0-9]{3}\b[^0-9]{0,40}?|\d+ ?Kg[^0-9]{0,30}?)\s*([\d,.]+) EGP/g)].reduce((a, m) => a + num(m[1]), 0);
 
   return {
     lock: { locked: first(t, /Locked: (Yes|No)/), lastLockedBy: first(t, /Last Locked By: (\S+)/), blocked: first(t, /Blocked: (Yes|No)/) },
@@ -55,7 +57,9 @@ function parsePnrQuery(t) {
       date: first(t, /Date Of Booking: (\d{4}-\d{2}-\d{2} [\d:.]+)/), invoice: first(t, /Invoice Number: (\S+)/), passengers: num(first(t, /Total Passenger: (\d+)/)),
     },
     legs, journeys, passengers, ssrAmount: ssr,
-    found: !/No booking details found|No data has been found/i.test(t) && !!first(t, /Order Id: (\S+)/),
+    // An Order Id on the page means the booking was found: an empty sub-section of a found booking can still read
+    // "No data has been found" (ZBUCPW, 2026-10-29), so that text alone never means "not found".
+    found: !!first(t, /Order Id: (\S+)/),
   };
 }
 

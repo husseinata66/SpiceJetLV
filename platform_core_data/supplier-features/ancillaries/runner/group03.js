@@ -9,7 +9,7 @@
 // TC-SM-PRC-001/BND-005.
 
 const PAX = { adults: 2, children: 0, infants: 0 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 20}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const tail = (label) => String(label).split(', ').slice(-2).join(', ');
 
 const steps = [

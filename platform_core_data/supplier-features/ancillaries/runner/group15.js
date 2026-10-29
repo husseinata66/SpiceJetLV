@@ -14,7 +14,7 @@ const P = require('./postbook');
 const { reachStep2 } = require('./multicity');
 
 const PAX = { adults: 1, children: 1, infants: 1 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 150}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const fmt2 = (n) => Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const CARD_RE = /([A-Z0-9]{2})(\d{1,4}) · (\S+)/;
 
@@ -56,11 +56,16 @@ const steps = [
         const taken = [];
         for (const t of (i === 1 && child ? [adult, child] : [adult])) {
           await U.activate(p, t.name);
-          const [n] = U.plainSeats(await U.readSeats(p), 1, { exclude: taken });
+          const seatList = await U.readSeats(p);
+          // The adult holds the infant: also skip seats the Supplier refuses an infant-holder (settings.infantHolderAvoidSeats).
+          const avoid = t.type === 'Adult' ? (c.settings.infantHolderAvoidSeats || []) : [];
+          const [n] = U.plainSeats(seatList, 1, { exclude: [...taken, ...avoid] });
           if (!n) continue;
           await U.bookSeat(p, n, t.firstName);
           taken.push(n);
-          picks.push({ air: card[1], num: card[2], flight: `${card[1]} ${card[2]}`, from: route[1], to: route[2], who: t, seat: n });
+          // The seat's own feature words, kept so a booking that does not complete can be traced to its seats.
+          const features = ((seatList.find((x) => x.n === n) || {}).features || []).join('/') || 'none';
+          picks.push({ air: card[1], num: card[2], flight: `${card[1]} ${card[2]}`, from: route[1], to: route[2], who: t, seat: n, features });
         }
         await U.confirmSeats(p);
       }
@@ -88,7 +93,7 @@ const steps = [
       const t = await U.text(p);
       c.state.picks = picks; c.state.chosen = chosen;
       c.state.quote = P.money((t.match(/Net Payable Amount: ([\d,.]+)/) || [])[1] || 0);
-      c.env('Before Book', `seats ${picks.map((x) => `${x.flight} ${x.who.firstName} ${x.seat}`).join(', ')} · meal ${chosen.meal || '-'} · bag ${chosen.bag || '-'} · quote ${fmt2(c.state.quote)} · wallet ${c.state.walletBefore.text}`);
+      c.env('Before Book', `seats ${picks.map((x) => `${x.flight} ${x.who.firstName} (${x.who.type}) ${x.seat} [${x.features}]`).join(', ')} · meal ${chosen.meal || '-'} · bag ${chosen.bag || '-'} · quote ${fmt2(c.state.quote)} · wallet ${c.state.walletBefore.text}`);
 
       await c.humanGate({
         allow: [/^book$/i],
@@ -98,7 +103,10 @@ const steps = [
       c.state.conf = await P.readConfirmation(c);
       c.env('After Book', `order ${c.state.conf.orderId} · ref ${c.state.conf.ref} · PNR ${c.state.conf.pnr} · status ${c.state.conf.status}`);
       if (c.state.conf.duplicate) throw new Error('the Portal refused it as a duplicate of an existing booking — move settings.bookingMultiCity to other dates and run again');
-      if (c.state.conf.status !== 'Confirmed') throw new Error(`the booking is not Confirmed (status "${c.state.conf.status}"${c.state.conf.airlineError ? `: ${c.state.conf.airlineError}` : ''})`);
+      // A Supplier may legitimately stop at another status right after Book (Spicejet: "In Progress", human decision
+      // Hussein 2026-10-28) — listed per Supplier in settings.acceptedBookStatus; every other Supplier still needs Confirmed.
+      const accepted = c.settings.acceptedBookStatus || ['Confirmed'];
+      if (!accepted.includes(c.state.conf.status)) throw new Error(`the booking is not ${accepted.join(' or ')} (status "${c.state.conf.status}"${c.state.conf.airlineError ? `: ${c.state.conf.airlineError}` : ''})`);
     },
   },
   {

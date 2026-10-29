@@ -51,9 +51,18 @@ async function readWallet(c) {
 async function readMyBookings(c) {
   if (c.app === 'Admin') { const r = await A.readBookingReport(c); return { ...r, newest: null }; }
   await go(c, '/myBooking', 500);
-  const t = await textUntil(c, /Showing \d+ results of \d+ results/);
+  const loaded = /Showing \d+ results of \d+ results/;
+  const empty = /\bNo (?:records?|bookings?|data|results?)(?: (?:were )?found)?\b/i;
+  let t = await textUntil(c, loaded);
+  // Some environments open My Bookings as a bare "Search Booking" form (seen on 192.168.1.90, 2026-10-28):
+  // press its Search once, and read an agency with no bookings yet as 0, not as a page that never loaded.
+  if (!loaded.test(t)) {
+    await c.page.getByRole('button', { name: 'Search', exact: true }).first().click().catch(() => {});
+    t = await textUntil(c, new RegExp(`${loaded.source}|${empty.source}`, 'i'));
+  }
   const m = t.match(/Showing \d+ results of (\d+) results/);
-  if (!m) throw new Error('My Bookings did not finish loading');
+  if (!m && empty.test(t)) return { total: 0, newest: null, text: t };
+  if (!m) throw new Error(`My Bookings did not finish loading (page shows: "${t.slice(0, 160)}…")`);
   return { total: Number(m[1]), newest: (t.match(/\b[A-Z]{3}\d{4}[A-Z0-9]+ORD\w+/) || [])[0] || null, text: t };
 }
 
@@ -116,7 +125,7 @@ async function readConfirmation(c) {
     orderId,
     ref,
     pnr: (t.match(/Booking Date Status Note (\S+)/) || [])[1] || null,
-    status: (t.match(/\d{2}:\d{2} (Confirmed|Failed|Pending|Cancelled|On Hold|Hold|Ticketed)/) || [])[1] || null,
+    status: (t.match(/\d{2}:\d{2} (Confirmed|In Progress|Failed|Pending|Cancelled|On Hold|Hold|Ticketed)/) || [])[1] || null,
     bookedAt: bookedAtOf(t),
     duplicate: /duplicate of an existing booking/i.test(t),
     airlineError: (t.match(/(SSR \([A-Z]+\)[^.]*\.|The requested [^.]*\.)/) || [])[1] || null,
@@ -171,6 +180,9 @@ async function readItinerary(c, orderId) {
       passengers: (q.passengers || []).map((x) => x.name).join(', '),
       status: (q.booking || {}).status || null,
       pnr: (q.passengers || [])[0]?.pnr || null,
+      // Per-passenger status and ticket from PNR Query's passenger list (Group 17 reads them on Admin).
+      paxStatus: (q.passengers || [])[0]?.status || null,
+      ticket: (q.passengers || [])[0]?.ticket || null,
     };
   }
   const p = c.page;
@@ -229,10 +241,7 @@ async function pickAdminBranchAgency(c) {
   const pick = async (n, label) => {
     const loc = c.page.locator('p-multiselect, p-dropdown').nth(n);
     if (!(await loc.count())) return;
-    await loc.click();
-    await c.ui.wait(c.page, 400);
-    await (await require('./admin_post').optionFor(c.page, '.p-multiselect-item, .p-dropdown-item', label)).click();
-    await c.page.keyboard.press('Escape').catch(() => {});
+    await require('./admin_post').pickOption(c.page, loc, '.p-multiselect-item, .p-dropdown-item', label, { escape: true });
     await c.ui.wait(c.page, 300);
   };
   await pick(0, admin.branch);
@@ -256,13 +265,17 @@ async function searchReportToday(c, path, { fromId = 'id-InvoiceFromDate', toId 
   await c.ui.wait(c.page, 4000);
   // Reports show 10 rows a page ("Showing 10 results of 11") — a booking can be on page 2 (proven live
   // 2026-10-19: a held booking was the 11th row). Read every page, never just the first.
+  // The paginator shows only "‹ First 1 2 ….. 29 Last ›" (Admin Statement, 281 rows, 2026-10-29): page 3+
+  // has no number to click, so step with › — reading only pages 1–2 once failed TC-RPT-002 on a booking on page 28.
   const slice = async () => { const t = await c.ui.text(c.page); return t.slice(t.lastIndexOf('Search'), t.indexOf('About Us') > 0 ? t.indexOf('About Us') : undefined); };
   let all = await slice();
   const total = Number((all.match(/Showing \d+ results of (\d+) results/) || [])[1] || 0);
-  for (let pg = 2; pg <= Math.min(Math.ceil(total / 10), 8); pg += 1) {
+  const next = c.page.locator('xpath=//*[normalize-space()="Last"]/following-sibling::*[1]').last();
+  for (let pg = 2; pg <= Math.min(Math.ceil(total / 10), 40); pg += 1) {
     const link = c.page.getByText(String(pg), { exact: true }).last();
-    if (!(await link.count().catch(() => 0))) break;
-    await link.click().catch(() => {});
+    if (await link.count().catch(() => 0)) await link.click().catch(() => {});
+    else if (await next.count().catch(() => 0)) await next.click().catch(() => {});
+    else break;
     await c.ui.wait(c.page, 2500);
     all += ` ${await slice()}`;
   }

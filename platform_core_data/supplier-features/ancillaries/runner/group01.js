@@ -18,7 +18,7 @@ const tail = (label) => String(label).split(', ').slice(-2).join(', ');
 const isZero = (price) => /^(Free|[A-Z]{3} 0(\.0+)?)$/.test(String(price));
 const seatTravellers = (c) => c.state.travellers.filter((t) => t.type !== 'Infant');
 // Fresh every booking: the add-pax 409 guard rejects reused document numbers (§15.5 rule 4).
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 1}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 // Going back to step 1 and pressing Next again after a change makes this supplier's passenger save (add-pax) answer
 // HTTP 400 with nothing visible, and step 2 never opens (probed 2026-10-26; the sheet calls it the "stuck wizard").
 // The same package chosen the first time on a fresh booking opens step 2 in ~6 s, so a step that needs a different
@@ -237,7 +237,8 @@ const steps = [
         // The saved profiles' nationality is known test data (settings.nationality), not read from
         // the page: a bulk-text regex and a role=combobox guess were both tried first and neither
         // matched the real markup (the same class of bug as titleOf).
-        const nat = c.settings.nationality || 'Egypt';
+        // Typed passengers (passengerEntry 'manual') get portal.js's own default, India — not the saved profiles' Egypt.
+        const nat = c.settings.nationality || (c.settings.passengerEntry === 'manual' ? 'India' : 'Egypt');
         await U.openSection(p, a);
         await U.openSection(p, b);
         await U.region(p, a).locator('div').filter({ hasText: new RegExp(`^${U.esc(nat)}$`) }).first().click();

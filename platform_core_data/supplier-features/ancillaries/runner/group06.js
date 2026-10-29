@@ -8,7 +8,7 @@
 const exitBook = require('./exitbook');
 
 const PAX = { adults: 1, children: 0, infants: 1 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 50}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const tail = (label) => String(label).split(', ').slice(-2).join(', ');
 
 const steps = [
@@ -77,6 +77,45 @@ const steps = [
       await c.check('TC-SM-EXR-002', refused,
         `Exit seat ${seat} with ${adult.firstName} holding an infant: before "${tail(before.label)}"; Book ${offered ? 'offered and pressed anyway' : 'not offered'}; after "${tail(after.label)}" — ${refused ? 'refused, correctly' : 'BOOKED — should have been refused'}.${bareBlocked ? ' Observation: the box reads a bare "Blocked" with no stated reason — worth reporting even though the refusal itself is correct.' : ''}`,
         { locator: U.mapDialog(p) });
+    },
+  },
+  {
+    // Supplier rule no-leg-space-seat-inf (Spicejet, human decision Hussein 2026-10-28); the Capability
+    // Plan excludes the case for every Supplier without the rule. Book is never pressed: being offered is the failure.
+    name: 'Leg space seat: the infant-holding adult cannot',
+    cases: ['TC-SM-LEG-002'],
+    async run(c) {
+      const U = c.ui; const p = c.page;
+      const adult = c.state.travellers.find((t) => t.type === 'Adult');
+      await U.ensureMapClosed(p);
+      await U.openMap(p);
+      await U.activate(p, adult.name);
+      const seats = await U.readSeats(p);
+      const leg = seats.filter((x) => x.features.some((f) => /leg ?space/i.test(f)));
+      if (!leg.length) {
+        await c.inconclusive('TC-SM-LEG-002', 'No "Leg space seat" on this flight\'s map — needs a flight that offers one.');
+        await U.ensureMapClosed(p);
+        return;
+      }
+      // Every leg space seat, not a sample: a row blocked for everyone (Spicejet row 1) proves nothing about
+      // the rule, so a pass needs seats an adult alone could take (e.g. 2C, offered to the adult in Group 05).
+      const looked = [];
+      for (const x of leg) {
+        await U.clickSeat(p, x.n);
+        const st = await U.seatState(p, x.n);
+        const offered = (await U.mapDialog(p).getByRole('button', { name: new RegExp(`Book ${U.esc(x.n)} for ${U.esc(adult.firstName)}`) }).count()) > 0;
+        looked.push({ n: x.n, label: tail(st.label), offered: offered || st.state === 'available' });
+      }
+      const wrong = looked.filter((l) => l.offered);
+      if (wrong.length) await U.clickSeat(p, wrong[0].n); // the screenshot shows the first seat wrongly offered
+      const byLabel = {};
+      for (const l of looked) (byLabel[l.label] = byLabel[l.label] || []).push(l.n);
+      // The seat map lets the infant-holding adult select one (human decision, Hussein 2026-10-28): the rule is
+      // enforced when the booking is submitted (Portal: In Progress, Admin: Failed — Groups 20 and 22), not on the map.
+      await c.check('TC-SM-LEG-002', wrong.length > 0,
+        `${leg.length} leg space seat(s) checked with ${adult.firstName} holding an infant: ${Object.entries(byLabel).map(([lab, ns]) => `"${lab}" on ${ns.join(', ')}`).join(' | ')} — ${wrong.length ? `selectable on ${wrong.map((l) => l.n).join(', ')}, as the rule says (the refusal comes at Book/Hold, TC-SM-LEG-003/005)` : 'NONE selectable — the rule says the map allows them'}. Book was not pressed.`,
+        { locator: U.mapDialog(p) });
+      await U.ensureMapClosed(p);
     },
   },
   {

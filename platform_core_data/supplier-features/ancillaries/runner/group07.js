@@ -4,7 +4,7 @@
 // exit-row refusal moves with the link, not with "has an infant on the booking" in general.
 
 const PAX = { adults: 2, children: 0, infants: 1 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 60}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const tail = (label) => String(label).split(', ').slice(-2).join(', ');
 
 const steps = [
@@ -62,6 +62,12 @@ const steps = [
       const seat = exits[0].n;
       const before = await read(seat);
       const beforeOk = before.a.state !== 'available' && before.b.state === 'available';
+      if (!beforeOk && c.settings.exitRowsAlwaysBlocked && before.a.state !== 'available' && before.b.state !== 'available') {
+        // Per-Supplier human decision (settings.exitRowsAlwaysBlocked — Spicejet, Hussein 2026-10-28): exit seats are
+        // blocked for everyone on both Admin and Portal, so the infant-holding adult cannot take one, as the case requires.
+        await c.pass('TC-SM-EXR-005', `Exit seat ${seat} is blocked for both adults — A (holds the infant) "${tail(before.a.label)}", B "${tail(before.b.label)}" (every exit seat: ${exits.map((x) => x.n).join(', ')}). Passed by human decision (Hussein, 28 Oct 2026): this supplier always blocks exit seats, on Admin and Portal; the re-link half is not exercised.`, { locator: U.mapDialog(p) });
+        return;
+      }
       if (!beforeOk) {
         // The rule is not enforced on the map to begin with (OmanAir, 2026-10-19: an adult holding an infant is
         // offered the exit seat) — a refusal that does not exist cannot follow the infant to another adult.

@@ -5,7 +5,7 @@
 // ('Plus'/"Seat selection: All seats"), not one that blocks them out of its fare.
 
 const PAX = { adults: 1, children: 0, infants: 0 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 30}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 
 const steps = [
   {

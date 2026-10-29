@@ -1,0 +1,69 @@
+{
+  "folderName": "ancillaries-run-015__2026-10-28_10-02-05__Targeted__Spicejet-Seatmap-Admin",
+  "index": 15,
+  "runOwner": "ancillaries",
+  "scope": "Targeted",
+  "target": "Spicejet-Seatmap-Admin",
+  "workflow": "unversioned",
+  "targetRef": "fefcff0c17340975627088bffc96c1517f615b66",
+  "targetRefScope": [],
+  "targetRefCapturedAt": "2026-10-28T07:02:05.498Z",
+  "targetRepoRoot": "C:/Users/dell/Downloads/SpiceJet seat map/agentic-ai-testing-platform",
+  "targetRefReason": "git repository at C:/Users/dell/Downloads/SpiceJet seat map/agentic-ai-testing-platform",
+  "createdBy": "Run Manager",
+  "startedTime": "2026-10-28T07:02:05.498Z",
+  "stateSchemaVersion": 1,
+  "stateRevision": 0,
+  "status": "Preparing",
+  "statusReason": null,
+  "statusHistory": [
+    {
+      "at": "2026-10-28T07:02:05.498Z",
+      "from": null,
+      "to": "Preparing",
+      "by": "Run Manager",
+      "reason": "run created"
+    }
+  ],
+  "stages": {},
+  "stateEventSeq": 0,
+  "stateEvents": [],
+  "scopeFamily": "supplier-feature",
+  "feature": "ancillaries",
+  "supplier": "spicejet",
+  "sharedScope": null,
+  "testingLayerScope": [
+    "Admin"
+  ],
+  "scopeHistory": [
+    {
+      "changedAt": "2026-10-28T07:02:19.792Z",
+      "approvedBy": "Hussein",
+      "reason": "Spicejet full Ancillaries suite: Admin only",
+      "previous": {
+        "feature": "ancillaries",
+        "supplier": "spicejet",
+        "sharedScope": null,
+        "testingLayerScope": null
+      },
+      "next": {
+        "feature": "ancillaries",
+        "supplier": "spicejet",
+        "sharedScope": null,
+        "testingLayerScope": [
+          "Admin"
+        ]
+      }
+    }
+  ],
+  "environment": {
+    "admin": "http://192.168.1.90",
+    "portal": "http://192.168.1.90:9500",
+    "credentialName": "SpiceJetxxxx",
+    "environmentClass": "staging (API_KEY of SpiceJetxxxx starts tt, checked by Hussein 2026-10-28)",
+    "execution": "Headed",
+    "branch": "Hussein_NDC1 (BRN283)",
+    "agency": "AGN_Hussein (AGN9794)",
+    "agent": "Hussein"
+  }
+}

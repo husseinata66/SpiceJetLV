@@ -8,7 +8,7 @@
 // openMapAt): one "Select Bundle" and one seat opener per journey, journeys in order.
 
 const PAX = { adults: 1, children: 1, infants: 1 };
-const freshDocs = (n) => { const base = String(Date.now()).slice(-7); return Array.from({ length: n }, (_, i) => `R${base}${i + 80}`); };
+const { freshDocs } = require('./docs'); // random A + 8 digits, fresh per passenger per run
 const tail = (label) => String(label).split(', ').slice(-2).join(', ');
 const isZero = (price) => /^(Free|[A-Z]{3} 0(\.0+)?)$/.test(String(price));
 
@@ -180,6 +180,9 @@ const steps = [
         seenLeg.add(k);
         return true;
       });
+      // Labelled legs carry their own order: Onward before Return, then Leg 1, 2… Text order is not it — a panel
+      // higher on the page can name Return Leg 2 before Leg 1 (Spicejet DEL↔BLR via BOM, 2026-10-28).
+      if (labelled.length) legsOnPage.sort((a, b) => (a.dir === b.dir ? 0 : a.dir === 'Onward' ? -1 : 1) || Number(a.leg) - Number(b.leg));
       const maps = [];
       for (let i = 0; i < n; i += 1) {
         const m = await readMap(c, i);
